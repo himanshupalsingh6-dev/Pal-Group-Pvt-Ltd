@@ -1,20 +1,11 @@
-import { initializeApp } from
-"https://www.gstatic.com/firebasejs/12.7.0/firebase-app.js";
-import { getAuth } from
-"https://www.gstatic.com/firebasejs/12.7.0/firebase-auth.js";
+import { auth, db } from "./firebase.js";   // ✅ NEW Firebase
+
 import {
-  getFirestore, collection, query, where, getDocs
-} from
-"https://www.gstatic.com/firebasejs/12.7.0/firebase-firestore.js";
-
-const app = initializeApp({
-  apiKey: "AIzaSyAWTOu3JBhg3JuZg6snAxhnf_XFhLhLkbc",
-  authDomain: "quickpress-web.firebaseapp.com",
-  projectId: "quickpress-web"
-});
-
-const auth = getAuth(app);
-const db = getFirestore(app);
+  collection,
+  query,
+  where,
+  getDocs
+} from "https://www.gstatic.com/firebasejs/12.7.0/firebase-firestore.js";
 
 const q = query(
   collection(db,"orders"),
