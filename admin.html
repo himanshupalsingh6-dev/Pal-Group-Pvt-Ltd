@@ -1,0 +1,56 @@
+<script type="module">
+import { auth, db } from "./js/firebase.js";
+
+import {
+  onAuthStateChanged,
+  signOut
+} from "https://www.gstatic.com/firebasejs/12.11.0/firebase-auth.js";
+
+import {
+  collection,
+  getDocs,
+  doc,
+  updateDoc
+} from "https://www.gstatic.com/firebasejs/12.11.0/firebase-firestore.js";
+
+const ordersDiv = document.getElementById("orders");
+
+// 🔐 Auth check
+onAuthStateChanged(auth, user => {
+  if(!user){
+    location.href = "admin-login.html";
+  }else{
+    loadOrders();
+  }
+});
+
+async function loadOrders(){
+  const snap = await getDocs(collection(db,"orders"));
+  ordersDiv.innerHTML = "";
+
+  snap.forEach(d=>{
+    const o = d.data();
+    ordersDiv.innerHTML += `
+      <div class="card">
+        <b>ID:</b> ${d.id}<br>
+        <b>Total:</b> ₹${o.grandTotal || 0}<br>
+        <b>Status:</b> ${o.status}<br>
+        <select onchange="updateStatus('${d.id}',this.value)">
+          <option>Placed</option>
+          <option>Ready</option>
+          <option>Delivered</option>
+        </select>
+      </div>
+    `;
+  });
+}
+
+window.updateStatus = async (id,status)=>{
+  await updateDoc(doc(db,"orders",id),{status});
+};
+
+window.logout = async ()=>{
+  await signOut(auth);
+  location.href="admin-login.html";
+};
+</script>
