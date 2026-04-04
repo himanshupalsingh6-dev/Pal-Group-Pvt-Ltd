@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>QuickPress – Admin Dashboard</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <style>
+    body{
+      margin:0;
+      font-family: Arial, sans-serif;
+      background:#f5f6fa;
+    }
+    .header{
+      background:#ff9800;
+      color:white;
+      padding:16px;
+      font-size:20px;
+      font-weight:bold;
+    }
+    .grid{
+      display:grid;
+      grid-template-columns:repeat(2,1fr);
+      gap:12px;
+      padding:12px;
+    }
+    .card{
+      background:white;
+      border-radius:12px;
+      padding:16px;
+      box-shadow:0 2px 8px rgba(0,0,0,0.1);
+    }
+    .label{
+      font-size:13px;
+      color:#777;
+    }
+    .value{
+      font-size:22px;
+      font-weight:bold;
+      margin-top:6px;
+    }
+  </style>
+</head>
+
+<body>
+
+<div class="header">📊 Admin Dashboard</div>
+
+<div class="grid">
+  <div class="card">
+    <div class="label">Total Orders</div>
+    <div class="value" id="totalOrders">0</div>
+  </div>
+
+  <div class="card">
+    <div class="label">Total Revenue</div>
+    <div class="value">₹<span id="totalRevenue">0</span></div>
+  </div>
+
+  <div class="card">
+    <div class="label">Today Orders</div>
+    <div class="value" id="todayOrders">0</div>
+  </div>
+
+  <div class="card">
+    <div class="label">Today Revenue</div>
+    <div class="value">₹<span id="todayRevenue">0</span></div>
+  </div>
+
+  <div class="card">
+    <div class="label">Total Customers</div>
+    <div class="value" id="totalCustomers">0</div>
+  </div>
+
+  <div class="card">
+    <div class="label">Total Partners</div>
+    <div class="value" id="totalPartners">0</div>
+  </div>
+
+  <div class="card">
+    <div class="label">Total Delivery Boys</div>
+    <div class="value" id="totalDelivery">0</div>
+  </div>
+</div>
+
+<script type="module" src="js/admin-dashboard.js"></script>
+</body>
+</html>
