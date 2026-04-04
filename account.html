@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>My Account – QuickPress</title>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+
+<style>
+/* SAME CSS (no change) */
+:root{
+  --yellow:#FFD400;
+  --bg:#f6f7f9;
+}
+*{box-sizing:border-box}
+body{
+  margin:0;
+  font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto;
+  background:var(--bg);
+}
+.header{
+  padding:16px;
+  font-size:20px;
+  font-weight:900;
+}
+.card{
+  background:#fff;
+  margin:12px;
+  padding:16px;
+  border-radius:16px;
+  box-shadow:0 6px 16px rgba(0,0,0,.1);
+}
+.menu{
+  display:flex;
+  flex-direction:column;
+  gap:12px;
+}
+.item{
+  display:flex;
+  align-items:center;
+  gap:12px;
+  padding:14px;
+  border-radius:14px;
+  background:#f6f7f9;
+  font-weight:800;
+  cursor:pointer;
+}
+.item:hover{
+  background:#eee;
+}
+.icon{
+  font-size:22px;
+}
+.logout{
+  margin:20px 12px;
+  text-align:center;
+  font-weight:900;
+  color:red;
+  cursor:pointer;
+}
+</style>
+</head>
+
+<body>
+
+<div class="header">👤 My Account</div>
+
+<div class="card">
+  <div class="menu">
+    <div class="item" onclick="go('myorders.html')">
+      <div class="icon">📦</div>
+      My Orders
+    </div>
+
+    <div class="item" onclick="go('account-profile.html')">
+      <div class="icon">👤</div>
+      Profile & Address
+    </div>
+
+    <div class="item" onclick="go('support.html')">
+      <div class="icon">💬</div>
+      Help & Support
+    </div>
+  </div>
+</div>
+
+<div class="logout" onclick="logout()">🚪 Logout</div>
+
+<script type="module">
+import { auth } from "./js/firebase.js";
+import {
+  onAuthStateChanged,
+  signOut
+} from "https://www.gstatic.com/firebasejs/12.11.0/firebase-auth.js";
+
+// 🔐 Protect page
+onAuthStateChanged(auth, user=>{
+  if(!user){
+    location.href="customer-login.html";
+  }
+});
+
+// Navigation
+window.go = p => location.href = p;
+
+// Logout
+window.logout = async function(){
+  await signOut(auth);
+  location.href="index.html";
+};
+</script>
+
+</body>
+</html>
