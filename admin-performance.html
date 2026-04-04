@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Admin – Performance</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <style>
+    body{margin:0;font-family:Arial;background:#f4f4f4}
+    .header{
+      background:#ff9800;color:white;
+      padding:14px;font-size:18px;font-weight:bold
+    }
+    .section{
+      padding:10px
+    }
+    h3{
+      margin:10px 0
+    }
+    table{
+      width:100%;border-collapse:collapse;background:#fff
+    }
+    th,td{
+      padding:10px;border-bottom:1px solid #ddd;
+      font-size:13px;text-align:left
+    }
+    th{background:#fafafa}
+  </style>
+</head>
+
+<body>
+
+<div class="header">📊 Performance Analytics</div>
+
+<div class="section">
+  <h3>🧺 Partner Performance</h3>
+  <table>
+    <thead>
+      <tr>
+        <th>Name</th>
+        <th>Total Orders</th>
+        <th>Completed</th>
+        <th>Earnings (₹)</th>
+      </tr>
+    </thead>
+    <tbody id="partnerTable"></tbody>
+  </table>
+</div>
+
+<div class="section">
+  <h3>🚚 Delivery Performance</h3>
+  <table>
+    <thead>
+      <tr>
+        <th>Name</th>
+        <th>Delivered Orders</th>
+        <th>Earnings (₹)</th>
+      </tr>
+    </thead>
+    <tbody id="deliveryTable"></tbody>
+  </table>
+</div>
+
+<script type="module" src="js/admin-performance.js"></script>
+</body>
+</html>
