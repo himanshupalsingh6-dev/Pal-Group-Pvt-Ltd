@@ -4,7 +4,7 @@ import {
   signInWithEmailAndPassword,
   onAuthStateChanged,
   signOut
-} from "https://www.gstatic.com/firebasejs/12.7.0/firebase-auth.js";
+} from "https://www.gstatic.com/firebasejs/12.11.0/firebase-auth.js";
 
 window.signup = () => {
   const email = emailInput.value;
