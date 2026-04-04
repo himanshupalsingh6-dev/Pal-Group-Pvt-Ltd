@@ -1,17 +1,9 @@
-import { initializeApp } from "https://www.gstatic.com/firebasejs/12.7.0/firebase-app.js";
+import { db } from "./firebase.js";
+
 import {
-  getFirestore, collection, getDocs, addDoc,
+  collection, getDocs, addDoc,
   updateDoc, doc, onSnapshot, query, orderBy, where
-} from "https://www.gstatic.com/firebasejs/12.7.0/firebase-firestore.js";
-
-const firebaseConfig = {
-  apiKey: "AIzaSyAWTOu3JBhg3JuZg6snAxhnf_XFhLhLkbc",
-  authDomain: "quickpress-web.firebaseapp.com",
-  projectId: "quickpress-web"
-};
-
-const app = initializeApp(firebaseConfig);
-const db = getFirestore(app);
+} from "https://www.gstatic.com/firebasejs/12.11.0/firebase-firestore.js";
 
 /* NAV */
 window.showSection = (id) => {
@@ -195,6 +187,7 @@ document.addEventListener("DOMContentLoaded", ()=>{
   loadOrders();
   loadDashboard();
 });
+
 const notifySound = new Audio("sounds/notify.mp3");
 
 onSnapshot(
