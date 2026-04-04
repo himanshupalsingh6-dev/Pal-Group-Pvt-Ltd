@@ -1,24 +1,13 @@
-import { initializeApp } from "https://www.gstatic.com/firebasejs/12.7.0/firebase-app.js";
+import { db } from "./firebase.js";
+
 import {
-  getFirestore,
   collection,
   getDocs
-} from "https://www.gstatic.com/firebasejs/12.7.0/firebase-firestore.js";
-
-/* Firebase */
-const firebaseConfig = {
-  apiKey: "AIzaSyAWTOu3JBhg3JuZg6snAxhnf_XFhLhLkbc",
-  authDomain: "quickpress-web.firebaseapp.com",
-  projectId: "quickpress-web"
-};
-
-const app = initializeApp(firebaseConfig);
-const db = getFirestore(app);
+} from "https://www.gstatic.com/firebasejs/12.11.0/firebase-firestore.js";
 
 const partnerTable = document.getElementById("partnerTable");
 const deliveryTable = document.getElementById("deliveryTable");
 
-/* Load performance */
 async function loadPerformance(){
 
   const ordersSnap = await getDocs(collection(db,"orders"));
@@ -28,7 +17,6 @@ async function loadPerformance(){
   let partnerStats = {};
   let deliveryStats = {};
 
-  /* Prepare base */
   partnersSnap.forEach(p=>{
     partnerStats[p.id] = {
       name: p.data().name || "Partner",
@@ -46,7 +34,6 @@ async function loadPerformance(){
     };
   });
 
-  /* Loop orders */
   ordersSnap.forEach(o=>{
     const data = o.data();
     const amount = Number(data.grandTotal) || 0;
