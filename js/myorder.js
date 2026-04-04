@@ -1,51 +1,27 @@
-const DELIVERY_CHARGE = 20;
-const HANDLING_CHARGE = 3;
+import { initializeApp } from
+"https://www.gstatic.com/firebasejs/12.7.0/firebase-app.js";
+import { getAuth } from
+"https://www.gstatic.com/firebasejs/12.7.0/firebase-auth.js";
+import {
+  getFirestore, collection, query, where, getDocs
+} from
+"https://www.gstatic.com/firebasejs/12.7.0/firebase-firestore.js";
 
-/* STORAGE */
-function getCart(){
-  return JSON.parse(localStorage.getItem("cart")) || [];
-}
-function saveCart(cart){
-  localStorage.setItem("cart", JSON.stringify(cart));
-}
+const app = initializeApp({
+  apiKey: "AIzaSyAWTOu3JBhg3JuZg6snAxhnf_XFhLhLkbc",
+  authDomain: "quickpress-web.firebaseapp.com",
+  projectId: "quickpress-web"
+});
 
-/* ADD / REMOVE */
-window.addItem = function(name, price){
-  let cart = getCart();
-  let item = cart.find(i => i.name === name);
-  if(item) item.qty++;
-  else cart.push({ name, price, qty: 1 });
-  saveCart(cart);
-  updateNav();
-};
+const auth = getAuth(app);
+const db = getFirestore(app);
 
-window.removeItem = function(name){
-  let cart = getCart();
-  let item = cart.find(i => i.name === name);
-  if(!item) return;
-  item.qty--;
-  if(item.qty <= 0) cart = cart.filter(i => i.name !== name);
-  saveCart(cart);
-  updateNav();
-};
+const q = query(
+  collection(db,"orders"),
+  where("userId","==",auth.currentUser.uid)
+);
 
-window.getQty = function(name){
-  let i = getCart().find(x => x.name === name);
-  return i ? i.qty : 0;
-};
-
-/* TOTALS */
-function itemsTotal(){
-  return getCart().reduce((s,i)=>s+i.price*i.qty,0);
-}
-function grandTotal(){
-  let t = itemsTotal();
-  return t === 0 ? 0 : t + DELIVERY_CHARGE + HANDLING_CHARGE;
-}
-
-/* NAV */
-function updateNav(){
-  const el = document.getElementById("navCartAmount");
-  if(el) el.innerText = "₹" + grandTotal();
-}
-document.addEventListener("DOMContentLoaded", updateNav);
+const snap = await getDocs(q);
+snap.forEach(d=>{
+  list.innerHTML += `<div>${d.data().status}</div>`;
+});
