@@ -1,21 +1,10 @@
-import { initializeApp } from "https://www.gstatic.com/firebasejs/12.7.0/firebase-app.js";
+import { db } from "./firebase.js";
+
 import {
-  getFirestore,
   collection,
   getDocs
-} from "https://www.gstatic.com/firebasejs/12.7.0/firebase-firestore.js";
+} from "https://www.gstatic.com/firebasejs/12.11.0/firebase-firestore.js";
 
-/* 🔥 Firebase config */
-const firebaseConfig = {
-  apiKey: "AIzaSyAWTOu3JBhg3JuZg6snAxhnf_XFhLhLkbc",
-  authDomain: "quickpress-web.firebaseapp.com",
-  projectId: "quickpress-web"
-};
-
-const app = initializeApp(firebaseConfig);
-const db = getFirestore(app);
-
-/* Elements */
 const totalOrdersEl = document.getElementById("totalOrders");
 const totalRevenueEl = document.getElementById("totalRevenue");
 const todayOrdersEl = document.getElementById("todayOrders");
@@ -24,7 +13,6 @@ const totalCustomersEl = document.getElementById("totalCustomers");
 const totalPartnersEl = document.getElementById("totalPartners");
 const totalDeliveryEl = document.getElementById("totalDelivery");
 
-/* Main loader */
 async function loadDashboard(){
 
   const ordersSnap = await getDocs(collection(db,"orders"));
@@ -56,7 +44,6 @@ async function loadDashboard(){
     }
   });
 
-  /* Update UI */
   totalOrdersEl.innerText = totalOrders;
   totalRevenueEl.innerText = totalRevenue;
   todayOrdersEl.innerText = todayOrders;
