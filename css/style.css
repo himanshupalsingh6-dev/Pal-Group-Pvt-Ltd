@@ -1,0 +1,374 @@
+/* =====================
+   GLOBAL
+===================== */
+body{
+  margin:0;
+  font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto;
+  background:#f5f5f5;
+  color:#111;
+}
+a{text-decoration:none;color:inherit}
+
+/* =====================
+   TOP BAR
+===================== */
+.topbar{
+  padding:14px 16px;
+  font-size:22px;
+  font-weight:900;
+  background:#fff;
+  box-shadow:0 2px 8px rgba(0,0,0,.1);
+}
+
+/* =====================
+   SEARCH
+===================== */
+.search{padding:12px}
+.search input{
+  width:100%;
+  padding:14px;
+  border-radius:12px;
+  border:1px solid #ddd;
+  font-size:15px;
+}
+
+/* =====================
+   HOME – HERO
+===================== */
+.hero{
+  margin:12px;
+  background:linear-gradient(135deg,#FFD400,#FFEB8A);
+  border-radius:20px;
+  padding:26px;
+}
+.hero h1{
+  margin:0;
+  font-size:26px;
+}
+.hero p{
+  margin:6px 0 14px;
+}
+.hero button{
+  background:#000;
+  color:#fff;
+  border:none;
+  padding:12px 22px;
+  border-radius:14px;
+  font-size:15px;
+  font-weight:800;
+}
+
+/* =====================
+   HOME – OFFER CARDS
+===================== */
+.offer-row{
+  display:flex;
+  gap:12px;
+  padding:12px;
+}
+.offer{
+  flex:1;
+  padding:16px;
+  border-radius:16px;
+  color:#fff;
+  font-weight:800;
+}
+.offer.green{background:#27ae60}
+.offer.orange{background:#f39c12}
+.offer.blue{background:#2980b9}
+
+/* =====================
+   HOME – CATEGORIES
+===================== */
+.section-title{
+  padding:0 14px;
+  margin-top:10px;
+}
+.categories{
+  display:grid;
+  grid-template-columns:repeat(4,1fr);
+  gap:12px;
+  padding:14px;
+}
+.cat{
+  background:#fff;
+  padding:14px 8px;
+  text-align:center;
+  border-radius:14px;
+  font-size:14px;
+  box-shadow:0 4px 10px rgba(0,0,0,.1);
+}
+
+/* =====================
+   PRODUCTS GRID
+===================== */
+.product-grid{
+  display:grid;
+  grid-template-columns:repeat(2,1fr);
+  gap:14px;
+  padding:12px;
+}
+.p-card{
+  background:#fff;
+  padding:14px;
+  border-radius:18px;
+  text-align:center;
+  box-shadow:0 6px 16px rgba(0,0,0,.12);
+}
+.p-img{font-size:40px}
+.p-name{font-weight:900;margin-top:6px}
+.p-price{color:#555;font-size:14px;margin:4px 0 10px}
+.p-card button{
+  width:100%;
+  background:#FFD400;
+  border:none;
+  padding:10px;
+  border-radius:12px;
+  font-weight:900;
+}
+
+/* =====================
+   CART DRAWER (DESKTOP)
+===================== */
+.cart-drawer{
+  position:fixed;
+  top:0;
+  right:0;
+  width:360px;
+  height:100%;
+  background:#fff;
+  transform:translateX(100%);
+  transition:.3s;
+  z-index:9999;
+  box-shadow:-6px 0 20px rgba(0,0,0,.25);
+}
+.cart-drawer.open{transform:translateX(0)}
+@media(max-width:767px){
+  .cart-drawer{display:none}
+}
+.cart-header{
+  padding:14px;
+  font-weight:900;
+  display:flex;
+  justify-content:space-between;
+  border-bottom:1px solid #eee;
+}
+.cart-item{
+  display:flex;
+  justify-content:space-between;
+  padding:12px;
+}
+.qty-box{
+  display:flex;
+  gap:8px;
+  align-items:center;
+}
+.qty-box button{
+  background:#FFD400;
+  border:none;
+  width:26px;
+  height:26px;
+  border-radius:50%;
+  font-weight:900;
+}
+.cart-footer{
+  padding:14px;
+  border-top:1px solid #eee;
+}
+.cart-footer button{
+  width:100%;
+  background:#FFD400;
+  border:none;
+  padding:12px;
+  border-radius:12px;
+  font-weight:900;
+}
+
+/* =====================
+   MOBILE CART BADGE
+===================== */
+#cartBadge{
+  position:fixed;
+  bottom:90px;
+  right:16px;
+  background:#FFD400;
+  padding:14px 18px;
+  border-radius:999px;
+  font-weight:900;
+  display:none;
+  z-index:9999;
+}
+@media(min-width:768px){
+  #cartBadge{display:none!important}
+}
+
+/* =====================
+   CART / CHECKOUT PAGE
+===================== */
+.card{
+  background:#fff;
+  margin:14px;
+  padding:14px;
+  border-radius:14px;
+}
+.header{text-align:center}
+/* ===== BLINKIT STYLE HOME CATEGORIES ===== */
+
+.blinkit-categories{
+  display:grid;
+  grid-template-columns:repeat(4,1fr);
+  gap:14px;
+  padding:14px;
+}
+
+.bcat{
+  background:#fff;
+  border-radius:16px;
+  padding:16px 6px;
+  text-align:center;
+  font-size:14px;
+  font-weight:700;
+  box-shadow:0 6px 14px rgba(0,0,0,.12);
+  display:flex;
+  flex-direction:column;
+  gap:6px;
+  align-items:center;
+}
+
+.bcat span{
+  font-size:13px;
+}
+
+/* MOBILE FEEL LIKE BLINKIT */
+@media(max-width:600px){
+  .blinkit-categories{
+    grid-template-columns:repeat(4,1fr);
+  }
+}
+/* ===== FIX: HIDE OLD CATEGORY SECTION ===== */
+/* Old simple category buttons hide */
+.categories{
+  display:none !important;
+}
+
+/* Agar koi aur old category wrapper ho */
+.category-list,
+.old-categories,
+.home-categories{
+  display:none !important;
+}
+/* ===== BLINKIT STYLE NAVBAR ===== */
+.navbar{
+  position:sticky;
+  top:0;
+  z-index:1000;
+  background:#fff;
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  padding:10px 14px;
+  box-shadow:0 2px 8px rgba(0,0,0,.12);
+}
+
+.nav-left{
+  display:flex;
+  gap:12px;
+  align-items:center;
+}
+
+.logo{
+  font-size:20px;
+  font-weight:900;
+}
+
+.location small{
+  color:#555;
+}
+
+.nav-right{
+  display:flex;
+  gap:10px;
+  align-items:center;
+}
+
+.nav-search{
+  padding:8px 10px;
+  border-radius:10px;
+  border:1px solid #ddd;
+  font-size:14px;
+  width:160px;
+}
+
+.nav-cart{
+  background:#FFD400;
+  padding:8px 12px;
+  border-radius:12px;
+  font-weight:900;
+  cursor:pointer;
+}
+
+/* MOBILE */
+@media(max-width:600px){
+  .nav-search{
+    display:none;
+  }
+}
+/* ===== FIX: HIDE OLD / DUPLICATE NAVBAR ===== */
+
+/* Old top bar hide */
+.topbar{
+  display:none !important;
+}
+
+/* Agar koi extra header / navbar ho */
+header,
+.old-navbar,
+.navbar-old{
+  display:none !important;
+}
+/* ===== NAVBAR PROFILE / LOGIN ===== */
+.nav-profile{
+  display:flex;
+  align-items:center;
+  gap:6px;
+  background:#fff;
+  border:1px solid #eee;
+  padding:8px 10px;
+  border-radius:12px;
+  font-weight:800;
+  cursor:pointer;
+}
+
+.nav-profile:hover{
+  background:#f7f7f7;
+}
+
+@media(max-width:600px){
+  .nav-profile-text{
+    display:none; /* mobile me sirf icon */
+  }
+}
+/* ===== INLINE QTY (PRODUCT CARD) ===== */
+.inline-qty{
+  display:flex;
+  justify-content:center;
+  align-items:center;
+  gap:12px;
+  margin-top:8px;
+}
+
+.inline-qty button{
+  width:28px;
+  height:28px;
+  border:none;
+  border-radius:50%;
+  background:#FFD400;
+  font-size:18px;
+  font-weight:900;
+}
+
+.inline-qty span{
+  font-weight:900;
+  min-width:20px;
+  text-align:center;
+}
