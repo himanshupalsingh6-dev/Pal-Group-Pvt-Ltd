@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Admin Order Tracking – QuickPress</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <style>
+    body{margin:0;font-family:Segoe UI;background:#f4f4f4}
+    .header{background:#ff9800;color:white;padding:16px;font-size:18px;font-weight:bold}
+    .container{padding:12px}
+    .card{background:white;border-radius:12px;padding:14px;margin-bottom:12px;box-shadow:0 2px 8px rgba(0,0,0,0.1)}
+    .order-id{font-weight:bold;color:#ff9800;margin-bottom:8px}
+    .timeline{margin-top:10px}
+    .step{display:flex;align-items:center;margin-bottom:8px}
+    .dot{width:12px;height:12px;border-radius:50%;background:#ccc;margin-right:10px}
+    .done{background:#2ecc71}
+    .label{font-size:14px;color:#333}
+    .small{font-size:12px;color:#777}
+  </style>
+</head>
+
+<body>
+
+<div class="header">📊 Live Order Tracking</div>
+<div class="container" id="trackingBox"></div>
+
+<script type="module">
+import { db } from "./js/firebase.js";
+
+import {
+  collection,
+  onSnapshot,
+  query,
+  orderBy
+} from "https://www.gstatic.com/firebasejs/12.11.0/firebase-firestore.js";
+
+const box = document.getElementById("trackingBox");
+
+const ordersQuery = query(collection(db,"orders"), orderBy("createdAt","desc"));
+
+onSnapshot(ordersQuery,(snap)=>{
+  box.innerHTML="";
+
+  snap.forEach(docSnap=>{
+    const o = docSnap.data();
+    const status = o.status || "Placed";
+
+    function step(label, active){
+      return `
+        <div class="step">
+          <div class="dot ${active?'done':''}"></div>
+          <div>
+            <div class="label">${label}</div>
+            <div class="small">${active ? "Completed" : "Pending"}</div>
+          </div>
+        </div>
+      `;
+    }
+
+    box.innerHTML += `
+      <div class="card">
+        <div class="order-id">Order #${docSnap.id}</div>
+        <div><b>Total:</b> ₹${o.grandTotal || 0}</div>
+
+        <div class="timeline">
+          ${step("Partner Assigned", status==="Assigned" || status==="Accepted" || status==="Ready" || status==="Picked" || status==="Delivered")}
+          ${step("Partner Accepted", status==="Accepted" || status==="Ready" || status==="Picked" || status==="Delivered")}
+          ${step("Ironing Ready", status==="Ready" || status==="Picked" || status==="Delivered")}
+          ${step("Delivery Assigned", o.deliveryId)}
+          ${step("Picked by Rider", status==="Picked" || status==="Delivered")}
+          ${step("Delivered", status==="Delivered")}
+        </div>
+      </div>
+    `;
+  });
+});
+</script>
+
+</body>
+</html>
