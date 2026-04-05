@@ -1,3 +1,86 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>QuickPress – Checkout</title>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+
+<style>
+:root{--yellow:#FFD400;--bg:#f6f7f9}
+*{box-sizing:border-box}
+body{
+  margin:0;
+  font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto;
+  background:var(--bg);
+}
+.page{padding:18px}
+.card{
+  background:#fff;
+  border-radius:16px;
+  padding:14px;
+  margin-bottom:12px;
+  box-shadow:0 6px 14px rgba(0,0,0,.08);
+}
+.row{
+  display:flex;
+  justify-content:space-between;
+  margin-bottom:6px;
+}
+.total{
+  font-size:18px;
+  font-weight:900;
+}
+textarea{
+  width:100%;
+  padding:12px;
+  border-radius:12px;
+  border:1px solid #ddd;
+  font-size:14px;
+  resize:none;
+}
+.btn{
+  width:100%;
+  padding:14px;
+  border:none;
+  background:var(--yellow);
+  border-radius:14px;
+  font-weight:900;
+  cursor:pointer;
+}
+.btn:disabled{
+  opacity:.6;
+}
+.center{
+  text-align:center;
+  margin-top:60px;
+  color:#555;
+}
+.msg{
+  text-align:center;
+  margin-top:8px;
+  font-size:14px;
+  color:red;
+}
+</style>
+</head>
+
+<body>
+
+<div class="page">
+  <h2>Checkout</h2>
+
+  <div class="card">
+    <h3>Delivery Address</h3>
+    <textarea id="address" rows="3" placeholder="Enter delivery address"></textarea>
+    <div id="addrMsg" class="msg"></div>
+  </div>
+
+  <div id="summary" class="card"></div>
+
+  <button class="btn" id="orderBtn" onclick="placeOrder()">Place Order</button>
+</div>
+
+<!-- ✅ FIREBASE FIXED -->
 <script type="module">
 import { auth, db } from "./js/firebase.js";
 
@@ -13,34 +96,99 @@ import {
   getDoc
 } from "https://www.gstatic.com/firebasejs/12.11.0/firebase-firestore.js";
 
-let currentUser;
+const addressBox = document.getElementById("address");
+const addrMsg = document.getElementById("addrMsg");
+const summary = document.getElementById("summary");
+const orderBtn = document.getElementById("orderBtn");
 
-onAuthStateChanged(auth, async user=>{
+const cart = JSON.parse(localStorage.getItem("cart") || "[]");
+
+let currentUser = null;
+let orderData = null;
+
+onAuthStateChanged(auth, async user => {
   if(!user){
-    location.href="customer-login.html";
+    alert("Please login first");
+    location.href = "customer-login.html";
     return;
   }
 
   currentUser = user;
+  loadSummary();
 
-  const snap = await getDoc(doc(db,"users",user.uid));
-  if(snap.exists()){
-    address.value = snap.data().address || "";
+  try{
+    const snap = await getDoc(doc(db,"users",user.uid));
+    if(snap.exists()){
+      addressBox.value = snap.data().address || "";
+    }
+  }catch(e){
+    console.log("Address load failed");
   }
 });
 
+function loadSummary(){
+  if(cart.length === 0){
+    document.querySelector(".page").innerHTML =
+      `<div class="center">Your cart is empty</div>`;
+    return;
+  }
+
+  let subtotal = 0;
+  cart.forEach(i => subtotal += i.price * i.qty);
+
+  const gst = Math.round(subtotal * 0.05);
+  const deliveryCharge = 20;
+  const grandTotal = subtotal + gst + deliveryCharge;
+
+  summary.innerHTML = `
+    <div class="row"><span>Subtotal</span><span>₹${subtotal}</span></div>
+    <div class="row"><span>GST</span><span>₹${gst}</span></div>
+    <div class="row"><span>Delivery</span><span>₹${deliveryCharge}</span></div>
+    <hr>
+    <div class="row total"><span>Total</span><span>₹${grandTotal}</span></div>
+  `;
+
+  orderData = { subtotal, gst, deliveryCharge, grandTotal };
+}
+
 window.placeOrder = async function(){
-  const cart = JSON.parse(localStorage.getItem("cart")||"[]");
+  if(!currentUser || !orderData) return;
 
-  await addDoc(collection(db,"orders"),{
-    userId: currentUser.uid,
-    items: cart,
-    grandTotal:100,
-    status:"Placed",
-    createdAt: serverTimestamp()
-  });
+  const address = addressBox.value.trim();
+  if(!address){
+    addrMsg.innerText = "Please enter delivery address";
+    return;
+  }
 
-  localStorage.removeItem("cart");
-  location.href="myorders.html";
+  orderBtn.disabled = true;
+  orderBtn.innerText = "Placing Order...";
+
+  try{
+    const ref = await addDoc(collection(db,"orders"),{
+      userId: currentUser.uid,
+      items: cart,
+      address: address,
+      subtotal: orderData.subtotal,
+      gst: orderData.gst,
+      deliveryCharge: orderData.deliveryCharge,
+      grandTotal: orderData.grandTotal,
+      status: "Placed",
+      createdAt: serverTimestamp()
+    });
+
+    localStorage.setItem("lastOrderId", ref.id);
+    localStorage.removeItem("cart");
+
+    alert("Order placed ✅");
+    location.href = "order-tracking.html";
+
+  }catch(err){
+    alert(err.message);
+    orderBtn.disabled = false;
+    orderBtn.innerText = "Place Order";
+  }
 };
 </script>
+
+</body>
+</html>
