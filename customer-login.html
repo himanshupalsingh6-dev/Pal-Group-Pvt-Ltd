@@ -107,14 +107,6 @@ import {
   signInWithEmailAndPassword
 } from "https://www.gstatic.com/firebasejs/12.11.0/firebase-auth.js";
 
-/* ✅ SAFE INIT */
-const app = getApps().length
-  ? getApps()[0]
-  : initializeApp(firebaseConfig);
-
-const auth = getAuth(app);
-
-/* ================= LOGIN ================= */
 window.login = async function(){
   const email = document.getElementById("email").value.trim();
   const password = document.getElementById("password").value.trim();
@@ -132,12 +124,14 @@ window.login = async function(){
   btn.innerText = "Logging in...";
 
   try{
-    const cred = await signInWithEmailAndPassword(auth, email, password);
+    const cred = await signInWithEmailAndPassword(auth,email,password);
 
-    /* 🔥 VERY IMPORTANT (NAVBAR FIX) */
     localStorage.setItem("userId", cred.user.uid);
 
+    alert("Login success ✅");
+
     location.href = "index.html";
+
   }catch(err){
     msg.innerText = err.message;
     btn.disabled = false;
@@ -145,6 +139,3 @@ window.login = async function(){
   }
 };
 </script>
-
-</body>
-</html>
