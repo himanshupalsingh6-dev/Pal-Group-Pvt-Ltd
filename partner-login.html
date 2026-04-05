@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Partner Login – QuickPress</title>
+</head>
+<body>
+
+<h2>Partner Login</h2>
+<input id="email" placeholder="Email"><br>
+<input id="password" type="password" placeholder="Password"><br>
+<button id="loginBtn">Login</button>
+
+<script type="module">
+import { auth, db } from "./js/firebase.js";
+
+import {
+  signInWithEmailAndPassword
+} from "https://www.gstatic.com/firebasejs/12.11.0/firebase-auth.js";
+
+import {
+  doc,
+  getDoc
+} from "https://www.gstatic.com/firebasejs/12.11.0/firebase-firestore.js";
+
+loginBtn.onclick = async ()=>{
+  const emailVal = email.value;
+  const passwordVal = password.value;
+
+  const cred = await signInWithEmailAndPassword(auth,emailVal,passwordVal);
+
+  const snap = await getDoc(doc(db,"partners",cred.user.uid));
+
+  if(!snap.exists()){
+    alert("Not partner account");
+    return;
+  }
+
+  localStorage.setItem("partnerId",cred.user.uid);
+  localStorage.setItem("partnerName",snap.data().name);
+  localStorage.setItem("partnerEmail",snap.data().email);
+
+  location.href="partner-dashboard.html";
+};
+</script>
+
+</body>
+</html>
