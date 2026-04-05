@@ -1,3 +1,39 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Track Order – QuickPress</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <style>
+    body{margin:0;font-family:Segoe UI;background:#f4f4f4}
+    .header{background:linear-gradient(135deg,#ff9800,#ff6f00);color:white;padding:18px;font-size:18px;font-weight:bold}
+    .container{padding:12px}
+    .card{background:white;border-radius:12px;padding:14px;margin-bottom:12px;box-shadow:0 2px 8px rgba(0,0,0,0.1)}
+    .order-id{font-weight:bold;color:#ff9800;margin-bottom:8px}
+    .timeline{margin-top:10px}
+    .step{display:flex;align-items:center;margin-bottom:10px}
+    .dot{width:12px;height:12px;border-radius:50%;background:#ccc;margin-right:10px}
+    .done{background:#2ecc71}
+    .label{font-size:14px;color:#333}
+    .small{font-size:12px;color:#777}
+    .btn{width:100%;padding:10px;margin-top:10px;border:none;border-radius:10px;color:white;background:#2196f3;font-size:14px}
+  </style>
+</head>
+<body>
+
+<div class="header">📍 Track Your Order</div>
+
+<div class="container">
+  <div class="card">
+    <div class="order-id">Order ID: <span id="oid">-</span></div>
+    <div><b>Total:</b> ₹<span id="total">0</span></div>
+
+    <div class="timeline" id="timelineBox"></div>
+
+    <button class="btn" id="mapBtn" style="display:none" onclick="openMap()">Open Map</button>
+  </div>
+</div>
+
+<!-- ✅ FIREBASE FIXED -->
 <script type="module">
 import { db } from "./js/firebase.js";
 
@@ -6,13 +42,19 @@ import {
   onSnapshot
 } from "https://www.gstatic.com/firebasejs/12.11.0/firebase-firestore.js";
 
+/* ORDER ID */
 const orderId = localStorage.getItem("lastOrderId");
 
 if(!orderId){
   alert("No order found");
 }
 
-oid.innerText = orderId;
+const oidEl = document.getElementById("oid");
+const totalEl = document.getElementById("total");
+const timelineBox = document.getElementById("timelineBox");
+const mapBtn = document.getElementById("mapBtn");
+
+oidEl.innerText = orderId;
 
 function step(label, active){
   return `
@@ -26,23 +68,39 @@ function step(label, active){
   `;
 }
 
+/* REALTIME TRACKING */
 onSnapshot(doc(db,"orders",orderId),(snap)=>{
   if(!snap.exists()){
-    timelineBox.innerHTML="Order not found";
+    timelineBox.innerHTML = "<div class='small'>Order not found</div>";
     return;
   }
 
-  const o=snap.data();
-  const s=o.status||"Placed";
+  const o = snap.data();
+  const status = o.status || "Placed";
 
-  total.innerText=o.grandTotal||0;
+  totalEl.innerText = o.grandTotal || 0;
 
-  timelineBox.innerHTML=`
-    ${step("Placed",true)}
-    ${step("Assigned",s==="Assigned"||s==="Ready"||s==="Picked"||s==="Delivered")}
-    ${step("Ready",s==="Ready"||s==="Picked"||s==="Delivered")}
-    ${step("Picked",s==="Picked"||s==="Delivered")}
-    ${step("Delivered",s==="Delivered")}
+  timelineBox.innerHTML = `
+    ${step("Order Placed", true)}
+    ${step("Partner Assigned", status==="Assigned" || status==="Accepted" || status==="Ready" || status==="Picked" || status==="Delivered")}
+    ${step("Partner Accepted", status==="Accepted" || status==="Ready" || status==="Picked" || status==="Delivered")}
+    ${step("Ironing Ready", status==="Ready" || status==="Picked" || status==="Delivered")}
+    ${step("Picked by Delivery Boy", status==="Picked" || status==="Delivered")}
+    ${step("Delivered", status==="Delivered")}
   `;
+
+  if(o.mapLink){
+    mapBtn.style.display = "block";
+    window.currentMapLink = o.mapLink;
+  }
 });
+
+window.openMap = ()=>{
+  if(window.currentMapLink){
+    window.open(window.currentMapLink,"_blank");
+  }
+};
 </script>
+
+</body>
+</html>
