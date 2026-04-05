@@ -1,0 +1,47 @@
+<script type="module">
+import { auth, db } from "./js/firebase.js";
+
+import {
+  onAuthStateChanged
+} from "https://www.gstatic.com/firebasejs/12.11.0/firebase-auth.js";
+
+import {
+  collection,
+  query,
+  where,
+  getDocs
+} from "https://www.gstatic.com/firebasejs/12.11.0/firebase-firestore.js";
+
+const ordersDiv = document.getElementById("orders");
+
+onAuthStateChanged(auth, async user=>{
+  if(!user){
+    location.href="customer-login.html";
+    return;
+  }
+
+  const q = query(
+    collection(db,"orders"),
+    where("userId","==",user.uid)
+  );
+
+  const snap = await getDocs(q);
+
+  if(snap.empty){
+    ordersDiv.innerHTML = "No orders";
+    return;
+  }
+
+  snap.forEach(doc=>{
+    const o = doc.data();
+
+    ordersDiv.innerHTML += `
+      <div class="order">
+        <b>ID:</b> ${doc.id}<br>
+        <b>Total:</b> ₹${o.grandTotal}<br>
+        <div class="status ${o.status}">${o.status}</div>
+      </div>
+    `;
+  });
+});
+</script>
