@@ -215,16 +215,14 @@ body{
 <div class="section" id="services">
   <h2>Services</h2>
   <div class="services">
-    <div class="card">👕 Shirts</div>
-    <div class="card">👖 Pants</div>
-    <div class="card">🥻 Saree</div>
-    <div class="card">🧥 Coat</div>
-  </div>
-</div>
+    <div onclick="selectService('ironing')">🧺 Ironing</div>
+<div onclick="selectService('dry')">🧼 Dry Cleaning</div>
+<div onclick="selectService('washing')">🧽 Washing</div>
 
 <script>
-function toggleMenu(){
-  document.getElementById("navLinks").classList.toggle("show");
+function selectService(s){
+  localStorage.setItem("service",s);
+  location.href="categories.html";
 }
 </script>
 <!-- ================= CUSTOMER REVIEWS (DROP-IN BLOCK) ================= -->
