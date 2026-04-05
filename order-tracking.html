@@ -1,0 +1,48 @@
+<script type="module">
+import { db } from "./js/firebase.js";
+
+import {
+  doc,
+  onSnapshot
+} from "https://www.gstatic.com/firebasejs/12.11.0/firebase-firestore.js";
+
+const orderId = localStorage.getItem("lastOrderId");
+
+if(!orderId){
+  alert("No order found");
+}
+
+oid.innerText = orderId;
+
+function step(label, active){
+  return `
+    <div class="step">
+      <div class="dot ${active?'done':''}"></div>
+      <div>
+        <div class="label">${label}</div>
+        <div class="small">${active ? "Completed" : "Pending"}</div>
+      </div>
+    </div>
+  `;
+}
+
+onSnapshot(doc(db,"orders",orderId),(snap)=>{
+  if(!snap.exists()){
+    timelineBox.innerHTML="Order not found";
+    return;
+  }
+
+  const o=snap.data();
+  const s=o.status||"Placed";
+
+  total.innerText=o.grandTotal||0;
+
+  timelineBox.innerHTML=`
+    ${step("Placed",true)}
+    ${step("Assigned",s==="Assigned"||s==="Ready"||s==="Picked"||s==="Delivered")}
+    ${step("Ready",s==="Ready"||s==="Picked"||s==="Delivered")}
+    ${step("Picked",s==="Picked"||s==="Delivered")}
+    ${step("Delivered",s==="Delivered")}
+  `;
+});
+</script>
