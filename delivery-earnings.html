@@ -1,0 +1,31 @@
+<script type="module">
+import { db } from "./js/firebase.js";
+
+import {
+  collection,
+  query,
+  where,
+  onSnapshot
+} from "https://www.gstatic.com/firebasejs/12.11.0/firebase-firestore.js";
+
+const deliveryId = localStorage.getItem("deliveryId");
+
+let total = 0;
+
+onSnapshot(
+  query(collection(db,"orders"),
+    where("deliveryId","==",deliveryId),
+    where("status","==","Delivered")
+  ),
+  snap=>{
+    total = 0;
+    snap.forEach(d=>{
+      total += Number(d.data().grandTotal)||0;
+    });
+
+    totalEarning.innerText = total;
+    todayEarning.innerText = total;
+    monthEarning.innerText = total;
+  }
+);
+</script>
