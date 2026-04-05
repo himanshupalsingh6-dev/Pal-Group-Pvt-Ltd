@@ -1,0 +1,29 @@
+<script type="module">
+import { auth, db } from "./js/firebase.js";
+
+import {
+  createUserWithEmailAndPassword
+} from "https://www.gstatic.com/firebasejs/12.11.0/firebase-auth.js";
+
+import {
+  doc,
+  setDoc,
+  serverTimestamp
+} from "https://www.gstatic.com/firebasejs/12.11.0/firebase-firestore.js";
+
+window.register = async function(){
+  const name = name.value.trim();
+  const email = email.value.trim();
+  const password = password.value.trim();
+
+  const cred = await createUserWithEmailAndPassword(auth,email,password);
+
+  await setDoc(doc(db,"users",cred.user.uid),{
+    name,email,
+    role:"customer",
+    createdAt:serverTimestamp()
+  });
+
+  location.href="index.html";
+};
+</script>
