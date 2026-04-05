@@ -1,0 +1,22 @@
+<script type="module">
+import { db } from "./js/firebase.js";
+
+import {
+  doc,
+  getDoc
+} from "https://www.gstatic.com/firebasejs/12.11.0/firebase-firestore.js";
+
+const partnerId = localStorage.getItem("partnerId");
+
+const snap = await getDoc(doc(db,"partners",partnerId));
+const data = snap.data();
+
+pname.innerText = data.name;
+pemail.innerText = data.email;
+pwallet.innerText = data.wallet || 0;
+
+window.logout = ()=>{
+  localStorage.clear();
+  location.href="partner-login.html";
+};
+</script>
