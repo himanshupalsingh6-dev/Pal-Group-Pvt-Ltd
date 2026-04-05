@@ -1,29 +1,169 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>QuickPress – Register</title>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+
+<style>
+:root{
+  --yellow:#FFD400;
+  --bg:#f6f7f9;
+}
+*{box-sizing:border-box}
+body{
+  margin:0;
+  font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto;
+  background:var(--bg);
+  min-height:100vh;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+}
+.card{
+  background:#fff;
+  width:100%;
+  max-width:400px;
+  padding:22px;
+  border-radius:18px;
+  box-shadow:0 10px 30px rgba(0,0,0,.12);
+}
+.logo{
+  text-align:center;
+  font-size:26px;
+  font-weight:900;
+  margin-bottom:6px;
+}
+.sub{
+  text-align:center;
+  color:#555;
+  font-size:14px;
+  margin-bottom:18px;
+}
+input{
+  width:100%;
+  padding:12px 14px;
+  margin-bottom:12px;
+  border-radius:12px;
+  border:1px solid #ddd;
+  font-size:14px;
+}
+button{
+  width:100%;
+  padding:14px;
+  border:none;
+  border-radius:14px;
+  background:var(--yellow);
+  font-weight:900;
+  cursor:pointer;
+}
+button:disabled{
+  opacity:.6;
+}
+.msg{
+  margin-top:12px;
+  text-align:center;
+  font-size:14px;
+  color:red;
+}
+.footer{
+  margin-top:14px;
+  text-align:center;
+  font-size:13px;
+  color:#555;
+}
+.footer a{
+  color:#000;
+  font-weight:800;
+  text-decoration:none;
+}
+</style>
+</head>
+
+<body>
+
+<div class="card">
+  <div class="logo">⚡ QuickPress</div>
+  <div class="sub">Create your account</div>
+
+  <input type="text" id="name" placeholder="Full Name" />
+  <input type="email" id="email" placeholder="Email address" />
+  <input type="password" id="password" placeholder="Password (min 6 chars)" />
+
+  <button id="registerBtn" onclick="register()">Create Account</button>
+
+  <div id="msg" class="msg"></div>
+
+  <div class="footer">
+    Already have an account?
+    <a href="customer-login.html">Login</a>
+  </div>
+</div>
+
+<!-- ================= FIREBASE ================= -->
 <script type="module">
-import { auth, db } from "./js/firebase.js";
+import { auth } from "./js/firebase.js";
 
 import {
-  createUserWithEmailAndPassword
+  signInWithEmailAndPassword
 } from "https://www.gstatic.com/firebasejs/12.11.0/firebase-auth.js";
 
-import {
-  doc,
-  setDoc,
-  serverTimestamp
-} from "https://www.gstatic.com/firebasejs/12.11.0/firebase-firestore.js";
 
+/* ✅ SAFE INIT */
+const app = getApps().length
+  ? getApps()[0]
+  : initializeApp(firebaseConfig);
+
+const auth = getAuth(app);
+const db = getFirestore(app);
+
+/* ================= REGISTER ================= */
 window.register = async function(){
-  const name = name.value.trim();
-  const email = email.value.trim();
-  const password = password.value.trim();
+  const name = document.getElementById("name").value.trim();
+  const email = document.getElementById("email").value.trim();
+  const password = document.getElementById("password").value.trim();
+  const msg = document.getElementById("msg");
+  const btn = document.getElementById("registerBtn");
 
-  const cred = await createUserWithEmailAndPassword(auth,email,password);
+  msg.innerText = "";
 
-  await setDoc(doc(db,"users",cred.user.uid),{
-    name,email,
-    role:"customer",
-    createdAt:serverTimestamp()
-  });
+  if(!name || !email || !password){
+    msg.innerText = "All fields are required";
+    return;
+  }
+  if(password.length < 6){
+    msg.innerText = "Password must be at least 6 characters";
+    return;
+  }
 
-  location.href="index.html";
+  btn.disabled = true;
+  btn.innerText = "Creating account...";
+
+  try{
+    const cred = await createUserWithEmailAndPassword(
+      auth,
+      email,
+      password
+    );
+
+    /* 🔐 CREATE USER DOC (VERY IMPORTANT) */
+    await setDoc(doc(db,"users",cred.user.uid),{
+      name: name,
+      email: email,
+      role: "customer",
+      createdAt: serverTimestamp()
+    });
+
+    alert("Account created successfully 🎉");
+    location.href = "index.html";
+
+  }catch(err){
+    msg.innerText = err.message;
+    btn.disabled = false;
+    btn.innerText = "Create Account";
+  }
 };
 </script>
+
+</body>
+</html>
