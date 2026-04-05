@@ -1,0 +1,18 @@
+<script type="module">
+import { auth } from "./js/firebase.js";
+
+import {
+  signInWithEmailAndPassword
+} from "https://www.gstatic.com/firebasejs/12.11.0/firebase-auth.js";
+
+window.login = async function(){
+  const email = email.value;
+  const password = password.value;
+
+  const cred = await signInWithEmailAndPassword(auth,email,password);
+
+  localStorage.setItem("userId",cred.user.uid);
+
+  location.href="index.html";
+};
+</script>
