@@ -1,0 +1,31 @@
+<script type="module">
+import { auth, db } from "./js/firebase.js";
+
+import {
+  signInWithEmailAndPassword
+} from "https://www.gstatic.com/firebasejs/12.11.0/firebase-auth.js";
+
+import {
+  doc,
+  getDoc
+} from "https://www.gstatic.com/firebasejs/12.11.0/firebase-firestore.js";
+
+loginBtn.onclick = async ()=>{
+  const email = document.getElementById("email").value;
+  const password = document.getElementById("password").value;
+
+  const cred = await signInWithEmailAndPassword(auth,email,password);
+
+  const snap = await getDoc(doc(db,"delivery",cred.user.uid));
+
+  if(!snap.exists()){
+    alert("Not delivery account");
+    return;
+  }
+
+  localStorage.setItem("deliveryId",cred.user.uid);
+  localStorage.setItem("deliveryName",snap.data().name);
+
+  location.href="delivery-dashboard.html";
+};
+</script>
