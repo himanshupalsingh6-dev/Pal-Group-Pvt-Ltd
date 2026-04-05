@@ -5,14 +5,33 @@ import {
   signInWithEmailAndPassword
 } from "https://www.gstatic.com/firebasejs/12.11.0/firebase-auth.js";
 
+/* ================= LOGIN ================= */
 window.login = async function(){
-  const email = email.value;
-  const password = password.value;
+  const email = document.getElementById("email").value.trim();
+  const password = document.getElementById("password").value.trim();
+  const msg = document.getElementById("msg");
+  const btn = document.getElementById("loginBtn");
 
-  const cred = await signInWithEmailAndPassword(auth,email,password);
+  msg.innerText = "";
 
-  localStorage.setItem("userId",cred.user.uid);
+  if(!email || !password){
+    msg.innerText = "Please enter email and password";
+    return;
+  }
 
-  location.href="index.html";
+  btn.disabled = true;
+  btn.innerText = "Logging in...";
+
+  try{
+    const cred = await signInWithEmailAndPassword(auth, email, password);
+
+    localStorage.setItem("userId", cred.user.uid);
+
+    location.href = "index.html";
+  }catch(err){
+    msg.innerText = err.message;
+    btn.disabled = false;
+    btn.innerText = "Login";
+  }
 };
 </script>
