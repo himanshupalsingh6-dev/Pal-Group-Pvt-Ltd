@@ -121,7 +121,7 @@ h2{
 <body>
 
 <div class="page">
-  <h2>Select Items</h2>
+  <h2 id="title">Select Items</h2>
 
   <!-- CATEGORY -->
   <div class="cats" id="cats"></div>
@@ -137,21 +137,46 @@ h2{
 </div>
 
 <script>
-/* ===== DATA ===== */
-const PRODUCTS = [
-  {id:1,name:"Shirt",price:10,cat:"Clothes",icon:"👕"},
-  {id:2,name:"Pant",price:12,cat:"Clothes",icon:"👖"},
-  {id:3,name:"Saree",price:25,cat:"Clothes",icon:"🥻"},
-  {id:4,name:"Coat",price:30,cat:"Winter",icon:"🧥"},
-  {id:5,name:"Sweater",price:20,cat:"Winter",icon:"🧶"},
-];
+/* ===== FULL DATA SYSTEM ===== */
+const DATA = {
 
-const categories = ["All","Clothes","Winter"];
+  ironing:{
+    "👔 Daily Wear":["Shirt","T-shirt","Jeans","Pant","Uniform"],
+    "👗 Traditional":["Kurta","Saree","Suit","Dupatta"],
+    "👚 Women Wear":["Tops","Dress","Skirt"],
+    "🛏️ Home Items":["Bedsheet","Pillow Cover","Curtains"],
+    "🧥 Winter":["Jacket","Hoodie","Cardigan"]
+  },
 
+  dry:{
+    "👔 Formal Wear":["Blazer","Suit","Coat","Jacket","Waistcoat"],
+    "👗 Wedding Wear":["Lehenga","Sherwani","Bridal Dress","Designer Gown"],
+    "👚 Delicate":["Silk Saree","Velvet Dress","Wool Sweater"],
+    "✨ Embroidery":["Heavy Work Saree","Embroidery Kurta"],
+    "🏠 Home":["Curtains","Carpet","Blanket","Sofa Cover"],
+    "👖 Special":["Leather Jacket","Long Coat"]
+  },
+
+  washing:{
+    "👕 Daily Wear":["T-shirt","Shirt","Jeans","Pant","Shorts"],
+    "👗 Traditional":["Kurta","Suit","Dupatta","Cotton Saree"],
+    "🛏️ Home":["Bedsheet","Pillow Cover","Towel","Blanket"],
+    "👶 Special":["Baby Clothes","Gym Wear","Undergarments"]
+  }
+
+};
+
+/* ===== GET SELECTION ===== */
+const service = localStorage.getItem("service") || "ironing";
+
+const categories = Object.keys(DATA[service]);
+
+let currentCat = categories[0];
+
+/* ===== CART ===== */
 let cart = JSON.parse(localStorage.getItem("cart")||"[]");
-let currentCat = "All";
 
-/* ===== CATEGORY RENDER ===== */
+/* ===== CATEGORY UI ===== */
 cats.innerHTML = categories.map(c =>
   `<div class="cat ${c==currentCat?'active':''}" onclick="filterCat('${c}')">${c}</div>`
 ).join("");
@@ -166,34 +191,37 @@ function filterCat(c){
 /* ===== PRODUCT RENDER ===== */
 function render(){
   list.innerHTML="";
-  PRODUCTS
-    .filter(p=>currentCat=="All"||p.cat==currentCat)
-    .forEach(p=>{
-      const c = cart.find(i=>i.id==p.id);
-      list.innerHTML+=`
-        <div class="card">
-          <div class="icon">${p.icon}</div>
-          <div class="name">${p.name}</div>
-          <div class="price">₹${p.price}</div>
 
-          ${!c
-            ? `<button class="add" onclick="add(${p.id})">ADD</button>`
-            : `<div class="qty">
-                <button onclick="dec(${p.id})">−</button>
-                <b>${c.qty}</b>
-                <button onclick="inc(${p.id})">+</button>
-              </div>`
-          }
-        </div>
-      `;
-    });
+  DATA[service][currentCat].forEach((name,i)=>{
+    const id = name;
+    const price = 10; // default price (change later if needed)
+
+    const c = cart.find(x=>x.id==id);
+
+    list.innerHTML+=`
+      <div class="card">
+        <div class="icon">🧺</div>
+        <div class="name">${name}</div>
+        <div class="price">₹${price}</div>
+
+        ${!c
+          ? `<button class="add" onclick="add('${id}',${price})">ADD</button>`
+          : `<div class="qty">
+              <button onclick="dec('${id}')">−</button>
+              <b>${c.qty}</b>
+              <button onclick="inc('${id}')">+</button>
+            </div>`
+        }
+      </div>
+    `;
+  });
+
   updateCartBar();
 }
 
 /* ===== CART LOGIC ===== */
-function add(id){
-  const p = PRODUCTS.find(x=>x.id==id);
-  cart.push({...p,qty:1});
+function add(id,price){
+  cart.push({id,name:id,price,qty:1});
   save();
 }
 function inc(id){
@@ -211,7 +239,7 @@ function save(){
   render();
 }
 function updateCartBar(){
-  let total=0, count=0;
+  let total=0,count=0;
   cart.forEach(i=>{
     total+=i.price*i.qty;
     count+=i.qty;
@@ -220,6 +248,7 @@ function updateCartBar(){
   cartTotal.innerText=total;
   cartCount.innerText=count;
 }
+
 function goCart(){
   location.href="cart.html";
 }
