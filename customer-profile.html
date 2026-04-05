@@ -1,0 +1,36 @@
+<script type="module">
+import { auth, db } from "./js/firebase.js";
+
+import {
+  onAuthStateChanged
+} from "https://www.gstatic.com/firebasejs/12.11.0/firebase-auth.js";
+
+import {
+  doc,
+  getDoc
+} from "https://www.gstatic.com/firebasejs/12.11.0/firebase-firestore.js";
+
+onAuthStateChanged(auth, async user=>{
+  if(!user){
+    location.href="customer-login.html";
+    return;
+  }
+
+  const snap = await getDoc(doc(db,"users",user.uid));
+
+  if(snap.exists()){
+    const data = snap.data();
+    cname.innerText = data.name;
+    cemail.innerText = data.email;
+    cphone.innerText = data.phone || "-";
+  }
+});
+
+window.logout = ()=>{
+  location.href="customer-login.html";
+};
+
+window.goOrders = ()=>{
+  location.href="myorders.html";
+};
+</script>
