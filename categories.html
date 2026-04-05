@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>Categories</title>
+<style>
+body{font-family:Segoe UI;background:#f4f4f4;margin:0}
+.card{background:white;margin:10px;padding:14px;border-radius:10px;cursor:pointer}
+</style>
+</head>
+
+<body>
+
+<h2 style="padding:10px">Select Category</h2>
+<div id="box"></div>
+
+<script type="module">
+import { data } from "./js/data.js";
+
+const service = localStorage.getItem("service");
+const box = document.getElementById("box");
+
+const categories = data[service];
+
+for(let key in categories){
+  const c = categories[key];
+
+  box.innerHTML += `
+    <div class="card" onclick="go('${key}')">
+      ${c.title}
+    </div>
+  `;
+}
+
+window.go = function(cat){
+  localStorage.setItem("category",cat);
+  location.href="products.html";
+};
+</script>
+
+</body>
+</html>
