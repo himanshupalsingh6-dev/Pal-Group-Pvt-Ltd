@@ -1,0 +1,232 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>QuickPress – Products</title>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+
+<style>
+:root{
+  --yellow:#FFD400;
+  --bg:#f6f7f9;
+}
+*{box-sizing:border-box}
+body{
+  margin:0;
+  font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto;
+  background:var(--bg);
+}
+
+/* ===== PAGE ===== */
+.page{
+  padding:18px;
+}
+h2{
+  margin-bottom:12px;
+}
+
+/* ===== CATEGORY ===== */
+.cats{
+  display:flex;
+  gap:10px;
+  overflow-x:auto;
+  margin-bottom:16px;
+}
+.cat{
+  padding:8px 14px;
+  background:#fff;
+  border-radius:20px;
+  font-weight:800;
+  cursor:pointer;
+  white-space:nowrap;
+}
+.cat.active{
+  background:var(--yellow);
+}
+
+/* ===== PRODUCTS ===== */
+.products{
+  display:grid;
+  grid-template-columns:repeat(2,1fr);
+  gap:14px;
+}
+.card{
+  background:#fff;
+  border-radius:18px;
+  padding:14px;
+  box-shadow:0 6px 14px rgba(0,0,0,.08);
+  text-align:center;
+}
+.icon{
+  font-size:42px;
+}
+.name{
+  font-weight:900;
+  margin-top:6px;
+}
+.price{
+  font-weight:800;
+  margin:4px 0;
+}
+.add{
+  margin-top:10px;
+  width:100%;
+  padding:10px;
+  border:none;
+  background:var(--yellow);
+  border-radius:14px;
+  font-weight:900;
+}
+.qty{
+  margin-top:10px;
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  background:#f1f1f1;
+  border-radius:14px;
+  padding:6px 12px;
+}
+.qty button{
+  border:none;
+  background:#000;
+  color:#fff;
+  width:30px;
+  height:30px;
+  border-radius:50%;
+}
+
+/* ===== CART BAR ===== */
+.cart-bar{
+  position:fixed;
+  bottom:0;
+  left:0;
+  right:0;
+  background:#fff;
+  padding:14px;
+  box-shadow:0 -2px 10px rgba(0,0,0,.15);
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+}
+.cart-bar button{
+  padding:10px 16px;
+  border:none;
+  background:var(--yellow);
+  border-radius:20px;
+  font-weight:900;
+}
+</style>
+</head>
+
+<body>
+
+<div class="page">
+  <h2>Select Items</h2>
+
+  <!-- CATEGORY -->
+  <div class="cats" id="cats"></div>
+
+  <!-- PRODUCTS -->
+  <div class="products" id="list"></div>
+</div>
+
+<!-- CART BAR -->
+<div class="cart-bar" id="cartBar" style="display:none">
+  <div><b id="cartCount">0</b> items • ₹<b id="cartTotal">0</b></div>
+  <button onclick="goCart()">View Cart</button>
+</div>
+
+<script>
+/* ===== DATA ===== */
+const PRODUCTS = [
+  {id:1,name:"Shirt",price:10,cat:"Clothes",icon:"👕"},
+  {id:2,name:"Pant",price:12,cat:"Clothes",icon:"👖"},
+  {id:3,name:"Saree",price:25,cat:"Clothes",icon:"🥻"},
+  {id:4,name:"Coat",price:30,cat:"Winter",icon:"🧥"},
+  {id:5,name:"Sweater",price:20,cat:"Winter",icon:"🧶"},
+];
+
+const categories = ["All","Clothes","Winter"];
+
+let cart = JSON.parse(localStorage.getItem("cart")||"[]");
+let currentCat = "All";
+
+/* ===== CATEGORY RENDER ===== */
+cats.innerHTML = categories.map(c =>
+  `<div class="cat ${c==currentCat?'active':''}" onclick="filterCat('${c}')">${c}</div>`
+).join("");
+
+function filterCat(c){
+  currentCat=c;
+  document.querySelectorAll(".cat").forEach(x=>x.classList.remove("active"));
+  [...document.querySelectorAll(".cat")].find(x=>x.innerText==c).classList.add("active");
+  render();
+}
+
+/* ===== PRODUCT RENDER ===== */
+function render(){
+  list.innerHTML="";
+  PRODUCTS
+    .filter(p=>currentCat=="All"||p.cat==currentCat)
+    .forEach(p=>{
+      const c = cart.find(i=>i.id==p.id);
+      list.innerHTML+=`
+        <div class="card">
+          <div class="icon">${p.icon}</div>
+          <div class="name">${p.name}</div>
+          <div class="price">₹${p.price}</div>
+
+          ${!c
+            ? `<button class="add" onclick="add(${p.id})">ADD</button>`
+            : `<div class="qty">
+                <button onclick="dec(${p.id})">−</button>
+                <b>${c.qty}</b>
+                <button onclick="inc(${p.id})">+</button>
+              </div>`
+          }
+        </div>
+      `;
+    });
+  updateCartBar();
+}
+
+/* ===== CART LOGIC ===== */
+function add(id){
+  const p = PRODUCTS.find(x=>x.id==id);
+  cart.push({...p,qty:1});
+  save();
+}
+function inc(id){
+  cart.find(i=>i.id==id).qty++;
+  save();
+}
+function dec(id){
+  const i = cart.findIndex(x=>x.id==id);
+  cart[i].qty--;
+  if(cart[i].qty==0) cart.splice(i,1);
+  save();
+}
+function save(){
+  localStorage.setItem("cart",JSON.stringify(cart));
+  render();
+}
+function updateCartBar(){
+  let total=0, count=0;
+  cart.forEach(i=>{
+    total+=i.price*i.qty;
+    count+=i.qty;
+  });
+  cartBar.style.display = cart.length?"flex":"none";
+  cartTotal.innerText=total;
+  cartCount.innerText=count;
+}
+function goCart(){
+  location.href="cart.html";
+}
+
+/* INIT */
+render();
+</script>
+
+</body>
+</html>
