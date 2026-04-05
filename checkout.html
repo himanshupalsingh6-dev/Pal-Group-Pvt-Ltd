@@ -1,0 +1,46 @@
+<script type="module">
+import { auth, db } from "./js/firebase.js";
+
+import {
+  onAuthStateChanged
+} from "https://www.gstatic.com/firebasejs/12.11.0/firebase-auth.js";
+
+import {
+  collection,
+  addDoc,
+  serverTimestamp,
+  doc,
+  getDoc
+} from "https://www.gstatic.com/firebasejs/12.11.0/firebase-firestore.js";
+
+let currentUser;
+
+onAuthStateChanged(auth, async user=>{
+  if(!user){
+    location.href="customer-login.html";
+    return;
+  }
+
+  currentUser = user;
+
+  const snap = await getDoc(doc(db,"users",user.uid));
+  if(snap.exists()){
+    address.value = snap.data().address || "";
+  }
+});
+
+window.placeOrder = async function(){
+  const cart = JSON.parse(localStorage.getItem("cart")||"[]");
+
+  await addDoc(collection(db,"orders"),{
+    userId: currentUser.uid,
+    items: cart,
+    grandTotal:100,
+    status:"Placed",
+    createdAt: serverTimestamp()
+  });
+
+  localStorage.removeItem("cart");
+  location.href="myorders.html";
+};
+</script>
