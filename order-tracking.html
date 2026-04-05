@@ -15,7 +15,32 @@
     .done{background:#2ecc71}
     .label{font-size:14px;color:#333}
     .small{font-size:12px;color:#777}
-    .btn{width:100%;padding:10px;margin-top:10px;border:none;border-radius:10px;color:white;background:#2196f3;font-size:14px}
+
+    .profile{
+      display:flex;
+      align-items:center;
+      gap:10px;
+      margin-top:10px;
+    }
+    .profile img{
+      width:40px;
+      height:40px;
+      border-radius:50%;
+      object-fit:cover;
+    }
+
+    .btn{
+      width:100%;
+      padding:12px;
+      margin-top:10px;
+      border:none;
+      border-radius:10px;
+      font-weight:bold;
+      cursor:pointer;
+    }
+
+    .whatsapp{background:#25D366;color:white}
+    .home{background:#ff9800;color:white}
   </style>
 </head>
 <body>
@@ -29,33 +54,39 @@
 
     <div class="timeline" id="timelineBox"></div>
 
-    <button class="btn" id="mapBtn" style="display:none" onclick="openMap()">Open Map</button>
+    <!-- Partner -->
+    <div id="partnerBox"></div>
+
+    <!-- Delivery -->
+    <div id="deliveryBox"></div>
+
+    <!-- Buttons -->
+    <button class="btn whatsapp" onclick="contactWhatsApp()">📲 Contact on WhatsApp</button>
+    <button class="btn home" onclick="goHome()">🏠 Go to Home</button>
   </div>
 </div>
 
-<!-- ✅ FIREBASE FIXED -->
 <script type="module">
 import { db } from "./js/firebase.js";
-
 import {
   doc,
+  getDoc,
   onSnapshot
 } from "https://www.gstatic.com/firebasejs/12.11.0/firebase-firestore.js";
 
-/* ORDER ID */
 const orderId = localStorage.getItem("lastOrderId");
-
-if(!orderId){
-  alert("No order found");
-}
 
 const oidEl = document.getElementById("oid");
 const totalEl = document.getElementById("total");
 const timelineBox = document.getElementById("timelineBox");
-const mapBtn = document.getElementById("mapBtn");
+const partnerBox = document.getElementById("partnerBox");
+const deliveryBox = document.getElementById("deliveryBox");
 
 oidEl.innerText = orderId;
 
+let currentPhone = "";
+
+/* STEP UI */
 function step(label, active){
   return `
     <div class="step">
@@ -68,37 +99,75 @@ function step(label, active){
   `;
 }
 
-/* REALTIME TRACKING */
-onSnapshot(doc(db,"orders",orderId),(snap)=>{
-  if(!snap.exists()){
-    timelineBox.innerHTML = "<div class='small'>Order not found</div>";
-    return;
-  }
+/* TRACK */
+onSnapshot(doc(db,"orders",orderId), async (snap)=>{
+  if(!snap.exists()) return;
 
   const o = snap.data();
-  const status = o.status || "Placed";
+  const s = o.status || "Placed";
 
   totalEl.innerText = o.grandTotal || 0;
 
   timelineBox.innerHTML = `
     ${step("Order Placed", true)}
-    ${step("Partner Assigned", status==="Assigned" || status==="Accepted" || status==="Ready" || status==="Picked" || status==="Delivered")}
-    ${step("Partner Accepted", status==="Accepted" || status==="Ready" || status==="Picked" || status==="Delivered")}
-    ${step("Ironing Ready", status==="Ready" || status==="Picked" || status==="Delivered")}
-    ${step("Picked by Delivery Boy", status==="Picked" || status==="Delivered")}
-    ${step("Delivered", status==="Delivered")}
+    ${step("Partner Assigned", s==="Assigned"||s==="Accepted"||s==="Ready"||s==="Picked"||s==="Delivered")}
+    ${step("Ready", s==="Ready"||s==="Picked"||s==="Delivered")}
+    ${step("Picked", s==="Picked"||s==="Delivered")}
+    ${step("Delivered", s==="Delivered")}
   `;
 
-  if(o.mapLink){
-    mapBtn.style.display = "block";
-    window.currentMapLink = o.mapLink;
+  /* PARTNER */
+  if(o.partnerId){
+    const p = await getDoc(doc(db,"partners",o.partnerId));
+    if(p.exists()){
+      const data = p.data();
+      partnerBox.innerHTML = `
+        <h4>🧺 Partner</h4>
+        <div class="profile">
+          <img src="${data.photo || 'https://via.placeholder.com/40'}">
+          <div>
+            <b>${data.name}</b><br>
+            ${data.phone || ""}
+          </div>
+        </div>
+      `;
+      currentPhone = data.phone;
+    }
   }
+
+  /* DELIVERY */
+  if(o.deliveryId){
+    const d = await getDoc(doc(db,"delivery",o.deliveryId));
+    if(d.exists()){
+      const data = d.data();
+      deliveryBox.innerHTML = `
+        <h4>🚚 Delivery Boy</h4>
+        <div class="profile">
+          <img src="${data.photo || 'https://via.placeholder.com/40'}">
+          <div>
+            <b>${data.name}</b><br>
+            ${data.phone || ""}
+          </div>
+        </div>
+      `;
+      currentPhone = data.phone;
+    }
+  }
+
 });
 
-window.openMap = ()=>{
-  if(window.currentMapLink){
-    window.open(window.currentMapLink,"_blank");
+/* WHATSAPP */
+window.contactWhatsApp = ()=>{
+  if(!currentPhone){
+    alert("Contact not available yet");
+    return;
   }
+  window.open(`https://wa.me/${currentPhone}`,"_blank");
+};
+
+/* HOME */
+window.goHome = ()=>{
+  location.href = "index.html";
 };
 </script>
 
