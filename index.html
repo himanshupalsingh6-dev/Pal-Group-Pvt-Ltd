@@ -1,0 +1,540 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>QuickPress – 10 Minute Ironing</title>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+
+<style>
+:root{
+  --yellow:#FFD400;
+  --bg:#f6f7f9;
+  --black:#111;
+}
+*{box-sizing:border-box}
+body{
+  margin:0;
+  font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto;
+  background:var(--bg);
+  color:#000;
+}
+
+/* ================= NAVBAR ================= */
+.nav{
+  position:sticky;
+  top:0;
+  z-index:1000;
+  background:#fff;
+  padding:12px 16px;
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  box-shadow:0 2px 10px rgba(0,0,0,.1);
+}
+.nav-left{
+  display:flex;
+  align-items:center;
+  gap:12px;
+}
+.logo{
+  font-size:20px;
+  font-weight:900;
+}
+.location{
+  font-size:13px;
+  font-weight:700;
+  color:#555;
+  cursor:pointer;
+}
+.nav-links{
+  display:flex;
+  align-items:center;
+  gap:16px;
+}
+.nav-links a{
+  text-decoration:none;
+  font-weight:800;
+  color:#000;
+  font-size:14px;
+}
+.cart{
+  background:var(--yellow);
+  padding:6px 14px;
+  border-radius:20px;
+  font-weight:900;
+}
+.dropdown{
+  position:relative;
+  font-weight:800;
+  cursor:pointer;
+}
+.dropdown-menu{
+  display:none;
+  position:absolute;
+  top:28px;
+  right:0;
+  background:#fff;
+  border-radius:14px;
+  box-shadow:0 10px 30px rgba(0,0,0,.15);
+  overflow:hidden;
+  min-width:180px;
+}
+.dropdown-menu a{
+  display:block;
+  padding:10px 14px;
+}
+.dropdown:hover .dropdown-menu{
+  display:block;
+}
+.burger{
+  display:none;
+  font-size:22px;
+  cursor:pointer;
+}
+
+/* MOBILE */
+@media(max-width:900px){
+  .nav-links{
+    position:fixed;
+    top:60px;
+    right:0;
+    height:100%;
+    width:260px;
+    background:#fff;
+    flex-direction:column;
+    align-items:flex-start;
+    padding:16px;
+    gap:14px;
+    transform:translateX(100%);
+    transition:.3s;
+    box-shadow:-4px 0 20px rgba(0,0,0,.2);
+  }
+  .nav-links.show{transform:translateX(0)}
+  .burger{display:block}
+}
+
+/* ================= HERO ================= */
+.hero{
+  padding:32px 18px;
+}
+.hero h1{
+  font-size:30px;
+  font-weight:900;
+}
+.hero span{
+  background:var(--yellow);
+  padding:2px 8px;
+  border-radius:6px;
+}
+.hero p{
+  margin-top:8px;
+  color:#444;
+}
+.hero button{
+  margin-top:18px;
+  width:100%;
+  padding:14px;
+  border:none;
+  border-radius:14px;
+  background:var(--yellow);
+  font-weight:900;
+}
+
+/* ================= STATS ================= */
+.stats{
+  display:grid;
+  grid-template-columns:repeat(3,1fr);
+  gap:12px;
+  padding:18px;
+}
+.stat{
+  background:#fff;
+  border-radius:16px;
+  padding:14px;
+  text-align:center;
+  box-shadow:0 6px 14px rgba(0,0,0,.08);
+}
+
+/* ================= SERVICES ================= */
+.section{
+  padding:18px;
+}
+.services{
+  display:grid;
+  grid-template-columns:repeat(2,1fr);
+  gap:12px;
+}
+.card{
+  background:#fff;
+  border-radius:18px;
+  padding:18px;
+  text-align:center;
+  box-shadow:0 6px 14px rgba(0,0,0,.08);
+}
+</style>
+</head>
+
+<body>
+
+<!-- ================= NAVBAR ================= -->
+<div class="nav">
+  <div class="nav-left">
+    <div class="logo">⚡ QuickPress</div>
+    <div class="location">📍 Select Location</div>
+  </div>
+
+  <div class="nav-links" id="navLinks">
+    <a href="index.html">Home</a>
+    <a href="#services">Services</a>
+    <a href="#pricing">Pricing</a>
+    <a href="products.html">Order</a>
+
+    <div class="dropdown">
+      <span>More ▾</span>
+      <div class="dropdown-menu">
+        <a href="#">Partner with Us</a>
+        <a href="#">Delivery Partner</a>
+        <a href="#">Help & Support</a>
+        <a href="#">About</a>
+        <a href="#">Contact</a>
+      </div>
+    </div>
+
+<!-- LOGIN / ACCOUNT -->
+    <div class="cart">🛒 0</div>
+  </div>
+
+  <div class="burger" onclick="toggleMenu()">☰</div>
+</div>
+
+<!-- ================= HERO ================= -->
+<div class="hero">
+  <h1>Professional Press <span>At Home</span></h1>
+  <p>No more waiting, no more wrinkles</p>
+  <button onclick="location.href='products.html'">Get Started</button>
+</div>
+
+<!-- ================= STATS ================= -->
+<div class="stats">
+  <div class="stat"><b>4.9 ★</b><br>Rating</div>
+  <div class="stat"><b>7K+</b><br>Orders</div>
+  <div class="stat"><b>25+</b><br>Partners</div>
+</div>
+
+<!-- ================= SERVICES ================= -->
+<div class="section" id="services">
+  <h2>Services</h2>
+  <div class="services">
+    <div class="card">👕 Shirts</div>
+    <div class="card">👖 Pants</div>
+    <div class="card">🥻 Saree</div>
+    <div class="card">🧥 Coat</div>
+  </div>
+</div>
+
+<script>
+function toggleMenu(){
+  document.getElementById("navLinks").classList.toggle("show");
+}
+</script>
+<!-- ================= CUSTOMER REVIEWS (DROP-IN BLOCK) ================= -->
+<style>
+/* Reviews section */
+.qp-reviews{
+  padding:18px;
+}
+.qp-reviews h2{
+  margin:0 0 12px;
+}
+.qp-reviews-row{
+  display:flex;
+  gap:14px;
+  overflow-x:auto;
+  padding-bottom:6px;
+}
+.qp-review{
+  min-width:220px;
+  background:#fff;
+  border-radius:16px;
+  padding:14px;
+  box-shadow:0 6px 14px rgba(0,0,0,.08);
+}
+.qp-review b{
+  display:block;
+  margin-bottom:6px;
+}
+.qp-review p{
+  font-size:14px;
+  color:#444;
+  margin:0 0 6px;
+}
+.qp-review .stars{
+  color:#FFD400;
+  font-size:14px;
+}
+</style>
+
+<div class="qp-reviews">
+  <h2>Customer Reviews</h2>
+
+  <div class="qp-reviews-row">
+    <div class="qp-review">
+      <b>Rohit</b>
+      <p>Fast service 🔥 Clothes perfectly ironed.</p>
+      <div class="stars">★★★★★</div>
+    </div>
+
+    <div class="qp-review">
+      <b>Anjali</b>
+      <p>Very convenient and affordable.</p>
+      <div class="stars">★★★★★</div>
+    </div>
+
+    <div class="qp-review">
+      <b>Amit</b>
+      <p>Best ironing service near my home.</p>
+      <div class="stars">★★★★☆</div>
+    </div>
+  </div>
+</div>
+<!-- ================= END CUSTOMER REVIEWS ================= -->
+<!-- ================= AUTO SLIDE REVIEWS + FOOTER STATS (DROP-IN) ================= -->
+<style>
+/* ===== Reviews ===== */
+.qp-reviews{
+  padding:18px;
+}
+.qp-reviews h2{
+  margin:0 0 12px;
+}
+.qp-reviews-row{
+  display:flex;
+  gap:14px;
+  overflow:hidden;
+}
+.qp-reviews-track{
+  display:flex;
+  gap:14px;
+  animation: qp-slide 18s linear infinite;
+}
+.qp-review{
+  min-width:220px;
+  background:#fff;
+  border-radius:16px;
+  padding:14px;
+  box-shadow:0 6px 14px rgba(0,0,0,.08);
+}
+.qp-review b{display:block;margin-bottom:6px}
+.qp-review p{font-size:14px;color:#444;margin:0 0 6px}
+.qp-review .stars{color:#FFD400;font-size:14px}
+
+@keyframes qp-slide{
+  0%{transform:translateX(0)}
+  100%{transform:translateX(-50%)}
+}
+
+/* ===== Footer Stats ===== */
+.qp-footer{
+  background:#fff;
+  margin-top:28px;
+  padding:22px 18px 90px;
+  box-shadow:0 -2px 10px rgba(0,0,0,.06);
+}
+.qp-stats{
+  display:grid;
+  grid-template-columns:repeat(3,1fr);
+  gap:12px;
+}
+.qp-stat{
+  background:#f6f7f9;
+  border-radius:16px;
+  padding:14px;
+  text-align:center;
+  font-weight:800;
+}
+.qp-stat span{
+  display:block;
+  font-size:20px;
+}
+.qp-copy{
+  margin-top:14px;
+  text-align:center;
+  color:#555;
+  font-size:13px;
+}
+</style>
+
+<!-- REVIEWS -->
+<div class="qp-reviews">
+  <h2>Customer Reviews</h2>
+  <div class="qp-reviews-row">
+    <div class="qp-reviews-track">
+      <!-- set 1 -->
+      <div class="qp-review">
+        <b>Rohit</b>
+        <p>Fast service 🔥 Clothes perfectly ironed.</p>
+        <div class="stars">★★★★★</div>
+      </div>
+      <div class="qp-review">
+        <b>Anjali</b>
+        <p>Very convenient and affordable.</p>
+        <div class="stars">★★★★★</div>
+      </div>
+      <div class="qp-review">
+        <b>Amit</b>
+        <p>Best ironing service near my home.</p>
+        <div class="stars">★★★★☆</div>
+      </div>
+
+      <!-- duplicate set for smooth loop -->
+      <div class="qp-review">
+        <b>Rohit</b>
+        <p>Fast service 🔥 Clothes perfectly ironed.</p>
+        <div class="stars">★★★★★</div>
+      </div>
+      <div class="qp-review">
+        <b>Anjali</b>
+        <p>Very convenient and affordable.</p>
+        <div class="stars">★★★★★</div>
+      </div>
+      <div class="qp-review">
+        <b>Amit</b>
+        <p>Best ironing service near my home.</p>
+        <div class="stars">★★★★☆</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- FOOTER STATS -->
+<div class="qp-footer">
+  <div class="qp-stats">
+    <div class="qp-stat">
+      <span id="qpOrders">7,248</span>
+      Total Orders
+    </div>
+    <div class="qp-stat">
+      <span id="qpDeliveries">6,931</span>
+      Total Deliveries
+    </div>
+    <div class="qp-stat">
+      <span id="qpPartners">25+</span>
+      Partners
+    </div>
+  </div>
+  <div class="qp-copy">
+    © 2026 QuickPress • Fast Ironing & Doorstep Delivery
+  </div>
+</div>
+
+<script>
+/* OPTIONAL: number animation on load */
+function animateCount(id, end){
+  let el=document.getElementById(id), cur=0;
+  const step=Math.ceil(end/60);
+  const t=setInterval(()=>{
+    cur+=step;
+    if(cur>=end){cur=end;clearInterval(t)}
+    el.innerText=cur.toLocaleString();
+  },20);
+}
+animateCount("qpOrders",7248);
+animateCount("qpDeliveries",6931);
+</script>
+<!-- ================= END BLOCK ================= -->
+<script>
+/* REMOVE DUPLICATE (UPPER) CUSTOMER REVIEWS */
+const reviewHeadings = document.querySelectorAll("h2");
+let found = false;
+
+reviewHeadings.forEach(h => {
+  if (h.innerText.trim() === "Customer Reviews") {
+    if (!found) {
+      // pehla (upar wala) remove
+      const section = h.parentElement;
+      section && (section.style.display = "none");
+      found = true;
+    }
+  }
+});
+</script>
+<!-- MOBILE BOTTOM NAV -->
+<div class="mobile-nav">
+  <div onclick="go('index.html')">🏠<br>Home</div>
+  <div onclick="go('products.html')">🛒<br>Order</div>
+  <div onclick="goAccount()">👤<br>My Account</div>
+</div>
+
+<style>
+.mobile-nav{
+  position:fixed;
+  bottom:0;
+  left:0;
+  right:0;
+  height:60px;
+  background:#fff;
+  display:flex;
+  justify-content:space-around;
+  align-items:center;
+  box-shadow:0 -2px 10px rgba(0,0,0,.1);
+  z-index:999;
+}
+.mobile-nav div{
+  text-align:center;
+  font-size:12px;
+  font-weight:700;
+}
+@media(min-width:768px){
+  .mobile-nav{display:none;}
+}
+</style>
+
+<script>
+function go(p){ location.href=p }
+
+function goAccount(){
+  location.href="account.html";
+}
+</script>
+<!-- ================= MOBILE BOTTOM NAV ================= -->
+<div class="mobile-nav">
+  <div onclick="go('index.html')">🏠<br>Home</div>
+  <div onclick="go('products.html')">🛒<br>Order</div>
+  <div onclick="goAccount()">👤<br>My Account</div>
+</div>
+
+<style>
+.mobile-nav{
+  position:fixed;
+  bottom:0;
+  left:0;
+  right:0;
+  height:60px;
+  background:#fff;
+  display:flex;
+  justify-content:space-around;
+  align-items:center;
+  box-shadow:0 -2px 10px rgba(0,0,0,.1);
+  z-index:9999;
+}
+.mobile-nav div{
+  text-align:center;
+  font-size:12px;
+  font-weight:800;
+}
+@media(min-width:768px){
+  .mobile-nav{display:none;}
+}
+</style>
+
+<script>
+function go(p){
+  location.href = p;
+}
+function goAccount(){
+  location.href = "account.html";
+}
+</script>
+
+</body>
+</html>
