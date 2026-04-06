@@ -2,19 +2,12 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8">
-<title>QuickPress – 10 Minute Ironing</title>
+<title>QuickPress</title>
 <meta name="viewport" content="width=device-width, initial-scale=1">
 
 <style>
-:root{
-  --yellow:#FFD400;
-  --bg:#f6f7f9;
-}
-body{
-  margin:0;
-  font-family:Segoe UI;
-  background:var(--bg);
-}
+:root{--yellow:#FFD400;--bg:#f6f7f9}
+body{margin:0;font-family:Segoe UI;background:var(--bg)}
 
 /* NAV */
 .nav{
@@ -24,12 +17,7 @@ body{
   justify-content:space-between;
   box-shadow:0 2px 10px rgba(0,0,0,.1);
 }
-.logo{font-weight:bold}
-.cart{
-  background:var(--yellow);
-  padding:6px 14px;
-  border-radius:20px;
-}
+.cart{background:var(--yellow);padding:6px 12px;border-radius:20px}
 
 /* HERO */
 .hero{padding:20px}
@@ -44,16 +32,79 @@ body{
 
 /* SECTION */
 .section{padding:18px}
-.services{
-  display:grid;
-  grid-template-columns:1fr 1fr;
-  gap:12px;
-}
+.services{display:grid;grid-template-columns:1fr 1fr;gap:12px}
 .card{
   background:#fff;
   padding:16px;
   border-radius:14px;
   text-align:center;
+}
+
+/* HOW WORK */
+.steps{
+  display:flex;
+  justify-content:space-between;
+  gap:10px;
+}
+.step{
+  flex:1;
+  text-align:center;
+}
+.circle{
+  width:60px;height:60px;
+  background:var(--yellow);
+  border-radius:50%;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  margin:auto;
+  font-size:22px;
+  font-weight:bold;
+}
+
+/* REVIEWS */
+.reviews{
+  overflow:hidden;
+}
+.track{
+  display:flex;
+  gap:12px;
+  animation:slide 15s linear infinite;
+}
+.review{
+  min-width:200px;
+  background:#fff;
+  padding:14px;
+  border-radius:12px;
+}
+@keyframes slide{
+  0%{transform:translateX(0)}
+  100%{transform:translateX(-50%)}
+}
+
+/* LIVE */
+.live{
+  background:#fff;
+  padding:18px;
+  border-radius:14px;
+  text-align:center;
+}
+
+/* BOTTOM NAV */
+.bottom{
+  position:fixed;
+  bottom:0;
+  left:0;
+  right:0;
+  background:#fff;
+  display:flex;
+  justify-content:space-around;
+  padding:10px;
+  box-shadow:0 -2px 10px rgba(0,0,0,.1);
+}
+.bottom div{
+  text-align:center;
+  font-size:12px;
 }
 </style>
 </head>
@@ -62,14 +113,14 @@ body{
 
 <!-- NAV -->
 <div class="nav">
-  <div class="logo">⚡ QuickPress</div>
+  ⚡ QuickPress
   <div class="cart">🛒 <span id="cartCount">0</span></div>
 </div>
 
 <!-- HERO -->
 <div class="hero">
-  <h1>Professional Press <span style="background:#FFD400">At Home</span></h1>
-  <p>No more waiting, no more wrinkles</p>
+  <h1>Fast Laundry <span style="background:#FFD400">At Home</span></h1>
+  <p>Doorstep ironing & cleaning</p>
   <button onclick="goProducts()">Order Now</button>
 </div>
 
@@ -79,61 +130,74 @@ body{
   <div class="services">
     <div class="card" onclick="selectService('ironing')">🧺 Ironing</div>
     <div class="card" onclick="selectService('washing')">🧽 Washing</div>
-    <div class="card" onclick="selectService('dry')">🧼 Dry Cleaning</div>
+    <div class="card" onclick="selectService('dry')">🧼 Dry Clean</div>
     <div class="card">🚚 Delivery</div>
   </div>
 </div>
 
-<!-- PRICING -->
-<div class="section">
-  <h2>Pricing</h2>
-  <div class="services">
-    <div class="card">👕 Shirt ₹10</div>
-    <div class="card">👖 Pant ₹12</div>
-    <div class="card">🥻 Saree ₹25</div>
-    <div class="card">🧥 Coat ₹30</div>
-  </div>
-</div>
-
-<!-- HOW IT WORKS -->
+<!-- HOW IT WORK -->
 <div class="section">
   <h2>How It Works</h2>
-  <div class="services">
-    <div class="card">📦 Book</div>
-    <div class="card">🚚 Pickup</div>
-    <div class="card">🔥 Process</div>
-    <div class="card">🏠 Deliver</div>
+  <div class="steps">
+    <div class="step">
+      <div class="circle">1</div>
+      <p>Book</p>
+    </div>
+    <div class="step">
+      <div class="circle">2</div>
+      <p>Pickup</p>
+    </div>
+    <div class="step">
+      <div class="circle">3</div>
+      <p>Process</p>
+    </div>
+    <div class="step">
+      <div class="circle">4</div>
+      <p>Deliver</p>
+    </div>
   </div>
 </div>
 
-<!-- QUICK ADD -->
+<!-- LIVE -->
 <div class="section">
-  <h2>Quick Add</h2>
-  <div class="services">
-    <div class="card" onclick="quickAdd('Shirt')">👕 Shirt</div>
-    <div class="card" onclick="quickAdd('Pant')">👖 Pant</div>
+  <div class="live">
+    🚀 <b>We Are Live in Your City</b><br>
+    Fast pickup & delivery within hours
   </div>
 </div>
 
-<!-- ACCOUNT -->
+<!-- REVIEWS -->
 <div class="section">
-  <h2>My Account</h2>
-  <div class="services">
-    <div class="card" onclick="go('myorders.html')">📦 Orders</div>
-    <div class="card" onclick="go('account.html')">👤 Profile</div>
-  </div>
-</div>
+  <h2>Customer Reviews</h2>
+  <div class="reviews">
+    <div class="track">
+      <div class="review">🔥 Amazing service ★★★★★</div>
+      <div class="review">Fast delivery 🚚</div>
+      <div class="review">Best ironing service 👕</div>
+      <div class="review">Very affordable 💰</div>
 
-<!-- FOOTER -->
-<div class="section">
-  <div class="card">© 2026 QuickPress</div>
+      <!-- duplicate for loop -->
+      <div class="review">🔥 Amazing service ★★★★★</div>
+      <div class="review">Fast delivery 🚚</div>
+      <div class="review">Best ironing service 👕</div>
+      <div class="review">Very affordable 💰</div>
+    </div>
+  </div>
 </div>
 
 <!-- WHATSAPP -->
 <a href="https://wa.me/919999999999" target="_blank"
-style="position:fixed;bottom:20px;right:20px;background:#25D366;color:white;padding:16px;border-radius:50%">
+style="position:fixed;bottom:80px;right:20px;background:#25D366;color:white;padding:14px;border-radius:50%">
 📲
 </a>
+
+<!-- BOTTOM NAV -->
+<div class="bottom">
+  <div onclick="go('index.html')">🏠<br>Home</div>
+  <div onclick="goProducts()">🛒<br>Services</div>
+  <div onclick="go('account.html')">👤<br>Account</div>
+  <div onclick="go('myorders.html')">📦<br>Orders</div>
+</div>
 
 <script>
 function go(p){location.href=p}
@@ -145,19 +209,6 @@ function goProducts(){
 function selectService(s){
   localStorage.setItem("service",s);
   location.href="products.html";
-}
-
-function quickAdd(name){
-  let cart = JSON.parse(localStorage.getItem("cart")||"[]");
-
-  const exist = cart.find(i=>i.name===name);
-
-  if(exist) exist.qty++;
-  else cart.push({name,price:10,qty:1});
-
-  localStorage.setItem("cart",JSON.stringify(cart));
-
-  alert("Added to cart");
 }
 
 /* CART COUNT */
