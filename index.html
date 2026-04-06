@@ -9,6 +9,9 @@
 :root{--yellow:#FFD400;--bg:#f6f7f9}
 body{margin:0;font-family:Segoe UI;background:var(--bg)}
 
+/* GLOBAL */
+*{transition:0.25s ease}
+
 /* NAV */
 .nav{
   position:sticky;
@@ -19,6 +22,7 @@ body{margin:0;font-family:Segoe UI;background:var(--bg)}
   justify-content:space-between;
   box-shadow:0 2px 10px rgba(0,0,0,.1);
   transition:0.3s;
+  backdrop-filter: blur(10px);
 }
 .cart{background:var(--yellow);padding:6px 12px;border-radius:20px}
 
@@ -32,6 +36,7 @@ body{margin:0;font-family:Segoe UI;background:var(--bg)}
   border:none;
   border-radius:10px;
 }
+button:active{transform:scale(0.95)}
 
 /* SECTION */
 .section{padding:18px}
@@ -41,21 +46,25 @@ body{margin:0;font-family:Segoe UI;background:var(--bg)}
   padding:16px;
   border-radius:14px;
   text-align:center;
+  position:relative;
+  overflow:hidden;
+}
+.card:hover{
+  transform:translateY(-5px) scale(1.02);
+  box-shadow:0 10px 25px rgba(0,0,0,.15);
 }
 
-/* HOW WORK */
+/* HOW */
 .how-wrap{display:flex;flex-direction:column;gap:10px}
 .how-step{
   display:flex;
-  align-items:center;
   gap:12px;
   background:#fff;
   padding:14px;
   border-radius:16px;
   box-shadow:0 6px 14px rgba(0,0,0,.08);
-  transition:.3s;
 }
-.how-step:hover{transform:scale(1.02)}
+.how-step:hover{transform:translateX(6px)}
 .how-icon{
   width:50px;height:50px;
   background:var(--yellow);
@@ -63,22 +72,23 @@ body{margin:0;font-family:Segoe UI;background:var(--bg)}
   display:flex;
   align-items:center;
   justify-content:center;
-  font-size:22px;
 }
 .how-line{
-  height:20px;width:3px;
-  background:var(--yellow);
-  margin-left:24px;
+  height:20px;width:3px;background:var(--yellow);margin-left:24px;
 }
 
 /* REVIEWS */
 .reviews{overflow:hidden}
-.track{display:flex;gap:12px;animation:slide 15s linear infinite}
+.track{display:flex;gap:12px;animation:slide 25s linear infinite}
 .review{min-width:200px;background:#fff;padding:14px;border-radius:12px}
 @keyframes slide{
   0%{transform:translateX(0)}
   100%{transform:translateX(-50%)}
 }
+
+/* FADE */
+.fade{opacity:0;transform:translateY(20px)}
+.fade.show{opacity:1;transform:translateY(0)}
 
 /* BOTTOM NAV */
 .bottom{
@@ -93,6 +103,13 @@ body{margin:0;font-family:Segoe UI;background:var(--bg)}
   box-shadow:0 -2px 10px rgba(0,0,0,.1);
 }
 .bottom div{text-align:center;font-size:12px}
+
+/* RIPPLE */
+@keyframes ripple{
+  from{transform:scale(1);opacity:1}
+  to{transform:scale(6);opacity:0}
+}
+.card,button{position:relative;overflow:hidden}
 </style>
 </head>
 
@@ -105,7 +122,7 @@ body{margin:0;font-family:Segoe UI;background:var(--bg)}
 </div>
 
 <!-- HERO -->
-<div class="hero">
+<div class="hero section">
   <h1>Fast Laundry <span style="background:#FFD400">At Home</span></h1>
   <p>Doorstep ironing & cleaning</p>
   <button onclick="goProducts()">Order Now</button>
@@ -122,48 +139,35 @@ body{margin:0;font-family:Segoe UI;background:var(--bg)}
   </div>
 </div>
 
-<!-- HOW IT WORK -->
+<!-- HOW -->
 <div class="section">
   <h2>How It Works</h2>
-
   <div class="how-wrap">
 
     <div class="how-step">
       <div class="how-icon">📦</div>
-      <div>
-        <b>Book Order</b>
-        <small>Select service & add clothes easily</small>
-      </div>
+      <div><b>Book Order</b><br><small>Select service & add clothes</small></div>
     </div>
 
     <div class="how-line"></div>
 
     <div class="how-step">
       <div class="how-icon">🚚</div>
-      <div>
-        <b>Pickup</b>
-        <small>Partner collects clothes from home</small>
-      </div>
+      <div><b>Pickup</b><br><small>We collect from your home</small></div>
     </div>
 
     <div class="how-line"></div>
 
     <div class="how-step">
       <div class="how-icon">🔥</div>
-      <div>
-        <b>Processing</b>
-        <small>Professional ironing / cleaning</small>
-      </div>
+      <div><b>Processing</b><br><small>Cleaning & ironing</small></div>
     </div>
 
     <div class="how-line"></div>
 
     <div class="how-step">
       <div class="how-icon">🏠</div>
-      <div>
-        <b>Delivery</b>
-        <small>Clean clothes delivered fast</small>
-      </div>
+      <div><b>Delivery</b><br><small>Delivered fast</small></div>
     </div>
 
   </div>
@@ -174,26 +178,25 @@ body{margin:0;font-family:Segoe UI;background:var(--bg)}
   <h2>Customer Reviews</h2>
   <div class="reviews">
     <div class="track">
-      <div class="review">🔥 Amazing service ★★★★★</div>
+      <div class="review">🔥 Amazing ★★★★★</div>
       <div class="review">Fast delivery 🚚</div>
-      <div class="review">Best ironing 👕</div>
+      <div class="review">Best service 👕</div>
       <div class="review">Affordable 💰</div>
 
-      <div class="review">🔥 Amazing service ★★★★★</div>
+      <div class="review">🔥 Amazing ★★★★★</div>
       <div class="review">Fast delivery 🚚</div>
-      <div class="review">Best ironing 👕</div>
+      <div class="review">Best service 👕</div>
       <div class="review">Affordable 💰</div>
     </div>
   </div>
 
-  <!-- WATERMARK -->
   <div style="text-align:center;margin-top:10px;color:#999;font-weight:bold">
     ⚡ QuickPress
   </div>
 </div>
 
 <!-- WHATSAPP -->
-<a href="https://wa.me/919258730561" target="_blank"
+<a href="https://wa.me/919999999999" target="_blank"
 style="position:fixed;bottom:80px;right:20px;background:#25D366;color:white;padding:14px;border-radius:50%">
 📲
 </a>
@@ -223,15 +226,45 @@ document.getElementById("cartCount").innerText=count;
 /* NAV HIDE */
 let lastScroll=0;
 const nav=document.querySelector(".nav");
-
 window.addEventListener("scroll",()=>{
   let cur=window.pageYOffset;
-  if(cur>lastScroll){
+  if(cur>lastScroll && cur>50){
     nav.style.transform="translateY(-100%)";
   }else{
     nav.style.transform="translateY(0)";
   }
   lastScroll=cur;
+});
+
+/* FADE */
+const observer=new IntersectionObserver(entries=>{
+  entries.forEach(e=>{
+    if(e.isIntersecting){
+      e.target.classList.add("show");
+    }
+  });
+});
+document.querySelectorAll(".section,.card,.how-step")
+.forEach(el=>{
+  el.classList.add("fade");
+  observer.observe(el);
+});
+
+/* RIPPLE */
+document.querySelectorAll(".card,button").forEach(el=>{
+  el.addEventListener("click",function(e){
+    let circle=document.createElement("span");
+    circle.style.position="absolute";
+    circle.style.width="20px";
+    circle.style.height="20px";
+    circle.style.background="rgba(0,0,0,0.2)";
+    circle.style.borderRadius="50%";
+    circle.style.left=e.offsetX+"px";
+    circle.style.top=e.offsetY+"px";
+    circle.style.animation="ripple 0.5s ease";
+    this.appendChild(circle);
+    setTimeout(()=>circle.remove(),500);
+  });
 });
 </script>
 
