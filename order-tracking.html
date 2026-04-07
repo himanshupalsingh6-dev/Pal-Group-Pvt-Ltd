@@ -1,174 +1,140 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
-  <title>Track Order – QuickPress</title>
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <style>
-    body{margin:0;font-family:Segoe UI;background:#f4f4f4}
-    .header{background:linear-gradient(135deg,#ff9800,#ff6f00);color:white;padding:18px;font-size:18px;font-weight:bold}
-    .container{padding:12px}
-    .card{background:white;border-radius:12px;padding:14px;margin-bottom:12px;box-shadow:0 2px 8px rgba(0,0,0,0.1)}
-    .order-id{font-weight:bold;color:#ff9800;margin-bottom:8px}
-    .timeline{margin-top:10px}
-    .step{display:flex;align-items:center;margin-bottom:10px}
-    .dot{width:12px;height:12px;border-radius:50%;background:#ccc;margin-right:10px}
-    .done{background:#2ecc71}
-    .label{font-size:14px;color:#333}
-    .small{font-size:12px;color:#777}
+<meta charset="UTF-8">
+<title>Track Order – QuickPress</title>
+<meta name="viewport" content="width=device-width, initial-scale=1">
 
-    .profile{
-      display:flex;
-      align-items:center;
-      gap:10px;
-      margin-top:10px;
-    }
-    .profile img{
-      width:40px;
-      height:40px;
-      border-radius:50%;
-      object-fit:cover;
-    }
+<style>
+:root{
+  --yellow:#FFD400;
+  --green:#2ecc71;
+  --bg:#f6f7f9;
+}
+body{
+  margin:0;
+  font-family:Segoe UI;
+  background:var(--bg);
+}
 
-    .btn{
-      width:100%;
-      padding:12px;
-      margin-top:10px;
-      border:none;
-      border-radius:10px;
-      font-weight:bold;
-      cursor:pointer;
-    }
+/* HEADER */
+.header{
+  padding:18px;
+  font-weight:bold;
+  background:linear-gradient(90deg,#ff7a00,#ffae00);
+  color:#fff;
+}
 
-    .whatsapp{background:#25D366;color:white}
-    .home{background:#ff9800;color:white}
-  </style>
+/* CONTAINER */
+.container{padding:16px}
+
+/* CARD */
+.card{
+  background:#fff;
+  padding:16px;
+  border-radius:18px;
+  margin-bottom:14px;
+  box-shadow:0 8px 20px rgba(0,0,0,.08);
+}
+
+/* STATUS */
+.step{
+  display:flex;
+  align-items:center;
+  margin-bottom:12px;
+}
+
+.circle{
+  width:20px;
+  height:20px;
+  border-radius:50%;
+  background:#ccc;
+  margin-right:10px;
+}
+
+.active{
+  background:var(--green);
+}
+
+/* BUTTON */
+.btn{
+  width:100%;
+  padding:14px;
+  border:none;
+  border-radius:14px;
+  font-weight:bold;
+  margin-top:10px;
+}
+
+.whatsapp{
+  background:#25D366;
+  color:#fff;
+}
+
+.home{
+  background:#ff8c00;
+  color:#fff;
+}
+</style>
 </head>
+
 <body>
 
 <div class="header">📍 Track Your Order</div>
 
 <div class="container">
-  <div class="card">
-    <div class="order-id">Order ID: <span id="oid">-</span></div>
-    <div><b>Total:</b> ₹<span id="total">0</span></div>
 
-    <div class="timeline" id="timelineBox"></div>
-
-    <!-- Partner -->
-    <div id="partnerBox"></div>
-
-    <!-- Delivery -->
-    <div id="deliveryBox"></div>
-
-    <!-- Buttons -->
-    <button class="btn whatsapp" onclick="contactWhatsApp()">📲 Contact on WhatsApp</button>
-    <button class="btn home" onclick="goHome()">🏠 Go to Home</button>
-  </div>
+<!-- ORDER INFO -->
+<div class="card">
+  <div><b>Order ID:</b> <span id="orderId"></span></div>
+  <div><b>Total:</b> ₹<span id="total"></span></div>
 </div>
 
-<script type="module">
-import { db } from "./js/firebase.js";
-import {
-  doc,
-  getDoc,
-  onSnapshot
-} from "https://www.gstatic.com/firebasejs/12.11.0/firebase-firestore.js";
+<!-- STATUS -->
+<div class="card">
+  <div class="step"><div class="circle active"></div> Order Placed</div>
+  <div class="step"><div class="circle active"></div> Pickup Assigned</div>
+  <div class="step"><div class="circle" id="step3"></div> Processing</div>
+  <div class="step"><div class="circle" id="step4"></div> Out for Delivery</div>
+  <div class="step"><div class="circle" id="step5"></div> Delivered</div>
+</div>
 
-const orderId = localStorage.getItem("lastOrderId");
+<!-- ACTION -->
+<div class="card">
+  <button class="btn whatsapp" onclick="whatsapp()">📲 Contact on WhatsApp</button>
+  <button class="btn home" onclick="goHome()">🏠 Go to Home</button>
+</div>
 
-const oidEl = document.getElementById("oid");
-const totalEl = document.getElementById("total");
-const timelineBox = document.getElementById("timelineBox");
-const partnerBox = document.getElementById("partnerBox");
-const deliveryBox = document.getElementById("deliveryBox");
+</div>
 
-oidEl.innerText = orderId;
+<script>
 
-let currentPhone = "";
+/* LOAD ORDER */
+const order = JSON.parse(localStorage.getItem("lastOrder") || "{}");
 
-/* STEP UI */
-function step(label, active){
-  return `
-    <div class="step">
-      <div class="dot ${active?'done':''}"></div>
-      <div>
-        <div class="label">${label}</div>
-        <div class="small">${active ? "Completed" : "Pending"}</div>
-      </div>
-    </div>
-  `;
-}
+/* SET DATA */
+document.getElementById("orderId").innerText =
+  order.time ? "QP" + order.time : "N/A";
 
-/* TRACK */
-onSnapshot(doc(db,"orders",orderId), async (snap)=>{
-  if(!snap.exists()) return;
+document.getElementById("total").innerText =
+  order.total || "0";
 
-  const o = snap.data();
-  const s = o.status || "Placed";
-
-  totalEl.innerText = o.grandTotal || 0;
-
-  timelineBox.innerHTML = `
-    ${step("Order Placed", true)}
-    ${step("Partner Assigned", s==="Assigned"||s==="Accepted"||s==="Ready"||s==="Picked"||s==="Delivered")}
-    ${step("Ready", s==="Ready"||s==="Picked"||s==="Delivered")}
-    ${step("Picked", s==="Picked"||s==="Delivered")}
-    ${step("Delivered", s==="Delivered")}
-  `;
-
-  /* PARTNER */
-  if(o.partnerId){
-    const p = await getDoc(doc(db,"partners",o.partnerId));
-    if(p.exists()){
-      const data = p.data();
-      partnerBox.innerHTML = `
-        <h4>🧺 Partner</h4>
-        <div class="profile">
-          <img src="${data.photo || 'https://via.placeholder.com/40'}">
-          <div>
-            <b>${data.name}</b><br>
-            ${data.phone || ""}
-          </div>
-        </div>
-      `;
-      currentPhone = data.phone;
-    }
-  }
-
-  /* DELIVERY */
-  if(o.deliveryId){
-    const d = await getDoc(doc(db,"delivery",o.deliveryId));
-    if(d.exists()){
-      const data = d.data();
-      deliveryBox.innerHTML = `
-        <h4>🚚 Delivery Boy</h4>
-        <div class="profile">
-          <img src="${data.photo || 'https://via.placeholder.com/40'}">
-          <div>
-            <b>${data.name}</b><br>
-            ${data.phone || ""}
-          </div>
-        </div>
-      `;
-      currentPhone = data.phone;
-    }
-  }
-
-});
+/* AUTO STATUS ANIMATION */
+setTimeout(()=>{ document.getElementById("step3").classList.add("active"); },2000);
+setTimeout(()=>{ document.getElementById("step4").classList.add("active"); },4000);
+setTimeout(()=>{ document.getElementById("step5").classList.add("active"); },6000);
 
 /* WHATSAPP */
-window.contactWhatsApp = ()=>{
-  if(!currentPhone){
-    alert("Contact not available yet");
-    return;
-  }
-  window.open(`https://wa.me/${currentPhone}`,"_blank");
-};
+function whatsapp(){
+  const msg = `My Order ID: QP${order.time}`;
+  window.open(`https://wa.me/9997874502?text=${encodeURIComponent(msg)}`);
+}
 
 /* HOME */
-window.goHome = ()=>{
-  location.href = "index.html";
-};
+function goHome(){
+  location.href="index.html";
+}
+
 </script>
 
 </body>
