@@ -1,40 +1,114 @@
-<script type="module">
-import { auth, db } from "./js/firebase.js";
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Login – QuickPress</title>
+<meta name="viewport" content="width=device-width, initial-scale=1">
 
-import {
-  signInWithEmailAndPassword
-} from "https://www.gstatic.com/firebasejs/12.11.0/firebase-auth.js";
+<style>
+:root{
+  --yellow:#FFD400;
+  --bg:#f6f7f9;
+}
+body{
+  margin:0;
+  font-family:Segoe UI;
+  background:var(--bg);
+  display:flex;
+  justify-content:center;
+  align-items:center;
+  height:100vh;
+}
 
-import {
-  collection,
-  query,
-  where,
-  getDocs
-} from "https://www.gstatic.com/firebasejs/12.11.0/firebase-firestore.js";
+/* CARD */
+.box{
+  width:90%;
+  max-width:350px;
+  background:#fff;
+  padding:20px;
+  border-radius:16px;
+  box-shadow:0 10px 25px rgba(0,0,0,.1);
+  text-align:center;
+}
 
-window.login = async function(){
-  const email = emailInp.value;
-  const pass = passInp.value;
+h2{margin-bottom:10px}
 
-  try{
-    await signInWithEmailAndPassword(auth,email,pass);
+/* INPUT */
+input{
+  width:100%;
+  padding:12px;
+  margin-top:10px;
+  border-radius:12px;
+  border:1px solid #ddd;
+}
 
-    const snap = await getDocs(query(
-      collection(db,"partners"),
-      where("email","==",email),
-      where("approved","==",true)
-    ));
+/* BUTTON */
+button{
+  width:100%;
+  padding:14px;
+  margin-top:14px;
+  border:none;
+  background:var(--yellow);
+  border-radius:12px;
+  font-weight:bold;
+  font-size:16px;
+}
 
-    if(snap.empty){
-      alert("Not approved");
-      return;
-    }
+/* LINK */
+.link{
+  margin-top:10px;
+  font-size:13px;
+}
+</style>
+</head>
 
-    localStorage.setItem("partnerEmail",email);
-    location.href="partner.html";
+<body>
 
-  }catch(e){
-    alert(e.message);
+<div class="box">
+  <h2>⚡ QuickPress</h2>
+  <p>Login to continue</p>
+
+  <input id="phone" placeholder="Phone Number">
+  <input id="name" placeholder="Your Name">
+
+  <button onclick="login()">Login</button>
+
+  <div class="link">
+    New user? Just enter details
+  </div>
+</div>
+
+<script>
+function login(){
+
+  const phone = document.getElementById("phone").value;
+  const name = document.getElementById("name").value;
+
+  if(!phone || !name){
+    alert("Enter all details");
+    return;
   }
-};
+
+  const user = {
+    name,
+    phone
+  };
+
+  localStorage.setItem("user", JSON.stringify(user));
+
+  alert("Login Successful ✅");
+
+  /* REDIRECT BACK */
+  const redirect = localStorage.getItem("redirect");
+
+  if(redirect){
+    location.href = redirect;
+    localStorage.removeItem("redirect");
+  }else{
+    location.href = "index.html";
+  }
+}
 </script>
+
+</body>
+</html>
