@@ -9,36 +9,46 @@
 :root{--yellow:#FFD400;--bg:#f6f7f9}
 body{margin:0;font-family:Segoe UI;background:var(--bg)}
 
+/* HEADER */
 .header{
-  padding:16px;
-  font-size:18px;
+  padding:18px;
+  font-size:20px;
   font-weight:bold;
   background:#fff;
+  box-shadow:0 2px 12px rgba(0,0,0,.1);
 }
 
+/* CONTAINER */
 .container{padding:16px}
 
+/* CARD */
 .card{
   background:#fff;
-  padding:14px;
-  border-radius:16px;
-  margin-bottom:12px;
+  padding:16px;
+  border-radius:18px;
+  margin-bottom:14px;
+  box-shadow:0 8px 20px rgba(0,0,0,.08);
+  transition:.3s;
 }
+.card:hover{transform:translateY(-3px)}
 
+/* ROW */
 .row{
   display:flex;
   justify-content:space-between;
   margin:6px 0;
 }
 
+/* INPUT */
 input{
   width:100%;
   padding:12px;
-  margin-bottom:8px;
+  margin-bottom:10px;
   border-radius:12px;
   border:1px solid #ddd;
 }
 
+/* BUTTON */
 .btn{
   width:100%;
   padding:14px;
@@ -46,15 +56,18 @@ input{
   background:var(--yellow);
   border-radius:14px;
   font-weight:bold;
+  font-size:16px;
 }
 
+/* MAP */
 .map{
   width:100%;
   height:200px;
   border-radius:12px;
-  margin-top:8px;
+  margin-top:10px;
 }
 
+/* SUCCESS */
 .success{
   position:fixed;
   inset:0;
@@ -64,12 +77,31 @@ input{
   align-items:center;
   flex-direction:column;
 }
-.tick{font-size:80px}
+
+.circle{
+  width:80px;
+  height:80px;
+  border-radius:50%;
+  border:6px solid #4CAF50;
+  border-top-color:transparent;
+  animation:spin 1s linear, pop 0.5s ease forwards;
+}
+
+@keyframes spin{
+  0%{transform:rotate(0)}
+  100%{transform:rotate(360deg)}
+}
+
+@keyframes pop{
+  0%{transform:scale(0)}
+  100%{transform:scale(1)}
+}
 </style>
 </head>
 
 <body>
 
+<!-- LOGIN CHECK -->
 <script>
 const user = localStorage.getItem("userId");
 
@@ -84,8 +116,10 @@ if(!user){
 
 <div class="container">
 
+<!-- ITEMS -->
 <div id="items"></div>
 
+<!-- BILL -->
 <div class="card">
   <div class="row">Subtotal ₹<b id="subtotal">0</b></div>
   <div class="row">Delivery ₹12</div>
@@ -94,6 +128,7 @@ if(!user){
   <div class="row"><b>Total ₹<span id="total">0</span></b></div>
 </div>
 
+<!-- ADDRESS -->
 <div class="card">
 <input id="name" placeholder="Name">
 <input id="phone" placeholder="Phone">
@@ -109,59 +144,83 @@ if(!user){
 
 </div>
 
+<!-- SUCCESS -->
 <div class="success" id="success">
-  <div class="tick">✅</div>
-  <h2>Order Placed</h2>
+  <div class="circle"></div>
+  <h2>Order Confirmed 🎉</h2>
+  <p>Your order is being processed</p>
 </div>
 
 <script>
 let cart = JSON.parse(localStorage.getItem("cart")||"[]");
 
+/* RENDER */
 function render(){
-  let total=0;
-  items.innerHTML="";
+  let subtotal = 0;
+  const itemsBox = document.getElementById("items");
+
+  itemsBox.innerHTML = "";
+
+  if(cart.length === 0){
+    itemsBox.innerHTML = "<div class='card'>Cart is empty</div>";
+  }
 
   cart.forEach(i=>{
-    total+=i.price*i.qty;
-    items.innerHTML+=`
+    const itemTotal = i.price * i.qty;
+    subtotal += itemTotal;
+
+    itemsBox.innerHTML += `
       <div class="card">
-        ${i.name} (${i.service}) x${i.qty}
+        <div class="row">
+          <span>${i.name} (${i.service}) x${i.qty}</span>
+          <span>₹${itemTotal}</span>
+        </div>
       </div>
     `;
   });
 
-  subtotal.innerText=total;
-  totalEl.innerText=total+15;
+  document.getElementById("subtotal").innerText = subtotal;
+  document.getElementById("total").innerText = subtotal + 12 + 3;
 }
 
+/* LOCATION */
 let userLocation="";
 
 function getLocation(){
   navigator.geolocation.getCurrentPosition(pos=>{
     const lat=pos.coords.latitude;
     const lng=pos.coords.longitude;
-    userLocation=lat+","+lng;
 
-    map.src=`https://maps.google.com/maps?q=${lat},${lng}&z=15&output=embed`;
+    userLocation = lat+","+lng;
+
+    document.getElementById("map").src =
+      `https://maps.google.com/maps?q=${lat},${lng}&z=15&output=embed`;
   });
 }
 
+/* PLACE ORDER */
 function placeOrder(){
 
+  if(cart.length === 0){
+    alert("Cart empty ❌");
+    return;
+  }
+
   if(!userLocation){
-    alert("Select location");
+    alert("Select location first");
     return;
   }
 
   localStorage.removeItem("cart");
 
-  success.style.display="flex";
+  document.getElementById("success").style.display="flex";
 
   setTimeout(()=>{
     location.href="order-tracking.html";
   },3000);
 }
 
+/* INIT */
 render();
 </script>
 
