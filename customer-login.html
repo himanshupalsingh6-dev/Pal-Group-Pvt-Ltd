@@ -2,140 +2,95 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8">
-<title>QuickPress – Login</title>
+<title>Login – QuickPress</title>
 <meta name="viewport" content="width=device-width, initial-scale=1">
 
 <style>
-:root{
-  --yellow:#FFD400;
-  --bg:#f6f7f9;
-}
-*{box-sizing:border-box}
 body{
   margin:0;
-  font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto;
-  background:var(--bg);
-  min-height:100vh;
+  font-family:Segoe UI;
+  background:#f6f7f9;
   display:flex;
-  align-items:center;
   justify-content:center;
+  align-items:center;
+  height:100vh;
 }
-.card{
+
+.box{
   background:#fff;
-  width:100%;
-  max-width:380px;
-  padding:22px;
-  border-radius:18px;
-  box-shadow:0 10px 30px rgba(0,0,0,.12);
-}
-.logo{
+  padding:20px;
+  border-radius:16px;
+  width:90%;
+  max-width:350px;
   text-align:center;
-  font-size:26px;
-  font-weight:900;
-  margin-bottom:6px;
 }
-.sub{
-  text-align:center;
-  color:#555;
-  font-size:14px;
-  margin-bottom:18px;
-}
+
 input{
   width:100%;
-  padding:12px 14px;
-  margin-bottom:12px;
+  padding:12px;
+  margin-top:10px;
   border-radius:12px;
   border:1px solid #ddd;
-  font-size:14px;
 }
+
 button{
   width:100%;
   padding:14px;
-  border:none;
-  border-radius:14px;
-  background:var(--yellow);
-  font-weight:900;
-  cursor:pointer;
-}
-button:disabled{
-  opacity:.6;
-}
-.msg{
   margin-top:12px;
-  text-align:center;
-  font-size:14px;
-  color:red;
-}
-.footer{
-  margin-top:14px;
-  text-align:center;
-  font-size:13px;
-  color:#555;
-}
-.footer a{
-  color:#000;
-  font-weight:800;
-  text-decoration:none;
+  background:#FFD400;
+  border:none;
+  border-radius:12px;
+  font-weight:bold;
 }
 </style>
 </head>
 
 <body>
 
-<div class="card">
-  <div class="logo">⚡ QuickPress</div>
-  <div class="sub">Login to continue</div>
+<div class="box">
+<h2>⚡ QuickPress</h2>
 
-  <input type="email" id="email" placeholder="Email address" />
-  <input type="password" id="password" placeholder="Password" />
+<input id="email" placeholder="Email">
+<input id="password" placeholder="Password">
 
-  <button id="loginBtn" onclick="login()">Login</button>
-
-  <div id="msg" class="msg"></div>
-
-  <div class="footer">
-    Don’t have an account?
-    <a href="customer-register.html">Create account</a>
-  </div>
+<button onclick="login()">Login</button>
 </div>
 
-<!-- ================= FIREBASE ================= -->
 <script type="module">
 import { auth } from "./js/firebase.js";
-
-import {
-  signInWithEmailAndPassword
-} from "https://www.gstatic.com/firebasejs/12.11.0/firebase-auth.js";
+import { signInWithEmailAndPassword } from "https://www.gstatic.com/firebasejs/12.11.0/firebase-auth.js";
 
 window.login = async function(){
-  const email = document.getElementById("email").value.trim();
-  const password = document.getElementById("password").value.trim();
-  const msg = document.getElementById("msg");
-  const btn = document.getElementById("loginBtn");
 
-  msg.innerText = "";
+  const email=document.getElementById("email").value;
+  const password=document.getElementById("password").value;
 
   if(!email || !password){
-    msg.innerText = "Please enter email and password";
+    alert("Fill all fields");
     return;
   }
 
-  btn.disabled = true;
-  btn.innerText = "Logging in...";
-
   try{
-    const cred = await signInWithEmailAndPassword(auth,email,password);
+    const userCred = await signInWithEmailAndPassword(auth,email,password);
 
-    localStorage.setItem("userId", cred.user.uid);
+    localStorage.setItem("userId", userCred.user.uid);
 
-    alert("Login success ✅");
+    alert("Login success");
 
-    location.href = "index.html";
+    const redirect = localStorage.getItem("redirect");
+
+    if(redirect){
+      location.href = redirect;
+      localStorage.removeItem("redirect");
+    }else{
+      location.href="index.html";
+    }
 
   }catch(err){
-    msg.innerText = err.message;
-    btn.disabled = false;
-    btn.innerText = "Login";
+    alert(err.message);
   }
 };
 </script>
+
+</body>
+</html>
