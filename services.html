@@ -9,43 +9,14 @@
 :root{--yellow:#FFD400;--bg:#f6f7f9}
 body{margin:0;font-family:Segoe UI;background:var(--bg)}
 
-/* HEADER */
 .header{
   padding:16px;
   font-size:20px;
   font-weight:bold;
   background:#fff;
-  box-shadow:0 2px 10px rgba(0,0,0,.1);
 }
 
-/* SEARCH */
-.search{
-  padding:12px;
-}
-.search input{
-  width:100%;
-  padding:12px;
-  border-radius:14px;
-  border:1px solid #ddd;
-}
-
-/* FEATURED */
-.featured{
-  display:flex;
-  gap:10px;
-  overflow:auto;
-  padding:12px;
-}
-.fcard{
-  min-width:140px;
-  background:#fff;
-  padding:12px;
-  border-radius:14px;
-  text-align:center;
-  font-weight:bold;
-}
-
-/* SERVICE */
+/* CARD */
 .card{
   background:#fff;
   margin:12px;
@@ -55,23 +26,24 @@ body{margin:0;font-family:Segoe UI;background:var(--bg)}
   cursor:pointer;
 }
 
-/* ACCORDION */
+/* CATEGORY */
 .accordion{
   display:none;
-  padding-top:10px;
+  margin-top:10px;
 }
-.item{
-  padding:8px;
-  border-bottom:1px solid #eee;
-  font-size:14px;
+.cat{
+  padding:10px;
+  background:#f6f6f6;
+  border-radius:10px;
+  margin-bottom:6px;
+  cursor:pointer;
 }
 
-/* ACTIVE */
 .open .accordion{
   display:block;
 }
 
-/* BOTTOM NAV */
+/* NAV */
 .bottom{
   position:fixed;
   bottom:0;
@@ -84,9 +56,6 @@ body{margin:0;font-family:Segoe UI;background:var(--bg)}
   box-shadow:0 -2px 10px rgba(0,0,0,.1);
 }
 .bottom div{text-align:center;font-size:12px}
-
-/* ANIMATION */
-.card:hover{transform:scale(1.02)}
 </style>
 </head>
 
@@ -94,77 +63,63 @@ body{margin:0;font-family:Segoe UI;background:var(--bg)}
 
 <div class="header">🛒 All Services</div>
 
-<!-- SEARCH -->
-<div class="search">
-  <input type="text" placeholder="Search service..." onkeyup="searchService(this.value)">
+<!-- IRONING -->
+<div class="card" onclick="toggle(this)">
+  🧺 Ironing
+  <div class="accordion">
+    <div class="cat" onclick="go('ironing','daily')">👔 Daily Wear</div>
+    <div class="cat" onclick="go('ironing','traditional')">👗 Traditional</div>
+    <div class="cat" onclick="go('ironing','women')">👚 Women Wear</div>
+    <div class="cat" onclick="go('ironing','home')">🛏️ Home Items</div>
+    <div class="cat" onclick="go('ironing','winter')">🧥 Winter</div>
+  </div>
 </div>
 
-<!-- FEATURED -->
-<div class="featured">
-  <div class="fcard">🔥 Ironing</div>
-  <div class="fcard">💎 Dry Clean</div>
-  <div class="fcard">⚡ Express</div>
+<!-- DRY CLEAN -->
+<div class="card" onclick="toggle(this)">
+  🧼 Dry Cleaning
+  <div class="accordion">
+    <div class="cat" onclick="go('dry','formal')">👔 Formal Wear</div>
+    <div class="cat" onclick="go('dry','wedding')">👗 Wedding Wear</div>
+    <div class="cat" onclick="go('dry','delicate')">👚 Delicate</div>
+    <div class="cat" onclick="go('dry','embroidery')">✨ Embroidery</div>
+    <div class="cat" onclick="go('dry','home')">🏠 Home</div>
+    <div class="cat" onclick="go('dry','special')">👖 Special</div>
+  </div>
 </div>
 
-<!-- SERVICES -->
-<div id="services">
-
-  <!-- IRONING -->
-  <div class="card" onclick="toggle(this)">
-    🧺 Ironing
-    <div class="accordion">
-      <div class="item">👔 Daily Wear</div>
-      <div class="item">👗 Traditional</div>
-      <div class="item">👚 Women Wear</div>
-    </div>
+<!-- WASHING -->
+<div class="card" onclick="toggle(this)">
+  🧽 Washing
+  <div class="accordion">
+    <div class="cat" onclick="go('washing','daily')">👕 Daily Wear</div>
+    <div class="cat" onclick="go('washing','traditional')">👗 Traditional</div>
+    <div class="cat" onclick="go('washing','home')">🛏️ Home</div>
+    <div class="cat" onclick="go('washing','special')">👶 Special</div>
   </div>
-
-  <!-- WASHING -->
-  <div class="card" onclick="toggle(this)">
-    🧽 Washing
-    <div class="accordion">
-      <div class="item">👕 Daily Wear</div>
-      <div class="item">🛏️ Home Items</div>
-      <div class="item">👶 Special</div>
-    </div>
-  </div>
-
-  <!-- DRY -->
-  <div class="card" onclick="toggle(this)">
-    🧼 Dry Cleaning
-    <div class="accordion">
-      <div class="item">👔 Formal Wear</div>
-      <div class="item">👗 Wedding Wear</div>
-      <div class="item">✨ Embroidery</div>
-    </div>
-  </div>
-
 </div>
 
 <!-- BOTTOM NAV -->
 <div class="bottom">
-  <div onclick="go('index.html')">🏠<br>Home</div>
-  <div onclick="go('services.html')">🛒<br>Services</div>
-  <div onclick="go('account.html')">👤<br>Account</div>
-  <div onclick="go('myorders.html')">📦<br>Orders</div>
+  <div onclick="nav('index.html')">🏠<br>Home</div>
+  <div onclick="nav('services.html')">🛒<br>Services</div>
+  <div onclick="nav('account.html')">👤<br>Account</div>
+  <div onclick="nav('myorders.html')">📦<br>Orders</div>
 </div>
 
 <script>
-function go(p){location.href=p}
+function nav(p){location.href=p}
 
 /* ACCORDION */
 function toggle(el){
   el.classList.toggle("open");
 }
 
-/* SEARCH */
-function searchService(val){
-  val=val.toLowerCase();
-
-  document.querySelectorAll(".card").forEach(c=>{
-    const text=c.innerText.toLowerCase();
-    c.style.display = text.includes(val) ? "block" : "none";
-  });
+/* GO PRODUCT PAGE */
+function go(service,cat){
+  localStorage.setItem("service",service);
+  localStorage.setItem("category",cat);
+  location.href="products.html";
 }
 </script>
 
