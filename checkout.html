@@ -96,6 +96,16 @@ input{
 
 <body>
 
+<!-- LOGIN CHECK -->
+<script>
+const user = localStorage.getItem("user");
+
+if(!user){
+  alert("⚠️ Please login first to continue checkout");
+  location.href = "login.html";
+}
+</script>
+
 <div class="header">💳 Checkout</div>
 
 <div class="container">
@@ -115,10 +125,9 @@ input{
   <!-- ADDRESS -->
   <div class="card">
     <input id="name" placeholder="Full Name">
-    <input id="phone" placeholder="Phone">
-
+    <input id="phone" placeholder="Phone Number">
     <input id="house" placeholder="House / Flat">
-    <input id="street" placeholder="Street">
+    <input id="street" placeholder="Street / Road">
     <input id="landmark" placeholder="Landmark">
     <input id="city" placeholder="City">
     <input id="state" placeholder="State">
@@ -135,18 +144,10 @@ input{
 <!-- SUCCESS -->
 <div class="success" id="success">
   <div class="tick">✅</div>
-  <h2>Order Placed</h2>
+  <h2>Order Placed Successfully</h2>
 </div>
 
 <script>
-/* LOGIN CHECK */
-const user = localStorage.getItem("user");
-
-if(!user){
-  location.href="login.html";
-}
-
-/* CART */
 let cart = JSON.parse(localStorage.getItem("cart")||"[]");
 
 /* GROUP */
@@ -184,7 +185,7 @@ function render(){
   }
 
   subtotalEl.innerText=subtotal;
-  totalEl.innerText = subtotal + 15;
+  totalEl.innerText = subtotal + 12 + 3;
 }
 
 /* LOCATION */
@@ -201,7 +202,7 @@ function getLocation(){
       `https://maps.google.com/maps?q=${lat},${lng}&z=15&output=embed`;
 
   },()=>{
-    alert("Location denied");
+    alert("Location permission denied");
   });
 }
 
@@ -209,7 +210,7 @@ function getLocation(){
 function placeOrder(){
 
   if(!userLocation){
-    alert("Select location first");
+    alert("📍 Please select location first");
     return;
   }
 
@@ -217,13 +218,14 @@ function placeOrder(){
     cart,
     total: totalEl.innerText,
     location:userLocation,
-    status:"Placed"
+    status:"Placed",
+    time:Date.now()
   };
 
   localStorage.setItem("lastOrder",JSON.stringify(order));
   localStorage.removeItem("cart");
 
-  /* SUCCESS */
+  /* SUCCESS ANIMATION */
   document.getElementById("success").style.display="flex";
 
   setTimeout(()=>{
@@ -231,6 +233,7 @@ function placeOrder(){
   },3000);
 }
 
+/* INIT */
 render();
 </script>
 
