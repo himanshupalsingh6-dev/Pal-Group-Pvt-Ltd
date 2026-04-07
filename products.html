@@ -18,12 +18,8 @@ body{
 }
 
 /* ===== PAGE ===== */
-.page{
-  padding:18px;
-}
-h2{
-  margin-bottom:12px;
-}
+.page{padding:18px;}
+h2{margin-bottom:12px;}
 
 /* ===== CATEGORY ===== */
 .cats{
@@ -40,9 +36,7 @@ h2{
   cursor:pointer;
   white-space:nowrap;
 }
-.cat.active{
-  background:var(--yellow);
-}
+.cat.active{background:var(--yellow);}
 
 /* ===== PRODUCTS ===== */
 .products{
@@ -57,17 +51,10 @@ h2{
   box-shadow:0 6px 14px rgba(0,0,0,.08);
   text-align:center;
 }
-.icon{
-  font-size:42px;
-}
-.name{
-  font-weight:900;
-  margin-top:6px;
-}
-.price{
-  font-weight:800;
-  margin:4px 0;
-}
+.icon{font-size:42px;}
+.name{font-weight:900;margin-top:6px;}
+.price{font-weight:800;margin:4px 0;}
+
 .add{
   margin-top:10px;
   width:100%;
@@ -77,6 +64,7 @@ h2{
   border-radius:14px;
   font-weight:900;
 }
+
 .qty{
   margin-top:10px;
   display:flex;
@@ -123,80 +111,75 @@ h2{
 <div class="page">
   <h2 id="title">Select Items</h2>
 
-  <!-- CATEGORY -->
   <div class="cats" id="cats"></div>
-
-  <!-- PRODUCTS -->
   <div class="products" id="list"></div>
 </div>
 
-<!-- CART BAR -->
 <div class="cart-bar" id="cartBar" style="display:none">
   <div><b id="cartCount">0</b> items • ₹<b id="cartTotal">0</b></div>
   <button onclick="goCart()">View Cart</button>
 </div>
 
 <script>
-/* ===== FULL DATA SYSTEM ===== */
+/* ===== DATA ===== */
 const DATA = {
 
   ironing:{
-    "👔 Daily Wear":["Shirt","T-shirt","Jeans","Pant","Uniform"],
-    "👗 Traditional":["Kurta","Saree","Suit","Dupatta"],
-    "👚 Women Wear":["Tops","Dress","Skirt"],
-    "🛏️ Home Items":["Bedsheet","Pillow Cover","Curtains"],
-    "🧥 Winter":["Jacket","Hoodie","Cardigan"]
+    "daily":["Shirt","T-shirt","Jeans","Pant","Uniform"],
+    "traditional":["Kurta","Saree","Suit","Dupatta"],
+    "women":["Tops","Dress","Skirt"],
+    "home":["Bedsheet","Pillow Cover","Curtains"],
+    "winter":["Jacket","Hoodie","Cardigan"]
   },
 
   dry:{
-    "👔 Formal Wear":["Blazer","Suit","Coat","Jacket","Waistcoat"],
-    "👗 Wedding Wear":["Lehenga","Sherwani","Bridal Dress","Designer Gown"],
-    "👚 Delicate":["Silk Saree","Velvet Dress","Wool Sweater"],
-    "✨ Embroidery":["Heavy Work Saree","Embroidery Kurta"],
-    "🏠 Home":["Curtains","Carpet","Blanket","Sofa Cover"],
-    "👖 Special":["Leather Jacket","Long Coat"]
+    "formal":["Blazer","Suit","Coat","Jacket","Waistcoat"],
+    "wedding":["Lehenga","Sherwani","Bridal Dress","Designer Gown"],
+    "delicate":["Silk Saree","Velvet Dress","Wool Sweater"],
+    "embroidery":["Heavy Work Saree","Embroidery Kurta"],
+    "home":["Curtains","Carpet","Blanket","Sofa Cover"],
+    "special":["Leather Jacket","Long Coat"]
   },
 
   washing:{
-    "👕 Daily Wear":["T-shirt","Shirt","Jeans","Pant","Shorts"],
-    "👗 Traditional":["Kurta","Suit","Dupatta","Cotton Saree"],
-    "🛏️ Home":["Bedsheet","Pillow Cover","Towel","Blanket"],
-    "👶 Special":["Baby Clothes","Gym Wear","Undergarments"]
+    "daily":["T-shirt","Shirt","Jeans","Pant","Shorts"],
+    "traditional":["Kurta","Suit","Dupatta","Cotton Saree"],
+    "home":["Bedsheet","Pillow Cover","Towel","Blanket"],
+    "special":["Baby Clothes","Gym Wear","Undergarments"]
   }
 
 };
 
-/* ===== GET SELECTION ===== */
+/* ===== GET SERVICE ===== */
 const service = localStorage.getItem("service") || "ironing";
-
 const categories = Object.keys(DATA[service]);
+let currentCat = localStorage.getItem("category") || categories[0];
 
-let currentCat = categories[0];
-
-/* ===== CART ===== */
 let cart = JSON.parse(localStorage.getItem("cart")||"[]");
 
-/* ===== CATEGORY UI ===== */
+/* CATEGORY UI */
 cats.innerHTML = categories.map(c =>
   `<div class="cat ${c==currentCat?'active':''}" onclick="filterCat('${c}')">${c}</div>`
 ).join("");
 
 function filterCat(c){
   currentCat=c;
-  document.querySelectorAll(".cat").forEach(x=>x.classList.remove("active"));
-  [...document.querySelectorAll(".cat")].find(x=>x.innerText==c).classList.add("active");
   render();
 }
 
-/* ===== PRODUCT RENDER ===== */
+/* ===== RENDER ===== */
 function render(){
   list.innerHTML="";
 
-  DATA[service][currentCat].forEach((name,i)=>{
-    const id = name;
-    const price = 10; // default price (change later if needed)
+  DATA[service][currentCat].forEach(name=>{
 
-    const c = cart.find(x=>x.id==id);
+    const price = 10;
+
+    const item = cart.find(i =>
+      i.name===name &&
+      i.service===service &&
+      i.category===currentCat
+    );
 
     list.innerHTML+=`
       <div class="card">
@@ -204,12 +187,13 @@ function render(){
         <div class="name">${name}</div>
         <div class="price">₹${price}</div>
 
-        ${!c
-          ? `<button class="add" onclick="add('${id}',${price})">ADD</button>`
+        ${
+          !item
+          ? `<button class="add" onclick="add('${name}','${service}','${currentCat}',${price})">ADD</button>`
           : `<div class="qty">
-              <button onclick="dec('${id}')">−</button>
-              <b>${c.qty}</b>
-              <button onclick="inc('${id}')">+</button>
+              <button onclick="dec('${name}','${service}','${currentCat}')">−</button>
+              <b>${item.qty}</b>
+              <button onclick="inc('${name}','${service}','${currentCat}',${price})">+</button>
             </div>`
         }
       </div>
@@ -219,31 +203,55 @@ function render(){
   updateCartBar();
 }
 
-/* ===== CART LOGIC ===== */
-function add(id,price){
-  cart.push({id,name:id,price,qty:1});
+/* ===== CART SYSTEM ===== */
+function add(name,service,category,price){
+  const exist = cart.find(i =>
+    i.name===name &&
+    i.service===service &&
+    i.category===category
+  );
+
+  if(exist){
+    exist.qty++;
+  }else{
+    cart.push({name,service,category,price,qty:1});
+  }
+
   save();
 }
-function inc(id){
-  cart.find(i=>i.id==id).qty++;
-  save();
+
+function inc(name,service,category,price){
+  add(name,service,category,price);
 }
-function dec(id){
-  const i = cart.findIndex(x=>x.id==id);
+
+function dec(name,service,category){
+  const i = cart.findIndex(x =>
+    x.name===name &&
+    x.service===service &&
+    x.category===category
+  );
+
   cart[i].qty--;
-  if(cart[i].qty==0) cart.splice(i,1);
+
+  if(cart[i].qty<=0) cart.splice(i,1);
+
   save();
 }
+
 function save(){
   localStorage.setItem("cart",JSON.stringify(cart));
   render();
 }
+
+/* ===== CART BAR ===== */
 function updateCartBar(){
   let total=0,count=0;
+
   cart.forEach(i=>{
     total+=i.price*i.qty;
     count+=i.qty;
   });
+
   cartBar.style.display = cart.length?"flex":"none";
   cartTotal.innerText=total;
   cartCount.innerText=count;
