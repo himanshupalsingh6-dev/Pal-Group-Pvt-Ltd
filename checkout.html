@@ -2,192 +2,170 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8">
-<title>QuickPress – Checkout</title>
+<title>Checkout – QuickPress</title>
 <meta name="viewport" content="width=device-width, initial-scale=1">
 
 <style>
 :root{--yellow:#FFD400;--bg:#f6f7f9}
-*{box-sizing:border-box}
-body{
-  margin:0;
-  font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto;
-  background:var(--bg);
+body{margin:0;font-family:Segoe UI;background:var(--bg)}
+
+.header{
+  padding:14px;
+  font-weight:bold;
+  background:#fff;
 }
-.page{padding:18px}
+
+.container{padding:14px}
+
 .card{
   background:#fff;
-  border-radius:16px;
-  padding:14px;
-  margin-bottom:12px;
-  box-shadow:0 6px 14px rgba(0,0,0,.08);
+  padding:12px;
+  border-radius:12px;
+  margin-bottom:10px;
 }
+
 .row{
   display:flex;
   justify-content:space-between;
-  margin-bottom:6px;
+  margin:6px 0;
 }
+
 .total{
-  font-size:18px;
-  font-weight:900;
+  font-weight:bold;
+  font-size:16px;
 }
-textarea{
-  width:100%;
-  padding:12px;
-  border-radius:12px;
-  border:1px solid #ddd;
-  font-size:14px;
-  resize:none;
-}
+
 .btn{
   width:100%;
   padding:14px;
   border:none;
   background:var(--yellow);
-  border-radius:14px;
-  font-weight:900;
-  cursor:pointer;
-}
-.btn:disabled{
-  opacity:.6;
-}
-.center{
-  text-align:center;
-  margin-top:60px;
-  color:#555;
-}
-.msg{
-  text-align:center;
-  margin-top:8px;
-  font-size:14px;
-  color:red;
+  border-radius:12px;
+  font-weight:bold;
+  margin-top:10px;
 }
 </style>
 </head>
 
 <body>
 
-<div class="page">
-  <h2>Checkout</h2>
+<div class="header">💳 Checkout</div>
 
+<div class="container">
+
+  <!-- ITEMS -->
+  <div id="items"></div>
+
+  <!-- BILL -->
   <div class="card">
-    <h3>Delivery Address</h3>
-    <textarea id="address" rows="3" placeholder="Enter delivery address"></textarea>
-    <div id="addrMsg" class="msg"></div>
+    <div class="row"><span>Subtotal</span><span>₹<b id="subtotal">0</b></span></div>
+    <div class="row"><span>Delivery</span><span>₹12</span></div>
+    <div class="row"><span>Handling Fee</span><span>₹3</span></div>
+    <hr>
+    <div class="row total">
+      <span>Total</span>
+      <span>₹<b id="total">0</b></span>
+    </div>
   </div>
 
-  <div id="summary" class="card"></div>
+  <!-- ADDRESS -->
+  <div class="card">
+    <input id="name" placeholder="Your Name" style="width:100%;padding:10px;margin-bottom:8px">
+    <input id="phone" placeholder="Phone" style="width:100%;padding:10px;margin-bottom:8px">
+    <input id="address" placeholder="Address" style="width:100%;padding:10px">
+  </div>
 
-  <button class="btn" id="orderBtn" onclick="placeOrder()">Place Order</button>
+  <button class="btn" onclick="placeOrder()">Place Order</button>
+
 </div>
 
-<!-- ✅ FIREBASE FIXED -->
-<script type="module">
-import { auth, db } from "./js/firebase.js";
+<script>
+let cart = JSON.parse(localStorage.getItem("cart")||"[]");
 
-import {
-  onAuthStateChanged
-} from "https://www.gstatic.com/firebasejs/12.11.0/firebase-auth.js";
+const itemsBox = document.getElementById("items");
+const subtotalEl = document.getElementById("subtotal");
+const totalEl = document.getElementById("total");
 
-import {
-  collection,
-  addDoc,
-  serverTimestamp,
-  doc,
-  getDoc
-} from "https://www.gstatic.com/firebasejs/12.11.0/firebase-firestore.js";
-
-const addressBox = document.getElementById("address");
-const addrMsg = document.getElementById("addrMsg");
-const summary = document.getElementById("summary");
-const orderBtn = document.getElementById("orderBtn");
-
-const cart = JSON.parse(localStorage.getItem("cart") || "[]");
-
-let currentUser = null;
-let orderData = null;
-
-onAuthStateChanged(auth, async user => {
-  if(!user){
-    alert("Please login first");
-    location.href = "customer-login.html";
-    return;
-  }
-
-  currentUser = user;
-  loadSummary();
-
-  try{
-    const snap = await getDoc(doc(db,"users",user.uid));
-    if(snap.exists()){
-      addressBox.value = snap.data().address || "";
-    }
-  }catch(e){
-    console.log("Address load failed");
-  }
-});
-
-function loadSummary(){
-  if(cart.length === 0){
-    document.querySelector(".page").innerHTML =
-      `<div class="center">Your cart is empty</div>`;
-    return;
-  }
-
-  let subtotal = 0;
-  cart.forEach(i => subtotal += i.price * i.qty);
-
-  const gst = Math.round(subtotal * 0.05);
-  const deliveryCharge = 20;
-  const grandTotal = subtotal + gst + deliveryCharge;
-
-  summary.innerHTML = `
-    <div class="row"><span>Subtotal</span><span>₹${subtotal}</span></div>
-    <div class="row"><span>GST</span><span>₹${gst}</span></div>
-    <div class="row"><span>Delivery</span><span>₹${deliveryCharge}</span></div>
-    <hr>
-    <div class="row total"><span>Total</span><span>₹${grandTotal}</span></div>
-  `;
-
-  orderData = { subtotal, gst, deliveryCharge, grandTotal };
+function getServiceName(s){
+  return {
+    ironing:"🧺 Ironing",
+    dry:"🧼 Dry Cleaning",
+    washing:"🧽 Washing"
+  }[s];
 }
 
-window.placeOrder = async function(){
-  if(!currentUser || !orderData) return;
+/* GROUP */
+function groupCart(){
+  const g={};
+  cart.forEach(i=>{
+    if(!g[i.service]) g[i.service]=[];
+    g[i.service].push(i);
+  });
+  return g;
+}
 
-  const address = addressBox.value.trim();
-  if(!address){
-    addrMsg.innerText = "Please enter delivery address";
+/* RENDER */
+function render(){
+  let subtotal=0;
+  itemsBox.innerHTML="";
+
+  const grouped = groupCart();
+
+  for(let s in grouped){
+    itemsBox.innerHTML+=`<div class="card"><b>${getServiceName(s)}</b>`;
+
+    grouped[s].forEach(i=>{
+      subtotal += i.price*i.qty;
+
+      itemsBox.innerHTML+=`
+        <div class="row">
+          <span>${i.name} x${i.qty}</span>
+          <span>₹${i.price*i.qty}</span>
+        </div>
+      `;
+    });
+
+    itemsBox.innerHTML+=`</div>`;
+  }
+
+  subtotalEl.innerText=subtotal;
+
+  const total = subtotal + 12 + 3;
+  totalEl.innerText = total;
+}
+
+/* PLACE ORDER */
+function placeOrder(){
+
+  const name = document.getElementById("name").value;
+  const phone = document.getElementById("phone").value;
+  const address = document.getElementById("address").value;
+
+  if(!name || !phone || !address){
+    alert("Fill all details");
     return;
   }
 
-  orderBtn.disabled = true;
-  orderBtn.innerText = "Placing Order...";
+  const order = {
+    cart,
+    name,
+    phone,
+    address,
+    subtotal: subtotalEl.innerText,
+    total: totalEl.innerText,
+    status:"Placed"
+  };
 
-  try{
-    const ref = await addDoc(collection(db,"orders"),{
-      userId: currentUser.uid,
-      items: cart,
-      address: address,
-      subtotal: orderData.subtotal,
-      gst: orderData.gst,
-      deliveryCharge: orderData.deliveryCharge,
-      grandTotal: orderData.grandTotal,
-      status: "Placed",
-      createdAt: serverTimestamp()
-    });
+  console.log(order);
 
-    localStorage.setItem("lastOrderId", ref.id);
-    localStorage.removeItem("cart");
+  alert("Order Placed ✅");
 
-    alert("Order placed With Himanshu Baghel 💗");
-    location.href = "order-tracking.html";
+  localStorage.removeItem("cart");
 
-  }catch(err){
-    alert(err.message);
-    orderBtn.disabled = false;
-    orderBtn.innerText = "Place Order";
-  }
-};
+  location.href="index.html";
+}
+
+render();
 </script>
 
 </body>
