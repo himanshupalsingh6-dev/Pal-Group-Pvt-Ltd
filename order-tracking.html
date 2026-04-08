@@ -37,24 +37,43 @@ body{
   box-shadow:0 8px 20px rgba(0,0,0,.08);
 }
 
+/* MAP */
+.map{
+  width:100%;
+  height:220px;
+  border-radius:14px;
+  margin-top:10px;
+}
+
+/* DELIVERY BOY */
+.dp{
+  display:flex;
+  align-items:center;
+  gap:12px;
+}
+.dp img{
+  width:50px;
+  height:50px;
+  border-radius:50%;
+}
+.dp .name{
+  font-weight:bold;
+}
+
 /* STATUS */
 .step{
   display:flex;
   align-items:center;
-  margin-bottom:12px;
+  margin-bottom:10px;
 }
-
 .circle{
-  width:20px;
-  height:20px;
+  width:18px;
+  height:18px;
   border-radius:50%;
   background:#ccc;
   margin-right:10px;
 }
-
-.active{
-  background:var(--green);
-}
+.active{background:var(--green)}
 
 /* BUTTON */
 .btn{
@@ -65,16 +84,8 @@ body{
   font-weight:bold;
   margin-top:10px;
 }
-
-.whatsapp{
-  background:#25D366;
-  color:#fff;
-}
-
-.home{
-  background:#ff8c00;
-  color:#fff;
-}
+.whatsapp{background:#25D366;color:#fff}
+.home{background:#ff8c00;color:#fff}
 </style>
 </head>
 
@@ -84,19 +95,36 @@ body{
 
 <div class="container">
 
-<!-- ORDER INFO -->
+<!-- ORDER -->
 <div class="card">
-  <div><b>Order ID:</b> <span id="orderId"></span></div>
-  <div><b>Total:</b> ₹<span id="total"></span></div>
+  <b>Order ID:</b> <span id="orderId"></span><br>
+  <b>Total:</b> ₹<span id="total"></span>
+</div>
+
+<!-- DELIVERY BOY -->
+<div class="card">
+  <div class="dp">
+    <img src="https://i.pravatar.cc/100" alt="boy">
+    <div>
+      <div class="name">Rahul Kumar</div>
+      <div>📞 9876543210</div>
+    </div>
+  </div>
+</div>
+
+<!-- MAP -->
+<div class="card">
+  <b>Live Location</b>
+  <iframe id="map" class="map"></iframe>
 </div>
 
 <!-- STATUS -->
 <div class="card">
   <div class="step"><div class="circle active"></div> Order Placed</div>
   <div class="step"><div class="circle active"></div> Pickup Assigned</div>
-  <div class="step"><div class="circle" id="step3"></div> Processing</div>
-  <div class="step"><div class="circle" id="step4"></div> Out for Delivery</div>
-  <div class="step"><div class="circle" id="step5"></div> Delivered</div>
+  <div class="step"><div class="circle active"></div> Processing</div>
+  <div class="step"><div class="circle" id="out"></div> Out for Delivery</div>
+  <div class="step"><div class="circle" id="done"></div> Delivered</div>
 </div>
 
 <!-- ACTION -->
@@ -110,24 +138,40 @@ body{
 <script>
 
 /* LOAD ORDER */
-const order = JSON.parse(localStorage.getItem("lastOrder") || "{}");
+const order = JSON.parse(localStorage.getItem("lastOrder")||"{}");
 
 /* SET DATA */
 document.getElementById("orderId").innerText =
-  order.time ? "QP" + order.time : "N/A";
+  order.time ? "QP"+order.time : "N/A";
 
 document.getElementById("total").innerText =
   order.total || "0";
 
-/* AUTO STATUS ANIMATION */
-setTimeout(()=>{ document.getElementById("step3").classList.add("active"); },2000);
-setTimeout(()=>{ document.getElementById("step4").classList.add("active"); },4000);
-setTimeout(()=>{ document.getElementById("step5").classList.add("active"); },6000);
+/* MAP LOCATION (CUSTOMER LOCATION) */
+if(order.location){
+  document.getElementById("map").src =
+    `https://maps.google.com/maps?q=${order.location}&z=14&output=embed`;
+}
+
+/* FAKE LIVE MOVEMENT */
+let lat = 28.61; // example
+let lng = 77.20;
+
+setInterval(()=>{
+  lat += 0.001;
+  lng += 0.001;
+
+  document.getElementById("map").src =
+    `https://maps.google.com/maps?q=${lat},${lng}&z=14&output=embed`;
+},3000);
+
+/* STATUS ANIMATION */
+setTimeout(()=>{ out.classList.add("active"); },4000);
+setTimeout(()=>{ done.classList.add("active"); },8000);
 
 /* WHATSAPP */
 function whatsapp(){
-  const msg = `My Order ID: QP${order.time}`;
-  window.open(`https://wa.me/9997874502?text=${encodeURIComponent(msg)}`);
+  window.open("https://wa.me/919876543210");
 }
 
 /* HOME */
