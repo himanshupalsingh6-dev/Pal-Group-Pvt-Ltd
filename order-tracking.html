@@ -37,14 +37,6 @@ body{
   box-shadow:0 8px 20px rgba(0,0,0,.08);
 }
 
-/* MAP */
-.map{
-  width:100%;
-  height:220px;
-  border-radius:14px;
-  margin-top:10px;
-}
-
 /* DELIVERY BOY */
 .dp{
   display:flex;
@@ -52,12 +44,18 @@ body{
   gap:12px;
 }
 .dp img{
-  width:50px;
-  height:50px;
+  width:55px;
+  height:55px;
   border-radius:50%;
 }
-.dp .name{
-  font-weight:bold;
+.name{font-weight:bold}
+
+/* MAP */
+.map{
+  width:100%;
+  height:230px;
+  border-radius:14px;
+  margin-top:10px;
 }
 
 /* STATUS */
@@ -73,7 +71,9 @@ body{
   background:#ccc;
   margin-right:10px;
 }
-.active{background:var(--green)}
+.active{
+  background:var(--green);
+}
 
 /* BUTTON */
 .btn{
@@ -84,8 +84,14 @@ body{
   font-weight:bold;
   margin-top:10px;
 }
-.whatsapp{background:#25D366;color:#fff}
-.home{background:#ff8c00;color:#fff}
+.whatsapp{
+  background:#25D366;
+  color:#fff;
+}
+.home{
+  background:#ff8c00;
+  color:#fff;
+}
 </style>
 </head>
 
@@ -95,16 +101,16 @@ body{
 
 <div class="container">
 
-<!-- ORDER -->
+<!-- ORDER INFO -->
 <div class="card">
-  <b>Order ID:</b> <span id="orderId"></span><br>
-  <b>Total:</b> ₹<span id="total"></span>
+  <div><b>Order ID:</b> <span id="orderId"></span></div>
+  <div><b>Total:</b> ₹<span id="total"></span></div>
 </div>
 
 <!-- DELIVERY BOY -->
 <div class="card">
   <div class="dp">
-    <img src="https://i.pravatar.cc/100" alt="boy">
+    <img src="https://i.pravatar.cc/100?img=12">
     <div>
       <div class="name">Rahul Kumar</div>
       <div>📞 9876543210</div>
@@ -138,40 +144,50 @@ body{
 <script>
 
 /* LOAD ORDER */
-const order = JSON.parse(localStorage.getItem("lastOrder")||"{}");
+const order = JSON.parse(localStorage.getItem("lastOrder") || "{}");
 
-/* SET DATA */
+/* DEBUG */
+console.log("ORDER DATA:", order);
+
+/* IF NO ORDER */
+if(!order || !order.time){
+  alert("❌ No order found");
+}
+
+/* SET ORDER ID */
 document.getElementById("orderId").innerText =
-  order.time ? "QP"+order.time : "N/A";
+  order.time ? "QP" + order.time : "N/A";
 
+/* SET TOTAL */
 document.getElementById("total").innerText =
-  order.total || "0";
+  order.total ? order.total : "0";
 
-/* MAP LOCATION (CUSTOMER LOCATION) */
+/* MAP (CUSTOMER LOCATION) */
 if(order.location){
   document.getElementById("map").src =
     `https://maps.google.com/maps?q=${order.location}&z=14&output=embed`;
 }
 
-/* FAKE LIVE MOVEMENT */
-let lat = 28.61; // example
+/* FAKE LIVE DELIVERY MOVEMENT */
+let lat = 28.61;
 let lng = 77.20;
 
 setInterval(()=>{
-  lat += 0.001;
-  lng += 0.001;
+  lat += 0.0005;
+  lng += 0.0005;
 
   document.getElementById("map").src =
     `https://maps.google.com/maps?q=${lat},${lng}&z=14&output=embed`;
 },3000);
 
 /* STATUS ANIMATION */
-setTimeout(()=>{ out.classList.add("active"); },4000);
-setTimeout(()=>{ done.classList.add("active"); },8000);
+setTimeout(()=>{ document.getElementById("out").classList.add("active"); },4000);
+setTimeout(()=>{ document.getElementById("done").classList.add("active"); },8000);
 
 /* WHATSAPP */
 function whatsapp(){
-  window.open("https://wa.me/919876543210");
+  const msg = `My Order ID: QP${order.time}`;
+  window.open(`https://wa.me/919876543210?text=${encodeURIComponent(msg)}`);
 }
 
 /* HOME */
