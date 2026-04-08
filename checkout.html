@@ -211,6 +211,25 @@ function placeOrder(){
     return;
   }
 
+  let subtotal = 0;
+
+  cart.forEach(i=>{
+    subtotal += i.price * i.qty;
+  });
+
+  const total = subtotal + 12 + 3;
+
+  const order = {
+    cart: cart,
+    total: total,
+    time: Date.now(),   // 🔥 IMPORTANT (Order ID यही बनेगा)
+    location: userLocation,
+    status: "Placed"
+  };
+
+  console.log("ORDER SAVE:", order); // debug
+
+  localStorage.setItem("lastOrder", JSON.stringify(order));
   localStorage.removeItem("cart");
 
   document.getElementById("success").style.display="flex";
