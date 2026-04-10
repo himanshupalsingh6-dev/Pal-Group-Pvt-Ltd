@@ -2,141 +2,105 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8">
-<title>QuickPress – Admin Panel</title>
+<title>Admin Panel - QuickPress</title>
 <meta name="viewport" content="width=device-width, initial-scale=1">
 
 <style>
-body{
-  margin:0;
-  font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto;
-  background:#f6f7f9;
-}
-.header{
-  background:#fff;
-  padding:14px 18px;
-  display:flex;
-  justify-content:space-between;
-  align-items:center;
-  box-shadow:0 2px 10px rgba(0,0,0,.1);
-}
-.header h2{margin:0}
-.logout{
-  color:red;
-  font-weight:800;
-  cursor:pointer;
-}
-.page{padding:18px}
+:root{--yellow:#FFD400;--bg:#f6f7f9}
+body{margin:0;font-family:Segoe UI;background:var(--bg)}
+
+.container{padding:15px}
+
+/* CARD */
 .card{
   background:#fff;
-  border-radius:16px;
-  padding:14px;
-  margin-bottom:14px;
-  box-shadow:0 6px 14px rgba(0,0,0,.08);
+  padding:15px;
+  border-radius:12px;
+  margin-bottom:12px;
 }
-.row{
-  display:flex;
-  justify-content:space-between;
-  margin-bottom:6px;
-  font-size:14px;
+
+/* BUTTONS */
+.btn{
+  padding:6px 10px;
+  margin:3px;
+  border:none;
+  border-radius:6px;
+  cursor:pointer;
+  background:#eee;
 }
-.items{
-  margin-top:8px;
-  font-size:13px;
-  color:#444;
-}
-.status{
-  margin-top:10px;
-}
-select{
-  padding:6px;
-  border-radius:8px;
-}
-.empty{
-  text-align:center;
-  color:#666;
-  margin-top:80px;
-}
+.active{background:var(--yellow);font-weight:bold}
 </style>
 </head>
 
 <body>
 
-<div class="header">
-  <h2>⚡ QuickPress Admin</h2>
-  <div class="logout" onclick="logout()">Logout</div>
-</div>
-
-<div class="page">
+<div class="container">
+  <h2>📦 Admin Panel</h2>
   <div id="orders"></div>
 </div>
 
-<script type="module">
-import { auth, db } from "./js/firebase.js";
+<script>
 
-import {
-  onAuthStateChanged,
-  signOut
-} from "https://www.gstatic.com/firebasejs/12.11.0/firebase-auth.js";
+let orders = JSON.parse(localStorage.getItem("orders") || "[]");
 
-import {
-  collection,
-  getDocs,
-  doc,
-  updateDoc
-} from "https://www.gstatic.com/firebasejs/12.11.0/firebase-firestore.js";
+function renderOrders(){
 
-const ordersDiv = document.getElementById("orders");
-
-// 🔐 Auth check
-onAuthStateChanged(auth, user => {
-  if(!user){
-    location.href = "admin-login.html";
-  }else{
-    loadOrders();
-  }
-});
-
-async function loadOrders(){
-  ordersDiv.innerHTML = "Loading...";
-
-  const snap = await getDocs(collection(db,"orders"));
-
-  if(snap.empty){
-    ordersDiv.innerHTML = `<div class="empty">No orders</div>`;
+  if(orders.length==0){
+    document.getElementById("orders").innerHTML="No Orders";
     return;
   }
 
-  ordersDiv.innerHTML = "";
+  let html="";
 
-  snap.forEach(d=>{
-    const o = d.data();
+  orders.forEach((order,index)=>{
 
-    ordersDiv.innerHTML += `
-      <div class="card">
-        <div class="row"><b>ID</b><span>${d.id}</span></div>
-        <div class="row"><b>Total</b><span>₹${o.grandTotal || 0}</span></div>
-        <div class="row"><b>Status</b><span>${o.status}</span></div>
+    html+=`
+    <div class="card">
+      <b>ID:</b> ${order.id} <br>
+      <b>Name:</b> ${order.name} <br>
+      <b>Phone:</b> ${order.phone} <br>
+      <b>Total:</b> ₹${order.total} <br>
+      <b>Status:</b> ${order.status} <br><br>
 
-        <div class="status">
-          <select onchange="updateStatus('${d.id}',this.value)">
-            <option>Placed</option>
-            <option>Ready</option>
-            <option>Delivered</option>
-          </select>
-        </div>
-      </div>
+      <b>Change Status:</b><br>
+
+      ${statusBtn("Pickup",index)}
+      ${statusBtn("Processing",index)}
+      ${statusBtn("Out",index)}
+      ${statusBtn("Delivered",index)}
+
+    </div>
     `;
   });
+
+  document.getElementById("orders").innerHTML = html;
 }
 
-window.updateStatus = async (id,status)=>{
-  await updateDoc(doc(db,"orders",id),{status});
-};
+function statusBtn(status,i){
+  return `<button class="btn ${orders[i].status==status?'active':''}" 
+    onclick="updateStatus(${i},'${status}')">${status}</button>`;
+}
 
-window.logout = async ()=>{
-  await signOut(auth);
-  location.href="admin-login.html";
-};
+/* UPDATE STATUS */
+function updateStatus(i,status){
+
+  orders[i].status = status;
+
+  // update orders list
+  localStorage.setItem("orders", JSON.stringify(orders));
+
+  // update current order also
+  let current = JSON.parse(localStorage.getItem("currentOrder"));
+  if(current && current.id === orders[i].id){
+    current.status = status;
+    localStorage.setItem("currentOrder", JSON.stringify(current));
+  }
+
+  renderOrders();
+}
+
+renderOrders();
+
 </script>
 
 </body>
