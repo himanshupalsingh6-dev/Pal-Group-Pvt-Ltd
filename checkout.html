@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+=<!DOCTYPE html>
 <html lang="en">
 <head>
 <meta charset="UTF-8">
@@ -30,11 +30,10 @@ input,textarea{
 
 /* CATEGORY */
 .cat{
-  margin-bottom:10px;
+  margin-bottom:12px;
 }
 .cat h3{
   margin:5px 0;
-  color:#333;
 }
 
 /* BUTTON */
@@ -76,7 +75,7 @@ button{
   </div>
 
   <!-- BUTTON -->
-  <button onclick="placeOrder()">Place Order via WhatsApp</button>
+  <button onclick="placeOrder()">Place Order</button>
 
 </div>
 
@@ -85,7 +84,7 @@ button{
 /* LOAD CART */
 let cart = JSON.parse(localStorage.getItem("cart")||"[]");
 
-/* CATEGORY MAP (IMPORTANT 🔥) */
+/* CATEGORY MAP */
 const categoryMap = {
   "Shirt":"Ironing",
   "Pant":"Ironing",
@@ -108,7 +107,7 @@ const categoryMap = {
 let orderId = "QP" + Date.now();
 document.getElementById("orderId").innerText = orderId;
 
-/* GROUP BY CATEGORY */
+/* RENDER SUMMARY (CATEGORY-WISE 🔥) */
 function renderSummary(){
   let grouped = {};
   let total = 0;
@@ -140,7 +139,7 @@ function renderSummary(){
 
 renderSummary();
 
-/* PLACE ORDER */
+/* PLACE ORDER → TRACKING PAGE */
 function placeOrder(){
 
   let name = document.getElementById("name").value;
@@ -152,40 +151,30 @@ function placeOrder(){
     return;
   }
 
-  let message = `🧾 *QuickPress Order*\n\n`;
-  message += `📦 Order ID: ${orderId}\n`;
-  message += `👤 Name: ${name}\n`;
-  message += `📞 Phone: ${phone}\n`;
-  message += `📍 Address: ${address}\n\n`;
-
-  let grouped = {};
-  cart.forEach(item=>{
-    let cat = categoryMap[item.name] || "Other";
-    if(!grouped[cat]) grouped[cat] = [];
-    grouped[cat].push(item);
-  });
-
-  message += `🧺 *Order Details:*\n`;
-
-  for(let cat in grouped){
-    message += `\n👉 ${cat}\n`;
-    grouped[cat].forEach(i=>{
-      message += `- ${i.name} x ${i.qty} (₹${i.price*i.qty})\n`;
-    });
-  }
-
   let total = cart.reduce((t,i)=>t+i.price*i.qty,0);
-  message += `\n💰 Total: ₹${total}`;
 
-  let url = `https://wa.me/919997874502?text=${encodeURIComponent(message)}`;
+  let order = {
+    id: orderId,
+    name,
+    phone,
+    address,
+    items: cart,
+    total,
+    status: "Pickup",
+    time: new Date().toLocaleString()
+  };
 
-  window.open(url,"_blank");
+  // SAVE ORDER
+  localStorage.setItem("currentOrder", JSON.stringify(order));
 
-  // clear cart after order
+  // CLEAR CART
   localStorage.removeItem("cart");
+
+  // REDIRECT
+  location.href = "tracking.html";
 }
 
 </script>
 
 </body>
-</html>x
+</html>
