@@ -204,17 +204,17 @@ style="position:fixed;bottom:80px;right:20px;background:#25D366;color:white;padd
 <!-- BOTTOM NAV -->
 <div class="bottom">
   <div onclick="go('index.html')">🏠<br>Home</div>
-  <div onclick="goProducts()">🛒<br>Services</div>
+  <div onclick="goservices()">🛒<br>Services</div>
   <div onclick="go('account.html')">👤<br>Account</div>
   <div onclick="go('myorders.html')">📦<br>Orders</div>
 </div>
 
 <script>
 function go(p){location.href=p}
-function goProducts(){location.href="products.html"}
+function goServices(){location.href="services.html"}
 function selectService(s){
   localStorage.setItem("service",s);
-  location.href="products.html";
+  location.href="services.html";
 }
 
 /* CART */
