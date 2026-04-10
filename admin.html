@@ -6,53 +6,43 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 
 <style>
-:root{--yellow:#FFD400;--bg:#f6f7f9}
-body{margin:0;font-family:Segoe UI;background:var(--bg)}
+body{
+  margin:0;
+  font-family:Segoe UI;
+  background:#f6f7f9;
+}
 
 .header{
-  background:#fff;
-  padding:12px;
+  background:#FFD400;
+  padding:14px;
   text-align:center;
   font-weight:bold;
-  box-shadow:0 2px 10px rgba(0,0,0,.1);
+  font-size:18px;
 }
 
-/* TABS */
-.tabs{
-  display:flex;
-  justify-content:space-around;
-  background:#fff;
+.container{
+  padding:12px;
 }
-.tab{
-  padding:10px;
-  cursor:pointer;
-}
-.active{background:var(--yellow)}
 
-/* CONTENT */
-.container{padding:12px}
 .card{
   background:#fff;
-  padding:12px;
-  border-radius:10px;
-  margin-bottom:10px;
+  padding:14px;
+  border-radius:12px;
+  margin-bottom:12px;
+  box-shadow:0 5px 15px rgba(0,0,0,.08);
 }
 
-/* BUTTON */
 button{
   padding:6px 10px;
-  margin:2px;
+  margin:4px;
   border:none;
   border-radius:6px;
+  background:#FFD400;
   cursor:pointer;
 }
-.yellow{background:var(--yellow)}
 
-/* INPUT */
-input{
-  width:100%;
-  padding:8px;
-  margin:5px 0;
+.status{
+  font-weight:bold;
 }
 </style>
 </head>
@@ -61,181 +51,62 @@ input{
 
 <div class="header">⚡ Admin Panel</div>
 
-<div class="tabs">
-  <div class="tab active" onclick="showTab('orders')">Orders</div>
-  <div class="tab" onclick="showTab('partners')">Partners</div>
-  <div class="tab" onclick="showTab('delivery')">Delivery</div>
+<div class="container" id="ordersBox">
+Loading orders...
 </div>
 
-<div class="container" id="content"></div>
+<script type="module">
 
-<script>
+import { db } from "./firebase.js";
+import {
+  collection,
+  onSnapshot,
+  doc,
+  updateDoc
+} from "https://www.gstatic.com/firebasejs/12.11.0/firebase-firestore.js";
 
-/* DATA */
-let orders = JSON.parse(localStorage.getItem("orders")||"[]");
-let partners = JSON.parse(localStorage.getItem("partners")||"[]");
-let delivery = JSON.parse(localStorage.getItem("delivery")||"[]");
+const box = document.getElementById("ordersBox");
 
-/* TAB SWITCH */
-function showTab(tab){
-  document.querySelectorAll(".tab").forEach(t=>t.classList.remove("active"));
-  event.target.classList.add("active");
+/* 🔥 REALTIME ORDERS */
+onSnapshot(collection(db,"orders"), (snapshot)=>{
 
-  if(tab=="orders") loadOrders();
-  if(tab=="partners") loadPartners();
-  if(tab=="delivery") loadDelivery();
-}
+  let html = "";
 
-/* ================= ORDERS ================= */
-function loadOrders(){
-
-  if(orders.length==0){
-    content.innerHTML="No Orders";
+  if(snapshot.empty){
+    box.innerHTML = "No Orders Found";
     return;
   }
 
-  let html="";
+  snapshot.forEach(docSnap=>{
+    let o = docSnap.data();
+    let id = docSnap.id;
 
-  orders.forEach((o,i)=>{
-    html+=`
+    html += `
     <div class="card">
-      <b>${o.id}</b><br>
-      ${o.name} | ₹${o.total}<br>
-      Status: ${o.status}<br>
+      <b>Order ID:</b> ${o.id}<br>
+      <b>Name:</b> ${o.name}<br>
+      <b>Phone:</b> ${o.phone}<br>
+      <b>Total:</b> ₹${o.total}<br>
+      <b class="status">Status: ${o.status}</b><br><br>
 
-      Partner: ${o.partner || "Not Assigned"}<br>
-      Delivery: ${o.deliveryBoy || "Not Assigned"}<br><br>
-
-      ${statusBtn(i,"Pickup")}
-      ${statusBtn(i,"Processing")}
-      ${statusBtn(i,"Out")}
-      ${statusBtn(i,"Delivered")}
-
-      <br><br>
-
-      <select onchange="assignPartner(${i},this.value)">
-        <option>Select Partner</option>
-        ${partners.map(p=>`<option>${p.name}</option>`).join("")}
-      </select>
-
-      <select onchange="assignDelivery(${i},this.value)">
-        <option>Select Delivery</option>
-        ${delivery.map(d=>`<option>${d.name}</option>`).join("")}
-      </select>
-
+      <button onclick="updateStatus('${id}','Pickup')">Pickup</button>
+      <button onclick="updateStatus('${id}','Processing')">Processing</button>
+      <button onclick="updateStatus('${id}','Out')">Out</button>
+      <button onclick="updateStatus('${id}','Delivered')">Delivered</button>
     </div>
     `;
   });
 
-  content.innerHTML=html;
-}
+  box.innerHTML = html;
 
-function statusBtn(i,s){
-  return `<button onclick="updateStatus(${i},'${s}')">${s}</button>`;
-}
+});
 
-function updateStatus(i,s){
-  orders[i].status=s;
-  localStorage.setItem("orders",JSON.stringify(orders));
-
-  let current=JSON.parse(localStorage.getItem("currentOrder"));
-  if(current && current.id==orders[i].id){
-    current.status=s;
-    localStorage.setItem("currentOrder",JSON.stringify(current));
-  }
-
-  loadOrders();
-}
-
-/* ASSIGN */
-function assignPartner(i,name){
-  orders[i].partner=name;
-  localStorage.setItem("orders",JSON.stringify(orders));
-}
-
-function assignDelivery(i,name){
-  orders[i].deliveryBoy=name;
-  localStorage.setItem("orders",JSON.stringify(orders));
-}
-
-/* ================= PARTNERS ================= */
-function loadPartners(){
-
-  let html=`
-  <div class="card">
-    <input id="pname" placeholder="Partner Name">
-    <input id="pphone" placeholder="Phone">
-    <button class="yellow" onclick="addPartner()">Add Partner</button>
-  </div>
-  `;
-
-  partners.forEach((p,i)=>{
-    html+=`
-    <div class="card">
-      ${p.name} | ${p.phone}
-      <button onclick="deletePartner(${i})">Delete</button>
-    </div>
-    `;
+/* 🔥 UPDATE STATUS */
+window.updateStatus = async function(id,status){
+  await updateDoc(doc(db,"orders",id),{
+    status: status
   });
-
-  content.innerHTML=html;
-}
-
-function addPartner(){
-  let name=document.getElementById("pname").value;
-  let phone=document.getElementById("pphone").value;
-
-  partners.push({name,phone});
-  localStorage.setItem("partners",JSON.stringify(partners));
-  loadPartners();
-}
-
-function deletePartner(i){
-  partners.splice(i,1);
-  localStorage.setItem("partners",JSON.stringify(partners));
-  loadPartners();
-}
-
-/* ================= DELIVERY ================= */
-function loadDelivery(){
-
-  let html=`
-  <div class="card">
-    <input id="dname" placeholder="Delivery Name">
-    <input id="dphone" placeholder="Phone">
-    <button class="yellow" onclick="addDelivery()">Add Delivery</button>
-  </div>
-  `;
-
-  delivery.forEach((d,i)=>{
-    html+=`
-    <div class="card">
-      ${d.name} | ${d.phone}
-      <button onclick="deleteDelivery(${i})">Delete</button>
-    </div>
-    `;
-  });
-
-  content.innerHTML=html;
-}
-
-function addDelivery(){
-  let name=document.getElementById("dname").value;
-  let phone=document.getElementById("dphone").value;
-
-  delivery.push({name,phone});
-  localStorage.setItem("delivery",JSON.stringify(delivery));
-  loadDelivery();
-}
-
-function deleteDelivery(i){
-  delivery.splice(i,1);
-  localStorage.setItem("delivery",JSON.stringify(delivery));
-  loadDelivery();
-}
-
-/* INIT */
-loadOrders();
+};
 
 </script>
 
