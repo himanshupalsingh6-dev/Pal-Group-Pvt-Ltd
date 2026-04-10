@@ -1,51 +1,16 @@
-=<!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="en">
 <head>
 <meta charset="UTF-8">
 <title>Checkout - QuickPress</title>
 <meta name="viewport" content="width=device-width, initial-scale=1">
-
 <style>
 :root{--yellow:#FFD400;--bg:#f6f7f9}
 body{margin:0;font-family:Segoe UI;background:var(--bg)}
-
 .container{padding:15px}
-
-/* CARD */
-.card{
-  background:#fff;
-  padding:15px;
-  border-radius:12px;
-  margin-bottom:12px;
-}
-
-/* INPUT */
-input,textarea{
-  width:100%;
-  padding:12px;
-  margin-top:8px;
-  border-radius:8px;
-  border:1px solid #ddd;
-}
-
-/* CATEGORY */
-.cat{
-  margin-bottom:12px;
-}
-.cat h3{
-  margin:5px 0;
-}
-
-/* BUTTON */
-button{
-  width:100%;
-  padding:14px;
-  background:var(--yellow);
-  border:none;
-  border-radius:10px;
-  font-weight:bold;
-  font-size:16px;
-}
+.card{background:#fff;padding:15px;border-radius:12px;margin-bottom:12px}
+input,textarea{width:100%;padding:12px;margin-top:8px;border-radius:8px;border:1px solid #ddd}
+button{width:100%;padding:14px;background:var(--yellow);border:none;border-radius:10px;font-weight:bold}
 </style>
 </head>
 
@@ -53,126 +18,73 @@ button{
 
 <div class="container">
 
-  <!-- ORDER ID -->
-  <div class="card">
-    <b>Order ID:</b> <span id="orderId"></span>
-  </div>
+<div class="card">
+<b>Order ID:</b> <span id="orderId"></span>
+</div>
 
-  <!-- USER DETAILS -->
-  <div class="card">
-    <h3>Customer Details</h3>
-    <input type="text" id="name" placeholder="Your Name">
-    <input type="text" id="phone" placeholder="Phone Number">
-    <textarea id="address" placeholder="Full Address"></textarea>
-  </div>
+<div class="card">
+<h3>Customer Details</h3>
+<input id="name" placeholder="Name">
+<input id="phone" placeholder="Phone">
+<textarea id="address" placeholder="Address"></textarea>
+</div>
 
-  <!-- ORDER SUMMARY -->
-  <div class="card">
-    <h3>Your Order</h3>
-    <div id="summary"></div>
-    <hr>
-    <b>Total: ₹<span id="total"></span></b>
-  </div>
+<div class="card">
+<h3>Order</h3>
+<div id="summary"></div>
+<hr>
+<b>Total: ₹<span id="total"></span></b>
+</div>
 
-  <!-- BUTTON -->
-  <button onclick="placeOrder()">Place Order</button>
+<button onclick="placeOrder()">Place Order</button>
 
 </div>
 
-<script>
+<script type="module">
 
-/* LOAD CART */
+import { db } from "./firebase.js";
+import { collection, addDoc } from "https://www.gstatic.com/firebasejs/12.11.0/firebase-firestore.js";
+
 let cart = JSON.parse(localStorage.getItem("cart")||"[]");
 
-/* CATEGORY MAP */
-const categoryMap = {
-  "Shirt":"Ironing",
-  "Pant":"Ironing",
-  "Saree":"Ironing",
+let orderId = "QP"+Date.now();
+document.getElementById("orderId").innerText=orderId;
 
-  "Coat":"Dry Cleaning",
-  "Blazer":"Dry Cleaning",
-  "Blanket":"Dry Cleaning",
+let total=0,html="";
+cart.forEach(i=>{
+  total+=i.price*i.qty;
+  html+=`${i.name} x ${i.qty}<br>`;
+});
+document.getElementById("summary").innerHTML=html;
+document.getElementById("total").innerText=total;
 
-  "Clothes (1kg)":"Washing",
-  "Bedsheet":"Washing",
+window.placeOrder = async function(){
 
-  "Silk Dress":"Steam",
-  "Party Wear":"Steam",
+let name=nameInput.value;
+let phone=phoneInput.value;
+let address=addressInput.value;
 
-  "Same Day":"Express"
+if(!name||!phone||!address){
+alert("Fill all");
+return;
+}
+
+let order={
+id:orderId,
+name,phone,address,
+items:cart,
+total,
+status:"Pickup",
+time:new Date()
 };
 
-/* ORDER ID */
-let orderId = "QP" + Date.now();
-document.getElementById("orderId").innerText = orderId;
+await addDoc(collection(db,"orders"),order);
 
-/* RENDER SUMMARY (CATEGORY-WISE 🔥) */
-function renderSummary(){
-  let grouped = {};
-  let total = 0;
+localStorage.setItem("currentOrder",JSON.stringify(order));
+localStorage.removeItem("cart");
 
-  cart.forEach(item=>{
-    let cat = categoryMap[item.name] || "Other";
-
-    if(!grouped[cat]) grouped[cat] = [];
-    grouped[cat].push(item);
-
-    total += item.price * item.qty;
-  });
-
-  let html = "";
-
-  for(let cat in grouped){
-    html += `<div class="cat"><h3>${cat}</h3>`;
-
-    grouped[cat].forEach(i=>{
-      html += `${i.name} x ${i.qty} = ₹${i.price*i.qty}<br>`;
-    });
-
-    html += `</div>`;
-  }
-
-  document.getElementById("summary").innerHTML = html;
-  document.getElementById("total").innerText = total;
-}
-
-renderSummary();
-
-/* PLACE ORDER → TRACKING PAGE */
-function placeOrder(){
-
-  let name = document.getElementById("name").value;
-  let phone = document.getElementById("phone").value;
-  let address = document.getElementById("address").value;
-
-  if(!name || !phone || !address){
-    alert("Fill all details");
-    return;
-  }
-
-  let total = cart.reduce((t,i)=>t+i.price*i.qty,0);
-
-  let order = {
-    id: orderId,
-    name,
-    phone,
-    address,
-    items: cart,
-    total,
-    status: "Pickup",
-    time: new Date().toLocaleString()
-  };
-
-  // SAVE ORDER
-  localStorage.setItem("currentOrder", JSON.stringify(order));
-
-  // CLEAR CART
-  localStorage.removeItem("cart");
-
-  // REDIRECT
-  location.href = "tracking.html";
-}
+location.href="tracking.html";
+};
 
 </script>
 
