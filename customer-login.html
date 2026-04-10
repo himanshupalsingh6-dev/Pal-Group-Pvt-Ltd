@@ -57,9 +57,13 @@ button{
 </div>
 
 <script type="module">
-import { auth } from "./js/firebase.js";
-import { signInWithEmailAndPassword } from "https://www.gstatic.com/firebasejs/12.11.0/firebase-auth.js";
 
+/* 🔥 IMPORTS */
+import { auth, db } from "./firebase.js";
+import { signInWithEmailAndPassword } from "https://www.gstatic.com/firebasejs/12.11.0/firebase-auth.js";
+import { doc, setDoc } from "https://www.gstatic.com/firebasejs/12.11.0/firebase-firestore.js";
+
+/* 🔥 LOGIN FUNCTION */
 window.login = async function(){
 
   const email=document.getElementById("email").value;
@@ -71,17 +75,24 @@ window.login = async function(){
   }
 
   try{
+
     const userCred = await signInWithEmailAndPassword(auth,email,password);
 
+    /* 🔥 USERS COLLECTION SAVE */
+    await setDoc(doc(db,"users",userCred.user.uid),{
+      email:userCred.user.email,
+      status:"active",
+      createdAt:new Date()
+    });
+
+    /* SAVE LOCAL */
     localStorage.setItem("userId", userCred.user.uid);
 
     alert("Login success");
 
-    const redirect = localStorage.getItem("redirect");
-
-    if(redirect){
-      location.href = redirect;
-      localStorage.removeItem("redirect");
+    /* 🔥 ROLE BASED (OPTIONAL) */
+    if(email.includes("admin")){
+      location.href="admin.html";
     }else{
       location.href="index.html";
     }
@@ -90,6 +101,7 @@ window.login = async function(){
     alert(err.message);
   }
 };
+
 </script>
 
 </body>
