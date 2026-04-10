@@ -2,246 +2,190 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8">
-<title>Checkout – QuickPress</title>
+<title>Checkout - QuickPress</title>
 <meta name="viewport" content="width=device-width, initial-scale=1">
 
 <style>
 :root{--yellow:#FFD400;--bg:#f6f7f9}
 body{margin:0;font-family:Segoe UI;background:var(--bg)}
 
-/* HEADER */
-.header{
-  padding:18px;
-  font-size:20px;
-  font-weight:bold;
-  background:#fff;
-  box-shadow:0 2px 12px rgba(0,0,0,.1);
-}
-
-/* CONTAINER */
-.container{padding:16px}
+.container{padding:15px}
 
 /* CARD */
 .card{
   background:#fff;
-  padding:16px;
-  border-radius:18px;
-  margin-bottom:14px;
-  box-shadow:0 8px 20px rgba(0,0,0,.08);
-  transition:.3s;
-}
-.card:hover{transform:translateY(-3px)}
-
-/* ROW */
-.row{
-  display:flex;
-  justify-content:space-between;
-  margin:6px 0;
+  padding:15px;
+  border-radius:12px;
+  margin-bottom:12px;
 }
 
 /* INPUT */
-input{
+input,textarea{
   width:100%;
   padding:12px;
-  margin-bottom:10px;
-  border-radius:12px;
+  margin-top:8px;
+  border-radius:8px;
   border:1px solid #ddd;
 }
 
+/* CATEGORY */
+.cat{
+  margin-bottom:10px;
+}
+.cat h3{
+  margin:5px 0;
+  color:#333;
+}
+
 /* BUTTON */
-.btn{
+button{
   width:100%;
   padding:14px;
-  border:none;
   background:var(--yellow);
-  border-radius:14px;
+  border:none;
+  border-radius:10px;
   font-weight:bold;
   font-size:16px;
-}
-
-/* MAP */
-.map{
-  width:100%;
-  height:200px;
-  border-radius:12px;
-  margin-top:10px;
-}
-
-/* SUCCESS */
-.success{
-  position:fixed;
-  inset:0;
-  background:#fff;
-  display:none;
-  justify-content:center;
-  align-items:center;
-  flex-direction:column;
-}
-
-.circle{
-  width:80px;
-  height:80px;
-  border-radius:50%;
-  border:6px solid #4CAF50;
-  border-top-color:transparent;
-  animation:spin 1s linear, pop 0.5s ease forwards;
-}
-
-@keyframes spin{
-  0%{transform:rotate(0)}
-  100%{transform:rotate(360deg)}
-}
-
-@keyframes pop{
-  0%{transform:scale(0)}
-  100%{transform:scale(1)}
 }
 </style>
 </head>
 
 <body>
 
-<!-- LOGIN CHECK -->
-<script>
-const user = localStorage.getItem("userId");
-
-if(!user){
-  alert("⚠️ Please login first");
-  localStorage.setItem("redirect","checkout.html");
-  location.href="customer-login.html";
-}
-</script>
-
-<div class="header">💳 Checkout</div>
-
 <div class="container">
 
-<!-- ITEMS -->
-<div id="items"></div>
+  <!-- ORDER ID -->
+  <div class="card">
+    <b>Order ID:</b> <span id="orderId"></span>
+  </div>
 
-<!-- BILL -->
-<div class="card">
-  <div class="row">Subtotal ₹<b id="subtotal">0</b></div>
-  <div class="row">Delivery ₹12</div>
-  <div class="row">Handling ₹3</div>
-  <hr>
-  <div class="row"><b>Total ₹<span id="total">0</span></b></div>
-</div>
+  <!-- USER DETAILS -->
+  <div class="card">
+    <h3>Customer Details</h3>
+    <input type="text" id="name" placeholder="Your Name">
+    <input type="text" id="phone" placeholder="Phone Number">
+    <textarea id="address" placeholder="Full Address"></textarea>
+  </div>
 
-<!-- ADDRESS -->
-<div class="card">
-<input id="name" placeholder="Name">
-<input id="phone" placeholder="Phone">
-<input id="house" placeholder="House">
-<input id="street" placeholder="Street">
-<input id="city" placeholder="City">
+  <!-- ORDER SUMMARY -->
+  <div class="card">
+    <h3>Your Order</h3>
+    <div id="summary"></div>
+    <hr>
+    <b>Total: ₹<span id="total"></span></b>
+  </div>
 
-<button class="btn" onclick="getLocation()">📍 Get Location</button>
-<iframe id="map" class="map"></iframe>
-</div>
+  <!-- BUTTON -->
+  <button onclick="placeOrder()">Place Order via WhatsApp</button>
 
-<button class="btn" onclick="placeOrder()">Place Order</button>
-
-</div>
-
-<!-- SUCCESS -->
-<div class="success" id="success">
-  <div class="circle"></div>
-  <h2>Order Confirmed 🎉</h2>
-  <p>Your order is being processed</p>
 </div>
 
 <script>
+
+/* LOAD CART */
 let cart = JSON.parse(localStorage.getItem("cart")||"[]");
 
-/* RENDER */
-function render(){
-  let subtotal = 0;
-  const itemsBox = document.getElementById("items");
+/* CATEGORY MAP (IMPORTANT 🔥) */
+const categoryMap = {
+  "Shirt":"Ironing",
+  "Pant":"Ironing",
+  "Saree":"Ironing",
 
-  itemsBox.innerHTML = "";
+  "Coat":"Dry Cleaning",
+  "Blazer":"Dry Cleaning",
+  "Blanket":"Dry Cleaning",
 
-  if(cart.length === 0){
-    itemsBox.innerHTML = "<div class='card'>Cart is empty</div>";
+  "Clothes (1kg)":"Washing",
+  "Bedsheet":"Washing",
+
+  "Silk Dress":"Steam",
+  "Party Wear":"Steam",
+
+  "Same Day":"Express"
+};
+
+/* ORDER ID */
+let orderId = "QP" + Date.now();
+document.getElementById("orderId").innerText = orderId;
+
+/* GROUP BY CATEGORY */
+function renderSummary(){
+  let grouped = {};
+  let total = 0;
+
+  cart.forEach(item=>{
+    let cat = categoryMap[item.name] || "Other";
+
+    if(!grouped[cat]) grouped[cat] = [];
+    grouped[cat].push(item);
+
+    total += item.price * item.qty;
+  });
+
+  let html = "";
+
+  for(let cat in grouped){
+    html += `<div class="cat"><h3>${cat}</h3>`;
+
+    grouped[cat].forEach(i=>{
+      html += `${i.name} x ${i.qty} = ₹${i.price*i.qty}<br>`;
+    });
+
+    html += `</div>`;
   }
 
-  cart.forEach(i=>{
-    const itemTotal = i.price * i.qty;
-    subtotal += itemTotal;
-
-    itemsBox.innerHTML += `
-      <div class="card">
-        <div class="row">
-          <span>${i.name} (${i.service}) x${i.qty}</span>
-          <span>₹${itemTotal}</span>
-        </div>
-      </div>
-    `;
-  });
-
-  document.getElementById("subtotal").innerText = subtotal;
-  document.getElementById("total").innerText = subtotal + 12 + 3;
+  document.getElementById("summary").innerHTML = html;
+  document.getElementById("total").innerText = total;
 }
 
-/* LOCATION */
-let userLocation="";
-
-function getLocation(){
-  navigator.geolocation.getCurrentPosition(pos=>{
-    const lat=pos.coords.latitude;
-    const lng=pos.coords.longitude;
-
-    userLocation = lat+","+lng;
-
-    document.getElementById("map").src =
-      `https://maps.google.com/maps?q=${lat},${lng}&z=15&output=embed`;
-  });
-}
+renderSummary();
 
 /* PLACE ORDER */
 function placeOrder(){
 
-  if(cart.length === 0){
-    alert("Cart empty ❌");
+  let name = document.getElementById("name").value;
+  let phone = document.getElementById("phone").value;
+  let address = document.getElementById("address").value;
+
+  if(!name || !phone || !address){
+    alert("Fill all details");
     return;
   }
 
-  if(!userLocation){
-    alert("Select location first");
-    return;
-  }
+  let message = `🧾 *QuickPress Order*\n\n`;
+  message += `📦 Order ID: ${orderId}\n`;
+  message += `👤 Name: ${name}\n`;
+  message += `📞 Phone: ${phone}\n`;
+  message += `📍 Address: ${address}\n\n`;
 
-  let subtotal = 0;
-
-  cart.forEach(i=>{
-    subtotal += i.price * i.qty;
+  let grouped = {};
+  cart.forEach(item=>{
+    let cat = categoryMap[item.name] || "Other";
+    if(!grouped[cat]) grouped[cat] = [];
+    grouped[cat].push(item);
   });
 
-  const total = subtotal + 12 + 3;
+  message += `🧺 *Order Details:*\n`;
 
-  const order = {
-    cart: cart,
-    total: total,
-    time: Date.now(),   // 🔥 IMPORTANT (Order ID यही बनेगा)
-    location: userLocation,
-    status: "Placed"
-  };
+  for(let cat in grouped){
+    message += `\n👉 ${cat}\n`;
+    grouped[cat].forEach(i=>{
+      message += `- ${i.name} x ${i.qty} (₹${i.price*i.qty})\n`;
+    });
+  }
 
-  console.log("ORDER SAVE:", order); // debug
+  let total = cart.reduce((t,i)=>t+i.price*i.qty,0);
+  message += `\n💰 Total: ₹${total}`;
 
-  localStorage.setItem("lastOrder", JSON.stringify(order));
+  let url = `https://wa.me/91XXXXXXXXXX?text=${encodeURIComponent(message)}`;
+
+  window.open(url,"_blank");
+
+  // clear cart after order
   localStorage.removeItem("cart");
-
-  document.getElementById("success").style.display="flex";
-
-  setTimeout(()=>{
-    location.href="order-tracking.html";
-  },3000);
 }
 
-/* INIT */
-render();
 </script>
 
 </body>
-</html>
+</html>x
