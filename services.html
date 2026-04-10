@@ -2,125 +2,224 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8">
-<title>QuickPress – Services</title>
+<title>Services - QuickPress</title>
 <meta name="viewport" content="width=device-width, initial-scale=1">
 
 <style>
 :root{--yellow:#FFD400;--bg:#f6f7f9}
 body{margin:0;font-family:Segoe UI;background:var(--bg)}
 
+/* HEADER */
 .header{
-  padding:16px;
-  font-size:20px;
-  font-weight:bold;
+  display:flex;
+  justify-content:space-between;
+  padding:12px;
   background:#fff;
+  box-shadow:0 2px 10px rgba(0,0,0,.1);
 }
+.back{font-size:18px;cursor:pointer}
+.cart{background:var(--yellow);padding:6px 12px;border-radius:20px}
 
-/* CARD */
-.card{
-  background:#fff;
-  margin:12px;
-  padding:14px;
-  border-radius:16px;
-  box-shadow:0 6px 14px rgba(0,0,0,.08);
-  cursor:pointer;
-}
-
-/* CATEGORY */
-.accordion{
-  display:none;
-  margin-top:10px;
-}
-.cat{
+/* TABS */
+.tabs{
+  display:flex;
+  overflow:auto;
+  gap:10px;
   padding:10px;
-  background:#f6f6f6;
-  border-radius:10px;
-  margin-bottom:6px;
+}
+.tab{
+  padding:8px 14px;
+  background:#fff;
+  border-radius:20px;
+  white-space:nowrap;
+  cursor:pointer;
+}
+.active{
+  background:var(--yellow);
+  font-weight:bold;
+}
+
+/* PRODUCTS */
+.list{padding:12px}
+.item{
+  display:flex;
+  justify-content:space-between;
+  background:#fff;
+  padding:14px;
+  border-radius:12px;
+  margin-bottom:10px;
+}
+.qty{
+  display:flex;
+  gap:8px;
+  align-items:center;
+}
+.btn{
+  width:28px;
+  height:28px;
+  border:none;
+  background:var(--yellow);
+  border-radius:6px;
   cursor:pointer;
 }
 
-.open .accordion{
-  display:block;
-}
-
-/* NAV */
+/* BOTTOM BAR */
 .bottom{
   position:fixed;
   bottom:0;
   left:0;
   right:0;
   background:#fff;
-  display:flex;
-  justify-content:space-around;
-  padding:10px;
+  padding:12px;
   box-shadow:0 -2px 10px rgba(0,0,0,.1);
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
 }
-.bottom div{text-align:center;font-size:12px}
+.checkout{
+  background:var(--yellow);
+  padding:10px 18px;
+  border:none;
+  border-radius:8px;
+  font-weight:bold;
+}
 </style>
 </head>
 
 <body>
 
-<div class="header">🛒 All Services</div>
-
-<!-- IRONING -->
-<div class="card" onclick="toggle(this)">
-  🧺 Ironing
-  <div class="accordion">
-    <div class="cat" onclick="go('ironing','daily')">👔 Daily Wear</div>
-    <div class="cat" onclick="go('ironing','traditional')">👗 Traditional</div>
-    <div class="cat" onclick="go('ironing','women')">👚 Women Wear</div>
-    <div class="cat" onclick="go('ironing','home')">🛏️ Home Items</div>
-    <div class="cat" onclick="go('ironing','winter')">🧥 Winter</div>
-  </div>
+<!-- HEADER -->
+<div class="header">
+  <div class="back" onclick="goBack()">← Back</div>
+  <div class="cart">🛒 <span id="count">0</span></div>
 </div>
 
-<!-- DRY CLEAN -->
-<div class="card" onclick="toggle(this)">
-  🧼 Dry Cleaning
-  <div class="accordion">
-    <div class="cat" onclick="go('dry','formal')">👔 Formal Wear</div>
-    <div class="cat" onclick="go('dry','wedding')">👗 Wedding Wear</div>
-    <div class="cat" onclick="go('dry','delicate')">👚 Delicate</div>
-    <div class="cat" onclick="go('dry','embroidery')">✨ Embroidery</div>
-    <div class="cat" onclick="go('dry','home')">🏠 Home</div>
-    <div class="cat" onclick="go('dry','special')">👖 Special</div>
-  </div>
-</div>
+<!-- TABS -->
+<div class="tabs" id="tabs"></div>
 
-<!-- WASHING -->
-<div class="card" onclick="toggle(this)">
-  🧽 Washing
-  <div class="accordion">
-    <div class="cat" onclick="go('washing','daily')">👕 Daily Wear</div>
-    <div class="cat" onclick="go('washing','traditional')">👗 Traditional</div>
-    <div class="cat" onclick="go('washing','home')">🛏️ Home</div>
-    <div class="cat" onclick="go('washing','special')">👶 Special</div>
-  </div>
-</div>
+<!-- PRODUCT LIST -->
+<div class="list" id="list"></div>
 
-<!-- BOTTOM NAV -->
+<!-- BOTTOM -->
 <div class="bottom">
-  <div onclick="nav('index.html')">🏠<br>Home</div>
-  <div onclick="nav('services.html')">🛒<br>Services</div>
-  <div onclick="nav('account.html')">👤<br>Account</div>
-  <div onclick="nav('myorders.html')">📦<br>Orders</div>
+  <div>
+    <b id="items">0 items</b><br>
+    ₹<span id="total">0</span>
+  </div>
+  <button class="checkout" onclick="checkout()">Checkout</button>
 </div>
 
 <script>
-function nav(p){location.href=p}
 
-/* ACCORDION */
-function toggle(el){
-  el.classList.toggle("open");
+/* DATA */
+const services = {
+  ironing: [
+    {name:"Shirt",price:10},
+    {name:"Pant",price:15},
+    {name:"Saree",price:20}
+  ],
+  dry: [
+    {name:"Coat",price:80},
+    {name:"Blazer",price:100},
+    {name:"Blanket",price:120}
+  ],
+  washing: [
+    {name:"Clothes (1kg)",price:50},
+    {name:"Bedsheet",price:40}
+  ],
+  steam: [
+    {name:"Silk Dress",price:60},
+    {name:"Party Wear",price:70}
+  ],
+  express: [
+    {name:"Same Day",price:50}
+  ]
+};
+
+let current = localStorage.getItem("service") || "ironing";
+let cart = JSON.parse(localStorage.getItem("cart")||"[]");
+
+/* LOAD TABS */
+function loadTabs(){
+  let html="";
+  for(let key in services){
+    html+=`<div class="tab ${key==current?'active':''}" onclick="changeTab('${key}')">${key}</div>`;
+  }
+  document.getElementById("tabs").innerHTML=html;
 }
 
-/* GO PRODUCT PAGE */
-function go(service,cat){
-  localStorage.setItem("service",service);
-  localStorage.setItem("category",cat);
-  location.href="products.html";
+/* CHANGE TAB */
+function changeTab(tab){
+  current=tab;
+  loadTabs();
+  loadItems();
 }
+
+/* LOAD ITEMS */
+function loadItems(){
+  let data=services[current];
+  let html="";
+  data.forEach((item,i)=>{
+    let found=cart.find(c=>c.name==item.name);
+    let qty=found?found.qty:0;
+
+    html+=`
+    <div class="item">
+      <div>${item.name}<br>₹${item.price}</div>
+      <div class="qty">
+        <button class="btn" onclick="update('${item.name}',${item.price},-1)">-</button>
+        <span>${qty}</span>
+        <button class="btn" onclick="update('${item.name}',${item.price},1)">+</button>
+      </div>
+    </div>
+    `;
+  });
+  document.getElementById("list").innerHTML=html;
+}
+
+/* UPDATE CART */
+function update(name,price,delta){
+  let item=cart.find(c=>c.name==name);
+
+  if(item){
+    item.qty+=delta;
+    if(item.qty<=0) cart=cart.filter(c=>c.name!=name);
+  }else if(delta>0){
+    cart.push({name,price,qty:1});
+  }
+
+  localStorage.setItem("cart",JSON.stringify(cart));
+  loadItems();
+  updateTotal();
+}
+
+/* TOTAL */
+function updateTotal(){
+  let total=0,items=0;
+  cart.forEach(i=>{
+    total+=i.price*i.qty;
+    items+=i.qty;
+  });
+  document.getElementById("total").innerText=total;
+  document.getElementById("items").innerText=items+" items";
+  document.getElementById("count").innerText=items;
+}
+
+/* NAV */
+function goBack(){location.href="index.html"}
+function checkout(){
+  if(cart.length==0){
+    alert("Add items first");
+    return;
+  }
+  location.href="checkout.html";
+}
+
+/* INIT */
+loadTabs();
+loadItems();
+updateTotal();
+
 </script>
 
 </body>
