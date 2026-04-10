@@ -8,6 +8,8 @@
 <style>
 :root{--yellow:#FFD400;--bg:#f6f7f9}
 body{margin:0;font-family:Segoe UI;background:var(--bg)}
+
+/* GLOBAL */
 *{transition:0.25s ease}
 
 /* NAV */
@@ -19,45 +21,22 @@ body{margin:0;font-family:Segoe UI;background:var(--bg)}
   display:flex;
   justify-content:space-between;
   box-shadow:0 2px 10px rgba(0,0,0,.1);
+  transition:0.3s;
+  backdrop-filter: blur(10px);
 }
 .cart{background:var(--yellow);padding:6px 12px;border-radius:20px}
 
 /* HERO */
 .hero{padding:20px}
-.hero h1{font-size:28px}
-.hero p{color:#555}
-
-/* PREMIUM BUTTON */
-.order-btn{
+.hero h1{font-size:26px}
+.hero button{
   width:100%;
-  padding:15px;
-  background:linear-gradient(45deg,#FFD400,#ffb300);
+  padding:14px;
+  background:var(--yellow);
   border:none;
-  border-radius:12px;
-  font-size:16px;
-  font-weight:bold;
-  cursor:pointer;
-  box-shadow:0 8px 20px rgba(0,0,0,.2);
-  position:relative;
-  overflow:hidden;
+  border-radius:10px;
 }
-.order-btn:hover{
-  transform:scale(1.03);
-  box-shadow:0 12px 25px rgba(0,0,0,.3);
-}
-.order-btn:active{transform:scale(0.95)}
-
-/* ripple */
-.order-btn span{
-  position:absolute;
-  background:rgba(255,255,255,0.5);
-  border-radius:50%;
-  transform:scale(0);
-  animation:ripple 0.6s linear;
-}
-@keyframes ripple{
-  to{transform:scale(4);opacity:0}
-}
+button:active{transform:scale(0.95)}
 
 /* SECTION */
 .section{padding:18px}
@@ -67,11 +46,49 @@ body{margin:0;font-family:Segoe UI;background:var(--bg)}
   padding:16px;
   border-radius:14px;
   text-align:center;
+  position:relative;
+  overflow:hidden;
 }
 .card:hover{
-  transform:translateY(-5px);
+  transform:translateY(-5px) scale(1.02);
   box-shadow:0 10px 25px rgba(0,0,0,.15);
 }
+
+/* HOW */
+.how-wrap{display:flex;flex-direction:column;gap:10px}
+.how-step{
+  display:flex;
+  gap:12px;
+  background:#fff;
+  padding:14px;
+  border-radius:16px;
+  box-shadow:0 6px 14px rgba(0,0,0,.08);
+}
+.how-step:hover{transform:translateX(6px)}
+.how-icon{
+  width:50px;height:50px;
+  background:var(--yellow);
+  border-radius:50%;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+}
+.how-line{
+  height:20px;width:3px;background:var(--yellow);margin-left:24px;
+}
+
+/* REVIEWS */
+.reviews{overflow:hidden}
+.track{display:flex;gap:12px;animation:slide 25s linear infinite}
+.review{min-width:200px;background:#fff;padding:14px;border-radius:12px}
+@keyframes slide{
+  0%{transform:translateX(0)}
+  100%{transform:translateX(-50%)}
+}
+
+/* FADE */
+.fade{opacity:0;transform:translateY(20px)}
+.fade.show{opacity:1;transform:translateY(0)}
 
 /* BOTTOM NAV */
 .bottom{
@@ -87,6 +104,12 @@ body{margin:0;font-family:Segoe UI;background:var(--bg)}
 }
 .bottom div{text-align:center;font-size:12px}
 
+/* RIPPLE */
+@keyframes ripple{
+  from{transform:scale(1);opacity:1}
+  to{transform:scale(6);opacity:0}
+}
+.card,button{position:relative;overflow:hidden}
 </style>
 </head>
 
@@ -103,10 +126,8 @@ body{margin:0;font-family:Segoe UI;background:var(--bg)}
   <h1>Fast Laundry <span style="background:#FFD400">At Home</span></h1>
   <p>Doorstep ironing & cleaning</p>
 
-  <!-- 🔥 UPDATED BUTTON -->
-  <button class="order-btn" onclick="goServices(event)">
-    🚀 Order Now
-  </button>
+  <!-- 🔥 CHANGED -->
+  <button onclick="location.href='services.html'">Order Now</button>
 </div>
 
 <!-- SERVICES -->
@@ -120,41 +141,82 @@ body{margin:0;font-family:Segoe UI;background:var(--bg)}
   </div>
 </div>
 
+<!-- HOW -->
+<div class="section">
+  <h2>How It Works</h2>
+  <div class="how-wrap">
+
+    <div class="how-step">
+      <div class="how-icon">📦</div>
+      <div><b>Book Order</b><br><small>Select service & add clothes</small></div>
+    </div>
+
+    <div class="how-line"></div>
+
+    <div class="how-step">
+      <div class="how-icon">🚚</div>
+      <div><b>Pickup</b><br><small>We collect from your home</small></div>
+    </div>
+
+    <div class="how-line"></div>
+
+    <div class="how-step">
+      <div class="how-icon">🔥</div>
+      <div><b>Processing</b><br><small>Cleaning & ironing</small></div>
+    </div>
+
+    <div class="how-line"></div>
+
+    <div class="how-step">
+      <div class="how-icon">🏠</div>
+      <div><b>Delivery</b><br><small>Delivered fast</small></div>
+    </div>
+
+  </div>
+</div>
+
+<!-- REVIEWS -->
+<div class="section">
+  <h2>Customer Reviews</h2>
+  <div class="reviews">
+    <div class="track">
+      <div class="review">🔥 Amazing ★★★★★</div>
+      <div class="review">Fast delivery 🚚</div>
+      <div class="review">Best service 👕</div>
+      <div class="review">Affordable 💰</div>
+
+      <div class="review">🔥 Amazing ★★★★★</div>
+      <div class="review">Fast delivery 🚚</div>
+      <div class="review">Best service 👕</div>
+      <div class="review">Affordable 💰</div>
+    </div>
+  </div>
+
+  <div style="text-align:center;margin-top:10px;color:#999;font-weight:bold">
+    ⚡ QuickPress
+  </div>
+</div>
+
+<!-- WHATSAPP -->
+<a href="https://wa.me/919997874502" target="_blank"
+style="position:fixed;bottom:80px;right:20px;background:#25D366;color:white;padding:14px;border-radius:50%">
+📲
+</a>
+
 <!-- BOTTOM NAV -->
 <div class="bottom">
   <div onclick="go('index.html')">🏠<br>Home</div>
-  <div onclick="goServices()">🛒<br>Services</div>
+
+  <!-- 🔥 CHANGED -->
+  <div onclick="location.href='services.html'">🛒<br>Services</div>
+
   <div onclick="go('account.html')">👤<br>Account</div>
   <div onclick="go('myorders.html')">📦<br>Orders</div>
 </div>
 
 <script>
-
-/* NAVIGATION */
 function go(p){location.href=p}
-
-/* 🔥 MAIN LINK FUNCTION */
-function goServices(e){
-
-  // ripple effect
-  if(e){
-    let circle=document.createElement("span");
-    circle.style.width="20px";
-    circle.style.height="20px";
-    circle.style.left=e.offsetX+"px";
-    circle.style.top=e.offsetY+"px";
-    e.target.appendChild(circle);
-    setTimeout(()=>circle.remove(),600);
-  }
-
-  // optional default service
-  localStorage.setItem("service","ironing");
-
-  // redirect
-  location.href="products.html";
-}
-
-/* SERVICE CLICK */
+function goProducts(){location.href="products.html"}
 function selectService(s){
   localStorage.setItem("service",s);
   location.href="products.html";
@@ -166,6 +228,49 @@ let count=0;
 cart.forEach(i=>count+=i.qty||1);
 document.getElementById("cartCount").innerText=count;
 
+/* NAV HIDE */
+let lastScroll=0;
+const nav=document.querySelector(".nav");
+window.addEventListener("scroll",()=>{
+  let cur=window.pageYOffset;
+  if(cur>lastScroll && cur>50){
+    nav.style.transform="translateY(-100%)";
+  }else{
+    nav.style.transform="translateY(0)";
+  }
+  lastScroll=cur;
+});
+
+/* FADE */
+const observer=new IntersectionObserver(entries=>{
+  entries.forEach(e=>{
+    if(e.isIntersecting){
+      e.target.classList.add("show");
+    }
+  });
+});
+document.querySelectorAll(".section,.card,.how-step")
+.forEach(el=>{
+  el.classList.add("fade");
+  observer.observe(el);
+});
+
+/* RIPPLE */
+document.querySelectorAll(".card,button").forEach(el=>{
+  el.addEventListener("click",function(e){
+    let circle=document.createElement("span");
+    circle.style.position="absolute";
+    circle.style.width="20px";
+    circle.style.height="20px";
+    circle.style.background="rgba(0,0,0,0.2)";
+    circle.style.borderRadius="50%";
+    circle.style.left=e.offsetX+"px";
+    circle.style.top=e.offsetY+"px";
+    circle.style.animation="ripple 0.5s ease";
+    this.appendChild(circle);
+    setTimeout(()=>circle.remove(),500);
+  });
+});
 </script>
 
 </body>
