@@ -8,7 +8,7 @@
 <style>
 body{margin:0;font-family:Segoe UI;background:#f6f7f9}
 .header{background:#FFD400;padding:14px;text-align:center;font-weight:bold}
-.tabs{display:flex;background:#fff}
+.tabs{display:flex;background:#fff;flex-wrap:wrap}
 .tab{flex:1;padding:10px;text-align:center;cursor:pointer}
 .active{background:#FFD400}
 .container{padding:12px}
@@ -26,8 +26,10 @@ input{padding:8px;width:100%;margin:5px 0}
   <div class="tab active" onclick="showTab('dashboard')">Dashboard</div>
   <div class="tab" onclick="showTab('orders')">Orders</div>
   <div class="tab" onclick="showTab('users')">Users</div>
-  <div class="tab" onclick="showTab('delivery')">Delivery</div>
+  <div class="tab" onclick="showTab('partners')">Partners</div>
+  <div class="tab" onclick="showTab('riders')">Riders</div>
   <div class="tab" onclick="showTab('services')">Services</div>
+  <div class="tab" onclick="showTab('area')">Analytics</div>
 </div>
 
 <div class="container" id="content"></div>
@@ -47,18 +49,49 @@ where,
 getDocs
 } from "https://www.gstatic.com/firebasejs/12.11.0/firebase-firestore.js";
 
-let orders=[], users=[], delivery=[], services=[];
+let orders=[], users=[], partners=[], riders=[], services=[];
 
-/* ================= REALTIME ORDERS ================= */
+/* ================= REALTIME DATA ================= */
+
 onSnapshot(collection(db,"orders"), snap=>{
   orders=[];
   snap.forEach(d=>orders.push({...d.data(),docId:d.id}));
   loadDashboard();
 });
 
+onSnapshot(collection(db,"users"), snap=>{
+  users=[];
+  snap.forEach(d=>users.push({...d.data(),id:d.id}));
+});
+
+onSnapshot(collection(db,"partners"), snap=>{
+  partners=[];
+  snap.forEach(d=>partners.push({...d.data(),id:d.id}));
+});
+
+onSnapshot(collection(db,"delivery"), snap=>{
+  riders=[];
+  snap.forEach(d=>riders.push({...d.data(),id:d.id}));
+});
+
+/* ================= TAB SWITCH ================= */
+
+window.showTab=function(tab){
+document.querySelectorAll(".tab").forEach(t=>t.classList.remove("active"));
+event.target.classList.add("active");
+
+if(tab=="dashboard") loadDashboard();
+if(tab=="orders") loadOrders();
+if(tab=="users") loadUsers();
+if(tab=="partners") loadPartners();
+if(tab=="riders") loadRiders();
+if(tab=="services") loadServices();
+if(tab=="area") areaAnalytics();
+}
+
 /* ================= DASHBOARD ================= */
+
 function loadDashboard(){
-let total=orders.length;
 let revenue=0;
 let active=0;
 
@@ -68,25 +101,16 @@ orders.forEach(o=>{
 });
 
 content.innerHTML=`
-<div class="card">📦 Orders: ${total}</div>
+<div class="card">📦 Orders: ${orders.length}</div>
 <div class="card">💰 Revenue: ₹${revenue}</div>
 <div class="card">🚚 Active Orders: ${active}</div>
+<div class="card">👨‍🔧 Partners: ${partners.length}</div>
+<div class="card">🚚 Riders: ${riders.length}</div>
 `;
 }
 
-/* ================= TAB SWITCH ================= */
-window.showTab=function(tab){
-document.querySelectorAll(".tab").forEach(t=>t.classList.remove("active"));
-event.target.classList.add("active");
-
-if(tab=="dashboard") loadDashboard();
-if(tab=="orders") loadOrders();
-if(tab=="users") loadUsers();
-if(tab=="delivery") loadDelivery();
-if(tab=="services") loadServices();
-}
-
 /* ================= ORDERS ================= */
+
 function loadOrders(){
 let html="";
 
@@ -114,112 +138,112 @@ await updateDoc(doc(db,"orders",id),{status});
 };
 
 /* ================= USERS ================= */
+
 function loadUsers(){
+let html=`<div class="card"><input id="search" placeholder="Search..." oninput="searchUser()"></div>`;
 
-onSnapshot(collection(db,"users"), snap=>{
-  users=[];
-  snap.forEach(d=>users.push({...d.data(),id:d.id}));
-  renderUsers(users);
-});
-
-}
-
-function renderUsers(list){
-
-let html=`
-<div class="card">
-<input id="search" placeholder="Search user..." oninput="searchUser()">
-</div>
-`;
-
-list.forEach(u=>{
+users.forEach(u=>{
 html+=`
 <div class="card">
-<b>${u.email}</b><br>
-Status: ${u.status}<br>
-
+${u.email}<br>
+Status: ${u.status}
 <button onclick="toggleUser('${u.id}','${u.status}')">
 ${u.status=="active"?"Block":"Unblock"}
 </button>
-
-<button onclick="viewOrders('${u.id}')">Orders</button>
-</div>
-`;
-});
-
-content.innerHTML=html;
-}
-
-window.searchUser=function(){
-let val=search.value.toLowerCase();
-let filtered=users.filter(u=>u.email.toLowerCase().includes(val));
-renderUsers(filtered);
-};
-
-window.toggleUser=async function(id,status){
-let newStatus = status=="active"?"blocked":"active";
-await updateDoc(doc(db,"users",id),{status:newStatus});
-};
-
-window.viewOrders = async function(userId){
-
-let q = query(collection(db,"orders"), where("userId","==",userId));
-let snap = await getDocs(q);
-
-let html="<h3>User Orders</h3>";
-
-snap.forEach(doc=>{
-let o=doc.data();
-html+=`
-<div class="card">
-${o.name} ₹${o.total}<br>
-Status: ${o.status}
-</div>
-`;
-});
-
-content.innerHTML=html;
-
-};
-
-/* ================= DELIVERY ================= */
-function loadDelivery(){
-
-let html=`
-<div class="card">
-<input id="dname" placeholder="Delivery Name">
-<button onclick="addDelivery()">Add</button>
-</div>
-`;
-
-delivery.forEach((d,i)=>{
-html+=`
-<div class="card">
-${d.name}
-<button onclick="removeDelivery(${i})">Delete</button>
 </div>`;
 });
 
 content.innerHTML=html;
 }
 
-window.addDelivery=()=>{
-let name=document.getElementById("dname").value;
-delivery.push({name});
-loadDelivery();
+window.searchUser=()=>{
+let val=search.value.toLowerCase();
+let filtered=users.filter(u=>u.email.toLowerCase().includes(val));
+content.innerHTML="";
+filtered.forEach(u=>{
+content.innerHTML+=`<div class="card">${u.email}</div>`;
+});
 }
 
-window.removeDelivery=(i)=>{
-delivery.splice(i,1);
-loadDelivery();
+window.toggleUser=async(id,status)=>{
+await updateDoc(doc(db,"users",id),{
+status:status=="active"?"blocked":"active"
+});
+};
+
+/* ================= PARTNERS ================= */
+
+function loadPartners(){
+
+let html=`
+<div class="card">
+<input id="pname" placeholder="Name">
+<input id="pphone" placeholder="Phone">
+<input id="parea" placeholder="Area">
+<button onclick="addPartner()">Add</button>
+</div>
+`;
+
+partners.forEach(p=>{
+html+=`
+<div class="card">
+${p.name} (${p.area})<br>
+📞 ${p.phone}
+</div>`;
+});
+
+content.innerHTML=html;
 }
+
+window.addPartner=async()=>{
+await addDoc(collection(db,"partners"),{
+name:pname.value,
+phone:pphone.value,
+area:parea.value
+});
+};
+
+/* ================= RIDERS ================= */
+
+function loadRiders(){
+
+let html=`
+<div class="card">
+<input id="rname" placeholder="Name">
+<input id="rphone" placeholder="Phone">
+<input id="rarea" placeholder="Area">
+<button onclick="addRider()">Add</button>
+</div>
+`;
+
+riders.forEach(r=>{
+html+=`
+<div class="card">
+${r.name} (${r.area})<br>
+📞 ${r.phone}<br>
+Status: ${r.status || "available"}
+</div>`;
+});
+
+content.innerHTML=html;
+}
+
+window.addRider=async()=>{
+await addDoc(collection(db,"delivery"),{
+name:rname.value,
+phone:rphone.value,
+area:rarea.value,
+status:"available"
+});
+};
 
 /* ================= SERVICES ================= */
+
 function loadServices(){
 
 let html=`
 <div class="card">
-<input id="sname" placeholder="Service Name">
+<input id="sname" placeholder="Service">
 <input id="sprice" placeholder="Price">
 <button onclick="addService()">Add</button>
 </div>
@@ -229,7 +253,6 @@ services.forEach((s,i)=>{
 html+=`
 <div class="card">
 ${s.name} ₹${s.price}
-<button onclick="deleteService(${i})">Delete</button>
 </div>`;
 });
 
@@ -239,11 +262,27 @@ content.innerHTML=html;
 window.addService=()=>{
 services.push({name:sname.value,price:sprice.value});
 loadServices();
+};
+
+/* ================= AREA ANALYTICS ================= */
+
+function areaAnalytics(){
+
+let map={};
+
+orders.forEach(o=>{
+let area=o.address||"Unknown";
+if(!map[area]) map[area]=0;
+map[area]++;
+});
+
+let html="<h3>📍 Area Wise Orders</h3>";
+
+for(let a in map){
+html+=`<div class="card">${a} → ${map[a]} orders</div>`;
 }
 
-window.deleteService=(i)=>{
-services.splice(i,1);
-loadServices();
+content.innerHTML=html;
 }
 
 /* INIT */
