@@ -1,8 +1,9 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
 <meta charset="UTF-8">
-<title>QuickPress Admin</title>
+<title>QuickPress Admin Panel</title>
+<meta name="viewport" content="width=device-width, initial-scale=1">
 
 <style>
 body{margin:0;font-family:Segoe UI;background:#f6f7f9}
@@ -24,6 +25,7 @@ input{padding:8px;width:100%;margin:5px 0}
 <div class="tabs">
   <div class="tab active" onclick="showTab('dashboard')">Dashboard</div>
   <div class="tab" onclick="showTab('orders')">Orders</div>
+  <div class="tab" onclick="showTab('users')">Users</div>
   <div class="tab" onclick="showTab('delivery')">Delivery</div>
   <div class="tab" onclick="showTab('services')">Services</div>
 </div>
@@ -39,21 +41,24 @@ onSnapshot,
 addDoc,
 doc,
 updateDoc,
-deleteDoc
+deleteDoc,
+query,
+where,
+getDocs
 } from "https://www.gstatic.com/firebasejs/12.11.0/firebase-firestore.js";
 
-let orders=[],delivery=[],services=[];
+let orders=[], users=[], delivery=[], services=[];
 
-/* 🔥 LOAD DATA REALTIME */
+/* ================= REALTIME ORDERS ================= */
 onSnapshot(collection(db,"orders"), snap=>{
   orders=[];
-  snap.forEach(d=>orders.push({...d.data(),id:d.id}));
+  snap.forEach(d=>orders.push({...d.data(),docId:d.id}));
   loadDashboard();
 });
 
 /* ================= DASHBOARD ================= */
 function loadDashboard(){
-let totalOrders=orders.length;
+let total=orders.length;
 let revenue=0;
 let active=0;
 
@@ -63,9 +68,9 @@ orders.forEach(o=>{
 });
 
 content.innerHTML=`
-<div class="card">📦 Orders: ${totalOrders}</div>
+<div class="card">📦 Orders: ${total}</div>
 <div class="card">💰 Revenue: ₹${revenue}</div>
-<div class="card">🚚 Active: ${active}</div>
+<div class="card">🚚 Active Orders: ${active}</div>
 `;
 }
 
@@ -76,13 +81,13 @@ event.target.classList.add("active");
 
 if(tab=="dashboard") loadDashboard();
 if(tab=="orders") loadOrders();
+if(tab=="users") loadUsers();
 if(tab=="delivery") loadDelivery();
 if(tab=="services") loadServices();
 }
 
 /* ================= ORDERS ================= */
 function loadOrders(){
-
 let html="";
 
 orders.forEach(o=>{
@@ -92,7 +97,7 @@ html+=`
 ${o.name} ₹${o.total}<br>
 Status: ${o.status}<br>
 
-<select onchange="updateStatus('${o.id}',this.value)">
+<select onchange="updateStatus('${o.docId}',this.value)">
 <option>Pickup</option>
 <option>Processing</option>
 <option>Out</option>
@@ -106,6 +111,75 @@ content.innerHTML=html;
 
 window.updateStatus = async(id,status)=>{
 await updateDoc(doc(db,"orders",id),{status});
+};
+
+/* ================= USERS ================= */
+function loadUsers(){
+
+onSnapshot(collection(db,"users"), snap=>{
+  users=[];
+  snap.forEach(d=>users.push({...d.data(),id:d.id}));
+  renderUsers(users);
+});
+
+}
+
+function renderUsers(list){
+
+let html=`
+<div class="card">
+<input id="search" placeholder="Search user..." oninput="searchUser()">
+</div>
+`;
+
+list.forEach(u=>{
+html+=`
+<div class="card">
+<b>${u.email}</b><br>
+Status: ${u.status}<br>
+
+<button onclick="toggleUser('${u.id}','${u.status}')">
+${u.status=="active"?"Block":"Unblock"}
+</button>
+
+<button onclick="viewOrders('${u.id}')">Orders</button>
+</div>
+`;
+});
+
+content.innerHTML=html;
+}
+
+window.searchUser=function(){
+let val=search.value.toLowerCase();
+let filtered=users.filter(u=>u.email.toLowerCase().includes(val));
+renderUsers(filtered);
+};
+
+window.toggleUser=async function(id,status){
+let newStatus = status=="active"?"blocked":"active";
+await updateDoc(doc(db,"users",id),{status:newStatus});
+};
+
+window.viewOrders = async function(userId){
+
+let q = query(collection(db,"orders"), where("userId","==",userId));
+let snap = await getDocs(q);
+
+let html="<h3>User Orders</h3>";
+
+snap.forEach(doc=>{
+let o=doc.data();
+html+=`
+<div class="card">
+${o.name} ₹${o.total}<br>
+Status: ${o.status}
+</div>
+`;
+});
+
+content.innerHTML=html;
+
 };
 
 /* ================= DELIVERY ================= */
@@ -163,10 +237,7 @@ content.innerHTML=html;
 }
 
 window.addService=()=>{
-let name=sname.value;
-let price=sprice.value;
-
-services.push({name,price});
+services.push({name:sname.value,price:sprice.value});
 loadServices();
 }
 
