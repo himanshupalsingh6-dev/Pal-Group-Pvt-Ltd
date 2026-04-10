@@ -2,195 +2,153 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8">
-<title>Track Order – QuickPress</title>
+<title>Order Tracking</title>
 <meta name="viewport" content="width=device-width, initial-scale=1">
 
 <style>
-:root{
-  --yellow:#FFD400;
-  --green:#2ecc71;
-  --bg:#f6f7f9;
-}
-body{
-  margin:0;
-  font-family:Segoe UI;
-  background:var(--bg);
-}
+:root{--yellow:#FFD400;--bg:#f6f7f9}
+body{margin:0;font-family:Segoe UI;background:var(--bg)}
 
-/* HEADER */
-.header{
-  padding:18px;
-  font-weight:bold;
-  background:linear-gradient(90deg,#ff7a00,#ffae00);
-  color:#fff;
-}
-
-/* CONTAINER */
-.container{padding:16px}
+.container{padding:15px}
 
 /* CARD */
 .card{
   background:#fff;
-  padding:16px;
-  border-radius:18px;
-  margin-bottom:14px;
-  box-shadow:0 8px 20px rgba(0,0,0,.08);
-}
-
-/* DELIVERY BOY */
-.dp{
-  display:flex;
-  align-items:center;
-  gap:12px;
-}
-.dp img{
-  width:55px;
-  height:55px;
-  border-radius:50%;
-}
-.name{font-weight:bold}
-
-/* MAP */
-.map{
-  width:100%;
-  height:230px;
-  border-radius:14px;
-  margin-top:10px;
+  padding:15px;
+  border-radius:12px;
+  margin-bottom:12px;
 }
 
 /* STATUS */
-.step{
+.status{
   display:flex;
-  align-items:center;
-  margin-bottom:10px;
-}
-.circle{
-  width:18px;
-  height:18px;
-  border-radius:50%;
-  background:#ccc;
-  margin-right:10px;
-}
-.active{
-  background:var(--green);
-}
-
-/* BUTTON */
-.btn{
-  width:100%;
-  padding:14px;
-  border:none;
-  border-radius:14px;
-  font-weight:bold;
+  justify-content:space-between;
   margin-top:10px;
 }
-.whatsapp{
-  background:#25D366;
-  color:#fff;
+.step{
+  text-align:center;
+  flex:1;
 }
-.home{
-  background:#ff8c00;
-  color:#fff;
+.circle{
+  width:30px;
+  height:30px;
+  border-radius:50%;
+  background:#ddd;
+  margin:auto;
+}
+.active{background:var(--yellow)}
+
+/* ITEMS */
+.item{margin-bottom:6px}
+
+/* BUTTON */
+button{
+  width:100%;
+  padding:12px;
+  background:var(--yellow);
+  border:none;
+  border-radius:10px;
 }
 </style>
 </head>
 
 <body>
 
-<div class="header">📍 Track Your Order</div>
-
 <div class="container">
 
-<!-- ORDER INFO -->
-<div class="card">
-  <div><b>Order ID:</b> <span id="orderId"></span></div>
-  <div><b>Total:</b> ₹<span id="total"></span></div>
-</div>
+  <!-- ORDER INFO -->
+  <div class="card">
+    <b>Order ID:</b> <span id="id"></span><br>
+    <b>Name:</b> <span id="name"></span><br>
+    <b>Phone:</b> <span id="phone"></span><br>
+    <b>Address:</b> <span id="address"></span>
+  </div>
 
-<!-- DELIVERY BOY -->
-<div class="card">
-  <div class="dp">
-    <img src="https://i.pravatar.cc/100?img=12">
-    <div>
-      <div class="name">Rahul Kumar</div>
-      <div>📞 9876543210</div>
+  <!-- STATUS -->
+  <div class="card">
+    <h3>Status</h3>
+    <div class="status">
+      <div class="step">
+        <div class="circle" id="s1"></div>
+        Pickup
+      </div>
+      <div class="step">
+        <div class="circle" id="s2"></div>
+        Processing
+      </div>
+      <div class="step">
+        <div class="circle" id="s3"></div>
+        Out
+      </div>
+      <div class="step">
+        <div class="circle" id="s4"></div>
+        Delivered
+      </div>
     </div>
   </div>
-</div>
 
-<!-- MAP -->
-<div class="card">
-  <b>Live Location</b>
-  <iframe id="map" class="map"></iframe>
-</div>
+  <!-- ITEMS -->
+  <div class="card">
+    <h3>Items</h3>
+    <div id="items"></div>
+    <hr>
+    <b>Total: ₹<span id="total"></span></b>
+  </div>
 
-<!-- STATUS -->
-<div class="card">
-  <div class="step"><div class="circle active"></div> Order Placed</div>
-  <div class="step"><div class="circle active"></div> Pickup Assigned</div>
-  <div class="step"><div class="circle active"></div> Processing</div>
-  <div class="step"><div class="circle" id="out"></div> Out for Delivery</div>
-  <div class="step"><div class="circle" id="done"></div> Delivered</div>
-</div>
-
-<!-- ACTION -->
-<div class="card">
-  <button class="btn whatsapp" onclick="whatsapp()">📲 Contact on WhatsApp</button>
-  <button class="btn home" onclick="goHome()">🏠 Go to Home</button>
-</div>
+  <button onclick="goHome()">Back to Home</button>
 
 </div>
 
 <script>
 
-/* LOAD ORDER */
-const order = JSON.parse(localStorage.getItem("lastOrder") || "{}");
+let order = JSON.parse(localStorage.getItem("currentOrder"));
 
-/* DEBUG */
-console.log("ORDER DATA:", order);
-
-/* IF NO ORDER */
-if(!order || !order.time){
-  alert("❌ No order found");
+if(!order){
+  alert("No order found");
+  location.href="index.html";
 }
 
-/* SET ORDER ID */
-document.getElementById("orderId").innerText =
-  order.time ? "QP" + order.time : "N/A";
+/* SHOW DATA */
+document.getElementById("id").innerText = order.id;
+document.getElementById("name").innerText = order.name;
+document.getElementById("phone").innerText = order.phone;
+document.getElementById("address").innerText = order.address;
 
-/* SET TOTAL */
-document.getElementById("total").innerText =
-  order.total ? order.total : "0";
+/* ITEMS */
+let html="";
+order.items.forEach(i=>{
+  html+=`<div class="item">${i.name} x ${i.qty}</div>`;
+});
+document.getElementById("items").innerHTML=html;
+document.getElementById("total").innerText=order.total;
 
-/* MAP (CUSTOMER LOCATION) */
-if(order.location){
-  document.getElementById("map").src =
-    `https://maps.google.com/maps?q=${order.location}&z=14&output=embed`;
+/* STATUS FLOW */
+let steps=["Pickup","Processing","Out","Delivered"];
+let index=steps.indexOf(order.status);
+
+for(let i=0;i<=index;i++){
+  document.getElementById("s"+(i+1)).classList.add("active");
 }
 
-/* FAKE LIVE DELIVERY MOVEMENT */
-let lat = 28.61;
-let lng = 77.20;
+/* AUTO UPDATE (Demo) */
+setTimeout(()=>{
+  order.status="Processing";
+  localStorage.setItem("currentOrder",JSON.stringify(order));
+  location.reload();
+},5000);
 
-setInterval(()=>{
-  lat += 0.0005;
-  lng += 0.0005;
+setTimeout(()=>{
+  order.status="Out";
+  localStorage.setItem("currentOrder",JSON.stringify(order));
+  location.reload();
+},10000);
 
-  document.getElementById("map").src =
-    `https://maps.google.com/maps?q=${lat},${lng}&z=14&output=embed`;
-},3000);
+setTimeout(()=>{
+  order.status="Delivered";
+  localStorage.setItem("currentOrder",JSON.stringify(order));
+  location.reload();
+},15000);
 
-/* STATUS ANIMATION */
-setTimeout(()=>{ document.getElementById("out").classList.add("active"); },4000);
-setTimeout(()=>{ document.getElementById("done").classList.add("active"); },8000);
-
-/* WHATSAPP */
-function whatsapp(){
-  const msg = `My Order ID: QP${order.time}`;
-  window.open(`https://wa.me/919876543210?text=${encodeURIComponent(msg)}`);
-}
-
-/* HOME */
 function goHome(){
   location.href="index.html";
 }
