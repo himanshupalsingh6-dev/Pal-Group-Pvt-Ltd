@@ -16,7 +16,7 @@ body{margin:0;font-family:Segoe UI;background:#f6f7f9}
 .container{padding:12px}
 .card{background:#fff;padding:12px;margin-bottom:10px;border-radius:10px}
 button{padding:6px;margin:3px;border:none;background:#FFD400}
-input{padding:8px;width:100%;margin:5px 0}
+input,select{padding:8px;width:100%;margin:5px 0}
 </style>
 </head>
 
@@ -35,20 +35,19 @@ input{padding:8px;width:100%;margin:5px 0}
   <div class="tab" onclick="showTab('notify')">Notify</div>
 </div>
 
-<div class="container" id="content"></div>
+<div class="container" id="content">Loading...</div>
 
 <script type="module">
 
-import { db } from "./firebase.js";
+/* 🔥 FIXED IMPORT PATH (IMPORTANT) */
+import { db } from "./js/firebase.js";
+
 import {
 collection,
 onSnapshot,
 addDoc,
 doc,
-updateDoc,
-query,
-where,
-getDocs
+updateDoc
 } from "https://www.gstatic.com/firebasejs/12.11.0/firebase-firestore.js";
 
 let orders=[], users=[], partners=[], riders=[];
@@ -76,41 +75,43 @@ onSnapshot(collection(db,"delivery"), snap=>{
   snap.forEach(d=>riders.push({...d.data(),id:d.id}));
 });
 
-/* ================= TAB ================= */
+/* ================= TAB FIX ================= */
 
 window.showTab=function(tab){
-document.querySelectorAll(".tab").forEach(t=>t.classList.remove("active"));
-event.target.classList.add("active");
 
-if(tab=="dashboard") loadDashboard();
-if(tab=="orders") loadOrders();
-if(tab=="users") loadUsers();
-if(tab=="partners") loadPartners();
-if(tab=="riders") loadRiders();
-if(tab=="services") loadServices();
-if(tab=="area") areaAnalytics();
-if(tab=="notify") loadNotify();
+document.querySelectorAll(".tab").forEach(t=>t.classList.remove("active"));
+
+document.querySelectorAll(".tab").forEach(t=>{
+  if(t.innerText.toLowerCase().includes(tab)){
+    t.classList.add("active");
+  }
+});
+
+if(tab==="dashboard") loadDashboard();
+if(tab==="orders") loadOrders();
+if(tab==="users") loadUsers();
+if(tab==="partners") loadPartners();
+if(tab==="riders") loadRiders();
+if(tab==="services") loadServices();
+if(tab==="area") areaAnalytics();
+if(tab==="notify") loadNotify();
 }
 
 /* ================= DASHBOARD ================= */
 
 function loadDashboard(){
 
-let total=0,today=0,delivered=0;
-let now=new Date().toDateString();
+let total=0, delivered=0;
 
 orders.forEach(o=>{
-  total+=o.total;
-  if(new Date(o.time).toDateString()==now) today+=o.total;
-  if(o.status=="Delivered") delivered+=o.total;
+  total+=o.total || 0;
+  if(o.status==="Delivered") delivered+=o.total || 0;
 });
 
 content.innerHTML=`
-<div class="card">💰 Total: ₹${total}</div>
-<div class="card">📅 Today: ₹${today}</div>
+<div class="card">💰 Total Revenue: ₹${total}</div>
 <div class="card">✅ Delivered: ₹${delivered}</div>
-<div class="card">⏳ Pending: ₹${total-delivered}</div>
-
+<div class="card">📦 Orders: ${orders.length}</div>
 <canvas id="chart"></canvas>
 `;
 
@@ -126,7 +127,7 @@ let map={};
 orders.forEach(o=>{
 let d=new Date(o.time).toLocaleDateString();
 if(!map[d]) map[d]=0;
-map[d]+=o.total;
+map[d]+=o.total || 0;
 });
 
 new Chart(document.getElementById("chart"),{
@@ -141,12 +142,19 @@ datasets:[{label:"Revenue",data:Object.values(map)}]
 /* ================= ORDERS ================= */
 
 function loadOrders(){
+
+if(!orders.length){
+content.innerHTML="No Orders";
+return;
+}
+
 let html="";
+
 orders.forEach(o=>{
 html+=`
 <div class="card">
-${o.name} ₹${o.total}<br>
-Status: ${o.status}<br>
+${o.name || "No Name"} ₹${o.total || 0}<br>
+Status: ${o.status || "N/A"}
 
 <select onchange="updateStatus('${o.docId}',this.value)">
 <option>Pickup</option>
@@ -156,37 +164,30 @@ Status: ${o.status}<br>
 </select>
 </div>`;
 });
+
 content.innerHTML=html;
 }
 
 window.updateStatus=async(id,status)=>{
 await updateDoc(doc(db,"orders",id),{status});
 alert("Updated: "+status);
-};
+}
 
 /* ================= USERS ================= */
 
 function loadUsers(){
 
-let html=`<div class="card">
-<input id="searchUser" placeholder="Search User..." oninput="searchUsers()">
-</div>`;
-
-users.forEach(u=>{
-html+=`<div class="card">${u.email} (${u.status})</div>`;
-});
-
-content.innerHTML=html;
+if(!users.length){
+content.innerHTML="No Users";
+return;
 }
 
-window.searchUsers=()=>{
-let val=searchUser.value.toLowerCase();
-let filtered=users.filter(u=>u.email.toLowerCase().includes(val));
-content.innerHTML="";
-filtered.forEach(u=>{
-content.innerHTML+=`<div class="card">${u.email}</div>`;
+let html="";
+users.forEach(u=>{
+html+=`<div class="card">${u.email}</div>`;
 });
-};
+content.innerHTML=html;
+}
 
 /* ================= PARTNERS ================= */
 
@@ -194,7 +195,6 @@ function loadPartners(){
 
 let html=`
 <div class="card">
-<input id="pareaSearch" placeholder="Search Area" oninput="searchPartners()">
 <input id="pname" placeholder="Name">
 <input id="pphone" placeholder="Phone">
 <input id="parea" placeholder="Area">
@@ -209,22 +209,13 @@ html+=`<div class="card">${p.name} (${p.area})</div>`;
 content.innerHTML=html;
 }
 
-window.searchPartners=()=>{
-let val=pareaSearch.value.toLowerCase();
-let filtered=partners.filter(p=>p.area.toLowerCase().includes(val));
-content.innerHTML="";
-filtered.forEach(p=>{
-content.innerHTML+=`<div class="card">${p.name} (${p.area})</div>`;
-});
-};
-
 window.addPartner=async()=>{
 await addDoc(collection(db,"partners"),{
 name:pname.value,
 phone:pphone.value,
 area:parea.value
 });
-};
+}
 
 /* ================= RIDERS ================= */
 
@@ -232,7 +223,6 @@ function loadRiders(){
 
 let html=`
 <div class="card">
-<input id="rareaSearch" placeholder="Search Area" oninput="searchRiders()">
 <input id="rname" placeholder="Name">
 <input id="rphone" placeholder="Phone">
 <input id="rarea" placeholder="Area">
@@ -247,15 +237,6 @@ html+=`<div class="card">${r.name} (${r.area})</div>`;
 content.innerHTML=html;
 }
 
-window.searchRiders=()=>{
-let val=rareaSearch.value.toLowerCase();
-let filtered=riders.filter(r=>r.area.toLowerCase().includes(val));
-content.innerHTML="";
-filtered.forEach(r=>{
-content.innerHTML+=`<div class="card">${r.name} (${r.area})</div>`;
-});
-};
-
 window.addRider=async()=>{
 await addDoc(collection(db,"delivery"),{
 name:rname.value,
@@ -263,12 +244,12 @@ phone:rphone.value,
 area:rarea.value,
 status:"available"
 });
-};
+}
 
 /* ================= SERVICES ================= */
 
 function loadServices(){
-content.innerHTML="<div class='card'>Service system simple version</div>";
+content.innerHTML="<div class='card'>Services panel ready</div>";
 }
 
 /* ================= AREA ================= */
@@ -283,8 +264,7 @@ if(!map[a]) map[a]=0;
 map[a]++;
 });
 
-let html="<h3>Area Wise Orders</h3>";
-
+let html="";
 for(let a in map){
 html+=`<div class="card">${a} → ${map[a]}</div>`;
 }
@@ -303,11 +283,8 @@ content.innerHTML=`
 }
 
 window.sendNotify=()=>{
-alert("Notification Sent: "+msg.value);
-};
-
-/* INIT */
-loadDashboard();
+alert("Notification: "+msg.value);
+}
 
 </script>
 
