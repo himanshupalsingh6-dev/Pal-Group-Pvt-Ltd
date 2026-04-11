@@ -1,16 +1,14 @@
 <!DOCTYPE html>
-<html lang="en">
+<html>
 <head>
 <meta charset="UTF-8">
-<title>Checkout - QuickPress</title>
-<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Checkout</title>
 <style>
-:root{--yellow:#FFD400;--bg:#f6f7f9}
-body{margin:0;font-family:Segoe UI;background:var(--bg)}
+body{font-family:Segoe UI;background:#f6f7f9}
 .container{padding:15px}
-.card{background:#fff;padding:15px;border-radius:12px;margin-bottom:12px}
-input,textarea{width:100%;padding:12px;margin-top:8px;border-radius:8px;border:1px solid #ddd}
-button{width:100%;padding:14px;background:var(--yellow);border:none;border-radius:10px;font-weight:bold}
+.card{background:#fff;padding:15px;margin:10px;border-radius:10px}
+input,select,textarea{width:100%;padding:10px;margin-top:8px}
+button{padding:12px;width:100%;background:#FFD400;border:none}
 </style>
 </head>
 
@@ -19,21 +17,20 @@ button{width:100%;padding:14px;background:var(--yellow);border:none;border-radiu
 <div class="container">
 
 <div class="card">
-<b>Order ID:</b> <span id="orderId"></span>
-</div>
-
-<div class="card">
 <h3>Customer Details</h3>
+
 <input id="name" placeholder="Name">
 <input id="phone" placeholder="Phone">
-<textarea id="address" placeholder="Address"></textarea>
-</div>
 
-<div class="card">
-<h3>Order</h3>
-<div id="summary"></div>
-<hr>
-<b>Total: ₹<span id="total"></span></b>
+<label>Select Area</label>
+<select id="area">
+<option>Delhi</option>
+<option>Noida</option>
+<option>Ghaziabad</option>
+<option>Meerut</option>
+</select>
+
+<textarea id="address" placeholder="Full Address"></textarea>
 </div>
 
 <button onclick="placeOrder()">Place Order</button>
@@ -42,49 +39,44 @@ button{width:100%;padding:14px;background:var(--yellow);border:none;border-radiu
 
 <script type="module">
 
-import { db } from "./firebase.js";
+import { db } from "./js/firebase.js";
 import { collection, addDoc } from "https://www.gstatic.com/firebasejs/12.11.0/firebase-firestore.js";
-
-let cart = JSON.parse(localStorage.getItem("cart")||"[]");
-
-let orderId = "QP"+Date.now();
-document.getElementById("orderId").innerText=orderId;
-
-let total=0,html="";
-cart.forEach(i=>{
-  total+=i.price*i.qty;
-  html+=`${i.name} x ${i.qty}<br>`;
-});
-document.getElementById("summary").innerHTML=html;
-document.getElementById("total").innerText=total;
 
 window.placeOrder = async function(){
 
-let name=nameInput.value;
-let phone=phoneInput.value;
-let address=addressInput.value;
+let name=name.value;
+let phone=phone.value;
+let address=address.value;
+let area=document.getElementById("area").value;
 
-if(!name||!phone||!address){
-alert("Fill all");
-return;
-}
+let cart = JSON.parse(localStorage.getItem("cart")||"[]");
+
+let total=0;
+cart.forEach(i=> total+=i.price*i.qty);
 
 let order={
-id:orderId,
-name,phone,address,
+id:"QP"+Date.now(),
+name,
+phone,
+address,
+area,   // 🔥 AREA ADDED
 items:cart,
 total,
 status:"Pickup",
-time:new Date()
+paymentMethod:"COD",
+paymentStatus:"Pending",
+time:new Date(),
+userId:localStorage.getItem("userId")
 };
 
 await addDoc(collection(db,"orders"),order);
 
-localStorage.setItem("currentOrder",JSON.stringify(order));
 localStorage.removeItem("cart");
 
+alert("Order Placed ✅");
+
 location.href="tracking.html";
-};
+}
 
 </script>
 
