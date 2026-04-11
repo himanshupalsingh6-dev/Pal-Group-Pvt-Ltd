@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html>
+<body>
+
+<button onclick="addData()">Add Dummy Data</button>
+
+<script type="module">
+
+import { db } from "./js/firebase.js";
+import { collection, addDoc } from "https://www.gstatic.com/firebasejs/12.11.0/firebase-firestore.js";
+
+window.addData = async function(){
+
+let partners = [
+{ name:"Ramesh Laundry", area:"Delhi" },
+{ name:"Super Clean", area:"Delhi" },
+{ name:"Quick Wash", area:"Noida" },
+{ name:"Fresh Dryclean", area:"Noida" },
+{ name:"Elite Laundry", area:"Ghaziabad" },
+{ name:"City Clean", area:"Ghaziabad" },
+{ name:"Smart Wash", area:"Meerut" },
+{ name:"Royal Laundry", area:"Meerut" },
+{ name:"Express Clean", area:"Delhi" },
+{ name:"Pro Laundry", area:"Noida" }
+];
+
+let riders = [
+{ name:"Amit", area:"Delhi", orders:2 },
+{ name:"Rohit", area:"Delhi", orders:1 },
+{ name:"Suresh", area:"Delhi", orders:0 },
+{ name:"Vikas", area:"Noida", orders:3 },
+{ name:"Deepak", area:"Noida", orders:1 },
+{ name:"Manoj", area:"Ghaziabad", orders:2 },
+{ name:"Anil", area:"Ghaziabad", orders:0 },
+{ name:"Sunil", area:"Meerut", orders:1 },
+{ name:"Pawan", area:"Meerut", orders:0 },
+{ name:"Raj", area:"Delhi", orders:4 }
+];
+
+// add partners
+for(let p of partners){
+  await addDoc(collection(db,"partners"), p);
+}
+
+// add riders
+for(let r of riders){
+  await addDoc(collection(db,"delivery"), r);
+}
+
+alert("Data Added Successfully 🔥");
+
+};
+
+</script>
+
+</body>
+</html>
