@@ -17,6 +17,7 @@ body{margin:0;font-family:Segoe UI;background:#f6f7f9}
 .card{background:#fff;padding:12px;margin-bottom:10px;border-radius:10px}
 button{padding:6px;margin:3px;border:none;background:#FFD400}
 input,select{padding:8px;width:100%;margin:5px 0}
+.details{display:none;margin-top:10px}
 </style>
 </head>
 
@@ -39,7 +40,6 @@ input,select{padding:8px;width:100%;margin:5px 0}
 
 <script type="module">
 
-/* 🔥 FIXED IMPORT PATH (IMPORTANT) */
 import { db } from "./js/firebase.js";
 
 import {
@@ -47,7 +47,10 @@ collection,
 onSnapshot,
 addDoc,
 doc,
-updateDoc
+updateDoc,
+query,
+where,
+getDocs
 } from "https://www.gstatic.com/firebasejs/12.11.0/firebase-firestore.js";
 
 let orders=[], users=[], partners=[], riders=[];
@@ -75,7 +78,7 @@ onSnapshot(collection(db,"delivery"), snap=>{
   snap.forEach(d=>riders.push({...d.data(),id:d.id}));
 });
 
-/* ================= TAB FIX ================= */
+/* ================= TAB ================= */
 
 window.showTab=function(tab){
 
@@ -139,22 +142,32 @@ datasets:[{label:"Revenue",data:Object.values(map)}]
 });
 }
 
-/* ================= ORDERS ================= */
+/* ================= ORDERS (ADVANCED) ================= */
 
 function loadOrders(){
 
-if(!orders.length){
-content.innerHTML="No Orders";
-return;
-}
-
 let html="";
 
-orders.forEach(o=>{
+orders.forEach((o,i)=>{
+
+let itemsHTML="";
+
+if(o.items){
+o.items.forEach(it=>{
+itemsHTML += `${it.name} x ${it.qty} = ₹${it.price * it.qty}<br>`;
+});
+}
+
 html+=`
 <div class="card">
-${o.name || "No Name"} ₹${o.total || 0}<br>
-Status: ${o.status || "N/A"}
+
+<b>Order ID:</b> ${o.id || "N/A"}<br>
+<b>Name:</b> ${o.name || "N/A"}<br>
+<b>Phone:</b> ${o.phone || "N/A"}<br>
+<b>Total:</b> ₹${o.total || 0}<br>
+<b>Status:</b> ${o.status || "N/A"}<br>
+
+<button onclick="toggleDetails(${i})">View Details</button>
 
 <select onchange="updateStatus('${o.docId}',this.value)">
 <option>Pickup</option>
@@ -162,128 +175,106 @@ Status: ${o.status || "N/A"}
 <option>Out</option>
 <option>Delivered</option>
 </select>
-</div>`;
+
+<div class="details" id="d${i}">
+<hr>
+<b>Address:</b> ${o.address || "N/A"}<br><br>
+<b>Items:</b><br>
+${itemsHTML}
+</div>
+
+</div>
+`;
 });
 
 content.innerHTML=html;
 }
 
+/* TOGGLE */
+window.toggleDetails=function(i){
+let el=document.getElementById("d"+i);
+el.style.display = el.style.display=="block" ? "none":"block";
+}
+
+/* STATUS */
 window.updateStatus=async(id,status)=>{
 await updateDoc(doc(db,"orders",id),{status});
 alert("Updated: "+status);
 }
 
-/* ================= USERS ================= */
+/* ================= USERS (ADVANCED) ================= */
 
 function loadUsers(){
 
-if(!users.length){
-content.innerHTML="No Users";
-return;
+let html="";
+
+users.forEach(u=>{
+html+=`
+<div class="card">
+
+<b>Email:</b> ${u.email || "N/A"}<br>
+<b>Name:</b> ${u.name || "N/A"}<br>
+<b>Phone:</b> ${u.phone || "N/A"}<br>
+<b>Address:</b> ${u.address || "N/A"}<br>
+
+<button onclick="viewUserOrders('${u.id}')">View Orders</button>
+
+</div>
+`;
+});
+
+content.innerHTML=html;
 }
 
-let html="";
-users.forEach(u=>{
-html+=`<div class="card">${u.email}</div>`;
+/* USER ORDERS */
+window.viewUserOrders=async function(uid){
+
+let q = query(collection(db,"orders"), where("userId","==",uid));
+let snap = await getDocs(q);
+
+let html="<h3>User Orders</h3>";
+
+snap.forEach(doc=>{
+let o=doc.data();
+html+=`
+<div class="card">
+${o.name} ₹${o.total}<br>
+Status: ${o.status}
+</div>
+`;
 });
+
 content.innerHTML=html;
 }
 
 /* ================= PARTNERS ================= */
 
 function loadPartners(){
-
-let html=`
-<div class="card">
-<input id="pname" placeholder="Name">
-<input id="pphone" placeholder="Phone">
-<input id="parea" placeholder="Area">
-<button onclick="addPartner()">Add</button>
-</div>
-`;
-
-partners.forEach(p=>{
-html+=`<div class="card">${p.name} (${p.area})</div>`;
-});
-
-content.innerHTML=html;
-}
-
-window.addPartner=async()=>{
-await addDoc(collection(db,"partners"),{
-name:pname.value,
-phone:pphone.value,
-area:parea.value
-});
+content.innerHTML="<div class='card'>Partners panel</div>";
 }
 
 /* ================= RIDERS ================= */
 
 function loadRiders(){
-
-let html=`
-<div class="card">
-<input id="rname" placeholder="Name">
-<input id="rphone" placeholder="Phone">
-<input id="rarea" placeholder="Area">
-<button onclick="addRider()">Add</button>
-</div>
-`;
-
-riders.forEach(r=>{
-html+=`<div class="card">${r.name} (${r.area})</div>`;
-});
-
-content.innerHTML=html;
-}
-
-window.addRider=async()=>{
-await addDoc(collection(db,"delivery"),{
-name:rname.value,
-phone:rphone.value,
-area:rarea.value,
-status:"available"
-});
+content.innerHTML="<div class='card'>Riders panel</div>";
 }
 
 /* ================= SERVICES ================= */
 
 function loadServices(){
-content.innerHTML="<div class='card'>Services panel ready</div>";
+content.innerHTML="<div class='card'>Services panel</div>";
 }
 
 /* ================= AREA ================= */
 
 function areaAnalytics(){
-
-let map={};
-
-orders.forEach(o=>{
-let a=o.address||"Unknown";
-if(!map[a]) map[a]=0;
-map[a]++;
-});
-
-let html="";
-for(let a in map){
-html+=`<div class="card">${a} → ${map[a]}</div>`;
-}
-
-content.innerHTML=html;
+content.innerHTML="<div class='card'>Area analytics</div>";
 }
 
 /* ================= NOTIFY ================= */
 
 function loadNotify(){
-content.innerHTML=`
-<div class="card">
-<input id="msg" placeholder="Message">
-<button onclick="sendNotify()">Send</button>
-</div>`;
-}
-
-window.sendNotify=()=>{
-alert("Notification: "+msg.value);
+content.innerHTML="<div class='card'>Notification panel</div>";
 }
 
 </script>
