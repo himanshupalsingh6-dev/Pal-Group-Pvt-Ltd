@@ -29,19 +29,13 @@ input,select{padding:8px;width:100%;margin:5px 0}
   <div class="tab active" onclick="showTab('dashboard')">Dashboard</div>
   <div class="tab" onclick="showTab('orders')">Orders</div>
   <div class="tab" onclick="showTab('users')">Users</div>
-  <div class="tab" onclick="showTab('partners')">Partners</div>
-  <div class="tab" onclick="showTab('riders')">Riders</div>
-  <div class="tab" onclick="showTab('services')">Services</div>
-  <div class="tab" onclick="showTab('area')">Analytics</div>
-  <div class="tab" onclick="showTab('notify')">Notify</div>
 </div>
 
-<div class="container" id="content">Loading...</div>
+<div class="container" id="content"></div>
 
 <script type="module">
 
 import { db } from "./js/firebase.js";
-
 import {
 collection,
 onSnapshot,
@@ -70,12 +64,12 @@ onSnapshot(collection(db,"users"), snap=>{
 
 onSnapshot(collection(db,"partners"), snap=>{
   partners=[];
-  snap.forEach(d=>partners.push({...d.data(),id:d.id}));
+  snap.forEach(d=>partners.push({...d.data()}));
 });
 
 onSnapshot(collection(db,"delivery"), snap=>{
   riders=[];
-  snap.forEach(d=>riders.push({...d.data(),id:d.id}));
+  snap.forEach(d=>riders.push({...d.data()}));
 });
 
 /* ================= TAB ================= */
@@ -93,27 +87,17 @@ document.querySelectorAll(".tab").forEach(t=>{
 if(tab==="dashboard") loadDashboard();
 if(tab==="orders") loadOrders();
 if(tab==="users") loadUsers();
-if(tab==="partners") loadPartners();
-if(tab==="riders") loadRiders();
-if(tab==="services") loadServices();
-if(tab==="area") areaAnalytics();
-if(tab==="notify") loadNotify();
 }
 
 /* ================= DASHBOARD ================= */
 
 function loadDashboard(){
 
-let total=0, delivered=0;
-
-orders.forEach(o=>{
-  total+=o.total || 0;
-  if(o.status==="Delivered") delivered+=o.total || 0;
-});
+let total=0;
+orders.forEach(o=> total+=o.total || 0);
 
 content.innerHTML=`
 <div class="card">💰 Total Revenue: ₹${total}</div>
-<div class="card">✅ Delivered: ₹${delivered}</div>
 <div class="card">📦 Orders: ${orders.length}</div>
 <canvas id="chart"></canvas>
 `;
@@ -142,7 +126,7 @@ datasets:[{label:"Revenue",data:Object.values(map)}]
 });
 }
 
-/* ================= ORDERS (ADVANCED) ================= */
+/* ================= ORDERS ================= */
 
 function loadOrders(){
 
@@ -161,25 +145,35 @@ itemsHTML += `${it.name} x ${it.qty} = ₹${it.price * it.qty}<br>`;
 html+=`
 <div class="card">
 
-<b>Order ID:</b> ${o.id || "N/A"}<br>
-<b>Name:</b> ${o.name || "N/A"}<br>
-<b>Phone:</b> ${o.phone || "N/A"}<br>
-<b>Total:</b> ₹${o.total || 0}<br>
-<b>Status:</b> ${o.status || "N/A"}<br>
+<b>Order ID:</b> ${o.id}<br>
+<b>Name:</b> ${o.name}<br>
+<b>Area:</b> ${o.address || "N/A"}<br>
+<b>Total:</b> ₹${o.total}<br>
+
+<b>Partner:</b> ${o.partner || "Not Assigned"}<br>
+<b>Rider:</b> ${o.rider || "Not Assigned"}<br><br>
+
+<button onclick="autoAssign('${o.docId}','${o.address}')">
+🤖 Auto Assign
+</button>
+
+<select onchange="assignPartner('${o.docId}',this.value)">
+<option>Select Partner</option>
+${partners.map(p=>`<option>${p.name}</option>`).join("")}
+</select>
+
+<select onchange="assignRider('${o.docId}',this.value)">
+<option>Select Rider</option>
+${riders.map(r=>`<option>${r.name}</option>`).join("")}
+</select>
+
+<br><br>
 
 <button onclick="toggleDetails(${i})">View Details</button>
 
-<select onchange="updateStatus('${o.docId}',this.value)">
-<option>Pickup</option>
-<option>Processing</option>
-<option>Out</option>
-<option>Delivered</option>
-</select>
-
 <div class="details" id="d${i}">
 <hr>
-<b>Address:</b> ${o.address || "N/A"}<br><br>
-<b>Items:</b><br>
+<b>Address:</b> ${o.address}<br><br>
 ${itemsHTML}
 </div>
 
@@ -196,13 +190,37 @@ let el=document.getElementById("d"+i);
 el.style.display = el.style.display=="block" ? "none":"block";
 }
 
-/* STATUS */
-window.updateStatus=async(id,status)=>{
-await updateDoc(doc(db,"orders",id),{status});
-alert("Updated: "+status);
+/* AUTO ASSIGN */
+window.autoAssign = async function(id,area){
+
+let partner = partners.find(p=>p.area?.toLowerCase().includes(area?.toLowerCase()));
+let rider = riders.find(r=>r.area?.toLowerCase().includes(area?.toLowerCase()));
+
+let data={};
+
+if(partner) data.partner=partner.name;
+if(rider) data.rider=rider.name;
+
+if(!partner && !rider){
+alert("No match found");
+return;
 }
 
-/* ================= USERS (ADVANCED) ================= */
+await updateDoc(doc(db,"orders",id),data);
+
+alert("Auto Assigned 🔥");
+}
+
+/* MANUAL */
+window.assignPartner = async function(id,name){
+await updateDoc(doc(db,"orders",id),{partner:name});
+}
+
+window.assignRider = async function(id,name){
+await updateDoc(doc(db,"orders",id),{rider:name});
+}
+
+/* ================= USERS ================= */
 
 function loadUsers(){
 
@@ -211,14 +229,12 @@ let html="";
 users.forEach(u=>{
 html+=`
 <div class="card">
-
-<b>Email:</b> ${u.email || "N/A"}<br>
+<b>Email:</b> ${u.email}<br>
 <b>Name:</b> ${u.name || "N/A"}<br>
 <b>Phone:</b> ${u.phone || "N/A"}<br>
 <b>Address:</b> ${u.address || "N/A"}<br>
 
 <button onclick="viewUserOrders('${u.id}')">View Orders</button>
-
 </div>
 `;
 });
@@ -226,7 +242,6 @@ html+=`
 content.innerHTML=html;
 }
 
-/* USER ORDERS */
 window.viewUserOrders=async function(uid){
 
 let q = query(collection(db,"orders"), where("userId","==",uid));
@@ -236,45 +251,10 @@ let html="<h3>User Orders</h3>";
 
 snap.forEach(doc=>{
 let o=doc.data();
-html+=`
-<div class="card">
-${o.name} ₹${o.total}<br>
-Status: ${o.status}
-</div>
-`;
+html+=`<div class="card">${o.name} ₹${o.total}</div>`;
 });
 
 content.innerHTML=html;
-}
-
-/* ================= PARTNERS ================= */
-
-function loadPartners(){
-content.innerHTML="<div class='card'>Partners panel</div>";
-}
-
-/* ================= RIDERS ================= */
-
-function loadRiders(){
-content.innerHTML="<div class='card'>Riders panel</div>";
-}
-
-/* ================= SERVICES ================= */
-
-function loadServices(){
-content.innerHTML="<div class='card'>Services panel</div>";
-}
-
-/* ================= AREA ================= */
-
-function areaAnalytics(){
-content.innerHTML="<div class='card'>Area analytics</div>";
-}
-
-/* ================= NOTIFY ================= */
-
-function loadNotify(){
-content.innerHTML="<div class='card'>Notification panel</div>";
 }
 
 </script>
