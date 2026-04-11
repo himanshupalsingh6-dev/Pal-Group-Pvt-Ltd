@@ -17,5 +17,4 @@ if(tab==="orders") loadOrders();
 if(tab==="users") loadUsers();
 };
 
-// default
 loadDashboard();
