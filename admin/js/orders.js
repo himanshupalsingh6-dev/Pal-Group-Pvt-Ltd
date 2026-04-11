@@ -1,11 +1,11 @@
-import { db } from "../firebase.js";
+\import { db } from "../firebase.js";
 import {
 collection,onSnapshot,doc,updateDoc
 } from "https://www.gstatic.com/firebasejs/12.11.0/firebase-firestore.js";
 
 let orders=[], partners=[], riders=[];
 
-/* LOAD */
+/* LOAD DATA */
 onSnapshot(collection(db,"orders"), snap=>{
 orders=[];
 snap.forEach(d=>orders.push({...d.data(),docId:d.id}));
@@ -13,7 +13,7 @@ snap.forEach(d=>orders.push({...d.data(),docId:d.id}));
 
 onSnapshot(collection(db,"partners"), snap=>{
 partners=[];
-snap.forEach(d=>partners.push({...d.data(),id:d.id}));
+snap.forEach(d=>partners.push({...d.data()}));
 });
 
 onSnapshot(collection(db,"delivery"), snap=>{
@@ -37,24 +37,27 @@ html+=`
 <div class="card">
 
 <b>${o.name}</b><br>
+📍 Area: ${o.area || "N/A"}<br>
 ₹${o.total}<br>
 
-📍 ${o.address}<br>
-
-💳 ${o.paymentMethod || "COD"} | ${o.paymentStatus || "Pending"}<br>
+💳 ${o.paymentMethod} | ${o.paymentStatus}<br>
 
 <button onclick="markPaid('${o.docId}')">Mark Paid</button><br>
 
-Partner: ${o.partner||"NA"}<br>
-Rider: ${o.rider||"NA"}<br>
+👨‍🔧 Partner: ${o.partner||"NA"}<br>
+🚚 Rider: ${o.rider||"NA"}<br>
 
-<button onclick="autoAssign('${o.docId}','${o.address}')">🤖 AI Assign</button>
+<button onclick="autoAssign('${o.docId}','${o.area}')">
+🤖 AI Assign
+</button>
 
 <select onchange="assignPartner('${o.docId}',this.value)">
+<option>Select Partner</option>
 ${partners.map(p=>`<option>${p.name}</option>`)}
 </select>
 
 <select onchange="assignRider('${o.docId}',this.value)">
+<option>Select Rider</option>
 ${riders.map(r=>`<option>${r.name}</option>`)}
 </select>
 
@@ -80,10 +83,9 @@ window.markPaid=async(id)=>{
 await updateDoc(doc(db,"orders",id),{
 paymentStatus:"Paid"
 });
-alert("Payment Done");
+alert("Payment Done ✅");
 }
 
-/* MANUAL */
 window.assignPartner=async(id,name)=>{
 await updateDoc(doc(db,"orders",id),{partner:name});
 }
@@ -95,28 +97,41 @@ await updateDoc(doc(db,"orders",id),{rider:name});
 /* 🤖 AI AUTO ASSIGN */
 window.autoAssign=async(id,area)=>{
 
-let areaRiders = riders.filter(r=>r.area?.toLowerCase().includes(area.toLowerCase()));
-
-if(areaRiders.length==0){
-alert("No rider found");
+if(!area){
+alert("No Area Found ❌");
 return;
 }
 
+/* FILTER AREA RIDERS */
+let areaRiders = riders.filter(r =>
+r.area && r.area.toLowerCase() === area.toLowerCase()
+);
+
+if(areaRiders.length==0){
+alert("No Rider Found in this Area ❌");
+return;
+}
+
+/* SORT BY LEAST LOAD */
 areaRiders.sort((a,b)=>(a.orders||0)-(b.orders||0));
 
 let best = areaRiders[0];
 
-let partner = partners.find(p=>p.area?.includes(area));
+/* FIND PARTNER */
+let partner = partners.find(p =>
+p.area && p.area.toLowerCase() === area.toLowerCase()
+);
 
+/* UPDATE ORDER */
 await updateDoc(doc(db,"orders",id),{
 rider:best.name,
-partner:partner?.name||""
+partner:partner?.name || ""
 });
 
-// update rider load
+/* UPDATE RIDER LOAD */
 await updateDoc(doc(db,"delivery",best.id),{
 orders:(best.orders||0)+1
 });
 
-alert("AI Assigned 🚀");
+alert("AI Assigned Successfully 🚀");
 }
