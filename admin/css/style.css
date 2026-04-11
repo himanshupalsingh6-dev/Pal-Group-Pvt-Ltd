@@ -1,0 +1,9 @@
+body{margin:0;font-family:Segoe UI;background:#f6f7f9}
+.header{background:#FFD400;padding:14px;text-align:center;font-weight:bold}
+.tabs{display:flex;background:#fff}
+.tab{flex:1;padding:10px;text-align:center;cursor:pointer}
+.active{background:#FFD400}
+.card{background:#fff;padding:12px;margin:10px;border-radius:10px}
+button{padding:6px;margin:3px;background:#FFD400;border:none}
+input,select{padding:8px;width:100%;margin:5px 0}
+.details{display:none;margin-top:10px}
