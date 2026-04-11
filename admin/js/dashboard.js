@@ -16,27 +16,5 @@ orders.forEach(o=>total+=o.total||0);
 document.getElementById("content").innerHTML=`
 <div class="card">💰 Revenue: ₹${total}</div>
 <div class="card">📦 Orders: ${orders.length}</div>
-<canvas id="chart"></canvas>
 `;
-
-drawChart();
-}
-
-function drawChart(){
-
-let map={};
-
-orders.forEach(o=>{
-let d=new Date(o.time).toLocaleDateString();
-if(!map[d]) map[d]=0;
-map[d]+=o.total||0;
-});
-
-new Chart(document.getElementById("chart"),{
-type:"line",
-data:{
-labels:Object.keys(map),
-datasets:[{label:"Revenue",data:Object.values(map)}]
-}
-});
 }
