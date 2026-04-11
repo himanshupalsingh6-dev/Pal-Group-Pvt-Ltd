@@ -1,6 +1,8 @@
 import { loadDashboard } from "./dashboard.js";
 import { loadOrders } from "./orders.js";
 import { loadUsers } from "./users.js";
+import { loadPartners } from "./partners.js";
+import { loadRiders } from "./riders.js";
 
 window.showTab = function(tab){
 
