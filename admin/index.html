@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Admin Panel</title>
+
+<link rel="stylesheet" href="./css/style.css">
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+</head>
+
+<body>
+
+<div class="header">⚡ QuickPress Admin</div>
+
+<div class="tabs">
+  <div class="tab active" onclick="showTab('dashboard')">Dashboard</div>
+  <div class="tab" onclick="showTab('orders')">Orders</div>
+  <div class="tab" onclick="showTab('users')">Users</div>
+</div>
+
+<div id="content"></div>
+
+<script type="module" src="./js/app.js"></script>
+
+</body>
+</html>
