@@ -9,62 +9,70 @@
 <div id="side"></div>
 
 <div class="main">
-<div class="header">Orders</div>
-<div id="orders"></div>
+
+<div id="top"></div>
+
+<h2>Orders</h2>
+
+<h3>🆕 New</h3>
+<div id="new"></div>
+
+<h3>⚙️ Preparing</h3>
+<div id="prep"></div>
+
+<h3>🚚 Out</h3>
+<div id="out"></div>
+
 </div>
 
 <script type="module">
 
-import { sidebar } from "./js/common.js";
+import { sidebar, topbar, wa } from "./js/common.js";
 import { db } from "../js/firebase.js";
 import { collection,onSnapshot,doc,updateDoc } from "https://www.gstatic.com/firebasejs/12.11.0/firebase-firestore.js";
 
-side.innerHTML = sidebar();
+side.innerHTML=sidebar();
+top.innerHTML=topbar();
 
-let partner = localStorage.getItem("name");
+let name=localStorage.getItem("name");
 
 onSnapshot(collection(db,"orders"), snap=>{
 
-let html="";
+let n="",p="",o="";
 
 snap.forEach(d=>{
-let o=d.data();
+let data=d.data();
 
-if(o.partner!==partner) return;
+if(data.partner!==name) return;
 
-html+=`
+let card=`
 <div class="card">
-<b>${o.name}</b><br>
-₹${o.total}<br>
+<b>${data.name}</b><br>
+📞 ${data.phone}<br>
+₹${data.total}<br>
 
-<button class="accept" onclick="accept('${d.id}')">Accept</button>
-<button class="reject" onclick="reject('${d.id}')">Reject</button>
-
-<select onchange="updateStatus('${d.id}',this.value)">
-<option>Pickup</option>
-<option>Washing</option>
-<option>Ironing</option>
-<option>Delivered</option>
-</select>
+<button onclick="start('${d.id}')">Start</button>
+<button onclick="out('${d.id}')">Out</button>
+<button onclick="done('${d.id}')">Done</button>
+<button onclick="wa('${data.phone}')">WhatsApp</button>
 </div>
 `;
+
+if(data.status==="new") n+=card;
+if(data.status==="preparing") p+=card;
+if(data.status==="out") o+=card;
+
 });
 
-orders.innerHTML=html;
+new.innerHTML=n;
+prep.innerHTML=p;
+out.innerHTML=o;
 
 });
 
-window.accept=async(id)=>{
-await updateDoc(doc(db,"orders",id),{accepted:true});
-}
-
-window.reject=async(id)=>{
-await updateDoc(doc(db,"orders",id),{status:"Rejected"});
-}
-
-window.updateStatus=async(id,status)=>{
-await updateDoc(doc(db,"orders",id),{status});
-}
+window.start=id=>updateDoc(doc(db,"orders",id),{status:"preparing"});
+window.out=id=>updateDoc(doc(db,"orders",id),{status:"out"});
+window.done=id=>updateDoc(doc(db,"orders",id),{status:"done"});
 
 </script>
 
