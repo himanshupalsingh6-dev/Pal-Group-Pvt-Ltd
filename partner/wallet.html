@@ -2,7 +2,7 @@
 <html>
 <body>
 
-<h2>💰 Wallet</h2>
+<h2>Partner Wallet</h2>
 <div id="balance"></div>
 
 <script type="module">
@@ -13,7 +13,7 @@ import { doc,onSnapshot } from "https://www.gstatic.com/firebasejs/12.11.0/fireb
 let uid = localStorage.getItem("userId");
 
 onSnapshot(doc(db,"wallets",uid), snap=>{
-balance.innerHTML = "Balance: ₹" + (snap.data()?.balance || 0);
+balance.innerHTML = "₹ " + (snap.data()?.balance || 0);
 });
 
 </script>
