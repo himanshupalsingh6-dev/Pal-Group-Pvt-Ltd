@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html>
+<head>
+<link rel="stylesheet" href="css/style.css">
+</head>
+
+<body>
+
+<div id="side"></div>
+
+<div class="main">
+<div class="header">Order History</div>
+<div id="history"></div>
+</div>
+
+<script type="module">
+
+import { sidebar } from "./js/common.js";
+import { db } from "../js/firebase.js";
+import { collection,onSnapshot } from "https://www.gstatic.com/firebasejs/12.11.0/firebase-firestore.js";
+
+side.innerHTML = sidebar();
+
+let partner = localStorage.getItem("name");
+
+onSnapshot(collection(db,"orders"), snap=>{
+
+let html="";
+
+snap.forEach(d=>{
+let o=d.data();
+
+if(o.partner===partner && (o.status==="Delivered"||o.status==="Rejected")){
+
+html+=`
+<div class="card">
+${o.status}<br>
+${o.name}<br>
+₹${o.total}
+</div>
+`;
+}
+});
+
+history.innerHTML=html;
+
+});
+
+</script>
+
+</body>
+</html>
