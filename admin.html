@@ -1,23 +1,46 @@
 <!DOCTYPE html>
-<html lang="en">
+<html>
 <head>
-<meta charset="UTF-8">
-<title>QuickPress Admin Panel</title>
-<meta name="viewport" content="width=device-width, initial-scale=1">
-
-<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+<title>QuickPress Admin</title>
 
 <style>
-body{margin:0;font-family:Segoe UI;background:#f6f7f9}
-.header{background:#FFD400;padding:14px;text-align:center;font-weight:bold}
-.tabs{display:flex;background:#fff;flex-wrap:wrap}
-.tab{flex:1;padding:10px;text-align:center;cursor:pointer}
-.active{background:#FFD400}
-.container{padding:12px}
-.card{background:#fff;padding:12px;margin-bottom:10px;border-radius:10px}
-button{padding:6px;margin:3px;border:none;background:#FFD400}
-input,select{padding:8px;width:100%;margin:5px 0}
-.details{display:none;margin-top:10px}
+body{font-family:sans-serif;margin:0;background:#f5f6fa}
+
+/* HEADER */
+.header{
+background:#FFD400;
+padding:12px;
+text-align:center;
+font-weight:bold;
+}
+
+/* NAVBAR */
+.nav{
+display:flex;
+background:#fff;
+border-bottom:1px solid #ddd;
+}
+
+.nav div{
+padding:12px 20px;
+cursor:pointer;
+}
+
+.nav div.active{
+background:#FFD400;
+}
+
+/* SECTIONS */
+.section{display:none;padding:15px}
+.section.active{display:block}
+
+.card{
+background:#fff;
+padding:12px;
+margin:10px 0;
+border-radius:10px;
+box-shadow:0 2px 10px rgba(0,0,0,0.1);
+}
 </style>
 </head>
 
@@ -25,237 +48,169 @@ input,select{padding:8px;width:100%;margin:5px 0}
 
 <div class="header">⚡ QuickPress Admin Panel</div>
 
-<div class="tabs">
-  <div class="tab active" onclick="showTab('dashboard')">Dashboard</div>
-  <div class="tab" onclick="showTab('orders')">Orders</div>
-  <div class="tab" onclick="showTab('users')">Users</div>
+<div class="nav">
+<div onclick="showTab('dashboard')" class="active">Dashboard</div>
+<div onclick="showTab('orders')">Orders</div>
+<div onclick="showTab('partners')">Partners</div>
+<div onclick="showTab('riders')">Riders</div>
+<div onclick="showTab('users')">Users</div>
+<div onclick="showTab('payout')">Payout</div>
+<div onclick="showTab('help')">Help</div>
 </div>
 
-<div class="container" id="content"></div>
+<!-- DASHBOARD -->
+<div id="dashboard" class="section active">
+<h2>📊 Dashboard</h2>
+<div id="stats"></div>
+</div>
+
+<!-- ORDERS -->
+<div id="orders" class="section">
+<h2>📦 Orders</h2>
+<div id="ordersList"></div>
+</div>
+
+<!-- PARTNERS -->
+<div id="partners" class="section">
+<h2>👨‍🔧 Partners</h2>
+<div id="partnerList"></div>
+</div>
+
+<!-- RIDERS -->
+<div id="riders" class="section">
+<h2>🚚 Riders</h2>
+<div id="riderList"></div>
+</div>
+
+<!-- USERS -->
+<div id="users" class="section">
+<h2>👥 Users</h2>
+<div id="userList"></div>
+</div>
+
+<!-- PAYOUT -->
+<div id="payout" class="section">
+<h2>💰 Payout</h2>
+<div id="payoutList"></div>
+</div>
+
+<!-- HELP -->
+<div id="help" class="section">
+<h2>📞 Help Center</h2>
+<p>Support: quickpress@gmail.com</p>
+</div>
 
 <script type="module">
 
 import { db } from "./js/firebase.js";
-import {
-collection,
-onSnapshot,
-addDoc,
-doc,
-updateDoc,
-query,
-where,
-getDocs
-} from "https://www.gstatic.com/firebasejs/12.11.0/firebase-firestore.js";
+import { collection,onSnapshot } from "https://www.gstatic.com/firebasejs/12.11.0/firebase-firestore.js";
 
-let orders=[], users=[], partners=[], riders=[];
+/* TAB SWITCH */
+window.showTab = function(id){
 
-/* ================= REALTIME ================= */
+document.querySelectorAll(".section").forEach(s=>s.classList.remove("active"));
+document.querySelectorAll(".nav div").forEach(s=>s.classList.remove("active"));
 
+document.getElementById(id).classList.add("active");
+event.target.classList.add("active");
+
+}
+
+/* DASHBOARD */
 onSnapshot(collection(db,"orders"), snap=>{
-  orders=[];
-  snap.forEach(d=>orders.push({...d.data(),docId:d.id}));
-  loadDashboard();
-});
-
-onSnapshot(collection(db,"users"), snap=>{
-  users=[];
-  snap.forEach(d=>users.push({...d.data(),id:d.id}));
-});
-
-onSnapshot(collection(db,"partners"), snap=>{
-  partners=[];
-  snap.forEach(d=>partners.push({...d.data()}));
-});
-
-onSnapshot(collection(db,"delivery"), snap=>{
-  riders=[];
-  snap.forEach(d=>riders.push({...d.data()}));
-});
-
-/* ================= TAB ================= */
-
-window.showTab=function(tab){
-
-document.querySelectorAll(".tab").forEach(t=>t.classList.remove("active"));
-
-document.querySelectorAll(".tab").forEach(t=>{
-  if(t.innerText.toLowerCase().includes(tab)){
-    t.classList.add("active");
-  }
-});
-
-if(tab==="dashboard") loadDashboard();
-if(tab==="orders") loadOrders();
-if(tab==="users") loadUsers();
-}
-
-/* ================= DASHBOARD ================= */
-
-function loadDashboard(){
-
 let total=0;
-orders.forEach(o=> total+=o.total || 0);
+let count=0;
 
-content.innerHTML=`
-<div class="card">💰 Total Revenue: ₹${total}</div>
-<div class="card">📦 Orders: ${orders.length}</div>
-<canvas id="chart"></canvas>
+snap.forEach(d=>{
+count++;
+total+=d.data().total || 0;
+});
+
+stats.innerHTML=`
+<div class="card">Total Orders: ${count}</div>
+<div class="card">Total Revenue: ₹${total}</div>
 `;
-
-drawChart();
-}
-
-/* ================= CHART ================= */
-
-function drawChart(){
-
-let map={};
-
-orders.forEach(o=>{
-let d=new Date(o.time).toLocaleDateString();
-if(!map[d]) map[d]=0;
-map[d]+=o.total || 0;
 });
 
-new Chart(document.getElementById("chart"),{
-type:"line",
-data:{
-labels:Object.keys(map),
-datasets:[{label:"Revenue",data:Object.values(map)}]
-}
-});
-}
-
-/* ================= ORDERS ================= */
-
-function loadOrders(){
-
+/* ORDERS */
+onSnapshot(collection(db,"orders"), snap=>{
 let html="";
-
-orders.forEach((o,i)=>{
-
-let itemsHTML="";
-
-if(o.items){
-o.items.forEach(it=>{
-itemsHTML += `${it.name} x ${it.qty} = ₹${it.price * it.qty}<br>`;
-});
-}
+snap.forEach(d=>{
+let o=d.data();
 
 html+=`
 <div class="card">
-
-<b>Order ID:</b> ${o.id}<br>
-<b>Name:</b> ${o.name}<br>
-<b>Area:</b> ${o.address || "N/A"}<br>
-<b>Total:</b> ₹${o.total}<br>
-
-<b>Partner:</b> ${o.partner || "Not Assigned"}<br>
-<b>Rider:</b> ${o.rider || "Not Assigned"}<br><br>
-
-<button onclick="autoAssign('${o.docId}','${o.address}')">
-🤖 Auto Assign
-</button>
-
-<select onchange="assignPartner('${o.docId}',this.value)">
-<option>Select Partner</option>
-${partners.map(p=>`<option>${p.name}</option>`).join("")}
-</select>
-
-<select onchange="assignRider('${o.docId}',this.value)">
-<option>Select Rider</option>
-${riders.map(r=>`<option>${r.name}</option>`).join("")}
-</select>
-
-<br><br>
-
-<button onclick="toggleDetails(${i})">View Details</button>
-
-<div class="details" id="d${i}">
-<hr>
-<b>Address:</b> ${o.address}<br><br>
-${itemsHTML}
-</div>
-
+<b>${o.name}</b><br>
+₹${o.total}<br>
+${o.status}
 </div>
 `;
 });
+ordersList.innerHTML=html;
+});
 
-content.innerHTML=html;
-}
-
-/* TOGGLE */
-window.toggleDetails=function(i){
-let el=document.getElementById("d"+i);
-el.style.display = el.style.display=="block" ? "none":"block";
-}
-
-/* AUTO ASSIGN */
-window.autoAssign = async function(id,area){
-
-let partner = partners.find(p=>p.area?.toLowerCase().includes(area?.toLowerCase()));
-let rider = riders.find(r=>r.area?.toLowerCase().includes(area?.toLowerCase()));
-
-let data={};
-
-if(partner) data.partner=partner.name;
-if(rider) data.rider=rider.name;
-
-if(!partner && !rider){
-alert("No match found");
-return;
-}
-
-await updateDoc(doc(db,"orders",id),data);
-
-alert("Auto Assigned 🔥");
-}
-
-/* MANUAL */
-window.assignPartner = async function(id,name){
-await updateDoc(doc(db,"orders",id),{partner:name});
-}
-
-window.assignRider = async function(id,name){
-await updateDoc(doc(db,"orders",id),{rider:name});
-}
-
-/* ================= USERS ================= */
-
-function loadUsers(){
-
+/* USERS */
+onSnapshot(collection(db,"users"), snap=>{
 let html="";
+snap.forEach(d=>{
+let u=d.data();
 
-users.forEach(u=>{
 html+=`
 <div class="card">
-<b>Email:</b> ${u.email}<br>
-<b>Name:</b> ${u.name || "N/A"}<br>
-<b>Phone:</b> ${u.phone || "N/A"}<br>
-<b>Address:</b> ${u.address || "N/A"}<br>
-
-<button onclick="viewUserOrders('${u.id}')">View Orders</button>
+${u.name}<br>
+${u.phone}
 </div>
 `;
 });
-
-content.innerHTML=html;
-}
-
-window.viewUserOrders=async function(uid){
-
-let q = query(collection(db,"orders"), where("userId","==",uid));
-let snap = await getDocs(q);
-
-let html="<h3>User Orders</h3>";
-
-snap.forEach(doc=>{
-let o=doc.data();
-html+=`<div class="card">${o.name} ₹${o.total}</div>`;
+userList.innerHTML=html;
 });
 
-content.innerHTML=html;
-}
+/* PARTNERS */
+onSnapshot(collection(db,"partners"), snap=>{
+let html="";
+snap.forEach(d=>{
+let p=d.data();
+
+html+=`
+<div class="card">
+${p.name}<br>
+${p.phone}
+</div>
+`;
+});
+partnerList.innerHTML=html;
+});
+
+/* RIDERS */
+onSnapshot(collection(db,"delivery"), snap=>{
+let html="";
+snap.forEach(d=>{
+let r=d.data();
+
+html+=`
+<div class="card">
+${r.name}<br>
+${r.phone}
+</div>
+`;
+});
+riderList.innerHTML=html;
+});
+
+/* PAYOUT */
+onSnapshot(collection(db,"transactions"), snap=>{
+let html="";
+snap.forEach(d=>{
+let t=d.data();
+
+html+=`
+<div class="card">
+₹${t.amount} - ${t.role}
+</div>
+`;
+});
+payoutList.innerHTML=html;
+});
 
 </script>
 
