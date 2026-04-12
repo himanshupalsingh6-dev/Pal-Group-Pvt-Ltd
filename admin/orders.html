@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html>
+<body>
+
+<h2>Admin Orders</h2>
+
+<h3>New</h3>
+<div id="new"></div>
+
+<h3>Preparing</h3>
+<div id="prep"></div>
+
+<h3>Out</h3>
+<div id="out"></div>
+
+<script type="module">
+
+import { db } from "../js/firebase.js";
+import { collection,onSnapshot } from "https://www.gstatic.com/firebasejs/12.11.0/firebase-firestore.js";
+
+onSnapshot(collection(db,"orders"), snap=>{
+
+let n="",p="",o="";
+
+snap.forEach(d=>{
+let data=d.data();
+
+let card=`<div>${data.name} - ₹${data.total}</div>`;
+
+if(data.status==="new") n+=card;
+if(data.status==="preparing") p+=card;
+if(data.status==="out") o+=card;
+
+});
+
+new.innerHTML=n;
+prep.innerHTML=p;
+out.innerHTML=o;
+
+});
+
+</script>
+
+</body>
+</html>
