@@ -1,21 +1,20 @@
 <!DOCTYPE html>
 <html>
 <head>
-<meta charset="UTF-8">
 <title>QuickPress Admin</title>
 
 <style>
-body{margin:0;font-family:sans-serif;background:#f5f6fa}
+body{font-family:sans-serif;margin:0;background:#f5f6fa}
 
 /* HEADER */
 .header{
 background:#FFD400;
-padding:14px;
+padding:12px;
 text-align:center;
 font-weight:bold;
 }
 
-/* NAV */
+/* NAVBAR */
 .nav{
 display:flex;
 background:#fff;
@@ -23,22 +22,18 @@ border-bottom:1px solid #ddd;
 }
 
 .nav div{
-padding:12px 18px;
+padding:12px 20px;
 cursor:pointer;
 }
 
-.nav .active{
+.nav div.active{
 background:#FFD400;
-font-weight:bold;
 }
 
 /* SECTIONS */
-.section{
-display:none;
-padding:15px;
-}
+.section{display:none;padding:15px}
+.section.active{display:block}
 
-/* CARD */
 .card{
 background:#fff;
 padding:12px;
@@ -46,9 +41,6 @@ margin:10px 0;
 border-radius:10px;
 box-shadow:0 2px 10px rgba(0,0,0,0.1);
 }
-
-input{width:100%;padding:8px;margin:5px 0}
-button{padding:8px;margin-top:5px}
 </style>
 </head>
 
@@ -57,17 +49,17 @@ button{padding:8px;margin-top:5px}
 <div class="header">⚡ QuickPress Admin Panel</div>
 
 <div class="nav">
-<div class="active" onclick="showTab(event,'dashboard')">Dashboard</div>
-<div onclick="showTab(event,'orders')">Orders</div>
-<div onclick="showTab(event,'partners')">Partners</div>
-<div onclick="showTab(event,'riders')">Riders</div>
-<div onclick="showTab(event,'users')">Users</div>
-<div onclick="showTab(event,'payout')">Payout</div>
-<div onclick="showTab(event,'help')">Help</div>
+<div onclick="showTab('dashboard')" class="active">Dashboard</div>
+<div onclick="showTab('orders')">Orders</div>
+<div onclick="showTab('partners')">Partners</div>
+<div onclick="showTab('riders')">Riders</div>
+<div onclick="showTab('users')">Users</div>
+<div onclick="showTab('payout')">Payout</div>
+<div onclick="showTab('help')">Help</div>
 </div>
 
 <!-- DASHBOARD -->
-<div id="dashboard" class="section" style="display:block">
+<div id="dashboard" class="section active">
 <h2>📊 Dashboard</h2>
 <div id="stats"></div>
 </div>
@@ -81,34 +73,12 @@ button{padding:8px;margin-top:5px}
 <!-- PARTNERS -->
 <div id="partners" class="section">
 <h2>👨‍🔧 Partners</h2>
-
-<button onclick="openPartnerForm()">➕ Add Partner</button>
-
-<div id="partnerForm" style="display:none" class="card">
-<input id="p_name" placeholder="Name">
-<input id="p_phone" placeholder="Phone">
-<input id="p_email" placeholder="Email">
-<input id="p_password" placeholder="Password">
-<button onclick="createPartner()">Create</button>
-</div>
-
 <div id="partnerList"></div>
 </div>
 
 <!-- RIDERS -->
 <div id="riders" class="section">
 <h2>🚚 Riders</h2>
-
-<button onclick="openRiderForm()">➕ Add Rider</button>
-
-<div id="riderForm" style="display:none" class="card">
-<input id="r_name" placeholder="Name">
-<input id="r_phone" placeholder="Phone">
-<input id="r_email" placeholder="Email">
-<input id="r_password" placeholder="Password">
-<button onclick="createRider()">Create</button>
-</div>
-
 <div id="riderList"></div>
 </div>
 
@@ -120,58 +90,45 @@ button{padding:8px;margin-top:5px}
 
 <!-- PAYOUT -->
 <div id="payout" class="section">
-<h2>💰 Transactions</h2>
+<h2>💰 Payout</h2>
 <div id="payoutList"></div>
 </div>
 
 <!-- HELP -->
 <div id="help" class="section">
-<h2>📞 Help</h2>
-<p>Email: quickpress@gmail.com</p>
+<h2>📞 Help Center</h2>
+<p>Support: quickpress@gmail.com</p>
 </div>
 
 <script type="module">
 
-import { db, auth } from "../js/firebase.js";
+import { db } from "./js/firebase.js";
+import { collection,onSnapshot } from "https://www.gstatic.com/firebasejs/12.11.0/firebase-firestore.js";
 
-import {
-collection,
-onSnapshot,
-doc,
-setDoc,
-addDoc
-} from "https://www.gstatic.com/firebasejs/12.11.0/firebase-firestore.js";
+/* TAB SWITCH */
+window.showTab = function(id){
 
-import {
-createUserWithEmailAndPassword
-} from "https://www.gstatic.com/firebasejs/12.11.0/firebase-auth.js";
+document.querySelectorAll(".section").forEach(s=>s.classList.remove("active"));
+document.querySelectorAll(".nav div").forEach(s=>s.classList.remove("active"));
 
-/* 🔥 TAB SWITCH (FIXED) */
-window.showTab = function(e,id){
-
-document.querySelectorAll(".section").forEach(s=>{
-  s.style.display="none";
-});
-
-document.querySelectorAll(".nav div").forEach(n=>{
-  n.classList.remove("active");
-});
-
-document.getElementById(id).style.display="block";
-e.target.classList.add("active");
+document.getElementById(id).classList.add("active");
+event.target.classList.add("active");
 
 }
 
 /* DASHBOARD */
 onSnapshot(collection(db,"orders"), snap=>{
-let total=0,count=0;
+let total=0;
+let count=0;
+
 snap.forEach(d=>{
 count++;
 total+=d.data().total || 0;
 });
+
 stats.innerHTML=`
-<div class="card">Orders: ${count}</div>
-<div class="card">Revenue: ₹${total}</div>
+<div class="card">Total Orders: ${count}</div>
+<div class="card">Total Revenue: ₹${total}</div>
 `;
 });
 
@@ -180,7 +137,14 @@ onSnapshot(collection(db,"orders"), snap=>{
 let html="";
 snap.forEach(d=>{
 let o=d.data();
-html+=`<div class="card">${o.name} - ₹${o.total} - ${o.status}</div>`;
+
+html+=`
+<div class="card">
+<b>${o.name}</b><br>
+₹${o.total}<br>
+${o.status}
+</div>
+`;
 });
 ordersList.innerHTML=html;
 });
@@ -190,7 +154,13 @@ onSnapshot(collection(db,"users"), snap=>{
 let html="";
 snap.forEach(d=>{
 let u=d.data();
-html+=`<div class="card">${u.name} - ${u.phone}</div>`;
+
+html+=`
+<div class="card">
+${u.name}<br>
+${u.phone}
+</div>
+`;
 });
 userList.innerHTML=html;
 });
@@ -200,7 +170,13 @@ onSnapshot(collection(db,"partners"), snap=>{
 let html="";
 snap.forEach(d=>{
 let p=d.data();
-html+=`<div class="card">${p.name} - ${p.phone}</div>`;
+
+html+=`
+<div class="card">
+${p.name}<br>
+${p.phone}
+</div>
+`;
 });
 partnerList.innerHTML=html;
 });
@@ -210,7 +186,13 @@ onSnapshot(collection(db,"delivery"), snap=>{
 let html="";
 snap.forEach(d=>{
 let r=d.data();
-html+=`<div class="card">${r.name} - ${r.phone}</div>`;
+
+html+=`
+<div class="card">
+${r.name}<br>
+${r.phone}
+</div>
+`;
 });
 riderList.innerHTML=html;
 });
@@ -220,60 +202,15 @@ onSnapshot(collection(db,"transactions"), snap=>{
 let html="";
 snap.forEach(d=>{
 let t=d.data();
-html+=`<div class="card">₹${t.amount} - ${t.role}</div>`;
+
+html+=`
+<div class="card">
+₹${t.amount} - ${t.role}
+</div>
+`;
 });
 payoutList.innerHTML=html;
 });
-
-/* FORM OPEN */
-window.openPartnerForm=()=>partnerForm.style.display="block";
-window.openRiderForm=()=>riderForm.style.display="block";
-
-/* CREATE PARTNER */
-window.createPartner = async function(){
-
-let user = await createUserWithEmailAndPassword(auth,p_email.value,p_password.value);
-let uid = user.user.uid;
-
-await setDoc(doc(db,"users",uid),{
-name:p_name.value,
-phone:p_phone.value,
-role:"partner"
-});
-
-await addDoc(collection(db,"partners"),{
-uid,
-name:p_name.value,
-phone:p_phone.value
-});
-
-await setDoc(doc(db,"wallets",uid),{balance:0});
-
-alert("Partner Created ✅");
-}
-
-/* CREATE RIDER */
-window.createRider = async function(){
-
-let user = await createUserWithEmailAndPassword(auth,r_email.value,r_password.value);
-let uid = user.user.uid;
-
-await setDoc(doc(db,"users",uid),{
-name:r_name.value,
-phone:r_phone.value,
-role:"rider"
-});
-
-await addDoc(collection(db,"delivery"),{
-uid,
-name:r_name.value,
-phone:r_phone.value
-});
-
-await setDoc(doc(db,"wallets",uid),{balance:0});
-
-alert("Rider Created ✅");
-}
 
 </script>
 
