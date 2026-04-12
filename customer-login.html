@@ -61,7 +61,7 @@ button{
 /* 🔥 IMPORTS */
 import { auth, db } from "./firebase.js";
 import { signInWithEmailAndPassword } from "https://www.gstatic.com/firebasejs/12.11.0/firebase-auth.js";
-import { doc, setDoc } from "https://www.gstatic.com/firebasejs/12.11.0/firebase-firestore.js";
+import { doc, getDoc } from "https://www.gstatic.com/firebasejs/12.11.0/firebase-firestore.js";
 
 /* 🔥 LOGIN FUNCTION */
 window.login = async function(){
@@ -77,24 +77,37 @@ window.login = async function(){
   try{
 
     const userCred = await signInWithEmailAndPassword(auth,email,password);
+    const uid = userCred.user.uid;
 
-    /* 🔥 USERS COLLECTION SAVE */
-    await setDoc(doc(db,"users",userCred.user.uid),{
-      email:userCred.user.email,
-      status:"active",
-      createdAt:new Date()
-    });
+    /* 🔥 GET USER DATA FROM FIRESTORE */
+    const snap = await getDoc(doc(db,"users",uid));
 
-    /* SAVE LOCAL */
-    localStorage.setItem("userId", userCred.user.uid);
+    if(!snap.exists()){
+      alert("User data not found in database");
+      return;
+    }
 
-    alert("Login success");
+    const user = snap.data();
 
-    /* 🔥 ROLE BASED (OPTIONAL) */
-    if(email.includes("admin")){
-      location.href="admin.html";
-    }else{
-      location.href="index.html";
+    /* 🔥 SAVE LOCAL */
+    localStorage.setItem("userId", uid);
+    localStorage.setItem("role", user.role);
+    localStorage.setItem("name", user.name);
+
+    alert("Login success ✅");
+
+    /* 🔥 ROLE BASED REDIRECT */
+    if(user.role === "admin"){
+      location.href = "admin/index.html";
+    }
+    else if(user.role === "partner"){
+      location.href = "partner/index.html";
+    }
+    else if(user.role === "rider"){
+      location.href = "rider/index.html";
+    }
+    else{
+      location.href = "index.html"; // customer
     }
 
   }catch(err){
@@ -103,6 +116,3 @@ window.login = async function(){
 };
 
 </script>
-
-</body>
-</html>
