@@ -29,32 +29,69 @@
 
 import { sidebar, topbar, wa } from "./js/common.js";
 import { db } from "../js/firebase.js";
-import { collection,onSnapshot,doc,updateDoc } from "https://www.gstatic.com/firebasejs/12.11.0/firebase-firestore.js";
 
-side.innerHTML=sidebar();
-top.innerHTML=topbar();
+import {
+collection,
+onSnapshot,
+doc,
+updateDoc,
+increment,
+addDoc
+} from "https://www.gstatic.com/firebasejs/12.11.0/firebase-firestore.js";
 
-let name=localStorage.getItem("name");
+side.innerHTML = sidebar();
+top.innerHTML = topbar();
 
+let name = localStorage.getItem("name");
+
+/* 🔥 WALLET EARNING FUNCTION */
+async function addEarning(uid, amount){
+
+if(!uid) return;
+
+await updateDoc(doc(db,"wallets",uid),{
+balance: increment(amount)
+});
+
+await addDoc(collection(db,"transactions"),{
+uid,
+amount,
+type:"credit",
+time:Date.now()
+});
+}
+
+/* 🔥 LOAD ORDERS */
 onSnapshot(collection(db,"orders"), snap=>{
 
 let n="",p="",o="";
 
 snap.forEach(d=>{
-let data=d.data();
+let data = d.data();
 
-if(data.partner!==name) return;
+if(data.partner !== name) return;
 
-let card=`
+let card = `
 <div class="card">
+
 <b>${data.name}</b><br>
 📞 ${data.phone}<br>
-₹${data.total}<br>
+📍 ${data.address || ""}<br>
+💰 ₹${data.total}<br>
 
-<button onclick="start('${d.id}')">Start</button>
-<button onclick="out('${d.id}')">Out</button>
-<button onclick="done('${d.id}')">Done</button>
-<button onclick="wa('${data.phone}')">WhatsApp</button>
+🚚 Rider: ${data.rider || "Not Assigned"}<br>
+
+Status: <b>${data.status}</b><br>
+
+<button onclick="start('${d.id}')">⚙️ Start</button>
+<button onclick="out('${d.id}')">🚚 Out</button>
+
+<button onclick='done("${d.id}", ${JSON.stringify(data)})'>
+✅ Done
+</button>
+
+<button onclick="wa('${data.phone}')">📲 WhatsApp</button>
+
 </div>
 `;
 
@@ -64,15 +101,36 @@ if(data.status==="out") o+=card;
 
 });
 
-new.innerHTML=n;
-prep.innerHTML=p;
-out.innerHTML=o;
+document.getElementById("new").innerHTML = n;
+document.getElementById("prep").innerHTML = p;
+document.getElementById("out").innerHTML = o;
 
 });
 
-window.start=id=>updateDoc(doc(db,"orders",id),{status:"preparing"});
-window.out=id=>updateDoc(doc(db,"orders",id),{status:"out"});
-window.done=id=>updateDoc(doc(db,"orders",id),{status:"done"});
+/* 🔥 STATUS UPDATE */
+window.start = async function(id){
+await updateDoc(doc(db,"orders",id),{status:"preparing"});
+}
+
+window.out = async function(id){
+await updateDoc(doc(db,"orders",id),{status:"out"});
+}
+
+/* 🔥 FINAL DONE + WALLET */
+window.done = async function(id, data){
+
+await updateDoc(doc(db,"orders",id),{
+status:"done"
+});
+
+/* 💰 ADD EARNING */
+if(data.partnerUid){
+await addEarning(data.partnerUid, data.total);
+}
+
+alert("Order Completed + Wallet Updated 💰");
+
+}
 
 </script>
 
