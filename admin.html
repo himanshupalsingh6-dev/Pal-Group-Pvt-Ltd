@@ -75,11 +75,47 @@ box-shadow:0 2px 10px rgba(0,0,0,0.1);
 <h2>👨‍🔧 Partners</h2>
 <div id="partnerList"></div>
 </div>
+  <button onclick="openPartnerForm()">➕ Add Partner</button>
+
+<div id="partnerForm" style="display:none" class="card">
+
+<h3>Create Partner</h3>
+
+<input id="p_name" placeholder="Name"><br>
+<input id="p_phone" placeholder="Phone"><br>
+<input id="p_aadhaar" placeholder="Aadhaar"><br>
+<input id="p_pan" placeholder="PAN"><br>
+<input id="p_address" placeholder="Address"><br>
+
+<input id="p_email" placeholder="Email"><br>
+<input id="p_password" placeholder="Password"><br>
+
+<button onclick="createPartner()">Create Partner</button>
+
+</div>
 
 <!-- RIDERS -->
 <div id="riders" class="section">
 <h2>🚚 Riders</h2>
 <div id="riderList"></div>
+</div>
+  <button onclick="openRiderForm()">➕ Add Rider</button>
+
+<div id="riderForm" style="display:none" class="card">
+
+<h3>Create Rider</h3>
+
+<input id="r_name" placeholder="Name"><br>
+<input id="r_phone" placeholder="Phone"><br>
+<input id="r_aadhaar" placeholder="Aadhaar"><br>
+<input id="r_pan" placeholder="PAN"><br>
+<input id="r_vehicle" placeholder="Vehicle No"><br>
+
+<input id="r_email" placeholder="Email"><br>
+<input id="r_password" placeholder="Password"><br>
+
+<button onclick="createRider()">Create Rider</button>
+
 </div>
 
 <!-- USERS -->
@@ -211,6 +247,90 @@ html+=`
 });
 payoutList.innerHTML=html;
 });
+  import { auth, db } from "../js/firebase.js";
+
+import {
+createUserWithEmailAndPassword
+} from "https://www.gstatic.com/firebasejs/12.11.0/firebase-auth.js";
+
+import {
+setDoc,
+doc,
+addDoc,
+collection
+} from "https://www.gstatic.com/firebasejs/12.11.0/firebase-firestore.js";
+
+/* OPEN FORM */
+window.openPartnerForm = ()=> partnerForm.style.display="block";
+window.openRiderForm = ()=> riderForm.style.display="block";
+
+/* 🔥 CREATE PARTNER */
+window.createPartner = async function(){
+
+let name = p_name.value;
+let phone = p_phone.value;
+let aadhaar = p_aadhaar.value;
+let pan = p_pan.value;
+let address = p_address.value;
+
+let email = p_email.value;
+let password = p_password.value;
+
+let user = await createUserWithEmailAndPassword(auth,email,password);
+let uid = user.user.uid;
+
+/* USERS */
+await setDoc(doc(db,"users",uid),{
+name, phone, role:"partner"
+});
+
+/* PARTNERS */
+await addDoc(collection(db,"partners"),{
+uid,name,phone,aadhaar,pan,address
+});
+
+/* WALLET */
+await setDoc(doc(db,"wallets",uid),{
+balance:0
+});
+
+alert("Partner Created ✅");
+
+};
+
+/* 🔥 CREATE RIDER */
+window.createRider = async function(){
+
+let name = r_name.value;
+let phone = r_phone.value;
+let aadhaar = r_aadhaar.value;
+let pan = r_pan.value;
+let vehicle = r_vehicle.value;
+
+let email = r_email.value;
+let password = r_password.value;
+
+let user = await createUserWithEmailAndPassword(auth,email,password);
+let uid = user.user.uid;
+
+/* USERS */
+await setDoc(doc(db,"users",uid),{
+name, phone, role:"rider"
+});
+
+/* RIDERS */
+await addDoc(collection(db,"delivery"),{
+uid,name,phone,aadhaar,pan,vehicle,status:"available"
+});
+
+/* WALLET */
+await setDoc(doc(db,"wallets",uid),{
+balance:0
+});
+
+alert("Rider Created ✅");
+
+};
 
 </script>
 
