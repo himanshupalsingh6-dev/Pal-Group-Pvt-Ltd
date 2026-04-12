@@ -42,6 +42,12 @@ button{
   border-radius:12px;
   font-weight:bold;
 }
+
+.link{
+  margin-top:10px;
+  color:blue;
+  cursor:pointer;
+}
 </style>
 </head>
 
@@ -50,69 +56,104 @@ button{
 <div class="box">
 <h2>⚡ QuickPress</h2>
 
+<input id="name" placeholder="Name" style="display:none">
 <input id="email" placeholder="Email">
-<input id="password" placeholder="Password">
+<input id="password" type="password" placeholder="Password">
 
-<button onclick="login()">Login</button>
+<button onclick="login()" id="loginBtn">Login</button>
+<button onclick="signup()" id="signupBtn" style="display:none">Sign Up</button>
+
+<div class="link" onclick="toggle()">Create Account</div>
 </div>
 
 <script type="module">
 
-/* 🔥 IMPORTS */
 import { auth, db } from "./firebase.js";
-import { signInWithEmailAndPassword } from "https://www.gstatic.com/firebasejs/12.11.0/firebase-auth.js";
-import { doc, getDoc } from "https://www.gstatic.com/firebasejs/12.11.0/firebase-firestore.js";
+import { 
+signInWithEmailAndPassword,
+createUserWithEmailAndPassword
+} from "https://www.gstatic.com/firebasejs/12.11.0/firebase-auth.js";
 
-/* 🔥 LOGIN FUNCTION */
+import { doc, setDoc, getDoc } from "https://www.gstatic.com/firebasejs/12.11.0/firebase-firestore.js";
+
+/* TOGGLE */
+window.toggle = function(){
+
+let isSignup = name.style.display === "none";
+
+name.style.display = isSignup ? "block" : "none";
+
+loginBtn.style.display = isSignup ? "none" : "block";
+signupBtn.style.display = isSignup ? "block" : "none";
+
+};
+
+/* LOGIN */
 window.login = async function(){
 
-  const email=document.getElementById("email").value;
-  const password=document.getElementById("password").value;
+const emailVal=email.value;
+const passwordVal=password.value;
 
-  if(!email || !password){
-    alert("Fill all fields");
-    return;
-  }
+try{
 
-  try{
+const userCred = await signInWithEmailAndPassword(auth,emailVal,passwordVal);
+const uid = userCred.user.uid;
 
-    const userCred = await signInWithEmailAndPassword(auth,email,password);
-    const uid = userCred.user.uid;
+const snap = await getDoc(doc(db,"users",uid));
+const user = snap.data();
 
-    /* 🔥 GET USER DATA FROM FIRESTORE */
-    const snap = await getDoc(doc(db,"users",uid));
+/* SAVE */
+localStorage.setItem("userId", uid);
+localStorage.setItem("role", user.role);
+localStorage.setItem("name", user.name);
 
-    if(!snap.exists()){
-      alert("User data not found in database");
-      return;
-    }
+/* REDIRECT */
+if(user.role==="admin") location.href="admin/index.html";
+else if(user.role==="partner") location.href="partner/index.html";
+else if(user.role==="rider") location.href="rider/index.html";
+else location.href="index.html";
 
-    const user = snap.data();
+}catch(err){
+alert(err.message);
+}
 
-    /* 🔥 SAVE LOCAL */
-    localStorage.setItem("userId", uid);
-    localStorage.setItem("role", user.role);
-    localStorage.setItem("name", user.name);
+};
 
-    alert("Login success ✅");
+/* SIGNUP (ONLY CUSTOMER) */
+window.signup = async function(){
 
-    /* 🔥 ROLE BASED REDIRECT */
-    if(user.role === "admin"){
-      location.href = "admin/index.html";
-    }
-    else if(user.role === "partner"){
-      location.href = "partner/index.html";
-    }
-    else if(user.role === "rider"){
-      location.href = "rider/index.html";
-    }
-    else{
-      location.href = "index.html"; // customer
-    }
+const nameVal=name.value;
+const emailVal=email.value;
+const passwordVal=password.value;
 
-  }catch(err){
-    alert(err.message);
-  }
+try{
+
+const userCred = await createUserWithEmailAndPassword(auth,emailVal,passwordVal);
+const uid = userCred.user.uid;
+
+/* SAVE USER */
+await setDoc(doc(db,"users",uid),{
+name:nameVal,
+email:emailVal,
+role:"customer"   // 🔥 FIXED ROLE
+});
+
+alert("Account Created ✅");
+
+/* AUTO LOGIN */
+localStorage.setItem("userId", uid);
+localStorage.setItem("role", "customer");
+localStorage.setItem("name", nameVal);
+
+location.href="index.html";
+
+}catch(err){
+alert(err.message);
+}
+
 };
 
 </script>
+
+</body>
+</html>
