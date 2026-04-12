@@ -3,16 +3,21 @@
 <head>
 <meta charset="UTF-8">
 <title>Partner Panel</title>
+
 <style>
-body{font-family:Segoe UI;background:#f6f7f9}
+body{font-family:Segoe UI;background:#f6f7f9;margin:0}
+.header{background:#FFD400;padding:14px;text-align:center;font-weight:bold}
 .card{background:#fff;padding:12px;margin:10px;border-radius:10px}
-button{padding:6px;background:#FFD400;border:none}
+button{padding:6px;margin:3px;background:#FFD400;border:none}
+.details{display:none}
 </style>
 </head>
 
 <body>
 
-<h2>👨‍🔧 Partner Panel</h2>
+<div class="header">👨‍🔧 Partner Panel</div>
+
+<div id="dashboard"></div>
 <div id="content"></div>
 
 <script type="module">
@@ -22,41 +27,104 @@ import {
 collection,onSnapshot,doc,updateDoc
 } from "https://www.gstatic.com/firebasejs/12.11.0/firebase-firestore.js";
 
-/* ⚠️ HARD CODE PARTNER NAME (TEMP) */
-let partnerName = "Ramesh Laundry";
+/* 🔥 LOGIN BASED NAME */
+let partnerName = localStorage.getItem("name");
 
+let orders=[];
+
+/* LOAD ORDERS */
 onSnapshot(collection(db,"orders"), snap=>{
+orders=[];
+snap.forEach(d=>orders.push({...d.data(),id:d.id}));
+
+loadDashboard();
+loadOrders();
+});
+
+/* ================= DASHBOARD ================= */
+
+function loadDashboard(){
+
+let total=0;
+let completed=0;
+let earnings=0;
+
+orders.forEach(o=>{
+if(o.partner === partnerName){
+total++;
+
+if(o.status==="Delivered"){
+completed++;
+earnings += o.total || 0;
+}
+}
+});
+
+document.getElementById("dashboard").innerHTML=`
+<div class="card">📦 Total Orders: ${total}</div>
+<div class="card">✅ Completed: ${completed}</div>
+<div class="card">💰 Earnings: ₹${earnings}</div>
+`;
+}
+
+/* ================= ORDERS ================= */
+
+function loadOrders(){
 
 let html="";
 
-snap.forEach(docSnap=>{
-let o = docSnap.data();
+orders.forEach((o,i)=>{
 
-if(o.partner === partnerName){
+if(o.partner !== partnerName) return;
+
+let items="";
+o.items?.forEach(it=>{
+items+=`${it.name} x ${it.qty}<br>`;
+});
 
 html+=`
 <div class="card">
 
 <b>${o.name}</b><br>
-₹${o.total}<br>
+📞 ${o.phone || "N/A"}<br>
+📍 ${o.address || "N/A"}<br>
+💰 ₹${o.total}<br>
+
 Status: ${o.status}<br>
 
-<button onclick="update('${docSnap.id}','Washing')">Washing</button>
-<button onclick="update('${docSnap.id}','Ironing')">Ironing</button>
+<button onclick="toggle(${i})">View Details</button>
+
+<select onchange="updateStatus('${o.id}',this.value)">
+<option>Pickup</option>
+<option>Washing</option>
+<option>Ironing</option>
+<option>Ready</option>
+<option>Out</option>
+<option>Delivered</option>
+</select>
+
+<div class="details" id="d${i}">
+<hr>
+${items}
+</div>
 
 </div>
 `;
-}
 });
 
 document.getElementById("content").innerHTML=html;
+}
 
-});
+/* ================= FUNCTIONS ================= */
 
-window.update = async(id,status)=>{
-await updateDoc(doc(db,"orders",id),{
-status:status
-});
+window.toggle=(i)=>{
+let el=document.getElementById("d"+i);
+el.style.display = el.style.display==="block" ? "none" : "block";
+};
+
+window.updateStatus = async function(id,status){
+await updateDoc(doc(db,"orders",id),{status});
+alert("Status Updated ✅");
 };
 
 </script>
