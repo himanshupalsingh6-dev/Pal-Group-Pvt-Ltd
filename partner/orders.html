@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html>
+<head>
+<link rel="stylesheet" href="css/style.css">
+</head>
+
+<body>
+
+<div id="side"></div>
+
+<div class="main">
+<div class="header">Orders</div>
+<div id="orders"></div>
+</div>
+
+<script type="module">
+
+import { sidebar } from "./js/common.js";
+import { db } from "../js/firebase.js";
+import { collection,onSnapshot,doc,updateDoc } from "https://www.gstatic.com/firebasejs/12.11.0/firebase-firestore.js";
+
+side.innerHTML = sidebar();
+
+let partner = localStorage.getItem("name");
+
+onSnapshot(collection(db,"orders"), snap=>{
+
+let html="";
+
+snap.forEach(d=>{
+let o=d.data();
+
+if(o.partner!==partner) return;
+
+html+=`
+<div class="card">
+<b>${o.name}</b><br>
+₹${o.total}<br>
+
+<button class="accept" onclick="accept('${d.id}')">Accept</button>
+<button class="reject" onclick="reject('${d.id}')">Reject</button>
+
+<select onchange="updateStatus('${d.id}',this.value)">
+<option>Pickup</option>
+<option>Washing</option>
+<option>Ironing</option>
+<option>Delivered</option>
+</select>
+</div>
+`;
+});
+
+orders.innerHTML=html;
+
+});
+
+window.accept=async(id)=>{
+await updateDoc(doc(db,"orders",id),{accepted:true});
+}
+
+window.reject=async(id)=>{
+await updateDoc(doc(db,"orders",id),{status:"Rejected"});
+}
+
+window.updateStatus=async(id,status)=>{
+await updateDoc(doc(db,"orders",id),{status});
+}
+
+</script>
+
+</body>
+</html>
