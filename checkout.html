@@ -3,26 +3,82 @@
 <head>
 <meta charset="UTF-8">
 <title>Checkout</title>
+
 <style>
-body{font-family:Segoe UI;background:#f6f7f9}
-.container{padding:15px}
-.card{background:#fff;padding:15px;margin:10px;border-radius:10px}
-input,select,textarea{width:100%;padding:10px;margin-top:8px}
-button{padding:12px;width:100%;background:#FFD400;border:none}
+body{
+  font-family:Segoe UI;
+  background:#f6f7f9;
+  margin:0;
+}
+
+.header{
+  background:#FFD400;
+  padding:15px;
+  font-size:20px;
+  font-weight:bold;
+  text-align:center;
+}
+
+.container{
+  padding:15px;
+  max-width:500px;
+  margin:auto;
+}
+
+.card{
+  background:#fff;
+  padding:15px;
+  margin-top:12px;
+  border-radius:14px;
+  box-shadow:0 5px 15px rgba(0,0,0,0.08);
+}
+
+input,textarea,select{
+  width:100%;
+  padding:12px;
+  margin-top:10px;
+  border-radius:10px;
+  border:1px solid #ddd;
+}
+
+button{
+  width:100%;
+  padding:14px;
+  margin-top:12px;
+  border:none;
+  border-radius:12px;
+  background:#FFD400;
+  font-weight:bold;
+}
+
+.total{
+  font-size:18px;
+  font-weight:bold;
+  text-align:right;
+}
+
+.location{
+  background:#e8f5e9;
+  padding:10px;
+  border-radius:10px;
+  margin-top:10px;
+}
 </style>
 </head>
 
 <body>
 
+<div class="header">🧺 Checkout</div>
+
 <div class="container">
 
+<!-- CUSTOMER -->
 <div class="card">
-<h3>Customer Details</h3>
+<h3>👤 Customer Details</h3>
 
 <input id="name" placeholder="Name">
 <input id="phone" placeholder="Phone">
 
-<label>Select Area</label>
 <select id="area">
 <option>Delhi</option>
 <option>Noida</option>
@@ -31,9 +87,26 @@ button{padding:12px;width:100%;background:#FFD400;border:none}
 </select>
 
 <textarea id="address" placeholder="Full Address"></textarea>
+
+<div class="location" id="locBox">
+📍 Location: Not detected
 </div>
 
-<button onclick="placeOrder()">Place Order</button>
+<button onclick="getLocation()">📍 Detect Location</button>
+</div>
+
+<!-- CART -->
+<div class="card">
+<h3>🛒 Order Summary</h3>
+
+<div id="items"></div>
+
+<div class="total">
+Total: ₹<span id="total">0</span>
+</div>
+</div>
+
+<button onclick="placeOrder()">🚀 Place Order</button>
 
 </div>
 
@@ -42,41 +115,71 @@ button{padding:12px;width:100%;background:#FFD400;border:none}
 import { db } from "./js/firebase.js";
 import { collection, addDoc } from "https://www.gstatic.com/firebasejs/12.11.0/firebase-firestore.js";
 
-window.placeOrder = async function(){
-
-let name=name.value;
-let phone=phone.value;
-let address=address.value;
-let area=document.getElementById("area").value;
-
 let cart = JSON.parse(localStorage.getItem("cart")||"[]");
 
 let total=0;
-cart.forEach(i=> total+=i.price*i.qty);
+
+/* LOAD ITEMS */
+function loadCart(){
+
+let html="";
+
+cart.forEach(i=>{
+total += i.price * i.qty;
+
+html += `
+<div>
+${i.name} x ${i.qty} = ₹${i.price*i.qty}
+</div>
+`;
+});
+
+items.innerHTML=html;
+document.getElementById("total").innerText=total;
+}
+
+loadCart();
+
+/* 📍 LOCATION */
+let userLocation="";
+
+window.getLocation=function(){
+
+navigator.geolocation.getCurrentPosition(pos=>{
+
+let lat=pos.coords.latitude;
+let lng=pos.coords.longitude;
+
+userLocation = lat + "," + lng;
+
+locBox.innerHTML=`📍 ${lat}, ${lng}`;
+
+});
+};
+
+/* 🚀 PLACE ORDER */
+window.placeOrder = async function(){
 
 let order={
-id:"QP"+Date.now(),
-name,
-phone,
-address,
-area,   // 🔥 AREA ADDED
+name:name.value,
+phone:phone.value,
+address:address.value,
+area:area.value,
+location:userLocation,
 items:cart,
-total,
-status:"Pickup",
-paymentMethod:"COD",
-paymentStatus:"Pending",
-time:new Date(),
-userId:localStorage.getItem("userId")
+total:total,
+status:"new",
+time:Date.now()
 };
 
 await addDoc(collection(db,"orders"),order);
 
 localStorage.removeItem("cart");
 
-alert("Order Placed ✅");
+alert("Order Placed 🎉");
 
 location.href="tracking.html";
-}
+};
 
 </script>
 
