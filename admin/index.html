@@ -1,28 +1,218 @@
 <!DOCTYPE html>
 <html>
 <head>
-<meta charset="UTF-8">
-<title>Admin Panel</title>
+<title>QuickPress Admin</title>
 
-<link rel="stylesheet" href="./css/style.css">
-<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+<style>
+body{font-family:sans-serif;margin:0;background:#f5f6fa}
+
+/* HEADER */
+.header{
+background:#FFD400;
+padding:12px;
+text-align:center;
+font-weight:bold;
+}
+
+/* NAVBAR */
+.nav{
+display:flex;
+background:#fff;
+border-bottom:1px solid #ddd;
+}
+
+.nav div{
+padding:12px 20px;
+cursor:pointer;
+}
+
+.nav div.active{
+background:#FFD400;
+}
+
+/* SECTIONS */
+.section{display:none;padding:15px}
+.section.active{display:block}
+
+.card{
+background:#fff;
+padding:12px;
+margin:10px 0;
+border-radius:10px;
+box-shadow:0 2px 10px rgba(0,0,0,0.1);
+}
+</style>
 </head>
 
 <body>
 
-<div class="header">⚡ Admin Panel</div>
+<div class="header">⚡ QuickPress Admin Panel</div>
 
-<div class="tabs">
-  <div class="tab active" onclick="showTab('dashboard')">Dashboard</div>
-  <div class="tab" onclick="showTab('orders')">Orders</div>
-  <div class="tab" onclick="showTab('users')">Users</div>
-  <div class="tab" onclick="showTab('partners')">Partners</div>
-  <div class="tab" onclick="showTab('riders')">Riders</div>
+<div class="nav">
+<div onclick="showTab('dashboard')" class="active">Dashboard</div>
+<div onclick="showTab('orders')">Orders</div>
+<div onclick="showTab('partners')">Partners</div>
+<div onclick="showTab('riders')">Riders</div>
+<div onclick="showTab('users')">Users</div>
+<div onclick="showTab('payout')">Payout</div>
+<div onclick="showTab('help')">Help</div>
 </div>
 
-<div id="content"></div>
+<!-- DASHBOARD -->
+<div id="dashboard" class="section active">
+<h2>📊 Dashboard</h2>
+<div id="stats"></div>
+</div>
 
-<script type="module" src="./js/app.js"></script>
+<!-- ORDERS -->
+<div id="orders" class="section">
+<h2>📦 Orders</h2>
+<div id="ordersList"></div>
+</div>
+
+<!-- PARTNERS -->
+<div id="partners" class="section">
+<h2>👨‍🔧 Partners</h2>
+<div id="partnerList"></div>
+</div>
+
+<!-- RIDERS -->
+<div id="riders" class="section">
+<h2>🚚 Riders</h2>
+<div id="riderList"></div>
+</div>
+
+<!-- USERS -->
+<div id="users" class="section">
+<h2>👥 Users</h2>
+<div id="userList"></div>
+</div>
+
+<!-- PAYOUT -->
+<div id="payout" class="section">
+<h2>💰 Payout</h2>
+<div id="payoutList"></div>
+</div>
+
+<!-- HELP -->
+<div id="help" class="section">
+<h2>📞 Help Center</h2>
+<p>Support: quickpress@gmail.com</p>
+</div>
+
+<script type="module">
+
+import { db } from "./js/firebase.js";
+import { collection,onSnapshot } from "https://www.gstatic.com/firebasejs/12.11.0/firebase-firestore.js";
+
+/* TAB SWITCH */
+window.showTab = function(id){
+
+document.querySelectorAll(".section").forEach(s=>s.classList.remove("active"));
+document.querySelectorAll(".nav div").forEach(s=>s.classList.remove("active"));
+
+document.getElementById(id).classList.add("active");
+event.target.classList.add("active");
+
+}
+
+/* DASHBOARD */
+onSnapshot(collection(db,"orders"), snap=>{
+let total=0;
+let count=0;
+
+snap.forEach(d=>{
+count++;
+total+=d.data().total || 0;
+});
+
+stats.innerHTML=`
+<div class="card">Total Orders: ${count}</div>
+<div class="card">Total Revenue: ₹${total}</div>
+`;
+});
+
+/* ORDERS */
+onSnapshot(collection(db,"orders"), snap=>{
+let html="";
+snap.forEach(d=>{
+let o=d.data();
+
+html+=`
+<div class="card">
+<b>${o.name}</b><br>
+₹${o.total}<br>
+${o.status}
+</div>
+`;
+});
+ordersList.innerHTML=html;
+});
+
+/* USERS */
+onSnapshot(collection(db,"users"), snap=>{
+let html="";
+snap.forEach(d=>{
+let u=d.data();
+
+html+=`
+<div class="card">
+${u.name}<br>
+${u.phone}
+</div>
+`;
+});
+userList.innerHTML=html;
+});
+
+/* PARTNERS */
+onSnapshot(collection(db,"partners"), snap=>{
+let html="";
+snap.forEach(d=>{
+let p=d.data();
+
+html+=`
+<div class="card">
+${p.name}<br>
+${p.phone}
+</div>
+`;
+});
+partnerList.innerHTML=html;
+});
+
+/* RIDERS */
+onSnapshot(collection(db,"delivery"), snap=>{
+let html="";
+snap.forEach(d=>{
+let r=d.data();
+
+html+=`
+<div class="card">
+${r.name}<br>
+${r.phone}
+</div>
+`;
+});
+riderList.innerHTML=html;
+});
+
+/* PAYOUT */
+onSnapshot(collection(db,"transactions"), snap=>{
+let html="";
+snap.forEach(d=>{
+let t=d.data();
+
+html+=`
+<div class="card">
+₹${t.amount} - ${t.role}
+</div>
+`;
+});
+payoutList.innerHTML=html;
+});
+
+</script>
 
 </body>
 </html>
