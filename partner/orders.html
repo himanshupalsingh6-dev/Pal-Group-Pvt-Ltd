@@ -6,13 +6,7 @@
 
 <body>
 
-<div id="side"></div>
-
-<div class="main">
-
-<div id="top"></div>
-
-<h2>Orders</h2>
+<h2>📦 Orders</h2>
 
 <h3>🆕 New</h3>
 <div id="new"></div>
@@ -23,11 +17,8 @@
 <h3>🚚 Out</h3>
 <div id="out"></div>
 
-</div>
-
 <script type="module">
 
-import { sidebar, topbar, wa } from "./js/common.js";
 import { db } from "../js/firebase.js";
 
 import {
@@ -39,29 +30,59 @@ increment,
 addDoc
 } from "https://www.gstatic.com/firebasejs/12.11.0/firebase-firestore.js";
 
-side.innerHTML = sidebar();
-top.innerHTML = topbar();
-
 let name = localStorage.getItem("name");
 
-/* 🔥 WALLET EARNING FUNCTION */
-async function addEarning(uid, amount){
+/* 🔥 PAYMENT DISTRIBUTION */
+async function distributePayment(data){
 
-if(!uid) return;
+let total = data.total || 0;
 
-await updateDoc(doc(db,"wallets",uid),{
-balance: increment(amount)
+let partnerAmount = total * 0.8;
+let riderAmount = total * 0.1;
+let adminAmount = total * 0.1;
+
+/* PARTNER */
+if(data.partnerUid){
+await updateDoc(doc(db,"wallets",data.partnerUid),{
+balance: increment(partnerAmount)
 });
 
 await addDoc(collection(db,"transactions"),{
-uid,
-amount,
-type:"credit",
+uid:data.partnerUid,
+amount:partnerAmount,
+role:"partner",
 time:Date.now()
 });
 }
 
-/* 🔥 LOAD ORDERS */
+/* RIDER */
+if(data.riderUid){
+await updateDoc(doc(db,"wallets",data.riderUid),{
+balance: increment(riderAmount)
+});
+
+await addDoc(collection(db,"transactions"),{
+uid:data.riderUid,
+amount:riderAmount,
+role:"rider",
+time:Date.now()
+});
+}
+
+/* ADMIN */
+await updateDoc(doc(db,"wallets","admin"),{
+balance: increment(adminAmount)
+});
+
+await addDoc(collection(db,"transactions"),{
+uid:"admin",
+amount:adminAmount,
+role:"admin",
+time:Date.now()
+});
+}
+
+/* LOAD ORDERS */
 onSnapshot(collection(db,"orders"), snap=>{
 
 let n="",p="",o="";
@@ -72,25 +93,17 @@ let data = d.data();
 if(data.partner !== name) return;
 
 let card = `
-<div class="card">
+<div style="border:1px solid #ccc;padding:10px;margin:10px">
 
 <b>${data.name}</b><br>
-📞 ${data.phone}<br>
-📍 ${data.address || ""}<br>
-💰 ₹${data.total}<br>
+₹${data.total}<br>
 
-🚚 Rider: ${data.rider || "Not Assigned"}<br>
-
-Status: <b>${data.status}</b><br>
-
-<button onclick="start('${d.id}')">⚙️ Start</button>
-<button onclick="out('${d.id}')">🚚 Out</button>
+<button onclick="start('${d.id}')">Start</button>
+<button onclick="out('${d.id}')">Out</button>
 
 <button onclick='done("${d.id}", ${JSON.stringify(data)})'>
-✅ Done
+Done
 </button>
-
-<button onclick="wa('${data.phone}')">📲 WhatsApp</button>
 
 </div>
 `;
@@ -101,36 +114,28 @@ if(data.status==="out") o+=card;
 
 });
 
-document.getElementById("new").innerHTML = n;
-document.getElementById("prep").innerHTML = p;
-document.getElementById("out").innerHTML = o;
+new.innerHTML=n;
+prep.innerHTML=p;
+out.innerHTML=o;
 
 });
 
-/* 🔥 STATUS UPDATE */
-window.start = async function(id){
-await updateDoc(doc(db,"orders",id),{status:"preparing"});
-}
+/* STATUS */
+window.start=id=>updateDoc(doc(db,"orders",id),{status:"preparing"});
+window.out=id=>updateDoc(doc(db,"orders",id),{status:"out"});
 
-window.out = async function(id){
-await updateDoc(doc(db,"orders",id),{status:"out"});
-}
-
-/* 🔥 FINAL DONE + WALLET */
-window.done = async function(id, data){
+/* 🔥 DONE + PAYMENT */
+window.done = async function(id,data){
 
 await updateDoc(doc(db,"orders",id),{
 status:"done"
 });
 
-/* 💰 ADD EARNING */
-if(data.partnerUid){
-await addEarning(data.partnerUid, data.total);
-}
+await distributePayment(data);
 
-alert("Order Completed + Wallet Updated 💰");
+alert("✅ Payment Distributed 💰");
 
-}
+};
 
 </script>
 
