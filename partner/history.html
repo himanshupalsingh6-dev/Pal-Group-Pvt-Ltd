@@ -9,19 +9,24 @@
 <div id="side"></div>
 
 <div class="main">
-<div class="header">Order History</div>
+
+<div id="top"></div>
+
+<h2>Order History</h2>
 <div id="history"></div>
+
 </div>
 
 <script type="module">
 
-import { sidebar } from "./js/common.js";
+import { sidebar, topbar } from "./js/common.js";
 import { db } from "../js/firebase.js";
 import { collection,onSnapshot } from "https://www.gstatic.com/firebasejs/12.11.0/firebase-firestore.js";
 
-side.innerHTML = sidebar();
+side.innerHTML=sidebar();
+top.innerHTML=topbar();
 
-let partner = localStorage.getItem("name");
+let name=localStorage.getItem("name");
 
 onSnapshot(collection(db,"orders"), snap=>{
 
@@ -30,15 +35,9 @@ let html="";
 snap.forEach(d=>{
 let o=d.data();
 
-if(o.partner===partner && (o.status==="Delivered"||o.status==="Rejected")){
+if(o.partner===name && (o.status==="done"||o.status==="Rejected")){
 
-html+=`
-<div class="card">
-${o.status}<br>
-${o.name}<br>
-₹${o.total}
-</div>
-`;
+html+=`<div class="card">${o.name} - ₹${o.total}</div>`;
 }
 });
 
