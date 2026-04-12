@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html>
+<head>
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+<link rel="stylesheet" href="css/style.css">
+</head>
+
+<body>
+
+<div id="side"></div>
+
+<div class="main">
+<div class="header">Analytics</div>
+
+<canvas id="chart"></canvas>
+
+</div>
+
+<script type="module">
+
+import { sidebar } from "./js/common.js";
+import { db } from "../js/firebase.js";
+import { collection,onSnapshot } from "https://www.gstatic.com/firebasejs/12.11.0/firebase-firestore.js";
+
+side.innerHTML = sidebar();
+
+let partner = localStorage.getItem("name");
+
+onSnapshot(collection(db,"orders"), snap=>{
+
+let map={};
+
+snap.forEach(d=>{
+let o=d.data();
+
+if(o.partner===partner && o.status==="Delivered"){
+
+let dte=new Date(o.time).toLocaleDateString();
+
+if(!map[dte]) map[dte]=0;
+
+map[dte]+=o.total||0;
+}
+});
+
+new Chart(document.getElementById("chart"),{
+type:"line",
+data:{
+labels:Object.keys(map),
+datasets:[{data:Object.values(map)}]
+}
+});
+
+});
+
+</script>
+
+</body>
+</html>
