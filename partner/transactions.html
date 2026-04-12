@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html>
+<body>
+
+<h2>Transactions</h2>
+<div id="list"></div>
+
+<script type="module">
+
+import { db } from "../js/firebase.js";
+import { collection,onSnapshot } from "https://www.gstatic.com/firebasejs/12.11.0/firebase-firestore.js";
+
+onSnapshot(collection(db,"transactions"), snap=>{
+let html="";
+snap.forEach(d=>{
+let t=d.data();
+
+html+=`
+<div>
+₹${t.amount} - ${t.type}
+</div>
+`;
+});
+list.innerHTML=html;
+});
+
+</script>
+
+</body>
+</html>
