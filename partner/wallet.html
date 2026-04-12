@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html>
+<body>
+
+<h2>💰 Wallet</h2>
+<div id="balance"></div>
+
+<script type="module">
+
+import { db } from "../js/firebase.js";
+import { doc,onSnapshot } from "https://www.gstatic.com/firebasejs/12.11.0/firebase-firestore.js";
+
+let uid = localStorage.getItem("userId");
+
+onSnapshot(doc(db,"wallets",uid), snap=>{
+balance.innerHTML = "Balance: ₹" + (snap.data()?.balance || 0);
+});
+
+</script>
+
+</body>
+</html>
