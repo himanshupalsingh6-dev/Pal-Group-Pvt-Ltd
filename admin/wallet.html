@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html>
+<body>
+
+<h2>Admin Wallet</h2>
+<div id="balance"></div>
+
+<script type="module">
+
+import { db } from "../js/firebase.js";
+import { doc,onSnapshot } from "https://www.gstatic.com/firebasejs/12.11.0/firebase-firestore.js";
+
+onSnapshot(doc(db,"wallets","admin"), snap=>{
+balance.innerHTML = "₹ " + (snap.data()?.balance || 0);
+});
+
+</script>
+
+</body>
+</html>
