@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html>
+<body>
+
+<h2>All Partners</h2>
+<div id="partners"></div>
+
+<h2>All Riders</h2>
+<div id="riders"></div>
+
+<script type="module">
+
+import { db } from "../js/firebase.js";
+import { collection,onSnapshot } from "https://www.gstatic.com/firebasejs/12.11.0/firebase-firestore.js";
+
+/* PARTNERS */
+onSnapshot(collection(db,"partners"), snap=>{
+let html="";
+snap.forEach(d=>{
+let p=d.data();
+
+html+=`
+<div style="border:1px solid #ccc;padding:10px;margin:10px">
+<b>${p.name}</b><br>
+📞 ${p.phone}<br>
+🆔 ${p.aadhaar}<br>
+PAN: ${p.pan}<br>
+🏦 ${p.bank}<br>
+📍 ${p.address}
+</div>
+`;
+});
+partners.innerHTML=html;
+});
+
+/* RIDERS */
+onSnapshot(collection(db,"delivery"), snap=>{
+let html="";
+snap.forEach(d=>{
+let r=d.data();
+
+html+=`
+<div style="border:1px solid #ccc;padding:10px;margin:10px">
+<b>${r.name}</b><br>
+📞 ${r.phone}<br>
+🆔 ${r.aadhaar}<br>
+PAN: ${r.pan}<br>
+🚗 ${r.vehicle}
+</div>
+`;
+});
+riders.innerHTML=html;
+});
+
+</script>
+
+</body>
+</html>
