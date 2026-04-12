@@ -1,220 +1,53 @@
 <!DOCTYPE html>
 <html>
 <head>
-<meta charset="UTF-8">
-<title>Partner Panel</title>
-
-<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-
-<style>
-body{margin:0;font-family:Segoe UI;background:#f6f7f9;display:flex}
-
-/* SIDEBAR */
-.sidebar{
-width:220px;
-background:#fff;
-height:100vh;
-border-right:1px solid #ddd;
-padding:10px;
-}
-.sidebar h2{margin:10px}
-.sidebar div{
-padding:10px;
-cursor:pointer;
-border-radius:8px;
-}
-.sidebar div:hover{background:#f1f1f1}
-
-/* MAIN */
-.main{
-flex:1;
-}
-
-/* HEADER */
-.header{
-background:#fff;
-padding:12px;
-display:flex;
-justify-content:space-between;
-align-items:center;
-border-bottom:1px solid #ddd;
-}
-
-.card{
-background:#fff;
-margin:10px;
-padding:12px;
-border-radius:10px;
-}
-
-button{padding:6px;margin:3px;border:none;border-radius:6px}
-.accept{background:green;color:#fff}
-.reject{background:red;color:#fff}
-</style>
+<link rel="stylesheet" href="css/style.css">
 </head>
 
 <body>
 
-<!-- SIDEBAR -->
-<div class="sidebar">
-<h2>⚡ QuickPress</h2>
-<div onclick="showPage('orders')">📦 Orders</div>
-<div>📜 History</div>
-<div>💰 Earnings</div>
-<div>⚙️ Settings</div>
-</div>
+<div id="side"></div>
 
-<!-- MAIN -->
 <div class="main">
 
 <div class="header">
-<div>👨‍🔧 Partner Panel</div>
-<div>
-<select onchange="toggleOnline(this.value)">
-<option>Online</option>
-<option>Offline</option>
-</select>
-</div>
+Dashboard
+<select><option>Online</option><option>Offline</option></select>
 </div>
 
-<div id="dashboard"></div>
-
-<canvas id="chart" style="margin:10px"></canvas>
-
-<div id="content"></div>
+<div id="stats"></div>
 
 </div>
 
 <script type="module">
 
+import { sidebar } from "./js/common.js";
 import { db } from "../js/firebase.js";
-import {
-collection,onSnapshot,doc,updateDoc
-} from "https://www.gstatic.com/firebasejs/12.11.0/firebase-firestore.js";
+import { collection,onSnapshot } from "https://www.gstatic.com/firebasejs/12.11.0/firebase-firestore.js";
 
-let partnerName = localStorage.getItem("name");
-let orders=[];
+side.innerHTML = sidebar();
 
-/* LOAD */
+let partner = localStorage.getItem("name");
+
 onSnapshot(collection(db,"orders"), snap=>{
-orders=[];
-snap.forEach(d=>orders.push({...d.data(),id:d.id}));
 
-loadDashboard();
-loadOrders();
-drawChart();
-});
+let total=0,complete=0;
 
-/* DASHBOARD */
-function loadDashboard(){
+snap.forEach(d=>{
+let o=d.data();
 
-let total=0, pending=0, completed=0;
-
-orders.forEach(o=>{
-if(o.partner===partnerName){
+if(o.partner===partner){
 total++;
-
-if(o.status==="Pickup") pending++;
-if(o.status==="Delivered") completed++;
+if(o.status==="Delivered") complete++;
 }
 });
 
-dashboard.innerHTML=`
-<div class="card">📦 Orders: ${total}</div>
-<div class="card">🟡 Pending: ${pending}</div>
-<div class="card">✅ Completed: ${completed}</div>
+stats.innerHTML=`
+<div class="card">Total: ${total}</div>
+<div class="card">Completed: ${complete}</div>
 `;
-}
 
-/* GRAPH */
-function drawChart(){
-
-let map={
-Pickup:0,
-Washing:0,
-Ironing:0,
-Ready:0,
-Out:0,
-Delivered:0
-};
-
-orders.forEach(o=>{
-if(o.partner===partnerName){
-map[o.status]=(map[o.status]||0)+1;
-}
 });
-
-new Chart(document.getElementById("chart"),{
-type:"doughnut",
-data:{
-labels:Object.keys(map),
-datasets:[{data:Object.values(map)}]
-}
-});
-}
-
-/* ORDERS */
-function loadOrders(){
-
-let html="";
-
-orders.forEach(o=>{
-
-if(o.partner!==partnerName) return;
-
-html+=`
-<div class="card">
-
-<b>${o.name}</b><br>
-📞 ${o.phone||""}<br>
-
-📍 ${o.address}<br>
-💰 ₹${o.total}<br>
-
-🚚 Rider: ${o.rider||"Not Assigned"}<br>
-
-Status: <b>${o.status}</b><br>
-
-<button class="accept" onclick="accept('${o.id}')">Accept</button>
-<button class="reject" onclick="reject('${o.id}')">Reject</button>
-
-<select onchange="updateStatus('${o.id}',this.value)">
-<option>Pickup</option>
-<option>Washing</option>
-<option>Ironing</option>
-<option>Ready</option>
-<option>Out</option>
-<option>Delivered</option>
-</select>
-
-</div>
-`;
-});
-
-content.innerHTML=html;
-}
-
-/* FUNCTIONS */
-window.updateStatus=async(id,status)=>{
-await updateDoc(doc(db,"orders",id),{status});
-}
-
-window.accept=async(id)=>{
-await updateDoc(doc(db,"orders",id),{accepted:true});
-alert("Accepted");
-}
-
-window.reject=async(id)=>{
-await updateDoc(doc(db,"orders",id),{status:"Rejected"});
-}
-
-window.toggleOnline=function(val){
-alert("Status: "+val);
-}
-
-window.showPage=function(p){
-if(p==="orders") loadOrders();
-}
 
 </script>
 
