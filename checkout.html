@@ -4,73 +4,59 @@
 <meta charset="UTF-8">
 <title>Checkout</title>
 
+<link rel="stylesheet" href="partner/css/style.css">
+
 <style>
-body{
-  font-family:Segoe UI;
-  background:#f6f7f9;
-  margin:0;
-}
-
-.header{
-  background:#FFD400;
-  padding:15px;
-  font-size:20px;
-  font-weight:bold;
-  text-align:center;
-}
-
-.container{
-  padding:15px;
-  max-width:500px;
-  margin:auto;
-}
+.main{padding:15px}
 
 .card{
-  background:#fff;
-  padding:15px;
-  margin-top:12px;
-  border-radius:14px;
-  box-shadow:0 5px 15px rgba(0,0,0,0.08);
+background:#fff;
+padding:15px;
+margin-top:12px;
+border-radius:12px;
+box-shadow:0 4px 12px rgba(0,0,0,0.08);
 }
 
 input,textarea,select{
-  width:100%;
-  padding:12px;
-  margin-top:10px;
-  border-radius:10px;
-  border:1px solid #ddd;
+width:100%;
+padding:12px;
+margin-top:10px;
+border-radius:10px;
+border:1px solid #ddd;
 }
 
 button{
-  width:100%;
-  padding:14px;
-  margin-top:12px;
-  border:none;
-  border-radius:12px;
-  background:#FFD400;
-  font-weight:bold;
+width:100%;
+padding:14px;
+margin-top:12px;
+border:none;
+border-radius:10px;
+background:#FFD400;
+font-weight:bold;
+cursor:pointer;
 }
 
 .total{
-  font-size:18px;
-  font-weight:bold;
-  text-align:right;
+font-size:18px;
+font-weight:bold;
+text-align:right;
 }
 
 .location{
-  background:#e8f5e9;
-  padding:10px;
-  border-radius:10px;
-  margin-top:10px;
+background:#e8f5e9;
+padding:10px;
+border-radius:10px;
+margin-top:10px;
 }
 </style>
 </head>
 
 <body>
 
-<div class="header">🧺 Checkout</div>
+<!-- SIDEBAR REMOVE FOR CUSTOMER -->
+<div class="main">
 
-<div class="container">
+<h2>🧺 Checkout</h2>
 
 <!-- CUSTOMER -->
 <div class="card">
@@ -115,70 +101,106 @@ Total: ₹<span id="total">0</span>
 import { db } from "./js/firebase.js";
 import { collection, addDoc } from "https://www.gstatic.com/firebasejs/12.11.0/firebase-firestore.js";
 
-let cart = JSON.parse(localStorage.getItem("cart")||"[]");
+/* 🔥 FIX: DOM ELEMENTS */
+const nameInput = document.getElementById("name");
+const phoneInput = document.getElementById("phone");
+const addressInput = document.getElementById("address");
+const areaInput = document.getElementById("area");
+const totalBox = document.getElementById("total");
+const itemsBox = document.getElementById("items");
+const locBox = document.getElementById("locBox");
 
-let total=0;
+/* CART LOAD */
+let cart = JSON.parse(localStorage.getItem("cart") || "[]");
 
-/* LOAD ITEMS */
+let total = 0;
+
 function loadCart(){
+
+total = 0; // 🔥 FIX
 
 let html="";
 
 cart.forEach(i=>{
-total += i.price * i.qty;
+let price = i.price * i.qty;
+total += price;
 
-html += `
-<div>
-${i.name} x ${i.qty} = ₹${i.price*i.qty}
-</div>
-`;
+html += `<div>${i.name} x ${i.qty} = ₹${price}</div>`;
 });
 
-items.innerHTML=html;
-document.getElementById("total").innerText=total;
+itemsBox.innerHTML = html;
+totalBox.innerText = total;
 }
 
 loadCart();
 
-/* 📍 LOCATION */
+/* LOCATION */
 let userLocation="";
 
-window.getLocation=function(){
+window.getLocation = function(){
+
+if(!navigator.geolocation){
+alert("Location not supported");
+return;
+}
 
 navigator.geolocation.getCurrentPosition(pos=>{
 
-let lat=pos.coords.latitude;
-let lng=pos.coords.longitude;
+let lat = pos.coords.latitude;
+let lng = pos.coords.longitude;
 
 userLocation = lat + "," + lng;
 
-locBox.innerHTML=`📍 ${lat}, ${lng}`;
+locBox.innerHTML = `📍 ${lat}, ${lng}`;
 
+},()=>{
+alert("Location permission denied ❌");
 });
+
 };
 
-/* 🚀 PLACE ORDER */
+/* 🔥 PLACE ORDER FIXED */
 window.placeOrder = async function(){
 
-let order={
-name:name.value,
-phone:phone.value,
-address:address.value,
-area:area.value,
-location:userLocation,
-items:cart,
-total:total,
-status:"new",
-time:Date.now()
+if(!nameInput.value || !phoneInput.value || !addressInput.value){
+alert("Fill all details ❌");
+return;
+}
+
+if(cart.length===0){
+alert("Cart empty ❌");
+return;
+}
+
+try{
+
+let order = {
+name: nameInput.value,
+phone: phoneInput.value,
+address: addressInput.value,
+area: areaInput.value,
+location: userLocation,
+items: cart,
+total: total,
+status: "new",
+time: Date.now()
 };
 
-await addDoc(collection(db,"orders"),order);
+/* FIREBASE SAVE */
+await addDoc(collection(db,"orders"), order);
 
+/* CLEAR CART */
 localStorage.removeItem("cart");
 
-alert("Order Placed 🎉");
+alert("Order Placed ✅");
 
-location.href="tracking.html";
+/* REDIRECT */
+window.location.href = "tracking.html";
+
+}catch(err){
+alert("Error: " + err.message);
+}
+
 };
 
 </script>
