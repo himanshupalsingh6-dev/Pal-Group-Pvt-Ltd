@@ -10,10 +10,7 @@
 
 <div class="main">
 
-<div class="header">
-Dashboard
-<select><option>Online</option><option>Offline</option></select>
-</div>
+<div id="top"></div>
 
 <div id="stats"></div>
 
@@ -21,30 +18,31 @@ Dashboard
 
 <script type="module">
 
-import { sidebar } from "./js/common.js";
+import { sidebar, topbar } from "./js/common.js";
 import { db } from "../js/firebase.js";
 import { collection,onSnapshot } from "https://www.gstatic.com/firebasejs/12.11.0/firebase-firestore.js";
 
-side.innerHTML = sidebar();
+side.innerHTML=sidebar();
+top.innerHTML=topbar();
 
-let partner = localStorage.getItem("name");
+let name=localStorage.getItem("name");
 
 onSnapshot(collection(db,"orders"), snap=>{
 
-let total=0,complete=0;
+let total=0,done=0;
 
 snap.forEach(d=>{
 let o=d.data();
 
-if(o.partner===partner){
+if(o.partner===name){
 total++;
-if(o.status==="Delivered") complete++;
+if(o.status==="done") done++;
 }
 });
 
 stats.innerHTML=`
-<div class="card">Total: ${total}</div>
-<div class="card">Completed: ${complete}</div>
+<div class="card">Total Orders: ${total}</div>
+<div class="card">Completed: ${done}</div>
 `;
 
 });
