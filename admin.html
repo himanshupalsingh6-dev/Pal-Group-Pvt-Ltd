@@ -165,13 +165,24 @@ import {
 createUserWithEmailAndPassword
 } from "https://www.gstatic.com/firebasejs/12.11.0/firebase-auth.js";
 
-/* TAB SWITCH */
-window.showTab = function(e,id){
-document.querySelectorAll(".section").forEach(s=>s.classList.remove("active"));
-document.querySelectorAll(".nav div").forEach(n=>n.classList.remove("active"));
+window.showTab = function(e, id){
 
-document.getElementById(id).classList.add("active");
+// सभी sections hide
+document.querySelectorAll(".section").forEach(s=>{
+  s.style.display = "none";
+});
+
+// सभी nav inactive
+document.querySelectorAll(".nav div").forEach(n=>{
+  n.classList.remove("active");
+});
+
+// selected show
+document.getElementById(id).style.display = "block";
+
+// active tab highlight
 e.target.classList.add("active");
+
 }
 
 /* DASHBOARD */
