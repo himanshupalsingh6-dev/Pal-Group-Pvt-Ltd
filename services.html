@@ -9,120 +9,103 @@
 :root{--yellow:#FFD400;--bg:#f6f7f9}
 body{margin:0;font-family:Segoe UI;background:var(--bg)}
 
-.page{padding:16px}
+.page{padding:14px}
 
-/* SERVICE TABS 🔥 */
-.services{
-display:flex;
-gap:10px;
-margin-bottom:12px;
-overflow:auto;
-}
-
-.service{
-flex:1;
+/* SEARCH 🔥 */
+.search{
 background:#fff;
 padding:10px;
-border-radius:14px;
-text-align:center;
-font-weight:800;
-cursor:pointer;
+border-radius:12px;
+margin-bottom:12px;
+}
+.search input{
+width:100%;
+border:none;
+outline:none;
+font-size:14px;
 }
 
-.service.active{
-background:var(--yellow);
+/* SERVICE */
+.services{display:flex;gap:10px;margin-bottom:10px}
+.service{
+flex:1;background:#fff;padding:10px;border-radius:12px;text-align:center;font-weight:800
 }
+.active{background:var(--yellow)}
 
-/* CATEGORY */
-.cats{
+/* POPULAR 🔥 */
+.popular{
 display:flex;
 gap:10px;
 overflow:auto;
-margin-bottom:14px;
+margin-bottom:12px;
 }
-
-.cat{
-padding:8px 14px;
+.pop-card{
+min-width:120px;
 background:#fff;
-border-radius:20px;
-font-weight:800;
-cursor:pointer;
-}
-
-.cat.active{
-background:var(--yellow);
+padding:10px;
+border-radius:12px;
+text-align:center;
 }
 
 /* PRODUCTS */
 .products{
 display:grid;
 grid-template-columns:repeat(2,1fr);
-gap:14px;
+gap:12px;
 }
 
 .card{
 background:#fff;
-border-radius:18px;
-padding:14px;
+border-radius:16px;
+padding:12px;
 text-align:center;
-box-shadow:0 6px 14px rgba(0,0,0,.08);
+position:relative;
 }
 
-.icon{
-font-size:40px;
+/* OFFER */
+.offer{
+position:absolute;
+top:8px;
+left:8px;
+background:red;
+color:#fff;
+font-size:10px;
+padding:3px 6px;
+border-radius:6px;
 }
 
-.name{
-font-weight:900;
-margin-top:6px;
-}
-
-.price{
-font-weight:800;
-margin:4px 0;
-}
-
-.tag{
-font-size:12px;
-background:#eee;
-padding:4px 8px;
-border-radius:10px;
-display:inline-block;
-margin-top:4px;
-}
+.icon{font-size:36px}
+.name{font-weight:900}
+.price{font-weight:800;margin:4px 0}
 
 /* BUTTON */
 .add{
-margin-top:10px;
-width:100%;
-padding:10px;
-border:none;
 background:var(--yellow);
-border-radius:14px;
+border:none;
+padding:8px;
+border-radius:12px;
 font-weight:900;
+width:100%;
 }
 
 /* QTY */
 .qty{
-margin-top:10px;
 display:flex;
 justify-content:space-between;
-align-items:center;
-background:#f1f1f1;
-border-radius:14px;
-padding:6px 12px;
+margin-top:6px;
+background:#eee;
+border-radius:10px;
+padding:4px;
 }
-
 .qty button{
 border:none;
 background:#000;
 color:#fff;
-width:30px;
-height:30px;
 border-radius:50%;
+width:26px;height:26px;
 }
 
-/* CART BAR */
+/* CART */
 .cart-bar{
 position:fixed;
 bottom:0;
@@ -130,15 +113,14 @@ left:0;
 right:0;
 background:#fff;
 padding:14px;
-box-shadow:0 -2px 10px rgba(0,0,0,.15);
 display:flex;
 justify-content:space-between;
+box-shadow:0 -2px 10px rgba(0,0,0,.15);
 }
-
 .cart-bar button{
-padding:10px 16px;
-border:none;
 background:var(--yellow);
+border:none;
+padding:10px;
 border-radius:20px;
 font-weight:900;
 }
@@ -149,24 +131,27 @@ font-weight:900;
 
 <div class="page">
 
-<h2>🧺 Select Service</h2>
-
-<!-- 🔥 SERVICE TABS -->
-<div class="services">
-<div class="service active" onclick="setService('ironing')">🧺 Ironing</div>
-<div class="service" onclick="setService('dry')">🧼 Dry Clean</div>
-<div class="service" onclick="setService('washing')">🧽 Washing</div>
+<!-- 🔍 SEARCH -->
+<div class="search">
+<input placeholder="Search clothes..." oninput="searchItem(this.value)">
 </div>
 
-<!-- CATEGORY -->
-<div class="cats" id="cats"></div>
+<!-- SERVICES -->
+<div class="services">
+<div class="service active" onclick="setService('ironing')">🧺 Ironing</div>
+<div class="service" onclick="setService('dry')">🧼 Dry</div>
+<div class="service" onclick="setService('washing')">🧽 Wash</div>
+</div>
+
+<!-- 🔥 POPULAR -->
+<div class="popular" id="popular"></div>
 
 <!-- PRODUCTS -->
 <div class="products" id="list"></div>
 
 </div>
 
-<!-- CART BAR -->
+<!-- CART -->
 <div class="cart-bar" id="cartBar" style="display:none">
 <div><b id="count">0</b> items • ₹<b id="total">0</b></div>
 <button onclick="goCart()">View Cart</button>
@@ -174,75 +159,85 @@ font-weight:900;
 
 <script>
 
-/* 🔥 DATA WITH SERVICE TAG */
+/* 🔥 FULL DATA */
 const DATA = {
-ironing:{
-daily:[
-{name:"Shirt",price:10,icon:"👕"},
-{name:"Pant",price:15,icon:"👖"},
-{name:"T-shirt",price:8,icon:"👕"}
+ironing:[
+{name:"Shirt",icon:"👕",price:10,offer:true},
+{name:"T-shirt",icon:"👕",price:8},
+{name:"Jeans",icon:"👖",price:15},
+{name:"Kurta",icon:"🥻",price:12},
+{name:"Saree",icon:"🥻",price:20},
+{name:"Blazer",icon:"🧥",price:30},
+{name:"Bedsheet",icon:"🛏️",price:25}
+],
+dry:[
+{name:"Suit",icon:"🤵",price:120,offer:true},
+{name:"Coat",icon:"🧥",price:100},
+{name:"Lehenga",icon:"👗",price:150},
+{name:"Sherwani",icon:"🤵",price:180},
+{name:"Designer Dress",icon:"👗",price:130}
+],
+washing:[
+{name:"T-shirt",icon:"👕",price:10},
+{name:"Jeans",icon:"👖",price:15},
+{name:"Track Pant",icon:"👖",price:12},
+{name:"Towel",icon:"🧻",price:8},
+{name:"Bedsheet",icon:"🛏️",price:20},
+{name:"Gym Wear",icon:"🏋️",price:15}
 ]
-},
-dry:{
-premium:[
-{name:"Blazer",price:80,icon:"🧥"},
-{name:"Coat",price:90,icon:"🧥"}
-]
-},
-washing:{
-daily:[
-{name:"Clothes (1kg)",price:50,icon:"🧺"},
-{name:"Blanket",price:100,icon:"🛏️"}
-]
-}
 };
 
 let service="ironing";
-let currentCat="daily";
 let cart = JSON.parse(localStorage.getItem("cart")||"[]");
+let filtered=[];
 
-/* SERVICE SWITCH */
+/* SEARCH */
+function searchItem(q){
+q=q.toLowerCase();
+filtered = DATA[service].filter(i=> i.name.toLowerCase().includes(q));
+render(filtered);
+}
+
+/* SERVICE */
 function setService(s){
 service=s;
-currentCat=Object.keys(DATA[s])[0];
-
+filtered=[];
 document.querySelectorAll(".service").forEach(el=>el.classList.remove("active"));
 event.target.classList.add("active");
-
-renderCats();
 render();
+renderPopular();
 }
 
-/* CATEGORY */
-function renderCats(){
-cats.innerHTML = Object.keys(DATA[service]).map(c=>
-`<div class="cat ${c==currentCat?'active':''}" onclick="setCat('${c}')">${c}</div>`
-).join("");
-}
+/* POPULAR */
+function renderPopular(){
+popular.innerHTML="";
 
-function setCat(c){
-currentCat=c;
-render();
+DATA[service].slice(0,5).forEach(i=>{
+popular.innerHTML+=`
+<div class="pop-card">${i.icon}<br>${i.name}</div>
+`;
+});
 }
 
 /* RENDER */
-function render(){
+function render(listData){
+let data = listData || DATA[service];
 
 list.innerHTML="";
 
-DATA[service][currentCat].forEach(item=>{
+data.forEach(item=>{
 
 let found = cart.find(i=>i.name===item.name && i.service===service);
-let qty = found ? found.qty : 0;
+let qty = found?found.qty:0;
 
 list.innerHTML+=`
 <div class="card">
 
+${item.offer?'<div class="offer">20% OFF</div>':''}
+
 <div class="icon">${item.icon}</div>
 <div class="name">${item.name}</div>
 <div class="price">₹${item.price}</div>
-
-<div class="tag">${service.toUpperCase()}</div>
 
 ${
 !found
@@ -263,29 +258,16 @@ updateCart();
 
 /* CART */
 function add(name,price){
-
 let item = cart.find(i=>i.name===name && i.service===service);
-
-if(item){
-item.qty++;
-}else{
-cart.push({name,price,qty:1,service});
-}
-
+if(item){item.qty++}
+else{cart.push({name,price,qty:1,service})}
 save();
 }
 
-function inc(name,price){ add(name,price); }
-
+function inc(n,p){add(n,p)}
 function dec(name){
-
 let i = cart.findIndex(x=>x.name===name && x.service===service);
-
-if(i>-1){
-cart[i].qty--;
-if(cart[i].qty<=0) cart.splice(i,1);
-}
-
+if(i>-1){cart[i].qty--; if(cart[i].qty<=0) cart.splice(i,1);}
 save();
 }
 
@@ -296,19 +278,11 @@ render();
 
 /* CART BAR */
 function updateCart(){
-let total=0,count=0;
-
-cart.forEach(i=>{
-total+=i.price*i.qty;
-count+=i.qty;
-});
-
+let t=0,c=0;
+cart.forEach(i=>{t+=i.price*i.qty;c+=i.qty});
 cartBar.style.display = cart.length?"flex":"none";
-totalEl = document.getElementById("total");
-countEl = document.getElementById("count");
-
-totalEl.innerText=total;
-countEl.innerText=count;
+total.innerText=t;
+count.innerText=c;
 }
 
 /* NAV */
@@ -317,8 +291,8 @@ location.href="cart.html";
 }
 
 /* INIT */
-renderCats();
 render();
+renderPopular();
 
 </script>
 
