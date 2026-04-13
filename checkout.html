@@ -6,38 +6,39 @@
 
 <link rel="stylesheet" href="partner/css/style.css">
 
-<style>
+<styl<style>
 
-/* MOBILE FIRST DESIGN */
+/* RESET */
 body{
 margin:0;
 font-family:sans-serif;
 background:#f5f5f5;
 }
 
-/* CONTAINER */
+/* MAIN */
 .main{
 padding:12px;
 max-width:500px;
 margin:auto;
+display:block; /* 🔥 FIX */
 }
 
-/* HEADER */
+/* TITLE */
 h2{
 font-size:20px;
 margin-bottom:10px;
 }
 
-/* CARD DESIGN */
+/* CARD */
 .card{
 background:#fff;
 padding:14px;
-margin-top:10px;
+margin-top:12px;
 border-radius:14px;
 box-shadow:0 2px 8px rgba(0,0,0,0.06);
 }
 
-/* INPUTS */
+/* INPUT */
 input, textarea, select{
 width:100%;
 padding:13px;
@@ -47,7 +48,7 @@ border:1px solid #ddd;
 font-size:14px;
 }
 
-/* LOCATION BOX */
+/* LOCATION */
 .location{
 background:#eef7ee;
 padding:10px;
@@ -69,7 +70,7 @@ font-size:15px;
 cursor:pointer;
 }
 
-/* ORDER SUMMARY ITEMS */
+/* ORDER ITEMS */
 #items div{
 display:flex;
 justify-content:space-between;
@@ -85,36 +86,47 @@ text-align:right;
 margin-top:10px;
 }
 
-/* STICKY PLACE ORDER BUTTON (MOBILE UX 🔥) */
+/* 🔥 STICKY BUTTON */
 .place-btn{
-position:sticky;
+position:fixed;
 bottom:0;
+left:0;
+width:100%;
 background:#fff;
 padding:10px;
-box-shadow:0 -2px 8px rgba(0,0,0,0.08);
+box-shadow:0 -2px 10px rgba(0,0,0,0.1);
 }
 
 .place-btn button{
 margin:0;
 }
 
-/* DESKTOP RESPONSIVE */
-@media(min-width:768px){
+/* SPACE FOR BUTTON */
+.main{
+padding-bottom:80px;
+}
+
+/* ✅ DESKTOP ONLY GRID */
+@media(min-width:900px){
 
 .main{
-max-width:900px;
 display:grid;
 grid-template-columns:1fr 1fr;
 gap:15px;
+max-width:900px;
 }
 
 .place-btn{
+position:static;
 grid-column:span 2;
+box-shadow:none;
+padding:0;
 }
 
 }
 
-</style></head>
+</style>
+ </head>
 
 <body>
 
