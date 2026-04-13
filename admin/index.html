@@ -2,16 +2,17 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>Admin Panel</title>
+<title>QuickPress Admin FIXED</title>
 
 <style>
 body{margin:0;font-family:sans-serif;background:#f5f6fa}
 .header{background:#FFD400;padding:14px;text-align:center;font-weight:bold}
-.nav{display:flex;background:#fff}
-.nav div{padding:12px;cursor:pointer}
+.nav{display:flex;background:#fff;border-bottom:1px solid #ddd}
+.nav div{padding:12px 16px;cursor:pointer}
 .nav .active{background:#FFD400}
 .section{display:none;padding:15px}
 .card{background:#fff;padding:12px;margin:10px 0;border-radius:10px}
+button{padding:6px;margin-top:5px;cursor:pointer}
 </style>
 </head>
 
@@ -22,10 +23,14 @@ body{margin:0;font-family:sans-serif;background:#f5f6fa}
 <div class="nav">
 <div class="active" onclick="showTab(event,'dashboard')">Dashboard</div>
 <div onclick="showTab(event,'orders')">Orders</div>
+<div onclick="showTab(event,'partners')">Partners</div>
+<div onclick="showTab(event,'riders')">Riders</div>
+<div onclick="showTab(event,'users')">Users</div>
 <div onclick="showTab(event,'wallet')">Wallet</div>
 <div onclick="showTab(event,'withdraw')">Withdraw</div>
 </div>
 
+<!-- SECTIONS -->
 <div id="dashboard" class="section" style="display:block">
 <h2>Dashboard</h2>
 <div id="stats"></div>
@@ -34,6 +39,21 @@ body{margin:0;font-family:sans-serif;background:#f5f6fa}
 <div id="orders" class="section">
 <h2>Orders</h2>
 <div id="ordersList"></div>
+</div>
+
+<div id="partners" class="section">
+<h2>Partners</h2>
+<div id="plist"></div>
+</div>
+
+<div id="riders" class="section">
+<h2>Riders</h2>
+<div id="rlist"></div>
+</div>
+
+<div id="users" class="section">
+<h2>Users</h2>
+<div id="userList"></div>
 </div>
 
 <div id="wallet" class="section">
@@ -46,6 +66,7 @@ body{margin:0;font-family:sans-serif;background:#f5f6fa}
 <div id="withdrawList"></div>
 </div>
 
+<!-- TAB FIX -->
 <script>
 function showTab(e,id){
 document.querySelectorAll(".section").forEach(s=>s.style.display="none");
@@ -55,12 +76,92 @@ e.target.classList.add("active");
 }
 </script>
 
-<!-- JS FILES -->
-<script type="module" src="./firebase.js"></script>
-<script type="module" src="./dashboard.js"></script>
-<script type="module" src="./orders.js"></script>
-<script type="module" src="./wallet.js"></script>
-<script type="module" src="./withdraw.js"></script>
+<!-- FIREBASE -->
+<script type="module">
+
+import { initializeApp } from "https://www.gstatic.com/firebasejs/12.11.0/firebase-app.js";
+import { getFirestore, collection, onSnapshot } from "https://www.gstatic.com/firebasejs/12.11.0/firebase-firestore.js";
+
+const firebaseConfig = {
+  apiKey: "AIzaSyBBaslH5QsahoyESYpo1nVtlYIUYfVJ2d4",
+  authDomain: "quickpress-offical.firebaseapp.com",
+  projectId: "quickpress-offical"
+};
+
+const app = initializeApp(firebaseConfig);
+const db = getFirestore(app);
+
+/* DASHBOARD */
+onSnapshot(collection(db,"orders"), snap=>{
+let total=0,count=0;
+snap.forEach(d=>{
+count++;
+total+=d.data().total||0;
+});
+
+document.getElementById("stats").innerHTML=`
+<div class="card">Orders: ${count}</div>
+<div class="card">Revenue: ₹${total}</div>
+`;
+});
+
+/* ORDERS */
+onSnapshot(collection(db,"orders"), snap=>{
+let html="";
+snap.forEach(d=>{
+let o=d.data();
+html+=`<div class="card">${o.name||"User"} - ₹${o.total||0}</div>`;
+});
+ordersList.innerHTML=html;
+});
+
+/* PARTNERS */
+onSnapshot(collection(db,"partners"), snap=>{
+let html="";
+snap.forEach(d=>{
+html+=`<div class="card">${d.data().name}</div>`;
+});
+plist.innerHTML=html;
+});
+
+/* RIDERS */
+onSnapshot(collection(db,"delivery"), snap=>{
+let html="";
+snap.forEach(d=>{
+html+=`<div class="card">${d.data().name}</div>`;
+});
+rlist.innerHTML=html;
+});
+
+/* USERS */
+onSnapshot(collection(db,"users"), snap=>{
+let html="";
+snap.forEach(d=>{
+html+=`<div class="card">${d.data().name}</div>`;
+});
+userList.innerHTML=html;
+});
+
+/* WALLET */
+onSnapshot(collection(db,"wallets"), snap=>{
+let html="";
+snap.forEach(d=>{
+html+=`<div class="card">${d.id} → ₹${d.data().balance}</div>`;
+});
+walletList.innerHTML=html;
+});
+
+/* WITHDRAW */
+onSnapshot(collection(db,"withdraws"), snap=>{
+let html="";
+snap.forEach(d=>{
+let w=d.data();
+html+=`<div class="card">${w.uid} - ₹${w.amount} (${w.status})</div>`;
+});
+withdrawList.innerHTML=html;
+});
+
+</script>
 
 </body>
 </html>
