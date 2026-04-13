@@ -2,46 +2,84 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>QuickPress Admin PRO</title>
+<title>QuickPress Admin ULTIMATE</title>
+
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 
 <style>
 body{margin:0;font-family:sans-serif;background:#f5f6fa}
 .header{background:#FFD400;padding:14px;text-align:center;font-weight:bold}
-.nav{display:flex;background:#fff}
-.nav div{padding:12px;cursor:pointer}
+.nav{display:flex;background:#fff;border-bottom:1px solid #ddd}
+.nav div{padding:12px 16px;cursor:pointer}
 .nav .active{background:#FFD400}
 .section{display:none;padding:15px}
 .card{background:#fff;padding:12px;margin:10px 0;border-radius:10px}
-button{padding:6px;margin-top:5px}
+button{padding:6px;margin-top:5px;cursor:pointer}
 </style>
 </head>
 
 <body>
 
-<div class="header">⚡ Admin Panel</div>
+<div class="header">⚡ Admin Panel ULTIMATE</div>
 
 <div class="nav">
-<div class="active" onclick="showTab(event,'orders')">Orders</div>
+<div class="active" onclick="showTab(event,'dashboard')">Dashboard</div>
+<div onclick="showTab(event,'orders')">Orders</div>
+<div onclick="showTab(event,'partners')">Partners</div>
+<div onclick="showTab(event,'riders')">Riders</div>
+<div onclick="showTab(event,'users')">Users</div>
 <div onclick="showTab(event,'wallet')">Wallet</div>
 <div onclick="showTab(event,'transactions')">Transactions</div>
+<div onclick="showTab(event,'withdraw')">Withdraw</div>
+</div>
+
+<!-- DASHBOARD -->
+<div id="dashboard" class="section" style="display:block">
+<h2>📊 Dashboard</h2>
+<div id="stats"></div>
+<canvas id="chart"></canvas>
 </div>
 
 <!-- ORDERS -->
-<div id="orders" class="section" style="display:block">
-<h2>Orders</h2>
+<div id="orders" class="section">
+<h2>📦 Orders</h2>
 <div id="ordersList"></div>
+</div>
+
+<!-- PARTNERS -->
+<div id="partners" class="section">
+<h2>👨‍🔧 Partners</h2>
+<div id="plist"></div>
+</div>
+
+<!-- RIDERS -->
+<div id="riders" class="section">
+<h2>🚚 Riders</h2>
+<div id="rlist"></div>
+</div>
+
+<!-- USERS -->
+<div id="users" class="section">
+<h2>👥 Users</h2>
+<div id="userList"></div>
 </div>
 
 <!-- WALLET -->
 <div id="wallet" class="section">
-<h2>Wallet</h2>
+<h2>💰 Wallet</h2>
 <div id="walletList"></div>
 </div>
 
 <!-- TRANSACTIONS -->
 <div id="transactions" class="section">
-<h2>Transactions</h2>
+<h2>📊 Transactions</h2>
 <div id="txList"></div>
+</div>
+
+<!-- WITHDRAW -->
+<div id="withdraw" class="section">
+<h2>💳 Withdraw Requests</h2>
+<div id="withdrawList"></div>
 </div>
 
 <script>
@@ -56,152 +94,145 @@ e.target.classList.add("active");
 <script type="module">
 
 import { initializeApp } from "https://www.gstatic.com/firebasejs/12.11.0/firebase-app.js";
+import { getFirestore, collection, onSnapshot, doc, updateDoc, increment, addDoc, getDoc } from "https://www.gstatic.com/firebasejs/12.11.0/firebase-firestore.js";
 
-import {
-getFirestore,
-collection,
-onSnapshot,
-doc,
-updateDoc,
-increment,
-addDoc
-} from "https://www.gstatic.com/firebasejs/12.11.0/firebase-firestore.js";
-
-/* 🔥 CONFIG */
+/* CONFIG */
 const firebaseConfig = {
   apiKey: "AIzaSyBBaslH5QsahoyESYpo1nVtlYIUYfVJ2d4",
   authDomain: "quickpress-offical.firebaseapp.com",
-  projectId: "quickpress-offical",
+  projectId: "quickpress-offical"
 };
 
 const app = initializeApp(firebaseConfig);
 const db = getFirestore(app);
 
-/* 💰 COMMISSION SYSTEM */
+/* DASHBOARD */
+onSnapshot(collection(db,"orders"), snap=>{
+let total=0,count=0;
+snap.forEach(d=>{
+count++;
+total+=d.data().total||0;
+});
+
+stats.innerHTML=`
+<div class="card">Orders: ${count}</div>
+<div class="card">Revenue: ₹${total}</div>
+`;
+
+new Chart(document.getElementById("chart"),{
+type:"bar",
+data:{labels:["Orders","Revenue"],datasets:[{data:[count,total]}]}
+});
+});
+
+/* COMMISSION */
 async function distributePayment(order){
 
-let total = order.total || 0;
+let total=order.total||0;
 
-let partnerAmount = total * 0.7;
-let riderAmount = total * 0.2;
-let adminAmount = total * 0.1;
+let partner=total*0.7;
+let rider=total*0.2;
+let admin=total*0.1;
 
-/* PARTNER */
 if(order.partnerUid){
-await updateDoc(doc(db,"wallets",order.partnerUid),{
-balance: increment(partnerAmount)
-});
-
-await addDoc(collection(db,"transactions"),{
-uid:order.partnerUid,
-amount:partnerAmount,
-role:"partner",
-type:"credit",
-time:Date.now()
-});
+await updateDoc(doc(db,"wallets",order.partnerUid),{balance:increment(partner)});
+await addDoc(collection(db,"transactions"),{uid:order.partnerUid,amount:partner,role:"partner",type:"credit",time:Date.now()});
 }
 
-/* RIDER */
 if(order.riderUid){
-await updateDoc(doc(db,"wallets",order.riderUid),{
-balance: increment(riderAmount)
-});
-
-await addDoc(collection(db,"transactions"),{
-uid:order.riderUid,
-amount:riderAmount,
-role:"rider",
-type:"credit",
-time:Date.now()
-});
+await updateDoc(doc(db,"wallets",order.riderUid),{balance:increment(rider)});
+await addDoc(collection(db,"transactions"),{uid:order.riderUid,amount:rider,role:"rider",type:"credit",time:Date.now()});
 }
 
-/* ADMIN */
-await updateDoc(doc(db,"wallets","admin"),{
-balance: increment(adminAmount)
-});
-
-await addDoc(collection(db,"transactions"),{
-uid:"admin",
-amount:adminAmount,
-role:"admin",
-type:"credit",
-time:Date.now()
-});
-
+await updateDoc(doc(db,"wallets","admin"),{balance:increment(admin)});
+await addDoc(collection(db,"transactions"),{uid:"admin",amount:admin,role:"admin",type:"credit",time:Date.now()});
 }
 
-/* 📦 ORDERS */
+/* ORDERS */
 onSnapshot(collection(db,"orders"), snap=>{
 let html="";
-
 snap.forEach(d=>{
 let o=d.data();
 
 html+=`
 <div class="card">
-<b>${o.name || "User"}</b><br>
-₹${o.total || 0}<br>
-Status: ${o.status || "new"}<br>
-
-<button onclick='complete("${d.id}", ${JSON.stringify(o)})'>
-✅ Complete Order
-</button>
-</div>
-`;
-
+<b>${o.name||"User"}</b><br>
+₹${o.total||0}<br>
+Status: ${o.status||"new"}<br>
+<button onclick='complete("${d.id}", ${JSON.stringify(o)})'>✅ Complete</button>
+</div>`;
 });
-
 ordersList.innerHTML=html;
 });
 
-/* ✅ COMPLETE ORDER */
-window.complete = async function(id, order){
-
-await updateDoc(doc(db,"orders",id),{
-status:"done"
-});
-
-/* 💰 PAYMENT */
+/* COMPLETE */
+window.complete=async(id,order)=>{
+await updateDoc(doc(db,"orders",id),{status:"done"});
 await distributePayment(order);
-
-alert("Payment Distributed 💰");
-
+alert("Payment Done 💰");
 };
 
-/* 💰 WALLET VIEW */
+/* WALLET */
 onSnapshot(collection(db,"wallets"), snap=>{
 let html="";
-
 snap.forEach(d=>{
-let w=d.data();
-html+=`
-<div class="card">
-<b>${d.id}</b><br>
-Balance: ₹${w.balance}
-</div>
-`;
+html+=`<div class="card">${d.id} → ₹${d.data().balance}</div>`;
 });
-
 walletList.innerHTML=html;
 });
 
-/* 📊 TRANSACTIONS */
+/* TRANSACTIONS */
 onSnapshot(collection(db,"transactions"), snap=>{
 let html="";
-
 snap.forEach(d=>{
 let t=d.data();
+html+=`<div class="card">₹${t.amount} → ${t.role}</div>`;
+});
+txList.innerHTML=html;
+});
+
+/* WITHDRAW */
+onSnapshot(collection(db,"withdraws"), snap=>{
+let html="";
+snap.forEach(d=>{
+let w=d.data();
 
 html+=`
 <div class="card">
-₹${t.amount} → ${t.role}
-</div>
-`;
+${w.uid} → ₹${w.amount}<br>
+Status: ${w.status}<br>
+
+${w.status==="pending" ? `
+<button onclick="approve('${d.id}','${w.uid}',${w.amount})">Approve</button>
+<button onclick="reject('${d.id}')">Reject</button>
+`:""}
+
+</div>`;
+});
+withdrawList.innerHTML=html;
 });
 
-txList.innerHTML=html;
-});
+/* APPROVE */
+window.approve=async(id,uid,amount)=>{
+let ref=doc(db,"wallets",uid);
+let snap=await getDoc(ref);
+
+if((snap.data().balance||0)<amount){
+alert("Low Balance ❌");return;
+}
+
+await updateDoc(ref,{balance:snap.data().balance-amount});
+await updateDoc(doc(db,"withdraws",id),{status:"approved"});
+await addDoc(collection(db,"transactions"),{uid,amount,role:"withdraw",type:"debit",time:Date.now()});
+
+alert("Approved ✅");
+};
+
+/* REJECT */
+window.reject=async(id)=>{
+await updateDoc(doc(db,"withdraws",id),{status:"rejected"});
+alert("Rejected ❌");
+};
 
 </script>
 
