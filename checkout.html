@@ -11,60 +11,64 @@ body{
 margin:0;
 font-family:-apple-system, BlinkMacSystemFont, sans-serif;
 background:#f1f3f6;
-color:#111;
 }
 
-/* MAIN */
+/* CONTAINER */
 .main{
 max-width:1000px;
 margin:auto;
-padding:15px;
-padding-bottom:90px;
+padding:10px;
+padding-bottom:100px;
 }
 
-/* HEADER */
-h2{
-font-size:22px;
-margin-bottom:15px;
+/* STEP HEADER */
+.steps{
+display:flex;
+justify-content:space-between;
+margin-bottom:10px;
 }
 
-/* GRID */
-.wrapper{
-display:grid;
-grid-template-columns:1fr;
-gap:15px;
+.step{
+flex:1;
+text-align:center;
+font-size:12px;
+color:#888;
+}
+
+.step.active{
+color:#2874f0;
+font-weight:bold;
 }
 
 /* CARD */
 .card{
 background:#fff;
-padding:16px;
-border-radius:16px;
-box-shadow:0 4px 12px rgba(0,0,0,0.08);
+border-radius:12px;
+padding:15px;
+margin-top:10px;
+box-shadow:0 2px 8px rgba(0,0,0,0.08);
 }
 
-/* TITLES */
+/* TITLE */
 .card h3{
+font-size:15px;
 margin-bottom:10px;
-font-size:16px;
 }
 
 /* INPUT */
 input, textarea, select{
 width:100%;
-padding:14px;
+padding:13px;
 margin-top:10px;
-border-radius:12px;
+border-radius:8px;
 border:1px solid #ddd;
-font-size:14px;
-background:#fafafa;
 }
 
 /* LOCATION */
 .location{
 background:#e8f5e9;
 padding:10px;
-border-radius:10px;
+border-radius:8px;
 margin-top:10px;
 font-size:13px;
 }
@@ -75,36 +79,42 @@ width:100%;
 padding:14px;
 margin-top:12px;
 border:none;
-border-radius:12px;
-background:#FFD400;
+border-radius:8px;
+background:#fb641b; /* Flipkart orange */
+color:#fff;
 font-weight:bold;
-font-size:15px;
 cursor:pointer;
-transition:0.2s;
 }
 
-button:hover{
-transform:scale(1.02);
-}
-
-/* ORDER ITEMS */
+/* ORDER LIST */
 #items div{
 display:flex;
 justify-content:space-between;
-padding:6px 0;
-border-bottom:1px dashed #eee;
-font-size:14px;
+padding:8px 0;
+border-bottom:1px solid #eee;
 }
 
-/* TOTAL */
-.total{
-font-size:18px;
-font-weight:bold;
-text-align:right;
+/* PRICE BOX */
+.price-box{
+background:#fff;
+padding:15px;
+border-radius:12px;
 margin-top:10px;
 }
 
-/* STICKY BUTTON */
+.price-row{
+display:flex;
+justify-content:space-between;
+margin-top:6px;
+font-size:14px;
+}
+
+.total{
+font-size:18px;
+font-weight:bold;
+}
+
+/* STICKY BAR */
 .sticky{
 position:fixed;
 bottom:0;
@@ -113,19 +123,33 @@ width:100%;
 background:#fff;
 padding:10px;
 box-shadow:0 -2px 10px rgba(0,0,0,0.1);
+display:flex;
+justify-content:space-between;
+align-items:center;
+}
+
+.sticky .price{
+font-size:18px;
+font-weight:bold;
+}
+
+.sticky button{
+width:50%;
+margin:0;
 }
 
 /* DESKTOP */
 @media(min-width:900px){
 
-.wrapper{
-grid-template-columns:1.2fr 1fr;
+.layout{
+display:grid;
+grid-template-columns:1.5fr 1fr;
+gap:15px;
 }
 
 .sticky{
 position:static;
 box-shadow:none;
-padding:0;
 }
 
 }
@@ -137,18 +161,23 @@ padding:0;
 
 <div class="main">
 
-<h2>🧺 Checkout</h2>
+<!-- STEPS -->
+<div class="steps">
+<div class="step active">1. Address</div>
+<div class="step">2. Summary</div>
+<div class="step">3. Payment</div>
+</div>
 
-<div class="wrapper">
+<div class="layout">
 
 <!-- LEFT -->
 <div>
 
 <div class="card">
-<h3>👤 Customer Details</h3>
+<h3>📍 Delivery Address</h3>
 
-<input id="name" placeholder="Name">
-<input id="phone" placeholder="Phone">
+<input id="name" placeholder="Full Name">
+<input id="phone" placeholder="Phone Number">
 
 <select id="area">
 <option>Delhi</option>
@@ -163,7 +192,7 @@ padding:0;
 📍 Location: Not detected
 </div>
 
-<button onclick="getLocation()">📍 Detect Location</button>
+<button onclick="getLocation()">Detect Location</button>
 
 </div>
 
@@ -173,12 +202,27 @@ padding:0;
 <div>
 
 <div class="card">
-<h3>🛒 Order Summary</h3>
-
+<h3>🛒 Order Items</h3>
 <div id="items"></div>
+</div>
 
-<div class="total">
-Total: ₹<span id="total">0</span>
+<div class="price-box">
+<div class="price-row">
+<span>Subtotal</span>
+<span>₹<span id="total">0</span></span>
+</div>
+
+<div class="price-row">
+<span>Delivery</span>
+<span>₹20</span>
+</div>
+
+<hr>
+
+<div class="price-row total">
+<span>Total</span>
+<span>₹<span id="grandTotal">0</span></span>
+</div>
 </div>
 
 </div>
@@ -187,11 +231,10 @@ Total: ₹<span id="total">0</span>
 
 </div>
 
-<!-- STICKY BUTTON -->
+<!-- STICKY -->
 <div class="sticky">
-<button onclick="placeOrder()">🚀 Place Order</button>
-</div>
-
+<div class="price">₹<span id="stickyTotal">0</span></div>
+<button onclick="placeOrder()">Continue</button>
 </div>
 
 <script type="module">
@@ -203,7 +246,10 @@ const nameInput = document.getElementById("name");
 const phoneInput = document.getElementById("phone");
 const addressInput = document.getElementById("address");
 const areaInput = document.getElementById("area");
+
 const totalBox = document.getElementById("total");
+const grandBox = document.getElementById("grandTotal");
+const stickyBox = document.getElementById("stickyTotal");
 const itemsBox = document.getElementById("items");
 const locBox = document.getElementById("locBox");
 
@@ -214,7 +260,6 @@ let total = 0;
 function loadCart(){
 
 total = 0;
-
 let html="";
 
 cart.forEach(i=>{
@@ -225,35 +270,33 @@ html += `<div><span>${i.name} x ${i.qty}</span><span>₹${price}</span></div>`;
 });
 
 itemsBox.innerHTML = html;
+
 totalBox.innerText = total;
+
+let grand = total + 20;
+
+grandBox.innerText = grand;
+stickyBox.innerText = grand;
 }
 
 loadCart();
 
+/* LOCATION */
 let userLocation="";
 
 window.getLocation = function(){
 
-if(!navigator.geolocation){
-alert("Location not supported");
-return;
-}
-
 navigator.geolocation.getCurrentPosition(pos=>{
-
 let lat = pos.coords.latitude;
 let lng = pos.coords.longitude;
 
 userLocation = lat + "," + lng;
-
 locBox.innerHTML = `📍 ${lat}, ${lng}`;
-
-},()=>{
-alert("Location permission denied ❌");
 });
 
 };
 
+/* ORDER */
 window.placeOrder = async function(){
 
 if(!nameInput.value || !phoneInput.value || !addressInput.value){
@@ -266,8 +309,6 @@ alert("Cart empty ❌");
 return;
 }
 
-try{
-
 let order = {
 name: nameInput.value,
 phone: phoneInput.value,
@@ -275,7 +316,7 @@ address: addressInput.value,
 area: areaInput.value,
 location: userLocation,
 items: cart,
-total: total,
+total: total + 20,
 status: "new",
 time: Date.now()
 };
@@ -287,10 +328,6 @@ localStorage.removeItem("cart");
 alert("Order Placed ✅");
 
 window.location.href = "tracking.html";
-
-}catch(err){
-alert("Error: " + err.message);
-}
 
 };
 
