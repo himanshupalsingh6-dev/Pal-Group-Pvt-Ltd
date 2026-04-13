@@ -2,26 +2,25 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>QuickPress Admin</title>
+<title>QuickPress Admin PRO</title>
 
 <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 
 <style>
 body{margin:0;font-family:sans-serif;background:#f5f6fa}
 .header{background:#FFD400;padding:14px;text-align:center;font-weight:bold}
-.nav{display:flex;background:#fff;border-bottom:1px solid #ddd}
-.nav div{padding:12px 16px;cursor:pointer}
+.nav{display:flex;background:#fff}
+.nav div{padding:12px;cursor:pointer}
 .nav .active{background:#FFD400}
 .section{display:none;padding:15px}
 .card{background:#fff;padding:12px;margin:10px 0;border-radius:10px}
-input{width:100%;padding:8px;margin:5px 0}
-button{padding:8px;margin-top:5px}
+button{padding:6px;margin-top:5px}
 </style>
 </head>
 
 <body>
 
-<div class="header">⚡ QuickPress Admin Panel</div>
+<div class="header">⚡ Admin PRO Panel</div>
 
 <div class="nav">
 <div class="active" onclick="showTab(event,'dashboard')">Dashboard</div>
@@ -29,83 +28,38 @@ button{padding:8px;margin-top:5px}
 <div onclick="showTab(event,'partners')">Partners</div>
 <div onclick="showTab(event,'riders')">Riders</div>
 <div onclick="showTab(event,'users')">Users</div>
-<div onclick="showTab(event,'payout')">Payout</div>
-<div onclick="showTab(event,'analytics')">Analytics</div>
-<div onclick="showTab(event,'help')">Help</div>
 </div>
 
 <!-- DASHBOARD -->
 <div id="dashboard" class="section" style="display:block">
-<h2>📊 Dashboard</h2>
+<h2>Dashboard</h2>
 <div id="stats"></div>
-<canvas id="chart"></canvas>
 </div>
 
 <!-- ORDERS -->
 <div id="orders" class="section">
-<h2>📦 Orders</h2>
+<h2>Orders Full Detail</h2>
 <div id="ordersList"></div>
 </div>
 
 <!-- PARTNERS -->
 <div id="partners" class="section">
-<h2>👨‍🔧 Partners</h2>
-
-<button onclick="openPartner()">Add Partner</button>
-
-<div id="pform" style="display:none" class="card">
-<input id="p_name" placeholder="Name">
-<input id="p_phone" placeholder="Phone">
-<input id="p_email" placeholder="Email">
-<input id="p_password" placeholder="Password">
-<button onclick="createPartner()">Create</button>
-</div>
-
+<h2>Partners</h2>
 <div id="plist"></div>
 </div>
 
 <!-- RIDERS -->
 <div id="riders" class="section">
-<h2>🚚 Riders</h2>
-
-<button onclick="openRider()">Add Rider</button>
-
-<div id="rform" style="display:none" class="card">
-<input id="r_name" placeholder="Name">
-<input id="r_phone" placeholder="Phone">
-<input id="r_email" placeholder="Email">
-<input id="r_password" placeholder="Password">
-<button onclick="createRider()">Create</button>
-</div>
-
+<h2>Riders</h2>
 <div id="rlist"></div>
 </div>
 
 <!-- USERS -->
 <div id="users" class="section">
-<h2>👥 Users</h2>
+<h2>Users</h2>
 <div id="userList"></div>
 </div>
 
-<!-- PAYOUT -->
-<div id="payout" class="section">
-<h2>💰 Wallet</h2>
-<div id="wlist"></div>
-</div>
-
-<!-- ANALYTICS -->
-<div id="analytics" class="section">
-<h2>📈 Analytics</h2>
-<canvas id="chart2"></canvas>
-</div>
-
-<!-- HELP -->
-<div id="help" class="section">
-<h2>📞 Help</h2>
-<p>Email: quickpress@gmail.com</p>
-</div>
-
-<!-- ✅ TAB FIX -->
 <script>
 function showTab(e,id){
 document.querySelectorAll(".section").forEach(s=>s.style.display="none");
@@ -115,26 +69,20 @@ e.target.classList.add("active");
 }
 </script>
 
-<!-- 🔥 FIREBASE FULL SYSTEM -->
 <script type="module">
 
 import { initializeApp } from "https://www.gstatic.com/firebasejs/12.11.0/firebase-app.js";
-import { getAuth, createUserWithEmailAndPassword } from "https://www.gstatic.com/firebasejs/12.11.0/firebase-auth.js";
-import { getFirestore, collection, onSnapshot, doc, setDoc } from "https://www.gstatic.com/firebasejs/12.11.0/firebase-firestore.js";
+import { getFirestore, collection, onSnapshot } from "https://www.gstatic.com/firebasejs/12.11.0/firebase-firestore.js";
 
-/* ✅ YOUR CONFIG (ALREADY ADDED) */
+/* YOUR CONFIG */
 const firebaseConfig = {
   apiKey: "AIzaSyBBaslH5QsahoyESYpo1nVtlYIUYfVJ2d4",
   authDomain: "quickpress-offical.firebaseapp.com",
   projectId: "quickpress-offical",
-  storageBucket: "quickpress-offical.firebasestorage.app",
-  messagingSenderId: "939286557961",
-  appId: "1:939286557961:web:ddac64f197e14877718fd8"
 };
 
 const app = initializeApp(firebaseConfig);
 const db = getFirestore(app);
-const auth = getAuth(app);
 
 /* 📊 DASHBOARD */
 onSnapshot(collection(db,"orders"), snap=>{
@@ -143,107 +91,97 @@ snap.forEach(d=>{
 count++;
 total+=d.data().total||0;
 });
-
 stats.innerHTML=`
 <div class="card">Orders: ${count}</div>
 <div class="card">Revenue: ₹${total}</div>
 `;
-
-new Chart(document.getElementById("chart"),{
-type:"bar",
-data:{labels:["Orders","Revenue"],datasets:[{data:[count,total]}]}
-});
 });
 
-/* 📦 ORDERS */
+/* 📦 FULL ORDER DETAIL */
 onSnapshot(collection(db,"orders"), snap=>{
 let html="";
 snap.forEach(d=>{
 let o=d.data();
-html+=`<div class="card">${o.name || "User"} - ₹${o.total || 0}</div>`;
+
+html+=`
+<div class="card">
+<b>Customer:</b> ${o.name || "-"} <br>
+<b>Phone:</b> ${o.phone || "-"} <br>
+<b>Address:</b> ${o.address || "-"} <br>
+
+<b>Items:</b> ${JSON.stringify(o.items || [])} <br>
+<b>Total:</b> ₹${o.total || 0} <br>
+
+<b>Status:</b> ${o.status || "Pending"} <br>
+
+<b>Pickup By:</b> ${o.partnerName || "-"} <br>
+<b>Ironing By:</b> ${o.partnerName || "-"} <br>
+<b>Delivery By:</b> ${o.riderName || "-"} <br>
+</div>
+`;
 });
 ordersList.innerHTML=html;
 });
 
-/* 👥 USERS */
-onSnapshot(collection(db,"users"), snap=>{
-let html="";
-snap.forEach(d=>{
-let u=d.data();
-html+=`<div class="card">${u.name || "No Name"}</div>`;
-});
-userList.innerHTML=html;
-});
-
-/* 👨‍🔧 PARTNERS */
+/* 👨‍🔧 PARTNER ANALYSIS */
 onSnapshot(collection(db,"partners"), snap=>{
 let html="";
 snap.forEach(d=>{
 let p=d.data();
-html+=`<div class="card">${p.name}</div>`;
+
+let totalOrders = p.totalOrders || 0;
+let earning = totalOrders * 20;
+
+html+=`
+<div class="card">
+<b>${p.name}</b><br>
+Phone: ${p.phone}<br>
+Orders: ${totalOrders}<br>
+Earning: ₹${earning}
+</div>
+`;
 });
 plist.innerHTML=html;
 });
 
-/* 🚚 RIDERS */
+/* 🚚 RIDER ANALYSIS */
 onSnapshot(collection(db,"delivery"), snap=>{
 let html="";
 snap.forEach(d=>{
 let r=d.data();
-html+=`<div class="card">${r.name}</div>`;
+
+let total = r.totalDeliveries || 0;
+let earning = total * 15;
+
+html+=`
+<div class="card">
+<b>${r.name}</b><br>
+Phone: ${r.phone}<br>
+Deliveries: ${total}<br>
+Earning: ₹${earning}
+</div>
+`;
 });
 rlist.innerHTML=html;
 });
 
-/* 💰 WALLET */
-onSnapshot(collection(db,"wallets"), snap=>{
+/* 👥 USERS DETAIL */
+onSnapshot(collection(db,"users"), snap=>{
 let html="";
 snap.forEach(d=>{
-let w=d.data();
-html+=`<div class="card">${d.id} → ₹${w.balance}</div>`;
+let u=d.data();
+
+html+=`
+<div class="card">
+<b>${u.name}</b><br>
+Phone: ${u.phone}<br>
+Address: ${u.address || "-"}<br>
+Orders: ${u.totalOrders || 0}
+</div>
+`;
 });
-wlist.innerHTML=html;
+userList.innerHTML=html;
 });
-
-/* ➕ CREATE */
-window.openPartner=()=>pform.style.display="block";
-window.openRider=()=>rform.style.display="block";
-
-/* PARTNER CREATE */
-window.createPartner=async()=>{
-let u=await createUserWithEmailAndPassword(auth,p_email.value,p_password.value);
-let uid=u.user.uid;
-
-await setDoc(doc(db,"users",uid),{
-name:p_name.value,phone:p_phone.value,role:"partner"
-});
-
-await setDoc(doc(db,"partners",uid),{
-name:p_name.value,phone:p_phone.value
-});
-
-await setDoc(doc(db,"wallets",uid),{balance:0});
-
-alert("✅ Partner Created");
-};
-
-/* RIDER CREATE */
-window.createRider=async()=>{
-let u=await createUserWithEmailAndPassword(auth,r_email.value,r_password.value);
-let uid=u.user.uid;
-
-await setDoc(doc(db,"users",uid),{
-name:r_name.value,phone:r_phone.value,role:"rider"
-});
-
-await setDoc(doc(db,"delivery",uid),{
-name:r_name.value,phone:r_phone.value
-});
-
-await setDoc(doc(db,"wallets",uid),{balance:0});
-
-alert("✅ Rider Created");
-};
 
 </script>
 
