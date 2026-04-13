@@ -1,148 +1,126 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
 <meta charset="UTF-8">
-<title>Checkout</title>
+<title>Checkout – QuickPress</title>
+<meta name="viewport" content="width=device-width, initial-scale=1">
 
-<!-- Razorpay -->
 <script src="https://checkout.razorpay.com/v1/checkout.js"></script>
 
-<!-- Google Maps -->
-<script src="https://maps.googleapis.com/maps/api/js?key=YOUR_API_KEY&libraries=places"></script>
-
 <style>
+:root{
+--yellow:#FFD400;
+--bg:#f6f7f9;
+}
 
-/* GLOBAL */
 body{
 margin:0;
-font-family:-apple-system, sans-serif;
-background:#f1f3f6;
+font-family:Segoe UI;
+background:var(--bg);
 }
 
-/* MAIN */
-.main{
-max-width:1000px;
-margin:auto;
-padding:10px;
-padding-bottom:100px;
-}
-
-/* STEPS */
-.steps{
-display:flex;
-justify-content:space-between;
-font-size:12px;
-margin-bottom:10px;
-}
-
-.step.active{
-color:#2874f0;
+/* HEADER */
+.header{
+padding:14px;
 font-weight:bold;
+background:#fff;
+box-shadow:0 2px 10px rgba(0,0,0,.1);
+}
+
+/* CONTAINER */
+.container{
+padding:14px;
+padding-bottom:90px;
 }
 
 /* CARD */
 .card{
 background:#fff;
-padding:15px;
+padding:12px;
 border-radius:12px;
-margin-top:10px;
-box-shadow:0 2px 8px rgba(0,0,0,0.08);
+margin-bottom:12px;
+}
+
+/* TITLE */
+.title{
+font-weight:bold;
+margin-bottom:8px;
 }
 
 /* INPUT */
 input, textarea, select{
 width:100%;
-padding:13px;
-margin-top:10px;
-border-radius:8px;
+padding:12px;
+margin-top:8px;
+border-radius:10px;
 border:1px solid #ddd;
 }
 
-/* BUTTON */
-button{
-width:100%;
-padding:14px;
-margin-top:10px;
-border:none;
-border-radius:8px;
-background:#fb641b;
-color:#fff;
-font-weight:bold;
-}
-
-/* ITEMS */
-#items div{
+/* ITEM */
+.item{
 display:flex;
 justify-content:space-between;
-padding:8px 0;
+padding:6px 0;
 border-bottom:1px solid #eee;
 }
 
-/* PRICE */
-.price-box{
-background:#fff;
-padding:15px;
-border-radius:12px;
-margin-top:10px;
+/* COUPON */
+.coupon{
+display:flex;
+gap:8px;
+margin-top:8px;
+}
+.coupon input{
+flex:1;
+}
+.coupon button{
+background:#000;
+color:#fff;
+border:none;
+border-radius:10px;
+padding:10px;
 }
 
+/* PRICE */
 .price-row{
 display:flex;
 justify-content:space-between;
 margin-top:6px;
 }
 
-/* STICKY */
-.sticky{
+/* FOOTER */
+.footer{
 position:fixed;
 bottom:0;
 left:0;
-width:100%;
+right:0;
 background:#fff;
-padding:10px;
+padding:14px;
+box-shadow:0 -2px 10px rgba(0,0,0,.15);
 display:flex;
 justify-content:space-between;
-box-shadow:0 -2px 10px rgba(0,0,0,0.1);
+align-items:center;
 }
 
-.sticky button{
-width:50%;
+.footer button{
+background:var(--yellow);
+border:none;
+padding:12px 18px;
+border-radius:20px;
+font-weight:bold;
 }
-
-/* DESKTOP */
-@media(min-width:900px){
-
-.layout{
-display:grid;
-grid-template-columns:1.5fr 1fr;
-gap:15px;
-}
-
-.sticky{
-position:static;
-}
-
-}
-
 </style>
 </head>
 
 <body>
 
-<div class="main">
+<div class="header">🧾 Checkout</div>
 
-<div class="steps">
-<div class="step active">1. Address</div>
-<div>2. Summary</div>
-<div>3. Payment</div>
-</div>
+<div class="container">
 
-<div class="layout">
-
-<!-- LEFT -->
+<!-- ADDRESS -->
 <div class="card">
-
-<h3>📍 Delivery Address</h3>
+<div class="title">📍 Delivery Details</div>
 
 <input id="name" placeholder="Name">
 <input id="phone" placeholder="Phone">
@@ -160,18 +138,25 @@ position:static;
 
 </div>
 
-<!-- RIGHT -->
-<div>
-
+<!-- CART -->
 <div class="card">
-<h3>🛒 Order Items</h3>
+<div class="title">🛒 Order Summary</div>
 <div id="items"></div>
 </div>
 
-<div class="price-box">
+<!-- COUPON -->
+<div class="card">
+<div class="title">🎯 Apply Coupon</div>
 
-<input id="coupon" placeholder="Coupon Code">
+<div class="coupon">
+<input id="coupon" placeholder="SAVE50">
 <button onclick="applyCoupon()">Apply</button>
+</div>
+
+</div>
+
+<!-- PRICE -->
+<div class="card">
 
 <div class="price-row">
 <span>Subtotal</span>
@@ -197,21 +182,17 @@ position:static;
 
 <div class="price-row">
 <b>Total</b>
-<b>₹<span id="grandTotal">0</span></b>
+<b>₹<span id="grand">0</span></b>
 </div>
 
 </div>
 
 </div>
 
-</div>
-
-</div>
-
-<!-- STICKY -->
-<div class="sticky">
-<div>₹<span id="stickyTotal">0</span></div>
-<button onclick="placeOrder()">Pay Now</button>
+<!-- FOOTER -->
+<div class="footer">
+<div>₹<b id="finalTotal">0</b></div>
+<button onclick="pay()">Pay Now</button>
 </div>
 
 <script type="module">
@@ -219,128 +200,94 @@ position:static;
 import { db } from "./js/firebase.js";
 import { collection, addDoc } from "https://www.gstatic.com/firebasejs/12.11.0/firebase-firestore.js";
 
-const nameInput = document.getElementById("name");
-const phoneInput = document.getElementById("phone");
-const addressInput = document.getElementById("address");
-const areaInput = document.getElementById("area");
+let cart = JSON.parse(localStorage.getItem("cart")||[]);
 
-const totalBox = document.getElementById("total");
-const grandBox = document.getElementById("grandTotal");
-const stickyBox = document.getElementById("stickyTotal");
-const discountBox = document.getElementById("discount");
+let total=0;
+let discount=0;
+
 const itemsBox = document.getElementById("items");
 
-let cart = JSON.parse(localStorage.getItem("cart") || "[]");
-
-let total = 0;
-let discount = 0;
-
-/* LOAD CART */
-function loadCart(){
-
-total = 0;
+function render(){
+total=0;
 let html="";
 
 cart.forEach(i=>{
-let price = i.price * i.qty;
-total += price;
+let price=i.price*i.qty;
+total+=price;
 
-html += `<div><span>${i.name} x ${i.qty}</span><span>₹${price}</span></div>`;
+html+=`<div class="item">
+<span>${i.name} x ${i.qty}</span>
+<span>₹${price}</span>
+</div>`;
 });
 
-itemsBox.innerHTML = html;
-updateTotal();
+itemsBox.innerHTML=html;
+update();
 }
 
-function updateTotal(){
+function update(){
+let grand = total+20-discount;
 
-let grand = total + 20 - discount;
-
-totalBox.innerText = total;
-grandBox.innerText = grand;
-stickyBox.innerText = grand;
-discountBox.innerText = discount;
+document.getElementById("total").innerText=total;
+document.getElementById("discount").innerText=discount;
+document.getElementById("grand").innerText=grand;
+document.getElementById("finalTotal").innerText=grand;
 }
 
-loadCart();
+render();
 
 /* COUPON */
-window.applyCoupon = function(){
+window.applyCoupon=function(){
+let code=document.getElementById("coupon").value;
 
-let code = document.getElementById("coupon").value;
-
-if(code === "SAVE50"){
-discount = 50;
-alert("Coupon Applied ✅");
+if(code==="SAVE50"){
+discount=50;
+alert("Applied ✅");
 }else{
-discount = 0;
+discount=0;
 alert("Invalid ❌");
 }
 
-updateTotal();
+update();
 };
-
-/* GOOGLE ADDRESS */
-let autocomplete;
-
-window.initMap = function(){
-autocomplete = new google.maps.places.Autocomplete(addressInput);
-};
-
-initMap();
 
 /* LOCATION */
-let userLocation="";
-
-window.getLocation = function(){
-
+window.getLocation=function(){
 navigator.geolocation.getCurrentPosition(pos=>{
-userLocation = pos.coords.latitude + "," + pos.coords.longitude;
-alert("Location captured ✅");
+document.getElementById("address").value =
+pos.coords.latitude+","+pos.coords.longitude;
 });
-
 };
 
 /* PAYMENT */
-window.placeOrder = function(){
+window.pay=function(){
 
-let finalAmount = total + 20 - discount;
+let finalAmount=total+20-discount;
 
-let options = {
-key: "rzp_test_xxxxxxxx",
-amount: finalAmount * 100,
-currency: "INR",
-name: "QuickPress",
+let options={
+key:"rzp_test_xxxxx",
+amount:finalAmount*100,
+currency:"INR",
+name:"QuickPress",
 
-handler: async function (response) {
+handler:async function(res){
 
-let order = {
-name: nameInput.value,
-phone: phoneInput.value,
-address: addressInput.value,
-area: areaInput.value,
-location: userLocation,
-items: cart,
-total: finalAmount,
-paymentId: response.razorpay_payment_id,
-status: "paid",
-time: Date.now()
-};
-
-await addDoc(collection(db,"orders"), order);
+await addDoc(collection(db,"orders"),{
+items:cart,
+total:finalAmount,
+paymentId:res.razorpay_payment_id,
+time:Date.now()
+});
 
 localStorage.removeItem("cart");
 
-alert("Payment Success ✅");
+alert("Success ✅");
+location.href="tracking.html";
 
-window.location.href = "tracking.html";
 }
-
 };
 
-let rzp = new Razorpay(options);
-rzp.open();
-
+new Razorpay(options).open();
 };
 
 </script>
