@@ -1,46 +1,23 @@
 <!DOCTYPE html>
 <html>
 <head>
+<meta charset="UTF-8">
 <title>QuickPress Admin</title>
 
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
 <style>
-body{font-family:sans-serif;margin:0;background:#f5f6fa}
+body{margin:0;font-family:sans-serif;background:#f5f6fa}
+.header{background:#FFD400;padding:14px;text-align:center;font-weight:bold}
+.nav{display:flex;background:#fff;border-bottom:1px solid #ddd}
+.nav div{padding:12px 16px;cursor:pointer}
+.nav .active{background:#FFD400}
 
-/* HEADER */
-.header{
-background:#FFD400;
-padding:12px;
-text-align:center;
-font-weight:bold;
-}
-
-/* NAVBAR */
-.nav{
-display:flex;
-background:#fff;
-border-bottom:1px solid #ddd;
-}
-
-.nav div{
-padding:12px 20px;
-cursor:pointer;
-}
-
-.nav div.active{
-background:#FFD400;
-}
-
-/* SECTIONS */
 .section{display:none;padding:15px}
-.section.active{display:block}
+.card{background:#fff;padding:12px;margin:10px 0;border-radius:10px}
 
-.card{
-background:#fff;
-padding:12px;
-margin:10px 0;
-border-radius:10px;
-box-shadow:0 2px 10px rgba(0,0,0,0.1);
-}
+input{width:100%;padding:8px;margin:5px 0}
+button{padding:8px;margin-top:5px}
 </style>
 </head>
 
@@ -49,19 +26,21 @@ box-shadow:0 2px 10px rgba(0,0,0,0.1);
 <div class="header">⚡ QuickPress Admin Panel</div>
 
 <div class="nav">
-<div onclick="showTab('dashboard')" class="active">Dashboard</div>
-<div onclick="showTab('orders')">Orders</div>
-<div onclick="showTab('partners')">Partners</div>
-<div onclick="showTab('riders')">Riders</div>
-<div onclick="showTab('users')">Users</div>
-<div onclick="showTab('payout')">Payout</div>
-<div onclick="showTab('help')">Help</div>
+<div class="active" onclick="showTab(event,'dashboard')">Dashboard</div>
+<div onclick="showTab(event,'orders')">Orders</div>
+<div onclick="showTab(event,'partners')">Partners</div>
+<div onclick="showTab(event,'riders')">Riders</div>
+<div onclick="showTab(event,'users')">Users</div>
+<div onclick="showTab(event,'payout')">Payout</div>
+<div onclick="showTab(event,'analytics')">Analytics</div>
+<div onclick="showTab(event,'help')">Help</div>
 </div>
 
 <!-- DASHBOARD -->
-<div id="dashboard" class="section active">
+<div id="dashboard" class="section" style="display:block">
 <h2>📊 Dashboard</h2>
 <div id="stats"></div>
+<canvas id="chart"></canvas>
 </div>
 
 <!-- ORDERS -->
@@ -73,13 +52,35 @@ box-shadow:0 2px 10px rgba(0,0,0,0.1);
 <!-- PARTNERS -->
 <div id="partners" class="section">
 <h2>👨‍🔧 Partners</h2>
-<div id="partnerList"></div>
+
+<button onclick="openPartner()">Add Partner</button>
+
+<div id="pform" style="display:none" class="card">
+<input id="p_name" placeholder="Name">
+<input id="p_phone" placeholder="Phone">
+<input id="p_email" placeholder="Email">
+<input id="p_password" placeholder="Password">
+<button onclick="createPartner()">Create</button>
+</div>
+
+<div id="plist"></div>
 </div>
 
 <!-- RIDERS -->
 <div id="riders" class="section">
 <h2>🚚 Riders</h2>
-<div id="riderList"></div>
+
+<button onclick="openRider()">Add Rider</button>
+
+<div id="rform" style="display:none" class="card">
+<input id="r_name" placeholder="Name">
+<input id="r_phone" placeholder="Phone">
+<input id="r_email" placeholder="Email">
+<input id="r_password" placeholder="Password">
+<button onclick="createRider()">Create</button>
+</div>
+
+<div id="rlist"></div>
 </div>
 
 <!-- USERS -->
@@ -90,46 +91,67 @@ box-shadow:0 2px 10px rgba(0,0,0,0.1);
 
 <!-- PAYOUT -->
 <div id="payout" class="section">
-<h2>💰 Payout</h2>
-<div id="payoutList"></div>
+<h2>💰 Wallet</h2>
+<div id="wlist"></div>
+</div>
+
+<!-- ANALYTICS -->
+<div id="analytics" class="section">
+<h2>📈 Analytics</h2>
+<canvas id="chart2"></canvas>
 </div>
 
 <!-- HELP -->
 <div id="help" class="section">
-<h2>📞 Help Center</h2>
-<p>Support: quickpress@gmail.com</p>
+<h2>📞 Help</h2>
+<p>Email: quickpress@gmail.com</p>
 </div>
 
 <script type="module">
 
-import { db } from "./js/firebase.js";
-import { collection,onSnapshot } from "https://www.gstatic.com/firebasejs/12.11.0/firebase-firestore.js";
+import { db, auth } from "../js/firebase.js";
 
-/* TAB SWITCH */
-window.showTab = function(id){
+import {
+collection,
+onSnapshot,
+doc,
+setDoc,
+addDoc
+} from "https://www.gstatic.com/firebasejs/12.11.0/firebase-firestore.js";
 
-document.querySelectorAll(".section").forEach(s=>s.classList.remove("active"));
-document.querySelectorAll(".nav div").forEach(s=>s.classList.remove("active"));
+import {
+createUserWithEmailAndPassword
+} from "https://www.gstatic.com/firebasejs/12.11.0/firebase-auth.js";
 
-document.getElementById(id).classList.add("active");
-event.target.classList.add("active");
+/* TAB */
+window.showTab=(e,id)=>{
+document.querySelectorAll(".section").forEach(s=>s.style.display="none");
+document.querySelectorAll(".nav div").forEach(n=>n.classList.remove("active"));
+document.getElementById(id).style.display="block";
+e.target.classList.add("active");
+};
 
-}
-
-/* DASHBOARD */
+/* DASHBOARD + GRAPH */
 onSnapshot(collection(db,"orders"), snap=>{
-let total=0;
-let count=0;
+let total=0,count=0;
 
 snap.forEach(d=>{
 count++;
-total+=d.data().total || 0;
+total+=d.data().total||0;
 });
 
 stats.innerHTML=`
-<div class="card">Total Orders: ${count}</div>
-<div class="card">Total Revenue: ₹${total}</div>
+<div class="card">Orders: ${count}</div>
+<div class="card">Revenue: ₹${total}</div>
 `;
+
+new Chart(document.getElementById("chart"),{
+type:"bar",
+data:{
+labels:["Orders","Revenue"],
+datasets:[{data:[count,total]}]
+}
+});
 });
 
 /* ORDERS */
@@ -137,14 +159,12 @@ onSnapshot(collection(db,"orders"), snap=>{
 let html="";
 snap.forEach(d=>{
 let o=d.data();
-
 html+=`
 <div class="card">
-<b>${o.name}</b><br>
+${o.name}<br>
 ₹${o.total}<br>
 ${o.status}
-</div>
-`;
+</div>`;
 });
 ordersList.innerHTML=html;
 });
@@ -154,13 +174,7 @@ onSnapshot(collection(db,"users"), snap=>{
 let html="";
 snap.forEach(d=>{
 let u=d.data();
-
-html+=`
-<div class="card">
-${u.name}<br>
-${u.phone}
-</div>
-`;
+html+=`<div class="card">${u.name} - ${u.phone}</div>`;
 });
 userList.innerHTML=html;
 });
@@ -170,15 +184,9 @@ onSnapshot(collection(db,"partners"), snap=>{
 let html="";
 snap.forEach(d=>{
 let p=d.data();
-
-html+=`
-<div class="card">
-${p.name}<br>
-${p.phone}
-</div>
-`;
+html+=`<div class="card">${p.name} - ${p.phone}</div>`;
 });
-partnerList.innerHTML=html;
+plist.innerHTML=html;
 });
 
 /* RIDERS */
@@ -186,31 +194,76 @@ onSnapshot(collection(db,"delivery"), snap=>{
 let html="";
 snap.forEach(d=>{
 let r=d.data();
-
-html+=`
-<div class="card">
-${r.name}<br>
-${r.phone}
-</div>
-`;
+html+=`<div class="card">${r.name} - ${r.phone}</div>`;
 });
-riderList.innerHTML=html;
+rlist.innerHTML=html;
 });
 
-/* PAYOUT */
-onSnapshot(collection(db,"transactions"), snap=>{
+/* WALLET */
+onSnapshot(collection(db,"wallets"), snap=>{
 let html="";
 snap.forEach(d=>{
-let t=d.data();
+let w=d.data();
+html+=`<div class="card">${d.id} → ₹${w.balance}</div>`;
+});
+wlist.innerHTML=html;
+});
 
-html+=`
-<div class="card">
-₹${t.amount} - ${t.role}
-</div>
-`;
+/* ANALYTICS GRAPH */
+onSnapshot(collection(db,"transactions"), snap=>{
+let total=0;
+snap.forEach(d=>{
+total+=d.data().amount||0;
 });
-payoutList.innerHTML=html;
+
+new Chart(document.getElementById("chart2"),{
+type:"line",
+data:{
+labels:["Total"],
+datasets:[{data:[total]}]
+}
 });
+});
+
+/* CREATE PARTNER */
+window.createPartner=async()=>{
+let u=await createUserWithEmailAndPassword(auth,p_email.value,p_password.value);
+let uid=u.user.uid;
+
+await setDoc(doc(db,"users",uid),{
+name:p_name.value,phone:p_phone.value,role:"partner"
+});
+
+await setDoc(doc(db,"partners",uid),{
+name:p_name.value,phone:p_phone.value
+});
+
+await setDoc(doc(db,"wallets",uid),{balance:0});
+
+alert("Partner Created");
+};
+
+/* CREATE RIDER */
+window.createRider=async()=>{
+let u=await createUserWithEmailAndPassword(auth,r_email.value,r_password.value);
+let uid=u.user.uid;
+
+await setDoc(doc(db,"users",uid),{
+name:r_name.value,phone:r_phone.value,role:"rider"
+});
+
+await setDoc(doc(db,"delivery",uid),{
+name:r_name.value,phone:r_phone.value
+});
+
+await setDoc(doc(db,"wallets",uid),{balance:0});
+
+alert("Rider Created");
+};
+
+/* OPEN FORM */
+window.openPartner=()=>pform.style.display="block";
+window.openRider=()=>rform.style.display="block";
 
 </script>
 
