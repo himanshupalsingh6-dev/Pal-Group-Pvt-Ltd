@@ -5,8 +5,6 @@
 <title>Checkout – QuickPress</title>
 <meta name="viewport" content="width=device-width, initial-scale=1">
 
-<script src="https://checkout.razorpay.com/v1/checkout.js"></script>
-
 <style>
 :root{
 --yellow:#FFD400;
@@ -30,13 +28,13 @@ box-shadow:0 2px 10px rgba(0,0,0,.1);
 /* CONTAINER */
 .container{
 padding:14px;
-padding-bottom:90px;
+padding-bottom:100px;
 }
 
 /* CARD */
 .card{
 background:#fff;
-padding:12px;
+padding:14px;
 border-radius:12px;
 margin-bottom:12px;
 }
@@ -56,36 +54,23 @@ border-radius:10px;
 border:1px solid #ddd;
 }
 
+/* PAYMENT OPTIONS */
+.pay-option{
+padding:10px;
+border:1px solid #ddd;
+border-radius:10px;
+margin-top:8px;
+display:flex;
+align-items:center;
+gap:10px;
+}
+
 /* ITEM */
 .item{
 display:flex;
 justify-content:space-between;
 padding:6px 0;
 border-bottom:1px solid #eee;
-}
-
-/* COUPON */
-.coupon{
-display:flex;
-gap:8px;
-margin-top:8px;
-}
-.coupon input{
-flex:1;
-}
-.coupon button{
-background:#000;
-color:#fff;
-border:none;
-border-radius:10px;
-padding:10px;
-}
-
-/* PRICE */
-.price-row{
-display:flex;
-justify-content:space-between;
-margin-top:6px;
 }
 
 /* FOOTER */
@@ -118,12 +103,12 @@ font-weight:bold;
 
 <div class="container">
 
-<!-- ADDRESS -->
+<!-- CUSTOMER DETAILS -->
 <div class="card">
-<div class="title">📍 Delivery Details</div>
+<div class="title">👤 Customer Details</div>
 
-<input id="name" placeholder="Name">
-<input id="phone" placeholder="Phone">
+<input id="name" placeholder="Full Name">
+<input id="phone" placeholder="Phone Number">
 
 <select id="area">
 <option>Delhi</option>
@@ -134,23 +119,28 @@ font-weight:bold;
 
 <textarea id="address" placeholder="Full Address"></textarea>
 
-<button onclick="getLocation()">📍 Detect Location</button>
-
 </div>
 
-<!-- CART -->
+<!-- ORDER SUMMARY -->
 <div class="card">
 <div class="title">🛒 Order Summary</div>
 <div id="items"></div>
 </div>
 
-<!-- COUPON -->
+<!-- PAYMENT METHOD -->
 <div class="card">
-<div class="title">🎯 Apply Coupon</div>
+<div class="title">💳 Payment Method</div>
 
-<div class="coupon">
-<input id="coupon" placeholder="SAVE50">
-<button onclick="applyCoupon()">Apply</button>
+<div class="pay-option">
+<input type="radio" name="pay" value="cod" checked> Cash on Delivery
+</div>
+
+<div class="pay-option">
+<input type="radio" name="pay" value="upi"> UPI (Pay later)
+</div>
+
+<div class="pay-option">
+<input type="radio" name="pay" value="card"> Card (Pay later)
 </div>
 
 </div>
@@ -158,31 +148,19 @@ font-weight:bold;
 <!-- PRICE -->
 <div class="card">
 
-<div class="price-row">
+<div class="item">
 <span>Subtotal</span>
 <span>₹<span id="total">0</span></span>
 </div>
 
-<div class="price-row">
+<div class="item">
 <span>Delivery</span>
 <span>₹20</span>
 </div>
 
-<div class="price-row">
-<span>Discount</span>
-<span>-₹<span id="discount">0</span></span>
-</div>
-
-<div class="price-row">
-<span>Delivery Time</span>
-<span>30 mins ⚡</span>
-</div>
-
-<hr>
-
-<div class="price-row">
-<b>Total</b>
-<b>₹<span id="grand">0</span></b>
+<div class="item">
+<span>Total</span>
+<span>₹<span id="grand">0</span></span>
 </div>
 
 </div>
@@ -192,7 +170,7 @@ font-weight:bold;
 <!-- FOOTER -->
 <div class="footer">
 <div>₹<b id="finalTotal">0</b></div>
-<button onclick="pay()">Pay Now</button>
+<button onclick="placeOrder()">Place Order</button>
 </div>
 
 <script type="module">
@@ -200,94 +178,99 @@ font-weight:bold;
 import { db } from "./js/firebase.js";
 import { collection, addDoc } from "https://www.gstatic.com/firebasejs/12.11.0/firebase-firestore.js";
 
+/* 🔥 LOGIN CHECK */
+let user = JSON.parse(localStorage.getItem("user"));
+
+if(!user){
+alert("Please login first ❌");
+location.href = "login.html";
+}
+
+/* CART */
 let cart = JSON.parse(localStorage.getItem("cart")||[]);
 
-let total=0;
-let discount=0;
+let total = 0;
 
 const itemsBox = document.getElementById("items");
 
+/* GROUP CATEGORY */
+function groupSummary(){
+
+let summary = {
+ironing:0,
+dry:0,
+washing:0
+};
+
+cart.forEach(i=>{
+summary[i.service] += i.qty;
+});
+
+return summary;
+}
+
+/* RENDER */
 function render(){
+
 total=0;
+
 let html="";
 
+const grouped = groupSummary();
+
+/* CATEGORY SUMMARY 🔥 */
+html += `
+<div class="item"><b>Ironing</b><span>${grouped.ironing} items</span></div>
+<div class="item"><b>Dry Cleaning</b><span>${grouped.dry} items</span></div>
+<div class="item"><b>Washing</b><span>${grouped.washing} items</span></div>
+<hr>
+`;
+
+/* ITEMS */
 cart.forEach(i=>{
 let price=i.price*i.qty;
 total+=price;
 
-html+=`<div class="item">
+html+=`
+<div class="item">
 <span>${i.name} x ${i.qty}</span>
 <span>₹${price}</span>
 </div>`;
 });
 
 itemsBox.innerHTML=html;
-update();
-}
 
-function update(){
-let grand = total+20-discount;
+/* TOTAL */
+let grand = total + 20;
 
-document.getElementById("total").innerText=total;
-document.getElementById("discount").innerText=discount;
-document.getElementById("grand").innerText=grand;
-document.getElementById("finalTotal").innerText=grand;
+document.getElementById("total").innerText = total;
+document.getElementById("grand").innerText = grand;
+document.getElementById("finalTotal").innerText = grand;
+
 }
 
 render();
 
-/* COUPON */
-window.applyCoupon=function(){
-let code=document.getElementById("coupon").value;
+/* PLACE ORDER */
+window.placeOrder = async function(){
 
-if(code==="SAVE50"){
-discount=50;
-alert("Applied ✅");
-}else{
-discount=0;
-alert("Invalid ❌");
-}
-
-update();
-};
-
-/* LOCATION */
-window.getLocation=function(){
-navigator.geolocation.getCurrentPosition(pos=>{
-document.getElementById("address").value =
-pos.coords.latitude+","+pos.coords.longitude;
-});
-};
-
-/* PAYMENT */
-window.pay=function(){
-
-let finalAmount=total+20-discount;
-
-let options={
-key:"rzp_test_xxxxx",
-amount:finalAmount*100,
-currency:"INR",
-name:"QuickPress",
-
-handler:async function(res){
+let payMethod = document.querySelector('input[name="pay"]:checked').value;
 
 await addDoc(collection(db,"orders"),{
-items:cart,
-total:finalAmount,
-paymentId:res.razorpay_payment_id,
-time:Date.now()
+user: user,
+items: cart,
+total: total + 20,
+paymentMethod: payMethod,
+status: "new",
+time: Date.now()
 });
 
 localStorage.removeItem("cart");
 
-alert("Success ✅");
+alert("Order Placed ✅");
+
 location.href="tracking.html";
 
-}
-};
-
-new Razorpay(options).open();
 };
 
 </script>
