@@ -4,16 +4,22 @@
 <meta charset="UTF-8">
 <title>Checkout</title>
 
+<!-- Razorpay -->
+<script src="https://checkout.razorpay.com/v1/checkout.js"></script>
+
+<!-- Google Maps -->
+<script src="https://maps.googleapis.com/maps/api/js?key=YOUR_API_KEY&libraries=places"></script>
+
 <style>
 
 /* GLOBAL */
 body{
 margin:0;
-font-family:-apple-system, BlinkMacSystemFont, sans-serif;
+font-family:-apple-system, sans-serif;
 background:#f1f3f6;
 }
 
-/* CONTAINER */
+/* MAIN */
 .main{
 max-width:1000px;
 margin:auto;
@@ -21,18 +27,12 @@ padding:10px;
 padding-bottom:100px;
 }
 
-/* STEP HEADER */
+/* STEPS */
 .steps{
 display:flex;
 justify-content:space-between;
-margin-bottom:10px;
-}
-
-.step{
-flex:1;
-text-align:center;
 font-size:12px;
-color:#888;
+margin-bottom:10px;
 }
 
 .step.active{
@@ -43,16 +43,10 @@ font-weight:bold;
 /* CARD */
 .card{
 background:#fff;
-border-radius:12px;
 padding:15px;
+border-radius:12px;
 margin-top:10px;
 box-shadow:0 2px 8px rgba(0,0,0,0.08);
-}
-
-/* TITLE */
-.card h3{
-font-size:15px;
-margin-bottom:10px;
 }
 
 /* INPUT */
@@ -64,29 +58,19 @@ border-radius:8px;
 border:1px solid #ddd;
 }
 
-/* LOCATION */
-.location{
-background:#e8f5e9;
-padding:10px;
-border-radius:8px;
-margin-top:10px;
-font-size:13px;
-}
-
 /* BUTTON */
 button{
 width:100%;
 padding:14px;
-margin-top:12px;
+margin-top:10px;
 border:none;
 border-radius:8px;
-background:#fb641b; /* Flipkart orange */
+background:#fb641b;
 color:#fff;
 font-weight:bold;
-cursor:pointer;
 }
 
-/* ORDER LIST */
+/* ITEMS */
 #items div{
 display:flex;
 justify-content:space-between;
@@ -94,7 +78,7 @@ padding:8px 0;
 border-bottom:1px solid #eee;
 }
 
-/* PRICE BOX */
+/* PRICE */
 .price-box{
 background:#fff;
 padding:15px;
@@ -106,15 +90,9 @@ margin-top:10px;
 display:flex;
 justify-content:space-between;
 margin-top:6px;
-font-size:14px;
 }
 
-.total{
-font-size:18px;
-font-weight:bold;
-}
-
-/* STICKY BAR */
+/* STICKY */
 .sticky{
 position:fixed;
 bottom:0;
@@ -122,20 +100,13 @@ left:0;
 width:100%;
 background:#fff;
 padding:10px;
-box-shadow:0 -2px 10px rgba(0,0,0,0.1);
 display:flex;
 justify-content:space-between;
-align-items:center;
-}
-
-.sticky .price{
-font-size:18px;
-font-weight:bold;
+box-shadow:0 -2px 10px rgba(0,0,0,0.1);
 }
 
 .sticky button{
 width:50%;
-margin:0;
 }
 
 /* DESKTOP */
@@ -149,7 +120,6 @@ gap:15px;
 
 .sticky{
 position:static;
-box-shadow:none;
 }
 
 }
@@ -161,23 +131,21 @@ box-shadow:none;
 
 <div class="main">
 
-<!-- STEPS -->
 <div class="steps">
 <div class="step active">1. Address</div>
-<div class="step">2. Summary</div>
-<div class="step">3. Payment</div>
+<div>2. Summary</div>
+<div>3. Payment</div>
 </div>
 
 <div class="layout">
 
 <!-- LEFT -->
-<div>
-
 <div class="card">
+
 <h3>📍 Delivery Address</h3>
 
-<input id="name" placeholder="Full Name">
-<input id="phone" placeholder="Phone Number">
+<input id="name" placeholder="Name">
+<input id="phone" placeholder="Phone">
 
 <select id="area">
 <option>Delhi</option>
@@ -188,13 +156,7 @@ box-shadow:none;
 
 <textarea id="address" placeholder="Full Address"></textarea>
 
-<div class="location" id="locBox">
-📍 Location: Not detected
-</div>
-
-<button onclick="getLocation()">Detect Location</button>
-
-</div>
+<button onclick="getLocation()">📍 Detect Location</button>
 
 </div>
 
@@ -207,6 +169,10 @@ box-shadow:none;
 </div>
 
 <div class="price-box">
+
+<input id="coupon" placeholder="Coupon Code">
+<button onclick="applyCoupon()">Apply</button>
+
 <div class="price-row">
 <span>Subtotal</span>
 <span>₹<span id="total">0</span></span>
@@ -217,12 +183,23 @@ box-shadow:none;
 <span>₹20</span>
 </div>
 
+<div class="price-row">
+<span>Discount</span>
+<span>-₹<span id="discount">0</span></span>
+</div>
+
+<div class="price-row">
+<span>Delivery Time</span>
+<span>30 mins ⚡</span>
+</div>
+
 <hr>
 
-<div class="price-row total">
-<span>Total</span>
-<span>₹<span id="grandTotal">0</span></span>
+<div class="price-row">
+<b>Total</b>
+<b>₹<span id="grandTotal">0</span></b>
 </div>
+
 </div>
 
 </div>
@@ -233,8 +210,8 @@ box-shadow:none;
 
 <!-- STICKY -->
 <div class="sticky">
-<div class="price">₹<span id="stickyTotal">0</span></div>
-<button onclick="placeOrder()">Continue</button>
+<div>₹<span id="stickyTotal">0</span></div>
+<button onclick="placeOrder()">Pay Now</button>
 </div>
 
 <script type="module">
@@ -250,13 +227,15 @@ const areaInput = document.getElementById("area");
 const totalBox = document.getElementById("total");
 const grandBox = document.getElementById("grandTotal");
 const stickyBox = document.getElementById("stickyTotal");
+const discountBox = document.getElementById("discount");
 const itemsBox = document.getElementById("items");
-const locBox = document.getElementById("locBox");
 
 let cart = JSON.parse(localStorage.getItem("cart") || "[]");
 
 let total = 0;
+let discount = 0;
 
+/* LOAD CART */
 function loadCart(){
 
 total = 0;
@@ -270,16 +249,45 @@ html += `<div><span>${i.name} x ${i.qty}</span><span>₹${price}</span></div>`;
 });
 
 itemsBox.innerHTML = html;
+updateTotal();
+}
+
+function updateTotal(){
+
+let grand = total + 20 - discount;
 
 totalBox.innerText = total;
-
-let grand = total + 20;
-
 grandBox.innerText = grand;
 stickyBox.innerText = grand;
+discountBox.innerText = discount;
 }
 
 loadCart();
+
+/* COUPON */
+window.applyCoupon = function(){
+
+let code = document.getElementById("coupon").value;
+
+if(code === "SAVE50"){
+discount = 50;
+alert("Coupon Applied ✅");
+}else{
+discount = 0;
+alert("Invalid ❌");
+}
+
+updateTotal();
+};
+
+/* GOOGLE ADDRESS */
+let autocomplete;
+
+window.initMap = function(){
+autocomplete = new google.maps.places.Autocomplete(addressInput);
+};
+
+initMap();
 
 /* LOCATION */
 let userLocation="";
@@ -287,27 +295,24 @@ let userLocation="";
 window.getLocation = function(){
 
 navigator.geolocation.getCurrentPosition(pos=>{
-let lat = pos.coords.latitude;
-let lng = pos.coords.longitude;
-
-userLocation = lat + "," + lng;
-locBox.innerHTML = `📍 ${lat}, ${lng}`;
+userLocation = pos.coords.latitude + "," + pos.coords.longitude;
+alert("Location captured ✅");
 });
 
 };
 
-/* ORDER */
-window.placeOrder = async function(){
+/* PAYMENT */
+window.placeOrder = function(){
 
-if(!nameInput.value || !phoneInput.value || !addressInput.value){
-alert("Fill all details ❌");
-return;
-}
+let finalAmount = total + 20 - discount;
 
-if(cart.length===0){
-alert("Cart empty ❌");
-return;
-}
+let options = {
+key: "rzp_test_xxxxxxxx",
+amount: finalAmount * 100,
+currency: "INR",
+name: "QuickPress",
+
+handler: async function (response) {
 
 let order = {
 name: nameInput.value,
@@ -316,8 +321,9 @@ address: addressInput.value,
 area: areaInput.value,
 location: userLocation,
 items: cart,
-total: total + 20,
-status: "new",
+total: finalAmount,
+paymentId: response.razorpay_payment_id,
+status: "paid",
 time: Date.now()
 };
 
@@ -325,9 +331,15 @@ await addDoc(collection(db,"orders"), order);
 
 localStorage.removeItem("cart");
 
-alert("Order Placed ✅");
+alert("Payment Success ✅");
 
 window.location.href = "tracking.html";
+}
+
+};
+
+let rzp = new Razorpay(options);
+rzp.open();
 
 };
 
