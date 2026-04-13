@@ -12,10 +12,8 @@ body{margin:0;font-family:sans-serif;background:#f5f6fa}
 .nav{display:flex;background:#fff;border-bottom:1px solid #ddd}
 .nav div{padding:12px 16px;cursor:pointer}
 .nav .active{background:#FFD400}
-
 .section{display:none;padding:15px}
 .card{background:#fff;padding:12px;margin:10px 0;border-radius:10px}
-
 input{width:100%;padding:8px;margin:5px 0}
 button{padding:8px;margin-top:5px}
 </style>
@@ -107,34 +105,40 @@ button{padding:8px;margin-top:5px}
 <p>Email: quickpress@gmail.com</p>
 </div>
 
-<script type="module">
-
-import { db, auth } from "../js/firebase.js";
-
-import {
-collection,
-onSnapshot,
-doc,
-setDoc,
-addDoc
-} from "https://www.gstatic.com/firebasejs/12.11.0/firebase-firestore.js";
-
-import {
-createUserWithEmailAndPassword
-} from "https://www.gstatic.com/firebasejs/12.11.0/firebase-auth.js";
-
-/* TAB */
-window.showTab=(e,id)=>{
+<!-- ✅ TAB FIX -->
+<script>
+function showTab(e,id){
 document.querySelectorAll(".section").forEach(s=>s.style.display="none");
 document.querySelectorAll(".nav div").forEach(n=>n.classList.remove("active"));
 document.getElementById(id).style.display="block";
 e.target.classList.add("active");
+}
+</script>
+
+<!-- 🔥 FIREBASE FULL SYSTEM -->
+<script type="module">
+
+import { initializeApp } from "https://www.gstatic.com/firebasejs/12.11.0/firebase-app.js";
+import { getAuth, createUserWithEmailAndPassword } from "https://www.gstatic.com/firebasejs/12.11.0/firebase-auth.js";
+import { getFirestore, collection, onSnapshot, doc, setDoc } from "https://www.gstatic.com/firebasejs/12.11.0/firebase-firestore.js";
+
+/* ✅ YOUR CONFIG (ALREADY ADDED) */
+const firebaseConfig = {
+  apiKey: "AIzaSyBBaslH5QsahoyESYpo1nVtlYIUYfVJ2d4",
+  authDomain: "quickpress-offical.firebaseapp.com",
+  projectId: "quickpress-offical",
+  storageBucket: "quickpress-offical.firebasestorage.app",
+  messagingSenderId: "939286557961",
+  appId: "1:939286557961:web:ddac64f197e14877718fd8"
 };
 
-/* DASHBOARD + GRAPH */
+const app = initializeApp(firebaseConfig);
+const db = getFirestore(app);
+const auth = getAuth(app);
+
+/* 📊 DASHBOARD */
 onSnapshot(collection(db,"orders"), snap=>{
 let total=0,count=0;
-
 snap.forEach(d=>{
 count++;
 total+=d.data().total||0;
@@ -147,59 +151,51 @@ stats.innerHTML=`
 
 new Chart(document.getElementById("chart"),{
 type:"bar",
-data:{
-labels:["Orders","Revenue"],
-datasets:[{data:[count,total]}]
-}
+data:{labels:["Orders","Revenue"],datasets:[{data:[count,total]}]}
 });
 });
 
-/* ORDERS */
+/* 📦 ORDERS */
 onSnapshot(collection(db,"orders"), snap=>{
 let html="";
 snap.forEach(d=>{
 let o=d.data();
-html+=`
-<div class="card">
-${o.name}<br>
-₹${o.total}<br>
-${o.status}
-</div>`;
+html+=`<div class="card">${o.name || "User"} - ₹${o.total || 0}</div>`;
 });
 ordersList.innerHTML=html;
 });
 
-/* USERS */
+/* 👥 USERS */
 onSnapshot(collection(db,"users"), snap=>{
 let html="";
 snap.forEach(d=>{
 let u=d.data();
-html+=`<div class="card">${u.name} - ${u.phone}</div>`;
+html+=`<div class="card">${u.name || "No Name"}</div>`;
 });
 userList.innerHTML=html;
 });
 
-/* PARTNERS */
+/* 👨‍🔧 PARTNERS */
 onSnapshot(collection(db,"partners"), snap=>{
 let html="";
 snap.forEach(d=>{
 let p=d.data();
-html+=`<div class="card">${p.name} - ${p.phone}</div>`;
+html+=`<div class="card">${p.name}</div>`;
 });
 plist.innerHTML=html;
 });
 
-/* RIDERS */
+/* 🚚 RIDERS */
 onSnapshot(collection(db,"delivery"), snap=>{
 let html="";
 snap.forEach(d=>{
 let r=d.data();
-html+=`<div class="card">${r.name} - ${r.phone}</div>`;
+html+=`<div class="card">${r.name}</div>`;
 });
 rlist.innerHTML=html;
 });
 
-/* WALLET */
+/* 💰 WALLET */
 onSnapshot(collection(db,"wallets"), snap=>{
 let html="";
 snap.forEach(d=>{
@@ -209,23 +205,11 @@ html+=`<div class="card">${d.id} → ₹${w.balance}</div>`;
 wlist.innerHTML=html;
 });
 
-/* ANALYTICS GRAPH */
-onSnapshot(collection(db,"transactions"), snap=>{
-let total=0;
-snap.forEach(d=>{
-total+=d.data().amount||0;
-});
+/* ➕ CREATE */
+window.openPartner=()=>pform.style.display="block";
+window.openRider=()=>rform.style.display="block";
 
-new Chart(document.getElementById("chart2"),{
-type:"line",
-data:{
-labels:["Total"],
-datasets:[{data:[total]}]
-}
-});
-});
-
-/* CREATE PARTNER */
+/* PARTNER CREATE */
 window.createPartner=async()=>{
 let u=await createUserWithEmailAndPassword(auth,p_email.value,p_password.value);
 let uid=u.user.uid;
@@ -240,10 +224,10 @@ name:p_name.value,phone:p_phone.value
 
 await setDoc(doc(db,"wallets",uid),{balance:0});
 
-alert("Partner Created");
+alert("✅ Partner Created");
 };
 
-/* CREATE RIDER */
+/* RIDER CREATE */
 window.createRider=async()=>{
 let u=await createUserWithEmailAndPassword(auth,r_email.value,r_password.value);
 let uid=u.user.uid;
@@ -258,12 +242,8 @@ name:r_name.value,phone:r_phone.value
 
 await setDoc(doc(db,"wallets",uid),{balance:0});
 
-alert("Rider Created");
+alert("✅ Rider Created");
 };
-
-/* OPEN FORM */
-window.openPartner=()=>pform.style.display="block";
-window.openRider=()=>rform.style.display="block";
 
 </script>
 
