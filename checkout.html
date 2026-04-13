@@ -178,14 +178,6 @@ font-weight:bold;
 import { db } from "./js/firebase.js";
 import { collection, addDoc } from "https://www.gstatic.com/firebasejs/12.11.0/firebase-firestore.js";
 
-/* 🔥 LOGIN CHECK */
-let user = JSON.parse(localStorage.getItem("user"));
-
-if(!user){
-alert("Please login first ❌");
-location.href = "login.html";
-}
-
 /* CART */
 let cart = JSON.parse(localStorage.getItem("cart")||[]);
 
