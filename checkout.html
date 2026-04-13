@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html>
 <head>
 <meta charset="UTF-8">
 <title>Checkout – QuickPress</title>
@@ -17,7 +17,6 @@ font-family:Segoe UI;
 background:var(--bg);
 }
 
-/* HEADER */
 .header{
 padding:14px;
 font-weight:bold;
@@ -25,44 +24,43 @@ background:#fff;
 box-shadow:0 2px 10px rgba(0,0,0,.1);
 }
 
-/* CONTAINER */
 .container{
 padding:14px;
-padding-bottom:100px;
+padding-bottom:110px;
 }
 
 /* CARD */
 .card{
 background:#fff;
-padding:14px;
-border-radius:12px;
-margin-bottom:12px;
+padding:16px;
+border-radius:14px;
+margin-bottom:14px;
 }
 
 /* TITLE */
 .title{
 font-weight:bold;
-margin-bottom:8px;
+margin-bottom:10px;
 }
 
-/* INPUT */
+/* INPUT GRID 🔥 */
+.grid{
+display:grid;
+grid-template-columns:1fr 1fr;
+gap:10px;
+}
+
 input, textarea, select{
 width:100%;
 padding:12px;
-margin-top:8px;
+margin-top:6px;
 border-radius:10px;
 border:1px solid #ddd;
 }
 
-/* PAYMENT */
-.pay-option{
-padding:10px;
-border:1px solid #ddd;
-border-radius:10px;
-margin-top:8px;
-display:flex;
-align-items:center;
-gap:10px;
+/* FULL WIDTH */
+.full{
+grid-column:span 2;
 }
 
 /* ITEM */
@@ -103,45 +101,48 @@ font-weight:bold;
 
 <div class="container">
 
-<!-- CUSTOMER DETAILS -->
+<!-- CUSTOMER -->
 <div class="card">
 <div class="title">👤 Customer Details</div>
+
+<div class="grid">
 
 <input id="name" placeholder="Full Name">
 <input id="phone" placeholder="Phone Number">
 
-<select id="area">
+<input id="house" placeholder="House No">
+<input id="landmark" placeholder="Landmark">
+
+<input id="city" placeholder="City">
+<input id="state" placeholder="State">
+
+<input id="pincode" placeholder="Pincode">
+
+<select id="area" class="full">
 <option>Delhi</option>
 <option>Noida</option>
 <option>Ghaziabad</option>
 <option>Meerut</option>
 </select>
 
-<textarea id="address" placeholder="Full Address"></textarea>
+<textarea id="address" class="full" placeholder="Full Address"></textarea>
 
 </div>
+</div>
 
-<!-- ORDER SUMMARY -->
+<!-- SUMMARY -->
 <div class="card">
 <div class="title">🛒 Order Summary</div>
 <div id="items"></div>
 </div>
 
-<!-- PAYMENT METHOD -->
+<!-- PAYMENT -->
 <div class="card">
-<div class="title">💳 Payment Method</div>
+<div class="title">💳 Payment</div>
 
-<div class="pay-option">
-<input type="radio" name="pay" value="cod" checked> Cash on Delivery
-</div>
-
-<div class="pay-option">
-<input type="radio" name="pay" value="upi"> UPI (Pay later)
-</div>
-
-<div class="pay-option">
-<input type="radio" name="pay" value="card"> Card (Pay later)
-</div>
+<label><input type="radio" name="pay" value="cod" checked> COD</label><br>
+<label><input type="radio" name="pay" value="upi"> UPI</label><br>
+<label><input type="radio" name="pay" value="card"> Card</label>
 
 </div>
 
@@ -159,8 +160,18 @@ font-weight:bold;
 </div>
 
 <div class="item">
-<span><b>Total</b></span>
-<span><b>₹<span id="grand">0</span></b></span>
+<span>Handling Fee</span>
+<span>₹3</span>
+</div>
+
+<div class="item">
+<span>GST (5%)</span>
+<span>₹<span id="gst">0</span></span>
+</div>
+
+<div class="item">
+<b>Total</b>
+<b>₹<span id="grand">0</span></b>
 </div>
 
 </div>
@@ -178,27 +189,17 @@ font-weight:bold;
 import { db } from "./js/firebase.js";
 import { collection, addDoc } from "https://www.gstatic.com/firebasejs/12.11.0/firebase-firestore.js";
 
-/* GUEST USER */
-let user = JSON.parse(localStorage.getItem("user")) || "guest";
-
-/* CART */
-let cart = JSON.parse(localStorage.getItem("cart")||[]);
+/* FIXED CART */
+let cart = JSON.parse(localStorage.getItem("cart") || "[]");
 
 let total = 0;
 
-const itemsBox = document.getElementById("items");
-
-/* CATEGORY SUMMARY */
+/* GROUP */
 function groupSummary(){
-
-let summary = {
-ironing:0,
-dry:0,
-washing:0
-};
+let summary={ironing:0,dry:0,washing:0};
 
 cart.forEach(i=>{
-summary[i.service] += i.qty;
+summary[i.service]+=i.qty;
 });
 
 return summary;
@@ -211,10 +212,9 @@ total=0;
 
 let html="";
 
-const grouped = groupSummary();
+let grouped = groupSummary();
 
-/* CATEGORY */
-html += `
+html+=`
 <div class="item"><b>Ironing</b><span>${grouped.ironing}</span></div>
 <div class="item"><b>Dry Cleaning</b><span>${grouped.dry}</span></div>
 <div class="item"><b>Washing</b><span>${grouped.washing}</span></div>
@@ -225,18 +225,22 @@ cart.forEach(i=>{
 let price=i.price*i.qty;
 total+=price;
 
-html+=`
-<div class="item">
+html+=`<div class="item">
 <span>${i.name} x ${i.qty}</span>
 <span>₹${price}</span>
 </div>`;
 });
 
-itemsBox.innerHTML=html;
+/* GST + TOTAL */
+let delivery = 20;
+let handling = 3;
+let gst = Math.round((total * 5) / 100);
 
-let grand = total + 20;
+let grand = total + delivery + handling + gst;
 
+document.getElementById("items").innerHTML = html;
 document.getElementById("total").innerText = total;
+document.getElementById("gst").innerText = gst;
 document.getElementById("grand").innerText = grand;
 document.getElementById("finalTotal").innerText = grand;
 
@@ -244,28 +248,27 @@ document.getElementById("finalTotal").innerText = grand;
 
 render();
 
-/* PLACE ORDER */
+/* ORDER */
 window.placeOrder = async function(){
-
-let payMethod = document.querySelector('input[name="pay"]:checked').value;
 
 let name = document.getElementById("name").value;
 let phone = document.getElementById("phone").value;
-let address = document.getElementById("address").value;
+let house = document.getElementById("house").value;
+let city = document.getElementById("city").value;
+let pincode = document.getElementById("pincode").value;
 
-if(!name || !phone || !address){
-alert("Fill all details ❌");
+if(!name || !phone || !house || !city || !pincode){
+alert("Fill required details ❌");
 return;
 }
 
+let payMethod = document.querySelector('input[name="pay"]:checked').value;
+
 await addDoc(collection(db,"orders"),{
-user:user,
-name:name,
-phone:phone,
-address:address,
+name,phone,house,city,pincode,
 items:cart,
-total:total+20,
 paymentMethod:payMethod,
+total:document.getElementById("grand").innerText,
 status:"new",
 time:Date.now()
 });
