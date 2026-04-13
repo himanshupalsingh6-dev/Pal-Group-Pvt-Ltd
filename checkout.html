@@ -54,7 +54,7 @@ border-radius:10px;
 border:1px solid #ddd;
 }
 
-/* PAYMENT OPTIONS */
+/* PAYMENT */
 .pay-option{
 padding:10px;
 border:1px solid #ddd;
@@ -159,8 +159,8 @@ font-weight:bold;
 </div>
 
 <div class="item">
-<span>Total</span>
-<span>₹<span id="grand">0</span></span>
+<span><b>Total</b></span>
+<span><b>₹<span id="grand">0</span></b></span>
 </div>
 
 </div>
@@ -178,6 +178,9 @@ font-weight:bold;
 import { db } from "./js/firebase.js";
 import { collection, addDoc } from "https://www.gstatic.com/firebasejs/12.11.0/firebase-firestore.js";
 
+/* GUEST USER */
+let user = JSON.parse(localStorage.getItem("user")) || "guest";
+
 /* CART */
 let cart = JSON.parse(localStorage.getItem("cart")||[]);
 
@@ -185,7 +188,7 @@ let total = 0;
 
 const itemsBox = document.getElementById("items");
 
-/* GROUP CATEGORY */
+/* CATEGORY SUMMARY */
 function groupSummary(){
 
 let summary = {
@@ -210,15 +213,14 @@ let html="";
 
 const grouped = groupSummary();
 
-/* CATEGORY SUMMARY 🔥 */
+/* CATEGORY */
 html += `
-<div class="item"><b>Ironing</b><span>${grouped.ironing} items</span></div>
-<div class="item"><b>Dry Cleaning</b><span>${grouped.dry} items</span></div>
-<div class="item"><b>Washing</b><span>${grouped.washing} items</span></div>
+<div class="item"><b>Ironing</b><span>${grouped.ironing}</span></div>
+<div class="item"><b>Dry Cleaning</b><span>${grouped.dry}</span></div>
+<div class="item"><b>Washing</b><span>${grouped.washing}</span></div>
 <hr>
 `;
 
-/* ITEMS */
 cart.forEach(i=>{
 let price=i.price*i.qty;
 total+=price;
@@ -232,7 +234,6 @@ html+=`
 
 itemsBox.innerHTML=html;
 
-/* TOTAL */
 let grand = total + 20;
 
 document.getElementById("total").innerText = total;
@@ -248,13 +249,25 @@ window.placeOrder = async function(){
 
 let payMethod = document.querySelector('input[name="pay"]:checked').value;
 
+let name = document.getElementById("name").value;
+let phone = document.getElementById("phone").value;
+let address = document.getElementById("address").value;
+
+if(!name || !phone || !address){
+alert("Fill all details ❌");
+return;
+}
+
 await addDoc(collection(db,"orders"),{
-user: user,
-items: cart,
-total: total + 20,
-paymentMethod: payMethod,
-status: "new",
-time: Date.now()
+user:user,
+name:name,
+phone:phone,
+address:address,
+items:cart,
+total:total+20,
+paymentMethod:payMethod,
+status:"new",
+time:Date.now()
 });
 
 localStorage.removeItem("cart");
