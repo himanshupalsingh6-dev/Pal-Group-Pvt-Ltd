@@ -8,19 +8,60 @@
 
 <style>
 body{margin:0;font-family:sans-serif;background:#f5f6fa}
-.header{background:#FFD400;padding:14px;text-align:center;font-weight:bold}
-.nav{display:flex;background:#fff}
-.nav div{padding:12px;cursor:pointer}
-.nav .active{background:#FFD400}
-.section{display:none;padding:15px}
-.card{background:#fff;padding:12px;margin:10px 0;border-radius:10px}
-button{padding:6px;margin-top:5px}
+
+.header{
+background:#FFD400;
+padding:14px;
+text-align:center;
+font-weight:bold;
+font-size:18px;
+}
+
+.nav{
+display:flex;
+background:#fff;
+border-bottom:1px solid #ddd
+}
+
+.nav div{
+padding:12px 16px;
+cursor:pointer;
+}
+
+.nav .active{
+background:#FFD400
+}
+
+.section{
+display:none;
+padding:15px
+}
+
+.card{
+background:#fff;
+padding:12px;
+margin:10px 0;
+border-radius:10px;
+box-shadow:0 2px 5px rgba(0,0,0,0.1)
+}
+
+input{
+width:100%;
+padding:8px;
+margin:5px 0
+}
+
+button{
+padding:8px;
+margin-top:5px;
+cursor:pointer
+}
 </style>
 </head>
 
 <body>
 
-<div class="header">⚡ Admin PRO Panel</div>
+<div class="header">⚡ QuickPress Admin PRO Panel</div>
 
 <div class="nav">
 <div class="active" onclick="showTab(event,'dashboard')">Dashboard</div>
@@ -28,38 +69,61 @@ button{padding:6px;margin-top:5px}
 <div onclick="showTab(event,'partners')">Partners</div>
 <div onclick="showTab(event,'riders')">Riders</div>
 <div onclick="showTab(event,'users')">Users</div>
+<div onclick="showTab(event,'payout')">Payout</div>
+<div onclick="showTab(event,'analytics')">Analytics</div>
+<div onclick="showTab(event,'help')">Help</div>
 </div>
 
 <!-- DASHBOARD -->
 <div id="dashboard" class="section" style="display:block">
-<h2>Dashboard</h2>
+<h2>📊 Dashboard</h2>
 <div id="stats"></div>
+<canvas id="chart"></canvas>
 </div>
 
 <!-- ORDERS -->
 <div id="orders" class="section">
-<h2>Orders Full Detail</h2>
+<h2>📦 Orders Full Detail</h2>
 <div id="ordersList"></div>
 </div>
 
 <!-- PARTNERS -->
 <div id="partners" class="section">
-<h2>Partners</h2>
+<h2>👨‍🔧 Partners</h2>
 <div id="plist"></div>
 </div>
 
 <!-- RIDERS -->
 <div id="riders" class="section">
-<h2>Riders</h2>
+<h2>🚚 Riders</h2>
 <div id="rlist"></div>
 </div>
 
 <!-- USERS -->
 <div id="users" class="section">
-<h2>Users</h2>
+<h2>👥 Users</h2>
 <div id="userList"></div>
 </div>
 
+<!-- WALLET -->
+<div id="payout" class="section">
+<h2>💰 Wallet</h2>
+<div id="wlist"></div>
+</div>
+
+<!-- ANALYTICS -->
+<div id="analytics" class="section">
+<h2>📈 Analytics</h2>
+<canvas id="chart2"></canvas>
+</div>
+
+<!-- HELP -->
+<div id="help" class="section">
+<h2>📞 Help</h2>
+<p>Email: quickpress@gmail.com</p>
+</div>
+
+<!-- TAB FIX -->
 <script>
 function showTab(e,id){
 document.querySelectorAll(".section").forEach(s=>s.style.display="none");
@@ -69,12 +133,13 @@ e.target.classList.add("active");
 }
 </script>
 
+<!-- FIREBASE -->
 <script type="module">
 
 import { initializeApp } from "https://www.gstatic.com/firebasejs/12.11.0/firebase-app.js";
 import { getFirestore, collection, onSnapshot } from "https://www.gstatic.com/firebasejs/12.11.0/firebase-firestore.js";
 
-/* YOUR CONFIG */
+/* CONFIG */
 const firebaseConfig = {
   apiKey: "AIzaSyBBaslH5QsahoyESYpo1nVtlYIUYfVJ2d4",
   authDomain: "quickpress-offical.firebaseapp.com",
@@ -84,20 +149,26 @@ const firebaseConfig = {
 const app = initializeApp(firebaseConfig);
 const db = getFirestore(app);
 
-/* 📊 DASHBOARD */
+/* DASHBOARD */
 onSnapshot(collection(db,"orders"), snap=>{
 let total=0,count=0;
 snap.forEach(d=>{
 count++;
 total+=d.data().total||0;
 });
+
 stats.innerHTML=`
 <div class="card">Orders: ${count}</div>
 <div class="card">Revenue: ₹${total}</div>
 `;
+
+new Chart(document.getElementById("chart"),{
+type:"bar",
+data:{labels:["Orders","Revenue"],datasets:[{data:[count,total]}]}
+});
 });
 
-/* 📦 FULL ORDER DETAIL */
+/* FULL ORDERS */
 onSnapshot(collection(db,"orders"), snap=>{
 let html="";
 snap.forEach(d=>{
@@ -105,38 +176,36 @@ let o=d.data();
 
 html+=`
 <div class="card">
-<b>Customer:</b> ${o.name || "-"} <br>
-<b>Phone:</b> ${o.phone || "-"} <br>
-<b>Address:</b> ${o.address || "-"} <br>
+<b>Customer:</b> ${o.name || "-"}<br>
+<b>Phone:</b> ${o.phone || "-"}<br>
+<b>Address:</b> ${o.address || "-"}<br>
 
-<b>Items:</b> ${JSON.stringify(o.items || [])} <br>
-<b>Total:</b> ₹${o.total || 0} <br>
+<b>Items:</b> ${JSON.stringify(o.items || [])}<br>
+<b>Total:</b> ₹${o.total || 0}<br>
 
-<b>Status:</b> ${o.status || "Pending"} <br>
+<b>Status:</b> ${o.status || "Pending"}<br>
 
-<b>Pickup By:</b> ${o.partnerName || "-"} <br>
-<b>Ironing By:</b> ${o.partnerName || "-"} <br>
-<b>Delivery By:</b> ${o.riderName || "-"} <br>
+<b>Pickup By:</b> ${o.partnerName || "-"}<br>
+<b>Ironing By:</b> ${o.partnerName || "-"}<br>
+<b>Delivery By:</b> ${o.riderName || "-"}<br>
 </div>
 `;
 });
 ordersList.innerHTML=html;
 });
 
-/* 👨‍🔧 PARTNER ANALYSIS */
+/* PARTNERS */
 onSnapshot(collection(db,"partners"), snap=>{
 let html="";
 snap.forEach(d=>{
 let p=d.data();
-
-let totalOrders = p.totalOrders || 0;
-let earning = totalOrders * 20;
+let earning=(p.totalOrders||0)*20;
 
 html+=`
 <div class="card">
 <b>${p.name}</b><br>
 Phone: ${p.phone}<br>
-Orders: ${totalOrders}<br>
+Orders: ${p.totalOrders||0}<br>
 Earning: ₹${earning}
 </div>
 `;
@@ -144,20 +213,18 @@ Earning: ₹${earning}
 plist.innerHTML=html;
 });
 
-/* 🚚 RIDER ANALYSIS */
+/* RIDERS */
 onSnapshot(collection(db,"delivery"), snap=>{
 let html="";
 snap.forEach(d=>{
 let r=d.data();
-
-let total = r.totalDeliveries || 0;
-let earning = total * 15;
+let earning=(r.totalDeliveries||0)*15;
 
 html+=`
 <div class="card">
 <b>${r.name}</b><br>
 Phone: ${r.phone}<br>
-Deliveries: ${total}<br>
+Deliveries: ${r.totalDeliveries||0}<br>
 Earning: ₹${earning}
 </div>
 `;
@@ -165,7 +232,7 @@ Earning: ₹${earning}
 rlist.innerHTML=html;
 });
 
-/* 👥 USERS DETAIL */
+/* USERS */
 onSnapshot(collection(db,"users"), snap=>{
 let html="";
 snap.forEach(d=>{
@@ -175,12 +242,22 @@ html+=`
 <div class="card">
 <b>${u.name}</b><br>
 Phone: ${u.phone}<br>
-Address: ${u.address || "-"}<br>
-Orders: ${u.totalOrders || 0}
+Address: ${u.address||"-"}<br>
+Orders: ${u.totalOrders||0}
 </div>
 `;
 });
 userList.innerHTML=html;
+});
+
+/* WALLET */
+onSnapshot(collection(db,"wallets"), snap=>{
+let html="";
+snap.forEach(d=>{
+let w=d.data();
+html+=`<div class="card">${d.id} → ₹${w.balance}</div>`;
+});
+wlist.innerHTML=html;
 });
 
 </script>
