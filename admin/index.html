@@ -357,35 +357,52 @@ Admin Panel
 </div>
 
 <!-- PARTNERS -->
+<!-- =========================
+PARTNERS SECTION
+========================= -->
 
 <div id="partners" class="section">
 
-<div class="form">
+<!-- ADD PARTNER -->
 
-<h2>Add Partner</h2>
+<div class="card">
 
-<input type="text" placeholder="Partner Name">
-<input type="text" placeholder="Phone">
-<input type="email" placeholder="Email">
-<input type="password" placeholder="Password">
+<h2>👨‍🏭 Add Partner</h2>
 
-<button class="btn blue">
+<input type="text" id="partnerName" placeholder="Partner Name">
+
+<input type="text" id="partnerPhone" placeholder="Phone">
+
+<input type="email" id="partnerEmail" placeholder="Email">
+
+<input type="password" id="partnerPassword" placeholder="Password">
+
+<input type="text" id="partnerShop" placeholder="Shop Name">
+
+<input type="text" id="partnerAddress" placeholder="Address">
+
+<button class="btn blue" onclick="createPartner()">
 Create Partner
 </button>
 
 </div>
 
+<!-- PARTNER LIST -->
+
 <div class="card">
 
-<h2>Partners List</h2>
+<h2>📋 Partners List</h2>
 
 <table>
 
 <thead>
 <tr>
 <th>Name</th>
+<th>Phone</th>
 <th>Orders</th>
 <th>Earning</th>
+<th>Wallet</th>
+<th>Status</th>
 </tr>
 </thead>
 
@@ -398,6 +415,221 @@ Create Partner
 
 </div>
 
+<!-- =========================
+PARTNER SCRIPT
+========================= -->
+
+<script type="module">
+
+import { initializeApp }
+from "https://www.gstatic.com/firebasejs/12.11.0/firebase-app.js";
+
+import {
+getAuth,
+createUserWithEmailAndPassword
+}
+from "https://www.gstatic.com/firebasejs/12.11.0/firebase-auth.js";
+
+import {
+getFirestore,
+doc,
+setDoc,
+collection,
+onSnapshot,
+deleteDoc
+}
+from "https://www.gstatic.com/firebasejs/12.11.0/firebase-firestore.js";
+
+/* FIREBASE */
+
+const firebaseConfig = {
+apiKey: "AIzaSyBBaslH5QsahoyESYpo1nVtlYIUYfVJ2d4",
+authDomain: "quickpress-offical.firebaseapp.com",
+projectId: "quickpress-offical",
+storageBucket: "quickpress-offical.firebasestorage.app",
+messagingSenderId: "939286557961",
+appId: "1:939286557961:web:ddac64f197e14877718fd8"
+};
+
+const app = initializeApp(firebaseConfig);
+
+const auth = getAuth(app);
+
+const db = getFirestore(app);
+
+/* =========================
+CREATE PARTNER
+========================= */
+
+window.createPartner = async function(){
+
+try{
+
+const name =
+document.getElementById("partnerName").value;
+
+const phone =
+document.getElementById("partnerPhone").value;
+
+const email =
+document.getElementById("partnerEmail").value;
+
+const password =
+document.getElementById("partnerPassword").value;
+
+const shop =
+document.getElementById("partnerShop").value;
+
+const address =
+document.getElementById("partnerAddress").value;
+
+/* CREATE AUTH */
+
+const userCredential =
+await createUserWithEmailAndPassword(
+auth,
+email,
+password
+);
+
+const uid = userCredential.user.uid;
+
+/* SAVE USERS */
+
+await setDoc(doc(db,"users",uid),{
+
+uid,
+name,
+phone,
+email,
+
+role:"partner",
+
+createdAt:Date.now()
+
+});
+
+/* SAVE PARTNER */
+
+await setDoc(doc(db,"partners",uid),{
+
+uid,
+name,
+phone,
+email,
+shop,
+address,
+
+wallet:0,
+totalOrders:0,
+totalEarning:0,
+
+status:"active",
+
+role:"partner",
+
+createdAt:Date.now()
+
+});
+
+/* CREATE WALLET */
+
+await setDoc(doc(db,"wallets",uid),{
+
+balance:0,
+role:"partner"
+
+});
+
+alert("Partner Created ✅");
+
+/* CLEAR FORM */
+
+document.getElementById("partnerName").value="";
+document.getElementById("partnerPhone").value="";
+document.getElementById("partnerEmail").value="";
+document.getElementById("partnerPassword").value="";
+document.getElementById("partnerShop").value="";
+document.getElementById("partnerAddress").value="";
+
+}
+catch(err){
+
+alert(err.message);
+
+}
+
+}
+
+/* =========================
+LIVE PARTNER LIST
+========================= */
+
+const partnerTable =
+document.getElementById("partnerTable");
+
+onSnapshot(collection(db,"partners"),(snapshot)=>{
+
+let html = "";
+
+snapshot.forEach((docu)=>{
+
+const p = docu.data();
+
+html += `
+
+<tr>
+
+<td>${p.name || "-"}</td>
+
+<td>${p.phone || "-"}</td>
+
+<td>${p.totalOrders || 0}</td>
+
+<td>₹${p.totalEarning || 0}</td>
+
+<td>₹${p.wallet || 0}</td>
+
+<td>
+
+${p.status || "active"}
+
+<br><br>
+
+<button onclick="deletePartner('${docu.id}')"
+style="background:red;color:white;border:none;padding:5px 10px;border-radius:6px;cursor:pointer;">
+Delete
+</button>
+
+</td>
+
+</tr>
+
+`;
+
+});
+
+partnerTable.innerHTML = html;
+
+});
+
+/* =========================
+DELETE PARTNER
+========================= */
+
+window.deletePartner = async function(id){
+
+if(confirm("Delete Partner?")){
+
+await deleteDoc(doc(db,"partners",id));
+
+alert("Partner Deleted ❌");
+
+}
+
+}
+
+</script>
 <!-- RIDERS -->
 
 <div id="riders" class="section">
