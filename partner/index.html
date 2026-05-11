@@ -1,51 +1,566 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
-<link rel="stylesheet" href="css/style.css">
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1.0">
+
+<title>QuickPress Partner Panel</title>
+
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+<style>
+
+*{
+margin:0;
+padding:0;
+box-sizing:border-box;
+font-family:Arial;
+}
+
+body{
+background:#f4f7fb;
+display:flex;
+}
+
+/* SIDEBAR */
+
+.sidebar{
+width:260px;
+height:100vh;
+background:#111827;
+color:#fff;
+position:fixed;
+left:0;
+top:0;
+overflow:auto;
+}
+
+.logo{
+padding:20px;
+background:#facc15;
+font-size:22px;
+font-weight:bold;
+text-align:center;
+color:#000;
+}
+
+.menu{
+padding:10px;
+}
+
+.menu button{
+width:100%;
+padding:14px;
+margin-bottom:8px;
+border:none;
+background:none;
+color:#fff;
+text-align:left;
+cursor:pointer;
+border-radius:10px;
+transition:0.3s;
+font-size:15px;
+}
+
+.menu button:hover{
+background:#1f2937;
+}
+
+.activeBtn{
+background:#facc15 !important;
+color:#000 !important;
+}
+
+/* MAIN */
+
+.main{
+margin-left:260px;
+padding:20px;
+width:calc(100% - 260px);
+}
+
+/* TOPBAR */
+
+.topbar{
+display:flex;
+justify-content:space-between;
+align-items:center;
+margin-bottom:20px;
+}
+
+.title{
+font-size:28px;
+font-weight:bold;
+}
+
+.profile{
+background:#fff;
+padding:10px 15px;
+border-radius:10px;
+box-shadow:0 2px 10px rgba(0,0,0,0.1);
+}
+
+/* GRID */
+
+.grid{
+display:grid;
+grid-template-columns:repeat(auto-fit,minmax(220px,1fr));
+gap:15px;
+margin-bottom:20px;
+}
+
+.card{
+background:#fff;
+padding:20px;
+border-radius:15px;
+box-shadow:0 2px 10px rgba(0,0,0,0.08);
+}
+
+.card h3{
+font-size:15px;
+color:#666;
+margin-bottom:10px;
+}
+
+.card h1{
+font-size:28px;
+}
+
+/* SECTION */
+
+.section{
+display:none;
+}
+
+.activeSection{
+display:block;
+}
+
+/* TABLE */
+
+table{
+width:100%;
+border-collapse:collapse;
+background:#fff;
+border-radius:15px;
+overflow:hidden;
+}
+
+table th{
+background:#facc15;
+padding:14px;
+text-align:left;
+}
+
+table td{
+padding:12px;
+border-bottom:1px solid #eee;
+}
+
+/* BUTTON */
+
+.btn{
+padding:8px 14px;
+border:none;
+border-radius:8px;
+cursor:pointer;
+font-weight:bold;
+}
+
+.green{
+background:#22c55e;
+color:#fff;
+}
+
+.red{
+background:#ef4444;
+color:#fff;
+}
+
+.blue{
+background:#3b82f6;
+color:#fff;
+}
+
+/* MOBILE */
+
+@media(max-width:900px){
+
+.sidebar{
+width:80px;
+}
+
+.menu button{
+font-size:0;
+}
+
+.main{
+margin-left:80px;
+width:calc(100% - 80px);
+}
+
+}
+
+</style>
 </head>
 
 <body>
 
-<div id="side"></div>
+<!-- SIDEBAR -->
 
-<div class="main">
+<div class="sidebar">
 
-<div id="top"></div>
+<div class="logo">
+Partner Panel
+</div>
 
-<div id="stats"></div>
+<div class="menu">
+
+<button class="activeBtn" onclick="showSection(event,'dashboard')">
+📊 Dashboard
+</button>
+
+<button onclick="showSection(event,'orders')">
+📦 Orders
+</button>
+
+<button onclick="showSection(event,'processing')">
+🧺 Processing
+</button>
+
+<button onclick="showSection(event,'completed')">
+✅ Completed
+</button>
+
+<button onclick="showSection(event,'earnings')">
+💰 Earnings
+</button>
+
+<button onclick="showSection(event,'wallet')">
+👛 Wallet
+</button>
+
+<button onclick="showSection(event,'withdraw')">
+💳 Withdraw
+</button>
+
+<button onclick="showSection(event,'profile')">
+👤 Profile
+</button>
+
+<button onclick="showSection(event,'help')">
+🛠 Help
+</button>
 
 </div>
 
-<script type="module">
+</div>
 
-import { sidebar, topbar } from "./js/common.js";
-import { db } from "../js/firebase.js";
-import { collection,onSnapshot } from "https://www.gstatic.com/firebasejs/12.11.0/firebase-firestore.js";
+<!-- MAIN -->
 
-side.innerHTML=sidebar();
-top.innerHTML=topbar();
+<div class="main">
 
-let name=localStorage.getItem("name");
+<div class="topbar">
 
-onSnapshot(collection(db,"orders"), snap=>{
+<div class="title">
+QuickPress Partner
+</div>
 
-let total=0,done=0;
+<div class="profile">
+👨‍🏭 Rahul Laundry
+</div>
 
-snap.forEach(d=>{
-let o=d.data();
+</div>
 
-if(o.partner===name){
-total++;
-if(o.status==="done") done++;
+<!-- DASHBOARD -->
+
+<div id="dashboard" class="section activeSection">
+
+<div class="grid">
+
+<div class="card">
+<h3>Total Orders</h3>
+<h1>245</h1>
+</div>
+
+<div class="card">
+<h3>Processing</h3>
+<h1>32</h1>
+</div>
+
+<div class="card">
+<h3>Completed</h3>
+<h1>198</h1>
+</div>
+
+<div class="card">
+<h3>Total Earnings</h3>
+<h1>₹54,000</h1>
+</div>
+
+</div>
+
+<div class="card">
+<canvas id="earningChart"></canvas>
+</div>
+
+</div>
+
+<!-- ORDERS -->
+
+<div id="orders" class="section">
+
+<div class="card">
+
+<h2>Assigned Orders</h2>
+
+<table>
+
+<thead>
+<tr>
+<th>Customer</th>
+<th>Items</th>
+<th>Status</th>
+<th>Action</th>
+</tr>
+</thead>
+
+<tbody id="ordersTable">
+
+<tr>
+<td>Himanshu</td>
+<td>5 Clothes</td>
+<td>Pickup</td>
+<td>
+<button class="btn blue">Accept</button>
+</td>
+</tr>
+
+</tbody>
+
+</table>
+
+</div>
+
+</div>
+
+<!-- PROCESSING -->
+
+<div id="processing" class="section">
+
+<div class="card">
+
+<h2>Processing Orders</h2>
+
+<table>
+
+<thead>
+<tr>
+<th>Customer</th>
+<th>Status</th>
+<th>Action</th>
+</tr>
+</thead>
+
+<tbody>
+
+<tr>
+<td>Rohit</td>
+<td>Ironing</td>
+<td>
+<button class="btn green">
+Mark Ready
+</button>
+</td>
+</tr>
+
+</tbody>
+
+</table>
+
+</div>
+
+</div>
+
+<!-- COMPLETED -->
+
+<div id="completed" class="section">
+
+<div class="card">
+
+<h2>Completed Orders</h2>
+
+<table>
+
+<thead>
+<tr>
+<th>Customer</th>
+<th>Total</th>
+<th>Date</th>
+</tr>
+</thead>
+
+<tbody>
+
+<tr>
+<td>Aman</td>
+<td>₹320</td>
+<td>Today</td>
+</tr>
+
+</tbody>
+
+</table>
+
+</div>
+
+</div>
+
+<!-- EARNINGS -->
+
+<div id="earnings" class="section">
+
+<div class="grid">
+
+<div class="card">
+<h3>Today Earnings</h3>
+<h1>₹2,400</h1>
+</div>
+
+<div class="card">
+<h3>This Week</h3>
+<h1>₹14,000</h1>
+</div>
+
+<div class="card">
+<h3>This Month</h3>
+<h1>₹54,000</h1>
+</div>
+
+</div>
+
+<div class="card">
+<canvas id="earningGraph"></canvas>
+</div>
+
+</div>
+
+<!-- WALLET -->
+
+<div id="wallet" class="section">
+
+<div class="card">
+
+<h2>Wallet Balance</h2>
+
+<h1>₹12,450</h1>
+
+</div>
+
+</div>
+
+<!-- WITHDRAW -->
+
+<div id="withdraw" class="section">
+
+<div class="card">
+
+<h2>Withdraw Request</h2>
+
+<input type="number" placeholder="Enter Amount" style="width:100%;padding:12px;margin-top:10px;border-radius:10px;border:1px solid #ddd">
+
+<br><br>
+
+<button class="btn green">
+Request Withdraw
+</button>
+
+</div>
+
+</div>
+
+<!-- PROFILE -->
+
+<div id="profile" class="section">
+
+<div class="card">
+
+<h2>Partner Profile</h2>
+
+<p><b>Name:</b> Rahul Laundry</p>
+<p><b>Phone:</b> 9999999999</p>
+<p><b>Shop:</b> Rahul Dry Cleaners</p>
+<p><b>Area:</b> Agra</p>
+
+</div>
+
+</div>
+
+<!-- HELP -->
+
+<div id="help" class="section">
+
+<div class="card">
+
+<h2>Help Center</h2>
+
+<p>Email: support@quickpress.com</p>
+<p>Phone: +91 9999999999</p>
+
+</div>
+
+</div>
+
+</div>
+
+<script>
+
+/* SECTION */
+
+function showSection(e,id){
+
+document.querySelectorAll(".section")
+.forEach(s=>s.classList.remove("activeSection"));
+
+document.querySelectorAll(".menu button")
+.forEach(b=>b.classList.remove("activeBtn"));
+
+document.getElementById(id)
+.classList.add("activeSection");
+
+e.target.classList.add("activeBtn");
+
 }
-});
 
-stats.innerHTML=`
-<div class="card">Total Orders: ${total}</div>
-<div class="card">Completed: ${done}</div>
-`;
+/* CHARTS */
 
-});
+new Chart(
+document.getElementById("earningChart"),
+{
+type:'bar',
+data:{
+labels:['Mon','Tue','Wed','Thu','Fri'],
+datasets:[{
+label:'Orders',
+data:[12,19,8,15,22]
+}]
+}
+}
+);
+
+new Chart(
+document.getElementById("earningGraph"),
+{
+type:'line',
+data:{
+labels:['Week1','Week2','Week3','Week4'],
+datasets:[{
+label:'Earnings',
+data:[12000,18000,15000,22000]
+}]
+}
+}
+);
 
 </script>
 
