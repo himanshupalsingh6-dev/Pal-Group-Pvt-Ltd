@@ -563,6 +563,157 @@ data:[12000,18000,15000,22000]
 );
 
 </script>
+<!-- =========================================
+PUT THIS CODE INSIDE:
+admin/index.html
+partner/index.html
+rider/index.html
+========================================= -->
 
+<script type="module">
+
+import { initializeApp }
+from "https://www.gstatic.com/firebasejs/12.11.0/firebase-app.js";
+
+import {
+getAuth,
+onAuthStateChanged
+}
+from "https://www.gstatic.com/firebasejs/12.11.0/firebase-auth.js";
+
+import {
+getFirestore,
+doc,
+getDoc
+}
+from "https://www.gstatic.com/firebasejs/12.11.0/firebase-firestore.js";
+
+/* FIREBASE CONFIG */
+
+const firebaseConfig = {
+apiKey: "AIzaSyBBaslH5QsahoyESYpo1nVtlYIUYfVJ2d4",
+authDomain: "quickpress-offical.firebaseapp.com",
+projectId: "quickpress-offical",
+storageBucket: "quickpress-offical.firebasestorage.app",
+messagingSenderId: "939286557961",
+appId: "1:939286557961:web:ddac64f197e14877718fd8"
+};
+
+const app = initializeApp(firebaseConfig);
+
+const auth = getAuth(app);
+const db = getFirestore(app);
+
+/* =========================================
+CHANGE THIS ROLE FOR EVERY PANEL
+========================================= */
+
+const REQUIRED_ROLE = "admin";
+
+/*
+ADMIN PANEL:
+const REQUIRED_ROLE = "admin";
+
+PARTNER PANEL:
+const REQUIRED_ROLE = "partner";
+
+RIDER PANEL:
+const REQUIRED_ROLE = "rider";
+*/
+
+/* =========================================
+AUTH CHECK
+========================================= */
+
+onAuthStateChanged(auth, async(user)=>{
+
+/* NOT LOGIN */
+
+if(!user){
+
+alert("Login Required 🔐");
+
+window.location.href="../auth/login.html";
+
+return;
+
+}
+
+try{
+
+/* GET USER DATA */
+
+const userRef = doc(db,"users",user.uid);
+
+const snap = await getDoc(userRef);
+
+/* NO USER */
+
+if(!snap.exists()){
+
+alert("User Not Found ❌");
+
+window.location.href="../auth/login.html";
+
+return;
+
+}
+
+const data = snap.data();
+
+/* ROLE CHECK */
+
+if(data.role !== REQUIRED_ROLE){
+
+alert("Access Denied ❌");
+
+/* REDIRECT BASED ON ROLE */
+
+if(data.role === "admin"){
+
+window.location.href="../admin/index.html";
+
+}
+
+else if(data.role === "partner"){
+
+window.location.href="../partner/index.html";
+
+}
+
+else if(data.role === "rider"){
+
+window.location.href="../rider/index.html";
+
+}
+
+else{
+
+window.location.href="../index.html";
+
+}
+
+return;
+
+}
+
+/* ACCESS GRANTED */
+
+console.log("Access Granted ✅");
+
+}
+catch(err){
+
+console.log(err);
+
+alert("Security Error ❌");
+
+window.location.href="../auth/login.html";
+
+}
+
+});
+
+</script>
 </body>
 </html>
