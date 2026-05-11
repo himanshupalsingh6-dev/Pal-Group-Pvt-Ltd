@@ -1,0 +1,398 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1.0">
+
+<title>Partner & Rider Creation</title>
+
+<style>
+
+*{
+margin:0;
+padding:0;
+box-sizing:border-box;
+font-family:Arial;
+}
+
+body{
+background:#f4f7fb;
+padding:20px;
+}
+
+.container{
+max-width:1200px;
+margin:auto;
+display:grid;
+grid-template-columns:1fr 1fr;
+gap:20px;
+}
+
+.card{
+background:#fff;
+padding:20px;
+border-radius:20px;
+box-shadow:0 4px 20px rgba(0,0,0,0.08);
+}
+
+h2{
+margin-bottom:20px;
+}
+
+input{
+width:100%;
+padding:14px;
+margin-bottom:12px;
+border-radius:10px;
+border:1px solid #ddd;
+}
+
+button{
+width:100%;
+padding:14px;
+border:none;
+border-radius:10px;
+background:#111827;
+color:#fff;
+font-size:16px;
+font-weight:bold;
+cursor:pointer;
+}
+
+button:hover{
+opacity:0.9;
+}
+
+.list{
+margin-top:20px;
+}
+
+.item{
+background:#f9fafb;
+padding:12px;
+border-radius:10px;
+margin-bottom:10px;
+}
+
+</style>
+</head>
+
+<body>
+
+<div class="container">
+
+<!-- PARTNER -->
+
+<div class="card">
+
+<h2>👨‍🏭 Create Partner</h2>
+
+<input type="text" id="p_name" placeholder="Partner Name">
+
+<input type="text" id="p_phone" placeholder="Phone">
+
+<input type="email" id="p_email" placeholder="Email">
+
+<input type="password" id="p_password" placeholder="Password">
+
+<input type="text" id="p_aadhaar" placeholder="Aadhaar Number">
+
+<input type="text" id="p_pan" placeholder="PAN Number">
+
+<input type="text" id="p_shop" placeholder="Shop Name">
+
+<input type="text" id="p_area" placeholder="Area">
+
+<button onclick="createPartner()">
+Create Partner
+</button>
+
+<div class="list" id="partnerList"></div>
+
+</div>
+
+<!-- RIDER -->
+
+<div class="card">
+
+<h2>🚚 Create Rider</h2>
+
+<input type="text" id="r_name" placeholder="Rider Name">
+
+<input type="text" id="r_phone" placeholder="Phone">
+
+<input type="email" id="r_email" placeholder="Email">
+
+<input type="password" id="r_password" placeholder="Password">
+
+<input type="text" id="r_aadhaar" placeholder="Aadhaar Number">
+
+<input type="text" id="r_license" placeholder="Driving License">
+
+<input type="text" id="r_bike" placeholder="Bike Number">
+
+<input type="text" id="r_area" placeholder="Area">
+
+<button onclick="createRider()">
+Create Rider
+</button>
+
+<div class="list" id="riderList"></div>
+
+</div>
+
+</div>
+
+<!-- FIREBASE -->
+
+<script type="module">
+
+import { initializeApp }
+from "https://www.gstatic.com/firebasejs/12.11.0/firebase-app.js";
+
+import {
+getAuth,
+createUserWithEmailAndPassword
+}
+from "https://www.gstatic.com/firebasejs/12.11.0/firebase-auth.js";
+
+import {
+getFirestore,
+doc,
+setDoc,
+collection,
+onSnapshot
+}
+from "https://www.gstatic.com/firebasejs/12.11.0/firebase-firestore.js";
+
+/* FIREBASE CONFIG */
+
+const firebaseConfig = {
+apiKey: "AIzaSyBBaslH5QsahoyESYpo1nVtlYIUYfVJ2d4",
+authDomain: "quickpress-offical.firebaseapp.com",
+projectId: "quickpress-offical",
+storageBucket: "quickpress-offical.firebasestorage.app",
+messagingSenderId: "939286557961",
+appId: "1:939286557961:web:ddac64f197e14877718fd8"
+};
+
+const app = initializeApp(firebaseConfig);
+
+const auth = getAuth(app);
+const db = getFirestore(app);
+
+/* =========================
+   CREATE PARTNER
+========================= */
+
+window.createPartner = async function(){
+
+try{
+
+let name=document.getElementById("p_name").value;
+let phone=document.getElementById("p_phone").value;
+let email=document.getElementById("p_email").value;
+let password=document.getElementById("p_password").value;
+let aadhaar=document.getElementById("p_aadhaar").value;
+let pan=document.getElementById("p_pan").value;
+let shop=document.getElementById("p_shop").value;
+let area=document.getElementById("p_area").value;
+
+/* CREATE AUTH */
+
+let userCredential =
+await createUserWithEmailAndPassword(
+auth,
+email,
+password
+);
+
+let uid=userCredential.user.uid;
+
+/* SAVE USERS */
+
+await setDoc(doc(db,"users",uid),{
+
+name:name,
+phone:phone,
+email:email,
+role:"partner",
+createdAt:Date.now()
+
+});
+
+/* SAVE PARTNER */
+
+await setDoc(doc(db,"partners",uid),{
+
+name:name,
+phone:phone,
+email:email,
+aadhaar:aadhaar,
+pan:pan,
+shop:shop,
+area:area,
+wallet:0,
+totalOrders:0,
+totalEarning:0,
+role:"partner"
+
+});
+
+/* WALLET */
+
+await setDoc(doc(db,"wallets",uid),{
+
+balance:0
+
+});
+
+alert("Partner Created ✅");
+
+}catch(err){
+
+alert(err.message);
+
+}
+
+}
+
+/* =========================
+   CREATE RIDER
+========================= */
+
+window.createRider = async function(){
+
+try{
+
+let name=document.getElementById("r_name").value;
+let phone=document.getElementById("r_phone").value;
+let email=document.getElementById("r_email").value;
+let password=document.getElementById("r_password").value;
+let aadhaar=document.getElementById("r_aadhaar").value;
+let license=document.getElementById("r_license").value;
+let bike=document.getElementById("r_bike").value;
+let area=document.getElementById("r_area").value;
+
+/* CREATE AUTH */
+
+let userCredential =
+await createUserWithEmailAndPassword(
+auth,
+email,
+password
+);
+
+let uid=userCredential.user.uid;
+
+/* SAVE USERS */
+
+await setDoc(doc(db,"users",uid),{
+
+name:name,
+phone:phone,
+email:email,
+role:"rider",
+createdAt:Date.now()
+
+});
+
+/* SAVE RIDER */
+
+await setDoc(doc(db,"delivery",uid),{
+
+name:name,
+phone:phone,
+email:email,
+aadhaar:aadhaar,
+license:license,
+bike:bike,
+area:area,
+wallet:0,
+totalDeliveries:0,
+totalEarning:0,
+status:"offline",
+role:"rider"
+
+});
+
+/* WALLET */
+
+await setDoc(doc(db,"wallets",uid),{
+
+balance:0
+
+});
+
+alert("Rider Created ✅");
+
+}catch(err){
+
+alert(err.message);
+
+}
+
+}
+
+/* =========================
+   LOAD PARTNERS
+========================= */
+
+onSnapshot(
+collection(db,"partners"),
+(snapshot)=>{
+
+let html="";
+
+snapshot.forEach((docu)=>{
+
+let p=docu.data();
+
+html+=`
+<div class="item">
+<b>${p.name}</b><br>
+${p.phone}<br>
+${p.shop}<br>
+₹${p.totalEarning}
+</div>
+`;
+
+});
+
+document.getElementById("partnerList").innerHTML=html;
+
+});
+
+/* =========================
+   LOAD RIDERS
+========================= */
+
+onSnapshot(
+collection(db,"delivery"),
+(snapshot)=>{
+
+let html="";
+
+snapshot.forEach((docu)=>{
+
+let r=docu.data();
+
+html+=`
+<div class="item">
+<b>${r.name}</b><br>
+${r.phone}<br>
+${r.bike}<br>
+₹${r.totalEarning}
+</div>
+`;
+
+});
+
+document.getElementById("riderList").innerHTML=html;
+
+});
+
+</script>
+
+</body>
+</html>
