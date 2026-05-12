@@ -1645,12 +1645,389 @@ alert("User Deleted ❌");
 </script>
 <!-- WALLET -->
 
-<div id="wallet" class="section">
-<div class="card">
-<h2>Wallet System</h2>
-<div id="walletList"></div>
+<!-- =========================
+USERS TAB
+========================= -->
+
+<div id="users" class="section">
+
+<!-- TOP -->
+
+<div class="top-orders-bar">
+
+<h1>👥 Users Management</h1>
+
+<div class="filters">
+
+<input
+type="text"
+id="searchUser"
+placeholder="Search user">
+
 </div>
+
 </div>
+
+<!-- STATS -->
+
+<div class="orders-stats">
+
+<div class="o-card">
+<h3>Total Users</h3>
+<h1 id="totalUsers">0</h1>
+</div>
+
+<div class="o-card">
+<h3>Total Orders</h3>
+<h1 id="usersOrders">0</h1>
+</div>
+
+<div class="o-card">
+<h3>Total Revenue</h3>
+<h1 id="usersRevenue">₹0</h1>
+</div>
+
+<div class="o-card">
+<h3>Active Users</h3>
+<h1 id="activeUsers">0</h1>
+</div>
+
+</div>
+
+<!-- USER LIST -->
+
+<div id="usersContainer"></div>
+
+</div>
+
+<!-- =========================
+LIVE USER SYSTEM
+========================= -->
+
+<script type="module">
+
+import { db } from "./firebase.js";
+
+import {
+
+collection,
+onSnapshot,
+doc,
+deleteDoc
+
+}
+
+from "https://www.gstatic.com/firebasejs/12.11.0/firebase-firestore.js";
+
+/* ELEMENTS */
+
+const usersContainer =
+document.getElementById("usersContainer");
+
+const searchUser =
+document.getElementById("searchUser");
+
+const totalUsers =
+document.getElementById("totalUsers");
+
+const usersOrders =
+document.getElementById("usersOrders");
+
+const usersRevenue =
+document.getElementById("usersRevenue");
+
+const activeUsers =
+document.getElementById("activeUsers");
+
+/* ARRAY */
+
+let allUsers = [];
+
+/* =========================
+LIVE FIREBASE USERS
+========================= */
+
+onSnapshot(collection(db,"users"),(snapshot)=>{
+
+allUsers = [];
+
+snapshot.forEach((docu)=>{
+
+allUsers.push({
+
+id:docu.id,
+...docu.data()
+
+});
+
+});
+
+renderUsers();
+
+});
+
+/* =========================
+RENDER USERS
+========================= */
+
+function renderUsers(){
+
+let html = "";
+
+let orders = 0;
+
+let revenue = 0;
+
+let active = 0;
+
+const search =
+searchUser.value.toLowerCase();
+
+allUsers.forEach((user)=>{
+
+const name =
+(user.name || "").toLowerCase();
+
+const phone =
+(user.phone || "").toLowerCase();
+
+if(
+!name.includes(search) &&
+!phone.includes(search)
+){
+return;
+}
+
+orders += Number(user.totalOrders || 0);
+
+revenue += Number(user.totalSpent || 0);
+
+if(user.status !== "blocked"){
+active++;
+}
+
+html += `
+
+<div class="order-premium-card">
+
+<div class="order-header">
+
+<div>
+
+<div class="order-id">
+
+${user.name || "Unknown User"}
+
+</div>
+
+<div>
+
+UID:
+${user.id}
+
+</div>
+
+</div>
+
+<div class="status-badge completed">
+
+${user.status || "active"}
+
+</div>
+
+</div>
+
+<div class="order-grid">
+
+<!-- USER INFO -->
+
+<div class="info-box">
+
+<h4>👤 User Info</h4>
+
+<p><b>Name:</b>
+${user.name || "-"}</p>
+
+<p><b>Phone:</b>
+${user.phone || "-"}</p>
+
+<p><b>Email:</b>
+${user.email || "-"}</p>
+
+<p><b>Address:</b>
+${user.address || "-"}</p>
+
+</div>
+
+<!-- ORDER INFO -->
+
+<div class="info-box">
+
+<h4>📦 Orders Info</h4>
+
+<p><b>Total Orders:</b>
+${user.totalOrders || 0}</p>
+
+<p><b>Total Spent:</b>
+₹${user.totalSpent || 0}</p>
+
+<p><b>Last Order:</b>
+${user.lastOrder || "-"}</p>
+
+<p><b>Joined:</b>
+${user.createdAt
+? new Date(user.createdAt).toLocaleDateString()
+: "-"}</p>
+
+</div>
+
+<!-- LOCATION -->
+
+<div class="info-box">
+
+<h4>📍 Location</h4>
+
+<p><b>City:</b>
+${user.city || "-"}</p>
+
+<p><b>State:</b>
+${user.state || "-"}</p>
+
+<p><b>Pincode:</b>
+${user.pincode || "-"}</p>
+
+<p><b>Status:</b>
+${user.status || "active"}</p>
+
+</div>
+
+</div>
+
+<!-- ACTIONS -->
+
+<div class="order-actions">
+
+<button class="btn-blue"
+onclick="callUser('${user.phone}')">
+
+📞 Call
+
+</button>
+
+<button class="btn-green"
+onclick="whatsappUser('${user.phone}')">
+
+💬 WhatsApp
+
+</button>
+
+<button class="btn-orange"
+onclick="viewUserOrders('${user.id}')">
+
+📦 Orders
+
+</button>
+
+<button class="btn-red"
+onclick="deleteUser('${user.id}')">
+
+🗑 Delete
+
+</button>
+
+</div>
+
+</div>
+
+`;
+
+});
+
+/* STATS */
+
+totalUsers.innerHTML =
+allUsers.length;
+
+usersOrders.innerHTML =
+orders;
+
+usersRevenue.innerHTML =
+"₹" + revenue;
+
+activeUsers.innerHTML =
+active;
+
+/* SHOW */
+
+usersContainer.innerHTML =
+html || "<h2>No Users Found</h2>";
+
+}
+
+/* =========================
+SEARCH
+========================= */
+
+searchUser.addEventListener(
+"input",
+renderUsers
+);
+
+/* =========================
+CALL
+========================= */
+
+window.callUser =
+function(phone){
+
+window.open(`tel:${phone}`);
+
+}
+
+/* =========================
+WHATSAPP
+========================= */
+
+window.whatsappUser =
+function(phone){
+
+window.open(
+`https://wa.me/91${phone}`
+);
+
+}
+
+/* =========================
+VIEW ORDERS
+========================= */
+
+window.viewUserOrders =
+function(uid){
+
+alert(
+"Open orders of user: " + uid
+);
+
+}
+
+/* =========================
+DELETE USER
+========================= */
+
+window.deleteUser =
+async function(uid){
+
+if(confirm("Delete User?")){
+
+await deleteDoc(doc(db,"users",uid));
+
+alert("User Deleted ❌");
+
+}
+
+}
+
+</script>
 
 <!-- WITHDRAW -->
 
