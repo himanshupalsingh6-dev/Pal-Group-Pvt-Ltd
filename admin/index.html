@@ -3851,30 +3851,6 @@ alert(
 
 </script>
 
-/* SECTION */
-
-function showSection(e,id){
-
-document.querySelectorAll(".section")
-.forEach(s=>s.classList.remove("activeSection"));
-
-document.querySelectorAll(".menu button")
-.forEach(b=>b.classList.remove("activeBtn"));
-
-document.getElementById(id)
-.classList.add("activeSection");
-
-e.target.classList.add("activeBtn");
-
-}
-
-/* DEMO DATA */
-
-document.getElementById("totalOrders").innerHTML=245;
-document.getElementById("totalRevenue").innerHTML="₹54,200";
-document.getElementById("totalUsers").innerHTML=120;
-document.getElementById("totalRiders").innerHTML=12;
-
 /* ORDERS */
 
 document.getElementById("ordersTable").innerHTML=`
@@ -3940,34 +3916,6 @@ Rahul → ₹2,000
 `;
 
 /* CHART */
-
-new Chart(
-document.getElementById("revenueChart"),
-{
-type:'bar',
-data:{
-labels:['Mon','Tue','Wed','Thu','Fri'],
-datasets:[{
-label:'Revenue',
-data:[1200,2200,1800,3200,2500]
-}]
-}
-}
-);
-
-new Chart(
-document.getElementById("analyticsChart"),
-{
-type:'line',
-data:{
-labels:['Jan','Feb','Mar','Apr'],
-datasets:[{
-label:'Orders',
-data:[20,50,90,120]
-}]
-}
-}
-);
 
 </script>
 <!-- =========================================
