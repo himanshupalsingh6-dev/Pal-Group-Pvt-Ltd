@@ -2031,12 +2031,486 @@ alert("User Deleted ❌");
 
 <!-- WITHDRAW -->
 
+<!-- =========================
+REAL WITHDRAW SYSTEM
+========================= -->
+
 <div id="withdraw" class="section">
-<div class="card">
-<h2>Withdraw Requests</h2>
-<div id="withdrawList"></div>
+
+<!-- TOP -->
+
+<div class="top-orders-bar">
+
+<h1>🏦 Withdraw Requests</h1>
+
+<div class="filters">
+
+<input
+type="text"
+id="searchWithdraw"
+placeholder="Search withdraw">
+
+<select id="withdrawFilter">
+
+<option value="all">All Status</option>
+
+<option value="pending">Pending</option>
+
+<option value="approved">Approved</option>
+
+<option value="rejected">Rejected</option>
+
+</select>
+
 </div>
+
 </div>
+
+<!-- STATS -->
+
+<div class="orders-stats">
+
+<div class="o-card">
+<h3>Total Requests</h3>
+<h1 id="withdrawTotal">0</h1>
+</div>
+
+<div class="o-card">
+<h3>Pending</h3>
+<h1 id="withdrawPending">0</h1>
+</div>
+
+<div class="o-card">
+<h3>Approved</h3>
+<h1 id="withdrawApproved">0</h1>
+</div>
+
+<div class="o-card">
+<h3>Total Withdraw Amount</h3>
+<h1 id="withdrawAmount">₹0</h1>
+</div>
+
+</div>
+
+<!-- LIST -->
+
+<div id="withdrawContainer"></div>
+
+</div>
+
+<!-- =========================
+REAL FIREBASE WITHDRAW
+========================= -->
+
+<script type="module">
+
+import { db } from "./firebase.js";
+
+import {
+
+collection,
+onSnapshot,
+doc,
+updateDoc,
+deleteDoc,
+increment,
+addDoc
+
+}
+
+from "https://www.gstatic.com/firebasejs/12.11.0/firebase-firestore.js";
+
+/* ELEMENTS */
+
+const withdrawContainer =
+document.getElementById("withdrawContainer");
+
+const searchWithdraw =
+document.getElementById("searchWithdraw");
+
+const withdrawFilter =
+document.getElementById("withdrawFilter");
+
+const withdrawTotal =
+document.getElementById("withdrawTotal");
+
+const withdrawPending =
+document.getElementById("withdrawPending");
+
+const withdrawApproved =
+document.getElementById("withdrawApproved");
+
+const withdrawAmount =
+document.getElementById("withdrawAmount");
+
+/* ARRAY */
+
+let allWithdraws = [];
+
+/* =========================
+LIVE WITHDRAWS
+========================= */
+
+onSnapshot(collection(db,"withdraws"),(snapshot)=>{
+
+allWithdraws = [];
+
+snapshot.forEach((docu)=>{
+
+allWithdraws.push({
+
+id:docu.id,
+...docu.data()
+
+});
+
+});
+
+renderWithdraws();
+
+});
+
+/* =========================
+RENDER
+========================= */
+
+function renderWithdraws(){
+
+let html = "";
+
+let total = 0;
+
+let pending = 0;
+
+let approved = 0;
+
+let amount = 0;
+
+const search =
+searchWithdraw.value.toLowerCase();
+
+const filter =
+withdrawFilter.value;
+
+/* LOOP */
+
+allWithdraws.forEach((withdraw)=>{
+
+const name =
+(withdraw.name || "").toLowerCase();
+
+if(!name.includes(search)){
+return;
+}
+
+if(
+filter !== "all" &&
+withdraw.status !== filter
+){
+return;
+}
+
+/* STATS */
+
+total++;
+
+amount += Number(withdraw.amount || 0);
+
+if(withdraw.status==="pending"){
+pending++;
+}
+
+if(withdraw.status==="approved"){
+approved++;
+}
+
+/* CARD */
+
+html += `
+
+<div class="order-premium-card">
+
+<div class="order-header">
+
+<div>
+
+<div class="order-id">
+
+${withdraw.name || "Unknown"}
+
+</div>
+
+<div>
+
+UID:
+${withdraw.uid || "-"}
+
+</div>
+
+</div>
+
+<div class="status-badge ${withdraw.status || 'pending'}">
+
+${withdraw.status || "pending"}
+
+</div>
+
+</div>
+
+<div class="order-grid">
+
+<!-- USER -->
+
+<div class="info-box">
+
+<h4>👤 User Details</h4>
+
+<p><b>Name:</b>
+${withdraw.name || "-"}</p>
+
+<p><b>Role:</b>
+${withdraw.role || "-"}</p>
+
+<p><b>Phone:</b>
+${withdraw.phone || "-"}</p>
+
+<p><b>Email:</b>
+${withdraw.email || "-"}</p>
+
+</div>
+
+<!-- BANK -->
+
+<div class="info-box">
+
+<h4>🏦 Bank Details</h4>
+
+<p><b>Bank:</b>
+${withdraw.bankName || "-"}</p>
+
+<p><b>Account:</b>
+${withdraw.accountNumber || "-"}</p>
+
+<p><b>IFSC:</b>
+${withdraw.ifsc || "-"}</p>
+
+<p><b>UPI:</b>
+${withdraw.upi || "-"}</p>
+
+</div>
+
+<!-- AMOUNT -->
+
+<div class="info-box">
+
+<h4>💰 Withdraw Info</h4>
+
+<p><b>Amount:</b>
+₹${withdraw.amount || 0}</p>
+
+<p><b>Status:</b>
+${withdraw.status || "-"}</p>
+
+<p><b>Date:</b>
+${withdraw.createdAt
+? new Date(withdraw.createdAt)
+.toLocaleString()
+: "-"}</p>
+
+<p><b>Wallet Balance:</b>
+₹${withdraw.walletBalance || 0}</p>
+
+</div>
+
+</div>
+
+<!-- ACTIONS -->
+
+<div class="order-actions">
+
+${
+withdraw.status === "pending"
+?
+
+`
+
+<button class="btn-green"
+onclick="approveWithdraw(
+'${withdraw.id}',
+'${withdraw.uid}',
+${withdraw.amount}
+)">
+
+✅ Approve
+
+</button>
+
+<button class="btn-red"
+onclick="rejectWithdraw(
+'${withdraw.id}'
+)">
+
+❌ Reject
+
+</button>
+
+`
+
+:
+
+`
+
+<button class="btn-blue">
+
+${withdraw.status}
+
+</button>
+
+`
+
+}
+
+<button class="btn-orange"
+onclick="deleteWithdraw(
+'${withdraw.id}'
+)">
+
+🗑 Delete
+
+</button>
+
+</div>
+
+</div>
+
+`;
+
+});
+
+/* STATS */
+
+withdrawTotal.innerHTML =
+total;
+
+withdrawPending.innerHTML =
+pending;
+
+withdrawApproved.innerHTML =
+approved;
+
+withdrawAmount.innerHTML =
+"₹" + amount;
+
+/* SHOW */
+
+withdrawContainer.innerHTML =
+html || "<h2>No Withdraw Requests</h2>";
+
+}
+
+/* =========================
+FILTER
+========================= */
+
+searchWithdraw.addEventListener(
+"input",
+renderWithdraws
+);
+
+withdrawFilter.addEventListener(
+"change",
+renderWithdraws
+);
+
+/* =========================
+APPROVE
+========================= */
+
+window.approveWithdraw =
+async function(id,uid,amount){
+
+/* UPDATE STATUS */
+
+await updateDoc(
+doc(db,"withdraws",id),
+{
+
+status:"approved",
+approvedAt:Date.now()
+
+}
+);
+
+/* DEDUCT WALLET */
+
+await updateDoc(
+doc(db,"wallets",uid),
+{
+
+balance: increment(-Number(amount))
+
+}
+);
+
+/* TRANSACTION */
+
+await addDoc(
+collection(db,"transactions"),
+{
+
+uid,
+amount:Number(amount),
+type:"withdraw",
+status:"approved",
+time:Date.now()
+
+}
+);
+
+alert("Withdraw Approved ✅");
+
+}
+
+/* =========================
+REJECT
+========================= */
+
+window.rejectWithdraw =
+async function(id){
+
+await updateDoc(
+doc(db,"withdraws",id),
+{
+
+status:"rejected"
+
+}
+);
+
+alert("Withdraw Rejected ❌");
+
+}
+
+/* =========================
+DELETE
+========================= */
+
+window.deleteWithdraw =
+async function(id){
+
+if(confirm("Delete Withdraw Request?")){
+
+await deleteDoc(
+doc(db,"withdraws",id)
+);
+
+alert("Deleted ❌");
+
+}
+
+}
+
+</script>
 
 <!-- ANALYTICS -->
 
