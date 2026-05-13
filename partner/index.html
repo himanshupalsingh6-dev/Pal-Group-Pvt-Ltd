@@ -211,6 +211,10 @@ Partner
 🛠 Help
 </button>
 </a>
+  
+<button onclick="logout()">
+🚪 Logout
+</button>
 
 </div>
 
@@ -410,6 +414,20 @@ ordersTable.innerHTML = html;
 });
 
 </script>
+<script>
 
+function logout(){
+
+localStorage.removeItem("partnerId");
+
+localStorage.removeItem("partnerName");
+
+window.location.href =
+"./login.html";
+
+}
+
+</script>
+  
 </body>
 </html>
