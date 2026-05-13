@@ -4,7 +4,8 @@
 <head>
 
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="viewport"
+content="width=device-width, initial-scale=1.0">
 
 <title>QuickPress Users</title>
 
@@ -13,7 +14,7 @@
 body{
 margin:0;
 font-family:Arial,sans-serif;
-background:#f5f6fa;
+background:#f4f7fb;
 }
 
 .layout{
@@ -24,19 +25,18 @@ min-height:100vh;
 /* SIDEBAR */
 
 .sidebar{
-width:220px;
+width:240px;
 background:#07142b;
 position:fixed;
 height:100%;
+overflow:auto;
 color:#fff;
-padding-top:20px;
 }
 
 .logo{
 font-size:30px;
 font-weight:bold;
-padding-left:22px;
-margin-bottom:30px;
+padding:25px;
 color:#FFD400;
 }
 
@@ -50,7 +50,7 @@ border:none;
 background:none;
 color:#fff;
 padding:18px 25px;
-font-size:17px;
+font-size:16px;
 text-align:left;
 cursor:pointer;
 transition:0.3s;
@@ -69,8 +69,8 @@ color:#000 !important;
 /* MAIN */
 
 .main{
-margin-left:220px;
-padding:28px;
+margin-left:240px;
+padding:25px;
 width:100%;
 }
 
@@ -89,13 +89,13 @@ font-weight:bold;
 box-shadow:0 5px 15px rgba(0,0,0,0.08);
 }
 
-/* GRID */
+/* CARDS */
 
 .grid{
 display:grid;
-grid-template-columns:repeat(auto-fit,minmax(240px,1fr));
+grid-template-columns:repeat(auto-fit,minmax(230px,1fr));
 gap:20px;
-margin-bottom:30px;
+margin-bottom:25px;
 }
 
 .card{
@@ -108,27 +108,28 @@ box-shadow:0 5px 18px rgba(0,0,0,0.08);
 .card h2{
 margin:0;
 font-size:18px;
-margin-bottom:12px;
+margin-bottom:10px;
+color:#666;
 }
 
 .card h1{
 margin:0;
-font-size:42px;
+font-size:38px;
 }
 
-/* SEARCH */
+/* FILTER */
 
-.searchBox{
+.filterCard{
 background:#fff;
-padding:20px;
-border-radius:20px;
+padding:25px;
+border-radius:22px;
 margin-bottom:25px;
 box-shadow:0 5px 18px rgba(0,0,0,0.08);
 }
 
-.searchGrid{
+.filterGrid{
 display:grid;
-grid-template-columns:repeat(auto-fit,minmax(250px,1fr));
+grid-template-columns:repeat(auto-fit,minmax(220px,1fr));
 gap:15px;
 }
 
@@ -137,6 +138,8 @@ padding:14px;
 border-radius:12px;
 border:1px solid #ddd;
 font-size:15px;
+width:100%;
+box-sizing:border-box;
 }
 
 /* TABLE */
@@ -175,36 +178,81 @@ cursor:pointer;
 font-weight:bold;
 }
 
+.green{
+background:#22c55e;
+color:#fff;
+}
+
 .red{
 background:#ef4444;
 color:#fff;
 }
 
 .blue{
-background:#3b82f6;
-color:#fff;
-}
-
-.green{
-background:#22c55e;
+background:#2563eb;
 color:#fff;
 }
 
 /* STATUS */
 
-.status{
-padding:6px 12px;
-border-radius:20px;
-font-size:13px;
+.active{
+color:#16a34a;
 font-weight:bold;
 }
 
-.active{
-background:#86efac;
+.blocked{
+color:#dc2626;
+font-weight:bold;
 }
 
-.blocked{
-background:#fecaca;
+/* MODAL */
+
+.modal{
+display:none;
+position:fixed;
+z-index:999;
+left:0;
+top:0;
+width:100%;
+height:100%;
+background:rgba(0,0,0,0.5);
+overflow:auto;
+}
+
+.modalContent{
+background:#fff;
+margin:30px auto;
+padding:25px;
+width:90%;
+max-width:950px;
+border-radius:25px;
+}
+
+.closeBtn{
+float:right;
+font-size:25px;
+cursor:pointer;
+}
+
+.detailGrid{
+display:grid;
+grid-template-columns:repeat(auto-fit,minmax(250px,1fr));
+gap:20px;
+margin-top:25px;
+}
+
+.detailCard{
+background:#f7f7f7;
+padding:18px;
+border-radius:15px;
+}
+
+.orderCard{
+background:#fff;
+padding:18px;
+border-radius:15px;
+margin-top:15px;
+border:1px solid #eee;
 }
 
 </style>
@@ -253,18 +301,6 @@ QuickPress
 <button>💳 Withdraw</button>
 </a>
 
-<a href="./analytics.html">
-<button>📈 Analytics</button>
-</a>
-
-<a href="./help.html">
-<button>🛠 Help</button>
-</a>
-
-<a href="./staff.html">
-<button>👨‍💼 Staff</button>
-</a>
-
 </div>
 
 <!-- MAIN -->
@@ -273,7 +309,9 @@ QuickPress
 
 <div class="topbar">
 
-<h1>👥 Users Management</h1>
+<h1>
+👥 Advanced Users Management
+</h1>
 
 <div class="adminBox">
 👤 Admin
@@ -301,17 +339,17 @@ QuickPress
 </div>
 
 <div class="card">
-<h2>Total Spending</h2>
-<h1 id="totalSpending">₹0</h1>
+<h2>Total Revenue</h2>
+<h1 id="totalRevenue">₹0</h1>
 </div>
 
 </div>
 
-<!-- SEARCH -->
+<!-- FILTER -->
 
-<div class="searchBox">
+<div class="filterCard">
 
-<div class="searchGrid">
+<div class="filterGrid">
 
 <input
 type="text"
@@ -339,11 +377,13 @@ Blocked
 
 </div>
 
-<!-- USERS TABLE -->
+<!-- TABLE -->
 
 <div class="tableCard">
 
-<h2>Users List</h2>
+<h2>
+All Users
+</h2>
 
 <table>
 
@@ -357,7 +397,7 @@ Blocked
 <th>Orders</th>
 <th>Spent</th>
 <th>Status</th>
-<th>Actions</th>
+<th>Action</th>
 
 </tr>
 
@@ -375,12 +415,55 @@ Blocked
 
 </div>
 
-<script type="module">
+<!-- MODAL -->
 
-import { db } from "./firebase.js";
+<div class="modal" id="userModal">
+
+<div class="modalContent">
+
+<span
+class="closeBtn"
+onclick="closeUserModal()"
+>
+✖
+</span>
+
+<h1>
+👤 User Full Details
+</h1>
+
+<div
+class="detailGrid"
+id="userDetails"
+>
+
+</div>
+
+<h2>
+📦 User Orders
+</h2>
+
+<div id="userOrders">
+
+</div>
+
+</div>
+
+</div>
+
+<script type="module">
 
 import {
 
+initializeApp
+
+}
+
+from "https://www.gstatic.com/firebasejs/12.11.0/firebase-app.js";
+
+import {
+
+getFirestore,
 collection,
 onSnapshot,
 doc,
@@ -391,6 +474,37 @@ deleteDoc
 
 from "https://www.gstatic.com/firebasejs/12.11.0/firebase-firestore.js";
 
+/* FIREBASE */
+
+const firebaseConfig = {
+
+apiKey: "AIzaSyBBaslH5QsahoyESYpo1nVtlYIUYfVJ2d4",
+
+authDomain:
+"quickpress-offical.firebaseapp.com",
+
+projectId:
+"quickpress-offical",
+
+storageBucket:
+"quickpress-offical.firebasestorage.app",
+
+messagingSenderId:
+"939286557961",
+
+appId:
+"1:939286557961:web:ddac64f197e14877718fd8"
+
+};
+
+const app =
+initializeApp(firebaseConfig);
+
+const db =
+getFirestore(app);
+
+/* ELEMENTS */
+
 const totalUsers =
 document.getElementById("totalUsers");
 
@@ -400,8 +514,8 @@ document.getElementById("activeUsers");
 const totalOrders =
 document.getElementById("totalOrders");
 
-const totalSpending =
-document.getElementById("totalSpending");
+const totalRevenue =
+document.getElementById("totalRevenue");
 
 const usersTable =
 document.getElementById("usersTable");
@@ -413,45 +527,74 @@ const statusFilter =
 document.getElementById("statusFilter");
 
 let allUsers = [];
+let allOrders = [];
 
-onSnapshot(collection(db,"users"),(snapshot)=>{
+/* ORDERS */
+
+onSnapshot(
+collection(db,"orders"),
+(snapshot)=>{
+
+allOrders = [];
+
+snapshot.forEach((docSnap)=>{
+
+allOrders.push(docSnap.data());
+
+});
+
+});
+
+/* USERS */
+
+onSnapshot(
+collection(db,"users"),
+(snapshot)=>{
 
 let active = 0;
 let orders = 0;
-let spending = 0;
+let revenue = 0;
 
 allUsers = [];
 
 snapshot.forEach((docSnap)=>{
 
-const user = docSnap.data();
+const u = docSnap.data();
 
 allUsers.push({
 id:docSnap.id,
-...user
+...u
 });
 
-if(user.status !== "blocked"){
+if(u.status !== "blocked"){
 active++;
 }
 
-orders += Number(user.totalOrders || 0);
+orders +=
+Number(u.totalOrders || 0);
 
-spending += Number(user.totalSpent || 0);
+revenue +=
+Number(u.totalSpent || 0);
 
 });
 
-totalUsers.innerHTML = snapshot.size;
+totalUsers.innerHTML =
+snapshot.size;
 
-activeUsers.innerHTML = active;
+activeUsers.innerHTML =
+active;
 
-totalOrders.innerHTML = orders;
+totalOrders.innerHTML =
+orders;
 
-totalSpending.innerHTML = "₹" + spending;
+totalRevenue.innerHTML =
+"₹" + revenue;
 
 renderUsers();
 
 });
+
+/* RENDER */
 
 function renderUsers(){
 
@@ -466,11 +609,24 @@ let html = "";
 let filtered = allUsers.filter((u)=>{
 
 let matchSearch =
+
 (u.name || "")
+.toLowerCase()
+.includes(keyword)
+
+||
+
+(u.phone || "")
+.includes(keyword)
+
+||
+
+(u.email || "")
 .toLowerCase()
 .includes(keyword);
 
 let matchStatus =
+
 status === "all"
 ? true
 : u.status === status;
@@ -495,26 +651,38 @@ html += `
 
 <td>₹${u.totalSpent || 0}</td>
 
-<td>
-
-<span class="status ${u.status || "active"}">
+<td class="${u.status || 'active'}">
 ${u.status || "active"}
-</span>
-
 </td>
 
 <td>
 
 <button
 class="btn blue"
-onclick="toggleStatus('${u.id}','${u.status || "active"}')"
+onclick='viewUser(${JSON.stringify(u)})'
+>
+View
+</button>
+
+<button
+class="btn green"
+onclick="
+toggleStatus(
+'${u.id}',
+'${u.status || "active"}'
+)
+"
 >
 Toggle
 </button>
 
 <button
 class="btn red"
-onclick="deleteUser('${u.id}')"
+onclick="
+deleteUser(
+'${u.id}'
+)
+"
 >
 Delete
 </button>
@@ -531,33 +699,174 @@ usersTable.innerHTML = html;
 
 }
 
-searchInput.addEventListener("input",renderUsers);
+searchInput.addEventListener(
+"input",
+renderUsers
+);
 
-statusFilter.addEventListener("change",renderUsers);
+statusFilter.addEventListener(
+"change",
+renderUsers
+);
 
-window.toggleStatus = async function(id,status){
+/* VIEW */
 
-let newStatus =
-status === "blocked"
-? "active"
-: "blocked";
+window.viewUser =
+function(u){
 
-await updateDoc(doc(db,"users",id),{
-status:newStatus
-});
+const modal =
+document.getElementById(
+"userModal"
+);
+
+const details =
+document.getElementById(
+"userDetails"
+);
+
+const userOrders =
+document.getElementById(
+"userOrders"
+);
+
+modal.style.display =
+"block";
+
+let date =
+new Date(
+u.createdAt || Date.now()
+).toLocaleString();
+
+details.innerHTML = `
+
+<div class="detailCard">
+<b>Name</b><br>
+${u.name || "-"}
+</div>
+
+<div class="detailCard">
+<b>Phone</b><br>
+${u.phone || "-"}
+</div>
+
+<div class="detailCard">
+<b>Email</b><br>
+${u.email || "-"}
+</div>
+
+<div class="detailCard">
+<b>Address</b><br>
+${u.address || "-"}
+</div>
+
+<div class="detailCard">
+<b>Total Orders</b><br>
+${u.totalOrders || 0}
+</div>
+
+<div class="detailCard">
+<b>Total Spent</b><br>
+₹${u.totalSpent || 0}
+</div>
+
+<div class="detailCard">
+<b>Status</b><br>
+${u.status || "active"}
+</div>
+
+<div class="detailCard">
+<b>Created</b><br>
+${date}
+</div>
+
+`;
+
+let html = "";
+
+allOrders.forEach((o)=>{
+
+if(o.userId === u.id){
+
+html += `
+
+<div class="orderCard">
+
+<b>Order ID:</b>
+${o.orderId || "-"}
+
+<br><br>
+
+<b>Total:</b>
+₹${o.total || 0}
+
+<br><br>
+
+<b>Status:</b>
+${o.status || "-"}
+
+<br><br>
+
+<b>Address:</b>
+${o.address || "-"}
+
+</div>
+
+`;
 
 }
 
-window.deleteUser = async function(id){
+});
+
+userOrders.innerHTML = html;
+
+}
+
+/* CLOSE */
+
+window.closeUserModal =
+function(){
+
+document.getElementById(
+"userModal"
+).style.display = "none";
+
+}
+
+/* DELETE */
+
+window.deleteUser =
+async function(id){
 
 let confirmDelete =
 confirm("Delete User ?");
 
 if(confirmDelete){
 
-await deleteDoc(doc(db,"users",id));
+await deleteDoc(
+doc(db,"users",id)
+);
 
 }
+
+}
+
+/* STATUS */
+
+window.toggleStatus =
+async function(id,status){
+
+let newStatus =
+
+status === "blocked"
+? "active"
+: "blocked";
+
+await updateDoc(
+doc(db,"users",id),
+{
+status:newStatus
+}
+);
 
 }
 
