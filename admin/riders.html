@@ -1,0 +1,443 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>QuickPress Riders</title>
+
+<link rel="stylesheet" href="./css/style.css">
+
+</head>
+
+<body>
+
+<div class="layout">
+
+<!-- SIDEBAR -->
+
+<div class="sidebar">
+
+<div class="logo">
+QuickPress
+</div>
+
+<a href="./index.html">
+<button>📊 Dashboard</button>
+</a>
+
+<a href="./orders.html">
+<button>📦 Orders</button>
+</a>
+
+<a href="./partners.html">
+<button>👨‍🏭 Partners</button>
+</a>
+
+<a href="./riders.html">
+<button class="activeBtn">
+🚚 Riders
+</button>
+</a>
+
+<a href="./users.html">
+<button>👥 Users</button>
+</a>
+
+<a href="./wallet.html">
+<button>💰 Wallet</button>
+</a>
+
+<a href="./withdraw.html">
+<button>💳 Withdraw</button>
+</a>
+
+<a href="./analytics.html">
+<button>📈 Analytics</button>
+</a>
+
+<a href="./help.html">
+<button>🛠 Help</button>
+</a>
+
+<a href="./staff.html">
+<button>👨‍💼 Staff</button>
+</a>
+
+</div>
+
+<!-- MAIN -->
+
+<div class="main">
+
+<h1>🚚 Riders Management</h1>
+
+<!-- STATS -->
+
+<div class="grid">
+
+<div class="card">
+<h2>Total Riders</h2>
+<h1 id="totalRiders">0</h1>
+</div>
+
+<div class="card">
+<h2>Active Riders</h2>
+<h1 id="activeRiders">0</h1>
+</div>
+
+<div class="card">
+<h2>Total Deliveries</h2>
+<h1 id="totalDeliveries">0</h1>
+</div>
+
+<div class="card">
+<h2>Total Earnings</h2>
+<h1 id="totalEarnings">₹0</h1>
+</div>
+
+</div>
+
+<!-- CREATE RIDER -->
+
+<div class="card">
+
+<h2>Create Rider</h2>
+
+<input
+type="text"
+id="riderName"
+placeholder="Rider Name"
+/>
+
+<input
+type="text"
+id="riderPhone"
+placeholder="Phone"
+/>
+
+<input
+type="email"
+id="riderEmail"
+placeholder="Email"
+/>
+
+<input
+type="text"
+id="riderVehicle"
+placeholder="Vehicle"
+/>
+
+<input
+type="text"
+id="riderAddress"
+placeholder="Address"
+/>
+
+<select id="riderStatus">
+
+<option value="active">
+Active
+</option>
+
+<option value="blocked">
+Blocked
+</option>
+
+</select>
+
+<br><br>
+
+<button
+class="btn green"
+onclick="createRider()"
+>
+Create Rider
+</button>
+
+</div>
+
+<!-- TABLE -->
+
+<div class="tableCard">
+
+<table>
+
+<thead>
+
+<tr>
+
+<th>Name</th>
+<th>Phone</th>
+<th>Vehicle</th>
+<th>Deliveries</th>
+<th>Earnings</th>
+<th>Status</th>
+<th>Actions</th>
+
+</tr>
+
+</thead>
+
+<tbody id="ridersTable">
+
+</tbody>
+
+</table>
+
+</div>
+
+</div>
+
+</div>
+
+<script type="module">
+
+import { db } from "./firebase.js";
+
+import {
+
+collection,
+onSnapshot,
+addDoc,
+doc,
+updateDoc,
+deleteDoc
+
+}
+
+from "https://www.gstatic.com/firebasejs/12.11.0/firebase-firestore.js";
+
+/* ELEMENTS */
+
+const totalRiders =
+document.getElementById("totalRiders");
+
+const activeRiders =
+document.getElementById("activeRiders");
+
+const totalDeliveries =
+document.getElementById("totalDeliveries");
+
+const totalEarnings =
+document.getElementById("totalEarnings");
+
+const ridersTable =
+document.getElementById("ridersTable");
+
+/* FORM */
+
+const riderName =
+document.getElementById("riderName");
+
+const riderPhone =
+document.getElementById("riderPhone");
+
+const riderEmail =
+document.getElementById("riderEmail");
+
+const riderVehicle =
+document.getElementById("riderVehicle");
+
+const riderAddress =
+document.getElementById("riderAddress");
+
+const riderStatus =
+document.getElementById("riderStatus");
+
+/* ARRAY */
+
+let allRiders = [];
+
+/* LIVE FIREBASE */
+
+onSnapshot(collection(db,"riders"),(snapshot)=>{
+
+let active = 0;
+let deliveries = 0;
+let earnings = 0;
+
+allRiders = [];
+
+snapshot.forEach((docSnap)=>{
+
+const rider = docSnap.data();
+
+allRiders.push({
+
+id:docSnap.id,
+...rider
+
+});
+
+if(rider.status === "active"){
+active++;
+}
+
+deliveries += Number(rider.totalDeliveries || 0);
+
+earnings += Number(rider.totalEarning || 0);
+
+});
+
+totalRiders.innerHTML =
+snapshot.size;
+
+activeRiders.innerHTML =
+active;
+
+totalDeliveries.innerHTML =
+deliveries;
+
+totalEarnings.innerHTML =
+"₹" + earnings;
+
+renderRiders();
+
+});
+
+/* RENDER */
+
+function renderRiders(){
+
+let html = "";
+
+allRiders.forEach((r)=>{
+
+html += `
+
+<tr>
+
+<td>${r.name || "-"}</td>
+
+<td>${r.phone || "-"}</td>
+
+<td>${r.vehicle || "-"}</td>
+
+<td>${r.totalDeliveries || 0}</td>
+
+<td>₹${r.totalEarning || 0}</td>
+
+<td>
+
+<span class="status ${r.status || 'active'}">
+
+${r.status || "active"}
+
+</span>
+
+</td>
+
+<td>
+
+<button
+class="btn blue"
+onclick="toggleStatus(
+'${r.id}',
+'${r.status}'
+)"
+>
+Toggle
+</button>
+
+<button
+class="btn red"
+onclick="deleteRider('${r.id}')"
+>
+Delete
+</button>
+
+</td>
+
+</tr>
+
+`;
+
+});
+
+ridersTable.innerHTML = html;
+
+}
+
+/* CREATE */
+
+window.createRider = async function(){
+
+if(
+!riderName.value ||
+!riderPhone.value
+){
+alert("Fill required fields");
+return;
+}
+
+await addDoc(collection(db,"riders"),{
+
+name:riderName.value,
+phone:riderPhone.value,
+email:riderEmail.value,
+vehicle:riderVehicle.value,
+address:riderAddress.value,
+status:riderStatus.value,
+
+totalDeliveries:0,
+totalEarning:0,
+
+createdAt:Date.now()
+
+});
+
+alert("Rider Created ✅");
+
+/* CLEAR */
+
+riderName.value = "";
+riderPhone.value = "";
+riderEmail.value = "";
+riderVehicle.value = "";
+riderAddress.value = "";
+
+};
+
+/* TOGGLE */
+
+window.toggleStatus =
+async function(id,status){
+
+let newStatus =
+status === "active"
+? "blocked"
+: "active";
+
+await updateDoc(doc(db,"riders",id),{
+status:newStatus
+});
+
+alert("Status Updated ✅");
+
+};
+
+/* DELETE */
+
+window.deleteRider =
+async function(id){
+
+let confirmDelete =
+confirm("Delete Rider ?");
+
+if(confirmDelete){
+
+await deleteDoc(doc(db,"riders",id));
+
+alert("Rider Deleted ❌");
+
+}
+
+};
+
+</script>
+
+</body>
+</html>
