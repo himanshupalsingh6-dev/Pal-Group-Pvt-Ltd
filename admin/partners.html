@@ -1,0 +1,443 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>QuickPress Partners</title>
+
+<link rel="stylesheet" href="./css/style.css">
+
+</head>
+
+<body>
+
+<div class="layout">
+
+<!-- SIDEBAR -->
+
+<div class="sidebar">
+
+<div class="logo">
+QuickPress
+</div>
+
+<a href="./index.html">
+<button>📊 Dashboard</button>
+</a>
+
+<a href="./orders.html">
+<button>📦 Orders</button>
+</a>
+
+<a href="./partners.html">
+<button class="activeBtn">
+👨‍🏭 Partners
+</button>
+</a>
+
+<a href="./riders.html">
+<button>🚚 Riders</button>
+</a>
+
+<a href="./users.html">
+<button>👥 Users</button>
+</a>
+
+<a href="./wallet.html">
+<button>💰 Wallet</button>
+</a>
+
+<a href="./withdraw.html">
+<button>💳 Withdraw</button>
+</a>
+
+<a href="./analytics.html">
+<button>📈 Analytics</button>
+</a>
+
+<a href="./help.html">
+<button>🛠 Help</button>
+</a>
+
+<a href="./staff.html">
+<button>👨‍💼 Staff</button>
+</a>
+
+</div>
+
+<!-- MAIN -->
+
+<div class="main">
+
+<h1>👨‍🏭 Partners Management</h1>
+
+<!-- STATS -->
+
+<div class="grid">
+
+<div class="card">
+<h2>Total Partners</h2>
+<h1 id="totalPartners">0</h1>
+</div>
+
+<div class="card">
+<h2>Active Partners</h2>
+<h1 id="activePartners">0</h1>
+</div>
+
+<div class="card">
+<h2>Total Orders</h2>
+<h1 id="partnerOrders">0</h1>
+</div>
+
+<div class="card">
+<h2>Total Earnings</h2>
+<h1 id="partnerEarnings">₹0</h1>
+</div>
+
+</div>
+
+<!-- CREATE PARTNER -->
+
+<div class="card">
+
+<h2>Create Partner</h2>
+
+<input
+type="text"
+id="partnerName"
+placeholder="Partner Name"
+/>
+
+<input
+type="text"
+id="partnerPhone"
+placeholder="Phone"
+/>
+
+<input
+type="email"
+id="partnerEmail"
+placeholder="Email"
+/>
+
+<input
+type="text"
+id="partnerShop"
+placeholder="Shop Name"
+/>
+
+<input
+type="text"
+id="partnerAddress"
+placeholder="Address"
+/>
+
+<select id="partnerStatus">
+
+<option value="active">
+Active
+</option>
+
+<option value="blocked">
+Blocked
+</option>
+
+</select>
+
+<br><br>
+
+<button
+class="btn green"
+onclick="createPartner()"
+>
+Create Partner
+</button>
+
+</div>
+
+<!-- TABLE -->
+
+<div class="tableCard">
+
+<table>
+
+<thead>
+
+<tr>
+
+<th>Name</th>
+<th>Phone</th>
+<th>Shop</th>
+<th>Orders</th>
+<th>Earnings</th>
+<th>Status</th>
+<th>Actions</th>
+
+</tr>
+
+</thead>
+
+<tbody id="partnersTable">
+
+</tbody>
+
+</table>
+
+</div>
+
+</div>
+
+</div>
+
+<script type="module">
+
+import { db } from "./firebase.js";
+
+import {
+
+collection,
+onSnapshot,
+addDoc,
+doc,
+updateDoc,
+deleteDoc
+
+}
+
+from "https://www.gstatic.com/firebasejs/12.11.0/firebase-firestore.js";
+
+/* ELEMENTS */
+
+const totalPartners =
+document.getElementById("totalPartners");
+
+const activePartners =
+document.getElementById("activePartners");
+
+const partnerOrders =
+document.getElementById("partnerOrders");
+
+const partnerEarnings =
+document.getElementById("partnerEarnings");
+
+const partnersTable =
+document.getElementById("partnersTable");
+
+/* FORM */
+
+const partnerName =
+document.getElementById("partnerName");
+
+const partnerPhone =
+document.getElementById("partnerPhone");
+
+const partnerEmail =
+document.getElementById("partnerEmail");
+
+const partnerShop =
+document.getElementById("partnerShop");
+
+const partnerAddress =
+document.getElementById("partnerAddress");
+
+const partnerStatus =
+document.getElementById("partnerStatus");
+
+/* ARRAY */
+
+let allPartners = [];
+
+/* LIVE FIREBASE */
+
+onSnapshot(collection(db,"partners"),(snapshot)=>{
+
+let active = 0;
+let orders = 0;
+let earnings = 0;
+
+allPartners = [];
+
+snapshot.forEach((docSnap)=>{
+
+const partner = docSnap.data();
+
+allPartners.push({
+
+id:docSnap.id,
+...partner
+
+});
+
+if(partner.status === "active"){
+active++;
+}
+
+orders += Number(partner.totalOrders || 0);
+
+earnings += Number(partner.totalEarning || 0);
+
+});
+
+totalPartners.innerHTML =
+snapshot.size;
+
+activePartners.innerHTML =
+active;
+
+partnerOrders.innerHTML =
+orders;
+
+partnerEarnings.innerHTML =
+"₹" + earnings;
+
+renderPartners();
+
+});
+
+/* RENDER */
+
+function renderPartners(){
+
+let html = "";
+
+allPartners.forEach((p)=>{
+
+html += `
+
+<tr>
+
+<td>${p.name || "-"}</td>
+
+<td>${p.phone || "-"}</td>
+
+<td>${p.shop || "-"}</td>
+
+<td>${p.totalOrders || 0}</td>
+
+<td>₹${p.totalEarning || 0}</td>
+
+<td>
+
+<span class="status ${p.status || 'active'}">
+
+${p.status || "active"}
+
+</span>
+
+</td>
+
+<td>
+
+<button
+class="btn blue"
+onclick="toggleStatus(
+'${p.id}',
+'${p.status}'
+)"
+>
+Toggle
+</button>
+
+<button
+class="btn red"
+onclick="deletePartner('${p.id}')"
+>
+Delete
+</button>
+
+</td>
+
+</tr>
+
+`;
+
+});
+
+partnersTable.innerHTML = html;
+
+}
+
+/* CREATE */
+
+window.createPartner = async function(){
+
+if(
+!partnerName.value ||
+!partnerPhone.value
+){
+alert("Fill required fields");
+return;
+}
+
+await addDoc(collection(db,"partners"),{
+
+name:partnerName.value,
+phone:partnerPhone.value,
+email:partnerEmail.value,
+shop:partnerShop.value,
+address:partnerAddress.value,
+status:partnerStatus.value,
+
+totalOrders:0,
+totalEarning:0,
+
+createdAt:Date.now()
+
+});
+
+alert("Partner Created ✅");
+
+/* CLEAR */
+
+partnerName.value = "";
+partnerPhone.value = "";
+partnerEmail.value = "";
+partnerShop.value = "";
+partnerAddress.value = "";
+
+};
+
+/* TOGGLE */
+
+window.toggleStatus =
+async function(id,status){
+
+let newStatus =
+status === "active"
+? "blocked"
+: "active";
+
+await updateDoc(doc(db,"partners",id),{
+status:newStatus
+});
+
+alert("Status Updated ✅");
+
+};
+
+/* DELETE */
+
+window.deletePartner =
+async function(id){
+
+let confirmDelete =
+confirm("Delete Partner ?");
+
+if(confirmDelete){
+
+await deleteDoc(doc(db,"partners",id));
+
+alert("Partner Deleted ❌");
+
+}
+
+};
+
+</script>
+
+</body>
+</html>
