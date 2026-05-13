@@ -4,7 +4,8 @@
 <head>
 
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="viewport"
+content="width=device-width, initial-scale=1.0">
 
 <title>QuickPress Wallet</title>
 
@@ -13,7 +14,7 @@
 body{
 margin:0;
 font-family:Arial,sans-serif;
-background:#f5f6fa;
+background:#f4f7fb;
 }
 
 .layout{
@@ -24,19 +25,18 @@ min-height:100vh;
 /* SIDEBAR */
 
 .sidebar{
-width:220px;
+width:240px;
 background:#07142b;
 position:fixed;
 height:100%;
+overflow:auto;
 color:#fff;
-padding-top:20px;
 }
 
 .logo{
 font-size:30px;
 font-weight:bold;
-padding-left:22px;
-margin-bottom:30px;
+padding:25px;
 color:#FFD400;
 }
 
@@ -50,7 +50,7 @@ border:none;
 background:none;
 color:#fff;
 padding:18px 25px;
-font-size:17px;
+font-size:16px;
 text-align:left;
 cursor:pointer;
 transition:0.3s;
@@ -69,8 +69,8 @@ color:#000 !important;
 /* MAIN */
 
 .main{
-margin-left:220px;
-padding:28px;
+margin-left:240px;
+padding:25px;
 width:100%;
 }
 
@@ -89,13 +89,13 @@ font-weight:bold;
 box-shadow:0 5px 15px rgba(0,0,0,0.08);
 }
 
-/* GRID */
+/* CARDS */
 
 .grid{
 display:grid;
-grid-template-columns:repeat(auto-fit,minmax(240px,1fr));
+grid-template-columns:repeat(auto-fit,minmax(230px,1fr));
 gap:20px;
-margin-bottom:30px;
+margin-bottom:25px;
 }
 
 .card{
@@ -108,27 +108,28 @@ box-shadow:0 5px 18px rgba(0,0,0,0.08);
 .card h2{
 margin:0;
 font-size:18px;
-margin-bottom:12px;
+margin-bottom:10px;
+color:#666;
 }
 
 .card h1{
 margin:0;
-font-size:42px;
+font-size:38px;
 }
 
 /* FILTER */
 
-.filterBox{
+.filterCard{
 background:#fff;
-padding:20px;
-border-radius:20px;
+padding:25px;
+border-radius:22px;
 margin-bottom:25px;
 box-shadow:0 5px 18px rgba(0,0,0,0.08);
 }
 
 .filterGrid{
 display:grid;
-grid-template-columns:repeat(auto-fit,minmax(250px,1fr));
+grid-template-columns:repeat(auto-fit,minmax(220px,1fr));
 gap:15px;
 }
 
@@ -137,6 +138,8 @@ padding:14px;
 border-radius:12px;
 border:1px solid #ddd;
 font-size:15px;
+width:100%;
+box-sizing:border-box;
 }
 
 /* TABLE */
@@ -186,11 +189,59 @@ color:#fff;
 }
 
 .blue{
-background:#3b82f6;
+background:#2563eb;
 color:#fff;
 }
 
-/* STATUS */
+/* MODAL */
+
+.modal{
+display:none;
+position:fixed;
+z-index:999;
+left:0;
+top:0;
+width:100%;
+height:100%;
+background:rgba(0,0,0,0.5);
+overflow:auto;
+}
+
+.modalContent{
+background:#fff;
+margin:30px auto;
+padding:25px;
+width:90%;
+max-width:800px;
+border-radius:25px;
+}
+
+.closeBtn{
+float:right;
+font-size:25px;
+cursor:pointer;
+}
+
+.detailGrid{
+display:grid;
+grid-template-columns:repeat(auto-fit,minmax(250px,1fr));
+gap:20px;
+margin-top:25px;
+}
+
+.detailCard{
+background:#f7f7f7;
+padding:18px;
+border-radius:15px;
+}
+
+.transactionCard{
+background:#fff;
+padding:18px;
+border-radius:15px;
+margin-top:15px;
+border:1px solid #eee;
+}
 
 .credit{
 color:#16a34a;
@@ -248,18 +299,6 @@ QuickPress
 <button>💳 Withdraw</button>
 </a>
 
-<a href="./analytics.html">
-<button>📈 Analytics</button>
-</a>
-
-<a href="./help.html">
-<button>🛠 Help</button>
-</a>
-
-<a href="./staff.html">
-<button>👨‍💼 Staff</button>
-</a>
-
 </div>
 
 <!-- MAIN -->
@@ -268,7 +307,9 @@ QuickPress
 
 <div class="topbar">
 
-<h1>💰 Wallet Management</h1>
+<h1>
+💰 Advanced Wallet Management
+</h1>
 
 <div class="adminBox">
 👤 Admin
@@ -281,8 +322,13 @@ QuickPress
 <div class="grid">
 
 <div class="card">
+<h2>Total Wallet Users</h2>
+<h1 id="totalWalletUsers">0</h1>
+</div>
+
+<div class="card">
 <h2>Total Wallet Balance</h2>
-<h1 id="totalBalance">₹0</h1>
+<h1 id="totalWalletBalance">₹0</h1>
 </div>
 
 <div class="card">
@@ -295,37 +341,36 @@ QuickPress
 <h1 id="totalDebits">₹0</h1>
 </div>
 
-<div class="card">
-<h2>Total Transactions</h2>
-<h1 id="totalTransactions">0</h1>
-</div>
-
 </div>
 
 <!-- FILTER -->
 
-<div class="filterBox">
+<div class="filterCard">
 
 <div class="filterGrid">
 
 <input
 type="text"
 id="searchInput"
-placeholder="Search name / phone..."
+placeholder="Search wallet..."
 >
 
-<select id="typeFilter">
+<select id="roleFilter">
 
 <option value="all">
-All Types
+All Roles
 </option>
 
-<option value="credit">
-Credit
+<option value="user">
+Users
 </option>
 
-<option value="debit">
-Debit
+<option value="partner">
+Partners
+</option>
+
+<option value="rider">
+Riders
 </option>
 
 </select>
@@ -338,7 +383,9 @@ Debit
 
 <div class="tableCard">
 
-<h2>Wallet Transactions</h2>
+<h2>
+All Wallet Accounts
+</h2>
 
 <table>
 
@@ -346,12 +393,13 @@ Debit
 
 <tr>
 
-<th>User</th>
-<th>Phone</th>
+<th>Name</th>
 <th>Role</th>
-<th>Amount</th>
-<th>Type</th>
-<th>Date</th>
+<th>Phone</th>
+<th>Wallet</th>
+<th>Credits</th>
+<th>Debits</th>
+<th>Action</th>
 
 </tr>
 
@@ -369,21 +417,139 @@ Debit
 
 </div>
 
-<script type="module">
+<!-- MODAL -->
 
-import { db } from "./firebase.js";
+<div class="modal" id="walletModal">
+
+<div class="modalContent">
+
+<span
+class="closeBtn"
+onclick="closeWalletModal()"
+>
+✖
+</span>
+
+<h1>
+💰 Wallet Full Details
+</h1>
+
+<div
+class="detailGrid"
+id="walletDetails"
+>
+
+</div>
+
+<br><br>
+
+<h2>
+➕ Add / Deduct Funds
+</h2>
+
+<div class="filterGrid">
+
+<input
+type="number"
+id="fundAmount"
+placeholder="Amount"
+>
+
+<select id="fundType">
+
+<option value="credit">
+Add Fund
+</option>
+
+<option value="debit">
+Deduct Fund
+</option>
+
+</select>
+
+</div>
+
+<br>
+
+<button
+class="btn green"
+onclick="updateWallet()"
+>
+Update Wallet
+</button>
+
+<h2>
+📜 Transactions
+</h2>
+
+<div id="transactionsList">
+
+</div>
+
+</div>
+
+</div>
+
+<script type="module">
 
 import {
 
+initializeApp
+
+}
+
+from "https://www.gstatic.com/firebasejs/12.11.0/firebase-app.js";
+
+import {
+
+getFirestore,
 collection,
-onSnapshot
+onSnapshot,
+doc,
+updateDoc,
+addDoc,
+increment
 
 }
 
 from "https://www.gstatic.com/firebasejs/12.11.0/firebase-firestore.js";
 
-const totalBalance =
-document.getElementById("totalBalance");
+/* FIREBASE */
+
+const firebaseConfig = {
+
+apiKey: "AIzaSyBBaslH5QsahoyESYpo1nVtlYIUYfVJ2d4",
+
+authDomain:
+"quickpress-offical.firebaseapp.com",
+
+projectId:
+"quickpress-offical",
+
+storageBucket:
+"quickpress-offical.firebasestorage.app",
+
+messagingSenderId:
+"939286557961",
+
+appId:
+"1:939286557961:web:ddac64f197e14877718fd8"
+
+};
+
+const app =
+initializeApp(firebaseConfig);
+
+const db =
+getFirestore(app);
+
+/* ELEMENTS */
+
+const totalWalletUsers =
+document.getElementById("totalWalletUsers");
+
+const totalWalletBalance =
+document.getElementById("totalWalletBalance");
 
 const totalCredits =
 document.getElementById("totalCredits");
@@ -391,47 +557,54 @@ document.getElementById("totalCredits");
 const totalDebits =
 document.getElementById("totalDebits");
 
-const totalTransactions =
-document.getElementById("totalTransactions");
-
 const walletTable =
 document.getElementById("walletTable");
 
 const searchInput =
 document.getElementById("searchInput");
 
-const typeFilter =
-document.getElementById("typeFilter");
+const roleFilter =
+document.getElementById("roleFilter");
 
-let allTransactions = [];
+let allWallets = [];
+let currentWallet = null;
 
-onSnapshot(collection(db,"walletTransactions"),(snapshot)=>{
+/* LOAD */
+
+onSnapshot(
+collection(db,"wallets"),
+(snapshot)=>{
 
 let balance = 0;
 let credits = 0;
 let debits = 0;
 
-allTransactions = [];
+allWallets = [];
 
 snapshot.forEach((docSnap)=>{
 
-const t = docSnap.data();
+const w = docSnap.data();
 
-allTransactions.push(t);
+allWallets.push({
+id:docSnap.id,
+...w
+});
 
-if(t.type === "credit"){
-credits += Number(t.amount || 0);
-balance += Number(t.amount || 0);
-}
+balance +=
+Number(w.balance || 0);
 
-if(t.type === "debit"){
-debits += Number(t.amount || 0);
-balance -= Number(t.amount || 0);
-}
+credits +=
+Number(w.totalCredits || 0);
+
+debits +=
+Number(w.totalDebits || 0);
 
 });
 
-totalBalance.innerHTML =
+totalWalletUsers.innerHTML =
+snapshot.size;
+
+totalWalletBalance.innerHTML =
 "₹" + balance;
 
 totalCredits.innerHTML =
@@ -440,68 +613,77 @@ totalCredits.innerHTML =
 totalDebits.innerHTML =
 "₹" + debits;
 
-totalTransactions.innerHTML =
-snapshot.size;
-
-renderWallet();
+renderWallets();
 
 });
 
-function renderWallet(){
+/* RENDER */
+
+function renderWallets(){
 
 let keyword =
 searchInput.value.toLowerCase();
 
-let type =
-typeFilter.value;
+let role =
+roleFilter.value;
 
 let html = "";
 
-let filtered = allTransactions.filter((t)=>{
+let filtered = allWallets.filter((w)=>{
 
 let matchSearch =
-(t.name || "")
+
+(w.name || "")
 .toLowerCase()
 .includes(keyword)
 
 ||
 
-(t.phone || "")
-.toLowerCase()
+(w.phone || "")
 .includes(keyword);
 
-let matchType =
-type === "all"
-? true
-: t.type === type;
+let matchRole =
 
-return matchSearch && matchType;
+role === "all"
+? true
+: w.role === role;
+
+return matchSearch && matchRole;
 
 });
 
-filtered.reverse().forEach((t)=>{
-
-let date =
-new Date(t.createdAt || Date.now())
-.toLocaleString();
+filtered.forEach((w)=>{
 
 html += `
 
 <tr>
 
-<td>${t.name || "-"}</td>
+<td>${w.name || "-"}</td>
 
-<td>${t.phone || "-"}</td>
+<td>${w.role || "-"}</td>
 
-<td>${t.role || "-"}</td>
+<td>${w.phone || "-"}</td>
 
-<td>₹${t.amount || 0}</td>
+<td>₹${w.balance || 0}</td>
 
-<td class="${t.type}">
-${t.type}
+<td class="credit">
+₹${w.totalCredits || 0}
 </td>
 
-<td>${date}</td>
+<td class="debit">
+₹${w.totalDebits || 0}
+</td>
+
+<td>
+
+<button
+class="btn blue"
+onclick='viewWallet(${JSON.stringify(w)})'
+>
+Manage
+</button>
+
+</td>
 
 </tr>
 
@@ -515,13 +697,212 @@ walletTable.innerHTML = html;
 
 searchInput.addEventListener(
 "input",
-renderWallet
+renderWallets
 );
 
-typeFilter.addEventListener(
+roleFilter.addEventListener(
 "change",
-renderWallet
+renderWallets
 );
+
+/* VIEW */
+
+window.viewWallet =
+function(w){
+
+currentWallet = w;
+
+document.getElementById(
+"walletModal"
+).style.display = "block";
+
+document.getElementById(
+"walletDetails"
+).innerHTML = `
+
+<div class="detailCard">
+<b>Name</b><br>
+${w.name || "-"}
+</div>
+
+<div class="detailCard">
+<b>Role</b><br>
+${w.role || "-"}
+</div>
+
+<div class="detailCard">
+<b>Phone</b><br>
+${w.phone || "-"}
+</div>
+
+<div class="detailCard">
+<b>Email</b><br>
+${w.email || "-"}
+</div>
+
+<div class="detailCard">
+<b>Wallet Balance</b><br>
+₹${w.balance || 0}
+</div>
+
+<div class="detailCard">
+<b>Total Credits</b><br>
+₹${w.totalCredits || 0}
+</div>
+
+<div class="detailCard">
+<b>Total Debits</b><br>
+₹${w.totalDebits || 0}
+</div>
+
+`;
+
+loadTransactions(w.id);
+
+}
+
+/* TRANSACTIONS */
+
+function loadTransactions(uid){
+
+onSnapshot(
+collection(db,"walletTransactions"),
+(snapshot)=>{
+
+let html = "";
+
+snapshot.forEach((docSnap)=>{
+
+const t = docSnap.data();
+
+if(t.uid !== uid){
+return;
+}
+
+let date =
+new Date(
+t.createdAt || Date.now()
+).toLocaleString();
+
+html += `
+
+<div class="transactionCard">
+
+<b class="${t.type}">
+${t.type}
+</b>
+
+<br><br>
+
+₹${t.amount || 0}
+
+<br><br>
+
+${t.note || "-"}
+
+<br><br>
+
+${date}
+
+</div>
+
+`;
+
+});
+
+document.getElementById(
+"transactionsList"
+).innerHTML = html;
+
+});
+
+}
+
+/* UPDATE WALLET */
+
+window.updateWallet =
+async function(){
+
+let amount =
+Number(
+document.getElementById(
+"fundAmount"
+).value
+);
+
+let type =
+document.getElementById(
+"fundType"
+).value;
+
+if(!amount){
+alert("Enter amount");
+return;
+}
+
+let updateAmount =
+
+type === "credit"
+? amount
+: -amount;
+
+await updateDoc(
+doc(db,"wallets",currentWallet.id),
+{
+
+balance:increment(updateAmount),
+
+totalCredits:
+type === "credit"
+? increment(amount)
+: increment(0),
+
+totalDebits:
+type === "debit"
+? increment(amount)
+: increment(0)
+
+}
+);
+
+await addDoc(
+collection(db,"walletTransactions"),
+{
+
+uid:currentWallet.id,
+
+name:currentWallet.name,
+
+role:currentWallet.role,
+
+amount:amount,
+
+type:type,
+
+note:
+type === "credit"
+? "Admin Added Fund"
+: "Admin Deducted Fund",
+
+createdAt:Date.now()
+
+}
+);
+
+alert("Wallet Updated ✅");
+
+}
+
+/* CLOSE */
+
+window.closeWalletModal =
+function(){
+
+document.getElementById(
+"walletModal"
+).style.display = "none";
+
+}
 
 </script>
 
