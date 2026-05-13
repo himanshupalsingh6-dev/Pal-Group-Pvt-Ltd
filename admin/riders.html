@@ -10,6 +10,207 @@
 
 <link rel="stylesheet" href="./css/style.css">
 
+<style>
+
+body{
+margin:0;
+font-family:Arial,sans-serif;
+background:#f5f6fa;
+}
+
+.layout{
+display:flex;
+min-height:100vh;
+}
+
+/* SIDEBAR */
+
+.sidebar{
+width:220px;
+background:#07142b;
+color:#fff;
+position:fixed;
+height:100%;
+padding-top:20px;
+}
+
+.logo{
+font-size:28px;
+font-weight:bold;
+padding-left:22px;
+margin-bottom:30px;
+color:#FFD400;
+}
+
+.sidebar a{
+text-decoration:none;
+}
+
+.sidebar button{
+width:100%;
+border:none;
+background:none;
+color:#fff;
+padding:18px 25px;
+font-size:17px;
+text-align:left;
+cursor:pointer;
+transition:0.3s;
+}
+
+.sidebar button:hover{
+background:#FFD400;
+color:#000;
+}
+
+.activeBtn{
+background:#FFD400 !important;
+color:#000 !important;
+}
+
+/* MAIN */
+
+.main{
+margin-left:220px;
+padding:28px;
+width:100%;
+}
+
+.topbar{
+display:flex;
+justify-content:space-between;
+align-items:center;
+margin-bottom:25px;
+}
+
+.adminBox{
+background:#fff;
+padding:12px 18px;
+border-radius:15px;
+font-weight:bold;
+box-shadow:0 5px 15px rgba(0,0,0,0.08);
+}
+
+/* GRID */
+
+.grid{
+display:grid;
+grid-template-columns:repeat(auto-fit,minmax(230px,1fr));
+gap:20px;
+margin-bottom:30px;
+}
+
+.card{
+background:#fff;
+padding:25px;
+border-radius:22px;
+box-shadow:0 5px 18px rgba(0,0,0,0.08);
+}
+
+.card h2{
+margin:0;
+font-size:19px;
+margin-bottom:15px;
+}
+
+.card h1{
+margin:0;
+font-size:42px;
+}
+
+/* FORM */
+
+.formCard{
+background:#fff;
+padding:25px;
+border-radius:22px;
+box-shadow:0 5px 18px rgba(0,0,0,0.08);
+margin-bottom:30px;
+}
+
+.formGrid{
+display:grid;
+grid-template-columns:repeat(auto-fit,minmax(250px,1fr));
+gap:15px;
+}
+
+input,select{
+padding:14px;
+border-radius:12px;
+border:1px solid #ddd;
+font-size:15px;
+}
+
+/* TABLE */
+
+.tableCard{
+background:#fff;
+padding:25px;
+border-radius:22px;
+box-shadow:0 5px 18px rgba(0,0,0,0.08);
+overflow:auto;
+}
+
+table{
+width:100%;
+border-collapse:collapse;
+}
+
+th{
+background:#FFD400;
+padding:15px;
+text-align:left;
+}
+
+td{
+padding:15px;
+border-bottom:1px solid #eee;
+}
+
+/* STATUS */
+
+.status{
+padding:6px 12px;
+border-radius:20px;
+font-size:13px;
+font-weight:bold;
+}
+
+.active{
+background:#86efac;
+}
+
+.blocked{
+background:#fecaca;
+}
+
+/* BUTTON */
+
+.btn{
+padding:10px 15px;
+border:none;
+border-radius:10px;
+cursor:pointer;
+font-weight:bold;
+}
+
+.green{
+background:#22c55e;
+color:#fff;
+}
+
+.red{
+background:#ef4444;
+color:#fff;
+}
+
+.blue{
+background:#3b82f6;
+color:#fff;
+}
+
+</style>
+
 </head>
 
 <body>
@@ -72,7 +273,15 @@ QuickPress
 
 <div class="main">
 
+<div class="topbar">
+
 <h1>🚚 Riders Management</h1>
+
+<div class="adminBox">
+👤 Admin
+</div>
+
+</div>
 
 <!-- STATS -->
 
@@ -102,39 +311,21 @@ QuickPress
 
 <!-- CREATE RIDER -->
 
-<div class="card">
+<div class="formCard">
 
 <h2>Create Rider</h2>
 
-<input
-type="text"
-id="riderName"
-placeholder="Rider Name"
-/>
+<div class="formGrid">
 
-<input
-type="text"
-id="riderPhone"
-placeholder="Phone"
-/>
+<input type="text" id="riderName" placeholder="Rider Name">
 
-<input
-type="email"
-id="riderEmail"
-placeholder="Email"
-/>
+<input type="text" id="riderPhone" placeholder="Phone">
 
-<input
-type="text"
-id="riderVehicle"
-placeholder="Vehicle"
-/>
+<input type="email" id="riderEmail" placeholder="Email">
 
-<input
-type="text"
-id="riderAddress"
-placeholder="Address"
-/>
+<input type="text" id="riderVehicle" placeholder="Vehicle">
+
+<input type="text" id="riderAddress" placeholder="Address">
 
 <select id="riderStatus">
 
@@ -148,7 +339,9 @@ Blocked
 
 </select>
 
-<br><br>
+</div>
+
+<br>
 
 <button
 class="btn green"
@@ -162,6 +355,8 @@ Create Rider
 <!-- TABLE -->
 
 <div class="tableCard">
+
+<h2>Riders List</h2>
 
 <table>
 
@@ -210,8 +405,6 @@ deleteDoc
 
 from "https://www.gstatic.com/firebasejs/12.11.0/firebase-firestore.js";
 
-/* ELEMENTS */
-
 const totalRiders =
 document.getElementById("totalRiders");
 
@@ -226,8 +419,6 @@ document.getElementById("totalEarnings");
 
 const ridersTable =
 document.getElementById("ridersTable");
-
-/* FORM */
 
 const riderName =
 document.getElementById("riderName");
@@ -247,11 +438,7 @@ document.getElementById("riderAddress");
 const riderStatus =
 document.getElementById("riderStatus");
 
-/* ARRAY */
-
 let allRiders = [];
-
-/* LIVE FIREBASE */
 
 onSnapshot(collection(db,"riders"),(snapshot)=>{
 
@@ -266,10 +453,8 @@ snapshot.forEach((docSnap)=>{
 const rider = docSnap.data();
 
 allRiders.push({
-
 id:docSnap.id,
 ...rider
-
 });
 
 if(rider.status === "active"){
@@ -282,23 +467,17 @@ earnings += Number(rider.totalEarning || 0);
 
 });
 
-totalRiders.innerHTML =
-snapshot.size;
+totalRiders.innerHTML = snapshot.size;
 
-activeRiders.innerHTML =
-active;
+activeRiders.innerHTML = active;
 
-totalDeliveries.innerHTML =
-deliveries;
+totalDeliveries.innerHTML = deliveries;
 
-totalEarnings.innerHTML =
-"₹" + earnings;
+totalEarnings.innerHTML = "₹" + earnings;
 
 renderRiders();
 
 });
-
-/* RENDER */
 
 function renderRiders(){
 
@@ -322,10 +501,8 @@ html += `
 
 <td>
 
-<span class="status ${r.status || 'active'}">
-
-${r.status || "active"}
-
+<span class="status ${r.status}">
+${r.status}
 </span>
 
 </td>
@@ -334,10 +511,7 @@ ${r.status || "active"}
 
 <button
 class="btn blue"
-onclick="toggleStatus(
-'${r.id}',
-'${r.status}'
-)"
+onclick="toggleStatus('${r.id}','${r.status}')"
 >
 Toggle
 </button>
@@ -360,8 +534,6 @@ Delete
 ridersTable.innerHTML = html;
 
 }
-
-/* CREATE */
 
 window.createRider = async function(){
 
@@ -391,20 +563,15 @@ createdAt:Date.now()
 
 alert("Rider Created ✅");
 
-/* CLEAR */
+riderName.value="";
+riderPhone.value="";
+riderEmail.value="";
+riderVehicle.value="";
+riderAddress.value="";
 
-riderName.value = "";
-riderPhone.value = "";
-riderEmail.value = "";
-riderVehicle.value = "";
-riderAddress.value = "";
+}
 
-};
-
-/* TOGGLE */
-
-window.toggleStatus =
-async function(id,status){
+window.toggleStatus = async function(id,status){
 
 let newStatus =
 status === "active"
@@ -415,14 +582,9 @@ await updateDoc(doc(db,"riders",id),{
 status:newStatus
 });
 
-alert("Status Updated ✅");
+}
 
-};
-
-/* DELETE */
-
-window.deleteRider =
-async function(id){
+window.deleteRider = async function(id){
 
 let confirmDelete =
 confirm("Delete Rider ?");
@@ -431,11 +593,9 @@ if(confirmDelete){
 
 await deleteDoc(doc(db,"riders",id));
 
-alert("Rider Deleted ❌");
-
 }
 
-};
+}
 
 </script>
 
