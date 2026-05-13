@@ -1,0 +1,241 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+<meta charset="UTF-8">
+
+<meta name="viewport"
+content="width=device-width, initial-scale=1.0">
+
+<title>Partner Login</title>
+
+<style>
+
+body{
+margin:0;
+font-family:Arial,sans-serif;
+background:#07142b;
+display:flex;
+justify-content:center;
+align-items:center;
+height:100vh;
+}
+
+.loginCard{
+background:#fff;
+padding:40px;
+border-radius:25px;
+width:350px;
+box-shadow:0 5px 20px rgba(0,0,0,0.3);
+}
+
+h1{
+margin-top:0;
+text-align:center;
+margin-bottom:25px;
+}
+
+input{
+width:100%;
+padding:14px;
+margin-bottom:15px;
+border-radius:12px;
+border:1px solid #ddd;
+font-size:15px;
+box-sizing:border-box;
+}
+
+button{
+width:100%;
+padding:14px;
+border:none;
+border-radius:12px;
+background:#FFD400;
+font-size:16px;
+font-weight:bold;
+cursor:pointer;
+}
+
+button:hover{
+opacity:0.9;
+}
+
+</style>
+
+</head>
+
+<body>
+
+<div class="loginCard">
+
+<h1>
+👨‍🏭 Partner Login
+</h1>
+
+<input
+type="email"
+id="email"
+placeholder="Email"
+>
+
+<input
+type="password"
+id="password"
+placeholder="Password"
+>
+
+<button onclick="login()">
+Login
+</button>
+
+</div>
+
+<script type="module">
+
+import {
+
+initializeApp
+
+}
+
+from "https://www.gstatic.com/firebasejs/12.11.0/firebase-app.js";
+
+import {
+
+getAuth,
+signInWithEmailAndPassword
+
+}
+
+from "https://www.gstatic.com/firebasejs/12.11.0/firebase-auth.js";
+
+import {
+
+getFirestore,
+doc,
+getDoc
+
+}
+
+from "https://www.gstatic.com/firebasejs/12.11.0/firebase-firestore.js";
+
+/* FIREBASE CONFIG */
+
+const firebaseConfig = {
+
+apiKey: "AIzaSyBBaslH5QsahoyESYpo1nVtlYIUYfVJ2d4",
+
+authDomain:
+"quickpress-offical.firebaseapp.com",
+
+projectId:
+"quickpress-offical",
+
+storageBucket:
+"quickpress-offical.firebasestorage.app",
+
+messagingSenderId:
+"939286557961",
+
+appId:
+"1:939286557961:web:ddac64f197e14877718fd8"
+
+};
+
+const app =
+initializeApp(firebaseConfig);
+
+const auth =
+getAuth(app);
+
+const db =
+getFirestore(app);
+
+/* LOGIN */
+
+window.login =
+async function(){
+
+const email =
+document.getElementById("email").value;
+
+const password =
+document.getElementById("password").value;
+
+if(!email || !password){
+
+alert("Fill all fields");
+
+return;
+
+}
+
+try{
+
+const result =
+await signInWithEmailAndPassword(
+auth,
+email,
+password
+);
+
+const uid =
+result.user.uid;
+
+/* CHECK PARTNER */
+
+const docRef =
+doc(db,"partners",uid);
+
+const docSnap =
+await getDoc(docRef);
+
+if(!docSnap.exists()){
+
+alert("Partner not found");
+
+return;
+
+}
+
+const partner =
+docSnap.data();
+
+/* BLOCK CHECK */
+
+if(partner.status === "blocked"){
+
+alert("Account Blocked");
+
+return;
+
+}
+
+/* SAVE SESSION */
+
+localStorage.setItem(
+"partnerId",
+uid
+);
+
+localStorage.setItem(
+"partnerName",
+partner.name || ""
+);
+
+window.location.href =
+"./index.html";
+
+}catch(error){
+
+alert(error.message);
+
+}
+
+}
+
+</script>
+
+</body>
+</html>
