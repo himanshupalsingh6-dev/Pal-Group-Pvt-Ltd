@@ -2,167 +2,170 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width,initial-scale=1.0">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>QuickPress Admin </title>
+<title>QuickPress Admin Panel</title>
 
-<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+<link rel="stylesheet" href="./css/style.css">
 
 <style>
 
-*{
+body{
 margin:0;
-padding:0;
-box-sizing:border-box;
-font-family:Arial;
+font-family:Arial, sans-serif;
+background:#f5f6fa;
 }
 
-body{
-background:#f5f7fb;
+.layout{
 display:flex;
+min-height:100vh;
 }
 
 /* SIDEBAR */
 
 .sidebar{
-width:260px;
-height:100vh;
-background:#111827;
+width:240px;
+background:#07142b;
 color:#fff;
+padding-top:20px;
 position:fixed;
-left:0;
-top:0;
+height:100%;
 overflow:auto;
 }
 
 .logo{
-padding:20px;
-font-size:22px;
+font-size:30px;
 font-weight:bold;
-background:#facc15;
-color:#000;
-text-align:center;
+padding-left:25px;
+margin-bottom:30px;
+color:#FFD400;
 }
 
-.menu{
-padding:10px;
+.sidebar a{
+text-decoration:none;
 }
 
-.menu button{
+.sidebar button{
 width:100%;
-padding:14px;
-border:none;
 background:none;
+border:none;
 color:#fff;
+padding:16px 25px;
 text-align:left;
+font-size:16px;
 cursor:pointer;
-border-radius:10px;
-margin-bottom:8px;
-font-size:15px;
 transition:0.3s;
 }
 
-.menu button:hover{
-background:#1f2937;
+.sidebar button:hover{
+background:#FFD400;
+color:#000;
 }
 
 .activeBtn{
-background:#facc15 !important;
+background:#FFD400 !important;
 color:#000 !important;
 }
 
 /* MAIN */
 
 .main{
-margin-left:260px;
-padding:20px;
-width:calc(100% - 260px);
+margin-left:240px;
+padding:30px;
+width:100%;
 }
-
-/* TOPBAR */
 
 .topbar{
 display:flex;
 justify-content:space-between;
 align-items:center;
-margin-bottom:20px;
-}
-
-.title{
-font-size:28px;
-font-weight:bold;
+margin-bottom:25px;
 }
 
 .adminBox{
 background:#fff;
-padding:10px 15px;
-border-radius:10px;
-box-shadow:0 2px 10px rgba(0,0,0,0.1);
+padding:10px 18px;
+border-radius:12px;
+font-weight:bold;
+box-shadow:0 3px 10px rgba(0,0,0,0.08);
 }
 
 /* CARDS */
 
 .grid{
 display:grid;
-grid-template-columns:repeat(auto-fit,minmax(220px,1fr));
-gap:15px;
-margin-bottom:20px;
+grid-template-columns:repeat(auto-fit,minmax(230px,1fr));
+gap:20px;
+margin-bottom:30px;
 }
 
 .card{
 background:#fff;
-padding:20px;
-border-radius:15px;
-box-shadow:0 2px 10px rgba(0,0,0,0.08);
+padding:25px;
+border-radius:20px;
+box-shadow:0 5px 15px rgba(0,0,0,0.08);
 }
 
-.card h3{
-font-size:15px;
+.card h2{
+margin:0;
+font-size:18px;
 margin-bottom:10px;
-color:#666;
 }
 
 .card h1{
-font-size:28px;
-}
-
-/* SECTION */
-
-.section{
-display:none;
-}
-
-.activeSection{
-display:block;
+margin:0;
+font-size:35px;
 }
 
 /* TABLE */
 
-table{
-width:100%;
+.tableCard{
 background:#fff;
-border-collapse:collapse;
-border-radius:15px;
-overflow:hidden;
+padding:20px;
+border-radius:20px;
+box-shadow:0 5px 15px rgba(0,0,0,0.08);
+overflow:auto;
 }
 
-table th{
-background:#facc15;
+table{
+width:100%;
+border-collapse:collapse;
+}
+
+th{
+background:#FFD400;
 padding:14px;
 text-align:left;
 }
 
-table td{
-padding:12px;
+td{
+padding:14px;
 border-bottom:1px solid #eee;
 }
 
-/* BUTTON */
+.status{
+padding:6px 12px;
+border-radius:20px;
+font-size:14px;
+font-weight:bold;
+}
+
+.pending{
+background:#ffe08a;
+}
+
+.processing{
+background:#93c5fd;
+}
+
+.completed{
+background:#86efac;
+}
 
 .btn{
-padding:8px 14px;
+padding:10px 16px;
 border:none;
-border-radius:8px;
+border-radius:10px;
 cursor:pointer;
 font-weight:bold;
 }
@@ -182,21 +185,18 @@ background:#3b82f6;
 color:#fff;
 }
 
-/* FORM */
-
-.form{
-background:#fff;
-padding:20px;
-border-radius:15px;
+.searchBar{
+display:flex;
+gap:10px;
 margin-bottom:20px;
 }
 
-.form input{
-width:100%;
+.searchBar input,
+.searchBar select{
 padding:12px;
-margin-bottom:10px;
-border:1px solid #ddd;
 border-radius:10px;
+border:1px solid #ddd;
+width:250px;
 }
 
 /* MOBILE */
@@ -207,21 +207,31 @@ border-radius:10px;
 width:80px;
 }
 
-.menu button{
-font-size:0;
+.sidebar button{
+font-size:12px;
+padding:14px 10px;
+text-align:center;
+}
+
+.logo{
+font-size:18px;
+padding-left:10px;
 }
 
 .main{
 margin-left:80px;
-width:calc(100% - 80px);
+padding:15px;
 }
 
 }
 
 </style>
+
 </head>
 
 <body>
+
+<div class="layout">
 
 <!-- SIDEBAR -->
 
@@ -231,50 +241,45 @@ width:calc(100% - 80px);
 QuickPress
 </div>
 
-<div class="menu">
-
-<button class="activeBtn" onclick="showSection(event,'dashboard')">
-📊 Dashboard
-</button>
-
-<button onclick="showSection(event,'orders')">
-📦 Orders
-</button>
-
-<button onclick="showSection(event,'partners')">
-👨‍🏭 Partners
-</button>
-
-<button onclick="showSection(event,'riders')">
-🚚 Riders
-</button>
-
-<button onclick="showSection(event,'users')">
-👥 Users
-</button>
-
-<button onclick="showSection(event,'wallet')">
-💰 Wallet
-</button>
-
-<button onclick="showSection(event,'withdraw')">
-💳 Withdraw
-</button>
-
-<button onclick="showSection(event,'analytics')">
-📈 Analytics
-</button>
-
-<button onclick="showSection(event,'help')">
-🛠 Help
-</button>
-  
-<a href="./staff.html">
-<button>
-👨‍💼 Staff Management
-</button>
+<a href="./index.html">
+<button class="activeBtn">📊 Dashboard</button>
 </a>
-</div>
+
+<a href="./orders.html">
+<button>📦 Orders</button>
+</a>
+
+<a href="./partners.html">
+<button>👨‍🏭 Partners</button>
+</a>
+
+<a href="./riders.html">
+<button>🚚 Riders</button>
+</a>
+
+<a href="./users.html">
+<button>👥 Users</button>
+</a>
+
+<a href="./wallet.html">
+<button>💰 Wallet</button>
+</a>
+
+<a href="./withdraw.html">
+<button>💳 Withdraw</button>
+</a>
+
+<a href="./analytics.html">
+<button>📈 Analytics</button>
+</a>
+
+<a href="./help.html">
+<button>🛠 Help</button>
+</a>
+
+<a href="./staff.html">
+<button>👨‍💼 Staff</button>
+</a>
 
 </div>
 
@@ -284,9 +289,7 @@ QuickPress
 
 <div class="topbar">
 
-<div class="title">
-Admin Panel
-</div>
+<h1>Admin Dashboard</h1>
 
 <div class="adminBox">
 👤 Admin
@@ -294,293 +297,93 @@ Admin Panel
 
 </div>
 
-<!-- DASHBOARD -->
+<!-- STATS -->
 
-<div id="dashboard" class="section active">
+<div class="grid">
 
-<div class="stats-grid">
-
-<div class="stat-card">
-<h3>Total Revenue</h3>
-<h1 id="totalRevenue">₹0</h1>
-</div>
-
-<div class="stat-card">
-<h3>Total Orders</h3>
+<div class="card">
+<h2>Total Orders</h2>
 <h1 id="totalOrders">0</h1>
 </div>
 
-<div class="stat-card">
-<h3>Total Users</h3>
+<div class="card">
+<h2>Total Revenue</h2>
+<h1 id="totalRevenue">₹0</h1>
+</div>
+
+<div class="card">
+<h2>Total Users</h2>
 <h1 id="totalUsers">0</h1>
 </div>
 
-<div class="stat-card">
-<h3>Total Partners</h3>
+<div class="card">
+<h2>Total Partners</h2>
 <h1 id="totalPartners">0</h1>
 </div>
 
-<div class="stat-card">
-<h3>Total Riders</h3>
+<div class="card">
+<h2>Total Riders</h2>
 <h1 id="totalRiders">0</h1>
 </div>
 
-<div class="stat-card">
-<h3>Pending Withdraws</h3>
+<div class="card">
+<h2>Pending Withdraws</h2>
 <h1 id="pendingWithdraws">0</h1>
 </div>
 
 </div>
 
-</div>
-  
-<!-- ORDERS -->
+<!-- LIVE ORDERS -->
 
-<!-- =========================
-PREMIUM REAL LIVE ORDERS SECTION
-========================= -->
+<div class="tableCard">
 
-<div id="orders" class="section">
+<h2>📦 Latest Orders</h2>
 
-<!-- TOP BAR -->
+<div class="searchBar">
 
-<div class="top-orders-bar">
-
-<h1>📦 Live Orders Management</h1>
-
-<div class="filters">
-
-<input type="text"
-id="searchOrder"
-placeholder="Search customer/order">
+<input
+type="text"
+id="searchInput"
+placeholder="Search customer/order"
+/>
 
 <select id="statusFilter">
 
-<option value="all">All Status</option>
-
-<option value="pending">Pending</option>
-
-<option value="accepted">Accepted</option>
-
-<option value="pickup">Pickup</option>
-
-<option value="processing">Processing</option>
-
-<option value="ironing">Ironing</option>
-
-<option value="packed">Packed</option>
-
-<option value="out_for_delivery">
-Out For Delivery
-</option>
-
-<option value="completed">Completed</option>
-
-<option value="cancelled">Cancelled</option>
+<option value="">All Status</option>
+<option value="Pending">Pending</option>
+<option value="Processing">Processing</option>
+<option value="Completed">Completed</option>
 
 </select>
 
 </div>
 
+<table>
+
+<thead>
+
+<tr>
+<th>Customer</th>
+<th>Total</th>
+<th>Status</th>
+<th>Action</th>
+</tr>
+
+</thead>
+
+<tbody id="ordersTable">
+
+</tbody>
+
+</table>
+
 </div>
 
-<!-- STATS -->
-
-<div class="orders-stats">
-
-<div class="o-card">
-<h3>Total Orders</h3>
-<h1 id="allOrders">0</h1>
-</div>
-
-<div class="o-card">
-<h3>Pending</h3>
-<h1 id="pendingCount">0</h1>
-</div>
-
-<div class="o-card">
-<h3>Processing</h3>
-<h1 id="processingCount">0</h1>
-</div>
-
-<div class="o-card">
-<h3>Completed</h3>
-<h1 id="completedCount">0</h1>
-</div>
-
-<div class="o-card">
-<h3>Total Revenue</h3>
-<h1 id="ordersRevenue">₹0</h1>
 </div>
 
 </div>
 
-<!-- LIVE ORDERS -->
-
-<div id="premiumOrders"></div>
-
-</div>
-
-<style>
-
-.top-orders-bar{
-display:flex;
-justify-content:space-between;
-align-items:center;
-margin-bottom:25px;
-flex-wrap:wrap;
-gap:15px;
-}
-
-.filters{
-display:flex;
-gap:10px;
-flex-wrap:wrap;
-}
-
-.filters input,
-.filters select{
-padding:12px;
-border-radius:12px;
-border:1px solid #ddd;
-min-width:220px;
-background:#fff;
-}
-
-.orders-stats{
-display:grid;
-grid-template-columns:repeat(auto-fit,minmax(220px,1fr));
-gap:20px;
-margin-bottom:25px;
-}
-
-.o-card{
-background:#fff;
-padding:20px;
-border-radius:20px;
-box-shadow:0 10px 25px rgba(0,0,0,0.08);
-}
-
-.order-premium-card{
-background:#fff;
-border-radius:24px;
-padding:22px;
-margin-bottom:25px;
-box-shadow:0 10px 25px rgba(0,0,0,0.08);
-}
-
-.order-header{
-display:flex;
-justify-content:space-between;
-align-items:center;
-flex-wrap:wrap;
-gap:15px;
-margin-bottom:20px;
-}
-
-.order-id{
-font-size:22px;
-font-weight:bold;
-}
-
-.status-badge{
-padding:8px 18px;
-border-radius:30px;
-color:#fff;
-font-size:13px;
-font-weight:bold;
-}
-
-.pending{
-background:#ff9800;
-}
-
-.accepted{
-background:#2196f3;
-}
-
-.processing{
-background:#673ab7;
-}
-
-.completed{
-background:#4caf50;
-}
-
-.cancelled{
-background:#f44336;
-}
-
-.out_for_delivery{
-background:#009688;
-}
-
-.order-grid{
-display:grid;
-grid-template-columns:repeat(auto-fit,minmax(280px,1fr));
-gap:20px;
-margin-top:20px;
-}
-
-.info-box{
-background:#f7f7f7;
-padding:15px;
-border-radius:15px;
-}
-
-.info-box h4{
-margin-bottom:10px;
-}
-
-.items-box{
-margin-top:15px;
-padding:12px;
-background:#fff;
-border-radius:12px;
-}
-
-.items-box div{
-padding:8px 0;
-border-bottom:1px solid #eee;
-}
-
-.order-actions{
-display:flex;
-gap:10px;
-flex-wrap:wrap;
-margin-top:20px;
-}
-
-.order-actions button,
-.order-actions select{
-padding:12px 16px;
-border:none;
-border-radius:12px;
-cursor:pointer;
-font-weight:bold;
-}
-
-.btn-blue{
-background:#2196f3;
-color:#fff;
-}
-
-.btn-green{
-background:#4caf50;
-color:#fff;
-}
-
-.btn-orange{
-background:#ff9800;
-color:#fff;
-}
-
-.btn-red{
-background:#f44336;
-color:#fff;
-}
-
-</style>
+<!-- FIREBASE -->
 
 <script type="module">
 
@@ -596,2595 +399,152 @@ from "https://www.gstatic.com/firebasejs/12.11.0/firebase-firestore.js";
 
 /* ELEMENTS */
 
-const premiumOrders =
-document.getElementById("premiumOrders");
+const totalOrders = document.getElementById("totalOrders");
+const totalRevenue = document.getElementById("totalRevenue");
+const totalUsers = document.getElementById("totalUsers");
+const totalPartners = document.getElementById("totalPartners");
+const totalRiders = document.getElementById("totalRiders");
+const pendingWithdraws = document.getElementById("pendingWithdraws");
 
-const searchOrder =
-document.getElementById("searchOrder");
+const ordersTable = document.getElementById("ordersTable");
 
-const statusFilter =
-document.getElementById("statusFilter");
+const searchInput = document.getElementById("searchInput");
+const statusFilter = document.getElementById("statusFilter");
 
-/* FILTER VARIABLES */
+let allOrders = [];
 
-let allOrdersData = [];
-
-/* =========================
-LIVE ORDERS
-========================= */
+/* DASHBOARD STATS */
 
 onSnapshot(collection(db,"orders"),(snapshot)=>{
 
-allOrdersData = [];
+let revenue = 0;
 
-snapshot.forEach((docu)=>{
+allOrders = [];
 
-allOrdersData.push({
-id:docu.id,
-...docu.data()
+snapshot.forEach((docSnap)=>{
+
+const order = docSnap.data();
+
+allOrders.push({
+id:docSnap.id,
+...order
 });
 
+revenue += Number(order.total || 0);
+
 });
+
+totalOrders.innerHTML = snapshot.size;
+totalRevenue.innerHTML = "₹" + revenue;
 
 renderOrders();
 
 });
 
-/* =========================
-RENDER ORDERS
-========================= */
-
-function renderOrders(){
-
-let html = "";
-
-let total = 0;
-let pending = 0;
-let processing = 0;
-let completed = 0;
-let revenue = 0;
-
-const search =
-searchOrder.value.toLowerCase();
-
-const filter =
-statusFilter.value;
-
-allOrdersData.forEach((order)=>{
-
-const customer =
-(order.name || "").toLowerCase();
-
-const id =
-(order.id || "").toLowerCase();
-
-if(
-!customer.includes(search) &&
-!id.includes(search)
-){
-return;
-}
-
-if(
-filter !== "all" &&
-order.status !== filter
-){
-return;
-}
-
-total++;
-
-revenue += Number(order.total) || 0;
-
-if(order.status==="pending") pending++;
-if(order.status==="processing") processing++;
-if(order.status==="completed") completed++;
-
-let itemsHTML = "";
-
-(order.items || []).forEach((item)=>{
-
-itemsHTML += `
-<div>
-
-${item.name || "Item"}
-
-× ${item.qty || 1}
-
-</div>
-`;
-
+onSnapshot(collection(db,"users"),(snapshot)=>{
+totalUsers.innerHTML = snapshot.size;
 });
-
-html += `
-
-<div class="order-premium-card">
-
-<div class="order-header">
-
-<div>
-
-<div class="order-id">
-
-#${order.id}
-
-</div>
-
-<div>
-
-${new Date(
-order.createdAt || Date.now()
-).toLocaleString()}
-
-</div>
-
-</div>
-
-<div class="status-badge ${order.status || 'pending'}">
-
-${order.status || 'pending'}
-
-</div>
-
-</div>
-
-<div class="order-grid">
-
-<div class="info-box">
-
-<h4>👤 Customer</h4>
-
-<p><b>Name:</b> ${order.name || "-"}</p>
-
-<p><b>Phone:</b> ${order.phone || "-"}</p>
-
-<p><b>Address:</b> ${order.address || "-"}</p>
-
-<p><b>User ID:</b> ${order.userId || "-"}</p>
-
-</div>
-
-<div class="info-box">
-
-<h4>🧺 Order</h4>
-
-<p><b>Total:</b> ₹${order.total || 0}</p>
-
-<p><b>Payment:</b> ${order.payment || "COD"}</p>
-
-<p><b>Partner:</b> ${order.partnerName || "-"}</p>
-
-<p><b>Rider:</b> ${order.riderName || "-"}</p>
-
-</div>
-
-<div class="info-box">
-
-<h4>📦 Items</h4>
-
-<div class="items-box">
-
-${itemsHTML || "No Items"}
-
-</div>
-
-</div>
-
-</div>
-
-<div class="order-actions">
-
-<select onchange="updateStatus('${order.id}',this.value)">
-
-<option value="">Update Status</option>
-
-<option value="pending">Pending</option>
-
-<option value="accepted">Accepted</option>
-
-<option value="pickup">Pickup</option>
-
-<option value="processing">Processing</option>
-
-<option value="ironing">Ironing</option>
-
-<option value="packed">Packed</option>
-
-<option value="out_for_delivery">
-Out For Delivery
-</option>
-
-<option value="completed">Completed</option>
-
-<option value="cancelled">Cancelled</option>
-
-</select>
-
-<button class="btn-blue"
-onclick="callCustomer('${order.phone}')">
-
-📞 Call
-
-</button>
-
-<button class="btn-green"
-onclick="whatsappCustomer('${order.phone}')">
-
-💬 WhatsApp
-
-</button>
-
-<button class="btn-orange"
-onclick="viewLocation('${order.lat}','${order.lng}')">
-
-📍 Track
-
-</button>
-
-<button class="btn-red"
-onclick="deleteOrder('${order.id}')">
-
-🗑 Delete
-
-</button>
-
-</div>
-
-</div>
-
-`;
-
-});
-
-/* STATS */
-
-document.getElementById("allOrders")
-.innerHTML = total;
-
-document.getElementById("pendingCount")
-.innerHTML = pending;
-
-document.getElementById("processingCount")
-.innerHTML = processing;
-
-document.getElementById("completedCount")
-.innerHTML = completed;
-
-document.getElementById("ordersRevenue")
-.innerHTML = "₹" + revenue;
-
-/* RENDER */
-
-premiumOrders.innerHTML =
-html || "<h2>No Orders Found</h2>";
-
-}
-
-/* =========================
-FILTER EVENTS
-========================= */
-
-searchOrder.addEventListener(
-"input",
-renderOrders
-);
-
-statusFilter.addEventListener(
-"change",
-renderOrders
-);
-
-/* =========================
-UPDATE STATUS
-========================= */
-
-window.updateStatus = async function(id,status){
-
-await updateDoc(doc(db,"orders",id),{
-
-status,
-updatedAt:Date.now()
-
-});
-
-alert("Status Updated ✅");
-
-}
-
-/* =========================
-CALL
-========================= */
-
-window.callCustomer = function(phone){
-
-window.open(`tel:${phone}`);
-
-}
-
-/* =========================
-WHATSAPP
-========================= */
-
-window.whatsappCustomer =
-function(phone){
-
-window.open(
-`https://wa.me/91${phone}`
-);
-
-}
-
-/* =========================
-LOCATION
-========================= */
-
-window.viewLocation =
-function(lat,lng){
-
-window.open(
-`https://maps.google.com/?q=${lat},${lng}`
-);
-
-}
-
-/* =========================
-DELETE ORDER
-========================= */
-
-window.deleteOrder =
-function(id){
-
-alert(
-"Delete System Next Step 🔥"
-);
-
-}
-
-</script>
-
-<!-- PARTNERS -->
-<!-- =========================
-PARTNERS SECTION
-========================= -->
-
-<div id="partners" class="section">
-
-<!-- ADD PARTNER -->
-
-<div class="card">
-
-<h2>👨‍🏭 Add Partner</h2>
-
-<input type="text" id="partnerName" placeholder="Partner Name">
-
-<input type="text" id="partnerPhone" placeholder="Phone">
-
-<input type="email" id="partnerEmail" placeholder="Email">
-
-<input type="password" id="partnerPassword" placeholder="Password">
-
-<input type="text" id="partnerShop" placeholder="Shop Name">
-
-<input type="text" id="partnerAddress" placeholder="Address">
-
-<button class="btn blue" onclick="createPartner()">
-Create Partner
-</button>
-
-</div>
-
-<!-- PARTNER LIST -->
-
-<div class="card">
-
-<h2>📋 Partners List</h2>
-
-<table>
-
-<thead>
-<tr>
-<th>Name</th>
-<th>Phone</th>
-<th>Orders</th>
-<th>Earning</th>
-<th>Wallet</th>
-<th>Status</th>
-</tr>
-</thead>
-
-<tbody id="partnerTable">
-</tbody>
-
-</table>
-
-</div>
-
-</div>
-
-<!-- =========================
-PARTNER SCRIPT
-========================= -->
-
-<script type="module">
-
-import { initializeApp }
-from "https://www.gstatic.com/firebasejs/12.11.0/firebase-app.js";
-
-import {
-getAuth,
-createUserWithEmailAndPassword
-}
-from "https://www.gstatic.com/firebasejs/12.11.0/firebase-auth.js";
-
-import {
-getFirestore,
-doc,
-setDoc,
-collection,
-onSnapshot,
-deleteDoc
-}
-from "https://www.gstatic.com/firebasejs/12.11.0/firebase-firestore.js";
-
-/* FIREBASE */
-
-const firebaseConfig = {
-apiKey: "AIzaSyBBaslH5QsahoyESYpo1nVtlYIUYfVJ2d4",
-authDomain: "quickpress-offical.firebaseapp.com",
-projectId: "quickpress-offical",
-storageBucket: "quickpress-offical.firebasestorage.app",
-messagingSenderId: "939286557961",
-appId: "1:939286557961:web:ddac64f197e14877718fd8"
-};
-
-const app = initializeApp(firebaseConfig);
-
-const auth = getAuth(app);
-
-const db = getFirestore(app);
-
-/* =========================
-CREATE PARTNER
-========================= */
-
-window.createPartner = async function(){
-
-try{
-
-const name =
-document.getElementById("partnerName").value;
-
-const phone =
-document.getElementById("partnerPhone").value;
-
-const email =
-document.getElementById("partnerEmail").value;
-
-const password =
-document.getElementById("partnerPassword").value;
-
-const shop =
-document.getElementById("partnerShop").value;
-
-const address =
-document.getElementById("partnerAddress").value;
-
-/* CREATE AUTH */
-
-const userCredential =
-await createUserWithEmailAndPassword(
-auth,
-email,
-password
-);
-
-const uid = userCredential.user.uid;
-
-/* SAVE USERS */
-
-await setDoc(doc(db,"users",uid),{
-
-uid,
-name,
-phone,
-email,
-
-role:"partner",
-
-createdAt:Date.now()
-
-});
-
-/* SAVE PARTNER */
-
-await setDoc(doc(db,"partners",uid),{
-
-uid,
-name,
-phone,
-email,
-shop,
-address,
-
-wallet:0,
-totalOrders:0,
-totalEarning:0,
-
-status:"active",
-
-role:"partner",
-
-createdAt:Date.now()
-
-});
-
-/* CREATE WALLET */
-
-await setDoc(doc(db,"wallets",uid),{
-
-balance:0,
-role:"partner"
-
-});
-
-alert("Partner Created ✅");
-
-/* CLEAR FORM */
-
-document.getElementById("partnerName").value="";
-document.getElementById("partnerPhone").value="";
-document.getElementById("partnerEmail").value="";
-document.getElementById("partnerPassword").value="";
-document.getElementById("partnerShop").value="";
-document.getElementById("partnerAddress").value="";
-
-}
-catch(err){
-
-alert(err.message);
-
-}
-
-}
-
-/* =========================
-LIVE PARTNER LIST
-========================= */
-
-const partnerTable =
-document.getElementById("partnerTable");
 
 onSnapshot(collection(db,"partners"),(snapshot)=>{
-
-let html = "";
-
-snapshot.forEach((docu)=>{
-
-const p = docu.data();
-
-html += `
-
-<tr>
-
-<td>${p.name || "-"}</td>
-
-<td>${p.phone || "-"}</td>
-
-<td>${p.totalOrders || 0}</td>
-
-<td>₹${p.totalEarning || 0}</td>
-
-<td>₹${p.wallet || 0}</td>
-
-<td>
-
-${p.status || "active"}
-
-<br><br>
-
-<button onclick="deletePartner('${docu.id}')"
-style="background:red;color:white;border:none;padding:5px 10px;border-radius:6px;cursor:pointer;">
-Delete
-</button>
-
-</td>
-
-</tr>
-
-`;
-
+totalPartners.innerHTML = snapshot.size;
 });
 
-partnerTable.innerHTML = html;
-
+onSnapshot(collection(db,"riders"),(snapshot)=>{
+totalRiders.innerHTML = snapshot.size;
 });
-
-/* =========================
-DELETE PARTNER
-========================= */
-
-window.deletePartner = async function(id){
-
-if(confirm("Delete Partner?")){
-
-await deleteDoc(doc(db,"partners",id));
-
-alert("Partner Deleted ❌");
-
-}
-
-}
-
-</script>
-<!-- RIDERS -->
-
-<div id="riders" class="section">
-
-<div class="form">
-
-<h2>Add Rider</h2>
-
-<input type="text" placeholder="Rider Name">
-<input type="text" placeholder="Phone">
-<input type="email" placeholder="Email">
-<input type="password" placeholder="Password">
-
-<button class="btn blue">
-Create Rider
-</button>
-
-</div>
-
-<div class="card">
-
-<h2>Riders List</h2>
-
-<table>
-
-<thead>
-<tr>
-<th>Name</th>
-<th>Deliveries</th>
-<th>Earning</th>
-</tr>
-</thead>
-
-<tbody id="riderTable">
-</tbody>
-
-</table>
-
-</div>
-
-</div>
-
-<!-- USERS -->
-
-<!-- =========================
-USERS TAB
-========================= -->
-
-<div id="users" class="section">
-
-<!-- TOP -->
-
-<div class="top-orders-bar">
-
-<h1>👥 Users Management</h1>
-
-<div class="filters">
-
-<input
-type="text"
-id="searchUser"
-placeholder="Search user">
-
-</div>
-
-</div>
-
-<!-- STATS -->
-
-<div class="orders-stats">
-
-<div class="o-card">
-<h3>Total Users</h3>
-<h1 id="totalUsers">0</h1>
-</div>
-
-<div class="o-card">
-<h3>Total Orders</h3>
-<h1 id="usersOrders">0</h1>
-</div>
-
-<div class="o-card">
-<h3>Total Revenue</h3>
-<h1 id="usersRevenue">₹0</h1>
-</div>
-
-<div class="o-card">
-<h3>Active Users</h3>
-<h1 id="activeUsers">0</h1>
-</div>
-
-</div>
-
-<!-- USER LIST -->
-
-<div id="usersContainer"></div>
-
-</div>
-
-<!-- =========================
-LIVE USER SYSTEM
-========================= -->
-
-<script type="module">
-
-import { db } from "./firebase.js";
-
-import {
-
-collection,
-onSnapshot,
-doc,
-deleteDoc
-
-}
-
-from "https://www.gstatic.com/firebasejs/12.11.0/firebase-firestore.js";
-
-/* ELEMENTS */
-
-const usersContainer =
-document.getElementById("usersContainer");
-
-const searchUser =
-document.getElementById("searchUser");
-
-const totalUsers =
-document.getElementById("totalUsers");
-
-const usersOrders =
-document.getElementById("usersOrders");
-
-const usersRevenue =
-document.getElementById("usersRevenue");
-
-const activeUsers =
-document.getElementById("activeUsers");
-
-/* ARRAY */
-
-let allUsers = [];
-
-/* =========================
-LIVE FIREBASE USERS
-========================= */
-
-onSnapshot(collection(db,"users"),(snapshot)=>{
-
-allUsers = [];
-
-snapshot.forEach((docu)=>{
-
-allUsers.push({
-
-id:docu.id,
-...docu.data()
-
-});
-
-});
-
-renderUsers();
-
-});
-
-/* =========================
-RENDER USERS
-========================= */
-
-function renderUsers(){
-
-let html = "";
-
-let orders = 0;
-
-let revenue = 0;
-
-let active = 0;
-
-const search =
-searchUser.value.toLowerCase();
-
-allUsers.forEach((user)=>{
-
-const name =
-(user.name || "").toLowerCase();
-
-const phone =
-(user.phone || "").toLowerCase();
-
-if(
-!name.includes(search) &&
-!phone.includes(search)
-){
-return;
-}
-
-orders += Number(user.totalOrders || 0);
-
-revenue += Number(user.totalSpent || 0);
-
-if(user.status !== "blocked"){
-active++;
-}
-
-html += `
-
-<div class="order-premium-card">
-
-<div class="order-header">
-
-<div>
-
-<div class="order-id">
-
-${user.name || "Unknown User"}
-
-</div>
-
-<div>
-
-UID:
-${user.id}
-
-</div>
-
-</div>
-
-<div class="status-badge completed">
-
-${user.status || "active"}
-
-</div>
-
-</div>
-
-<div class="order-grid">
-
-<!-- USER INFO -->
-
-<div class="info-box">
-
-<h4>👤 User Info</h4>
-
-<p><b>Name:</b>
-${user.name || "-"}</p>
-
-<p><b>Phone:</b>
-${user.phone || "-"}</p>
-
-<p><b>Email:</b>
-${user.email || "-"}</p>
-
-<p><b>Address:</b>
-${user.address || "-"}</p>
-
-</div>
-
-<!-- ORDER INFO -->
-
-<div class="info-box">
-
-<h4>📦 Orders Info</h4>
-
-<p><b>Total Orders:</b>
-${user.totalOrders || 0}</p>
-
-<p><b>Total Spent:</b>
-₹${user.totalSpent || 0}</p>
-
-<p><b>Last Order:</b>
-${user.lastOrder || "-"}</p>
-
-<p><b>Joined:</b>
-${user.createdAt
-? new Date(user.createdAt).toLocaleDateString()
-: "-"}</p>
-
-</div>
-
-<!-- LOCATION -->
-
-<div class="info-box">
-
-<h4>📍 Location</h4>
-
-<p><b>City:</b>
-${user.city || "-"}</p>
-
-<p><b>State:</b>
-${user.state || "-"}</p>
-
-<p><b>Pincode:</b>
-${user.pincode || "-"}</p>
-
-<p><b>Status:</b>
-${user.status || "active"}</p>
-
-</div>
-
-</div>
-
-<!-- ACTIONS -->
-
-<div class="order-actions">
-
-<button class="btn-blue"
-onclick="callUser('${user.phone}')">
-
-📞 Call
-
-</button>
-
-<button class="btn-green"
-onclick="whatsappUser('${user.phone}')">
-
-💬 WhatsApp
-
-</button>
-
-<button class="btn-orange"
-onclick="viewUserOrders('${user.id}')">
-
-📦 Orders
-
-</button>
-
-<button class="btn-red"
-onclick="deleteUser('${user.id}')">
-
-🗑 Delete
-
-</button>
-
-</div>
-
-</div>
-
-`;
-
-});
-
-/* STATS */
-
-totalUsers.innerHTML =
-allUsers.length;
-
-usersOrders.innerHTML =
-orders;
-
-usersRevenue.innerHTML =
-"₹" + revenue;
-
-activeUsers.innerHTML =
-active;
-
-/* SHOW */
-
-usersContainer.innerHTML =
-html || "<h2>No Users Found</h2>";
-
-}
-
-/* =========================
-SEARCH
-========================= */
-
-searchUser.addEventListener(
-"input",
-renderUsers
-);
-
-/* =========================
-CALL
-========================= */
-
-window.callUser =
-function(phone){
-
-window.open(`tel:${phone}`);
-
-}
-
-/* =========================
-WHATSAPP
-========================= */
-
-window.whatsappUser =
-function(phone){
-
-window.open(
-`https://wa.me/91${phone}`
-);
-
-}
-
-/* =========================
-VIEW ORDERS
-========================= */
-
-window.viewUserOrders =
-function(uid){
-
-alert(
-"Open orders of user: " + uid
-);
-
-}
-
-/* =========================
-DELETE USER
-========================= */
-
-window.deleteUser =
-async function(uid){
-
-if(confirm("Delete User?")){
-
-await deleteDoc(doc(db,"users",uid));
-
-alert("User Deleted ❌");
-
-}
-
-}
-
-</script>
-<!-- WALLET -->
-
-<!-- =========================
-USERS TAB
-========================= -->
-
-<div id="users" class="section">
-
-<!-- TOP -->
-
-<div class="top-orders-bar">
-
-<h1>👥 Users Management</h1>
-
-<div class="filters">
-
-<input
-type="text"
-id="searchUser"
-placeholder="Search user">
-
-</div>
-
-</div>
-
-<!-- STATS -->
-
-<div class="orders-stats">
-
-<div class="o-card">
-<h3>Total Users</h3>
-<h1 id="totalUsers">0</h1>
-</div>
-
-<div class="o-card">
-<h3>Total Orders</h3>
-<h1 id="usersOrders">0</h1>
-</div>
-
-<div class="o-card">
-<h3>Total Revenue</h3>
-<h1 id="usersRevenue">₹0</h1>
-</div>
-
-<div class="o-card">
-<h3>Active Users</h3>
-<h1 id="activeUsers">0</h1>
-</div>
-
-</div>
-
-<!-- USER LIST -->
-
-<div id="usersContainer"></div>
-
-</div>
-
-<!-- =========================
-LIVE USER SYSTEM
-========================= -->
-
-<script type="module">
-
-import { db } from "./firebase.js";
-
-import {
-
-collection,
-onSnapshot,
-doc,
-deleteDoc
-
-}
-
-from "https://www.gstatic.com/firebasejs/12.11.0/firebase-firestore.js";
-
-/* ELEMENTS */
-
-const usersContainer =
-document.getElementById("usersContainer");
-
-const searchUser =
-document.getElementById("searchUser");
-
-const totalUsers =
-document.getElementById("totalUsers");
-
-const usersOrders =
-document.getElementById("usersOrders");
-
-const usersRevenue =
-document.getElementById("usersRevenue");
-
-const activeUsers =
-document.getElementById("activeUsers");
-
-/* ARRAY */
-
-let allUsers = [];
-
-/* =========================
-LIVE FIREBASE USERS
-========================= */
-
-onSnapshot(collection(db,"users"),(snapshot)=>{
-
-allUsers = [];
-
-snapshot.forEach((docu)=>{
-
-allUsers.push({
-
-id:docu.id,
-...docu.data()
-
-});
-
-});
-
-renderUsers();
-
-});
-
-/* =========================
-RENDER USERS
-========================= */
-
-function renderUsers(){
-
-let html = "";
-
-let orders = 0;
-
-let revenue = 0;
-
-let active = 0;
-
-const search =
-searchUser.value.toLowerCase();
-
-allUsers.forEach((user)=>{
-
-const name =
-(user.name || "").toLowerCase();
-
-const phone =
-(user.phone || "").toLowerCase();
-
-if(
-!name.includes(search) &&
-!phone.includes(search)
-){
-return;
-}
-
-orders += Number(user.totalOrders || 0);
-
-revenue += Number(user.totalSpent || 0);
-
-if(user.status !== "blocked"){
-active++;
-}
-
-html += `
-
-<div class="order-premium-card">
-
-<div class="order-header">
-
-<div>
-
-<div class="order-id">
-
-${user.name || "Unknown User"}
-
-</div>
-
-<div>
-
-UID:
-${user.id}
-
-</div>
-
-</div>
-
-<div class="status-badge completed">
-
-${user.status || "active"}
-
-</div>
-
-</div>
-
-<div class="order-grid">
-
-<!-- USER INFO -->
-
-<div class="info-box">
-
-<h4>👤 User Info</h4>
-
-<p><b>Name:</b>
-${user.name || "-"}</p>
-
-<p><b>Phone:</b>
-${user.phone || "-"}</p>
-
-<p><b>Email:</b>
-${user.email || "-"}</p>
-
-<p><b>Address:</b>
-${user.address || "-"}</p>
-
-</div>
-
-<!-- ORDER INFO -->
-
-<div class="info-box">
-
-<h4>📦 Orders Info</h4>
-
-<p><b>Total Orders:</b>
-${user.totalOrders || 0}</p>
-
-<p><b>Total Spent:</b>
-₹${user.totalSpent || 0}</p>
-
-<p><b>Last Order:</b>
-${user.lastOrder || "-"}</p>
-
-<p><b>Joined:</b>
-${user.createdAt
-? new Date(user.createdAt).toLocaleDateString()
-: "-"}</p>
-
-</div>
-
-<!-- LOCATION -->
-
-<div class="info-box">
-
-<h4>📍 Location</h4>
-
-<p><b>City:</b>
-${user.city || "-"}</p>
-
-<p><b>State:</b>
-${user.state || "-"}</p>
-
-<p><b>Pincode:</b>
-${user.pincode || "-"}</p>
-
-<p><b>Status:</b>
-${user.status || "active"}</p>
-
-</div>
-
-</div>
-
-<!-- ACTIONS -->
-
-<div class="order-actions">
-
-<button class="btn-blue"
-onclick="callUser('${user.phone}')">
-
-📞 Call
-
-</button>
-
-<button class="btn-green"
-onclick="whatsappUser('${user.phone}')">
-
-💬 WhatsApp
-
-</button>
-
-<button class="btn-orange"
-onclick="viewUserOrders('${user.id}')">
-
-📦 Orders
-
-</button>
-
-<button class="btn-red"
-onclick="deleteUser('${user.id}')">
-
-🗑 Delete
-
-</button>
-
-</div>
-
-</div>
-
-`;
-
-});
-
-/* STATS */
-
-totalUsers.innerHTML =
-allUsers.length;
-
-usersOrders.innerHTML =
-orders;
-
-usersRevenue.innerHTML =
-"₹" + revenue;
-
-activeUsers.innerHTML =
-active;
-
-/* SHOW */
-
-usersContainer.innerHTML =
-html || "<h2>No Users Found</h2>";
-
-}
-
-/* =========================
-SEARCH
-========================= */
-
-searchUser.addEventListener(
-"input",
-renderUsers
-);
-
-/* =========================
-CALL
-========================= */
-
-window.callUser =
-function(phone){
-
-window.open(`tel:${phone}`);
-
-}
-
-/* =========================
-WHATSAPP
-========================= */
-
-window.whatsappUser =
-function(phone){
-
-window.open(
-`https://wa.me/91${phone}`
-);
-
-}
-
-/* =========================
-VIEW ORDERS
-========================= */
-
-window.viewUserOrders =
-function(uid){
-
-alert(
-"Open orders of user: " + uid
-);
-
-}
-
-/* =========================
-DELETE USER
-========================= */
-
-window.deleteUser =
-async function(uid){
-
-if(confirm("Delete User?")){
-
-await deleteDoc(doc(db,"users",uid));
-
-alert("User Deleted ❌");
-
-}
-
-}
-
-</script>
-
-<!-- WITHDRAW -->
-
-<!-- =========================
-REAL WITHDRAW SYSTEM
-========================= -->
-
-<div id="withdraw" class="section">
-
-<!-- TOP -->
-
-<div class="top-orders-bar">
-
-<h1>🏦 Withdraw Requests</h1>
-
-<div class="filters">
-
-<input
-type="text"
-id="searchWithdraw"
-placeholder="Search withdraw">
-
-<select id="withdrawFilter">
-
-<option value="all">All Status</option>
-
-<option value="pending">Pending</option>
-
-<option value="approved">Approved</option>
-
-<option value="rejected">Rejected</option>
-
-</select>
-
-</div>
-
-</div>
-
-<!-- STATS -->
-
-<div class="orders-stats">
-
-<div class="o-card">
-<h3>Total Requests</h3>
-<h1 id="withdrawTotal">0</h1>
-</div>
-
-<div class="o-card">
-<h3>Pending</h3>
-<h1 id="withdrawPending">0</h1>
-</div>
-
-<div class="o-card">
-<h3>Approved</h3>
-<h1 id="withdrawApproved">0</h1>
-</div>
-
-<div class="o-card">
-<h3>Total Withdraw Amount</h3>
-<h1 id="withdrawAmount">₹0</h1>
-</div>
-
-</div>
-
-<!-- LIST -->
-
-<div id="withdrawContainer"></div>
-
-</div>
-
-<!-- =========================
-REAL FIREBASE WITHDRAW
-========================= -->
-
-<script type="module">
-
-import { db } from "./firebase.js";
-
-import {
-
-collection,
-onSnapshot,
-doc,
-updateDoc,
-deleteDoc,
-increment,
-addDoc
-
-}
-
-from "https://www.gstatic.com/firebasejs/12.11.0/firebase-firestore.js";
-
-/* ELEMENTS */
-
-const withdrawContainer =
-document.getElementById("withdrawContainer");
-
-const searchWithdraw =
-document.getElementById("searchWithdraw");
-
-const withdrawFilter =
-document.getElementById("withdrawFilter");
-
-const withdrawTotal =
-document.getElementById("withdrawTotal");
-
-const withdrawPending =
-document.getElementById("withdrawPending");
-
-const withdrawApproved =
-document.getElementById("withdrawApproved");
-
-const withdrawAmount =
-document.getElementById("withdrawAmount");
-
-/* ARRAY */
-
-let allWithdraws = [];
-
-/* =========================
-LIVE WITHDRAWS
-========================= */
 
 onSnapshot(collection(db,"withdraws"),(snapshot)=>{
 
-allWithdraws = [];
+let count = 0;
 
-snapshot.forEach((docu)=>{
+snapshot.forEach((d)=>{
 
-allWithdraws.push({
+const w = d.data();
 
-id:docu.id,
-...docu.data()
-
-});
-
-});
-
-renderWithdraws();
+if(w.status === "pending"){
+count++;
+}
 
 });
 
-/* =========================
-RENDER
-========================= */
+pendingWithdraws.innerHTML = count;
 
-function renderWithdraws(){
+});
+
+/* RENDER ORDERS */
+
+function renderOrders(){
+
+let search = searchInput.value.toLowerCase();
+let filter = statusFilter.value;
 
 let html = "";
 
-let total = 0;
+allOrders.forEach((o)=>{
 
-let pending = 0;
-
-let approved = 0;
-
-let amount = 0;
-
-const search =
-searchWithdraw.value.toLowerCase();
-
-const filter =
-withdrawFilter.value;
-
-/* LOOP */
-
-allWithdraws.forEach((withdraw)=>{
-
-const name =
-(withdraw.name || "").toLowerCase();
-
-if(!name.includes(search)){
-return;
-}
+let customer = (o.name || "").toLowerCase();
+let status = o.status || "Pending";
 
 if(
-filter !== "all" &&
-withdraw.status !== filter
+customer.includes(search) &&
+(filter === "" || status === filter)
 ){
-return;
-}
-
-/* STATS */
-
-total++;
-
-amount += Number(withdraw.amount || 0);
-
-if(withdraw.status==="pending"){
-pending++;
-}
-
-if(withdraw.status==="approved"){
-approved++;
-}
-
-/* CARD */
 
 html += `
 
-<div class="order-premium-card">
-
-<div class="order-header">
-
-<div>
-
-<div class="order-id">
-
-${withdraw.name || "Unknown"}
-
-</div>
-
-<div>
-
-UID:
-${withdraw.uid || "-"}
-
-</div>
-
-</div>
-
-<div class="status-badge ${withdraw.status || 'pending'}">
-
-${withdraw.status || "pending"}
-
-</div>
-
-</div>
-
-<div class="order-grid">
-
-<!-- USER -->
-
-<div class="info-box">
-
-<h4>👤 User Details</h4>
-
-<p><b>Name:</b>
-${withdraw.name || "-"}</p>
-
-<p><b>Role:</b>
-${withdraw.role || "-"}</p>
-
-<p><b>Phone:</b>
-${withdraw.phone || "-"}</p>
-
-<p><b>Email:</b>
-${withdraw.email || "-"}</p>
-
-</div>
-
-<!-- BANK -->
-
-<div class="info-box">
-
-<h4>🏦 Bank Details</h4>
-
-<p><b>Bank:</b>
-${withdraw.bankName || "-"}</p>
-
-<p><b>Account:</b>
-${withdraw.accountNumber || "-"}</p>
-
-<p><b>IFSC:</b>
-${withdraw.ifsc || "-"}</p>
-
-<p><b>UPI:</b>
-${withdraw.upi || "-"}</p>
-
-</div>
-
-<!-- AMOUNT -->
-
-<div class="info-box">
-
-<h4>💰 Withdraw Info</h4>
-
-<p><b>Amount:</b>
-₹${withdraw.amount || 0}</p>
-
-<p><b>Status:</b>
-${withdraw.status || "-"}</p>
-
-<p><b>Date:</b>
-${withdraw.createdAt
-? new Date(withdraw.createdAt)
-.toLocaleString()
-: "-"}</p>
-
-<p><b>Wallet Balance:</b>
-₹${withdraw.walletBalance || 0}</p>
-
-</div>
-
-</div>
-
-<!-- ACTIONS -->
-
-<div class="order-actions">
-
-${
-withdraw.status === "pending"
-?
-
-`
-
-<button class="btn-green"
-onclick="approveWithdraw(
-'${withdraw.id}',
-'${withdraw.uid}',
-${withdraw.amount}
-)">
-
-✅ Approve
-
-</button>
-
-<button class="btn-red"
-onclick="rejectWithdraw(
-'${withdraw.id}'
-)">
-
-❌ Reject
-
-</button>
-
-`
-
-:
-
-`
-
-<button class="btn-blue">
-
-${withdraw.status}
-
-</button>
-
-`
-
-}
-
-<button class="btn-orange"
-onclick="deleteWithdraw(
-'${withdraw.id}'
-)">
-
-🗑 Delete
-
-</button>
-
-</div>
-
-</div>
-
-`;
-
-});
-
-/* STATS */
-
-withdrawTotal.innerHTML =
-total;
-
-withdrawPending.innerHTML =
-pending;
-
-withdrawApproved.innerHTML =
-approved;
-
-withdrawAmount.innerHTML =
-"₹" + amount;
-
-/* SHOW */
-
-withdrawContainer.innerHTML =
-html || "<h2>No Withdraw Requests</h2>";
-
-}
-
-/* =========================
-FILTER
-========================= */
-
-searchWithdraw.addEventListener(
-"input",
-renderWithdraws
-);
-
-withdrawFilter.addEventListener(
-"change",
-renderWithdraws
-);
-
-/* =========================
-APPROVE
-========================= */
-
-window.approveWithdraw =
-async function(id,uid,amount){
-
-/* UPDATE STATUS */
-
-await updateDoc(
-doc(db,"withdraws",id),
-{
-
-status:"approved",
-approvedAt:Date.now()
-
-}
-);
-
-/* DEDUCT WALLET */
-
-await updateDoc(
-doc(db,"wallets",uid),
-{
-
-balance: increment(-Number(amount))
-
-}
-);
-
-/* TRANSACTION */
-
-await addDoc(
-collection(db,"transactions"),
-{
-
-uid,
-amount:Number(amount),
-type:"withdraw",
-status:"approved",
-time:Date.now()
-
-}
-);
-
-alert("Withdraw Approved ✅");
-
-}
-
-/* =========================
-REJECT
-========================= */
-
-window.rejectWithdraw =
-async function(id){
-
-await updateDoc(
-doc(db,"withdraws",id),
-{
-
-status:"rejected"
-
-}
-);
-
-alert("Withdraw Rejected ❌");
-
-}
-
-/* =========================
-DELETE
-========================= */
-
-window.deleteWithdraw =
-async function(id){
-
-if(confirm("Delete Withdraw Request?")){
-
-await deleteDoc(
-doc(db,"withdraws",id)
-);
-
-alert("Deleted ❌");
-
-}
-
-}
-
-</script>
-
-<!-- ANALYTICS -->
-<!-- =========================
-ULTRA ANALYTICS SYSTEM
-========================= -->
-
-
-
-<!-- HELP -->
-
-<!-- =========================
-ULTRA REALISTIC HELP CENTER
-========================= -->
-
-
-
-/* ORDERS */
-
-document.getElementById("ordersTable").innerHTML=`
 <tr>
-<td>Himanshu</td>
-<td>₹320</td>
-<td>Processing</td>
+
+<td>${o.name || "User"}</td>
+
+<td>₹${o.total || 0}</td>
+
 <td>
-<button class="btn green">Complete</button>
+<span class="status ${status.toLowerCase()}">
+${status}
+</span>
 </td>
+
+<td>
+
+<button
+class="btn green"
+onclick="completeOrder('${o.id}')"
+>
+Complete
+</button>
+
+</td>
+
 </tr>
+
 `;
-
-/* PARTNERS */
-
-document.getElementById("partnerTable").innerHTML=`
-<tr>
-<td>Rahul Laundry</td>
-<td>45</td>
-<td>₹12,000</td>
-</tr>
-`;
-
-/* RIDERS */
-
-document.getElementById("riderTable").innerHTML=`
-<tr>
-<td>Amit Rider</td>
-<td>89</td>
-<td>₹7,500</td>
-</tr>
-`;
-
-/* USERS */
-
-document.getElementById("usersTable").innerHTML=`
-<tr>
-<td>Himanshu</td>
-<td>9999999999</td>
-<td>12</td>
-</tr>
-`;
-
-/* WALLET */
-
-document.getElementById("walletList").innerHTML=`
-<div class="card">
-Partner Wallet → ₹12,000
-</div>
-<div class="card">
-Rider Wallet → ₹5,400
-</div>
-`;
-
-/* WITHDRAW */
-
-document.getElementById("withdrawList").innerHTML=`
-<div class="card">
-Rahul → ₹2,000
-<button class="btn green">Approve</button>
-<button class="btn red">Reject</button>
-</div>
-`;
-
-/* CHART */
-
-</script>
-<!-- =========================================
-PUT THIS CODE INSIDE:
-admin/index.html
-partner/index.html
-rider/index.html
-========================================= -->
-
-<script type="module">
-
-import { initializeApp }
-from "https://www.gstatic.com/firebasejs/12.11.0/firebase-app.js";
-
-import {
-getAuth,
-onAuthStateChanged
-}
-from "https://www.gstatic.com/firebasejs/12.11.0/firebase-auth.js";
-
-import {
-getFirestore,
-doc,
-getDoc
-}
-from "https://www.gstatic.com/firebasejs/12.11.0/firebase-firestore.js";
-
-/* FIREBASE CONFIG */
-
-const firebaseConfig = {
-apiKey: "AIzaSyBBaslH5QsahoyESYpo1nVtlYIUYfVJ2d4",
-authDomain: "quickpress-offical.firebaseapp.com",
-projectId: "quickpress-offical",
-storageBucket: "quickpress-offical.firebasestorage.app",
-messagingSenderId: "939286557961",
-appId: "1:939286557961:web:ddac64f197e14877718fd8"
-};
-
-const app = initializeApp(firebaseConfig);
-
-const auth = getAuth(app);
-const db = getFirestore(app);
-
-/* =========================================
-CHANGE THIS ROLE FOR EVERY PANEL
-========================================= */
-
-const REQUIRED_ROLE = "admin";
-
-/*
-ADMIN PANEL:
-const REQUIRED_ROLE = "admin";
-
-PARTNER PANEL:
-const REQUIRED_ROLE = "partner";
-
-RIDER PANEL:
-const REQUIRED_ROLE = "rider";
-*/
-
-/* =========================================
-AUTH CHECK
-========================================= */
-
-onAuthStateChanged(auth, async(user)=>{
-
-/* NOT LOGIN */
-
-if(!user){
-
-alert("Login Required 🔐");
-
-window.location.href="../auth/login.html";
-
-return;
-
-}
-
-try{
-
-/* GET USER DATA */
-
-const userRef = doc(db,"users",user.uid);
-
-const snap = await getDoc(userRef);
-
-/* NO USER */
-
-if(!snap.exists()){
-
-alert("User Not Found ❌");
-
-window.location.href="../auth/login.html";
-
-return;
-
-}
-
-const data = snap.data();
-
-/* ROLE CHECK */
-
-if(data.role !== REQUIRED_ROLE){
-
-alert("Access Denied ❌");
-
-/* REDIRECT BASED ON ROLE */
-
-if(data.role === "admin"){
-
-window.location.href="../admin/index.html";
-
-}
-
-else if(data.role === "partner"){
-
-window.location.href="../partner/index.html";
-
-}
-
-else if(data.role === "rider"){
-
-window.location.href="../rider/index.html";
-
-}
-
-else{
-
-window.location.href="../index.html";
-
-}
-
-return;
-
-}
-
-/* ACCESS GRANTED */
-
-console.log("Access Granted ✅");
-
-}
-catch(err){
-
-console.log(err);
-
-alert("Security Error ❌");
-
-window.location.href="../auth/login.html";
 
 }
 
 });
 
-</script>
-  <!-- =========================
-LIVE ORDERS SYSTEM
-ADD INSIDE ADMIN PANEL
-========================= -->
+ordersTable.innerHTML = html;
 
-<div id="orders" class="section">
-
-<!-- ORDER STATS -->
-
-<div class="stats-grid">
-
-<div class="stat-card">
-<h3>Total Orders</h3>
-<h1 id="totalOrders">0</h1>
-</div>
-
-<div class="stat-card">
-<h3>Pending</h3>
-<h1 id="pendingOrders">0</h1>
-</div>
-
-<div class="stat-card">
-<h3>Processing</h3>
-<h1 id="processingOrders">0</h1>
-</div>
-
-<div class="stat-card">
-<h3>Completed</h3>
-<h1 id="completedOrders">0</h1>
-</div>
-
-</div>
-
-<!-- LIVE ORDERS -->
-
-<div class="card">
-
-<h2>📦 Live Orders</h2>
-
-<div id="ordersContainer"></div>
-
-</div>
-
-</div>
-
-<style>
-
-.stats-grid{
-display:grid;
-grid-template-columns:repeat(auto-fit,minmax(220px,1fr));
-gap:20px;
-margin-bottom:20px;
 }
 
-.stat-card{
-background:#fff;
-padding:20px;
-border-radius:18px;
-box-shadow:0 5px 20px rgba(0,0,0,0.08);
-}
+/* FILTER */
 
-.order-card{
-background:#fff;
-padding:20px;
-border-radius:18px;
-margin-bottom:20px;
-box-shadow:0 5px 20px rgba(0,0,0,0.08);
-}
+searchInput.addEventListener("input",renderOrders);
+statusFilter.addEventListener("change",renderOrders);
 
-.order-top{
-display:flex;
-justify-content:space-between;
-align-items:center;
-margin-bottom:15px;
-}
+/* COMPLETE ORDER */
 
-.order-id{
-font-size:18px;
-font-weight:bold;
-}
-
-.badge{
-padding:8px 14px;
-border-radius:30px;
-font-size:13px;
-font-weight:bold;
-color:#fff;
-}
-
-.pending{
-background:#ff9800;
-}
-
-.processing{
-background:#2196f3;
-}
-
-.completed{
-background:#4caf50;
-}
-
-.cancelled{
-background:#f44336;
-}
-
-.order-grid{
-display:grid;
-grid-template-columns:repeat(auto-fit,minmax(250px,1fr));
-gap:15px;
-margin-top:15px;
-}
-
-.order-box{
-background:#f7f7f7;
-padding:12px;
-border-radius:12px;
-}
-
-.order-actions{
-display:flex;
-gap:10px;
-flex-wrap:wrap;
-margin-top:20px;
-}
-
-.btn{
-padding:10px 16px;
-border:none;
-border-radius:10px;
-cursor:pointer;
-font-weight:bold;
-}
-
-.btn-blue{
-background:#2196f3;
-color:#fff;
-}
-
-.btn-green{
-background:#4caf50;
-color:#fff;
-}
-
-.btn-orange{
-background:#ff9800;
-color:#fff;
-}
-
-.btn-red{
-background:#f44336;
-color:#fff;
-}
-
-select{
-padding:10px;
-border-radius:10px;
-border:1px solid #ddd;
-}
-
-</style>
-
-<script type="module">
-
-import { initializeApp }
-from "https://www.gstatic.com/firebasejs/12.11.0/firebase-app.js";
-
-import {
-getFirestore,
-collection,
-onSnapshot,
-doc,
-updateDoc
-}
-from "https://www.gstatic.com/firebasejs/12.11.0/firebase-firestore.js";
-
-/* FIREBASE */
-
-const firebaseConfig = {
-
-apiKey: "AIzaSyBBaslH5QsahoyESYpo1nVtlYIUYfVJ2d4",
-
-authDomain: "quickpress-offical.firebaseapp.com",
-
-projectId: "quickpress-offical",
-
-storageBucket: "quickpress-offical.firebasestorage.app",
-
-messagingSenderId: "939286557961",
-
-appId: "1:939286557961:web:ddac64f197e14877718fd8"
-
-};
-
-const app = initializeApp(firebaseConfig);
-
-const db = getFirestore(app);
-
-/* =========================
-LIVE ORDERS
-========================= */
-
-const ordersContainer =
-document.getElementById("ordersContainer");
-
-const totalOrders =
-document.getElementById("totalOrders");
-
-const pendingOrders =
-document.getElementById("pendingOrders");
-
-const processingOrders =
-document.getElementById("processingOrders");
-
-const completedOrders =
-document.getElementById("completedOrders");
-
-onSnapshot(collection(db,"orders"),(snapshot)=>{
-
-let html = "";
-
-let total = 0;
-let pending = 0;
-let processing = 0;
-let completed = 0;
-
-snapshot.forEach((docu)=>{
-
-const order = docu.data();
-
-total++;
-
-if(order.status==="pending") pending++;
-
-if(order.status==="processing") processing++;
-
-if(order.status==="completed") completed++;
-
-html += `
-
-<div class="order-card">
-
-<div class="order-top">
-
-<div class="order-id">
-
-Order #${docu.id}
-
-</div>
-
-<div class="badge ${order.status || 'pending'}">
-
-${order.status || 'pending'}
-
-</div>
-
-</div>
-
-<div class="order-grid">
-
-<div class="order-box">
-
-<h4>👤 Customer</h4>
-
-<p><b>Name:</b> ${order.name || "-"}</p>
-
-<p><b>Phone:</b> ${order.phone || "-"}</p>
-
-<p><b>Address:</b> ${order.address || "-"}</p>
-
-</div>
-
-<div class="order-box">
-
-<h4>🧺 Order Details</h4>
-
-<p><b>Items:</b> ${order.items?.length || 0}</p>
-
-<p><b>Total:</b> ₹${order.total || 0}</p>
-
-<p><b>Payment:</b> ${order.payment || "COD"}</p>
-
-</div>
-
-<div class="order-box">
-
-<h4>🚚 Delivery</h4>
-
-<p><b>Partner:</b> ${order.partnerName || "-"}</p>
-
-<p><b>Rider:</b> ${order.riderName || "-"}</p>
-
-<p><b>Pickup:</b> ${order.pickupTime || "-"}</p>
-
-</div>
-
-</div>
-
-<div class="order-actions">
-
-<select onchange="updateStatus('${docu.id}',this.value)">
-
-<option value="">Update Status</option>
-
-<option value="pending">Pending</option>
-
-<option value="accepted">Accepted</option>
-
-<option value="pickup">Pickup</option>
-
-<option value="processing">Processing</option>
-
-<option value="ironing">Ironing</option>
-
-<option value="packed">Packed</option>
-
-<option value="out_for_delivery">
-Out For Delivery
-</option>
-
-<option value="completed">Completed</option>
-
-<option value="cancelled">Cancelled</option>
-
-</select>
-
-<button class="btn btn-blue"
-onclick="callCustomer('${order.phone}')">
-
-📞 Call
-
-</button>
-
-<button class="btn btn-green"
-onclick="whatsappCustomer('${order.phone}')">
-
-💬 WhatsApp
-
-</button>
-
-<button class="btn btn-orange"
-onclick="viewLocation('${order.lat}','${order.lng}')">
-
-📍 Location
-
-</button>
-
-</div>
-
-</div>
-
-`;
-
-});
-
-ordersContainer.innerHTML = html;
-
-totalOrders.innerHTML = total;
-
-pendingOrders.innerHTML = pending;
-
-processingOrders.innerHTML = processing;
-
-completedOrders.innerHTML = completed;
-
-});
-
-/* =========================
-UPDATE STATUS
-========================= */
-
-window.updateStatus = async function(id,status){
+window.completeOrder = async function(id){
 
 await updateDoc(doc(db,"orders",id),{
-
-status:status,
-updatedAt:Date.now()
-
+status:"Completed"
 });
 
-alert("Order Updated ✅");
+alert("Order Completed ✅");
 
-}
-
-/* =========================
-CALL CUSTOMER
-========================= */
-
-window.callCustomer = function(phone){
-
-window.open(`tel:${phone}`);
-
-}
-
-/* =========================
-WHATSAPP
-========================= */
-
-window.whatsappCustomer = function(phone){
-
-window.open(
-`https://wa.me/91${phone}`
-);
-
-}
-
-/* =========================
-LOCATION
-========================= */
-
-window.viewLocation = function(lat,lng){
-
-window.open(
-`https://maps.google.com/?q=${lat},${lng}`
-);
-
-}
+};
 
 </script>
-  <script type="module">
-ORDERS CODE
-</script>
-
-<script type="module">
-PARTNERS CODE
-</script>
-
-<script type="module">
-USERS CODE
-</script>
-
-<script type="module">
-WITHDRAW CODE
-</script>
-
-<script>
-function showSection(){}
-</script>
-
-<script type="module" src="./dashboard.js"></script>
 
 </body>
 </html>
