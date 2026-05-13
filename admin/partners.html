@@ -13,7 +13,7 @@
 body{
 margin:0;
 font-family:Arial,sans-serif;
-background:#f5f6fa;
+background:#f4f7fb;
 }
 
 .layout{
@@ -24,19 +24,18 @@ min-height:100vh;
 /* SIDEBAR */
 
 .sidebar{
-width:220px;
+width:240px;
 background:#07142b;
 position:fixed;
 height:100%;
+overflow:auto;
 color:#fff;
-padding-top:20px;
 }
 
 .logo{
 font-size:30px;
 font-weight:bold;
-padding-left:22px;
-margin-bottom:30px;
+padding:25px;
 color:#FFD400;
 }
 
@@ -50,7 +49,7 @@ border:none;
 background:none;
 color:#fff;
 padding:18px 25px;
-font-size:17px;
+font-size:16px;
 text-align:left;
 cursor:pointer;
 transition:0.3s;
@@ -69,8 +68,8 @@ color:#000 !important;
 /* MAIN */
 
 .main{
-margin-left:220px;
-padding:28px;
+margin-left:240px;
+padding:25px;
 width:100%;
 }
 
@@ -89,13 +88,13 @@ font-weight:bold;
 box-shadow:0 5px 15px rgba(0,0,0,0.08);
 }
 
-/* GRID */
+/* CARDS */
 
 .grid{
 display:grid;
-grid-template-columns:repeat(auto-fit,minmax(240px,1fr));
+grid-template-columns:repeat(auto-fit,minmax(230px,1fr));
 gap:20px;
-margin-bottom:30px;
+margin-bottom:25px;
 }
 
 .card{
@@ -108,12 +107,13 @@ box-shadow:0 5px 18px rgba(0,0,0,0.08);
 .card h2{
 margin:0;
 font-size:18px;
-margin-bottom:12px;
+margin-bottom:10px;
+color:#666;
 }
 
 .card h1{
 margin:0;
-font-size:42px;
+font-size:38px;
 }
 
 /* FORM */
@@ -122,13 +122,13 @@ font-size:42px;
 background:#fff;
 padding:25px;
 border-radius:22px;
+margin-bottom:25px;
 box-shadow:0 5px 18px rgba(0,0,0,0.08);
-margin-bottom:30px;
 }
 
 .formGrid{
 display:grid;
-grid-template-columns:repeat(auto-fit,minmax(250px,1fr));
+grid-template-columns:repeat(auto-fit,minmax(220px,1fr));
 gap:15px;
 }
 
@@ -137,6 +137,8 @@ padding:14px;
 border-radius:12px;
 border:1px solid #ddd;
 font-size:15px;
+width:100%;
+box-sizing:border-box;
 }
 
 /* TABLE */
@@ -186,25 +188,62 @@ color:#fff;
 }
 
 .blue{
-background:#3b82f6;
+background:#2563eb;
 color:#fff;
 }
 
 /* STATUS */
 
-.status{
-padding:6px 12px;
-border-radius:20px;
-font-size:13px;
+.active{
+color:#16a34a;
 font-weight:bold;
 }
 
-.active{
-background:#86efac;
+.blocked{
+color:#dc2626;
+font-weight:bold;
 }
 
-.blocked{
-background:#fecaca;
+/* MODAL */
+
+.modal{
+display:none;
+position:fixed;
+z-index:999;
+left:0;
+top:0;
+width:100%;
+height:100%;
+background:rgba(0,0,0,0.5);
+overflow:auto;
+}
+
+.modalContent{
+background:#fff;
+margin:30px auto;
+padding:25px;
+width:90%;
+max-width:900px;
+border-radius:25px;
+}
+
+.closeBtn{
+float:right;
+font-size:25px;
+cursor:pointer;
+}
+
+.detailGrid{
+display:grid;
+grid-template-columns:repeat(auto-fit,minmax(250px,1fr));
+gap:20px;
+margin-top:25px;
+}
+
+.detailCard{
+background:#f7f7f7;
+padding:18px;
+border-radius:15px;
 }
 
 </style>
@@ -253,18 +292,6 @@ QuickPress
 <button>💳 Withdraw</button>
 </a>
 
-<a href="./analytics.html">
-<button>📈 Analytics</button>
-</a>
-
-<a href="./help.html">
-<button>🛠 Help</button>
-</a>
-
-<a href="./staff.html">
-<button>👨‍💼 Staff</button>
-</a>
-
 </div>
 
 <!-- MAIN -->
@@ -273,7 +300,9 @@ QuickPress
 
 <div class="topbar">
 
-<h1>👨‍🏭 Partners Management</h1>
+<h1>
+👨‍🏭 Advanced Partners Management
+</h1>
 
 <div class="adminBox">
 👤 Admin
@@ -296,13 +325,13 @@ QuickPress
 </div>
 
 <div class="card">
-<h2>Total Orders</h2>
-<h1 id="totalOrders">0</h1>
+<h2>Total Earnings</h2>
+<h1 id="totalEarnings">₹0</h1>
 </div>
 
 <div class="card">
-<h2>Total Earnings</h2>
-<h1 id="totalEarnings">₹0</h1>
+<h2>Total Orders</h2>
+<h1 id="totalOrders">0</h1>
 </div>
 
 </div>
@@ -311,19 +340,59 @@ QuickPress
 
 <div class="formCard">
 
-<h2>Create Partner</h2>
+<h2>
+Create Partner Account
+</h2>
 
 <div class="formGrid">
 
-<input type="text" id="partnerName" placeholder="Partner Name">
+<input
+type="text"
+id="partnerName"
+placeholder="Partner Name"
+>
 
-<input type="text" id="partnerPhone" placeholder="Phone">
+<input
+type="text"
+id="partnerPhone"
+placeholder="Phone Number"
+>
 
-<input type="email" id="partnerEmail" placeholder="Email">
+<input
+type="email"
+id="partnerEmail"
+placeholder="Email"
+>
 
-<input type="text" id="partnerShop" placeholder="Shop Name">
+<input
+type="password"
+id="partnerPassword"
+placeholder="Password"
+>
 
-<input type="text" id="partnerAddress" placeholder="Address">
+<input
+type="text"
+id="partnerShop"
+placeholder="Shop Name"
+>
+
+<input
+type="text"
+id="partnerAddress"
+placeholder="Address"
+>
+
+<input
+type="text"
+id="partnerCity"
+placeholder="City"
+>
+
+<input
+type="text"
+id="partnerPincode"
+placeholder="Pincode"
+>
 
 <select id="partnerStatus">
 
@@ -350,11 +419,13 @@ Create Partner
 
 </div>
 
-<!-- PARTNERS TABLE -->
+<!-- TABLE -->
 
 <div class="tableCard">
 
-<h2>Partners List</h2>
+<h2>
+All Partners
+</h2>
 
 <table>
 
@@ -364,11 +435,12 @@ Create Partner
 
 <th>Name</th>
 <th>Phone</th>
+<th>Email</th>
 <th>Shop</th>
 <th>Orders</th>
 <th>Earnings</th>
 <th>Status</th>
-<th>Actions</th>
+<th>Action</th>
 
 </tr>
 
@@ -386,22 +458,100 @@ Create Partner
 
 </div>
 
-<script type="module">
+<!-- MODAL -->
 
-import { db } from "./firebase.js";
+<div class="modal" id="partnerModal">
+
+<div class="modalContent">
+
+<span
+class="closeBtn"
+onclick="closePartnerModal()"
+>
+✖
+</span>
+
+<h1>
+👨‍🏭 Partner Full Details
+</h1>
+
+<div
+class="detailGrid"
+id="partnerDetails"
+>
+
+</div>
+
+</div>
+
+</div>
+
+<script type="module">
 
 import {
 
+initializeApp
+
+}
+
+from "https://www.gstatic.com/firebasejs/12.11.0/firebase-app.js";
+
+import {
+
+getFirestore,
 collection,
 onSnapshot,
-addDoc,
 doc,
-updateDoc,
-deleteDoc
+setDoc,
+deleteDoc,
+updateDoc
 
 }
 
 from "https://www.gstatic.com/firebasejs/12.11.0/firebase-firestore.js";
+
+import {
+
+getAuth,
+createUserWithEmailAndPassword
+
+}
+
+from "https://www.gstatic.com/firebasejs/12.11.0/firebase-auth.js";
+
+/* FIREBASE */
+
+const firebaseConfig = {
+
+apiKey: "AIzaSyBBaslH5QsahoyESYpo1nVtlYIUYfVJ2d4",
+
+authDomain:
+"quickpress-offical.firebaseapp.com",
+
+projectId:
+"quickpress-offical",
+
+storageBucket:
+"quickpress-offical.firebasestorage.app",
+
+messagingSenderId:
+"939286557961",
+
+appId:
+"1:939286557961:web:ddac64f197e14877718fd8"
+
+};
+
+const app =
+initializeApp(firebaseConfig);
+
+const db =
+getFirestore(app);
+
+const auth =
+getAuth(app);
+
+/* ELEMENTS */
 
 const totalPartners =
 document.getElementById("totalPartners");
@@ -409,11 +559,11 @@ document.getElementById("totalPartners");
 const activePartners =
 document.getElementById("activePartners");
 
-const totalOrders =
-document.getElementById("totalOrders");
-
 const totalEarnings =
 document.getElementById("totalEarnings");
+
+const totalOrders =
+document.getElementById("totalOrders");
 
 const partnersTable =
 document.getElementById("partnersTable");
@@ -427,55 +577,76 @@ document.getElementById("partnerPhone");
 const partnerEmail =
 document.getElementById("partnerEmail");
 
+const partnerPassword =
+document.getElementById("partnerPassword");
+
 const partnerShop =
 document.getElementById("partnerShop");
 
 const partnerAddress =
 document.getElementById("partnerAddress");
 
+const partnerCity =
+document.getElementById("partnerCity");
+
+const partnerPincode =
+document.getElementById("partnerPincode");
+
 const partnerStatus =
 document.getElementById("partnerStatus");
 
 let allPartners = [];
 
-onSnapshot(collection(db,"partners"),(snapshot)=>{
+/* LIVE DATA */
+
+onSnapshot(
+collection(db,"partners"),
+(snapshot)=>{
 
 let active = 0;
-let orders = 0;
 let earnings = 0;
+let orders = 0;
 
 allPartners = [];
 
 snapshot.forEach((docSnap)=>{
 
-const partner = docSnap.data();
+const p = docSnap.data();
 
 allPartners.push({
 id:docSnap.id,
-...partner
+...p
 });
 
-if(partner.status === "active"){
+if(p.status === "active"){
 active++;
 }
 
-orders += Number(partner.totalOrders || 0);
+earnings +=
+Number(p.totalEarning || 0);
 
-earnings += Number(partner.totalEarning || 0);
+orders +=
+Number(p.totalOrders || 0);
 
 });
 
-totalPartners.innerHTML = snapshot.size;
+totalPartners.innerHTML =
+snapshot.size;
 
-activePartners.innerHTML = active;
+activePartners.innerHTML =
+active;
 
-totalOrders.innerHTML = orders;
+totalEarnings.innerHTML =
+"₹" + earnings;
 
-totalEarnings.innerHTML = "₹" + earnings;
+totalOrders.innerHTML =
+orders;
 
 renderPartners();
 
 });
+
+/* RENDER */
 
 function renderPartners(){
 
@@ -491,32 +662,46 @@ html += `
 
 <td>${p.phone || "-"}</td>
 
+<td>${p.email || "-"}</td>
+
 <td>${p.shop || "-"}</td>
 
 <td>${p.totalOrders || 0}</td>
 
 <td>₹${p.totalEarning || 0}</td>
 
-<td>
-
-<span class="status ${p.status}">
+<td class="${p.status}">
 ${p.status}
-</span>
-
 </td>
 
 <td>
 
 <button
 class="btn blue"
-onclick="toggleStatus('${p.id}','${p.status}')"
+onclick='viewPartner(${JSON.stringify(p)})'
+>
+View
+</button>
+
+<button
+class="btn green"
+onclick="
+toggleStatus(
+'${p.id}',
+'${p.status}'
+)
+"
 >
 Toggle
 </button>
 
 <button
 class="btn red"
-onclick="deletePartner('${p.id}')"
+onclick="
+deletePartner(
+'${p.id}'
+)
+"
 >
 Delete
 </button>
@@ -533,65 +718,219 @@ partnersTable.innerHTML = html;
 
 }
 
-window.createPartner = async function(){
+/* CREATE */
+
+window.createPartner =
+async function(){
 
 if(
 !partnerName.value ||
-!partnerPhone.value
+!partnerPhone.value ||
+!partnerEmail.value ||
+!partnerPassword.value
 ){
 alert("Fill required fields");
 return;
 }
 
-await addDoc(collection(db,"partners"),{
+try{
+
+const result =
+await createUserWithEmailAndPassword(
+auth,
+partnerEmail.value,
+partnerPassword.value
+);
+
+const uid =
+result.user.uid;
+
+await setDoc(
+doc(db,"partners",uid),
+{
+
+uid:uid,
 
 name:partnerName.value,
+
 phone:partnerPhone.value,
+
 email:partnerEmail.value,
+
 shop:partnerShop.value,
+
 address:partnerAddress.value,
+
+city:partnerCity.value,
+
+pincode:partnerPincode.value,
+
 status:partnerStatus.value,
 
+wallet:0,
+
 totalOrders:0,
+
 totalEarning:0,
 
 createdAt:Date.now()
 
-});
+}
+);
 
 alert("Partner Created ✅");
 
 partnerName.value="";
 partnerPhone.value="";
 partnerEmail.value="";
+partnerPassword.value="";
 partnerShop.value="";
 partnerAddress.value="";
+partnerCity.value="";
+partnerPincode.value="";
+
+}catch(error){
+
+alert(error.message);
 
 }
 
-window.toggleStatus = async function(id,status){
+}
 
-let newStatus =
-status === "active"
-? "blocked"
-: "active";
+/* VIEW */
 
-await updateDoc(doc(db,"partners",id),{
-status:newStatus
-});
+window.viewPartner =
+function(p){
+
+const modal =
+document.getElementById(
+"partnerModal"
+);
+
+const details =
+document.getElementById(
+"partnerDetails"
+);
+
+modal.style.display =
+"block";
+
+let date =
+new Date(
+p.createdAt || Date.now()
+).toLocaleString();
+
+details.innerHTML = `
+
+<div class="detailCard">
+<b>Name</b><br>
+${p.name || "-"}
+</div>
+
+<div class="detailCard">
+<b>Phone</b><br>
+${p.phone || "-"}
+</div>
+
+<div class="detailCard">
+<b>Email</b><br>
+${p.email || "-"}
+</div>
+
+<div class="detailCard">
+<b>Shop</b><br>
+${p.shop || "-"}
+</div>
+
+<div class="detailCard">
+<b>Address</b><br>
+${p.address || "-"}
+</div>
+
+<div class="detailCard">
+<b>City</b><br>
+${p.city || "-"}
+</div>
+
+<div class="detailCard">
+<b>Pincode</b><br>
+${p.pincode || "-"}
+</div>
+
+<div class="detailCard">
+<b>Total Orders</b><br>
+${p.totalOrders || 0}
+</div>
+
+<div class="detailCard">
+<b>Total Earnings</b><br>
+₹${p.totalEarning || 0}
+</div>
+
+<div class="detailCard">
+<b>Wallet</b><br>
+₹${p.wallet || 0}
+</div>
+
+<div class="detailCard">
+<b>Status</b><br>
+${p.status || "-"}
+</div>
+
+<div class="detailCard">
+<b>Created</b><br>
+${date}
+</div>
+
+`;
 
 }
 
-window.deletePartner = async function(id){
+/* CLOSE */
+
+window.closePartnerModal =
+function(){
+
+document.getElementById(
+"partnerModal"
+).style.display = "none";
+
+}
+
+/* DELETE */
+
+window.deletePartner =
+async function(id){
 
 let confirmDelete =
 confirm("Delete Partner ?");
 
 if(confirmDelete){
 
-await deleteDoc(doc(db,"partners",id));
+await deleteDoc(
+doc(db,"partners",id)
+);
 
 }
+
+}
+
+/* STATUS */
+
+window.toggleStatus =
+async function(id,status){
+
+let newStatus =
+status === "active"
+? "blocked"
+: "active";
+
+await updateDoc(
+doc(db,"partners",id),
+{
+status:newStatus
+}
+);
 
 }
 
