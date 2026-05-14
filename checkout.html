@@ -1,287 +1,655 @@
+
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
-<meta charset="UTF-8">
-<title>Checkout – QuickPress</title>
-<meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>QuickPress Checkout</title>
 
-<style>
-:root{
---yellow:#FFD400;
---bg:#f6f7f9;
-}
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
 
-body{
-margin:0;
-font-family:Segoe UI;
-background:var(--bg);
-}
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
 
-.header{
-padding:14px;
-font-weight:bold;
-background:#fff;
-box-shadow:0 2px 10px rgba(0,0,0,.1);
-}
+  <style>
 
-.container{
-padding:14px;
-padding-bottom:110px;
-}
+    *{
+      margin:0;
+      padding:0;
+      box-sizing:border-box;
+      font-family:'Poppins',sans-serif;
+    }
 
-/* CARD */
-.card{
-background:#fff;
-padding:16px;
-border-radius:14px;
-margin-bottom:14px;
-}
+    body{
+      background:#f4f7ff;
+      max-width:480px;
+      margin:auto;
+      color:#111827;
+      padding-bottom:140px;
+    }
 
-/* TITLE */
-.title{
-font-weight:bold;
-margin-bottom:10px;
-}
+    .container{
+      padding:18px;
+    }
 
-/* INPUT GRID 🔥 */
-.grid{
-display:grid;
-grid-template-columns:1fr 1fr;
-gap:10px;
-}
+    .header{
+      display:flex;
+      justify-content:space-between;
+      align-items:center;
+      margin-bottom:24px;
+    }
 
-input, textarea, select{
-width:100%;
-padding:12px;
-margin-top:6px;
-border-radius:10px;
-border:1px solid #ddd;
-}
+    .back-btn,
+    .notification{
+      width:48px;
+      height:48px;
+      border-radius:16px;
+      background:white;
+      display:flex;
+      align-items:center;
+      justify-content:center;
+      box-shadow:0 4px 14px rgba(0,0,0,0.08);
+      cursor:pointer;
+    }
 
-/* FULL WIDTH */
-.full{
-grid-column:span 2;
-}
+    .header h2{
+      font-size:28px;
+      font-weight:800;
+    }
 
-/* ITEM */
-.item{
-display:flex;
-justify-content:space-between;
-padding:6px 0;
-border-bottom:1px solid #eee;
-}
+    .address-card{
+      background:linear-gradient(135deg,#001a5c,#0037b8);
+      border-radius:28px;
+      padding:24px;
+      color:white;
+      margin-bottom:22px;
+      position:relative;
+      overflow:hidden;
+    }
 
-/* FOOTER */
-.footer{
-position:fixed;
-bottom:0;
-left:0;
-right:0;
-background:#fff;
-padding:14px;
-box-shadow:0 -2px 10px rgba(0,0,0,.15);
-display:flex;
-justify-content:space-between;
-align-items:center;
-}
+    .address-card::before{
+      content:'';
+      position:absolute;
+      width:240px;
+      height:240px;
+      border:1px solid rgba(255,255,255,0.08);
+      border-radius:50%;
+      top:-100px;
+      right:-80px;
+    }
 
-.footer button{
-background:var(--yellow);
-border:none;
-padding:12px 18px;
-border-radius:20px;
-font-weight:bold;
-}
-</style>
+    .address-top{
+      display:flex;
+      justify-content:space-between;
+      margin-bottom:18px;
+      position:relative;
+      z-index:2;
+    }
+
+    .address-top h3{
+      font-size:24px;
+    }
+
+    .change-btn{
+      background:#ffcc00;
+      color:#111827;
+      border:none;
+      padding:10px 16px;
+      border-radius:14px;
+      font-weight:700;
+      cursor:pointer;
+    }
+
+    .address-card p{
+      color:#dbeafe;
+      line-height:28px;
+      position:relative;
+      z-index:2;
+    }
+
+    .cart-items{
+      display:grid;
+      gap:18px;
+      margin-bottom:24px;
+    }
+
+    .item-card{
+      background:white;
+      border-radius:28px;
+      padding:18px;
+      display:flex;
+      gap:16px;
+      box-shadow:0 6px 16px rgba(0,0,0,0.05);
+    }
+
+    .item-card img{
+      width:110px;
+      height:110px;
+      object-fit:cover;
+      border-radius:22px;
+    }
+
+    .item-details{
+      width:100%;
+    }
+
+    .item-top{
+      display:flex;
+      justify-content:space-between;
+      margin-bottom:8px;
+    }
+
+    .item-top h3{
+      font-size:20px;
+    }
+
+    .remove{
+      color:red;
+      cursor:pointer;
+    }
+
+    .item-details p{
+      color:#6b7280;
+      font-size:14px;
+      margin-bottom:14px;
+    }
+
+    .item-bottom{
+      display:flex;
+      justify-content:space-between;
+      align-items:center;
+    }
+
+    .price{
+      font-size:28px;
+      font-weight:800;
+    }
+
+    .quantity{
+      display:flex;
+      align-items:center;
+      gap:12px;
+      background:#eef4ff;
+      padding:8px 12px;
+      border-radius:16px;
+    }
+
+    .qty-btn{
+      width:34px;
+      height:34px;
+      border:none;
+      border-radius:12px;
+      background:#2563eb;
+      color:white;
+      font-size:18px;
+      cursor:pointer;
+    }
+
+    .coupon-box{
+      background:white;
+      border-radius:24px;
+      padding:18px;
+      display:flex;
+      gap:12px;
+      margin-bottom:22px;
+      box-shadow:0 6px 16px rgba(0,0,0,0.05);
+    }
+
+    .coupon-box input{
+      width:100%;
+      border:none;
+      outline:none;
+      font-size:15px;
+    }
+
+    .apply-btn{
+      background:#2563eb;
+      color:white;
+      border:none;
+      padding:12px 18px;
+      border-radius:14px;
+      font-weight:700;
+      cursor:pointer;
+    }
+
+    .summary{
+      background:white;
+      border-radius:30px;
+      padding:24px;
+      box-shadow:0 6px 16px rgba(0,0,0,0.05);
+      margin-bottom:22px;
+    }
+
+    .summary h2{
+      margin-bottom:20px;
+    }
+
+    .summary-row{
+      display:flex;
+      justify-content:space-between;
+      margin-bottom:16px;
+      color:#6b7280;
+    }
+
+    .summary-row.total{
+      margin-top:20px;
+      padding-top:20px;
+      border-top:2px dashed #dbeafe;
+      font-size:22px;
+      color:#111827;
+      font-weight:800;
+    }
+
+    .payment-section{
+      margin-bottom:24px;
+    }
+
+    .payment-title{
+      display:flex;
+      justify-content:space-between;
+      align-items:center;
+      margin-bottom:18px;
+    }
+
+    .payment-cards{
+      display:grid;
+      gap:16px;
+    }
+
+    .payment-card{
+      background:white;
+      border-radius:22px;
+      padding:18px;
+      display:flex;
+      justify-content:space-between;
+      align-items:center;
+      box-shadow:0 6px 16px rgba(0,0,0,0.05);
+      cursor:pointer;
+      border:2px solid transparent;
+      transition:0.3s;
+    }
+
+    .payment-card.active{
+      border-color:#2563eb;
+      background:#eef4ff;
+    }
+
+    .payment-left{
+      display:flex;
+      align-items:center;
+      gap:14px;
+    }
+
+    .payment-icon{
+      width:52px;
+      height:52px;
+      border-radius:16px;
+      background:#eef4ff;
+      color:#2563eb;
+      display:flex;
+      align-items:center;
+      justify-content:center;
+      font-size:22px;
+    }
+
+    .bottom-bar{
+      position:fixed;
+      bottom:0;
+      left:50%;
+      transform:translateX(-50%);
+      width:100%;
+      max-width:480px;
+      background:white;
+      padding:18px;
+      border-top-left-radius:30px;
+      border-top-right-radius:30px;
+      box-shadow:0 -4px 20px rgba(0,0,0,0.08);
+    }
+
+    .place-order{
+      width:100%;
+      border:none;
+      background:linear-gradient(135deg,#001a5c,#0037b8);
+      color:white;
+      padding:18px;
+      border-radius:20px;
+      font-size:18px;
+      font-weight:800;
+      cursor:pointer;
+      transition:0.3s;
+    }
+
+    .place-order:hover{
+      transform:translateY(-2px);
+    }
+
+  </style>
 </head>
-
 <body>
 
-<div class="header">🧾 Checkout</div>
+  <div class="container">
 
-<div class="container">
+    <div class="header">
+      <div class="back-btn">
+        <i class="fa-solid fa-arrow-left"></i>
+      </div>
 
-<!-- CUSTOMER -->
-<div class="card">
-<div class="title">👤 Customer Details</div>
+      <h2>Checkout</h2>
 
-<div class="grid">
+      <div class="notification">
+        <i class="fa-regular fa-bell"></i>
+      </div>
+    </div>
 
-<input id="name" placeholder="Full Name">
-<input id="phone" placeholder="Phone Number">
 
-<input id="house" placeholder="House No">
-<input id="landmark" placeholder="Landmark">
+    <div class="address-card">
 
-<input id="city" placeholder="City">
-<input id="state" placeholder="State">
+      <div class="address-top">
+        <div>
+          <small>Pickup Address</small>
+          <h3>Home</h3>
+        </div>
 
-<input id="pincode" placeholder="Pincode">
+        <button class="change-btn">Change</button>
+      </div>
 
-<select id="area" class="full">
-<option>Delhi</option>
-<option>Noida</option>
-<option>Ghaziabad</option>
-<option>Meerut</option>
-</select>
+      <p>
+        House No. 45, Udyog Vihar Phase 2, Gurugram, Haryana - 122016
+      </p>
 
-<textarea id="address" class="full" placeholder="Full Address"></textarea>
+    </div>
 
-</div>
-</div>
 
-<!-- SUMMARY -->
-<div class="card">
-<div class="title">🛒 Order Summary</div>
-<div id="items"></div>
-</div>
+    <div class="cart-items">
 
-<!-- PAYMENT -->
-<div class="card">
-<div class="title">💳 Payment</div>
+      <div class="item-card">
 
-<label><input type="radio" name="pay" value="cod" checked> COD</label><br>
-<label><input type="radio" name="pay" value="upi"> UPI</label><br>
-<label><input type="radio" name="pay" value="card"> Card</label>
+        <img src="https://images.unsplash.com/photo-1610557892470-55d9e80c0bce?q=80&w=1200&auto=format&fit=crop">
 
-</div>
+        <div class="item-details">
 
-<!-- PRICE -->
-<div class="card">
+          <div class="item-top">
+            <h3>Wash & Fold</h3>
+            <i class="fa-solid fa-trash remove"></i>
+          </div>
 
-<div class="item">
-<span>Subtotal</span>
-<span>₹<span id="total">0</span></span>
-</div>
+          <p>Premium cleaning with fabric softener.</p>
 
-<div class="item">
-<span>Delivery</span>
-<span>₹20</span>
-</div>
+          <div class="item-bottom">
 
-<div class="item">
-<span>Handling Fee</span>
-<span>₹3</span>
-</div>
+            <div class="price">₹49</div>
 
-<div class="item">
-<span>GST (5%)</span>
-<span>₹<span id="gst">0</span></span>
-</div>
+            <div class="quantity">
+              <button class="qty-btn minus">-</button>
+              <span class="qty">1</span>
+              <button class="qty-btn plus">+</button>
+            </div>
 
-<div class="item">
-<b>Total</b>
-<b>₹<span id="grand">0</span></b>
-</div>
+          </div>
 
-</div>
+        </div>
 
-</div>
+      </div>
 
-<!-- FOOTER -->
-<div class="footer">
-<div>₹<b id="finalTotal">0</b></div>
-<button onclick="placeOrder()">Place Order</button>
-</div>
 
-<script type="module">
+      <div class="item-card">
 
-import { db } from "./js/firebase.js";
-import { collection, addDoc } from "https://www.gstatic.com/firebasejs/12.11.0/firebase-firestore.js";
+        <img src="https://images.unsplash.com/photo-1603252109303-2751441dd157?q=80&w=1200&auto=format&fit=crop">
 
-/* FIXED CART */
-let cart = JSON.parse(localStorage.getItem("cart") || "[]");
+        <div class="item-details">
 
-let total = 0;
+          <div class="item-top">
+            <h3>Steam Ironing</h3>
+            <i class="fa-solid fa-trash remove"></i>
+          </div>
 
-/* GROUP */
-function groupSummary(){
-let summary={ironing:0,dry:0,washing:0};
+          <p>Professional wrinkle-free ironing service.</p>
 
-cart.forEach(i=>{
-summary[i.service]+=i.qty;
-});
+          <div class="item-bottom">
 
-return summary;
-}
+            <div class="price">₹29</div>
 
-/* RENDER */
-function render(){
+            <div class="quantity">
+              <button class="qty-btn minus">-</button>
+              <span class="qty">1</span>
+              <button class="qty-btn plus">+</button>
+            </div>
 
-total=0;
+          </div>
 
-let html="";
+        </div>
 
-let grouped = groupSummary();
+      </div>
 
-html+=`
-<div class="item"><b>Ironing</b><span>${grouped.ironing}</span></div>
-<div class="item"><b>Dry Cleaning</b><span>${grouped.dry}</span></div>
-<div class="item"><b>Washing</b><span>${grouped.washing}</span></div>
-<hr>
-`;
+    </div>
 
-cart.forEach(i=>{
-let price=i.price*i.qty;
-total+=price;
 
-html+=`<div class="item">
-<span>${i.name} x ${i.qty}</span>
-<span>₹${price}</span>
-</div>`;
-});
+    <div class="coupon-box">
+      <input type="text" placeholder="Enter Coupon Code" id="couponInput">
+      <button class="apply-btn" onclick="applyCoupon()">Apply</button>
+    </div>
 
-/* GST + TOTAL */
-let delivery = 20;
-let handling = 3;
-let gst = Math.round((total * 5) / 100);
 
-let grand = total + delivery + handling + gst;
+    <div class="summary">
 
-document.getElementById("items").innerHTML = html;
-document.getElementById("total").innerText = total;
-document.getElementById("gst").innerText = gst;
-document.getElementById("grand").innerText = grand;
-document.getElementById("finalTotal").innerText = grand;
+      <h2>Payment Summary</h2>
 
-}
+      <div class="summary-row">
+        <span>Subtotal</span>
+        <span id="subtotal">₹78</span>
+      </div>
 
-render();
+      <div class="summary-row">
+        <span>Pickup Charges</span>
+        <span>₹20</span>
+      </div>
 
-/* ORDER */
-window.placeOrder = async function(){
+      <div class="summary-row">
+        <span>Discount</span>
+        <span id="discount">- ₹0</span>
+      </div>
 
-let name = document.getElementById("name").value;
-let phone = document.getElementById("phone").value;
-let house = document.getElementById("house").value;
-let city = document.getElementById("city").value;
-let pincode = document.getElementById("pincode").value;
+      <div class="summary-row total">
+        <span>Total</span>
+        <span id="finalTotal">₹98</span>
+      </div>
 
-if(!name || !phone || !house || !city || !pincode){
-alert("Fill required details ❌");
-return;
-}
+    </div>
 
-let payMethod = document.querySelector('input[name="pay"]:checked').value;
 
-await addDoc(collection(db,"orders"),{
-name,phone,house,city,pincode,
-items:cart,
-paymentMethod:payMethod,
-total:document.getElementById("grand").innerText,
-status:"new",
-time:Date.now()
-});
+    <div class="payment-section">
 
-localStorage.removeItem("cart");
+      <div class="payment-title">
+        <h2>Payment Method</h2>
+      </div>
 
-alert("Order Placed ✅");
 
-location.href="tracking.html";
+      <div class="payment-cards">
 
-};
+        <div class="payment-card active">
 
-</script>
+          <div class="payment-left">
+            <div class="payment-icon">
+              <i class="fa-solid fa-money-bill-wave"></i>
+            </div>
+
+            <div>
+              <h3>Cash On Delivery</h3>
+              <small>Pay after delivery</small>
+            </div>
+          </div>
+
+          <i class="fa-solid fa-circle-check"></i>
+
+        </div>
+
+
+        <div class="payment-card">
+
+          <div class="payment-left">
+            <div class="payment-icon">
+              <i class="fa-brands fa-google-pay"></i>
+            </div>
+
+            <div>
+              <h3>UPI Payment</h3>
+              <small>Google Pay / PhonePe</small>
+            </div>
+          </div>
+
+          <i class="fa-regular fa-circle"></i>
+
+        </div>
+
+      </div>
+
+    </div>
+
+  </div>
+
+
+  <div class="bottom-bar">
+    <button class="place-order" onclick="placeOrder()">
+      Place Order • ₹98
+    </button>
+  </div>
+
+
+  <script>
+
+    let subtotal = 78;
+    let pickup = 20;
+    let discount = 0;
+
+    const qtyElements = document.querySelectorAll('.qty');
+    const plusButtons = document.querySelectorAll('.plus');
+    const minusButtons = document.querySelectorAll('.minus');
+
+
+    plusButtons.forEach((btn,index)=>{
+
+      btn.addEventListener('click',()=>{
+
+        let qty = Number(qtyElements[index].innerText);
+        qty++;
+        qtyElements[index].innerText = qty;
+
+        subtotal += 20;
+
+        updateTotal();
+
+      });
+
+    });
+
+
+    minusButtons.forEach((btn,index)=>{
+
+      btn.addEventListener('click',()=>{
+
+        let qty = Number(qtyElements[index].innerText);
+
+        if(qty > 1){
+
+          qty--;
+          qtyElements[index].innerText = qty;
+
+          subtotal -= 20;
+
+          updateTotal();
+
+        }
+
+      });
+
+    });
+
+
+    function updateTotal(){
+
+      document.getElementById('subtotal').innerText = '₹' + subtotal;
+
+      const total = subtotal + pickup - discount;
+
+      document.getElementById('finalTotal').innerText = '₹' + total;
+
+      document.querySelector('.place-order').innerText = 'Place Order • ₹' + total;
+
+    }
+
+
+    function applyCoupon(){
+
+      const coupon = document.getElementById('couponInput').value;
+
+      if(coupon === 'WELCOME30'){
+
+        discount = 30;
+
+        document.getElementById('discount').innerText = '- ₹30';
+
+        updateTotal();
+
+        alert('✅ Coupon Applied Successfully');
+
+      }
+      else{
+
+        alert('❌ Invalid Coupon Code');
+
+      }
+
+    }
+
+
+    const paymentCards = document.querySelectorAll('.payment-card');
+
+    paymentCards.forEach((card)=>{
+
+      card.addEventListener('click',()=>{
+
+        paymentCards.forEach((c)=>{
+          c.classList.remove('active');
+        });
+
+        card.classList.add('active');
+
+      });
+
+    });
+
+
+    const removeButtons = document.querySelectorAll('.remove');
+
+    removeButtons.forEach((btn)=>{
+
+      btn.addEventListener('click',()=>{
+
+        btn.closest('.item-card').remove();
+
+        alert('🗑️ Item Removed');
+
+      });
+
+    });
+
+
+    function placeOrder(){
+
+      const total = subtotal + pickup - discount;
+
+      const orderId = 'QP' + Math.floor(Math.random()*1000000);
+
+      alert(
+        '🎉 Order Placed Successfully!\n\n' +
+        'Order ID: ' + orderId + '\n' +
+        'Total Amount: ₹' + total
+      );
+
+    }
+
+  </script>
 
 </body>
 </html>
