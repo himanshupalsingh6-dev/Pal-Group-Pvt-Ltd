@@ -1,0 +1,1177 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+<meta charset="UTF-8">
+
+<meta
+name="viewport"
+content="width=device-width, initial-scale=1.0"
+/>
+
+<title>
+QuickPress Services
+</title>
+
+<link
+rel="stylesheet"
+href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css"
+/>
+
+<style>
+
+/* =========================
+RESET
+========================= */
+
+*{
+margin:0;
+padding:0;
+box-sizing:border-box;
+font-family:
+"Poppins",
+sans-serif;
+}
+
+body{
+background:#fff;
+color:#111827;
+overflow-x:hidden;
+}
+
+/* =========================
+TOPBAR
+========================= */
+
+.topbar{
+position:sticky;
+top:0;
+z-index:999;
+background:#fff;
+padding:16px 18px;
+box-shadow:
+0 2px 10px rgba(0,0,0,0.05);
+}
+
+.topTop{
+display:flex;
+justify-content:space-between;
+align-items:center;
+margin-bottom:15px;
+gap:10px;
+}
+
+.backBtn{
+width:48px;
+height:48px;
+border:none;
+border-radius:16px;
+background:#FFD400;
+font-size:20px;
+cursor:pointer;
+}
+
+.pageTitle h2{
+font-size:24px;
+font-weight:800;
+}
+
+.pageTitle p{
+font-size:13px;
+color:#666;
+margin-top:4px;
+}
+
+.topIcons{
+display:flex;
+gap:12px;
+}
+
+.iconBtn{
+width:46px;
+height:46px;
+border-radius:16px;
+background:#F3F4F6;
+display:flex;
+align-items:center;
+justify-content:center;
+cursor:pointer;
+position:relative;
+font-size:18px;
+transition:0.3s;
+}
+
+.iconBtn:hover{
+background:#FFD400;
+}
+
+.badge{
+position:absolute;
+top:-5px;
+right:-5px;
+width:20px;
+height:20px;
+border-radius:50%;
+background:#22C55E;
+display:flex;
+align-items:center;
+justify-content:center;
+font-size:11px;
+font-weight:bold;
+color:#fff;
+}
+
+/* =========================
+SEARCH
+========================= */
+
+.searchBox{
+height:58px;
+background:#F9FAFB;
+border-radius:20px;
+display:flex;
+align-items:center;
+padding:0 18px;
+border:1px solid #E5E7EB;
+}
+
+.searchBox i{
+margin-right:12px;
+color:#666;
+}
+
+.searchBox input{
+border:none;
+outline:none;
+background:transparent;
+width:100%;
+font-size:15px;
+}
+
+/* =========================
+MAIN
+========================= */
+
+.main{
+padding:18px;
+padding-bottom:130px;
+}
+
+/* =========================
+FILTERS
+========================= */
+
+.filterSlider{
+display:flex;
+gap:14px;
+overflow-x:auto;
+padding-bottom:10px;
+scrollbar-width:none;
+margin-bottom:28px;
+}
+
+.filterSlider::-webkit-scrollbar{
+display:none;
+}
+
+.filterBtn{
+min-width:110px;
+height:48px;
+padding:0 18px;
+border:none;
+border-radius:16px;
+background:#F3F4F6;
+font-weight:700;
+cursor:pointer;
+transition:0.3s;
+}
+
+.activeFilter{
+background:#FFD400 !important;
+}
+
+/* =========================
+GRID
+========================= */
+
+.serviceGrid{
+display:grid;
+grid-template-columns:
+repeat(2,1fr);
+gap:18px;
+}
+
+/* =========================
+CARD
+========================= */
+
+.serviceCard{
+background:#fff;
+border-radius:30px;
+padding:22px;
+border:1px solid #F1F5F9;
+box-shadow:
+0 4px 12px rgba(0,0,0,0.05);
+transition:0.3s;
+position:relative;
+overflow:hidden;
+}
+
+.serviceCard:hover{
+transform:translateY(-5px);
+}
+
+.topRow{
+display:flex;
+justify-content:space-between;
+align-items:center;
+margin-bottom:18px;
+}
+
+.serviceIcon{
+width:75px;
+height:75px;
+border-radius:24px;
+background:#FFF7CC;
+display:flex;
+align-items:center;
+justify-content:center;
+font-size:36px;
+}
+
+.wishlist{
+width:42px;
+height:42px;
+border-radius:14px;
+background:#F3F4F6;
+display:flex;
+align-items:center;
+justify-content:center;
+cursor:pointer;
+transition:0.3s;
+}
+
+.wishlist:hover{
+background:#FFD400;
+}
+
+.offerBadge{
+display:inline-block;
+padding:8px 14px;
+border-radius:14px;
+background:#DCFCE7;
+color:#22C55E;
+font-size:12px;
+font-weight:700;
+margin-bottom:14px;
+}
+
+.serviceCard h2{
+font-size:22px;
+margin-bottom:10px;
+}
+
+.serviceCard p{
+font-size:14px;
+color:#666;
+line-height:1.7;
+margin-bottom:20px;
+}
+
+.priceRow{
+display:flex;
+justify-content:space-between;
+align-items:center;
+gap:10px;
+margin-bottom:18px;
+}
+
+.price{
+font-size:24px;
+font-weight:800;
+color:#22C55E;
+}
+
+.oldPrice{
+font-size:14px;
+color:#999;
+text-decoration:line-through;
+margin-left:8px;
+}
+
+/* =========================
+QTY
+========================= */
+
+.qtyBox{
+display:flex;
+align-items:center;
+gap:12px;
+background:#F9FAFB;
+padding:8px 12px;
+border-radius:16px;
+width:max-content;
+}
+
+.qtyBtn{
+width:32px;
+height:32px;
+border:none;
+border-radius:10px;
+background:#FFD400;
+font-weight:bold;
+cursor:pointer;
+}
+
+.qtyText{
+font-weight:700;
+}
+
+/* =========================
+BUTTONS
+========================= */
+
+.actionBtns{
+display:flex;
+gap:12px;
+margin-top:18px;
+}
+
+.addBtn{
+flex:1;
+height:52px;
+border:none;
+border-radius:18px;
+background:#FFD400;
+font-weight:800;
+cursor:pointer;
+}
+
+.buyBtn{
+flex:1;
+height:52px;
+border:none;
+border-radius:18px;
+background:#111827;
+color:#fff;
+font-weight:800;
+cursor:pointer;
+}
+
+/* =========================
+POPUP
+========================= */
+
+.popup{
+position:fixed;
+top:30px;
+left:50%;
+transform:translateX(-50%);
+background:#22C55E;
+color:#fff;
+padding:16px 24px;
+border-radius:18px;
+font-weight:700;
+opacity:0;
+pointer-events:none;
+transition:0.3s;
+z-index:9999;
+box-shadow:
+0 10px 25px rgba(34,197,94,0.25);
+}
+
+.popup.show{
+opacity:1;
+top:80px;
+}
+
+/* =========================
+FLOATING CART
+========================= */
+
+.floatingCart{
+position:fixed;
+bottom:90px;
+left:50%;
+transform:translateX(-50%);
+width:92%;
+max-width:600px;
+background:#22C55E;
+padding:18px 22px;
+border-radius:22px;
+display:flex;
+justify-content:space-between;
+align-items:center;
+box-shadow:
+0 15px 35px rgba(34,197,94,0.3);
+z-index:999;
+}
+
+.cartLeft h3{
+font-size:18px;
+margin-bottom:4px;
+color:#fff;
+}
+
+.cartLeft p{
+font-size:13px;
+color:#fff;
+}
+
+.cartBtn{
+height:50px;
+padding:0 22px;
+border:none;
+border-radius:16px;
+background:#fff;
+font-weight:800;
+cursor:pointer;
+}
+
+/* =========================
+BOTTOM NAV
+========================= */
+
+.bottomNav{
+position:fixed;
+bottom:0;
+left:0;
+width:100%;
+height:78px;
+background:#fff;
+display:flex;
+justify-content:space-around;
+align-items:center;
+border-top:1px solid #E5E7EB;
+z-index:1000;
+}
+
+.bottomNav a{
+text-decoration:none;
+font-size:12px;
+text-align:center;
+font-weight:600;
+color:#6B7280;
+}
+
+.bottomNav i{
+display:block;
+font-size:22px;
+margin-bottom:5px;
+}
+
+.activeNav{
+color:#FFD400 !important;
+}
+
+/* =========================
+RESPONSIVE
+========================= */
+
+@media screen and (max-width:768px){
+
+.serviceGrid{
+grid-template-columns:1fr 1fr;
+gap:14px;
+}
+
+.serviceCard{
+padding:18px;
+}
+
+.serviceCard h2{
+font-size:18px;
+}
+
+.actionBtns{
+flex-direction:column;
+}
+
+}
+
+@media screen and (max-width:550px){
+
+.serviceGrid{
+grid-template-columns:1fr;
+}
+
+}
+
+</style>
+
+</head>
+
+<body>
+
+<!-- POPUP -->
+
+<div
+class="popup"
+id="popup"
+>
+
+Added Successfully ✅
+
+</div>
+
+<!-- TOPBAR -->
+
+<div class="topbar">
+
+<div class="topTop">
+
+<div
+style="
+display:flex;
+align-items:center;
+gap:14px;
+"
+>
+
+<button
+class="backBtn"
+onclick="history.back()"
+>
+
+←
+
+</button>
+
+<div class="pageTitle">
+
+<h2>
+Services
+</h2>
+
+<p>
+Premium Laundry Collection
+</p>
+
+</div>
+
+</div>
+
+<div class="topIcons">
+
+<div
+class="iconBtn"
+onclick="
+showPopup('Wishlist Opened ❤️')
+"
+>
+
+❤️
+
+</div>
+
+<div
+class="iconBtn"
+onclick="
+showPopup('Cart Opened 🛒')
+"
+>
+
+🛒
+
+<div
+class="badge"
+id="cartCount"
+>
+
+0
+
+</div>
+
+</div>
+
+</div>
+
+</div>
+
+<!-- SEARCH -->
+
+<div class="searchBox">
+
+<i class="fa-solid fa-magnifying-glass"></i>
+
+<input
+type="text"
+id="searchInput"
+placeholder="Search services..."
+/>
+
+</div>
+
+</div>
+
+<!-- MAIN -->
+
+<div class="main">
+
+<!-- FILTER -->
+
+<div
+class="filterSlider"
+id="filterSlider"
+>
+
+<button
+class="filterBtn activeFilter"
+onclick="filterCategory('all',this)"
+>
+
+All
+
+</button>
+
+<button
+class="filterBtn"
+onclick="filterCategory('Ironing',this)"
+>
+
+Ironing
+
+</button>
+
+<button
+class="filterBtn"
+onclick="filterCategory('Wash',this)"
+>
+
+Wash
+
+</button>
+
+<button
+class="filterBtn"
+onclick="filterCategory('Dry Clean',this)"
+>
+
+Dry Clean
+
+</button>
+
+<button
+class="filterBtn"
+onclick="filterCategory('Shoes',this)"
+>
+
+Shoes
+
+</button>
+
+</div>
+
+<!-- GRID -->
+
+<div
+class="serviceGrid"
+id="serviceGrid"
+>
+
+</div>
+
+</div>
+
+<!-- FLOATING CART -->
+
+<div class="floatingCart">
+
+<div class="cartLeft">
+
+<h3 id="totalItems">
+0 Items Added
+</h3>
+
+<p id="totalPrice">
+Total ₹0
+</p>
+
+</div>
+
+<button
+class="cartBtn"
+onclick="
+window.location.href='cart.html'
+"
+>
+
+View Cart →
+
+</button>
+
+</div>
+
+<!-- BOTTOM NAV -->
+
+<div class="bottomNav">
+
+<a href="index.html">
+
+<i class="fa-solid fa-house"></i>
+
+Home
+
+</a>
+
+<a
+href="services.html"
+class="activeNav"
+>
+
+<i class="fa-solid fa-shirt"></i>
+
+Services
+
+</a>
+
+<a href="cart.html">
+
+<i class="fa-solid fa-cart-shopping"></i>
+
+Cart
+
+</a>
+
+<a href="#">
+
+<i class="fa-solid fa-tags"></i>
+
+Offers
+
+</a>
+
+<a href="#">
+
+<i class="fa-regular fa-user"></i>
+
+Profile
+
+</a>
+
+</div>
+
+<script>
+
+/* =========================
+POPUP
+========================= */
+
+function showPopup(text){
+
+const popup =
+document.getElementById(
+"popup"
+);
+
+popup.innerHTML = text;
+
+popup.classList.add(
+"show"
+);
+
+setTimeout(()=>{
+
+popup.classList.remove(
+"show"
+);
+
+},1000);
+
+}
+
+/* =========================
+SERVICES
+========================= */
+
+const services = [
+
+{
+id:1,
+icon:"👔",
+name:"Formal Shirt",
+category:"Ironing",
+price:29,
+oldPrice:49,
+desc:"Premium steam ironing"
+},
+
+{
+id:2,
+icon:"👕",
+name:"T-Shirt",
+category:"Ironing",
+price:19,
+oldPrice:39,
+desc:"Cotton ironing service"
+},
+
+{
+id:3,
+icon:"👖",
+name:"Jeans",
+category:"Ironing",
+price:39,
+oldPrice:59,
+desc:"Denim ironing care"
+},
+
+{
+id:4,
+icon:"🧺",
+name:"Wash & Fold",
+category:"Wash",
+price:49,
+oldPrice:69,
+desc:"Premium washing care"
+},
+
+{
+id:5,
+icon:"🧼",
+name:"Wash Only",
+category:"Wash",
+price:39,
+oldPrice:59,
+desc:"Deep cleaning wash"
+},
+
+{
+id:6,
+icon:"✨",
+name:"Blazer Dry Clean",
+category:"Dry Clean",
+price:199,
+oldPrice:249,
+desc:"Luxury fabric cleaning"
+},
+
+{
+id:7,
+icon:"🧥",
+name:"Jacket Dry Clean",
+category:"Dry Clean",
+price:249,
+oldPrice:299,
+desc:"Premium dry cleaning"
+},
+
+{
+id:8,
+icon:"👟",
+name:"Sneaker Cleaning",
+category:"Shoes",
+price:199,
+oldPrice:249,
+desc:"Deep sneaker cleaning"
+}
+
+];
+
+/* =========================
+STATE
+========================= */
+
+let cart = [];
+let currentCategory = "all";
+
+/* =========================
+RENDER
+========================= */
+
+const serviceGrid =
+document.getElementById(
+"serviceGrid"
+);
+
+function renderServices(data){
+
+let html = "";
+
+data.forEach((service)=>{
+
+html += `
+
+<div class="serviceCard">
+
+<div class="topRow">
+
+<div class="serviceIcon">
+${service.icon}
+</div>
+
+<div
+class="wishlist"
+onclick="
+showPopup('Added to Wishlist ❤️')
+"
+>
+
+❤️
+
+</div>
+
+</div>
+
+<div class="offerBadge">
+20% OFF
+</div>
+
+<h2>
+${service.name}
+</h2>
+
+<p>
+${service.desc}
+</p>
+
+<div class="priceRow">
+
+<div>
+
+<span class="price">
+₹${service.price}
+</span>
+
+<span class="oldPrice">
+₹${service.oldPrice}
+</span>
+
+</div>
+
+</div>
+
+<div class="actionBtns">
+
+<button
+class="addBtn"
+onclick="
+addToCart(${service.id})
+"
+>
+
+ADD TO CART
+
+</button>
+
+<button
+class="buyBtn"
+onclick="
+buyNow('${service.name}')
+"
+>
+
+BUY NOW
+
+</button>
+
+</div>
+
+</div>
+
+`;
+
+});
+
+serviceGrid.innerHTML = html;
+
+}
+
+renderServices(services);
+
+/* =========================
+CATEGORY FILTER
+========================= */
+
+function filterCategory(
+category,
+element
+){
+
+currentCategory = category;
+
+document
+.querySelectorAll(
+".filterBtn"
+)
+.forEach((btn)=>{
+
+btn.classList.remove(
+"activeFilter"
+);
+
+});
+
+element.classList.add(
+"activeFilter"
+);
+
+if(category === "all"){
+
+renderServices(services);
+
+return;
+
+}
+
+const filtered =
+
+services.filter((item)=>
+
+item.category === category
+
+);
+
+renderServices(filtered);
+
+}
+
+/* =========================
+SEARCH
+========================= */
+
+document
+.getElementById(
+"searchInput"
+)
+.addEventListener(
+"input",
+(e)=>{
+
+const value =
+e.target.value.toLowerCase();
+
+let filtered =
+services;
+
+if(currentCategory !== "all"){
+
+filtered =
+filtered.filter((item)=>
+
+item.category === currentCategory
+
+);
+
+}
+
+filtered =
+filtered.filter((item)=>
+
+item.name
+.toLowerCase()
+.includes(value)
+
+);
+
+renderServices(filtered);
+
+}
+);
+
+/* =========================
+ADD TO CART
+========================= */
+
+function addToCart(id){
+
+const product =
+
+services.find((item)=>
+
+item.id === id
+
+);
+
+cart.push(product);
+
+updateCart();
+
+showPopup(
+`${product.name} Added 🛒`
+);
+
+}
+
+/* =========================
+BUY NOW
+========================= */
+
+function buyNow(name){
+
+showPopup(
+`${name} Ready To Checkout ⚡`
+);
+
+}
+
+/* =========================
+UPDATE CART
+========================= */
+
+function updateCart(){
+
+document.getElementById(
+"cartCount"
+).innerHTML = cart.length;
+
+document.getElementById(
+"totalItems"
+).innerHTML =
+
+`${cart.length} Items Added`;
+
+let total = 0;
+
+cart.forEach((item)=>{
+
+total += item.price;
+
+});
+
+document.getElementById(
+"totalPrice"
+).innerHTML =
+
+`Total ₹${total}`;
+
+}
+
+/* =========================
+URL CATEGORY
+========================= */
+
+const params =
+new URLSearchParams(
+window.location.search
+);
+
+const category =
+params.get("category");
+
+if(category){
+
+const btns =
+document.querySelectorAll(
+".filterBtn"
+);
+
+btns.forEach((btn)=>{
+
+if(
+btn.innerHTML.trim() === category
+){
+
+btn.click();
+
+}
+
+});
+
+}
+
+</script>
+
+</body>
+</html>
