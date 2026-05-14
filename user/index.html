@@ -1,0 +1,715 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+<meta charset="UTF-8">
+
+<meta
+name="viewport"
+content="width=device-width, initial-scale=1.0"
+/>
+
+<title>
+QuickPress User Panel
+</title>
+
+<link
+rel="stylesheet"
+href="./css/style.css"
+/>
+
+<link
+rel="stylesheet"
+href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css"
+/>
+
+</head>
+
+<body>
+
+<!-- TOPBAR -->
+
+<div class="topbar">
+
+<div class="leftTop">
+
+<button
+class="menuBtn"
+onclick="toggleSidebar()"
+>
+☰
+</button>
+
+<div class="location">
+
+<h4>
+📍 Delivery Location
+</h4>
+
+<h2 id="userAddress">
+Loading...
+</h2>
+
+</div>
+
+</div>
+
+<div class="rightTop">
+
+<div class="walletBox">
+
+💰 ₹<span id="walletBalance">
+0
+</span>
+
+</div>
+
+<div class="notify">
+
+<i class="fa-regular fa-bell"></i>
+
+<div class="badge">
+3
+</div>
+
+</div>
+
+</div>
+
+</div>
+
+<!-- SIDEBAR -->
+
+<div
+class="sidebar"
+id="sidebar"
+>
+
+<div class="logo">
+QuickPress
+</div>
+
+<div class="sidebarMenu">
+
+<a href="./index.html">
+
+<button class="activeMenu">
+🏠 Dashboard
+</button>
+
+</a>
+
+<a href="./services.html">
+
+<button>
+🧺 Services
+</button>
+
+</a>
+
+<a href="./cart.html">
+
+<button>
+🛒 Cart
+</button>
+
+</a>
+
+<a href="./orders.html">
+
+<button>
+📦 Orders
+</button>
+
+</a>
+
+<a href="./tracking.html">
+
+<button>
+🚚 Tracking
+</button>
+
+</a>
+
+<a href="./wallet.html">
+
+<button>
+💰 Wallet
+</button>
+
+</a>
+
+<a href="./offers.html">
+
+<button>
+🎁 Offers
+</button>
+
+</a>
+
+<a href="./support.html">
+
+<button>
+🛠 Support
+</button>
+
+</a>
+
+<a href="./profile.html">
+
+<button>
+👤 Profile
+</button>
+
+</a>
+
+<button onclick="logoutUser()">
+🚪 Logout
+</button>
+
+</div>
+
+</div>
+
+<!-- MAIN -->
+
+<div class="main">
+
+<!-- HERO -->
+
+<div class="hero">
+
+<div class="heroText">
+
+<h1>
+
+Laundry<br>
+
+Done <span>Right!</span>
+
+</h1>
+
+<p>
+
+Fast pickup • Premium care •
+Real-time tracking • Doorstep delivery
+
+</p>
+
+<div class="heroBtns">
+
+<button
+class="primaryBtn"
+onclick="
+location.href='./services.html'
+"
+>
+
+⚡ Fast Order
+
+</button>
+
+<button
+class="secondaryBtn"
+onclick="
+location.href='./tracking.html'
+"
+>
+
+📦 Track Order
+
+</button>
+
+</div>
+
+</div>
+
+<div class="heroImage">
+
+<img
+src="https://cdn-icons-png.flaticon.com/512/3082/3082037.png"
+/>
+
+</div>
+
+</div>
+
+<!-- CATEGORIES -->
+
+<div class="section">
+
+<div class="sectionTop">
+
+<h1>
+🧺 Categories
+</h1>
+
+</div>
+
+<div class="categories">
+
+<div class="catCard activeCat">
+
+<i class="fa-solid fa-border-all"></i>
+
+<h3>
+All
+</h3>
+
+</div>
+
+<div class="catCard">
+
+<i class="fa-solid fa-shirt"></i>
+
+<h3>
+Ironing
+</h3>
+
+</div>
+
+<div class="catCard">
+
+<i class="fa-solid fa-bucket-water"></i>
+
+<h3>
+Wash
+</h3>
+
+</div>
+
+<div class="catCard">
+
+<i class="fa-solid fa-spray-can-sparkles"></i>
+
+<h3>
+Dry Clean
+</h3>
+
+</div>
+
+<div class="catCard">
+
+<i class="fa-solid fa-shoe-prints"></i>
+
+<h3>
+Shoes
+</h3>
+
+</div>
+
+</div>
+
+</div>
+
+<!-- OFFER -->
+
+<div class="section">
+
+<div class="offer">
+
+<div>
+
+<h4>
+🎁 FIRST ORDER OFFER
+</h4>
+
+<h1>
+30% OFF
+</h1>
+
+<p>
+
+Use Code:
+<b>WELCOME30</b>
+
+</p>
+
+</div>
+
+<button class="offerBtn">
+
+Apply Offer
+
+</button>
+
+</div>
+
+</div>
+
+<!-- SERVICES -->
+
+<div class="section">
+
+<div class="sectionTop">
+
+<h1>
+🔥 Popular Services
+</h1>
+
+<div
+class="viewAll"
+onclick="
+location.href='./services.html'
+"
+>
+View All →
+</div>
+
+</div>
+
+<div
+class="serviceGrid"
+id="serviceGrid"
+>
+
+</div>
+
+</div>
+
+<!-- TRACK -->
+
+<div class="section">
+
+<div class="sectionTop">
+
+<h1>
+📦 Live Tracking
+</h1>
+
+</div>
+
+<div class="trackBox">
+
+<div class="progress">
+
+<div class="progressStep">
+
+<div class="circle">
+✓
+</div>
+
+<h4>
+Placed
+</h4>
+
+</div>
+
+<div class="progressStep">
+
+<div class="circle">
+✓
+</div>
+
+<h4>
+Confirmed
+</h4>
+
+</div>
+
+<div class="progressStep">
+
+<div class="circle">
+🚚
+</div>
+
+<h4>
+Pickup
+</h4>
+
+</div>
+
+<div class="progressStep">
+
+<div class="circle inactive">
+🧺
+</div>
+
+<h4>
+Processing
+</h4>
+
+</div>
+
+<div class="progressStep">
+
+<div class="circle inactive">
+📦
+</div>
+
+<h4>
+Delivered
+</h4>
+
+</div>
+
+</div>
+
+<div class="trackNote">
+
+<div>
+
+🚚 Rider arriving in
+20 minutes
+
+</div>
+
+<div>
+
+Order ID:
+#QP89452
+
+</div>
+
+</div>
+
+</div>
+
+</div>
+
+</div>
+
+<!-- BOTTOM NAV -->
+
+<div class="bottomNav">
+
+<a href="./index.html">
+
+<i class="fa-solid fa-house"></i>
+
+Home
+
+</a>
+
+<a href="./orders.html">
+
+<i class="fa-regular fa-clipboard"></i>
+
+Orders
+
+</a>
+
+<div
+class="fastCircle"
+onclick="
+location.href='./services.html'
+"
+>
+
+⚡
+
+</div>
+
+<a href="./offers.html">
+
+<i class="fa-solid fa-tags"></i>
+
+Offers
+
+</a>
+
+<a href="./profile.html">
+
+<i class="fa-regular fa-user"></i>
+
+Profile
+
+</a>
+
+</div>
+
+<script type="module">
+
+// ===================================
+// IMPORTS
+// ===================================
+
+import {
+
+auth,
+db
+
+}
+
+from "./js/firebase.js";
+
+import {
+
+onAuthStateChanged,
+signOut
+
+}
+
+from "https://www.gstatic.com/firebasejs/12.11.0/firebase-auth.js";
+
+import {
+
+doc,
+getDoc,
+collection,
+onSnapshot
+
+}
+
+from "https://www.gstatic.com/firebasejs/12.11.0/firebase-firestore.js";
+
+// ===================================
+// AUTH CHECK
+// ===================================
+
+onAuthStateChanged(
+auth,
+async(user)=>{
+
+if(!user){
+
+window.location.href =
+"./login.html";
+
+return;
+
+}
+
+// USER DATA
+
+const userRef =
+doc(db,"users",user.uid);
+
+const userSnap =
+await getDoc(userRef);
+
+if(userSnap.exists()){
+
+const data =
+userSnap.data();
+
+document.getElementById(
+"userAddress"
+).innerHTML =
+data.address || "No Address";
+
+}
+
+// WALLET
+
+const walletRef =
+doc(db,"wallets",user.uid);
+
+const walletSnap =
+await getDoc(walletRef);
+
+if(walletSnap.exists()){
+
+document.getElementById(
+"walletBalance"
+).innerHTML =
+
+walletSnap.data().balance || 0;
+
+}
+
+});
+
+// ===================================
+// SERVICES
+// ===================================
+
+const serviceGrid =
+document.getElementById(
+"serviceGrid"
+);
+
+onSnapshot(
+collection(db,"services"),
+(snapshot)=>{
+
+let html = "";
+
+snapshot.forEach((doc)=>{
+
+const s =
+doc.data();
+
+html += `
+
+<div class="serviceCard">
+
+<img
+src="${
+s.image ||
+'https://images.unsplash.com/photo-1527515637462-cff94eecc1ac?q=80&w=900&auto=format&fit=crop'
+}"
+>
+
+<h2>
+${s.name || "-"}
+</h2>
+
+<p>
+${s.description || ""}
+</p>
+
+<div class="serviceBottom">
+
+<div class="price">
+₹${s.price || 0}
+</div>
+
+<button
+class="addBtn"
+onclick="
+location.href='./services.html'
+"
+>
+
+Book
+
+</button>
+
+</div>
+
+</div>
+
+`;
+
+});
+
+serviceGrid.innerHTML =
+html;
+
+});
+
+// ===================================
+// SIDEBAR
+// ===================================
+
+window.toggleSidebar =
+function(){
+
+document
+.getElementById("sidebar")
+.classList.toggle("active");
+
+}
+
+// ===================================
+// LOGOUT
+// ===================================
+
+window.logoutUser =
+async function(){
+
+await signOut(auth);
+
+localStorage.clear();
+
+window.location.href =
+"./login.html";
+
+}
+
+</script>
+
+</body>
+</html>
