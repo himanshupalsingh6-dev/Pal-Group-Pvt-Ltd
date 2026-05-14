@@ -305,6 +305,10 @@ transition:0.3s;
 transform:translateY(-5px);
 }
 
+.activeCategory{
+background:#FFD400;
+}
+
 .categoryIcon{
 width:70px;
 height:70px;
@@ -320,70 +324,6 @@ margin-bottom:14px;
 
 .categoryCard h3{
 font-size:15px;
-}
-
-/* =========================
-OFFER
-========================= */
-
-.offerSlider{
-display:flex;
-gap:18px;
-overflow-x:auto;
-padding-bottom:10px;
-scrollbar-width:none;
-}
-
-.offerSlider::-webkit-scrollbar{
-display:none;
-}
-
-.offerCard{
-min-width:320px;
-background:
-linear-gradient(
-135deg,
-#22C55E,
-#16A34A
-);
-padding:28px;
-border-radius:30px;
-color:#fff;
-position:relative;
-overflow:hidden;
-}
-
-.offerCard::before{
-content:"";
-position:absolute;
-width:180px;
-height:180px;
-background:
-rgba(255,255,255,0.12);
-border-radius:50%;
-top:-70px;
-right:-70px;
-}
-
-.offerCard h2{
-font-size:34px;
-margin-bottom:12px;
-}
-
-.offerCard p{
-font-size:15px;
-line-height:1.6;
-margin-bottom:20px;
-}
-
-.offerCard button{
-height:52px;
-padding:0 22px;
-border:none;
-border-radius:18px;
-background:#fff;
-font-weight:800;
-cursor:pointer;
 }
 
 /* =========================
@@ -454,118 +394,6 @@ padding:0 18px;
 border:none;
 border-radius:16px;
 background:#FFD400;
-font-weight:800;
-cursor:pointer;
-}
-
-/* =========================
-TRACKING
-========================= */
-
-.trackBox{
-background:#fff;
-padding:28px;
-border-radius:30px;
-border:1px solid #F1F5F9;
-box-shadow:
-0 4px 12px rgba(0,0,0,0.05);
-}
-
-.trackTop{
-display:flex;
-justify-content:space-between;
-align-items:center;
-margin-bottom:25px;
-flex-wrap:wrap;
-gap:10px;
-}
-
-.trackId{
-color:#22C55E;
-font-weight:700;
-}
-
-.progress{
-display:flex;
-justify-content:space-between;
-gap:10px;
-flex-wrap:wrap;
-}
-
-.progressStep{
-flex:1;
-min-width:110px;
-text-align:center;
-}
-
-.circle{
-width:58px;
-height:58px;
-border-radius:50%;
-background:#FFD400;
-display:flex;
-align-items:center;
-justify-content:center;
-margin:auto;
-margin-bottom:12px;
-font-size:22px;
-font-weight:800;
-}
-
-.inactive{
-background:#F3F4F6;
-}
-
-.trackNote{
-margin-top:25px;
-padding:18px;
-background:#F9FAFB;
-border-radius:18px;
-display:flex;
-justify-content:space-between;
-flex-wrap:wrap;
-gap:10px;
-}
-
-/* =========================
-FLOATING CART
-========================= */
-
-.floatingCart{
-position:fixed;
-bottom:90px;
-left:50%;
-transform:translateX(-50%);
-width:92%;
-max-width:600px;
-background:#22C55E;
-padding:18px 22px;
-border-radius:22px;
-display:flex;
-justify-content:space-between;
-align-items:center;
-box-shadow:
-0 15px 35px rgba(34,197,94,0.3);
-z-index:999;
-}
-
-.cartLeft h3{
-font-size:18px;
-margin-bottom:4px;
-color:#fff;
-}
-
-.cartLeft p{
-font-size:13px;
-color:#fff;
-}
-
-.cartBtn{
-height:50px;
-padding:0 22px;
-border:none;
-border-radius:16px;
-background:#fff;
 font-weight:800;
 cursor:pointer;
 }
@@ -645,10 +473,6 @@ width:100%;
 
 .sectionTop h1{
 font-size:24px;
-}
-
-.offerCard{
-min-width:280px;
 }
 
 }
@@ -775,15 +599,36 @@ doorstep delivery experience.
 Categories
 </h1>
 
-<div class="viewAll">
-View All →
+<div
+class="viewAll"
+onclick="renderServices(services)"
+>
+All →
 </div>
 
 </div>
 
 <div class="categorySlider">
 
-<div class="categoryCard">
+<div
+class="categoryCard activeCategory"
+onclick="showAll(this)"
+>
+
+<div class="categoryIcon">
+🔥
+</div>
+
+<h3>
+All
+</h3>
+
+</div>
+
+<div
+class="categoryCard"
+onclick="filterCategory('Ironing',this)"
+>
 
 <div class="categoryIcon">
 👕
@@ -795,7 +640,10 @@ Ironing
 
 </div>
 
-<div class="categoryCard">
+<div
+class="categoryCard"
+onclick="filterCategory('Wash',this)"
+>
 
 <div class="categoryIcon">
 🧺
@@ -807,7 +655,10 @@ Wash
 
 </div>
 
-<div class="categoryCard">
+<div
+class="categoryCard"
+onclick="filterCategory('Dry Clean',this)"
+>
 
 <div class="categoryIcon">
 ✨
@@ -819,7 +670,10 @@ Dry Clean
 
 </div>
 
-<div class="categoryCard">
+<div
+class="categoryCard"
+onclick="filterCategory('Shoes',this)"
+>
 
 <div class="categoryIcon">
 👟
@@ -831,7 +685,10 @@ Shoes
 
 </div>
 
-<div class="categoryCard">
+<div
+class="categoryCard"
+onclick="filterCategory('Express',this)"
+>
 
 <div class="categoryIcon">
 🚚
@@ -840,52 +697,6 @@ Shoes
 <h3>
 Express
 </h3>
-
-</div>
-
-</div>
-
-</div>
-
-<!-- OFFERS -->
-
-<div class="section">
-
-<div class="offerSlider">
-
-<div class="offerCard">
-
-<h2>
-30% OFF
-</h2>
-
-<p>
-
-Get discount on your first order.
-
-</p>
-
-<button>
-Claim Offer
-</button>
-
-</div>
-
-<div class="offerCard">
-
-<h2>
-FREE Pickup
-</h2>
-
-<p>
-
-Free doorstep pickup for premium users.
-
-</p>
-
-<button>
-Explore
-</button>
 
 </div>
 
@@ -917,134 +728,6 @@ id="serviceGrid"
 </div>
 
 </div>
-
-<!-- TRACK -->
-
-<div class="section">
-
-<div class="trackBox">
-
-<div class="trackTop">
-
-<div>
-
-<h1>
-Live Tracking
-</h1>
-
-<div class="trackId">
-Order #QP89452
-</div>
-
-</div>
-
-<div>
-ETA: 20 mins
-</div>
-
-</div>
-
-<div class="progress">
-
-<div class="progressStep">
-
-<div class="circle">
-✓
-</div>
-
-<h4>
-Placed
-</h4>
-
-</div>
-
-<div class="progressStep">
-
-<div class="circle">
-✓
-</div>
-
-<h4>
-Confirmed
-</h4>
-
-</div>
-
-<div class="progressStep">
-
-<div class="circle">
-🚚
-</div>
-
-<h4>
-Pickup
-</h4>
-
-</div>
-
-<div class="progressStep">
-
-<div class="circle inactive">
-🧺
-</div>
-
-<h4>
-Cleaning
-</h4>
-
-</div>
-
-<div class="progressStep">
-
-<div class="circle inactive">
-📦
-</div>
-
-<h4>
-Delivered
-</h4>
-
-</div>
-
-</div>
-
-<div class="trackNote">
-
-<div>
-🚚 Rider arriving in 20 mins
-</div>
-
-<div>
-Partner: QuickPress Laundry
-</div>
-
-</div>
-
-</div>
-
-</div>
-
-</div>
-
-<!-- FLOATING CART -->
-
-<div class="floatingCart">
-
-<div class="cartLeft">
-
-<h3>
-3 Items Added
-</h3>
-
-<p>
-Total ₹420
-</p>
-
-</div>
-
-<button class="cartBtn">
-View Cart →
-</button>
 
 </div>
 
@@ -1166,31 +849,83 @@ liveLocation.innerHTML =
 const services = [
 
 {
+icon:"👔",
+name:"Formal Shirt",
+category:"Ironing",
+price:"₹29",
+desc:"Steam ironing shirt"
+},
+
+{
 icon:"👕",
-name:"Ironing",
-price:"₹29/kg",
-desc:"Steam ironing service"
+name:"T-Shirt",
+category:"Ironing",
+price:"₹19",
+desc:"Cotton ironing"
+},
+
+{
+icon:"👖",
+name:"Jeans",
+category:"Ironing",
+price:"₹39",
+desc:"Premium jeans ironing"
 },
 
 {
 icon:"🧺",
 name:"Wash & Fold",
+category:"Wash",
 price:"₹49/kg",
 desc:"Premium washing care"
 },
 
 {
+icon:"🧼",
+name:"Wash Only",
+category:"Wash",
+price:"₹39/kg",
+desc:"Deep wash cleaning"
+},
+
+{
 icon:"✨",
-name:"Dry Clean",
-price:"₹149/pc",
-desc:"Luxury fabric cleaning"
+name:"Blazer Dry Clean",
+category:"Dry Clean",
+price:"₹199",
+desc:"Luxury dry cleaning"
+},
+
+{
+icon:"🧥",
+name:"Jacket Dry Clean",
+category:"Dry Clean",
+price:"₹249",
+desc:"Premium fabric care"
 },
 
 {
 icon:"👟",
-name:"Shoe Cleaning",
+name:"Sneaker Cleaning",
+category:"Shoes",
 price:"₹199",
-desc:"Sneaker deep cleaning"
+desc:"Sneaker deep clean"
+},
+
+{
+icon:"🥾",
+name:"Boot Cleaning",
+category:"Shoes",
+price:"₹249",
+desc:"Boot premium cleaning"
+},
+
+{
+icon:"🚚",
+name:"Express Delivery",
+category:"Express",
+price:"₹99",
+desc:"30 mins pickup"
 }
 
 ];
@@ -1280,6 +1015,69 @@ renderServices(filtered);
 
 }
 );
+
+// =========================
+// CATEGORY FILTER
+// =========================
+
+function filterCategory(
+category,
+element
+){
+
+const filtered =
+
+services.filter((item)=>
+
+item.category === category
+
+);
+
+renderServices(filtered);
+
+document
+.querySelectorAll(
+".categoryCard"
+)
+.forEach((card)=>{
+
+card.classList.remove(
+"activeCategory"
+);
+
+});
+
+element.classList.add(
+"activeCategory"
+);
+
+}
+
+// =========================
+// SHOW ALL
+// =========================
+
+function showAll(element){
+
+renderServices(services);
+
+document
+.querySelectorAll(
+".categoryCard"
+)
+.forEach((card)=>{
+
+card.classList.remove(
+"activeCategory"
+);
+
+});
+
+element.classList.add(
+"activeCategory"
+);
+
+}
 
 </script>
 
