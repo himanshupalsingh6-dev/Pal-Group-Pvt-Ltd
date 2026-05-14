@@ -1,3 +1,6 @@
+# QuickPress Laundry App — Full `index.html`
+
+```html
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -10,552 +13,483 @@
   <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
 
   <style>
-    *{
-      margin:0;
-      padding:0;
-      box-sizing:border-box;
-      font-family:'Poppins',sans-serif;
-    }
-
-    body{
-      background:#f5f7fb;
-      color:#111827;
-      max-width:480px;
-      margin:auto;
-      min-height:100vh;
-      padding-bottom:120px;
-    }
-
-    a{
-      text-decoration:none;
-      color:inherit;
-    }
-
-    .container{
-      padding:18px;
-    }
-
-    /* HEADER */
-
-    .top-bar{
-      display:flex;
-      align-items:center;
-      justify-content:space-between;
-      margin-bottom:20px;
-    }
-
-    .menu-btn{
-      width:48px;
-      height:48px;
-      background:#fff;
-      border-radius:16px;
-      display:flex;
-      align-items:center;
-      justify-content:center;
-      font-size:22px;
-      box-shadow:0 4px 15px rgba(0,0,0,0.06);
-    }
-
-    .location{
-      flex:1;
-      margin-left:15px;
-    }
-
-    .location small{
-      color:#7c8596;
-      font-size:12px;
-    }
-
-    .location h3{
-      font-size:18px;
-      margin-top:3px;
-      font-weight:700;
-    }
-
-    .wallet{
-      background:#fff;
-      padding:12px 14px;
-      border-radius:18px;
-      box-shadow:0 4px 15px rgba(0,0,0,0.06);
-      text-align:center;
-    }
-
-    .wallet h4{
-      font-size:18px;
-      color:#111827;
-    }
-
-    .wallet p{
-      font-size:12px;
-      color:#6b7280;
-    }
-
-    /* HERO */
-
-    .hero{
-      position:relative;
-      background:linear-gradient(135deg,#02123c,#042b8d);
-      border-radius:30px;
-      overflow:hidden;
-      padding:30px;
-      color:white;
-      min-height:270px;
-      margin-bottom:24px;
-    }
-
-    .hero::before{
-      content:'';
-      position:absolute;
-      width:350px;
-      height:350px;
-      border-radius:50%;
-      border:1px solid rgba(255,255,255,0.1);
-      top:-180px;
-      right:-100px;
-    }
-
-    .hero h1{
-      font-size:52px;
-      line-height:1.05;
-      font-weight:800;
-      position:relative;
-      z-index:2;
-    }
-
-    .hero h1 span{
-      color:#ffd21f;
-    }
-
-    .hero p{
-      margin-top:15px;
-      color:#dbe4ff;
-      font-size:15px;
-      position:relative;
-      z-index:2;
-    }
-
-    .hero-buttons{
-      display:flex;
-      gap:14px;
-      margin-top:28px;
-      position:relative;
-      z-index:2;
-    }
-
-    .btn{
-      flex:1;
-      padding:15px 18px;
-      border-radius:18px;
-      border:none;
-      font-size:15px;
-      font-weight:700;
-      cursor:pointer;
-      transition:0.3s;
-    }
-
-    .btn:hover{
-      transform:translateY(-3px);
-    }
-
-    .btn-primary{
-      background:#fff;
-      color:#111827;
-    }
-
-    .btn-secondary{
-      background:transparent;
-      border:1px solid rgba(255,255,255,0.5);
-      color:white;
-    }
-
-    .pickup-badge{
-      position:absolute;
-      top:18px;
-      right:18px;
-      background:#091a4d;
-      border:2px solid rgba(255,255,255,0.2);
-      padding:14px;
-      border-radius:20px;
-      text-align:center;
-      z-index:2;
-    }
-
-    .pickup-badge h2{
-      color:#ffd21f;
-      font-size:30px;
-    }
-
-    .pickup-badge p{
-      margin-top:0;
-      font-size:12px;
-      color:#fff;
-    }
-
-    .hero-image{
-      position:absolute;
-      bottom:0;
-      right:0;
-      width:220px;
-    }
-
-    /* FAST ORDER */
-
-    .section-card{
-      background:#fff;
-      border-radius:26px;
-      padding:20px;
-      box-shadow:0 4px 18px rgba(0,0,0,0.05);
-      margin-bottom:22px;
-    }
-
-    .section-title{
-      font-size:24px;
-      font-weight:700;
-      margin-bottom:18px;
-    }
-
-    .steps{
-      display:grid;
-      grid-template-columns:repeat(3,1fr);
-      gap:12px;
-    }
-
-    .step-box{
-      background:#f7f9fd;
-      border-radius:20px;
-      padding:18px 12px;
-      text-align:center;
-      position:relative;
-    }
-
-    .step-number{
-      width:28px;
-      height:28px;
-      border-radius:50%;
-      background:#ffd21f;
-      display:flex;
-      align-items:center;
-      justify-content:center;
-      font-weight:700;
-      margin:auto;
-      margin-bottom:12px;
-    }
-
-    .step-box h4{
-      font-size:15px;
-      margin-bottom:6px;
-    }
-
-    .step-box p{
-      font-size:12px;
-      color:#6b7280;
-    }
-
-    .fast-order-btn{
-      width:100%;
-      background:#ffc700;
-      border:none;
-      margin-top:18px;
-      padding:18px;
-      border-radius:20px;
-      font-size:18px;
-      font-weight:700;
-      cursor:pointer;
-      transition:0.3s;
-    }
-
-    .fast-order-btn:hover{
-      transform:scale(1.02);
-    }
-
-    /* SERVICES */
-
-    .services-grid{
-      display:grid;
-      grid-template-columns:repeat(3,1fr);
-      gap:14px;
-      margin-bottom:24px;
-    }
-
-    .service-card{
-      background:#fff;
-      border-radius:24px;
-      padding:20px 12px;
-      text-align:center;
-      box-shadow:0 4px 15px rgba(0,0,0,0.05);
-      transition:0.3s;
-      cursor:pointer;
-    }
-
-    .service-card:hover{
-      transform:translateY(-5px);
-    }
-
-    .service-icon{
-      font-size:34px;
-      margin-bottom:10px;
-    }
-
-    .service-card h4{
-      font-size:15px;
-      font-weight:600;
-    }
-
-    /* OFFER */
-
-    .offer-banner{
-      background:linear-gradient(135deg,#fff7da,#fff1bc);
-      border-radius:28px;
-      padding:24px;
-      display:flex;
-      align-items:center;
-      justify-content:space-between;
-      margin-bottom:24px;
-    }
-
-    .offer-left h2{
-      font-size:34px;
-      margin:10px 0;
-      color:#0f172a;
-    }
-
-    .coupon{
-      display:inline-block;
-      border:2px dashed #ffbf00;
-      padding:8px 14px;
-      border-radius:12px;
-      font-weight:700;
-      background:white;
-    }
-
-    .offer-btn{
-      background:#071b53;
-      color:white;
-      border:none;
-      padding:14px 24px;
-      border-radius:16px;
-      font-weight:700;
-      cursor:pointer;
-    }
-
-    /* TRACK */
-
-    .tracking-card{
-      background:#fff;
-      border-radius:28px;
-      padding:22px;
-      box-shadow:0 4px 18px rgba(0,0,0,0.05);
-      margin-bottom:24px;
-    }
-
-    .tracking-top{
-      display:flex;
-      justify-content:space-between;
-      align-items:center;
-      margin-bottom:20px;
-    }
-
-    .tracking-progress{
-      display:flex;
-      justify-content:space-between;
-      align-items:center;
-      margin-bottom:18px;
-    }
-
-    .progress-step{
-      display:flex;
-      flex-direction:column;
-      align-items:center;
-      flex:1;
-      position:relative;
-    }
-
-    .progress-step::after{
-      content:'';
-      position:absolute;
-      top:18px;
-      left:60%;
-      width:80%;
-      height:4px;
-      background:#dbe4ff;
-      z-index:0;
-    }
-
-    .progress-step:last-child::after{
-      display:none;
-    }
-
-    .progress-circle{
-      width:38px;
-      height:38px;
-      border-radius:50%;
-      background:#2563eb;
-      color:white;
-      display:flex;
-      align-items:center;
-      justify-content:center;
-      font-size:14px;
-      position:relative;
-      z-index:2;
-      margin-bottom:8px;
-    }
-
-    .pending{
-      background:#e5e7eb;
-      color:#6b7280;
-    }
-
-    .progress-step p{
-      font-size:11px;
-      text-align:center;
-      color:#6b7280;
-    }
-
-    .eta-box{
-      background:#eff6ff;
-      padding:14px 16px;
-      border-radius:16px;
-      display:flex;
-      justify-content:space-between;
-      font-weight:600;
-      color:#2563eb;
-    }
-
-    /* PRODUCTS */
-
-    .products-grid{
-      display:grid;
-      grid-template-columns:repeat(2,1fr);
-      gap:16px;
-    }
-
-    .product-card{
-      background:#fff;
-      border-radius:24px;
-      overflow:hidden;
-      box-shadow:0 4px 15px rgba(0,0,0,0.05);
-    }
-
-    .product-card img{
-      width:100%;
-      height:140px;
-      object-fit:cover;
-    }
-
-    .product-content{
-      padding:16px;
-    }
-
-    .product-content h3{
-      font-size:18px;
-      margin-bottom:6px;
-    }
-
-    .product-content p{
-      color:#6b7280;
-      font-size:13px;
-      margin-bottom:12px;
-    }
-
-    .price-row{
-      display:flex;
-      justify-content:space-between;
-      align-items:center;
-    }
-
-    .price{
-      font-size:22px;
-      font-weight:700;
-      color:#111827;
-    }
-
-    .add-btn{
-      background:#2563eb;
-      color:white;
-      border:none;
-      width:42px;
-      height:42px;
-      border-radius:14px;
-      font-size:24px;
-      cursor:pointer;
-    }
-
-    /* BOTTOM NAV */
-
-    .bottom-nav{
-      position:fixed;
-      bottom:0;
-      width:100%;
-      max-width:480px;
-      background:white;
-      display:flex;
-      justify-content:space-around;
-      padding:16px 0 24px;
-      box-shadow:0 -4px 18px rgba(0,0,0,0.08);
-      border-top-left-radius:28px;
-      border-top-right-radius:28px;
-    }
-
-    .nav-item{
-      text-align:center;
-      font-size:13px;
-      color:#6b7280;
-      font-weight:500;
-      cursor:pointer;
-    }
-
-    .nav-item.active{
-      color:#2563eb;
-    }
-
-    .center-btn{
-      background:#ffc700;
-      width:78px;
-      height:78px;
-      border-radius:50%;
-      margin-top:-45px;
-      display:flex;
-      flex-direction:column;
-      justify-content:center;
-      align-items:center;
-      font-weight:700;
-      color:#111827;
-      box-shadow:0 10px 30px rgba(255,199,0,0.4);
-    }
-
-    .cart-popup{
-      position:fixed;
-      top:20px;
-      left:50%;
-      transform:translateX(-50%);
-      background:#111827;
-      color:white;
-      padding:14px 20px;
-      border-radius:16px;
-      display:none;
-      z-index:1000;
-      font-weight:600;
-    }
-
-    @media(max-width:450px){
-      .hero h1{
-        font-size:42px;
-      }
-
-      .hero-image{
-        width:180px;
-      }
-
-      .products-grid{
-        grid-template-columns:1fr;
-      }
-
-      .services-grid{
-        grid-template-columns:repeat(2,1fr);
-      }
-    }
-
-  </style>
+
+*{
+margin:0;
+padding:0;
+box-sizing:border-box;
+font-family:'Poppins',sans-serif;
+}
+
+:root{
+--primary:#2563eb;
+--secondary:#0f172a;
+--yellow:#ffc400;
+--bg:#f4f7fb;
+--white:#ffffff;
+--gray:#6b7280;
+}
+
+body{
+background:linear-gradient(to bottom,#f8fbff,#eef3fb);
+color:#111827;
+max-width:480px;
+margin:auto;
+min-height:100vh;
+padding-bottom:120px;
+overflow-x:hidden;
+}
+
+.container{
+padding:18px;
+}
+
+.top-bar{
+display:flex;
+align-items:center;
+justify-content:space-between;
+gap:12px;
+margin-bottom:22px;
+}
+
+.menu-btn{
+width:52px;
+height:52px;
+background:rgba(255,255,255,0.95);
+border-radius:18px;
+display:flex;
+align-items:center;
+justify-content:center;
+font-size:22px;
+box-shadow:0 8px 24px rgba(0,0,0,0.08);
+backdrop-filter:blur(10px);
+}
+
+.location{
+flex:1;
+}
+
+.location small{
+font-size:12px;
+color:#64748b;
+}
+
+.location h3{
+font-size:18px;
+font-weight:700;
+margin-top:3px;
+}
+
+.wallet{
+background:white;
+padding:12px 16px;
+border-radius:18px;
+box-shadow:0 8px 24px rgba(0,0,0,0.06);
+min-width:90px;
+text-align:center;
+}
+
+.wallet h4{
+font-size:20px;
+font-weight:700;
+}
+
+.wallet p{
+font-size:12px;
+color:#64748b;
+}
+
+.hero{
+position:relative;
+overflow:hidden;
+border-radius:34px;
+padding:30px;
+min-height:320px;
+background:
+linear-gradient(135deg,rgba(0,0,0,0.1),rgba(0,0,0,0.1)),
+linear-gradient(135deg,#001847,#0037b8);
+box-shadow:0 15px 40px rgba(0,50,180,0.25);
+margin-bottom:26px;
+}
+
+.hero::before{
+content:'';
+position:absolute;
+width:350px;
+height:350px;
+border:1px solid rgba(255,255,255,0.08);
+border-radius:50%;
+right:-100px;
+top:-140px;
+}
+
+.hero::after{
+content:'';
+position:absolute;
+width:260px;
+height:260px;
+background:rgba(255,255,255,0.04);
+border-radius:50%;
+bottom:-120px;
+left:-80px;
+}
+
+.hero h1{
+font-size:54px;
+line-height:1.05;
+font-weight:800;
+color:white;
+position:relative;
+z-index:2;
+max-width:260px;
+}
+
+.hero h1 span{
+color:#ffd21f;
+}
+
+.hero p{
+margin-top:14px;
+font-size:15px;
+color:#dbeafe;
+position:relative;
+z-index:2;
+}
+
+.hero-buttons{
+display:flex;
+gap:14px;
+margin-top:28px;
+position:relative;
+z-index:2;
+}
+
+.btn{
+flex:1;
+padding:16px;
+border:none;
+border-radius:18px;
+font-weight:700;
+font-size:15px;
+transition:0.3s;
+cursor:pointer;
+}
+
+.btn:hover{
+transform:translateY(-3px) scale(1.02);
+}
+
+.btn-primary{
+background:white;
+color:#0f172a;
+box-shadow:0 10px 20px rgba(255,255,255,0.15);
+}
+
+.btn-secondary{
+background:rgba(255,255,255,0.08);
+backdrop-filter:blur(8px);
+color:white;
+border:1px solid rgba(255,255,255,0.2);
+}
+
+.pickup-badge{
+position:absolute;
+top:20px;
+right:20px;
+background:rgba(0,0,0,0.25);
+backdrop-filter:blur(10px);
+border:1px solid rgba(255,255,255,0.15);
+padding:14px 16px;
+border-radius:22px;
+color:white;
+z-index:2;
+text-align:center;
+}
+
+.pickup-badge h2{
+font-size:30px;
+color:#ffd21f;
+}
+
+.hero-image{
+position:absolute;
+right:-20px;
+bottom:0;
+width:230px;
+filter:drop-shadow(0 10px 25px rgba(0,0,0,0.3));
+}
+
+.section-card,
+.tracking-card,
+.product-card,
+.service-card{
+background:rgba(255,255,255,0.95);
+backdrop-filter:blur(10px);
+}
+
+.section-card{
+padding:22px;
+border-radius:30px;
+margin-bottom:24px;
+box-shadow:0 8px 24px rgba(15,23,42,0.06);
+}
+
+.section-title{
+font-size:24px;
+font-weight:800;
+margin-bottom:20px;
+color:#0f172a;
+}
+
+.steps{
+display:grid;
+grid-template-columns:repeat(3,1fr);
+gap:14px;
+}
+
+.step-box{
+background:linear-gradient(to bottom,#ffffff,#f8fbff);
+padding:18px 10px;
+border-radius:22px;
+text-align:center;
+border:1px solid #e2e8f0;
+transition:0.3s;
+}
+
+.step-box:hover{
+transform:translateY(-4px);
+}
+
+.step-number{
+width:32px;
+height:32px;
+border-radius:50%;
+background:linear-gradient(135deg,#ffd21f,#ffb800);
+display:flex;
+align-items:center;
+justify-content:center;
+font-weight:700;
+margin:auto auto 12px;
+}
+
+.step-box h4{
+font-size:14px;
+margin-bottom:6px;
+}
+
+.step-box p{
+font-size:11px;
+color:#64748b;
+}
+
+.fast-order-btn{
+margin-top:18px;
+width:100%;
+padding:18px;
+border:none;
+border-radius:22px;
+background:linear-gradient(135deg,#ffd21f,#ffb800);
+font-size:18px;
+font-weight:800;
+box-shadow:0 10px 25px rgba(255,196,0,0.35);
+}
+
+.services-grid{
+display:grid;
+grid-template-columns:repeat(3,1fr);
+gap:14px;
+margin-bottom:26px;
+}
+
+.service-card{
+padding:18px 10px;
+border-radius:24px;
+text-align:center;
+box-shadow:0 8px 20px rgba(0,0,0,0.05);
+transition:0.3s;
+}
+
+.service-card:hover{
+transform:translateY(-6px);
+}
+
+.service-icon{
+font-size:34px;
+margin-bottom:10px;
+}
+
+.offer-banner{
+background:linear-gradient(135deg,#fff8dc,#fff0b5);
+padding:24px;
+border-radius:30px;
+display:flex;
+justify-content:space-between;
+align-items:center;
+margin-bottom:26px;
+box-shadow:0 10px 30px rgba(255,193,7,0.15);
+}
+
+.offer-left h2{
+font-size:34px;
+margin:8px 0;
+}
+
+.coupon{
+display:inline-block;
+padding:10px 16px;
+border-radius:14px;
+background:white;
+font-weight:700;
+border:2px dashed #ffb800;
+}
+
+.offer-btn{
+padding:14px 20px;
+border:none;
+border-radius:16px;
+background:#071b53;
+color:white;
+font-weight:700;
+}
+
+.tracking-card{
+padding:24px;
+border-radius:30px;
+margin-bottom:24px;
+box-shadow:0 8px 24px rgba(0,0,0,0.05);
+}
+
+.products-grid{
+display:grid;
+grid-template-columns:repeat(2,1fr);
+gap:16px;
+}
+
+.product-card{
+overflow:hidden;
+border-radius:26px;
+box-shadow:0 8px 24px rgba(0,0,0,0.05);
+transition:0.3s;
+}
+
+.product-card:hover{
+transform:translateY(-5px);
+}
+
+.product-card img{
+width:100%;
+height:150px;
+object-fit:cover;
+}
+
+.product-content{
+padding:16px;
+}
+
+.price-row{
+display:flex;
+justify-content:space-between;
+align-items:center;
+margin-top:12px;
+}
+
+.price{
+font-size:22px;
+font-weight:800;
+}
+
+.add-btn{
+width:44px;
+height:44px;
+border:none;
+border-radius:14px;
+background:linear-gradient(135deg,#2563eb,#1d4ed8);
+color:white;
+font-size:24px;
+box-shadow:0 8px 18px rgba(37,99,235,0.35);
+}
+
+.bottom-nav{
+position:fixed;
+bottom:0;
+width:100%;
+max-width:480px;
+display:flex;
+justify-content:space-around;
+align-items:center;
+padding:16px 0 24px;
+background:rgba(255,255,255,0.96);
+backdrop-filter:blur(18px);
+border-top-left-radius:30px;
+border-top-right-radius:30px;
+box-shadow:0 -8px 24px rgba(0,0,0,0.08);
+}
+
+.nav-item{
+font-size:13px;
+text-align:center;
+font-weight:600;
+color:#64748b;
+}
+
+.nav-item.active{
+color:#2563eb;
+}
+
+.center-btn{
+width:82px;
+height:82px;
+border-radius:50%;
+background:linear-gradient(135deg,#ffd21f,#ffb800);
+display:flex;
+justify-content:center;
+align-items:center;
+flex-direction:column;
+margin-top:-45px;
+font-weight:800;
+box-shadow:0 15px 30px rgba(255,196,0,0.4);
+}
+
+.cart-popup{
+position:fixed;
+top:20px;
+left:50%;
+transform:translateX(-50%);
+background:#111827;
+color:white;
+padding:14px 22px;
+border-radius:16px;
+font-weight:600;
+z-index:1000;
+display:none;
+box-shadow:0 10px 25px rgba(0,0,0,0.2);
+}
+
+@media(max-width:450px){
+.hero h1{
+font-size:44px;
+}
+
+.hero-image{
+width:190px;
+}
+
+.products-grid{
+grid-template-columns:1fr;
+}
+
+.services-grid{
+grid-template-columns:repeat(2,1fr);
+}
+
+.offer-banner{
+flex-direction:column;
+gap:18px;
+text-align:center;
+}
+}
+
+</style>
 </head>
 <body>
 
@@ -899,3 +833,410 @@
 
 </body>
 </html>
+```
+
+## `checkout.html`
+
+```html
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Checkout</title>
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+
+<style>
+*{
+margin:0;
+padding:0;
+box-sizing:border-box;
+font-family:'Poppins',sans-serif;
+}
+
+body{
+background:#f5f7fb;
+padding:20px;
+max-width:480px;
+margin:auto;
+}
+
+.card{
+background:white;
+padding:22px;
+border-radius:24px;
+margin-bottom:20px;
+box-shadow:0 4px 15px rgba(0,0,0,0.05);
+}
+
+h2{
+margin-bottom:18px;
+}
+
+input,textarea,select{
+width:100%;
+padding:16px;
+border-radius:14px;
+border:1px solid #d1d5db;
+margin-bottom:14px;
+font-size:15px;
+}
+
+.order-item{
+display:flex;
+justify-content:space-between;
+margin-bottom:12px;
+font-weight:600;
+}
+
+.total{
+font-size:24px;
+font-weight:700;
+margin-top:16px;
+}
+
+button{
+width:100%;
+padding:18px;
+border:none;
+background:#2563eb;
+color:white;
+font-size:18px;
+font-weight:700;
+border-radius:18px;
+cursor:pointer;
+}
+
+.success{
+background:#dcfce7;
+color:#166534;
+padding:14px;
+border-radius:14px;
+display:none;
+margin-top:15px;
+}
+</style>
+</head>
+<body>
+
+<div class="card">
+<h2>Delivery Details</h2>
+
+<input type="text" id="name" placeholder="Full Name">
+<input type="number" id="phone" placeholder="Phone Number">
+<textarea id="address" placeholder="Full Address"></textarea>
+
+<select id="payment">
+<option>Cash On Delivery</option>
+<option>UPI Payment</option>
+<option>Wallet</option>
+</select>
+</div>
+
+<div class="card">
+<h2>Your Order</h2>
+
+<div id="cartItems"></div>
+
+<div class="total" id="totalPrice">Total: ₹0</div>
+</div>
+
+<button onclick="placeOrder()">Place Order</button>
+
+<div class="success" id="successMsg">
+Order Placed Successfully ✅
+</div>
+
+<script>
+
+const cart = JSON.parse(localStorage.getItem('quickpress_cart')) || [];
+const cartBox = document.getElementById('cartItems');
+
+let total = 0;
+
+cart.forEach((item,index)=>{
+
+let price = 0;
+
+if(item === 'Wash & Fold'){
+price = 49;
+}
+else if(item === 'Ironing'){
+price = 29;
+}
+else if(item === 'Dry Clean'){
+price = 149;
+}
+else if(item === 'Shoe Care'){
+price = 199;
+}
+else{
+price = 99;
+}
+
+ total += price;
+
+ cartBox.innerHTML += `
+ <div class="order-item">
+   <span>${item}</span>
+   <span>₹${price}</span>
+ </div>
+ `;
+
+});
+
+const coupon = localStorage.getItem('coupon');
+
+if(coupon === 'WELCOME30'){
+ total = total - (total * 0.30);
+}
+
+document.getElementById('totalPrice').innerText = 'Total: ₹' + total;
+
+function placeOrder(){
+
+const name = document.getElementById('name').value;
+const phone = document.getElementById('phone').value;
+const address = document.getElementById('address').value;
+
+if(name === '' || phone === '' || address === ''){
+ alert('Please fill all details');
+ return;
+}
+
+const order = {
+ id:'QP' + Math.floor(Math.random()*100000),
+ customer:name,
+ phone:phone,
+ address:address,
+ items:cart,
+ total:total,
+ status:'Pickup Pending'
+};
+
+localStorage.setItem('latest_order',JSON.stringify(order));
+
+const orders = JSON.parse(localStorage.getItem('all_orders')) || [];
+
+orders.push(order);
+
+localStorage.setItem('all_orders',JSON.stringify(orders));
+
+localStorage.removeItem('quickpress_cart');
+
+ document.getElementById('successMsg').style.display='block';
+
+ setTimeout(()=>{
+   window.location.href='orders.html';
+ },1500);
+
+}
+
+</script>
+
+</body>
+</html>
+```
+
+---
+
+## `orders.html`
+
+```html
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Orders</title>
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+
+<style>
+*{
+margin:0;
+padding:0;
+box-sizing:border-box;
+font-family:'Poppins',sans-serif;
+}
+
+body{
+background:#f5f7fb;
+padding:20px;
+max-width:480px;
+margin:auto;
+}
+
+.card{
+background:white;
+padding:22px;
+border-radius:24px;
+margin-bottom:18px;
+box-shadow:0 4px 15px rgba(0,0,0,0.05);
+}
+
+.status{
+padding:8px 14px;
+border-radius:12px;
+display:inline-block;
+margin-top:10px;
+font-size:14px;
+font-weight:600;
+background:#dbeafe;
+color:#1d4ed8;
+}
+
+h1{
+margin-bottom:20px;
+}
+
+button{
+margin-top:15px;
+padding:14px 18px;
+border:none;
+background:#2563eb;
+color:white;
+border-radius:14px;
+font-weight:700;
+cursor:pointer;
+}
+</style>
+</head>
+<body>
+
+<h1>📦 My Orders</h1>
+
+<div id="ordersContainer"></div>
+
+<script>
+
+const orders = JSON.parse(localStorage.getItem('all_orders')) || [];
+const container = document.getElementById('ordersContainer');
+
+if(orders.length === 0){
+ container.innerHTML = '<div class="card">No Orders Found</div>';
+}
+
+orders.reverse().forEach(order=>{
+
+ container.innerHTML += `
+ <div class="card">
+   <h2>${order.id}</h2>
+   <p><b>Customer:</b> ${order.customer}</p>
+   <p><b>Total:</b> ₹${order.total}</p>
+   <p><b>Items:</b> ${order.items.join(', ')}</p>
+
+   <div class="status">${order.status}</div>
+
+   <button onclick="trackOrder('${order.id}')">Track Order</button>
+ </div>
+ `;
+
+});
+
+function trackOrder(id){
+ alert('Tracking Started For ' + id);
+}
+
+</script>
+
+</body>
+</html>
+```
+
+---
+
+## `admin.html`
+
+```html
+<!DOCTYPE html>
+<html>
+<head>
+<title>Admin Panel</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+
+<style>
+*{
+margin:0;
+padding:0;
+box-sizing:border-box;
+font-family:'Poppins',sans-serif;
+}
+
+body{
+background:#f5f7fb;
+padding:20px;
+max-width:500px;
+margin:auto;
+}
+
+.card{
+background:white;
+padding:20px;
+border-radius:20px;
+margin-bottom:20px;
+}
+
+select,button{
+width:100%;
+padding:14px;
+margin-top:12px;
+border-radius:12px;
+}
+
+button{
+background:#2563eb;
+color:white;
+border:none;
+font-weight:700;
+}
+</style>
+</head>
+<body>
+
+<h1 style="margin-bottom:20px;">⚙ Admin Panel</h1>
+
+<div id="adminOrders"></div>
+
+<script>
+
+const orders = JSON.parse(localStorage.getItem('all_orders')) || [];
+const adminBox = document.getElementById('adminOrders');
+
+orders.forEach((order,index)=>{
+
+ adminBox.innerHTML += `
+ <div class="card">
+   <h2>${order.id}</h2>
+   <p>${order.customer}</p>
+   <p>${order.phone}</p>
+   <p>${order.address}</p>
+   <p><b>Total:</b> ₹${order.total}</p>
+
+   <select onchange="updateStatus(${index},this.value)">
+      <option>Pickup Pending</option>
+      <option>Picked Up</option>
+      <option>Cleaning</option>
+      <option>Out For Delivery</option>
+      <option>Delivered</option>
+   </select>
+ </div>
+ `;
+
+});
+
+function updateStatus(index,status){
+
+ orders[index].status = status;
+
+ localStorage.setItem('all_orders',JSON.stringify(orders));
+
+ alert('Status Updated');
+
+}
+
+</script>
+
+</body>
+</html>
+```
