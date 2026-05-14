@@ -9,7 +9,7 @@
 content="width=device-width, initial-scale=1.0">
 
 <title>
-QuickPress User Dashboard
+QuickPress Services
 </title>
 
 <link
@@ -24,7 +24,83 @@ href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css"
 
 <style>
 
-.banner{
+.servicesGrid{
+display:grid;
+grid-template-columns:
+repeat(auto-fit,minmax(260px,1fr));
+gap:20px;
+margin-top:20px;
+}
+
+.serviceCard{
+background:#fff;
+border-radius:24px;
+overflow:hidden;
+box-shadow:0 5px 18px rgba(0,0,0,0.08);
+transition:0.3s;
+}
+
+.serviceCard:hover{
+transform:translateY(-5px);
+}
+
+.serviceImage{
+height:180px;
+background:#f3f4f6;
+display:flex;
+align-items:center;
+justify-content:center;
+font-size:70px;
+}
+
+.serviceContent{
+padding:20px;
+}
+
+.serviceContent h2{
+margin-top:0;
+margin-bottom:10px;
+}
+
+.price{
+font-size:24px;
+font-weight:bold;
+color:#2563eb;
+margin-bottom:12px;
+}
+
+.qtyBox{
+display:flex;
+align-items:center;
+gap:10px;
+margin-top:15px;
+}
+
+.qtyBtn{
+width:38px;
+height:38px;
+border:none;
+border-radius:10px;
+cursor:pointer;
+font-size:18px;
+font-weight:bold;
+background:#FFD400;
+}
+
+.addBtn{
+width:100%;
+padding:14px;
+border:none;
+border-radius:14px;
+background:#07142b;
+color:#fff;
+font-size:15px;
+font-weight:bold;
+cursor:pointer;
+margin-top:15px;
+}
+
+.topBanner{
 background:linear-gradient(
 135deg,
 #07142b,
@@ -32,126 +108,35 @@ background:linear-gradient(
 );
 color:#fff;
 padding:30px;
-border-radius:25px;
+border-radius:24px;
 margin-bottom:25px;
-position:relative;
-overflow:hidden;
 }
 
-.banner h1{
+.topBanner h1{
 margin:0;
-font-size:35px;
+font-size:36px;
 }
 
-.banner p{
-opacity:0.8;
-margin-top:10px;
-}
-
-.quickBtns{
+.searchArea{
 display:grid;
 grid-template-columns:
-repeat(auto-fit,minmax(180px,1fr));
-gap:20px;
-margin-bottom:25px;
+repeat(auto-fit,minmax(220px,1fr));
+gap:15px;
+margin-top:20px;
 }
 
-.quickCard{
-background:#fff;
-padding:25px;
-border-radius:22px;
-box-shadow:0 5px 18px rgba(0,0,0,0.08);
-text-align:center;
-cursor:pointer;
-transition:0.3s;
-}
-
-.quickCard:hover{
-transform:translateY(-5px);
-}
-
-.quickCard i{
-font-size:35px;
-margin-bottom:15px;
-color:#2563eb;
-}
-
-.quickCard h2{
-margin:0;
-font-size:20px;
-}
-
-.sectionTitle{
-margin-bottom:18px;
-font-size:24px;
-}
-
-.orderCard{
-background:#fff;
-padding:20px;
-border-radius:22px;
-box-shadow:0 5px 18px rgba(0,0,0,0.08);
-margin-bottom:18px;
-}
-
-.orderTop{
-display:flex;
-justify-content:space-between;
-align-items:center;
-margin-bottom:15px;
-flex-wrap:wrap;
-gap:10px;
-}
-
-.status{
-padding:8px 14px;
-border-radius:30px;
-font-size:14px;
+.cartFloat{
+position:fixed;
+right:20px;
+bottom:20px;
+background:#07142b;
+color:#fff;
+padding:15px 20px;
+border-radius:50px;
 font-weight:bold;
-}
-
-.pending{
-background:#fff7ed;
-color:#d97706;
-}
-
-.processing{
-background:#eff6ff;
-color:#2563eb;
-}
-
-.completed{
-background:#ecfdf5;
-color:#16a34a;
-}
-
-.timeline{
-display:flex;
-justify-content:space-between;
-margin-top:18px;
-gap:10px;
-flex-wrap:wrap;
-}
-
-.step{
-flex:1;
-background:#f7f7f7;
-padding:12px;
-border-radius:12px;
-text-align:center;
-font-size:13px;
-min-width:100px;
-}
-
-.offerCard{
-background:linear-gradient(
-135deg,
-#FFD400,
-#ffea75
-);
-padding:22px;
-border-radius:22px;
-margin-bottom:20px;
+box-shadow:0 5px 18px rgba(0,0,0,0.2);
+cursor:pointer;
+z-index:999;
 }
 
 .bottomNav{
@@ -190,7 +175,7 @@ margin-bottom:4px;
 padding-bottom:100px;
 }
 
-.banner h1{
+.topBanner h1{
 font-size:28px;
 }
 
@@ -213,13 +198,13 @@ QuickPress
 </div>
 
 <a href="./index.html">
-<button class="activeBtn">
+<button>
 🏠 Dashboard
 </button>
 </a>
 
 <a href="./services.html">
-<button>
+<button class="activeBtn">
 🧺 Services
 </button>
 </a>
@@ -280,19 +265,19 @@ onclick="toggleSidebar()"
 <div>
 
 <h1>
-Welcome Back 👋
+🧺 Laundry Services
 </h1>
 
 <p>
-Manage your laundry easily
+Choose your service and add to cart
 </p>
 
 </div>
 
 <div class="adminBox">
 
-💰 Wallet:
-₹<span id="walletBalance">
+🛒 Cart:
+<span id="cartCount">
 0
 </span>
 
@@ -302,112 +287,78 @@ Manage your laundry easily
 
 <!-- BANNER -->
 
-<div class="banner">
+<div class="topBanner">
 
 <h1>
-Laundry Pickup In 10 Minutes 🚀
+Premium Laundry Services ✨
 </h1>
 
 <p>
-Fast ironing, washing and delivery
-at your doorstep.
+Fast pickup, expert ironing and
+doorstep delivery.
 </p>
 
 </div>
 
-<!-- QUICK BUTTONS -->
+<!-- SEARCH -->
 
-<div class="quickBtns">
+<div class="filterCard">
+
+<div class="searchArea">
+
+<input
+type="text"
+id="searchInput"
+placeholder="Search services..."
+>
+
+<select id="categoryFilter">
+
+<option value="all">
+All Categories
+</option>
+
+<option value="Ironing">
+Ironing
+</option>
+
+<option value="Wash">
+Wash
+</option>
+
+<option value="Dry Clean">
+Dry Clean
+</option>
+
+</select>
+
+</div>
+
+</div>
+
+<!-- SERVICES -->
 
 <div
-class="quickCard"
+class="servicesGrid"
+id="servicesGrid"
+>
+
+</div>
+
+</div>
+
+</div>
+
+<!-- FLOAT CART -->
+
+<div
+class="cartFloat"
 onclick="
-location.href='./services.html'
+location.href='./cart.html'
 "
 >
 
-<i class="fa-solid fa-shirt"></i>
-
-<h2>
-Book Service
-</h2>
-
-</div>
-
-<div
-class="quickCard"
-onclick="
-location.href='./tracking.html'
-"
->
-
-<i class="fa-solid fa-location-dot"></i>
-
-<h2>
-Track Order
-</h2>
-
-</div>
-
-<div
-class="quickCard"
-onclick="
-location.href='./wallet.html'
-"
->
-
-<i class="fa-solid fa-wallet"></i>
-
-<h2>
-Wallet
-</h2>
-
-</div>
-
-<div
-class="quickCard"
-onclick="
-location.href='./support.html'
-"
->
-
-<i class="fa-solid fa-headset"></i>
-
-<h2>
-Support
-</h2>
-
-</div>
-
-</div>
-
-<!-- OFFER -->
-
-<div class="offerCard">
-
-<h2>
-🔥 Flat 30% OFF
-</h2>
-
-<p>
-Use Code:
-<b>QUICK30</b>
-on your next order.
-</p>
-
-</div>
-
-<!-- RECENT ORDERS -->
-
-<h2 class="sectionTitle">
-📦 Recent Orders
-</h2>
-
-<div id="ordersContainer">
-
-</div>
-
-</div>
+🛒 Go To Cart
 
 </div>
 
@@ -456,9 +407,8 @@ import {
 
 getFirestore,
 collection,
-query,
-where,
-onSnapshot
+onSnapshot,
+addDoc
 
 }
 
@@ -499,100 +449,105 @@ getFirestore(app);
 const userId =
 localStorage.getItem("userId");
 
-/* WALLET */
+/* SERVICES */
 
-const walletBalance =
+const servicesGrid =
 document.getElementById(
-"walletBalance"
+"servicesGrid"
 );
 
-const walletQuery =
-query(
-collection(db,"wallets"),
-where("uid","==",userId)
+const cartCount =
+document.getElementById(
+"cartCount"
 );
 
-onSnapshot(walletQuery,(snapshot)=>{
+let allServices = [];
+
+onSnapshot(
+collection(db,"services"),
+(snapshot)=>{
+
+allServices = [];
 
 snapshot.forEach((doc)=>{
 
-walletBalance.innerHTML =
-doc.data().balance || 0;
-
+allServices.push({
+id:doc.id,
+...doc.data()
 });
 
 });
 
-/* ORDERS */
+renderServices();
 
-const ordersContainer =
+});
+
+/* RENDER */
+
+function renderServices(){
+
+const keyword =
 document.getElementById(
-"ordersContainer"
-);
+"searchInput"
+).value.toLowerCase();
 
-const ordersQuery =
-query(
-collection(db,"orders"),
-where("userId","==",userId)
-);
-
-onSnapshot(ordersQuery,(snapshot)=>{
+const category =
+document.getElementById(
+"categoryFilter"
+).value;
 
 let html = "";
 
-snapshot.forEach((doc)=>{
+const filtered =
+allServices.filter((s)=>{
 
-const o = doc.data();
+const matchSearch =
+
+(s.name || "")
+.toLowerCase()
+.includes(keyword);
+
+const matchCategory =
+
+category === "all"
+? true
+: s.category === category;
+
+return matchSearch &&
+matchCategory;
+
+});
+
+filtered.forEach((s)=>{
 
 html += `
 
-<div class="orderCard">
+<div class="serviceCard">
 
-<div class="orderTop">
+<div class="serviceImage">
+🧺
+</div>
 
-<div>
+<div class="serviceContent">
 
-<h3>
-Order #${o.orderId || "-"}
-</h3>
+<h2>
+${s.name || "-"}
+</h2>
 
 <p>
-₹${o.total || 0}
+${s.description || ""}
 </p>
 
+<div class="price">
+₹${s.price || 0}
 </div>
 
-<div class="status ${(
-o.status || ""
-).toLowerCase()}">
-
-${o.status || "-"}
-
-</div>
-
-</div>
-
-<div class="timeline">
-
-<div class="step">
-📦<br>
-Placed
-</div>
-
-<div class="step">
-🧺<br>
-Processing
-</div>
-
-<div class="step">
-🚚<br>
-Delivery
-</div>
-
-<div class="step">
-✅<br>
-Completed
-</div>
+<button
+class="addBtn"
+onclick='addToCart(${JSON.stringify(s)})'
+>
+Add To Cart
+</button>
 
 </div>
 
@@ -602,9 +557,86 @@ Completed
 
 });
 
-ordersContainer.innerHTML = html;
+servicesGrid.innerHTML = html;
+
+}
+
+/* SEARCH */
+
+document
+.getElementById("searchInput")
+.addEventListener(
+"input",
+renderServices
+);
+
+document
+.getElementById("categoryFilter")
+.addEventListener(
+"change",
+renderServices
+);
+
+/* CART */
+
+window.addToCart =
+async function(service){
+
+await addDoc(
+collection(db,"cart"),
+{
+
+userId:userId,
+
+serviceId:service.id,
+
+name:service.name,
+
+price:service.price,
+
+qty:1,
+
+total:service.price,
+
+createdAt:Date.now()
+
+}
+);
+
+alert("Added To Cart ✅");
+
+loadCartCount();
+
+}
+
+/* COUNT */
+
+function loadCartCount(){
+
+onSnapshot(
+collection(db,"cart"),
+(snapshot)=>{
+
+let count = 0;
+
+snapshot.forEach((doc)=>{
+
+if(
+doc.data().userId === userId
+){
+count++;
+}
 
 });
+
+cartCount.innerHTML =
+count;
+
+});
+
+}
+
+loadCartCount();
 
 /* SIDEBAR */
 
