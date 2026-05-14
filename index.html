@@ -9,7 +9,7 @@
 content="width=device-width, initial-scale=1.0">
 
 <title>
-QuickPress Services
+QuickPress — Premium Laundry Service
 </title>
 
 <link
@@ -24,159 +24,434 @@ href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css"
 
 <style>
 
+/* HERO */
+
+.hero{
+background:
+linear-gradient(
+135deg,
+rgba(7,20,43,0.95),
+rgba(13,34,71,0.95)
+),
+url('https://images.unsplash.com/photo-1517677208171-0bc6725a3e60?q=80&w=1400&auto=format&fit=crop');
+background-size:cover;
+background-position:center;
+min-height:100vh;
+color:#fff;
+display:flex;
+align-items:center;
+padding:0 8%;
+position:relative;
+overflow:hidden;
+}
+
+.heroContent{
+max-width:650px;
+z-index:2;
+}
+
+.heroTag{
+background:rgba(255,255,255,0.15);
+display:inline-block;
+padding:10px 18px;
+border-radius:50px;
+backdrop-filter:blur(10px);
+margin-bottom:20px;
+font-size:14px;
+}
+
+.hero h1{
+font-size:70px;
+line-height:1.1;
+margin:0;
+}
+
+.hero p{
+font-size:20px;
+opacity:0.9;
+margin-top:25px;
+line-height:1.7;
+}
+
+.heroBtns{
+display:flex;
+gap:15px;
+margin-top:35px;
+flex-wrap:wrap;
+}
+
+.heroBtn{
+padding:16px 30px;
+border:none;
+border-radius:16px;
+font-size:16px;
+font-weight:bold;
+cursor:pointer;
+transition:0.3s;
+}
+
+.primaryBtn{
+background:#FFD400;
+color:#000;
+}
+
+.secondaryBtn{
+background:rgba(255,255,255,0.15);
+color:#fff;
+backdrop-filter:blur(10px);
+}
+
+.heroBtn:hover{
+transform:translateY(-3px);
+}
+
+/* NAVBAR */
+
+.navbar{
+position:fixed;
+top:0;
+left:0;
+width:100%;
+display:flex;
+justify-content:space-between;
+align-items:center;
+padding:18px 8%;
+box-sizing:border-box;
+z-index:999;
+backdrop-filter:blur(12px);
+background:rgba(0,0,0,0.15);
+}
+
+.logo{
+font-size:32px;
+font-weight:bold;
+color:#FFD400;
+}
+
+.navLinks{
+display:flex;
+gap:25px;
+align-items:center;
+}
+
+.navLinks a{
+text-decoration:none;
+color:#fff;
+font-weight:500;
+}
+
+.loginBtn{
+background:#FFD400;
+padding:12px 22px;
+border-radius:12px;
+color:#000 !important;
+font-weight:bold;
+}
+
+/* STATS */
+
+.stats{
+display:grid;
+grid-template-columns:
+repeat(auto-fit,minmax(220px,1fr));
+gap:20px;
+padding:80px 8%;
+background:#fff;
+}
+
+.statCard{
+background:#f7f7f7;
+padding:30px;
+border-radius:25px;
+text-align:center;
+}
+
+.statCard h1{
+margin:0;
+font-size:42px;
+color:#2563eb;
+}
+
+.statCard p{
+margin-top:10px;
+color:#666;
+}
+
+/* SERVICES */
+
+.section{
+padding:90px 8%;
+}
+
+.sectionTitle{
+text-align:center;
+margin-bottom:50px;
+}
+
+.sectionTitle h1{
+font-size:48px;
+margin-bottom:10px;
+}
+
+.sectionTitle p{
+color:#666;
+font-size:18px;
+}
+
 .servicesGrid{
 display:grid;
 grid-template-columns:
-repeat(auto-fit,minmax(260px,1fr));
-gap:20px;
-margin-top:20px;
+repeat(auto-fit,minmax(280px,1fr));
+gap:25px;
 }
 
 .serviceCard{
 background:#fff;
-border-radius:24px;
-overflow:hidden;
-box-shadow:0 5px 18px rgba(0,0,0,0.08);
+padding:30px;
+border-radius:28px;
+box-shadow:0 10px 25px rgba(0,0,0,0.08);
 transition:0.3s;
 }
 
 .serviceCard:hover{
-transform:translateY(-5px);
+transform:translateY(-8px);
 }
 
-.serviceImage{
-height:180px;
-background:#f3f4f6;
+.serviceIcon{
+width:80px;
+height:80px;
+background:#FFD400;
+border-radius:20px;
 display:flex;
 align-items:center;
 justify-content:center;
-font-size:70px;
+font-size:35px;
+margin-bottom:20px;
 }
 
-.serviceContent{
-padding:20px;
+.serviceCard h2{
+margin:0;
+margin-bottom:15px;
 }
 
-.serviceContent h2{
-margin-top:0;
-margin-bottom:10px;
+.serviceCard p{
+color:#666;
+line-height:1.7;
 }
 
-.price{
-font-size:24px;
-font-weight:bold;
-color:#2563eb;
-margin-bottom:12px;
-}
+/* APP */
 
-.qtyBox{
-display:flex;
-align-items:center;
-gap:10px;
-margin-top:15px;
-}
-
-.qtyBtn{
-width:38px;
-height:38px;
-border:none;
-border-radius:10px;
-cursor:pointer;
-font-size:18px;
-font-weight:bold;
-background:#FFD400;
-}
-
-.addBtn{
-width:100%;
-padding:14px;
-border:none;
-border-radius:14px;
+.appSection{
 background:#07142b;
 color:#fff;
-font-size:15px;
-font-weight:bold;
-cursor:pointer;
-margin-top:15px;
-}
-
-.topBanner{
-background:linear-gradient(
-135deg,
-#07142b,
-#0d2247
-);
-color:#fff;
-padding:30px;
-border-radius:24px;
-margin-bottom:25px;
-}
-
-.topBanner h1{
-margin:0;
-font-size:36px;
-}
-
-.searchArea{
+border-radius:35px;
+padding:60px;
 display:grid;
 grid-template-columns:
-repeat(auto-fit,minmax(220px,1fr));
+repeat(auto-fit,minmax(320px,1fr));
+gap:40px;
+align-items:center;
+}
+
+.appImage{
+text-align:center;
+}
+
+.phoneMockup{
+width:300px;
+border-radius:35px;
+box-shadow:0 10px 30px rgba(0,0,0,0.4);
+}
+
+.appContent h1{
+font-size:48px;
+margin-top:0;
+}
+
+.appFeatures{
+margin-top:30px;
+}
+
+.appFeature{
+display:flex;
+align-items:center;
+gap:15px;
+margin-bottom:18px;
+font-size:18px;
+}
+
+/* TESTIMONIAL */
+
+.testimonialGrid{
+display:grid;
+grid-template-columns:
+repeat(auto-fit,minmax(300px,1fr));
+gap:25px;
+}
+
+.testimonial{
+background:#fff;
+padding:30px;
+border-radius:28px;
+box-shadow:0 10px 25px rgba(0,0,0,0.08);
+}
+
+.testimonialTop{
+display:flex;
+align-items:center;
+gap:15px;
+margin-bottom:20px;
+}
+
+.avatar{
+width:60px;
+height:60px;
+background:#FFD400;
+border-radius:50%;
+display:flex;
+align-items:center;
+justify-content:center;
+font-size:25px;
+font-weight:bold;
+}
+
+/* CTA */
+
+.cta{
+background:
+linear-gradient(
+135deg,
+#FFD400,
+#ffea75
+);
+padding:70px 8%;
+text-align:center;
+border-radius:35px;
+margin:0 8% 80px;
+}
+
+.cta h1{
+font-size:52px;
+margin:0;
+}
+
+.cta p{
+font-size:18px;
+margin-top:18px;
+}
+
+/* FOOTER */
+
+.footer{
+background:#07142b;
+color:#fff;
+padding:60px 8%;
+display:grid;
+grid-template-columns:
+repeat(auto-fit,minmax(250px,1fr));
+gap:40px;
+}
+
+.footer h2{
+margin-top:0;
+}
+
+.footer a{
+display:block;
+margin-bottom:12px;
+text-decoration:none;
+color:#ddd;
+}
+
+.socials{
+display:flex;
 gap:15px;
 margin-top:20px;
 }
 
-.cartFloat{
-position:fixed;
-right:20px;
-bottom:20px;
-background:#07142b;
-color:#fff;
-padding:15px 20px;
-border-radius:50px;
-font-weight:bold;
-box-shadow:0 5px 18px rgba(0,0,0,0.2);
-cursor:pointer;
-z-index:999;
+.socials i{
+font-size:24px;
 }
 
-.bottomNav{
+/* MOBILE */
+
+.menuBtn{
 display:none;
+background:#FFD400;
+border:none;
+padding:10px 15px;
+border-radius:10px;
+font-size:20px;
+cursor:pointer;
+}
+
+@media screen and (max-width:900px){
+
+.hero h1{
+font-size:50px;
+}
+
+.navLinks{
+display:none;
+}
+
+.menuBtn{
+display:block;
+}
+
+.appSection{
+padding:35px;
+}
+
+.cta h1{
+font-size:38px;
+}
+
 }
 
 @media screen and (max-width:768px){
 
-.bottomNav{
-display:flex;
-position:fixed;
-bottom:0;
-left:0;
+.hero{
+padding:120px 20px 80px;
+min-height:auto;
+}
+
+.hero h1{
+font-size:40px;
+}
+
+.hero p{
+font-size:17px;
+}
+
+.section{
+padding:70px 20px;
+}
+
+.stats{
+padding:50px 20px;
+}
+
+.cta{
+margin:0 20px 50px;
+padding:50px 20px;
+}
+
+.footer{
+padding:50px 20px;
+}
+
+.sectionTitle h1{
+font-size:34px;
+}
+
+.appContent h1{
+font-size:34px;
+}
+
+.phoneMockup{
 width:100%;
-background:#fff;
-justify-content:space-around;
-padding:12px 0;
-box-shadow:0 -5px 15px rgba(0,0,0,0.08);
-z-index:999;
-}
-
-.bottomNav a{
-text-decoration:none;
-color:#333;
-font-size:13px;
-text-align:center;
-}
-
-.bottomNav i{
-display:block;
-font-size:20px;
-margin-bottom:4px;
-}
-
-.main{
-padding-bottom:100px;
-}
-
-.topBanner h1{
-font-size:28px;
+max-width:280px;
 }
 
 }
@@ -187,469 +462,478 @@ font-size:28px;
 
 <body>
 
-<div class="layout">
+<!-- NAVBAR -->
 
-<!-- SIDEBAR -->
-
-<div class="sidebar">
+<div class="navbar">
 
 <div class="logo">
 QuickPress
 </div>
 
-<a href="./index.html">
-<button>
-🏠 Dashboard
-</button>
-</a>
+<div class="navLinks">
 
-<a href="./services.html">
-<button class="activeBtn">
-🧺 Services
-</button>
-</a>
-
-<a href="./cart.html">
-<button>
-🛒 Cart
-</button>
-</a>
-
-<a href="./orders.html">
-<button>
-📦 Orders
-</button>
-</a>
-
-<a href="./tracking.html">
-<button>
-🚚 Tracking
-</button>
-</a>
-
-<a href="./wallet.html">
-<button>
-💰 Wallet
-</button>
-</a>
-
-<a href="./support.html">
-<button>
-🛠 Support
-</button>
-</a>
-
-<a href="./profile.html">
-<button>
-👤 Profile
-</button>
-</a>
-
-</div>
-
-<!-- MAIN -->
-
-<div class="main">
-
-<!-- TOPBAR -->
-
-<div class="topbar">
-
-<button
-class="menuBtn"
-onclick="toggleSidebar()"
->
-☰
-</button>
-
-<div>
-
-<h1>
-🧺 Laundry Services
-</h1>
-
-<p>
-Choose your service and add to cart
-</p>
-
-</div>
-
-<div class="adminBox">
-
-🛒 Cart:
-<span id="cartCount">
-0
-</span>
-
-</div>
-
-</div>
-
-<!-- BANNER -->
-
-<div class="topBanner">
-
-<h1>
-Premium Laundry Services ✨
-</h1>
-
-<p>
-Fast pickup, expert ironing and
-doorstep delivery.
-</p>
-
-</div>
-
-<!-- SEARCH -->
-
-<div class="filterCard">
-
-<div class="searchArea">
-
-<input
-type="text"
-id="searchInput"
-placeholder="Search services..."
->
-
-<select id="categoryFilter">
-
-<option value="all">
-All Categories
-</option>
-
-<option value="Ironing">
-Ironing
-</option>
-
-<option value="Wash">
-Wash
-</option>
-
-<option value="Dry Clean">
-Dry Clean
-</option>
-
-</select>
-
-</div>
-
-</div>
-
-<!-- SERVICES -->
-
-<div
-class="servicesGrid"
-id="servicesGrid"
->
-
-</div>
-
-</div>
-
-</div>
-
-<!-- FLOAT CART -->
-
-<div
-class="cartFloat"
-onclick="
-location.href='./cart.html'
-"
->
-
-🛒 Go To Cart
-
-</div>
-
-<!-- MOBILE NAV -->
-
-<div class="bottomNav">
-
-<a href="./index.html">
-<i class="fa-solid fa-house"></i>
-Home
-</a>
-
-<a href="./services.html">
-<i class="fa-solid fa-shirt"></i>
+<a href="#services">
 Services
 </a>
 
-<a href="./cart.html">
-<i class="fa-solid fa-cart-shopping"></i>
-Cart
+<a href="#app">
+App
 </a>
 
-<a href="./orders.html">
-<i class="fa-solid fa-box"></i>
-Orders
+<a href="#reviews">
+Reviews
 </a>
 
-<a href="./profile.html">
-<i class="fa-solid fa-user"></i>
-Profile
+<a href="./login.html"
+class="loginBtn">
+Login
 </a>
 
 </div>
 
-<script type="module">
+<button class="menuBtn">
+☰
+</button>
 
-import {
-
-initializeApp
-
-}
-
-from "https://www.gstatic.com/firebasejs/12.11.0/firebase-app.js";
-
-import {
-
-getFirestore,
-collection,
-onSnapshot,
-addDoc
-
-}
-
-from "https://www.gstatic.com/firebasejs/12.11.0/firebase-firestore.js";
-
-/* FIREBASE */
-
-const firebaseConfig = {
-
-apiKey:
-"AIzaSyBBaslH5QsahoyESYpo1nVtlYIUYfVJ2d4",
-
-authDomain:
-"quickpress-offical.firebaseapp.com",
-
-projectId:
-"quickpress-offical",
-
-storageBucket:
-"quickpress-offical.firebasestorage.app",
-
-messagingSenderId:
-"939286557961",
-
-appId:
-"1:939286557961:web:ddac64f197e14877718fd8"
-
-};
-
-const app =
-initializeApp(firebaseConfig);
-
-const db =
-getFirestore(app);
-
-/* USER */
-
-const userId =
-localStorage.getItem("userId");
-
-/* SERVICES */
-
-const servicesGrid =
-document.getElementById(
-"servicesGrid"
-);
-
-const cartCount =
-document.getElementById(
-"cartCount"
-);
-
-let allServices = [];
-
-onSnapshot(
-collection(db,"services"),
-(snapshot)=>{
-
-allServices = [];
-
-snapshot.forEach((doc)=>{
-
-allServices.push({
-id:doc.id,
-...doc.data()
-});
-
-});
-
-renderServices();
-
-});
-
-/* RENDER */
-
-function renderServices(){
-
-const keyword =
-document.getElementById(
-"searchInput"
-).value.toLowerCase();
-
-const category =
-document.getElementById(
-"categoryFilter"
-).value;
-
-let html = "";
-
-const filtered =
-allServices.filter((s)=>{
-
-const matchSearch =
-
-(s.name || "")
-.toLowerCase()
-.includes(keyword);
-
-const matchCategory =
-
-category === "all"
-? true
-: s.category === category;
-
-return matchSearch &&
-matchCategory;
-
-});
-
-filtered.forEach((s)=>{
-
-html += `
-
-<div class="serviceCard">
-
-<div class="serviceImage">
-🧺
 </div>
 
-<div class="serviceContent">
+<!-- HERO -->
 
-<h2>
-${s.name || "-"}
-</h2>
+<section class="hero">
+
+<div class="heroContent">
+
+<div class="heroTag">
+🚀 India's Fastest Laundry Service
+</div>
+
+<h1>
+Premium Laundry &
+Ironing At Your Doorstep
+</h1>
 
 <p>
-${s.description || ""}
+Book laundry pickup in seconds.
+Fast ironing, premium washing,
+live tracking and same day delivery.
 </p>
 
-<div class="price">
-₹${s.price || 0}
-</div>
+<div class="heroBtns">
 
 <button
-class="addBtn"
-onclick='addToCart(${JSON.stringify(s)})'
+class="heroBtn primaryBtn"
+onclick="
+location.href='./signup.html'
+"
 >
-Add To Cart
+Get Started
+</button>
+
+<button
+class="heroBtn secondaryBtn"
+onclick="
+location.href='./services.html'
+"
+>
+Explore Services
 </button>
 
 </div>
 
 </div>
 
-`;
+</section>
 
-});
+<!-- STATS -->
 
-servicesGrid.innerHTML = html;
+<section class="stats">
 
-}
+<div class="statCard">
+<h1>25K+</h1>
+<p>Happy Customers</p>
+</div>
 
-/* SEARCH */
+<div class="statCard">
+<h1>120K+</h1>
+<p>Orders Delivered</p>
+</div>
 
-document
-.getElementById("searchInput")
-.addEventListener(
-"input",
-renderServices
-);
+<div class="statCard">
+<h1>99%</h1>
+<p>Customer Satisfaction</p>
+</div>
 
-document
-.getElementById("categoryFilter")
-.addEventListener(
-"change",
-renderServices
-);
+<div class="statCard">
+<h1>24/7</h1>
+<p>Support Available</p>
+</div>
 
-/* CART */
+</section>
 
-window.addToCart =
-async function(service){
+<!-- SERVICES -->
 
-await addDoc(
-collection(db,"cart"),
-{
+<section
+class="section"
+id="services"
+>
 
-userId:userId,
+<div class="sectionTitle">
 
-serviceId:service.id,
+<h1>
+Our Premium Services
+</h1>
 
-name:service.name,
+<p>
+Professional laundry solutions for every need
+</p>
 
-price:service.price,
+</div>
 
-qty:1,
+<div class="servicesGrid">
 
-total:service.price,
+<div class="serviceCard">
 
-createdAt:Date.now()
+<div class="serviceIcon">
+👔
+</div>
 
-}
-);
+<h2>
+Ironing Service
+</h2>
 
-alert("Added To Cart ✅");
+<p>
+Premium steam ironing with perfect finish
+for formal and casual clothes.
+</p>
 
-loadCartCount();
+</div>
 
-}
+<div class="serviceCard">
 
-/* COUNT */
+<div class="serviceIcon">
+🧺
+</div>
 
-function loadCartCount(){
+<h2>
+Wash & Fold
+</h2>
 
-onSnapshot(
-collection(db,"cart"),
-(snapshot)=>{
+<p>
+Professional washing, drying and folding
+with premium detergents.
+</p>
 
-let count = 0;
+</div>
 
-snapshot.forEach((doc)=>{
+<div class="serviceCard">
 
-if(
-doc.data().userId === userId
-){
-count++;
-}
+<div class="serviceIcon">
+✨
+</div>
 
-});
+<h2>
+Dry Cleaning
+</h2>
 
-cartCount.innerHTML =
-count;
+<p>
+Luxury dry cleaning for delicate and
+premium fabric garments.
+</p>
 
-});
+</div>
 
-}
+</div>
 
-loadCartCount();
+</section>
 
-/* SIDEBAR */
+<!-- APP -->
 
-window.toggleSidebar =
-function(){
+<section
+class="section"
+id="app"
+>
 
-document
-.querySelector(".sidebar")
-.classList.toggle("active");
+<div class="appSection">
 
-}
+<div class="appContent">
 
-</script>
+<h1>
+Manage Everything
+From Your Phone
+</h1>
+
+<p>
+Track orders live, manage wallet,
+book pickups and chat with support
+using QuickPress app.
+</p>
+
+<div class="appFeatures">
+
+<div class="appFeature">
+✅ Live Order Tracking
+</div>
+
+<div class="appFeature">
+✅ Instant Pickup Booking
+</div>
+
+<div class="appFeature">
+✅ Wallet & Cashback
+</div>
+
+<div class="appFeature">
+✅ Premium Support
+</div>
+
+</div>
+
+</div>
+
+<div class="appImage">
+
+<img
+class="phoneMockup"
+src="https://images.unsplash.com/photo-1512941937669-90a1b58e7e9c?q=80&w=900&auto=format&fit=crop"
+>
+
+</div>
+
+</div>
+
+</section>
+
+<!-- REVIEWS -->
+
+<section
+class="section"
+id="reviews"
+>
+
+<div class="sectionTitle">
+
+<h1>
+What Customers Say
+</h1>
+
+<p>
+Trusted by thousands of users
+</p>
+
+</div>
+
+<div class="testimonialGrid">
+
+<div class="testimonial">
+
+<div class="testimonialTop">
+
+<div class="avatar">
+A
+</div>
+
+<div>
+
+<h3>
+Aman Sharma
+</h3>
+
+<p>
+⭐⭐⭐⭐⭐
+</p>
+
+</div>
+
+</div>
+
+<p>
+Best laundry service I have ever used.
+Fast pickup and amazing ironing quality.
+</p>
+
+</div>
+
+<div class="testimonial">
+
+<div class="testimonialTop">
+
+<div class="avatar">
+R
+</div>
+
+<div>
+
+<h3>
+Ritika Verma
+</h3>
+
+<p>
+⭐⭐⭐⭐⭐
+</p>
+
+</div>
+
+</div>
+
+<p>
+Professional service, premium packaging
+and super fast delivery.
+</p>
+
+</div>
+
+<div class="testimonial">
+
+<div class="testimonialTop">
+
+<div class="avatar">
+K
+</div>
+
+<div>
+
+<h3>
+Kunal Mehta
+</h3>
+
+<p>
+⭐⭐⭐⭐⭐
+</p>
+
+</div>
+
+</div>
+
+<p>
+Live tracking and wallet system
+make everything extremely smooth.
+</p>
+
+</div>
+
+</div>
+
+</section>
+
+<!-- CTA -->
+
+<section class="cta">
+
+<h1>
+Ready To Experience
+Premium Laundry?
+</h1>
+
+<p>
+Book your first pickup today and get
+30% OFF instantly.
+</p>
+
+<br><br>
+
+<button
+class="heroBtn primaryBtn"
+onclick="
+location.href='./signup.html'
+"
+>
+Start Now
+</button>
+
+</section>
+
+<!-- FOOTER -->
+
+<footer class="footer">
+
+<div>
+
+<h2>
+QuickPress
+</h2>
+
+<p>
+Fast, premium and trusted laundry
+service platform.
+</p>
+
+<div class="socials">
+
+<i class="fab fa-instagram"></i>
+
+<i class="fab fa-facebook"></i>
+
+<i class="fab fa-x-twitter"></i>
+
+</div>
+
+</div>
+
+<div>
+
+<h2>
+Quick Links
+</h2>
+
+<a href="#">
+Home
+</a>
+
+<a href="#">
+Services
+</a>
+
+<a href="#">
+Orders
+</a>
+
+<a href="#">
+Support
+</a>
+
+</div>
+
+<div>
+
+<h2>
+Services
+</h2>
+
+<a href="#">
+Ironing
+</a>
+
+<a href="#">
+Wash & Fold
+</a>
+
+<a href="#">
+Dry Cleaning
+</a>
+
+</div>
+
+<div>
+
+<h2>
+Contact
+</h2>
+
+<p>
+📍 India
+</p>
+
+<p>
+📞 +91 XXXXX XXXXX
+</p>
+
+<p>
+✉ support@quickpress.com
+</p>
+
+</div>
+
+</footer>
 
 </body>
 </html>
