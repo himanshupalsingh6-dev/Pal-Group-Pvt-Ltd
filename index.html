@@ -2,892 +2,275 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>QuickPress Ultra Advanced</title>
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+<title>QuickPress</title>
+<meta name="viewport" content="width=device-width, initial-scale=1">
 
 <style>
+:root{--yellow:#FFD400;--bg:#f6f7f9}
+body{margin:0;font-family:Segoe UI;background:var(--bg)}
 
-*{
-margin:0;
-padding:0;
-box-sizing:border-box;
-font-family:'Poppins',sans-serif;
+/* GLOBAL */
+*{transition:0.25s ease}
+
+/* NAV */
+.nav{
+  position:sticky;
+  top:0;
+  background:#fff;
+  padding:12px;
+  display:flex;
+  justify-content:space-between;
+  box-shadow:0 2px 10px rgba(0,0,0,.1);
+  transition:0.3s;
+  backdrop-filter: blur(10px);
 }
+.cart{background:var(--yellow);padding:6px 12px;border-radius:20px}
 
-body{
-background:#eef4ff;
-color:#111827;
-overflow-x:hidden;
-padding-bottom:120px;
+/* HERO */
+.hero{padding:20px}
+.hero h1{font-size:26px}
+.hero button{
+  width:100%;
+  padding:14px;
+  background:var(--yellow);
+  border:none;
+  border-radius:10px;
 }
+button:active{transform:scale(0.95)}
 
-:root{
---primary:#2563eb;
---secondary:#0f172a;
---yellow:#ffcc00;
---white:#ffffff;
---gray:#6b7280;
---success:#16a34a;
---danger:#dc2626;
---card:rgba(255,255,255,0.8);
-}
-
-.container{
-max-width:500px;
-margin:auto;
-padding:18px;
-}
-
-.topbar{
-display:flex;
-justify-content:space-between;
-align-items:center;
-margin-bottom:22px;
-}
-
-.profile{
-display:flex;
-align-items:center;
-gap:12px;
-}
-
-.menu-btn{
-width:52px;
-height:52px;
-border-radius:18px;
-background:white;
-display:flex;
-align-items:center;
-justify-content:center;
-font-size:20px;
-box-shadow:0 8px 20px rgba(0,0,0,0.08);
-cursor:pointer;
-}
-
-.profile img{
-width:54px;
-height:54px;
-border-radius:50%;
-object-fit:cover;
-border:3px solid var(--primary);
-}
-
-.hero{
-background:linear-gradient(135deg,#001a5c,#0037b8,#02143b);
-border-radius:34px;
-padding:28px;
-position:relative;
-overflow:hidden;
-color:white;
-margin-bottom:22px;
-}
-
-.hero::before{
-content:'';
-position:absolute;
-width:300px;
-height:300px;
-border:1px solid rgba(255,255,255,0.1);
-border-radius:50%;
-right:-100px;
-top:-100px;
-}
-
-.hero h1{
-font-size:44px;
-line-height:52px;
-margin-bottom:12px;
-position:relative;
-z-index:2;
-}
-
-.hero span{
-color:var(--yellow);
-}
-
-.hero p{
-color:#dbeafe;
-margin-bottom:20px;
-max-width:220px;
-position:relative;
-z-index:2;
-}
-
-.hero-buttons{
-display:flex;
-gap:12px;
-position:relative;
-z-index:2;
-}
-
-.btn{
-border:none;
-padding:14px 18px;
-border-radius:18px;
-font-weight:700;
-cursor:pointer;
-transition:0.3s;
-position:relative;
-overflow:hidden;
-}
-
-.btn:hover{
-transform:translateY(-4px);
-}
-
-.primary{
-background:var(--yellow);
-}
-
-.secondary{
-background:rgba(255,255,255,0.12);
-color:white;
-border:1px solid rgba(255,255,255,0.2);
-}
-
-.hero img{
-position:absolute;
-right:0;
-bottom:0;
-width:180px;
-animation:float 4s infinite ease-in-out;
-}
-
-@keyframes float{
-0%{transform:translateY(0)}
-50%{transform:translateY(-10px)}
-100%{transform:translateY(0)}
-}
-
-.stats-grid{
-display:grid;
-grid-template-columns:1fr 1fr;
-gap:16px;
-margin-bottom:22px;
-}
-
+/* SECTION */
+.section{padding:18px}
+.services{display:grid;grid-template-columns:1fr 1fr;gap:12px}
 .card{
-background:var(--card);
-backdrop-filter:blur(14px);
-border-radius:26px;
-padding:20px;
-box-shadow:0 10px 20px rgba(0,0,0,0.05);
-transition:0.3s;
+  background:#fff;
+  padding:16px;
+  border-radius:14px;
+  text-align:center;
+  position:relative;
+  overflow:hidden;
 }
-
 .card:hover{
-transform:translateY(-6px);
+  transform:translateY(-5px) scale(1.02);
+  box-shadow:0 10px 25px rgba(0,0,0,.15);
 }
 
-.card-icon{
-width:58px;
-height:58px;
-border-radius:18px;
-background:#e0e7ff;
-display:flex;
-align-items:center;
-justify-content:center;
-font-size:24px;
-color:var(--primary);
-margin-bottom:14px;
+/* HOW */
+.how-wrap{display:flex;flex-direction:column;gap:10px}
+.how-step{
+  display:flex;
+  gap:12px;
+  background:#fff;
+  padding:14px;
+  border-radius:16px;
+  box-shadow:0 6px 14px rgba(0,0,0,.08);
+}
+.how-step:hover{transform:translateX(6px)}
+.how-icon{
+  width:50px;height:50px;
+  background:var(--yellow);
+  border-radius:50%;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+}
+.how-line{
+  height:20px;width:3px;background:var(--yellow);margin-left:24px;
 }
 
-.card h3{
-margin-bottom:6px;
+/* REVIEWS */
+.reviews{overflow:hidden}
+.track{display:flex;gap:12px;animation:slide 25s linear infinite}
+.review{min-width:200px;background:#fff;padding:14px;border-radius:12px}
+@keyframes slide{
+  0%{transform:translateX(0)}
+  100%{transform:translateX(-50%)}
 }
 
-.card p{
-font-size:14px;
-color:var(--gray);
-}
+/* FADE */
+.fade{opacity:0;transform:translateY(20px)}
+.fade.show{opacity:1;transform:translateY(0)}
 
-.section-title{
-display:flex;
-justify-content:space-between;
-align-items:center;
-margin-bottom:16px;
-}
-
-.section-title h2{
-font-size:24px;
-}
-
-.section-title a{
-text-decoration:none;
-color:var(--primary);
-font-weight:700;
-}
-
-.search-box{
-background:white;
-padding:16px 18px;
-border-radius:22px;
-display:flex;
-align-items:center;
-gap:12px;
-margin-bottom:22px;
-box-shadow:0 6px 18px rgba(0,0,0,0.05);
-}
-
-.search-box input{
-width:100%;
-border:none;
-outline:none;
-font-size:15px;
-}
-
-.services{
-display:grid;
-grid-template-columns:repeat(3,1fr);
-gap:14px;
-margin-bottom:24px;
-}
-
-.service{
-background:white;
-border-radius:24px;
-padding:18px 10px;
-text-align:center;
-box-shadow:0 6px 18px rgba(0,0,0,0.05);
-cursor:pointer;
-transition:0.3s;
-}
-
-.service:hover{
-transform:scale(1.04);
-}
-
-.service i{
-font-size:28px;
-color:var(--primary);
-margin-bottom:10px;
-}
-
-.offer-banner{
-background:linear-gradient(135deg,#fff4c4,#ffe082);
-padding:24px;
-border-radius:30px;
-display:flex;
-justify-content:space-between;
-align-items:center;
-margin-bottom:24px;
-}
-
-.offer-banner h2{
-font-size:42px;
-}
-
-.offer-banner button{
-padding:14px 18px;
-border:none;
-border-radius:18px;
-background:var(--secondary);
-color:white;
-font-weight:700;
-}
-
-.tracking-card{
-background:white;
-padding:22px;
-border-radius:28px;
-margin-bottom:24px;
-box-shadow:0 6px 18px rgba(0,0,0,0.05);
-}
-
-.tracking-status{
-margin-top:18px;
-padding:14px;
-background:#dbeafe;
-border-radius:18px;
-display:flex;
-justify-content:space-between;
-font-weight:700;
-color:var(--primary);
-}
-
-.products{
-display:grid;
-grid-template-columns:1fr 1fr;
-gap:16px;
-}
-
-.product{
-background:white;
-border-radius:26px;
-overflow:hidden;
-box-shadow:0 8px 20px rgba(0,0,0,0.05);
-transition:0.3s;
-}
-
-.product:hover{
-transform:translateY(-6px);
-}
-
-.product img{
-width:100%;
-height:150px;
-object-fit:cover;
-}
-
-.product-content{
-padding:16px;
-}
-
-.product-content p{
-font-size:13px;
-color:var(--gray);
-margin:6px 0 12px;
-}
-
+/* BOTTOM NAV */
 .bottom{
-display:flex;
-justify-content:space-between;
-align-items:center;
+  position:fixed;
+  bottom:0;
+  left:0;
+  right:0;
+  background:#fff;
+  display:flex;
+  justify-content:space-around;
+  padding:10px;
+  box-shadow:0 -2px 10px rgba(0,0,0,.1);
 }
+.bottom div{text-align:center;font-size:12px}
 
-.price{
-font-size:24px;
-font-weight:800;
-}
-
-.add-btn{
-width:46px;
-height:46px;
-border-radius:16px;
-border:none;
-background:var(--primary);
-color:white;
-font-size:20px;
-cursor:pointer;
-}
-
-.cart-popup{
-position:fixed;
-bottom:110px;
-right:18px;
-background:var(--primary);
-color:white;
-padding:18px 24px;
-border-radius:22px;
-font-weight:700;
-box-shadow:0 12px 30px rgba(37,99,235,0.3);
-z-index:999;
-animation:bounce 2s infinite;
-}
-
-@keyframes bounce{
-0%{transform:translateY(0)}
-50%{transform:translateY(-8px)}
-100%{transform:translateY(0)}
-}
-
-.bottom-nav{
-position:fixed;
-bottom:0;
-left:50%;
-transform:translateX(-50%);
-max-width:500px;
-width:100%;
-background:white;
-padding:18px 12px 24px;
-display:flex;
-justify-content:space-around;
-align-items:center;
-border-top-left-radius:34px;
-border-top-right-radius:34px;
-box-shadow:0 -6px 20px rgba(0,0,0,0.08);
-z-index:1000;
-}
-
-.nav-item{
-display:flex;
-flex-direction:column;
-align-items:center;
-gap:6px;
-font-size:13px;
-color:var(--gray);
-cursor:pointer;
-}
-
-.nav-item.active{
-color:var(--primary);
-}
-
-.center-btn{
-width:82px;
-height:82px;
-border-radius:50%;
-background:var(--yellow);
-display:flex;
-align-items:center;
-justify-content:center;
-flex-direction:column;
-margin-top:-50px;
-font-weight:800;
-box-shadow:0 12px 26px rgba(255,204,0,0.4);
-}
-
-.toast{
-position:fixed;
-top:30px;
-left:50%;
-transform:translateX(-50%) translateY(-20px);
-background:#111827;
-color:white;
-padding:14px 22px;
-border-radius:18px;
-opacity:0;
-transition:0.3s;
-z-index:9999;
-font-weight:700;
-}
-
-.toast.show{
-opacity:1;
-transform:translateX(-50%) translateY(0);
-}
-
-.ripple{
-position:absolute;
-width:10px;
-height:10px;
-background:rgba(255,255,255,0.5);
-border-radius:50%;
-transform:scale(0);
-animation:ripple 0.6s linear;
-}
-
+/* RIPPLE */
 @keyframes ripple{
-to{
-transform:scale(20);
-opacity:0;
+  from{transform:scale(1);opacity:1}
+  to{transform:scale(6);opacity:0}
 }
-}
-
-.orders-list{
-margin-top:24px;
-display:flex;
-flex-direction:column;
-gap:14px;
-}
-
-.order-item{
-background:white;
-padding:18px;
-border-radius:22px;
-display:flex;
-justify-content:space-between;
-align-items:center;
-box-shadow:0 6px 18px rgba(0,0,0,0.05);
-}
-
-.badge{
-padding:8px 14px;
-border-radius:14px;
-font-size:12px;
-font-weight:700;
-}
-
-.processing{
-background:#fef3c7;
-color:#92400e;
-}
-
-.success{
-background:#dcfce7;
-color:#166534;
-}
-
-.pending{
-background:#fee2e2;
-color:#991b1b;
-}
-
-@media(max-width:450px){
-
-.hero h1{
-font-size:36px;
-line-height:42px;
-}
-
-.services{
-grid-template-columns:repeat(2,1fr);
-}
-
-.products{
-grid-template-columns:1fr;
-}
-
-.hero img{
-width:140px;
-}
-
-}
-
+.card,button{position:relative;overflow:hidden}
 </style>
 </head>
+
 <body>
 
-<div class="container">
-
-<div class="topbar">
-
-<div class="profile">
-<div class="menu-btn">
-<i class="fa-solid fa-bars"></i>
+<!-- NAV -->
+<div class="nav">
+  ⚡ QuickPress
+  <div class="cart">🛒 <span id="cartCount">0</span></div>
 </div>
 
-<div>
-<small>Welcome Back 👋</small>
-<h3>Himanshu</h3>
-</div>
-</div>
+<!-- HERO -->
+<div class="hero section">
+  <h1>Fast Laundry <span style="background:#FFD400">At Home</span></h1>
+  <p>Doorstep ironing & cleaning</p>
 
-<img src="https://i.pravatar.cc/150?img=12">
-
-</div>
-
-<div class="search-box">
-<i class="fa-solid fa-magnifying-glass"></i>
-<input type="text" placeholder="Search laundry services...">
+  <!-- 🔥 CHANGED -->
+  <button onclick="location.href='services.html'">Order Now</button>
 </div>
 
-<div class="hero">
-<h1>Laundry <br> Done <span>Fast</span></h1>
-<p>Premium washing, ironing and express delivery at your doorstep.</p>
-
-<div class="hero-buttons">
-<button class="btn primary">⚡ Fast Order</button>
-<button class="btn secondary">📅 Schedule</button>
+<!-- SERVICES -->
+<div class="section">
+  <h2>Services</h2>
+  <div class="services">
+    <div class="card" onclick="selectService('ironing')">🧺 Ironing</div>
+    <div class="card" onclick="selectService('washing')">🧽 Washing</div>
+    <div class="card" onclick="selectService('dry')">🧼 Dry Clean</div>
+    <div class="card">🚚 Delivery</div>
+  </div>
 </div>
 
-<img src="https://images.unsplash.com/photo-1521656693074-0ef32e80a5d5?q=80&w=1200&auto=format&fit=crop">
+<!-- HOW -->
+<div class="section">
+  <h2>How It Works</h2>
+  <div class="how-wrap">
+
+    <div class="how-step">
+      <div class="how-icon">📦</div>
+      <div><b>Book Order</b><br><small>Select service & add clothes</small></div>
+    </div>
+
+    <div class="how-line"></div>
+
+    <div class="how-step">
+      <div class="how-icon">🚚</div>
+      <div><b>Pickup</b><br><small>We collect from your home</small></div>
+    </div>
+
+    <div class="how-line"></div>
+
+    <div class="how-step">
+      <div class="how-icon">🔥</div>
+      <div><b>Processing</b><br><small>Cleaning & ironing</small></div>
+    </div>
+
+    <div class="how-line"></div>
+
+    <div class="how-step">
+      <div class="how-icon">🏠</div>
+      <div><b>Delivery</b><br><small>Delivered fast</small></div>
+    </div>
+
+  </div>
 </div>
 
-<div class="stats-grid">
+<!-- REVIEWS -->
+<div class="section">
+  <h2>Customer Reviews</h2>
+  <div class="reviews">
+    <div class="track">
+      <div class="review">🔥 Amazing ★★★★★</div>
+      <div class="review">Fast delivery 🚚</div>
+      <div class="review">Best service 👕</div>
+      <div class="review">Affordable 💰</div>
 
-<div class="card">
-<div class="card-icon">
-<i class="fa-solid fa-truck-fast"></i>
-</div>
-<h3>30 Min Pickup</h3>
-<p>Instant rider pickup from your location.</p>
-</div>
+      <div class="review">🔥 Amazing ★★★★★</div>
+      <div class="review">Fast delivery 🚚</div>
+      <div class="review">Best service 👕</div>
+      <div class="review">Affordable 💰</div>
+    </div>
+  </div>
 
-<div class="card">
-<div class="card-icon">
-<i class="fa-solid fa-shield-heart"></i>
-</div>
-<h3>Premium Care</h3>
-<p>Professional fabric safety cleaning.</p>
-</div>
-
-</div>
-
-<div class="section-title">
-<h2>Services</h2>
-<a href="#">See All</a>
+  <div style="text-align:center;margin-top:10px;color:#999;font-weight:bold">
+    ⚡ QuickPress
+  </div>
 </div>
 
-<div class="services">
+<!-- WHATSAPP -->
+<a href="https://wa.me/919997874502" target="_blank"
+style="position:fixed;bottom:80px;right:20px;background:#25D366;color:white;padding:14px;border-radius:50%">
+📲
+</a>
 
-<div class="service">
-<i class="fa-solid fa-shirt"></i>
-<h4>Ironing</h4>
-</div>
-
-<div class="service">
-<i class="fa-solid fa-basket-shopping"></i>
-<h4>Wash</h4>
-</div>
-
-<div class="service">
-<i class="fa-solid fa-jug-detergent"></i>
-<h4>Dry Clean</h4>
-</div>
-
-<div class="service">
-<i class="fa-solid fa-shoe-prints"></i>
-<h4>Shoe Care</h4>
-</div>
-
-<div class="service">
-<i class="fa-solid fa-bolt"></i>
-<h4>Express</h4>
-</div>
-
-<div class="service">
-<i class="fa-solid fa-box"></i>
-<h4>Packing</h4>
-</div>
-
-</div>
-
-<div class="offer-banner">
-<div>
-<small>FIRST ORDER OFFER</small>
-<h2>30%</h2>
-<p>Use Code WELCOME30</p>
-</div>
-<button id="couponBtn">Apply</button>
-</div>
-
-<div class="tracking-card">
-<div class="section-title">
-<h2>Track Order</h2>
-<a href="#">View</a>
-</div>
-
-<p>Order #QP984512</p>
-
-<div class="tracking-status">
-<span id="trackText">🚚 Rider Coming</span>
-<span>ETA 20 Min</span>
-</div>
-</div>
-
-<div class="section-title">
-<h2>Popular Services</h2>
-<a href="#">More</a>
-</div>
-
-<div class="products">
-
-<div class="product">
-<img src="https://images.unsplash.com/photo-1610557892470-55d9e80c0bce?q=80&w=1200&auto=format&fit=crop">
-<div class="product-content">
-<h3>Wash & Fold</h3>
-<p>48 Hours Delivery</p>
+<!-- BOTTOM NAV -->
 <div class="bottom">
-<div class="price">₹49</div>
-<button class="add-btn">+</button>
-</div>
-</div>
-</div>
+  <div onclick="go('index.html')">🏠<br>Home</div>
 
-<div class="product">
-<img src="https://images.unsplash.com/photo-1603252109303-2751441dd157?q=80&w=1200&auto=format&fit=crop">
-<div class="product-content">
-<h3>Ironing</h3>
-<p>24 Hours Delivery</p>
-<div class="bottom">
-<div class="price">₹29</div>
-<button class="add-btn">+</button>
-</div>
-</div>
-</div>
+  <!-- 🔥 CHANGED -->
+  <div onclick="location.href='services.html'">🛒<br>Services</div>
 
-<div class="product">
-<img src="https://images.unsplash.com/photo-1512436991641-6745cdb1723f?q=80&w=1200&auto=format&fit=crop">
-<div class="product-content">
-<h3>Dry Cleaning</h3>
-<p>Premium Fabric Care</p>
-<div class="bottom">
-<div class="price">₹99</div>
-<button class="add-btn">+</button>
-</div>
-</div>
-</div>
-
-<div class="product">
-<img src="https://images.unsplash.com/photo-1521572163474-6864f9cf17ab?q=80&w=1200&auto=format&fit=crop">
-<div class="product-content">
-<h3>Express Wash</h3>
-<p>Same Day Delivery</p>
-<div class="bottom">
-<div class="price">₹149</div>
-<button class="add-btn">+</button>
-</div>
-</div>
-</div>
-
-</div>
-
-<div class="orders-list">
-
-<div class="order-item">
-<div>
-<h4>Order #QP12345</h4>
-<p>2 Shirts + 1 Jeans</p>
-</div>
-<div class="badge processing">Processing</div>
-</div>
-
-<div class="order-item">
-<div>
-<h4>Order #QP90876</h4>
-<p>Dry Cleaning</p>
-</div>
-<div class="badge success">Delivered</div>
-</div>
-
-<div class="order-item">
-<div>
-<h4>Order #QP56789</h4>
-<p>Wash & Fold</p>
-</div>
-<div class="badge pending">Pending</div>
-</div>
-
-</div>
-
-</div>
-
-<div class="cart-popup">
-🛒 Cart <span id="cartCount">0</span>
-</div>
-
-<div class="bottom-nav">
-
-<div class="nav-item active">
-<i class="fa-solid fa-house"></i>
-<span>Home</span>
-</div>
-
-<div class="nav-item">
-<i class="fa-solid fa-box"></i>
-<span>Orders</span>
-</div>
-
-<div class="center-btn">
-⚡
-<small>FAST</small>
-</div>
-
-<div class="nav-item">
-<i class="fa-solid fa-tags"></i>
-<span>Offers</span>
-</div>
-
-<div class="nav-item">
-<i class="fa-solid fa-user"></i>
-<span>Profile</span>
-</div>
-
+  <div onclick="go('account.html')">👤<br>Account</div>
+  <div onclick="go('myorders.html')">📦<br>Orders</div>
 </div>
 
 <script>
-
-const navItems = document.querySelectorAll('.nav-item');
-
-navItems.forEach(item=>{
-item.addEventListener('click',()=>{
-navItems.forEach(nav=>nav.classList.remove('active'));
-item.classList.add('active');
-showToast(item.innerText + ' Opened');
-});
-});
-
-function showToast(message){
-
-const toast=document.createElement('div');
-toast.className='toast';
-toast.innerText=message;
-document.body.appendChild(toast);
-
-setTimeout(()=>{
-toast.classList.add('show');
-},100);
-
-setTimeout(()=>{
-toast.classList.remove('show');
-
-setTimeout(()=>{
-toast.remove();
-},300);
-
-},2500);
-
+function go(p){location.href=p}
+function goProducts(){location.href="products.html"}
+function selectService(s){
+  localStorage.setItem("service",s);
+  location.href="products.html";
 }
 
-let cart=0;
+/* CART */
+let cart = JSON.parse(localStorage.getItem("cart")||"[]");
+let count=0;
+cart.forEach(i=>count+=i.qty||1);
+document.getElementById("cartCount").innerText=count;
 
-const addBtns=document.querySelectorAll('.add-btn');
-
-addBtns.forEach(btn=>{
-btn.addEventListener('click',()=>{
-cart++;
-document.getElementById('cartCount').innerText=cart;
-btn.innerText='✔';
-btn.style.background='#16a34a';
-showToast('🛒 Item Added To Cart');
-});
-});
-
-const couponBtn=document.getElementById('couponBtn');
-
-couponBtn.addEventListener('click',()=>{
-couponBtn.innerHTML='Applied ✅';
-couponBtn.style.background='#16a34a';
-showToast('🎉 Coupon Applied');
+/* NAV HIDE */
+let lastScroll=0;
+const nav=document.querySelector(".nav");
+window.addEventListener("scroll",()=>{
+  let cur=window.pageYOffset;
+  if(cur>lastScroll && cur>50){
+    nav.style.transform="translateY(-100%)";
+  }else{
+    nav.style.transform="translateY(0)";
+  }
+  lastScroll=cur;
 });
 
-const statuses=[
-'🚚 Rider Assigned',
-'📦 Pickup Started',
-'🧺 Laundry Processing',
-'🔥 Ironing Clothes',
-'🚀 Out For Delivery'
-];
-
-let current=0;
-
-setInterval(()=>{
-current++;
-if(current>=statuses.length){
-current=0;
-}
-
-document.getElementById('trackText').innerText=statuses[current];
-
-},4000);
-
-const services=document.querySelectorAll('.service');
-
-services.forEach(service=>{
-service.addEventListener('click',()=>{
-const name=service.querySelector('h4').innerText;
-showToast('✨ '+name+' Selected');
+/* FADE */
+const observer=new IntersectionObserver(entries=>{
+  entries.forEach(e=>{
+    if(e.isIntersecting){
+      e.target.classList.add("show");
+    }
+  });
 });
+document.querySelectorAll(".section,.card,.how-step")
+.forEach(el=>{
+  el.classList.add("fade");
+  observer.observe(el);
 });
 
-const allButtons=document.querySelectorAll('button');
-
-allButtons.forEach(button=>{
-button.addEventListener('click',function(e){
-
-let x=e.clientX-e.target.offsetLeft;
-let y=e.clientY-e.target.offsetTop;
-
-let ripple=document.createElement('span');
-ripple.className='ripple';
-ripple.style.left=`${x}px`;
-ripple.style.top=`${y}px`;
-
-this.appendChild(ripple);
-
-setTimeout(()=>{
-ripple.remove();
-},600);
-
+/* RIPPLE */
+document.querySelectorAll(".card,button").forEach(el=>{
+  el.addEventListener("click",function(e){
+    let circle=document.createElement("span");
+    circle.style.position="absolute";
+    circle.style.width="20px";
+    circle.style.height="20px";
+    circle.style.background="rgba(0,0,0,0.2)";
+    circle.style.borderRadius="50%";
+    circle.style.left=e.offsetX+"px";
+    circle.style.top=e.offsetY+"px";
+    circle.style.animation="ripple 0.5s ease";
+    this.appendChild(circle);
+    setTimeout(()=>circle.remove(),500);
+  });
 });
-});
-
-window.addEventListener('mousemove',(e)=>{
-
-const heroImg=document.querySelector('.hero img');
-
-let x=(window.innerWidth-e.pageX*0.05)/100;
-let y=(window.innerHeight-e.pageY*0.05)/100;
-
-heroImg.style.transform=`translate(${x}px,${y}px)`;
-
-});
-
 </script>
 
 </body>
