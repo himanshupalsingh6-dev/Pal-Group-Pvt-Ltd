@@ -1,939 +1,901 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
-
-<meta charset="UTF-8">
-
-<meta name="viewport"
-content="width=device-width, initial-scale=1.0">
-
-<title>
-QuickPress — Premium Laundry Service
-</title>
-
-<link
-rel="stylesheet"
-href="./css/style.css"
->
-
-<link
-rel="stylesheet"
-href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css"
-/>
-
-<style>
-
-/* HERO */
-
-.hero{
-background:
-linear-gradient(
-135deg,
-rgba(7,20,43,0.95),
-rgba(13,34,71,0.95)
-),
-url('https://images.unsplash.com/photo-1517677208171-0bc6725a3e60?q=80&w=1400&auto=format&fit=crop');
-background-size:cover;
-background-position:center;
-min-height:100vh;
-color:#fff;
-display:flex;
-align-items:center;
-padding:0 8%;
-position:relative;
-overflow:hidden;
-}
-
-.heroContent{
-max-width:650px;
-z-index:2;
-}
-
-.heroTag{
-background:rgba(255,255,255,0.15);
-display:inline-block;
-padding:10px 18px;
-border-radius:50px;
-backdrop-filter:blur(10px);
-margin-bottom:20px;
-font-size:14px;
-}
-
-.hero h1{
-font-size:70px;
-line-height:1.1;
-margin:0;
-}
-
-.hero p{
-font-size:20px;
-opacity:0.9;
-margin-top:25px;
-line-height:1.7;
-}
-
-.heroBtns{
-display:flex;
-gap:15px;
-margin-top:35px;
-flex-wrap:wrap;
-}
-
-.heroBtn{
-padding:16px 30px;
-border:none;
-border-radius:16px;
-font-size:16px;
-font-weight:bold;
-cursor:pointer;
-transition:0.3s;
-}
-
-.primaryBtn{
-background:#FFD400;
-color:#000;
-}
-
-.secondaryBtn{
-background:rgba(255,255,255,0.15);
-color:#fff;
-backdrop-filter:blur(10px);
-}
-
-.heroBtn:hover{
-transform:translateY(-3px);
-}
-
-/* NAVBAR */
-
-.navbar{
-position:fixed;
-top:0;
-left:0;
-width:100%;
-display:flex;
-justify-content:space-between;
-align-items:center;
-padding:18px 8%;
-box-sizing:border-box;
-z-index:999;
-backdrop-filter:blur(12px);
-background:rgba(0,0,0,0.15);
-}
-
-.logo{
-font-size:32px;
-font-weight:bold;
-color:#FFD400;
-}
-
-.navLinks{
-display:flex;
-gap:25px;
-align-items:center;
-}
-
-.navLinks a{
-text-decoration:none;
-color:#fff;
-font-weight:500;
-}
-
-.loginBtn{
-background:#FFD400;
-padding:12px 22px;
-border-radius:12px;
-color:#000 !important;
-font-weight:bold;
-}
-
-/* STATS */
-
-.stats{
-display:grid;
-grid-template-columns:
-repeat(auto-fit,minmax(220px,1fr));
-gap:20px;
-padding:80px 8%;
-background:#fff;
-}
-
-.statCard{
-background:#f7f7f7;
-padding:30px;
-border-radius:25px;
-text-align:center;
-}
-
-.statCard h1{
-margin:0;
-font-size:42px;
-color:#2563eb;
-}
-
-.statCard p{
-margin-top:10px;
-color:#666;
-}
-
-/* SERVICES */
-
-.section{
-padding:90px 8%;
-}
-
-.sectionTitle{
-text-align:center;
-margin-bottom:50px;
-}
-
-.sectionTitle h1{
-font-size:48px;
-margin-bottom:10px;
-}
-
-.sectionTitle p{
-color:#666;
-font-size:18px;
-}
-
-.servicesGrid{
-display:grid;
-grid-template-columns:
-repeat(auto-fit,minmax(280px,1fr));
-gap:25px;
-}
-
-.serviceCard{
-background:#fff;
-padding:30px;
-border-radius:28px;
-box-shadow:0 10px 25px rgba(0,0,0,0.08);
-transition:0.3s;
-}
-
-.serviceCard:hover{
-transform:translateY(-8px);
-}
-
-.serviceIcon{
-width:80px;
-height:80px;
-background:#FFD400;
-border-radius:20px;
-display:flex;
-align-items:center;
-justify-content:center;
-font-size:35px;
-margin-bottom:20px;
-}
-
-.serviceCard h2{
-margin:0;
-margin-bottom:15px;
-}
-
-.serviceCard p{
-color:#666;
-line-height:1.7;
-}
-
-/* APP */
-
-.appSection{
-background:#07142b;
-color:#fff;
-border-radius:35px;
-padding:60px;
-display:grid;
-grid-template-columns:
-repeat(auto-fit,minmax(320px,1fr));
-gap:40px;
-align-items:center;
-}
-
-.appImage{
-text-align:center;
-}
-
-.phoneMockup{
-width:300px;
-border-radius:35px;
-box-shadow:0 10px 30px rgba(0,0,0,0.4);
-}
-
-.appContent h1{
-font-size:48px;
-margin-top:0;
-}
-
-.appFeatures{
-margin-top:30px;
-}
-
-.appFeature{
-display:flex;
-align-items:center;
-gap:15px;
-margin-bottom:18px;
-font-size:18px;
-}
-
-/* TESTIMONIAL */
-
-.testimonialGrid{
-display:grid;
-grid-template-columns:
-repeat(auto-fit,minmax(300px,1fr));
-gap:25px;
-}
-
-.testimonial{
-background:#fff;
-padding:30px;
-border-radius:28px;
-box-shadow:0 10px 25px rgba(0,0,0,0.08);
-}
-
-.testimonialTop{
-display:flex;
-align-items:center;
-gap:15px;
-margin-bottom:20px;
-}
-
-.avatar{
-width:60px;
-height:60px;
-background:#FFD400;
-border-radius:50%;
-display:flex;
-align-items:center;
-justify-content:center;
-font-size:25px;
-font-weight:bold;
-}
-
-/* CTA */
-
-.cta{
-background:
-linear-gradient(
-135deg,
-#FFD400,
-#ffea75
-);
-padding:70px 8%;
-text-align:center;
-border-radius:35px;
-margin:0 8% 80px;
-}
-
-.cta h1{
-font-size:52px;
-margin:0;
-}
-
-.cta p{
-font-size:18px;
-margin-top:18px;
-}
-
-/* FOOTER */
-
-.footer{
-background:#07142b;
-color:#fff;
-padding:60px 8%;
-display:grid;
-grid-template-columns:
-repeat(auto-fit,minmax(250px,1fr));
-gap:40px;
-}
-
-.footer h2{
-margin-top:0;
-}
-
-.footer a{
-display:block;
-margin-bottom:12px;
-text-decoration:none;
-color:#ddd;
-}
-
-.socials{
-display:flex;
-gap:15px;
-margin-top:20px;
-}
-
-.socials i{
-font-size:24px;
-}
-
-/* MOBILE */
-
-.menuBtn{
-display:none;
-background:#FFD400;
-border:none;
-padding:10px 15px;
-border-radius:10px;
-font-size:20px;
-cursor:pointer;
-}
-
-@media screen and (max-width:900px){
-
-.hero h1{
-font-size:50px;
-}
-
-.navLinks{
-display:none;
-}
-
-.menuBtn{
-display:block;
-}
-
-.appSection{
-padding:35px;
-}
-
-.cta h1{
-font-size:38px;
-}
-
-}
-
-@media screen and (max-width:768px){
-
-.hero{
-padding:120px 20px 80px;
-min-height:auto;
-}
-
-.hero h1{
-font-size:40px;
-}
-
-.hero p{
-font-size:17px;
-}
-
-.section{
-padding:70px 20px;
-}
-
-.stats{
-padding:50px 20px;
-}
-
-.cta{
-margin:0 20px 50px;
-padding:50px 20px;
-}
-
-.footer{
-padding:50px 20px;
-}
-
-.sectionTitle h1{
-font-size:34px;
-}
-
-.appContent h1{
-font-size:34px;
-}
-
-.phoneMockup{
-width:100%;
-max-width:280px;
-}
-
-}
-
-</style>
-
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>QuickPress Laundry</title>
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+
+  <style>
+    *{
+      margin:0;
+      padding:0;
+      box-sizing:border-box;
+      font-family:'Poppins',sans-serif;
+    }
+
+    body{
+      background:#f5f7fb;
+      color:#111827;
+      max-width:480px;
+      margin:auto;
+      min-height:100vh;
+      padding-bottom:120px;
+    }
+
+    a{
+      text-decoration:none;
+      color:inherit;
+    }
+
+    .container{
+      padding:18px;
+    }
+
+    /* HEADER */
+
+    .top-bar{
+      display:flex;
+      align-items:center;
+      justify-content:space-between;
+      margin-bottom:20px;
+    }
+
+    .menu-btn{
+      width:48px;
+      height:48px;
+      background:#fff;
+      border-radius:16px;
+      display:flex;
+      align-items:center;
+      justify-content:center;
+      font-size:22px;
+      box-shadow:0 4px 15px rgba(0,0,0,0.06);
+    }
+
+    .location{
+      flex:1;
+      margin-left:15px;
+    }
+
+    .location small{
+      color:#7c8596;
+      font-size:12px;
+    }
+
+    .location h3{
+      font-size:18px;
+      margin-top:3px;
+      font-weight:700;
+    }
+
+    .wallet{
+      background:#fff;
+      padding:12px 14px;
+      border-radius:18px;
+      box-shadow:0 4px 15px rgba(0,0,0,0.06);
+      text-align:center;
+    }
+
+    .wallet h4{
+      font-size:18px;
+      color:#111827;
+    }
+
+    .wallet p{
+      font-size:12px;
+      color:#6b7280;
+    }
+
+    /* HERO */
+
+    .hero{
+      position:relative;
+      background:linear-gradient(135deg,#02123c,#042b8d);
+      border-radius:30px;
+      overflow:hidden;
+      padding:30px;
+      color:white;
+      min-height:270px;
+      margin-bottom:24px;
+    }
+
+    .hero::before{
+      content:'';
+      position:absolute;
+      width:350px;
+      height:350px;
+      border-radius:50%;
+      border:1px solid rgba(255,255,255,0.1);
+      top:-180px;
+      right:-100px;
+    }
+
+    .hero h1{
+      font-size:52px;
+      line-height:1.05;
+      font-weight:800;
+      position:relative;
+      z-index:2;
+    }
+
+    .hero h1 span{
+      color:#ffd21f;
+    }
+
+    .hero p{
+      margin-top:15px;
+      color:#dbe4ff;
+      font-size:15px;
+      position:relative;
+      z-index:2;
+    }
+
+    .hero-buttons{
+      display:flex;
+      gap:14px;
+      margin-top:28px;
+      position:relative;
+      z-index:2;
+    }
+
+    .btn{
+      flex:1;
+      padding:15px 18px;
+      border-radius:18px;
+      border:none;
+      font-size:15px;
+      font-weight:700;
+      cursor:pointer;
+      transition:0.3s;
+    }
+
+    .btn:hover{
+      transform:translateY(-3px);
+    }
+
+    .btn-primary{
+      background:#fff;
+      color:#111827;
+    }
+
+    .btn-secondary{
+      background:transparent;
+      border:1px solid rgba(255,255,255,0.5);
+      color:white;
+    }
+
+    .pickup-badge{
+      position:absolute;
+      top:18px;
+      right:18px;
+      background:#091a4d;
+      border:2px solid rgba(255,255,255,0.2);
+      padding:14px;
+      border-radius:20px;
+      text-align:center;
+      z-index:2;
+    }
+
+    .pickup-badge h2{
+      color:#ffd21f;
+      font-size:30px;
+    }
+
+    .pickup-badge p{
+      margin-top:0;
+      font-size:12px;
+      color:#fff;
+    }
+
+    .hero-image{
+      position:absolute;
+      bottom:0;
+      right:0;
+      width:220px;
+    }
+
+    /* FAST ORDER */
+
+    .section-card{
+      background:#fff;
+      border-radius:26px;
+      padding:20px;
+      box-shadow:0 4px 18px rgba(0,0,0,0.05);
+      margin-bottom:22px;
+    }
+
+    .section-title{
+      font-size:24px;
+      font-weight:700;
+      margin-bottom:18px;
+    }
+
+    .steps{
+      display:grid;
+      grid-template-columns:repeat(3,1fr);
+      gap:12px;
+    }
+
+    .step-box{
+      background:#f7f9fd;
+      border-radius:20px;
+      padding:18px 12px;
+      text-align:center;
+      position:relative;
+    }
+
+    .step-number{
+      width:28px;
+      height:28px;
+      border-radius:50%;
+      background:#ffd21f;
+      display:flex;
+      align-items:center;
+      justify-content:center;
+      font-weight:700;
+      margin:auto;
+      margin-bottom:12px;
+    }
+
+    .step-box h4{
+      font-size:15px;
+      margin-bottom:6px;
+    }
+
+    .step-box p{
+      font-size:12px;
+      color:#6b7280;
+    }
+
+    .fast-order-btn{
+      width:100%;
+      background:#ffc700;
+      border:none;
+      margin-top:18px;
+      padding:18px;
+      border-radius:20px;
+      font-size:18px;
+      font-weight:700;
+      cursor:pointer;
+      transition:0.3s;
+    }
+
+    .fast-order-btn:hover{
+      transform:scale(1.02);
+    }
+
+    /* SERVICES */
+
+    .services-grid{
+      display:grid;
+      grid-template-columns:repeat(3,1fr);
+      gap:14px;
+      margin-bottom:24px;
+    }
+
+    .service-card{
+      background:#fff;
+      border-radius:24px;
+      padding:20px 12px;
+      text-align:center;
+      box-shadow:0 4px 15px rgba(0,0,0,0.05);
+      transition:0.3s;
+      cursor:pointer;
+    }
+
+    .service-card:hover{
+      transform:translateY(-5px);
+    }
+
+    .service-icon{
+      font-size:34px;
+      margin-bottom:10px;
+    }
+
+    .service-card h4{
+      font-size:15px;
+      font-weight:600;
+    }
+
+    /* OFFER */
+
+    .offer-banner{
+      background:linear-gradient(135deg,#fff7da,#fff1bc);
+      border-radius:28px;
+      padding:24px;
+      display:flex;
+      align-items:center;
+      justify-content:space-between;
+      margin-bottom:24px;
+    }
+
+    .offer-left h2{
+      font-size:34px;
+      margin:10px 0;
+      color:#0f172a;
+    }
+
+    .coupon{
+      display:inline-block;
+      border:2px dashed #ffbf00;
+      padding:8px 14px;
+      border-radius:12px;
+      font-weight:700;
+      background:white;
+    }
+
+    .offer-btn{
+      background:#071b53;
+      color:white;
+      border:none;
+      padding:14px 24px;
+      border-radius:16px;
+      font-weight:700;
+      cursor:pointer;
+    }
+
+    /* TRACK */
+
+    .tracking-card{
+      background:#fff;
+      border-radius:28px;
+      padding:22px;
+      box-shadow:0 4px 18px rgba(0,0,0,0.05);
+      margin-bottom:24px;
+    }
+
+    .tracking-top{
+      display:flex;
+      justify-content:space-between;
+      align-items:center;
+      margin-bottom:20px;
+    }
+
+    .tracking-progress{
+      display:flex;
+      justify-content:space-between;
+      align-items:center;
+      margin-bottom:18px;
+    }
+
+    .progress-step{
+      display:flex;
+      flex-direction:column;
+      align-items:center;
+      flex:1;
+      position:relative;
+    }
+
+    .progress-step::after{
+      content:'';
+      position:absolute;
+      top:18px;
+      left:60%;
+      width:80%;
+      height:4px;
+      background:#dbe4ff;
+      z-index:0;
+    }
+
+    .progress-step:last-child::after{
+      display:none;
+    }
+
+    .progress-circle{
+      width:38px;
+      height:38px;
+      border-radius:50%;
+      background:#2563eb;
+      color:white;
+      display:flex;
+      align-items:center;
+      justify-content:center;
+      font-size:14px;
+      position:relative;
+      z-index:2;
+      margin-bottom:8px;
+    }
+
+    .pending{
+      background:#e5e7eb;
+      color:#6b7280;
+    }
+
+    .progress-step p{
+      font-size:11px;
+      text-align:center;
+      color:#6b7280;
+    }
+
+    .eta-box{
+      background:#eff6ff;
+      padding:14px 16px;
+      border-radius:16px;
+      display:flex;
+      justify-content:space-between;
+      font-weight:600;
+      color:#2563eb;
+    }
+
+    /* PRODUCTS */
+
+    .products-grid{
+      display:grid;
+      grid-template-columns:repeat(2,1fr);
+      gap:16px;
+    }
+
+    .product-card{
+      background:#fff;
+      border-radius:24px;
+      overflow:hidden;
+      box-shadow:0 4px 15px rgba(0,0,0,0.05);
+    }
+
+    .product-card img{
+      width:100%;
+      height:140px;
+      object-fit:cover;
+    }
+
+    .product-content{
+      padding:16px;
+    }
+
+    .product-content h3{
+      font-size:18px;
+      margin-bottom:6px;
+    }
+
+    .product-content p{
+      color:#6b7280;
+      font-size:13px;
+      margin-bottom:12px;
+    }
+
+    .price-row{
+      display:flex;
+      justify-content:space-between;
+      align-items:center;
+    }
+
+    .price{
+      font-size:22px;
+      font-weight:700;
+      color:#111827;
+    }
+
+    .add-btn{
+      background:#2563eb;
+      color:white;
+      border:none;
+      width:42px;
+      height:42px;
+      border-radius:14px;
+      font-size:24px;
+      cursor:pointer;
+    }
+
+    /* BOTTOM NAV */
+
+    .bottom-nav{
+      position:fixed;
+      bottom:0;
+      width:100%;
+      max-width:480px;
+      background:white;
+      display:flex;
+      justify-content:space-around;
+      padding:16px 0 24px;
+      box-shadow:0 -4px 18px rgba(0,0,0,0.08);
+      border-top-left-radius:28px;
+      border-top-right-radius:28px;
+    }
+
+    .nav-item{
+      text-align:center;
+      font-size:13px;
+      color:#6b7280;
+      font-weight:500;
+      cursor:pointer;
+    }
+
+    .nav-item.active{
+      color:#2563eb;
+    }
+
+    .center-btn{
+      background:#ffc700;
+      width:78px;
+      height:78px;
+      border-radius:50%;
+      margin-top:-45px;
+      display:flex;
+      flex-direction:column;
+      justify-content:center;
+      align-items:center;
+      font-weight:700;
+      color:#111827;
+      box-shadow:0 10px 30px rgba(255,199,0,0.4);
+    }
+
+    .cart-popup{
+      position:fixed;
+      top:20px;
+      left:50%;
+      transform:translateX(-50%);
+      background:#111827;
+      color:white;
+      padding:14px 20px;
+      border-radius:16px;
+      display:none;
+      z-index:1000;
+      font-weight:600;
+    }
+
+    @media(max-width:450px){
+      .hero h1{
+        font-size:42px;
+      }
+
+      .hero-image{
+        width:180px;
+      }
+
+      .products-grid{
+        grid-template-columns:1fr;
+      }
+
+      .services-grid{
+        grid-template-columns:repeat(2,1fr);
+      }
+    }
+
+  </style>
 </head>
-
 <body>
 
-<!-- NAVBAR -->
+<div class="cart-popup" id="popup">Item Added Successfully</div>
 
-<div class="navbar">
+<div class="container">
 
-<div class="logo">
-QuickPress
-</div>
+  <!-- HEADER -->
 
-<div class="navLinks">
+  <div class="top-bar">
 
-<a href="#services">
-Services
-</a>
+    <div class="menu-btn">☰</div>
 
-<a href="#app">
-App
-</a>
+    <div class="location">
+      <small>Your Location</small>
+      <h3>📍 Udyog Vihar, Gurugram</h3>
+    </div>
 
-<a href="#reviews">
-Reviews
-</a>
+    <div class="wallet">
+      <h4>₹250</h4>
+      <p>Wallet</p>
+    </div>
 
-<a href="./login.html"
-class="loginBtn">
-Login
-</a>
+  </div>
 
-</div>
+  <!-- HERO -->
 
-<button class="menuBtn">
-☰
-</button>
+  <div class="hero">
 
-</div>
+    <div class="pickup-badge">
+      <h2>30</h2>
+      <p>Min Pickup</p>
+    </div>
 
-<!-- HERO -->
+    <h1>Laundry<br>Done <span>Right!</span></h1>
 
-<section class="hero">
+    <p>Fast Pickup • Premium Care • On Time Delivery</p>
 
-<div class="heroContent">
+    <div class="hero-buttons">
+      <button class="btn btn-primary" onclick="fastOrder()">⚡ Fast Order</button>
+      <button class="btn btn-secondary" onclick="scheduleOrder()">📅 Schedule</button>
+    </div>
 
-<div class="heroTag">
-🚀 India's Fastest Laundry Service
-</div>
+    <img class="hero-image" src="https://images.unsplash.com/photo-1582735689369-4fe89db7114c?q=80&w=1200&auto=format&fit=crop" alt="Laundry">
 
-<h1>
-Premium Laundry &
-Ironing At Your Doorstep
-</h1>
+  </div>
 
-<p>
-Book laundry pickup in seconds.
-Fast ironing, premium washing,
-live tracking and same day delivery.
-</p>
+  <!-- FAST ORDER -->
 
-<div class="heroBtns">
+  <div class="section-card">
 
-<button
-class="heroBtn primaryBtn"
-onclick="
-location.href='./signup.html'
-"
->
-Get Started
-</button>
+    <div class="section-title">🚀 Fast Order In 3 Steps</div>
 
-<button
-class="heroBtn secondaryBtn"
-onclick="
-location.href='./services.html'
-"
->
-Explore Services
-</button>
+    <div class="steps">
 
-</div>
+      <div class="step-box">
+        <div class="step-number">1</div>
+        <h4>Select Items</h4>
+        <p>Choose your items</p>
+      </div>
 
-</div>
+      <div class="step-box">
+        <div class="step-number">2</div>
+        <h4>Choose Time</h4>
+        <p>Select pickup time</p>
+      </div>
 
-</section>
+      <div class="step-box">
+        <div class="step-number">3</div>
+        <h4>We Pickup</h4>
+        <p>Pickup at your door</p>
+      </div>
 
-<!-- STATS -->
+    </div>
 
-<section class="stats">
+    <button class="fast-order-btn" onclick="fastOrder()">
+      ⚡ Create Fast Order In 30 Seconds
+    </button>
 
-<div class="statCard">
-<h1>25K+</h1>
-<p>Happy Customers</p>
-</div>
+  </div>
 
-<div class="statCard">
-<h1>120K+</h1>
-<p>Orders Delivered</p>
-</div>
+  <!-- SERVICES -->
 
-<div class="statCard">
-<h1>99%</h1>
-<p>Customer Satisfaction</p>
-</div>
+  <div class="services-grid">
 
-<div class="statCard">
-<h1>24/7</h1>
-<p>Support Available</p>
-</div>
+    <div class="service-card" onclick="selectService('Wash & Fold')">
+      <div class="service-icon">🧺</div>
+      <h4>Wash & Fold</h4>
+    </div>
 
-</section>
+    <div class="service-card" onclick="selectService('Ironing')">
+      <div class="service-icon">🧼</div>
+      <h4>Ironing</h4>
+    </div>
 
-<!-- SERVICES -->
+    <div class="service-card" onclick="selectService('Dry Clean')">
+      <div class="service-icon">👔</div>
+      <h4>Dry Clean</h4>
+    </div>
 
-<section
-class="section"
-id="services"
->
+    <div class="service-card" onclick="selectService('Shoe Care')">
+      <div class="service-icon">👟</div>
+      <h4>Shoe Care</h4>
+    </div>
 
-<div class="sectionTitle">
+    <div class="service-card" onclick="selectService('Express')">
+      <div class="service-icon">⚡</div>
+      <h4>Express</h4>
+    </div>
 
-<h1>
-Our Premium Services
-</h1>
+    <div class="service-card" onclick="selectService('Premium Care')">
+      <div class="service-icon">✨</div>
+      <h4>Premium</h4>
+    </div>
 
-<p>
-Professional laundry solutions for every need
-</p>
+  </div>
 
-</div>
+  <!-- OFFER -->
 
-<div class="servicesGrid">
+  <div class="offer-banner">
 
-<div class="serviceCard">
+    <div class="offer-left">
+      <small>FIRST ORDER OFFER</small>
+      <h2>Flat 30% OFF</h2>
+      <div class="coupon">WELCOME30</div>
+    </div>
 
-<div class="serviceIcon">
-👔
-</div>
+    <button class="offer-btn" onclick="applyCoupon()">Apply Now</button>
 
-<h2>
-Ironing Service
-</h2>
+  </div>
 
-<p>
-Premium steam ironing with perfect finish
-for formal and casual clothes.
-</p>
+  <!-- TRACK -->
 
-</div>
+  <div class="tracking-card">
 
-<div class="serviceCard">
+    <div class="tracking-top">
+      <div>
+        <h2>📦 Track Your Order</h2>
+        <p>Order #QP984512</p>
+      </div>
 
-<div class="serviceIcon">
-🧺
-</div>
+      <a href="#">View All</a>
+    </div>
 
-<h2>
-Wash & Fold
-</h2>
+    <div class="tracking-progress">
 
-<p>
-Professional washing, drying and folding
-with premium detergents.
-</p>
+      <div class="progress-step">
+        <div class="progress-circle">✓</div>
+        <p>Placed</p>
+      </div>
 
-</div>
+      <div class="progress-step">
+        <div class="progress-circle">✓</div>
+        <p>Confirmed</p>
+      </div>
 
-<div class="serviceCard">
+      <div class="progress-step">
+        <div class="progress-circle">🚚</div>
+        <p>Picked</p>
+      </div>
 
-<div class="serviceIcon">
-✨
-</div>
+      <div class="progress-step">
+        <div class="progress-circle pending">⏳</div>
+        <p>Process</p>
+      </div>
 
-<h2>
-Dry Cleaning
-</h2>
+      <div class="progress-step">
+        <div class="progress-circle pending">🏠</div>
+        <p>Delivery</p>
+      </div>
 
-<p>
-Luxury dry cleaning for delicate and
-premium fabric garments.
-</p>
+    </div>
 
-</div>
+    <div class="eta-box">
+      <span>Rider is coming for pickup</span>
+      <span>ETA: 20 mins</span>
+    </div>
 
-</div>
+  </div>
 
-</section>
+  <!-- PRODUCTS -->
 
-<!-- APP -->
+  <div class="section-title">Popular Services</div>
 
-<section
-class="section"
-id="app"
->
+  <div class="products-grid">
 
-<div class="appSection">
+    <div class="product-card">
+      <img src="https://images.unsplash.com/photo-1604335399105-a0c585fd81a1?q=80&w=1200&auto=format&fit=crop">
 
-<div class="appContent">
+      <div class="product-content">
+        <h3>Wash & Fold</h3>
+        <p>48 hrs Delivery</p>
 
-<h1>
-Manage Everything
-From Your Phone
-</h1>
+        <div class="price-row">
+          <div class="price">₹49/kg</div>
+          <button class="add-btn" onclick="addToCart('Wash & Fold')">+</button>
+        </div>
+      </div>
+    </div>
 
-<p>
-Track orders live, manage wallet,
-book pickups and chat with support
-using QuickPress app.
-</p>
+    <div class="product-card">
+      <img src="https://images.unsplash.com/photo-1603251579431-8041402bdeda?q=80&w=1200&auto=format&fit=crop">
 
-<div class="appFeatures">
+      <div class="product-content">
+        <h3>Ironing</h3>
+        <p>24 hrs Delivery</p>
 
-<div class="appFeature">
-✅ Live Order Tracking
-</div>
+        <div class="price-row">
+          <div class="price">₹29/kg</div>
+          <button class="add-btn" onclick="addToCart('Ironing')">+</button>
+        </div>
+      </div>
+    </div>
 
-<div class="appFeature">
-✅ Instant Pickup Booking
-</div>
+    <div class="product-card">
+      <img src="https://images.unsplash.com/photo-1594938298603-c8148c4dae35?q=80&w=1200&auto=format&fit=crop">
 
-<div class="appFeature">
-✅ Wallet & Cashback
-</div>
+      <div class="product-content">
+        <h3>Dry Clean</h3>
+        <p>72 hrs Delivery</p>
 
-<div class="appFeature">
-✅ Premium Support
-</div>
+        <div class="price-row">
+          <div class="price">₹149/pc</div>
+          <button class="add-btn" onclick="addToCart('Dry Clean')">+</button>
+        </div>
+      </div>
+    </div>
 
-</div>
+    <div class="product-card">
+      <img src="https://images.unsplash.com/photo-1542291026-7eec264c27ff?q=80&w=1200&auto=format&fit=crop">
 
-</div>
+      <div class="product-content">
+        <h3>Shoe Care</h3>
+        <p>5 Days Delivery</p>
 
-<div class="appImage">
+        <div class="price-row">
+          <div class="price">₹199/pair</div>
+          <button class="add-btn" onclick="addToCart('Shoe Care')">+</button>
+        </div>
+      </div>
+    </div>
 
-<img
-class="phoneMockup"
-src="https://images.unsplash.com/photo-1512941937669-90a1b58e7e9c?q=80&w=900&auto=format&fit=crop"
->
-
-</div>
-
-</div>
-
-</section>
-
-<!-- REVIEWS -->
-
-<section
-class="section"
-id="reviews"
->
-
-<div class="sectionTitle">
-
-<h1>
-What Customers Say
-</h1>
-
-<p>
-Trusted by thousands of users
-</p>
+  </div>
 
 </div>
 
-<div class="testimonialGrid">
+<!-- BOTTOM NAV -->
 
-<div class="testimonial">
+<div class="bottom-nav">
 
-<div class="testimonialTop">
+  <div class="nav-item active">
+    🏠<br>Home
+  </div>
 
-<div class="avatar">
-A
-</div>
+  <div class="nav-item">
+    📦<br>Orders
+  </div>
 
-<div>
+  <div class="center-btn" onclick="fastOrder()">
+    ⚡<br>FAST
+  </div>
 
-<h3>
-Aman Sharma
-</h3>
+  <div class="nav-item">
+    🎁<br>Offers
+  </div>
 
-<p>
-⭐⭐⭐⭐⭐
-</p>
-
-</div>
-
-</div>
-
-<p>
-Best laundry service I have ever used.
-Fast pickup and amazing ironing quality.
-</p>
+  <div class="nav-item">
+    👤<br>Profile
+  </div>
 
 </div>
 
-<div class="testimonial">
+<script>
 
-<div class="testimonialTop">
+  let cart = [];
 
-<div class="avatar">
-R
-</div>
+  function showPopup(message){
 
-<div>
+    const popup = document.getElementById('popup');
 
-<h3>
-Ritika Verma
-</h3>
+    popup.innerText = message;
+    popup.style.display = 'block';
 
-<p>
-⭐⭐⭐⭐⭐
-</p>
+    setTimeout(()=>{
+      popup.style.display = 'none';
+    },2000);
+  }
 
-</div>
+  function addToCart(product){
 
-</div>
+    cart.push(product);
 
-<p>
-Professional service, premium packaging
-and super fast delivery.
-</p>
+    localStorage.setItem('quickpress_cart',JSON.stringify(cart));
 
-</div>
+    showPopup(product + ' Added To Cart');
 
-<div class="testimonial">
+    console.log(cart);
+  }
 
-<div class="testimonialTop">
+  function fastOrder(){
 
-<div class="avatar">
-K
-</div>
+    showPopup('Fast Order Started ⚡');
 
-<div>
+    setTimeout(()=>{
+      window.location.href = 'checkout.html';
+    },1000);
+  }
 
-<h3>
-Kunal Mehta
-</h3>
+  function scheduleOrder(){
 
-<p>
-⭐⭐⭐⭐⭐
-</p>
+    const time = prompt('Enter Pickup Time');
 
-</div>
+    if(time){
+      showPopup('Pickup Scheduled At ' + time);
+    }
+  }
 
-</div>
+  function applyCoupon(){
 
-<p>
-Live tracking and wallet system
-make everything extremely smooth.
-</p>
+    localStorage.setItem('coupon','WELCOME30');
 
-</div>
+    showPopup('Coupon Applied Successfully');
+  }
 
-</div>
+  function selectService(service){
 
-</section>
+    localStorage.setItem('selected_service',service);
 
-<!-- CTA -->
+    showPopup(service + ' Selected');
+  }
 
-<section class="cta">
+  // Load Cart
 
-<h1>
-Ready To Experience
-Premium Laundry?
-</h1>
+  const savedCart = JSON.parse(localStorage.getItem('quickpress_cart'));
 
-<p>
-Book your first pickup today and get
-30% OFF instantly.
-</p>
+  if(savedCart){
+    cart = savedCart;
+  }
 
-<br><br>
-
-<button
-class="heroBtn primaryBtn"
-onclick="
-location.href='./signup.html'
-"
->
-Start Now
-</button>
-
-</section>
-
-<!-- FOOTER -->
-
-<footer class="footer">
-
-<div>
-
-<h2>
-QuickPress
-</h2>
-
-<p>
-Fast, premium and trusted laundry
-service platform.
-</p>
-
-<div class="socials">
-
-<i class="fab fa-instagram"></i>
-
-<i class="fab fa-facebook"></i>
-
-<i class="fab fa-x-twitter"></i>
-
-</div>
-
-</div>
-
-<div>
-
-<h2>
-Quick Links
-</h2>
-
-<a href="#">
-Home
-</a>
-
-<a href="#">
-Services
-</a>
-
-<a href="#">
-Orders
-</a>
-
-<a href="#">
-Support
-</a>
-
-</div>
-
-<div>
-
-<h2>
-Services
-</h2>
-
-<a href="#">
-Ironing
-</a>
-
-<a href="#">
-Wash & Fold
-</a>
-
-<a href="#">
-Dry Cleaning
-</a>
-
-</div>
-
-<div>
-
-<h2>
-Contact
-</h2>
-
-<p>
-📍 India
-</p>
-
-<p>
-📞 +91 XXXXX XXXXX
-</p>
-
-<p>
-✉ support@quickpress.com
-</p>
-
-</div>
-
-</footer>
+</script>
 
 </body>
 </html>
