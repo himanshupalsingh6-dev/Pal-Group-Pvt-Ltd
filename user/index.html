@@ -11,13 +11,8 @@ content="width=device-width, initial-scale=1.0"
 />
 
 <title>
-QuickPress — Home
+QuickPress Instamart Style
 </title>
-
-<link
-rel="stylesheet"
-href="./css/style.css"
-/>
 
 <link
 rel="stylesheet"
@@ -27,11 +22,22 @@ href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css"
 <style>
 
 /* =========================
-BODY
+RESET
 ========================= */
 
+*{
+margin:0;
+padding:0;
+box-sizing:border-box;
+font-family:
+"Poppins",
+sans-serif;
+}
+
 body{
-background:#f8fafc;
+background:#071A12;
+color:#fff;
+overflow-x:hidden;
 }
 
 /* =========================
@@ -39,135 +45,111 @@ TOPBAR
 ========================= */
 
 .topbar{
-background:#fff;
-padding:16px 20px;
-display:flex;
-justify-content:space-between;
-align-items:center;
 position:sticky;
 top:0;
 z-index:999;
-box-shadow:0 2px 12px rgba(0,0,0,0.05);
+background:
+rgba(7,26,18,0.95);
+backdrop-filter:blur(12px);
+padding:16px 18px;
+border-bottom:
+1px solid rgba(255,255,255,0.05);
 }
 
-.leftTop{
+.topRow{
+display:flex;
+justify-content:space-between;
+align-items:center;
+gap:15px;
+margin-bottom:15px;
+}
+
+.locationBox{
+display:flex;
+align-items:center;
+gap:12px;
+}
+
+.locationIcon{
+width:48px;
+height:48px;
+background:#FFD400;
+border-radius:16px;
+display:flex;
+align-items:center;
+justify-content:center;
+font-size:20px;
+color:#000;
+}
+
+.locationText h4{
+font-size:13px;
+color:#9CA3AF;
+margin-bottom:4px;
+}
+
+.locationText h2{
+font-size:18px;
+font-weight:700;
+}
+
+.topIcons{
 display:flex;
 align-items:center;
 gap:14px;
 }
 
-.menuBtn{
-width:48px;
-height:48px;
-border:none;
+.iconBtn{
+width:46px;
+height:46px;
 border-radius:16px;
-background:#FFD400;
-font-size:20px;
-cursor:pointer;
-}
-
-.location h4{
-font-size:13px;
-color:#666;
-margin-bottom:4px;
-}
-
-.location h2{
-font-size:18px;
-font-weight:700;
-}
-
-.rightTop{
+background:#0F2A1D;
 display:flex;
 align-items:center;
-gap:15px;
-}
-
-.walletBox{
-background:#FFF7CC;
-padding:12px 18px;
-border-radius:16px;
-font-weight:bold;
-}
-
-.notify{
+justify-content:center;
+font-size:18px;
+cursor:pointer;
 position:relative;
-font-size:22px;
 }
 
 .badge{
 position:absolute;
-top:-6px;
-right:-8px;
+top:-5px;
+right:-5px;
 width:20px;
 height:20px;
-background:red;
-color:#fff;
 border-radius:50%;
+background:#22C55E;
 display:flex;
 align-items:center;
 justify-content:center;
 font-size:11px;
-}
-
-/* =========================
-SIDEBAR
-========================= */
-
-.sidebar{
-position:fixed;
-left:-280px;
-top:0;
-width:260px;
-height:100vh;
-background:#fff;
-padding:25px 15px;
-z-index:9999;
-transition:0.3s;
-overflow:auto;
-border-right:1px solid #eee;
-}
-
-.sidebar.active{
-left:0;
-}
-
-.logo{
-font-size:34px;
 font-weight:bold;
-color:#000;
-margin-bottom:35px;
-padding-left:10px;
 }
 
-.logo span{
-color:#FFD400;
+/* SEARCH */
+
+.searchBox{
+background:#fff;
+height:58px;
+border-radius:20px;
+display:flex;
+align-items:center;
+padding:0 18px;
 }
 
-.sidebarMenu a{
-display:block;
-margin-bottom:12px;
+.searchBox i{
+color:#666;
+font-size:18px;
+margin-right:12px;
 }
 
-.sidebarMenu button{
-width:100%;
-padding:16px;
+.searchBox input{
 border:none;
-border-radius:18px;
-background:transparent;
-text-align:left;
+outline:none;
+width:100%;
 font-size:15px;
-cursor:pointer;
-font-weight:600;
-transition:0.3s;
-}
-
-.sidebarMenu button:hover{
-background:#FFF7CC;
-}
-
-.activeMenu{
-background:#FFD400 !important;
+background:transparent;
 }
 
 /* =========================
@@ -175,8 +157,8 @@ MAIN
 ========================= */
 
 .main{
-padding:20px;
-padding-bottom:120px;
+padding:18px;
+padding-bottom:130px;
 }
 
 /* =========================
@@ -188,41 +170,54 @@ background:
 linear-gradient(
 135deg,
 #FFD400,
-#ffe566
+#ffe666
 );
-border-radius:35px;
-padding:35px;
-display:flex;
-justify-content:space-between;
-align-items:center;
-gap:20px;
-flex-wrap:wrap;
-overflow:hidden;
+border-radius:34px;
+padding:32px;
 position:relative;
+overflow:hidden;
+margin-bottom:25px;
 }
 
-.heroText{
+.hero::before{
+content:"";
+position:absolute;
+width:300px;
+height:300px;
+background:
+rgba(255,255,255,0.15);
+border-radius:50%;
+top:-120px;
+right:-120px;
+}
+
+.heroContent{
+position:relative;
+z-index:2;
 max-width:600px;
 }
 
-.heroBadge{
+.heroTag{
 display:inline-block;
 padding:10px 18px;
-background:rgba(255,255,255,0.7);
+background:
+rgba(255,255,255,0.6);
 border-radius:50px;
 font-size:13px;
-font-weight:bold;
-margin-bottom:18px;
-}
-
-.heroText h1{
-font-size:62px;
-line-height:1.1;
+font-weight:700;
 margin-bottom:18px;
 color:#111;
 }
 
-.heroText p{
+.hero h1{
+font-size:60px;
+line-height:1.05;
+color:#111;
+margin-bottom:18px;
+font-weight:900;
+}
+
+.hero p{
 font-size:18px;
 line-height:1.7;
 color:#333;
@@ -236,13 +231,13 @@ flex-wrap:wrap;
 }
 
 .heroBtns button{
-padding:16px 28px;
+height:58px;
+padding:0 28px;
 border:none;
-border-radius:18px;
+border-radius:20px;
 font-size:15px;
-font-weight:bold;
+font-weight:800;
 cursor:pointer;
-transition:0.3s;
 }
 
 .fastBtn{
@@ -252,63 +247,7 @@ color:#fff;
 
 .scheduleBtn{
 background:#fff;
-}
-
-.heroBtns button:hover{
-transform:translateY(-3px);
-}
-
-.heroImage img{
-width:360px;
-max-width:100%;
-}
-
-/* =========================
-QUICK ACTIONS
-========================= */
-
-.quickGrid{
-display:grid;
-grid-template-columns:
-repeat(auto-fit,minmax(180px,1fr));
-gap:18px;
-margin-top:25px;
-}
-
-.quickCard{
-background:#fff;
-padding:25px;
-border-radius:28px;
-box-shadow:0 5px 15px rgba(0,0,0,0.05);
-cursor:pointer;
-transition:0.3s;
-}
-
-.quickCard:hover{
-transform:translateY(-5px);
-}
-
-.quickCard i{
-font-size:38px;
-margin-bottom:18px;
 color:#111;
-background:#FFF7CC;
-width:70px;
-height:70px;
-border-radius:20px;
-display:flex;
-align-items:center;
-justify-content:center;
-}
-
-.quickCard h2{
-font-size:20px;
-margin-bottom:10px;
-}
-
-.quickCard p{
-color:#666;
-font-size:14px;
 }
 
 /* =========================
@@ -316,140 +255,222 @@ SECTION
 ========================= */
 
 .section{
-margin-top:30px;
+margin-top:28px;
 }
 
 .sectionTop{
 display:flex;
 justify-content:space-between;
 align-items:center;
-margin-bottom:20px;
-flex-wrap:wrap;
-gap:10px;
+margin-bottom:18px;
 }
 
 .sectionTop h1{
-font-size:32px;
+font-size:30px;
+font-weight:800;
 }
 
 .viewAll{
-font-weight:bold;
+color:#FFD400;
+font-weight:700;
 cursor:pointer;
 }
 
 /* =========================
-CATEGORIES
+CATEGORY SLIDER
 ========================= */
 
-.categories{
-display:grid;
-grid-template-columns:
-repeat(auto-fit,minmax(140px,1fr));
-gap:18px;
+.categorySlider{
+display:flex;
+gap:16px;
+overflow-x:auto;
+padding-bottom:10px;
+scrollbar-width:none;
 }
 
-.catCard{
-background:#fff;
-padding:24px;
-border-radius:25px;
+.categorySlider::-webkit-scrollbar{
+display:none;
+}
+
+.categoryCard{
+min-width:120px;
+background:#0F2A1D;
+border-radius:28px;
+padding:20px;
 text-align:center;
-box-shadow:0 5px 15px rgba(0,0,0,0.05);
+border:
+1px solid rgba(255,255,255,0.05);
 cursor:pointer;
 transition:0.3s;
 }
 
-.catCard:hover{
+.categoryCard:hover{
 transform:translateY(-5px);
 }
 
-.catCard i{
-font-size:38px;
+.categoryCard i{
+width:65px;
+height:65px;
+border-radius:22px;
+background:#FFD400;
+display:flex;
+align-items:center;
+justify-content:center;
+font-size:28px;
+color:#000;
+margin:auto;
 margin-bottom:15px;
 }
 
-.activeCat{
-background:#FFD400;
+.categoryCard h3{
+font-size:15px;
 }
 
 /* =========================
 OFFERS
 ========================= */
 
-.offer{
+.offerSlider{
+display:flex;
+gap:18px;
+overflow-x:auto;
+scrollbar-width:none;
+padding-bottom:10px;
+}
+
+.offerSlider::-webkit-scrollbar{
+display:none;
+}
+
+.offerCard{
+min-width:320px;
 background:
 linear-gradient(
 135deg,
-#fff7cc,
-#ffe066
+#22C55E,
+#16A34A
 );
-padding:30px;
+padding:25px;
 border-radius:30px;
-display:flex;
-justify-content:space-between;
-align-items:center;
-flex-wrap:wrap;
-gap:20px;
+position:relative;
+overflow:hidden;
 }
 
-.offer h1{
-font-size:48px;
-margin:10px 0;
+.offerCard::before{
+content:"";
+position:absolute;
+width:180px;
+height:180px;
+background:
+rgba(255,255,255,0.12);
+border-radius:50%;
+top:-70px;
+right:-70px;
 }
 
-.offerBtn{
-padding:16px 28px;
+.offerCard h2{
+font-size:32px;
+margin-bottom:12px;
+}
+
+.offerCard p{
+font-size:15px;
+opacity:0.9;
+margin-bottom:20px;
+}
+
+.offerCard button{
+height:52px;
+padding:0 22px;
 border:none;
 border-radius:18px;
-background:#111;
-color:#fff;
-font-weight:bold;
+background:#fff;
+font-weight:800;
 cursor:pointer;
 }
 
 /* =========================
-SERVICES
+SERVICE GRID
 ========================= */
 
 .serviceGrid{
 display:grid;
 grid-template-columns:
 repeat(auto-fit,minmax(240px,1fr));
-gap:20px;
+gap:18px;
 }
 
 .serviceCard{
-background:#fff;
-padding:18px;
-border-radius:28px;
-box-shadow:0 5px 15px rgba(0,0,0,0.05);
+background:#0F2A1D;
+border-radius:30px;
+overflow:hidden;
+border:
+1px solid rgba(255,255,255,0.05);
+transition:0.3s;
 }
 
-.serviceCard img{
+.serviceCard:hover{
+transform:translateY(-5px);
+}
+
+.serviceImage{
+position:relative;
+}
+
+.serviceImage img{
 width:100%;
-height:180px;
+height:220px;
 object-fit:cover;
-border-radius:20px;
-margin-bottom:15px;
+}
+
+.offerBadge{
+position:absolute;
+top:15px;
+left:15px;
+background:#FFD400;
+color:#000;
+padding:8px 14px;
+border-radius:14px;
+font-size:13px;
+font-weight:800;
+}
+
+.serviceBody{
+padding:20px;
+}
+
+.serviceBody h2{
+font-size:22px;
+margin-bottom:10px;
+}
+
+.serviceBody p{
+font-size:14px;
+color:#9CA3AF;
+margin-bottom:18px;
 }
 
 .serviceBottom{
 display:flex;
 justify-content:space-between;
 align-items:center;
-margin-top:18px;
+gap:10px;
 }
 
 .price{
 font-size:24px;
-font-weight:bold;
+font-weight:800;
+color:#FFD400;
 }
 
 .addBtn{
-padding:12px 20px;
+height:48px;
+padding:0 18px;
 border:none;
-border-radius:14px;
+border-radius:16px;
 background:#FFD400;
-font-weight:bold;
+color:#000;
+font-weight:800;
 cursor:pointer;
 }
 
@@ -458,23 +479,37 @@ TRACKING
 ========================= */
 
 .trackBox{
-background:#fff;
-padding:30px;
-border-radius:30px;
-box-shadow:0 5px 15px rgba(0,0,0,0.05);
+background:#0F2A1D;
+padding:28px;
+border-radius:32px;
+border:
+1px solid rgba(255,255,255,0.05);
+}
+
+.trackTop{
+display:flex;
+justify-content:space-between;
+align-items:center;
+margin-bottom:25px;
+flex-wrap:wrap;
+gap:10px;
+}
+
+.trackId{
+color:#22C55E;
+font-weight:700;
 }
 
 .progress{
 display:flex;
 justify-content:space-between;
 gap:10px;
-margin-top:25px;
 flex-wrap:wrap;
 }
 
 .progressStep{
 flex:1;
-min-width:120px;
+min-width:110px;
 text-align:center;
 }
 
@@ -482,29 +517,74 @@ text-align:center;
 width:58px;
 height:58px;
 border-radius:50%;
-background:#FFD400;
 display:flex;
 align-items:center;
 justify-content:center;
 margin:auto;
 margin-bottom:12px;
-font-size:20px;
-font-weight:bold;
+font-size:22px;
+background:#FFD400;
+color:#000;
+font-weight:800;
 }
 
 .inactive{
-background:#eee;
+background:#1F3A2D;
+color:#9CA3AF;
 }
 
 .trackNote{
 margin-top:25px;
+background:#071A12;
 padding:18px;
-background:#FFF7CC;
-border-radius:18px;
+border-radius:20px;
 display:flex;
 justify-content:space-between;
 flex-wrap:wrap;
 gap:10px;
+}
+
+/* =========================
+FLOATING CART
+========================= */
+
+.floatingCart{
+position:fixed;
+bottom:90px;
+left:50%;
+transform:translateX(-50%);
+width:92%;
+max-width:600px;
+background:#22C55E;
+padding:18px 22px;
+border-radius:22px;
+display:flex;
+justify-content:space-between;
+align-items:center;
+box-shadow:
+0 15px 35px
+rgba(34,197,94,0.35);
+z-index:999;
+}
+
+.cartLeft h3{
+font-size:18px;
+margin-bottom:4px;
+}
+
+.cartLeft p{
+font-size:13px;
+opacity:0.9;
+}
+
+.cartBtn{
+height:50px;
+padding:0 22px;
+border:none;
+border-radius:16px;
+background:#fff;
+font-weight:800;
+cursor:pointer;
 }
 
 /* =========================
@@ -516,20 +596,21 @@ position:fixed;
 bottom:0;
 left:0;
 width:100%;
-background:#fff;
-padding:14px 10px;
+height:78px;
+background:#0B1F16;
 display:flex;
 justify-content:space-around;
 align-items:center;
-box-shadow:0 -5px 15px rgba(0,0,0,0.08);
-z-index:999;
+border-top:
+1px solid rgba(255,255,255,0.05);
+z-index:1000;
 }
 
 .bottomNav a{
 text-decoration:none;
-color:#444;
-text-align:center;
+color:#9CA3AF;
 font-size:12px;
+text-align:center;
 font-weight:600;
 }
 
@@ -537,6 +618,10 @@ font-weight:600;
 display:block;
 font-size:22px;
 margin-bottom:5px;
+}
+
+.activeNav{
+color:#FFD400 !important;
 }
 
 .fastCircle{
@@ -548,9 +633,12 @@ display:flex;
 align-items:center;
 justify-content:center;
 margin-top:-45px;
-font-size:26px;
-font-weight:bold;
-box-shadow:0 5px 20px rgba(0,0,0,0.15);
+font-size:30px;
+color:#000;
+font-weight:900;
+box-shadow:
+0 10px 25px
+rgba(255,212,0,0.35);
 }
 
 /* =========================
@@ -559,20 +647,15 @@ RESPONSIVE
 
 @media screen and (max-width:768px){
 
-.main{
-padding:15px;
-padding-bottom:120px;
-}
-
 .hero{
 padding:25px;
 }
 
-.heroText h1{
+.hero h1{
 font-size:38px;
 }
 
-.heroText p{
+.hero p{
 font-size:15px;
 }
 
@@ -584,17 +667,8 @@ width:100%;
 font-size:24px;
 }
 
-.offer h1{
-font-size:32px;
-}
-
-.heroImage{
-text-align:center;
-width:100%;
-}
-
-.heroImage img{
-width:250px;
+.offerCard{
+min-width:280px;
 }
 
 }
@@ -609,19 +683,18 @@ width:250px;
 
 <div class="topbar">
 
-<div class="leftTop">
+<div class="topRow">
 
-<button
-class="menuBtn"
-onclick="toggleSidebar()"
->
-☰
-</button>
+<div class="locationBox">
 
-<div class="location">
+<div class="locationIcon">
+📍
+</div>
+
+<div class="locationText">
 
 <h4>
-📍 Delivery Location
+Delivery in 10 mins
 </h4>
 
 <h2>
@@ -632,13 +705,15 @@ Gurugram, India
 
 </div>
 
-<div class="rightTop">
+<div class="topIcons">
 
-<div class="walletBox">
-💰 ₹250
+<div class="iconBtn">
+
+<i class="fa-regular fa-heart"></i>
+
 </div>
 
-<div class="notify">
+<div class="iconBtn">
 
 <i class="fa-regular fa-bell"></i>
 
@@ -652,66 +727,16 @@ Gurugram, India
 
 </div>
 
-<!-- SIDEBAR -->
+<!-- SEARCH -->
 
-<div
-class="sidebar"
-id="sidebar"
->
+<div class="searchBox">
 
-<div class="logo">
-Quick<span>Press</span>
-</div>
+<i class="fa-solid fa-magnifying-glass"></i>
 
-<div class="sidebarMenu">
-
-<a href="#">
-<button class="activeMenu">
-🏠 Dashboard
-</button>
-</a>
-
-<a href="#">
-<button>
-🧺 Services
-</button>
-</a>
-
-<a href="#">
-<button>
-🛒 Cart
-</button>
-</a>
-
-<a href="#">
-<button>
-📦 Orders
-</button>
-</a>
-
-<a href="#">
-<button>
-🚚 Tracking
-</button>
-</a>
-
-<a href="#">
-<button>
-💰 Wallet
-</button>
-</a>
-
-<a href="#">
-<button>
-🎁 Offers
-</button>
-</a>
-
-<a href="#">
-<button>
-👤 Profile
-</button>
-</a>
+<input
+type="text"
+placeholder="Search laundry services..."
+/>
 
 </div>
 
@@ -725,25 +750,23 @@ Quick<span>Press</span>
 
 <div class="hero">
 
-<div class="heroText">
+<div class="heroContent">
 
-<div class="heroBadge">
-⚡ Pickup in 10 Minutes
+<div class="heroTag">
+⚡ Laundry Pickup in 10 mins
 </div>
 
 <h1>
 
 Laundry<br>
-
-Made Easy ✨
+Made Fast ✨
 
 </h1>
 
 <p>
 
-Book premium laundry pickup,
-track orders live and enjoy
-fast doorstep delivery.
+Premium washing, ironing and
+real-time delivery at your doorstep.
 
 </p>
 
@@ -761,76 +784,6 @@ fast doorstep delivery.
 
 </div>
 
-<div class="heroImage">
-
-<img
-src="https://cdn-icons-png.flaticon.com/512/3082/3082037.png"
-/>
-
-</div>
-
-</div>
-
-<!-- QUICK ACTIONS -->
-
-<div class="quickGrid">
-
-<div class="quickCard">
-
-<i class="fa-solid fa-shirt"></i>
-
-<h2>
-Ironing
-</h2>
-
-<p>
-Fast premium ironing service
-</p>
-
-</div>
-
-<div class="quickCard">
-
-<i class="fa-solid fa-bucket-water"></i>
-
-<h2>
-Wash & Fold
-</h2>
-
-<p>
-Professional washing care
-</p>
-
-</div>
-
-<div class="quickCard">
-
-<i class="fa-solid fa-spray-can-sparkles"></i>
-
-<h2>
-Dry Clean
-</h2>
-
-<p>
-Luxury fabric cleaning
-</p>
-
-</div>
-
-<div class="quickCard">
-
-<i class="fa-solid fa-truck-fast"></i>
-
-<h2>
-Express
-</h2>
-
-<p>
-30 minute fast pickup
-</p>
-
-</div>
-
 </div>
 
 <!-- CATEGORIES -->
@@ -840,7 +793,7 @@ Express
 <div class="sectionTop">
 
 <h1>
-🧺 Categories
+Categories
 </h1>
 
 <div class="viewAll">
@@ -849,19 +802,9 @@ View All →
 
 </div>
 
-<div class="categories">
+<div class="categorySlider">
 
-<div class="catCard activeCat">
-
-<i class="fa-solid fa-border-all"></i>
-
-<h3>
-All
-</h3>
-
-</div>
-
-<div class="catCard">
+<div class="categoryCard">
 
 <i class="fa-solid fa-shirt"></i>
 
@@ -871,7 +814,7 @@ Ironing
 
 </div>
 
-<div class="catCard">
+<div class="categoryCard">
 
 <i class="fa-solid fa-bucket-water"></i>
 
@@ -881,7 +824,7 @@ Wash
 
 </div>
 
-<div class="catCard">
+<div class="categoryCard">
 
 <i class="fa-solid fa-spray-can-sparkles"></i>
 
@@ -891,7 +834,7 @@ Dry Clean
 
 </div>
 
-<div class="catCard">
+<div class="categoryCard">
 
 <i class="fa-solid fa-shoe-prints"></i>
 
@@ -901,38 +844,63 @@ Shoes
 
 </div>
 
+<div class="categoryCard">
+
+<i class="fa-solid fa-truck-fast"></i>
+
+<h3>
+Express
+</h3>
+
+</div>
+
 </div>
 
 </div>
 
-<!-- OFFER -->
+<!-- OFFERS -->
 
 <div class="section">
 
-<div class="offer">
+<div class="offerSlider">
 
-<div>
+<div class="offerCard">
 
-<h4>
-🎁 FIRST ORDER OFFER
-</h4>
-
-<h1>
+<h2>
 30% OFF
-</h1>
+</h2>
 
 <p>
 
-Use Code:
-<b>WELCOME30</b>
+Get instant discount on your
+first order today.
 
 </p>
 
-</div>
-
-<button class="offerBtn">
+<button>
 Claim Offer
 </button>
+
+</div>
+
+<div class="offerCard">
+
+<h2>
+FREE Pickup
+</h2>
+
+<p>
+
+Enjoy free doorstep pickup
+for premium members.
+
+</p>
+
+<button>
+Explore
+</button>
+
+</div>
 
 </div>
 
@@ -945,11 +913,11 @@ Claim Offer
 <div class="sectionTop">
 
 <h1>
-🔥 Popular Services
+Popular Services
 </h1>
 
 <div class="viewAll">
-View All →
+See All →
 </div>
 
 </div>
@@ -958,16 +926,26 @@ View All →
 
 <div class="serviceCard">
 
+<div class="serviceImage">
+
 <img
 src="https://images.unsplash.com/photo-1527515637462-cff94eecc1ac?q=80&w=900&auto=format&fit=crop"
 />
+
+<div class="offerBadge">
+20% OFF
+</div>
+
+</div>
+
+<div class="serviceBody">
 
 <h2>
 Wash & Fold
 </h2>
 
 <p>
-48 hrs delivery
+Professional washing care
 </p>
 
 <div class="serviceBottom">
@@ -977,8 +955,10 @@ Wash & Fold
 </div>
 
 <button class="addBtn">
-Add +
+ADD
 </button>
+
+</div>
 
 </div>
 
@@ -986,16 +966,26 @@ Add +
 
 <div class="serviceCard">
 
+<div class="serviceImage">
+
 <img
 src="https://images.unsplash.com/photo-1563822249366-3efb23b8e0c9?q=80&w=900&auto=format&fit=crop"
 />
+
+<div class="offerBadge">
+FAST
+</div>
+
+</div>
+
+<div class="serviceBody">
 
 <h2>
 Ironing
 </h2>
 
 <p>
-24 hrs delivery
+Steam iron finish
 </p>
 
 <div class="serviceBottom">
@@ -1005,8 +995,10 @@ Ironing
 </div>
 
 <button class="addBtn">
-Add +
+ADD
 </button>
+
+</div>
 
 </div>
 
@@ -1014,16 +1006,26 @@ Add +
 
 <div class="serviceCard">
 
+<div class="serviceImage">
+
 <img
 src="https://images.unsplash.com/photo-1598032895397-b9472444bf93?q=80&w=900&auto=format&fit=crop"
 />
+
+<div class="offerBadge">
+PREMIUM
+</div>
+
+</div>
+
+<div class="serviceBody">
 
 <h2>
 Dry Clean
 </h2>
 
 <p>
-Premium fabric care
+Luxury fabric care
 </p>
 
 <div class="serviceBottom">
@@ -1033,7 +1035,7 @@ Premium fabric care
 </div>
 
 <button class="addBtn">
-Add +
+ADD
 </button>
 
 </div>
@@ -1044,19 +1046,33 @@ Add +
 
 </div>
 
-<!-- TRACK -->
+</div>
+
+<!-- TRACKING -->
 
 <div class="section">
 
-<div class="sectionTop">
+<div class="trackBox">
+
+<div class="trackTop">
+
+<div>
 
 <h1>
-📦 Live Tracking
+Live Tracking
 </h1>
+
+<div class="trackId">
+Order #QP89452
+</div>
 
 </div>
 
-<div class="trackBox">
+<div>
+ETA: 20 mins
+</div>
+
+</div>
 
 <div class="progress">
 
@@ -1103,7 +1119,7 @@ Pickup
 </div>
 
 <h4>
-Processing
+Cleaning
 </h4>
 
 </div>
@@ -1129,7 +1145,7 @@ Delivered
 </div>
 
 <div>
-Order #QP89452
+Partner: QuickPress Laundry
 </div>
 
 </div>
@@ -1137,6 +1153,28 @@ Order #QP89452
 </div>
 
 </div>
+
+</div>
+
+<!-- FLOATING CART -->
+
+<div class="floatingCart">
+
+<div class="cartLeft">
+
+<h3>
+3 Items Added
+</h3>
+
+<p>
+Total ₹420
+</p>
+
+</div>
+
+<button class="cartBtn">
+View Cart →
+</button>
 
 </div>
 
@@ -1144,7 +1182,10 @@ Order #QP89452
 
 <div class="bottomNav">
 
-<a href="#">
+<a
+href="#"
+class="activeNav"
+>
 
 <i class="fa-solid fa-house"></i>
 
@@ -1181,18 +1222,6 @@ Profile
 </a>
 
 </div>
-
-<script>
-
-function toggleSidebar(){
-
-document
-.getElementById("sidebar")
-.classList.toggle("active");
-
-}
-
-</script>
 
 </body>
 </html>
