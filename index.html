@@ -2,275 +2,878 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8">
-<title>QuickPress</title>
+<title>QuickPress </title>
 <meta name="viewport" content="width=device-width, initial-scale=1">
 
 <style>
-:root{--yellow:#FFD400;--bg:#f6f7f9}
-body{margin:0;font-family:Segoe UI;background:var(--bg)}
 
-/* GLOBAL */
-*{transition:0.25s ease}
-
-/* NAV */
-.nav{
-  position:sticky;
-  top:0;
-  background:#fff;
-  padding:12px;
-  display:flex;
-  justify-content:space-between;
-  box-shadow:0 2px 10px rgba(0,0,0,.1);
-  transition:0.3s;
-  backdrop-filter: blur(10px);
-}
-.cart{background:var(--yellow);padding:6px 12px;border-radius:20px}
-
-/* HERO */
-.hero{padding:20px}
-.hero h1{font-size:26px}
-.hero button{
-  width:100%;
-  padding:14px;
-  background:var(--yellow);
-  border:none;
-  border-radius:10px;
-}
-button:active{transform:scale(0.95)}
-
-/* SECTION */
-.section{padding:18px}
-.services{display:grid;grid-template-columns:1fr 1fr;gap:12px}
-.card{
-  background:#fff;
-  padding:16px;
-  border-radius:14px;
-  text-align:center;
-  position:relative;
-  overflow:hidden;
-}
-.card:hover{
-  transform:translateY(-5px) scale(1.02);
-  box-shadow:0 10px 25px rgba(0,0,0,.15);
+:root{
+  --yellow:#FFD400;
+  --bg:#f3f7ff;
+  --white:#ffffff;
+  --dark:#111827;
+  --glass:rgba(255,255,255,0.65);
 }
 
-/* HOW */
-.how-wrap{display:flex;flex-direction:column;gap:10px}
-.how-step{
-  display:flex;
-  gap:12px;
-  background:#fff;
-  padding:14px;
-  border-radius:16px;
-  box-shadow:0 6px 14px rgba(0,0,0,.08);
+*{
+  margin:0;
+  padding:0;
+  box-sizing:border-box;
+  transition:0.3s ease;
+  font-family:Segoe UI;
 }
-.how-step:hover{transform:translateX(6px)}
-.how-icon{
-  width:50px;height:50px;
-  background:var(--yellow);
-  border-radius:50%;
+
+body{
+  background:linear-gradient(-45deg,#f3f7ff,#dbeafe,#fff7cc,#eef2ff);
+  background-size:400% 400%;
+  animation:bgMove 12s ease infinite;
+  overflow-x:hidden;
+  padding-bottom:100px;
+}
+
+@keyframes bgMove{
+  0%{background-position:0% 50%}
+  50%{background-position:100% 50%}
+  100%{background-position:0% 50%}
+}
+
+/* LOADER */
+
+.loader{
+  position:fixed;
+  inset:0;
+  background:white;
+  z-index:999999;
   display:flex;
   align-items:center;
   justify-content:center;
+  flex-direction:column;
+  gap:20px;
 }
+
+.loader-circle{
+  width:80px;
+  height:80px;
+  border-radius:50%;
+  border:8px solid var(--yellow);
+  border-top-color:#111827;
+  animation:spin 1s linear infinite;
+}
+
+@keyframes spin{
+  to{transform:rotate(360deg)}
+}
+
+/* NAV */
+
+.nav{
+  position:sticky;
+  top:0;
+  z-index:100;
+  padding:14px;
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+
+  background:rgba(255,255,255,0.5);
+  backdrop-filter:blur(20px);
+
+  box-shadow:0 8px 20px rgba(0,0,0,.08);
+}
+
+.logo{
+  font-size:22px;
+  font-weight:800;
+}
+
+.cart{
+  background:var(--yellow);
+  padding:8px 14px;
+  border-radius:30px;
+  font-weight:700;
+  box-shadow:0 6px 18px rgba(255,212,0,.4);
+}
+
+/* HERO */
+
+.hero{
+  padding:22px;
+}
+
+.hero-box{
+  background:linear-gradient(135deg,#001a5c,#0037b8,#02143b);
+  border-radius:30px;
+  padding:28px;
+  position:relative;
+  overflow:hidden;
+  color:white;
+}
+
+.hero-box::before{
+  content:'';
+  position:absolute;
+  width:260px;
+  height:260px;
+  border-radius:50%;
+  border:1px solid rgba(255,255,255,.08);
+  top:-120px;
+  right:-120px;
+}
+
+.hero h1{
+  font-size:38px;
+  line-height:44px;
+  margin-bottom:12px;
+  position:relative;
+  z-index:2;
+}
+
+.hero span{
+  color:var(--yellow);
+}
+
+.hero p{
+  color:#dbeafe;
+  margin-bottom:18px;
+  position:relative;
+  z-index:2;
+}
+
+.hero button{
+  width:100%;
+  padding:16px;
+  border:none;
+  border-radius:18px;
+  background:var(--yellow);
+  font-weight:800;
+  font-size:16px;
+  position:relative;
+  overflow:hidden;
+  cursor:pointer;
+}
+
+.hero button:hover{
+  transform:translateY(-4px);
+  box-shadow:
+  0 0 10px rgba(255,212,0,.5),
+  0 0 30px rgba(255,212,0,.4);
+}
+
+/* SECTION */
+
+.section{
+  padding:18px;
+}
+
+.section h2{
+  margin-bottom:16px;
+}
+
+/* SERVICES */
+
+.services{
+  display:grid;
+  grid-template-columns:1fr 1fr;
+  gap:14px;
+}
+
+.card{
+  background:var(--glass);
+  backdrop-filter:blur(20px);
+  padding:18px;
+  border-radius:22px;
+  text-align:center;
+  position:relative;
+  overflow:hidden;
+  border:1px solid rgba(255,255,255,.2);
+}
+
+.card:hover{
+  transform:
+    perspective(1000px)
+    rotateX(5deg)
+    rotateY(-5deg)
+    translateY(-8px)
+    scale(1.03);
+
+  box-shadow:
+    0 20px 40px rgba(0,0,0,.15),
+    0 0 20px rgba(255,212,0,.2);
+}
+
+/* COUNTERS */
+
+.counter-wrap{
+  display:grid;
+  grid-template-columns:1fr 1fr;
+  gap:14px;
+  margin-top:20px;
+}
+
+.counter-card{
+  background:white;
+  border-radius:24px;
+  padding:20px;
+  text-align:center;
+  box-shadow:0 10px 25px rgba(0,0,0,.08);
+}
+
+.counter{
+  font-size:34px;
+  font-weight:900;
+}
+
+/* HOW */
+
+.how-wrap{
+  display:flex;
+  flex-direction:column;
+  gap:12px;
+}
+
+.how-step{
+  display:flex;
+  gap:14px;
+  align-items:center;
+
+  background:var(--glass);
+  backdrop-filter:blur(20px);
+
+  padding:16px;
+  border-radius:20px;
+  box-shadow:0 10px 20px rgba(0,0,0,.06);
+}
+
+.how-step:hover{
+  transform:translateX(8px);
+}
+
+.how-icon{
+  width:56px;
+  height:56px;
+  border-radius:50%;
+  background:var(--yellow);
+
+  display:flex;
+  align-items:center;
+  justify-content:center;
+
+  font-size:22px;
+}
+
 .how-line{
-  height:20px;width:3px;background:var(--yellow);margin-left:24px;
+  width:4px;
+  height:24px;
+  background:var(--yellow);
+  margin-left:26px;
 }
 
 /* REVIEWS */
-.reviews{overflow:hidden}
-.track{display:flex;gap:12px;animation:slide 25s linear infinite}
-.review{min-width:200px;background:#fff;padding:14px;border-radius:12px}
+
+.reviews{
+  overflow:hidden;
+}
+
+.track{
+  display:flex;
+  gap:14px;
+  animation:slide 20s linear infinite;
+}
+
+.review{
+  min-width:220px;
+  background:var(--glass);
+  backdrop-filter:blur(20px);
+  padding:18px;
+  border-radius:18px;
+}
+
 @keyframes slide{
   0%{transform:translateX(0)}
   100%{transform:translateX(-50%)}
 }
 
-/* FADE */
-.fade{opacity:0;transform:translateY(20px)}
-.fade.show{opacity:1;transform:translateY(0)}
+/* PROGRESS */
 
-/* BOTTOM NAV */
+.progress-wrap{
+  width:100%;
+  height:14px;
+  background:#dbeafe;
+  border-radius:30px;
+  overflow:hidden;
+  margin-top:20px;
+}
+
+.progress-bar{
+  width:0%;
+  height:100%;
+  background:linear-gradient(90deg,#FFD400,#ff8800);
+  border-radius:30px;
+  animation:progress 12s infinite;
+}
+
+@keyframes progress{
+  0%{width:5%}
+  25%{width:35%}
+  50%{width:65%}
+  75%{width:90%}
+  100%{width:100%}
+}
+
+/* FLOATING PARTICLES */
+
+.particle{
+  position:fixed;
+  width:10px;
+  height:10px;
+  background:rgba(255,212,0,.3);
+  border-radius:50%;
+  pointer-events:none;
+  animation:particle linear infinite;
+}
+
+@keyframes particle{
+
+  from{
+    transform:translateY(100vh) scale(0);
+    opacity:0;
+  }
+
+  20%{
+    opacity:1;
+  }
+
+  to{
+    transform:translateY(-100px) scale(1.4);
+    opacity:0;
+  }
+
+}
+
+/* FADE */
+
+.fade{
+  opacity:0;
+  transform:translateY(20px);
+}
+
+.fade.show{
+  opacity:1;
+  transform:translateY(0);
+}
+
+/* RIPPLE */
+
+@keyframes ripple{
+  from{
+    transform:scale(1);
+    opacity:1;
+  }
+
+  to{
+    transform:scale(6);
+    opacity:0;
+  }
+}
+
+button,.card{
+  position:relative;
+  overflow:hidden;
+}
+
+/* DARK MODE */
+
+.dark{
+  background:#0f172a !important;
+  color:white;
+}
+
+.dark .card,
+.dark .review,
+.dark .how-step,
+.dark .counter-card,
+.dark .nav{
+  background:rgba(15,23,42,.8);
+  color:white;
+}
+
+/* BOTTOM */
+
 .bottom{
   position:fixed;
   bottom:0;
   left:0;
   right:0;
-  background:#fff;
+  background:rgba(255,255,255,.6);
+  backdrop-filter:blur(20px);
+
   display:flex;
   justify-content:space-around;
-  padding:10px;
-  box-shadow:0 -2px 10px rgba(0,0,0,.1);
-}
-.bottom div{text-align:center;font-size:12px}
 
-/* RIPPLE */
-@keyframes ripple{
-  from{transform:scale(1);opacity:1}
-  to{transform:scale(6);opacity:0}
+  padding:12px;
+
+  box-shadow:0 -4px 20px rgba(0,0,0,.08);
 }
-.card,button{position:relative;overflow:hidden}
+
+.bottom div{
+  text-align:center;
+  font-size:12px;
+  font-weight:700;
+}
+
+.bottom div:hover{
+  transform:translateY(-6px);
+  color:#FFD400;
+}
+
 </style>
 </head>
 
 <body>
 
-<!-- NAV -->
 <div class="nav">
-  ⚡ QuickPress
-  <div class="cart">🛒 <span id="cartCount">0</span></div>
-</div>
+  <div class="logo">⚡ QuickPress</div>
 
-<!-- HERO -->
-<div class="hero section">
-  <h1>Fast Laundry <span style="background:#FFD400">At Home</span></h1>
-  <p>Doorstep ironing & cleaning</p>
-
-  <!-- 🔥 CHANGED -->
-  <button onclick="location.href='services.html'">Order Now</button>
-</div>
-
-<!-- SERVICES -->
-<div class="section">
-  <h2>Services</h2>
-  <div class="services">
-    <div class="card" onclick="selectService('ironing')">🧺 Ironing</div>
-    <div class="card" onclick="selectService('washing')">🧽 Washing</div>
-    <div class="card" onclick="selectService('dry')">🧼 Dry Clean</div>
-    <div class="card">🚚 Delivery</div>
+  <div class="cart">
+    🛒 <span id="cartCount">0</span>
   </div>
 </div>
 
-<!-- HOW -->
+<div class="hero section">
+
+  <div class="hero-box">
+
+    <h1>
+      Fast Laundry
+      <br>
+      <span>At Home</span>
+    </h1>
+
+    <p>
+      Premium ironing & cleaning with fast pickup and delivery.
+    </p>
+
+    <button onclick="location.href='services.html'">
+      ⚡ Order Now
+    </button>
+
+  </div>
+
+</div>
+
 <div class="section">
+
+  <h2>Services</h2>
+
+  <div class="services">
+
+    <div class="card" onclick="selectService('ironing')">
+      🧺 Ironing
+    </div>
+
+    <div class="card" onclick="selectService('washing')">
+      🧽 Washing
+    </div>
+
+    <div class="card" onclick="selectService('dry')">
+      🧼 Dry Clean
+    </div>
+
+    <div class="card">
+      🚚 Delivery
+    </div>
+
+  </div>
+
+</div>
+
+<div class="section">
+
+  <h2>Live Stats</h2>
+
+  <div class="counter-wrap">
+
+    <div class="counter-card">
+      <div class="counter" id="count1">0</div>
+      <p>Happy Customers</p>
+    </div>
+
+    <div class="counter-card">
+      <div class="counter" id="count2">0</div>
+      <p>Orders Delivered</p>
+    </div>
+
+  </div>
+
+</div>
+
+<div class="section">
+
   <h2>How It Works</h2>
+
   <div class="how-wrap">
 
     <div class="how-step">
       <div class="how-icon">📦</div>
-      <div><b>Book Order</b><br><small>Select service & add clothes</small></div>
+
+      <div>
+        <b>Book Order</b>
+        <br>
+        <small>Select service & add clothes</small>
+      </div>
     </div>
 
     <div class="how-line"></div>
 
     <div class="how-step">
       <div class="how-icon">🚚</div>
-      <div><b>Pickup</b><br><small>We collect from your home</small></div>
+
+      <div>
+        <b>Pickup</b>
+        <br>
+        <small>We collect from your home</small>
+      </div>
     </div>
 
     <div class="how-line"></div>
 
     <div class="how-step">
       <div class="how-icon">🔥</div>
-      <div><b>Processing</b><br><small>Cleaning & ironing</small></div>
+
+      <div>
+        <b>Processing</b>
+        <br>
+        <small>Cleaning & ironing</small>
+      </div>
     </div>
 
     <div class="how-line"></div>
 
     <div class="how-step">
       <div class="how-icon">🏠</div>
-      <div><b>Delivery</b><br><small>Delivered fast</small></div>
+
+      <div>
+        <b>Delivery</b>
+        <br>
+        <small>Delivered fast</small>
+      </div>
     </div>
 
   </div>
+
 </div>
 
-<!-- REVIEWS -->
 <div class="section">
-  <h2>Customer Reviews</h2>
-  <div class="reviews">
-    <div class="track">
-      <div class="review">🔥 Amazing ★★★★★</div>
-      <div class="review">Fast delivery 🚚</div>
-      <div class="review">Best service 👕</div>
-      <div class="review">Affordable 💰</div>
 
-      <div class="review">🔥 Amazing ★★★★★</div>
-      <div class="review">Fast delivery 🚚</div>
-      <div class="review">Best service 👕</div>
-      <div class="review">Affordable 💰</div>
-    </div>
+  <h2>Live Order Progress</h2>
+
+  <div class="progress-wrap">
+    <div class="progress-bar"></div>
   </div>
 
-  <div style="text-align:center;margin-top:10px;color:#999;font-weight:bold">
-    ⚡ QuickPress
-  </div>
 </div>
 
-<!-- WHATSAPP -->
-<a href="https://wa.me/919997874502" target="_blank"
-style="position:fixed;bottom:80px;right:20px;background:#25D366;color:white;padding:14px;border-radius:50%">
+<div class="section">
+
+  <h2>Customer Reviews</h2>
+
+  <div class="reviews">
+
+    <div class="track">
+
+      <div class="review">🔥 Amazing ★★★★★</div>
+      <div class="review">Fast delivery 🚚</div>
+      <div class="review">Best service 👕</div>
+      <div class="review">Affordable 💰</div>
+
+      <div class="review">🔥 Amazing ★★★★★</div>
+      <div class="review">Fast delivery 🚚</div>
+      <div class="review">Best service 👕</div>
+      <div class="review">Affordable 💰</div>
+
+    </div>
+
+  </div>
+
+</div>
+
+<a
+href="https://wa.me/919997874502"
+target="_blank"
+
+style="
+position:fixed;
+bottom:90px;
+right:20px;
+background:#25D366;
+color:white;
+padding:18px;
+border-radius:50%;
+font-size:22px;
+box-shadow:0 10px 25px rgba(0,0,0,.2)
+"
+>
 📲
 </a>
 
-<!-- BOTTOM NAV -->
 <div class="bottom">
-  <div onclick="go('index.html')">🏠<br>Home</div>
 
-  <!-- 🔥 CHANGED -->
-  <div onclick="location.href='services.html'">🛒<br>Services</div>
+  <div onclick="location.href='index.html'">
+    🏠
+    <br>
+    Home
+  </div>
 
-  <div onclick="go('account.html')">👤<br>Account</div>
-  <div onclick="go('myorders.html')">📦<br>Orders</div>
+  <div onclick="location.href='services.html'">
+    🛒
+    <br>
+    Services
+  </div>
+
+  <div onclick="location.href='account.html'">
+    👤
+    <br>
+    Account
+  </div>
+
+  <div onclick="location.href='myorders.html'">
+    📦
+    <br>
+    Orders
+  </div>
+
 </div>
 
 <script>
-function go(p){location.href=p}
-function goProducts(){location.href="products.html"}
+
 function selectService(s){
-  localStorage.setItem("service",s);
-  location.href="products.html";
+
+  localStorage.setItem('service',s)
+
+  location.href='products.html'
+
+}
+
+/* LOADER */
+
+const loader=document.createElement('div')
+
+loader.className='loader'
+
+loader.innerHTML=`
+<div class="loader-circle"></div>
+<h2>⚡ QuickPress</h2>
+`
+
+document.body.appendChild(loader)
+
+window.addEventListener('load',()=>{
+
+  setTimeout(()=>{
+
+    loader.style.opacity='0'
+
+    setTimeout(()=>{
+      loader.remove()
+    },500)
+
+  },1200)
+
+})
+
+/* PARTICLES */
+
+for(let i=0;i<25;i++){
+
+  let p=document.createElement('div')
+
+  p.className='particle'
+
+  p.style.left=Math.random()*100+'vw'
+
+  p.style.animationDuration=
+  (Math.random()*10+8)+'s'
+
+  p.style.width=
+  (Math.random()*8+4)+'px'
+
+  p.style.height=p.style.width
+
+  document.body.appendChild(p)
+
 }
 
 /* CART */
-let cart = JSON.parse(localStorage.getItem("cart")||"[]");
-let count=0;
-cart.forEach(i=>count+=i.qty||1);
-document.getElementById("cartCount").innerText=count;
 
-/* NAV HIDE */
-let lastScroll=0;
-const nav=document.querySelector(".nav");
-window.addEventListener("scroll",()=>{
-  let cur=window.pageYOffset;
-  if(cur>lastScroll && cur>50){
-    nav.style.transform="translateY(-100%)";
-  }else{
-    nav.style.transform="translateY(0)";
-  }
-  lastScroll=cur;
-});
+let cart =
+JSON.parse(localStorage.getItem('cart')||'[]')
+
+let count=0
+
+cart.forEach(i=>count+=i.qty||1)
+
+document.getElementById('cartCount').innerText=count
 
 /* FADE */
-const observer=new IntersectionObserver(entries=>{
-  entries.forEach(e=>{
-    if(e.isIntersecting){
-      e.target.classList.add("show");
-    }
-  });
-});
-document.querySelectorAll(".section,.card,.how-step")
+
+const observer=
+new IntersectionObserver(entries=>{
+
+entries.forEach(e=>{
+
+if(e.isIntersecting){
+
+e.target.classList.add('show')
+
+}
+
+})
+
+})
+
+document.querySelectorAll(
+'.section,.card,.how-step'
+)
+
 .forEach(el=>{
-  el.classList.add("fade");
-  observer.observe(el);
-});
+
+el.classList.add('fade')
+
+observer.observe(el)
+
+})
 
 /* RIPPLE */
-document.querySelectorAll(".card,button").forEach(el=>{
-  el.addEventListener("click",function(e){
-    let circle=document.createElement("span");
-    circle.style.position="absolute";
-    circle.style.width="20px";
-    circle.style.height="20px";
-    circle.style.background="rgba(0,0,0,0.2)";
-    circle.style.borderRadius="50%";
-    circle.style.left=e.offsetX+"px";
-    circle.style.top=e.offsetY+"px";
-    circle.style.animation="ripple 0.5s ease";
-    this.appendChild(circle);
-    setTimeout(()=>circle.remove(),500);
-  });
-});
+
+document.querySelectorAll('.card,button')
+.forEach(el=>{
+
+el.addEventListener('click',function(e){
+
+let circle=document.createElement('span')
+
+circle.style.position='absolute'
+circle.style.width='20px'
+circle.style.height='20px'
+circle.style.background='rgba(0,0,0,.2)'
+circle.style.borderRadius='50%'
+
+circle.style.left=e.offsetX+'px'
+circle.style.top=e.offsetY+'px'
+
+circle.style.animation='ripple .5s ease'
+
+this.appendChild(circle)
+
+setTimeout(()=>{
+circle.remove()
+},500)
+
+})
+
+})
+
+/* COUNTER */
+
+function animateCounter(el,target){
+
+let count=0
+
+const speed=target/100
+
+function update(){
+
+count+=speed
+
+if(count<target){
+
+el.innerText=Math.floor(count)
+
+requestAnimationFrame(update)
+
+}else{
+
+el.innerText=target
+
+}
+
+}
+
+update()
+
+}
+
+animateCounter(
+document.getElementById('count1'),
+2500
+)
+
+animateCounter(
+document.getElementById('count2'),
+7800
+)
+
+/* DARK MODE */
+
+const darkBtn=document.createElement('button')
+
+darkBtn.innerHTML='🌙'
+
+darkBtn.style.position='fixed'
+darkBtn.style.right='20px'
+darkBtn.style.top='90px'
+darkBtn.style.width='55px'
+darkBtn.style.height='55px'
+darkBtn.style.borderRadius='50%'
+darkBtn.style.zIndex='9999'
+darkBtn.style.border='none'
+darkBtn.style.background='#111827'
+darkBtn.style.color='white'
+
+document.body.appendChild(darkBtn)
+
+darkBtn.addEventListener('click',()=>{
+
+document.body.classList.toggle('dark')
+
+if(document.body.classList.contains('dark')){
+
+darkBtn.innerHTML='☀️'
+
+}else{
+
+darkBtn.innerHTML='🌙'
+
+}
+
+})
+
+/* MAGNETIC BUTTON */
+
+document.querySelectorAll('button')
+.forEach(button=>{
+
+button.addEventListener('mousemove',(e)=>{
+
+const rect=button.getBoundingClientRect()
+
+const x=e.clientX-rect.left-rect.width/2
+
+const y=e.clientY-rect.top-rect.height/2
+
+button.style.transform=
+`translate(${x*0.15}px,${y*0.15}px)`
+
+})
+
+button.addEventListener('mouseleave',()=>{
+
+button.style.transform='translate(0,0)'
+
+})
+
+})
+
 </script>
 
 </body>
