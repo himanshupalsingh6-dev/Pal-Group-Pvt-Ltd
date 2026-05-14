@@ -16,150 +16,208 @@ QuickPress Login
 
 <link
 rel="stylesheet"
-href="./css/style.css"
-/>
-
-<link
-rel="stylesheet"
 href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css"
 />
 
 <style>
 
+/* =========================
+RESET
+========================= */
+
+*{
+margin:0;
+padding:0;
+box-sizing:border-box;
+font-family:
+"Poppins",
+sans-serif;
+}
+
 body{
 background:
 linear-gradient(
 135deg,
-#07142b,
-#0d2247
+#FFD400,
+#fff7cc
 );
 min-height:100vh;
-display:flex;
-align-items:center;
-justify-content:center;
-padding:20px;
+overflow-x:hidden;
 }
 
-/* LOGIN BOX */
+/* =========================
+WRAPPER
+========================= */
 
-.loginWrapper{
-width:100%;
-max-width:1100px;
-background:#fff;
-border-radius:35px;
-overflow:hidden;
+.loginPage{
 display:grid;
 grid-template-columns:
 1fr 1fr;
-box-shadow:0 20px 50px rgba(0,0,0,0.25);
+min-height:100vh;
 }
 
-/* LEFT */
+/* =========================
+LEFT SIDE
+========================= */
 
 .leftSide{
-padding:60px;
+position:relative;
 background:
 linear-gradient(
 135deg,
-#07142b,
-#0d2247
+rgba(255,212,0,0.95),
+rgba(255,235,120,0.9)
 );
-color:#fff;
-position:relative;
-overflow:hidden;
+
 display:flex;
-flex-direction:column;
+align-items:center;
 justify-content:center;
+padding:40px;
+overflow:hidden;
 }
 
 .leftSide::before{
 content:"";
 position:absolute;
-width:350px;
-height:350px;
-background:rgba(255,255,255,0.06);
+width:500px;
+height:500px;
+background:
+rgba(255,255,255,0.25);
 border-radius:50%;
-top:-120px;
-right:-120px;
+top:-150px;
+left:-150px;
 }
 
 .leftSide::after{
 content:"";
 position:absolute;
-width:250px;
-height:250px;
-background:rgba(255,255,255,0.05);
+width:300px;
+height:300px;
+background:
+rgba(255,255,255,0.18);
 border-radius:50%;
-bottom:-100px;
-left:-100px;
+bottom:-120px;
+right:-120px;
 }
 
-.brand{
-font-size:45px;
-font-weight:bold;
-color:#FFD400;
-margin-bottom:20px;
+/* CONTENT */
+
+.heroContent{
+position:relative;
 z-index:2;
+max-width:520px;
 }
 
-.leftSide h1{
-font-size:55px;
-line-height:1.1;
-margin-bottom:20px;
-z-index:2;
+.logo{
+font-size:50px;
+font-weight:900;
+color:#111;
+margin-bottom:30px;
 }
 
-.leftSide p{
-font-size:18px;
-line-height:1.7;
-opacity:0.9;
-z-index:2;
+.heroTitle{
+font-size:72px;
+line-height:1.05;
+font-weight:900;
+margin-bottom:25px;
+color:#111;
 }
 
-.features{
-margin-top:35px;
-z-index:2;
-}
-
-.feature{
-display:flex;
-align-items:center;
-gap:15px;
-margin-bottom:18px;
-font-size:16px;
-}
-
-/* RIGHT */
-
-.rightSide{
-padding:60px;
-display:flex;
-flex-direction:column;
-justify-content:center;
-}
-
-.formTitle{
-font-size:40px;
-margin-bottom:10px;
-}
-
-.formSub{
-color:#666;
+.heroText{
+font-size:20px;
+line-height:1.8;
+color:#333;
 margin-bottom:35px;
 }
 
-.inputBox{
-margin-bottom:20px;
-position:relative;
+.heroFeatures{
+display:flex;
+flex-direction:column;
+gap:18px;
 }
 
-.inputBox input{
-padding-left:50px;
-height:60px;
+.heroFeatures div{
+background:
+rgba(255,255,255,0.45);
+backdrop-filter:blur(10px);
+padding:16px 20px;
+border-radius:18px;
+font-weight:600;
 font-size:16px;
 }
 
-.inputBox i{
+/* =========================
+RIGHT SIDE
+========================= */
+
+.rightSide{
+background:#fff;
+display:flex;
+align-items:center;
+justify-content:center;
+padding:40px;
+position:relative;
+}
+
+/* LOGIN BOX */
+
+.loginBox{
+width:100%;
+max-width:500px;
+}
+
+.topText{
+margin-bottom:35px;
+}
+
+.topText h1{
+font-size:52px;
+font-weight:900;
+color:#111827;
+margin-bottom:10px;
+}
+
+.topText p{
+font-size:17px;
+color:#666;
+line-height:1.6;
+}
+
+/* TABS */
+
+.loginTabs{
+display:flex;
+background:#f5f5f5;
+padding:6px;
+border-radius:18px;
+margin-bottom:28px;
+}
+
+.loginTabs button{
+flex:1;
+height:52px;
+border:none;
+border-radius:14px;
+font-size:15px;
+font-weight:700;
+cursor:pointer;
+background:transparent;
+transition:0.3s;
+}
+
+.activeTab{
+background:#FFD400 !important;
+color:#111;
+}
+
+/* FORM */
+
+.inputGroup{
+margin-bottom:22px;
+position:relative;
+}
+
+.inputGroup i{
 position:absolute;
 left:18px;
 top:50%;
@@ -168,89 +226,154 @@ font-size:18px;
 color:#666;
 }
 
-.loginBtn{
+.inputGroup input{
 width:100%;
-height:60px;
+height:62px;
 border:none;
-border-radius:18px;
-background:#07142b;
-color:#fff;
-font-size:17px;
-font-weight:bold;
-cursor:pointer;
-margin-top:10px;
+background:#f7f7f7;
+border-radius:20px;
+padding-left:55px;
+padding-right:18px;
+font-size:16px;
+outline:none;
 transition:0.3s;
 }
 
-.loginBtn:hover{
-opacity:0.9;
+.inputGroup input:focus{
+background:#fff;
+border:2px solid #FFD400;
 }
 
-.extra{
-margin-top:25px;
-text-align:center;
-color:#666;
-}
+/* OPTIONS */
 
-.extra a{
-color:#2563eb;
-font-weight:bold;
-}
-
-.or{
-text-align:center;
-margin:25px 0;
-position:relative;
-}
-
-.or::before{
-content:"";
-position:absolute;
-left:0;
-top:50%;
-width:42%;
-height:1px;
-background:#ddd;
-}
-
-.or::after{
-content:"";
-position:absolute;
-right:0;
-top:50%;
-width:42%;
-height:1px;
-background:#ddd;
-}
-
-.googleBtn{
-width:100%;
-height:58px;
-border:none;
-border-radius:18px;
-background:#f3f4f6;
-font-size:16px;
-font-weight:bold;
-cursor:pointer;
+.options{
 display:flex;
+justify-content:space-between;
 align-items:center;
-justify-content:center;
+margin-bottom:25px;
+flex-wrap:wrap;
 gap:10px;
 }
 
-/* LOADER */
-
-.loader{
-display:none;
-margin-top:20px;
-text-align:center;
+.remember{
+display:flex;
+align-items:center;
+gap:10px;
+font-size:14px;
+color:#555;
 }
 
-/* MOBILE */
+.remember input{
+width:18px;
+height:18px;
+accent-color:#FFD400;
+}
 
-@media screen and (max-width:900px){
+.forgot{
+font-size:14px;
+font-weight:600;
+color:#111;
+text-decoration:none;
+}
 
-.loginWrapper{
+/* LOGIN BUTTON */
+
+.loginBtn{
+width:100%;
+height:62px;
+border:none;
+border-radius:22px;
+background:#FFD400;
+font-size:18px;
+font-weight:800;
+cursor:pointer;
+transition:0.3s;
+box-shadow:
+0 10px 25px
+rgba(255,212,0,0.4);
+}
+
+.loginBtn:hover{
+transform:translateY(-3px);
+}
+
+/* DIVIDER */
+
+.divider{
+display:flex;
+align-items:center;
+gap:15px;
+margin:30px 0;
+color:#888;
+font-size:14px;
+}
+
+.divider::before,
+.divider::after{
+content:"";
+flex:1;
+height:1px;
+background:#ddd;
+}
+
+/* SOCIAL */
+
+.socials{
+display:flex;
+gap:15px;
+}
+
+.socialBtn{
+flex:1;
+height:60px;
+border:none;
+border-radius:20px;
+background:#f7f7f7;
+font-size:18px;
+font-weight:700;
+cursor:pointer;
+transition:0.3s;
+}
+
+.socialBtn:hover{
+background:#FFD400;
+}
+
+/* SIGNUP */
+
+.signupText{
+margin-top:30px;
+text-align:center;
+font-size:15px;
+color:#666;
+}
+
+.signupText a{
+color:#111;
+font-weight:800;
+text-decoration:none;
+}
+
+/* FLOATING */
+
+.floatShape{
+position:absolute;
+width:140px;
+height:140px;
+background:
+rgba(255,212,0,0.15);
+border-radius:50%;
+top:40px;
+right:40px;
+}
+
+/* =========================
+RESPONSIVE
+========================= */
+
+@media screen and (max-width:1000px){
+
+.loginPage{
 grid-template-columns:1fr;
 }
 
@@ -259,11 +382,32 @@ display:none;
 }
 
 .rightSide{
-padding:40px 25px;
+padding:25px;
 }
 
-.formTitle{
-font-size:32px;
+.topText h1{
+font-size:40px;
+}
+
+}
+
+@media screen and (max-width:600px){
+
+.loginBox{
+max-width:100%;
+}
+
+.topText h1{
+font-size:34px;
+}
+
+.loginBtn{
+height:58px;
+font-size:16px;
+}
+
+.socialBtn{
+height:56px;
 }
 
 }
@@ -274,42 +418,51 @@ font-size:32px;
 
 <body>
 
-<div class="loginWrapper">
+<div class="loginPage">
 
 <!-- LEFT -->
 
 <div class="leftSide">
 
-<div class="brand">
-QuickPress
+<div class="heroContent">
+
+<div class="logo">
+QuickPress ⚡
 </div>
 
-<h1>
-Laundry Done
-Right ✨
-</h1>
+<div class="heroTitle">
 
-<p>
+Laundry<br>
+Made Easy
+
+</div>
+
+<div class="heroText">
+
 Fast pickup, premium washing,
-expert ironing and live order tracking.
-</p>
+professional ironing and real-time tracking
+for your clothes.
 
-<div class="features">
-
-<div class="feature">
-✅ Fast Pickup In 10 Minutes
 </div>
 
-<div class="feature">
-✅ Real-Time Order Tracking
+<div class="heroFeatures">
+
+<div>
+⚡ Pickup in 10 Minutes
 </div>
 
-<div class="feature">
-✅ Wallet & Cashback System
+<div>
+🧺 Premium Laundry Care
 </div>
 
-<div class="feature">
-✅ Premium Laundry Experience
+<div>
+🚚 Live Order Tracking
+</div>
+
+<div>
+💰 Cashback & Wallet Rewards
+</div>
+
 </div>
 
 </div>
@@ -320,39 +473,85 @@ expert ironing and live order tracking.
 
 <div class="rightSide">
 
-<h1 class="formTitle">
+<div class="floatShape"></div>
+
+<div class="loginBox">
+
+<div class="topText">
+
+<h1>
 Welcome Back 👋
 </h1>
 
-<p class="formSub">
-Login to continue your laundry journey
+<p>
+Login to continue your premium
+laundry experience.
 </p>
+
+</div>
+
+<!-- TABS -->
+
+<div class="loginTabs">
+
+<button class="activeTab">
+Email Login
+</button>
+
+<button>
+OTP Login
+</button>
+
+</div>
 
 <!-- EMAIL -->
 
-<div class="inputBox">
+<div class="inputGroup">
 
 <i class="fa-regular fa-envelope"></i>
 
 <input
 type="email"
 id="email"
-placeholder="Enter your email"
+placeholder="Enter Email Address"
 />
 
 </div>
 
 <!-- PASSWORD -->
 
-<div class="inputBox">
+<div class="inputGroup">
 
 <i class="fa-solid fa-lock"></i>
 
 <input
 type="password"
 id="password"
-placeholder="Enter your password"
+placeholder="Enter Password"
 />
+
+</div>
+
+<!-- OPTIONS -->
+
+<div class="options">
+
+<label class="remember">
+
+<input type="checkbox">
+
+Remember Me
+
+</label>
+
+<a
+href="#"
+class="forgot"
+>
+
+Forgot Password?
+
+</a>
 
 </div>
 
@@ -367,33 +566,33 @@ Login Account
 
 </button>
 
-<!-- LOADER -->
+<!-- DIVIDER -->
 
-<div class="loader" id="loader">
-
-<div class="loader"></div>
-
+<div class="divider">
+OR CONTINUE WITH
 </div>
 
-<!-- OR -->
+<!-- SOCIAL -->
 
-<div class="or">
-OR
-</div>
+<div class="socials">
 
-<!-- GOOGLE -->
-
-<button class="googleBtn">
-
+<button class="socialBtn">
 <i class="fa-brands fa-google"></i>
-
-Continue With Google
-
 </button>
 
-<!-- EXTRA -->
+<button class="socialBtn">
+<i class="fa-brands fa-facebook-f"></i>
+</button>
 
-<div class="extra">
+<button class="socialBtn">
+<i class="fa-brands fa-apple"></i>
+</button>
+
+</div>
+
+<!-- SIGNUP -->
+
+<div class="signupText">
 
 Don't have an account?
 
@@ -407,16 +606,17 @@ Create Account
 
 </div>
 
+</div>
+
 <script type="module">
 
-// ===================================
-// IMPORTS
-// ===================================
+// =========================
+// IMPORT FIREBASE
+// =========================
 
 import {
 
-auth,
-db
+auth
 
 }
 
@@ -431,18 +631,9 @@ onAuthStateChanged
 
 from "https://www.gstatic.com/firebasejs/12.11.0/firebase-auth.js";
 
-import {
-
-doc,
-getDoc
-
-}
-
-from "https://www.gstatic.com/firebasejs/12.11.0/firebase-firestore.js";
-
-// ===================================
+// =========================
 // AUTO LOGIN
-// ===================================
+// =========================
 
 onAuthStateChanged(
 auth,
@@ -458,9 +649,9 @@ window.location.href =
 }
 );
 
-// ===================================
+// =========================
 // LOGIN
-// ===================================
+// =========================
 
 window.loginUser =
 async function(){
@@ -487,73 +678,11 @@ return;
 
 try{
 
-// LOADER
-
-document.getElementById(
-"loader"
-).style.display = "block";
-
-// LOGIN
-
-const userCredential =
-
 await signInWithEmailAndPassword(
 auth,
 email,
 password
 );
-
-const user =
-userCredential.user;
-
-// GET USER DATA
-
-const userRef =
-doc(db,"users",user.uid);
-
-const userSnap =
-await getDoc(userRef);
-
-if(!userSnap.exists()){
-
-alert("User not found");
-return;
-
-}
-
-const userData =
-userSnap.data();
-
-// ROLE CHECK
-
-if(userData.role !== "user"){
-
-alert(
-"Access denied"
-);
-
-return;
-
-}
-
-// SAVE SESSION
-
-localStorage.setItem(
-"userId",
-user.uid
-);
-
-localStorage.setItem(
-"userName",
-userData.name || ""
-);
-
-localStorage.setItem(
-"userEmail",
-userData.email || ""
-);
-
-// REDIRECT
 
 window.location.href =
 "./index.html";
@@ -562,28 +691,9 @@ window.location.href =
 
 alert(error.message);
 
-console.log(error);
-
 }
 
 };
-
-// ===================================
-// ENTER KEY LOGIN
-// ===================================
-
-document.addEventListener(
-"keydown",
-(e)=>{
-
-if(e.key === "Enter"){
-
-loginUser();
-
-}
-
-}
-);
 
 </script>
 
