@@ -1,0 +1,584 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+<meta charset="UTF-8">
+
+<meta
+name="viewport"
+content="width=device-width, initial-scale=1.0"
+/>
+
+<title>
+QuickPress Signup
+</title>
+
+<link
+rel="stylesheet"
+href="./css/style.css"
+/>
+
+<link
+rel="stylesheet"
+href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css"
+/>
+
+<style>
+
+body{
+background:
+linear-gradient(
+135deg,
+#07142b,
+#0d2247
+);
+min-height:100vh;
+display:flex;
+align-items:center;
+justify-content:center;
+padding:20px;
+}
+
+/* WRAPPER */
+
+.signupWrapper{
+width:100%;
+max-width:1150px;
+background:#fff;
+border-radius:35px;
+overflow:hidden;
+display:grid;
+grid-template-columns:
+1fr 1fr;
+box-shadow:0 20px 50px rgba(0,0,0,0.25);
+}
+
+/* LEFT */
+
+.leftSide{
+padding:60px;
+display:flex;
+flex-direction:column;
+justify-content:center;
+}
+
+.brand{
+font-size:42px;
+font-weight:bold;
+color:#07142b;
+margin-bottom:25px;
+}
+
+.leftSide h1{
+font-size:55px;
+line-height:1.1;
+margin-bottom:20px;
+}
+
+.leftSide h1 span{
+color:#2563eb;
+}
+
+.leftSide p{
+font-size:18px;
+line-height:1.7;
+color:#666;
+}
+
+.benefits{
+margin-top:35px;
+}
+
+.benefit{
+display:flex;
+align-items:center;
+gap:15px;
+margin-bottom:18px;
+font-size:16px;
+font-weight:500;
+}
+
+/* RIGHT */
+
+.rightSide{
+background:
+linear-gradient(
+135deg,
+#07142b,
+#0d2247
+);
+padding:60px;
+color:#fff;
+display:flex;
+flex-direction:column;
+justify-content:center;
+position:relative;
+overflow:hidden;
+}
+
+.rightSide::before{
+content:"";
+position:absolute;
+width:320px;
+height:320px;
+background:rgba(255,255,255,0.06);
+border-radius:50%;
+top:-120px;
+right:-120px;
+}
+
+.rightSide::after{
+content:"";
+position:absolute;
+width:220px;
+height:220px;
+background:rgba(255,255,255,0.05);
+border-radius:50%;
+bottom:-80px;
+left:-80px;
+}
+
+.formTitle{
+font-size:42px;
+margin-bottom:10px;
+z-index:2;
+}
+
+.formSub{
+opacity:0.85;
+margin-bottom:35px;
+z-index:2;
+}
+
+.inputBox{
+margin-bottom:18px;
+position:relative;
+z-index:2;
+}
+
+.inputBox input{
+height:58px;
+padding-left:50px;
+background:rgba(255,255,255,0.1);
+border:1px solid rgba(255,255,255,0.15);
+color:#fff;
+font-size:15px;
+}
+
+.inputBox input::placeholder{
+color:#ddd;
+}
+
+.inputBox i{
+position:absolute;
+left:18px;
+top:50%;
+transform:translateY(-50%);
+font-size:18px;
+color:#ddd;
+}
+
+.signupBtn{
+width:100%;
+height:58px;
+border:none;
+border-radius:18px;
+background:#FFD400;
+color:#000;
+font-size:17px;
+font-weight:bold;
+cursor:pointer;
+margin-top:10px;
+transition:0.3s;
+z-index:2;
+}
+
+.signupBtn:hover{
+opacity:0.9;
+}
+
+.extra{
+margin-top:25px;
+text-align:center;
+z-index:2;
+}
+
+.extra a{
+color:#FFD400;
+font-weight:bold;
+}
+
+/* MOBILE */
+
+@media screen and (max-width:900px){
+
+.signupWrapper{
+grid-template-columns:1fr;
+}
+
+.leftSide{
+display:none;
+}
+
+.rightSide{
+padding:40px 25px;
+}
+
+.formTitle{
+font-size:32px;
+}
+
+}
+
+</style>
+
+</head>
+
+<body>
+
+<div class="signupWrapper">
+
+<!-- LEFT -->
+
+<div class="leftSide">
+
+<div class="brand">
+QuickPress
+</div>
+
+<h1>
+Premium Laundry
+<span>Made Easy</span>
+</h1>
+
+<p>
+Create your account and enjoy
+fast pickup, premium care,
+live tracking and cashback rewards.
+</p>
+
+<div class="benefits">
+
+<div class="benefit">
+🚀 Pickup in 10 Minutes
+</div>
+
+<div class="benefit">
+🧺 Premium Laundry Care
+</div>
+
+<div class="benefit">
+💰 Wallet & Cashback
+</div>
+
+<div class="benefit">
+📦 Real-Time Order Tracking
+</div>
+
+</div>
+
+</div>
+
+<!-- RIGHT -->
+
+<div class="rightSide">
+
+<h1 class="formTitle">
+Create Account ✨
+</h1>
+
+<p class="formSub">
+Join QuickPress today
+</p>
+
+<!-- NAME -->
+
+<div class="inputBox">
+
+<i class="fa-regular fa-user"></i>
+
+<input
+type="text"
+id="name"
+placeholder="Full Name"
+/>
+
+</div>
+
+<!-- PHONE -->
+
+<div class="inputBox">
+
+<i class="fa-solid fa-phone"></i>
+
+<input
+type="number"
+id="phone"
+placeholder="Phone Number"
+/>
+
+</div>
+
+<!-- EMAIL -->
+
+<div class="inputBox">
+
+<i class="fa-regular fa-envelope"></i>
+
+<input
+type="email"
+id="email"
+placeholder="Email Address"
+/>
+
+</div>
+
+<!-- PASSWORD -->
+
+<div class="inputBox">
+
+<i class="fa-solid fa-lock"></i>
+
+<input
+type="password"
+id="password"
+placeholder="Password"
+/>
+
+</div>
+
+<!-- ADDRESS -->
+
+<div class="inputBox">
+
+<i class="fa-solid fa-location-dot"></i>
+
+<input
+type="text"
+id="address"
+placeholder="Address"
+/>
+
+</div>
+
+<!-- BUTTON -->
+
+<button
+class="signupBtn"
+onclick="signupUser()"
+>
+
+Create Account
+
+</button>
+
+<!-- EXTRA -->
+
+<div class="extra">
+
+Already have account?
+
+<a href="./login.html">
+Login
+</a>
+
+</div>
+
+</div>
+
+</div>
+
+<script type="module">
+
+// ===================================
+// IMPORTS
+// ===================================
+
+import {
+
+auth,
+db
+
+}
+
+from "./js/firebase.js";
+
+import {
+
+createUserWithEmailAndPassword
+
+}
+
+from "https://www.gstatic.com/firebasejs/12.11.0/firebase-auth.js";
+
+import {
+
+doc,
+setDoc
+
+}
+
+from "https://www.gstatic.com/firebasejs/12.11.0/firebase-firestore.js";
+
+// ===================================
+// SIGNUP
+// ===================================
+
+window.signupUser =
+async function(){
+
+const name =
+document.getElementById(
+"name"
+).value;
+
+const phone =
+document.getElementById(
+"phone"
+).value;
+
+const email =
+document.getElementById(
+"email"
+).value;
+
+const password =
+document.getElementById(
+"password"
+).value;
+
+const address =
+document.getElementById(
+"address"
+).value;
+
+// VALIDATION
+
+if(
+!name ||
+!phone ||
+!email ||
+!password ||
+!address
+){
+
+alert(
+"Please fill all fields"
+);
+
+return;
+
+}
+
+try{
+
+// CREATE AUTH
+
+const userCredential =
+
+await createUserWithEmailAndPassword(
+auth,
+email,
+password
+);
+
+const user =
+userCredential.user;
+
+// SAVE USER
+
+await setDoc(
+doc(db,"users",user.uid),
+{
+
+uid:user.uid,
+
+name:name,
+
+phone:phone,
+
+email:email,
+
+address:address,
+
+role:"user",
+
+wallet:0,
+
+totalOrders:0,
+
+createdAt:Date.now()
+
+}
+);
+
+// CREATE WALLET
+
+await setDoc(
+doc(db,"wallets",user.uid),
+{
+
+uid:user.uid,
+
+name:name,
+
+phone:phone,
+
+email:email,
+
+role:"user",
+
+balance:0,
+
+totalCredits:0,
+
+totalDebits:0,
+
+createdAt:Date.now()
+
+}
+);
+
+// SAVE SESSION
+
+localStorage.setItem(
+"userId",
+user.uid
+);
+
+localStorage.setItem(
+"userName",
+name
+);
+
+localStorage.setItem(
+"userEmail",
+email
+);
+
+// SUCCESS
+
+alert(
+"Account Created Successfully ✅"
+);
+
+// REDIRECT
+
+window.location.href =
+"./index.html";
+
+}catch(error){
+
+alert(error.message);
+
+console.log(error);
+
+}
+
+};
+
+</script>
+
+</body>
+</html>
