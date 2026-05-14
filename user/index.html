@@ -11,7 +11,7 @@ content="width=device-width, initial-scale=1.0"
 />
 
 <title>
-QuickPress User Panel
+QuickPress — Home
 </title>
 
 <link
@@ -23,6 +23,583 @@ href="./css/style.css"
 rel="stylesheet"
 href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css"
 />
+
+<style>
+
+/* =========================
+BODY
+========================= */
+
+body{
+background:#f8fafc;
+}
+
+/* =========================
+TOPBAR
+========================= */
+
+.topbar{
+background:#fff;
+padding:16px 20px;
+display:flex;
+justify-content:space-between;
+align-items:center;
+position:sticky;
+top:0;
+z-index:999;
+box-shadow:0 2px 12px rgba(0,0,0,0.05);
+}
+
+.leftTop{
+display:flex;
+align-items:center;
+gap:14px;
+}
+
+.menuBtn{
+width:48px;
+height:48px;
+border:none;
+border-radius:16px;
+background:#FFD400;
+font-size:20px;
+cursor:pointer;
+}
+
+.location h4{
+font-size:13px;
+color:#666;
+margin-bottom:4px;
+}
+
+.location h2{
+font-size:18px;
+font-weight:700;
+}
+
+.rightTop{
+display:flex;
+align-items:center;
+gap:15px;
+}
+
+.walletBox{
+background:#FFF7CC;
+padding:12px 18px;
+border-radius:16px;
+font-weight:bold;
+}
+
+.notify{
+position:relative;
+font-size:22px;
+}
+
+.badge{
+position:absolute;
+top:-6px;
+right:-8px;
+width:20px;
+height:20px;
+background:red;
+color:#fff;
+border-radius:50%;
+display:flex;
+align-items:center;
+justify-content:center;
+font-size:11px;
+}
+
+/* =========================
+SIDEBAR
+========================= */
+
+.sidebar{
+position:fixed;
+left:-280px;
+top:0;
+width:260px;
+height:100vh;
+background:#fff;
+padding:25px 15px;
+z-index:9999;
+transition:0.3s;
+overflow:auto;
+border-right:1px solid #eee;
+}
+
+.sidebar.active{
+left:0;
+}
+
+.logo{
+font-size:34px;
+font-weight:bold;
+color:#000;
+margin-bottom:35px;
+padding-left:10px;
+}
+
+.logo span{
+color:#FFD400;
+}
+
+.sidebarMenu a{
+display:block;
+margin-bottom:12px;
+}
+
+.sidebarMenu button{
+width:100%;
+padding:16px;
+border:none;
+border-radius:18px;
+background:transparent;
+text-align:left;
+font-size:15px;
+cursor:pointer;
+font-weight:600;
+transition:0.3s;
+}
+
+.sidebarMenu button:hover{
+background:#FFF7CC;
+}
+
+.activeMenu{
+background:#FFD400 !important;
+}
+
+/* =========================
+MAIN
+========================= */
+
+.main{
+padding:20px;
+padding-bottom:120px;
+}
+
+/* =========================
+HERO
+========================= */
+
+.hero{
+background:
+linear-gradient(
+135deg,
+#FFD400,
+#ffe566
+);
+border-radius:35px;
+padding:35px;
+display:flex;
+justify-content:space-between;
+align-items:center;
+gap:20px;
+flex-wrap:wrap;
+overflow:hidden;
+position:relative;
+}
+
+.heroText{
+max-width:600px;
+}
+
+.heroBadge{
+display:inline-block;
+padding:10px 18px;
+background:rgba(255,255,255,0.7);
+border-radius:50px;
+font-size:13px;
+font-weight:bold;
+margin-bottom:18px;
+}
+
+.heroText h1{
+font-size:62px;
+line-height:1.1;
+margin-bottom:18px;
+color:#111;
+}
+
+.heroText p{
+font-size:18px;
+line-height:1.7;
+color:#333;
+margin-bottom:30px;
+}
+
+.heroBtns{
+display:flex;
+gap:15px;
+flex-wrap:wrap;
+}
+
+.heroBtns button{
+padding:16px 28px;
+border:none;
+border-radius:18px;
+font-size:15px;
+font-weight:bold;
+cursor:pointer;
+transition:0.3s;
+}
+
+.fastBtn{
+background:#111;
+color:#fff;
+}
+
+.scheduleBtn{
+background:#fff;
+}
+
+.heroBtns button:hover{
+transform:translateY(-3px);
+}
+
+.heroImage img{
+width:360px;
+max-width:100%;
+}
+
+/* =========================
+QUICK ACTIONS
+========================= */
+
+.quickGrid{
+display:grid;
+grid-template-columns:
+repeat(auto-fit,minmax(180px,1fr));
+gap:18px;
+margin-top:25px;
+}
+
+.quickCard{
+background:#fff;
+padding:25px;
+border-radius:28px;
+box-shadow:0 5px 15px rgba(0,0,0,0.05);
+cursor:pointer;
+transition:0.3s;
+}
+
+.quickCard:hover{
+transform:translateY(-5px);
+}
+
+.quickCard i{
+font-size:38px;
+margin-bottom:18px;
+color:#111;
+background:#FFF7CC;
+width:70px;
+height:70px;
+border-radius:20px;
+display:flex;
+align-items:center;
+justify-content:center;
+}
+
+.quickCard h2{
+font-size:20px;
+margin-bottom:10px;
+}
+
+.quickCard p{
+color:#666;
+font-size:14px;
+}
+
+/* =========================
+SECTION
+========================= */
+
+.section{
+margin-top:30px;
+}
+
+.sectionTop{
+display:flex;
+justify-content:space-between;
+align-items:center;
+margin-bottom:20px;
+flex-wrap:wrap;
+gap:10px;
+}
+
+.sectionTop h1{
+font-size:32px;
+}
+
+.viewAll{
+font-weight:bold;
+cursor:pointer;
+}
+
+/* =========================
+CATEGORIES
+========================= */
+
+.categories{
+display:grid;
+grid-template-columns:
+repeat(auto-fit,minmax(140px,1fr));
+gap:18px;
+}
+
+.catCard{
+background:#fff;
+padding:24px;
+border-radius:25px;
+text-align:center;
+box-shadow:0 5px 15px rgba(0,0,0,0.05);
+cursor:pointer;
+transition:0.3s;
+}
+
+.catCard:hover{
+transform:translateY(-5px);
+}
+
+.catCard i{
+font-size:38px;
+margin-bottom:15px;
+}
+
+.activeCat{
+background:#FFD400;
+}
+
+/* =========================
+OFFERS
+========================= */
+
+.offer{
+background:
+linear-gradient(
+135deg,
+#fff7cc,
+#ffe066
+);
+padding:30px;
+border-radius:30px;
+display:flex;
+justify-content:space-between;
+align-items:center;
+flex-wrap:wrap;
+gap:20px;
+}
+
+.offer h1{
+font-size:48px;
+margin:10px 0;
+}
+
+.offerBtn{
+padding:16px 28px;
+border:none;
+border-radius:18px;
+background:#111;
+color:#fff;
+font-weight:bold;
+cursor:pointer;
+}
+
+/* =========================
+SERVICES
+========================= */
+
+.serviceGrid{
+display:grid;
+grid-template-columns:
+repeat(auto-fit,minmax(240px,1fr));
+gap:20px;
+}
+
+.serviceCard{
+background:#fff;
+padding:18px;
+border-radius:28px;
+box-shadow:0 5px 15px rgba(0,0,0,0.05);
+}
+
+.serviceCard img{
+width:100%;
+height:180px;
+object-fit:cover;
+border-radius:20px;
+margin-bottom:15px;
+}
+
+.serviceBottom{
+display:flex;
+justify-content:space-between;
+align-items:center;
+margin-top:18px;
+}
+
+.price{
+font-size:24px;
+font-weight:bold;
+}
+
+.addBtn{
+padding:12px 20px;
+border:none;
+border-radius:14px;
+background:#FFD400;
+font-weight:bold;
+cursor:pointer;
+}
+
+/* =========================
+TRACKING
+========================= */
+
+.trackBox{
+background:#fff;
+padding:30px;
+border-radius:30px;
+box-shadow:0 5px 15px rgba(0,0,0,0.05);
+}
+
+.progress{
+display:flex;
+justify-content:space-between;
+gap:10px;
+margin-top:25px;
+flex-wrap:wrap;
+}
+
+.progressStep{
+flex:1;
+min-width:120px;
+text-align:center;
+}
+
+.circle{
+width:58px;
+height:58px;
+border-radius:50%;
+background:#FFD400;
+display:flex;
+align-items:center;
+justify-content:center;
+margin:auto;
+margin-bottom:12px;
+font-size:20px;
+font-weight:bold;
+}
+
+.inactive{
+background:#eee;
+}
+
+.trackNote{
+margin-top:25px;
+padding:18px;
+background:#FFF7CC;
+border-radius:18px;
+display:flex;
+justify-content:space-between;
+flex-wrap:wrap;
+gap:10px;
+}
+
+/* =========================
+BOTTOM NAV
+========================= */
+
+.bottomNav{
+position:fixed;
+bottom:0;
+left:0;
+width:100%;
+background:#fff;
+padding:14px 10px;
+display:flex;
+justify-content:space-around;
+align-items:center;
+box-shadow:0 -5px 15px rgba(0,0,0,0.08);
+z-index:999;
+}
+
+.bottomNav a{
+text-decoration:none;
+color:#444;
+text-align:center;
+font-size:12px;
+font-weight:600;
+}
+
+.bottomNav i{
+display:block;
+font-size:22px;
+margin-bottom:5px;
+}
+
+.fastCircle{
+width:78px;
+height:78px;
+background:#FFD400;
+border-radius:50%;
+display:flex;
+align-items:center;
+justify-content:center;
+margin-top:-45px;
+font-size:26px;
+font-weight:bold;
+box-shadow:0 5px 20px rgba(0,0,0,0.15);
+}
+
+/* =========================
+RESPONSIVE
+========================= */
+
+@media screen and (max-width:768px){
+
+.main{
+padding:15px;
+padding-bottom:120px;
+}
+
+.hero{
+padding:25px;
+}
+
+.heroText h1{
+font-size:38px;
+}
+
+.heroText p{
+font-size:15px;
+}
+
+.heroBtns button{
+width:100%;
+}
+
+.sectionTop h1{
+font-size:24px;
+}
+
+.offer h1{
+font-size:32px;
+}
+
+.heroImage{
+text-align:center;
+width:100%;
+}
+
+.heroImage img{
+width:250px;
+}
+
+}
+
+</style>
 
 </head>
 
@@ -47,8 +624,8 @@ onclick="toggleSidebar()"
 📍 Delivery Location
 </h4>
 
-<h2 id="userAddress">
-Loading...
+<h2>
+Gurugram, India
 </h2>
 
 </div>
@@ -58,11 +635,7 @@ Loading...
 <div class="rightTop">
 
 <div class="walletBox">
-
-💰 ₹<span id="walletBalance">
-0
-</span>
-
+💰 ₹250
 </div>
 
 <div class="notify">
@@ -70,7 +643,7 @@ Loading...
 <i class="fa-regular fa-bell"></i>
 
 <div class="badge">
-3
+2
 </div>
 
 </div>
@@ -87,86 +660,58 @@ id="sidebar"
 >
 
 <div class="logo">
-QuickPress
+Quick<span>Press</span>
 </div>
 
 <div class="sidebarMenu">
 
-<a href="./index.html">
-
+<a href="#">
 <button class="activeMenu">
 🏠 Dashboard
 </button>
-
 </a>
 
-<a href="./services.html">
-
+<a href="#">
 <button>
 🧺 Services
 </button>
-
 </a>
 
-<a href="./cart.html">
-
+<a href="#">
 <button>
 🛒 Cart
 </button>
-
 </a>
 
-<a href="./orders.html">
-
+<a href="#">
 <button>
 📦 Orders
 </button>
-
 </a>
 
-<a href="./tracking.html">
-
+<a href="#">
 <button>
 🚚 Tracking
 </button>
-
 </a>
 
-<a href="./wallet.html">
-
+<a href="#">
 <button>
 💰 Wallet
 </button>
-
 </a>
 
-<a href="./offers.html">
-
+<a href="#">
 <button>
 🎁 Offers
 </button>
-
 </a>
 
-<a href="./support.html">
-
-<button>
-🛠 Support
-</button>
-
-</a>
-
-<a href="./profile.html">
-
+<a href="#">
 <button>
 👤 Profile
 </button>
-
 </a>
-
-<button onclick="logoutUser()">
-🚪 Logout
-</button>
 
 </div>
 
@@ -182,43 +727,34 @@ QuickPress
 
 <div class="heroText">
 
+<div class="heroBadge">
+⚡ Pickup in 10 Minutes
+</div>
+
 <h1>
 
 Laundry<br>
 
-Done <span>Right!</span>
+Made Easy ✨
 
 </h1>
 
 <p>
 
-Fast pickup • Premium care •
-Real-time tracking • Doorstep delivery
+Book premium laundry pickup,
+track orders live and enjoy
+fast doorstep delivery.
 
 </p>
 
 <div class="heroBtns">
 
-<button
-class="primaryBtn"
-onclick="
-location.href='./services.html'
-"
->
-
+<button class="fastBtn">
 ⚡ Fast Order
-
 </button>
 
-<button
-class="secondaryBtn"
-onclick="
-location.href='./tracking.html'
-"
->
-
-📦 Track Order
-
+<button class="scheduleBtn">
+📅 Schedule Pickup
 </button>
 
 </div>
@@ -235,6 +771,68 @@ src="https://cdn-icons-png.flaticon.com/512/3082/3082037.png"
 
 </div>
 
+<!-- QUICK ACTIONS -->
+
+<div class="quickGrid">
+
+<div class="quickCard">
+
+<i class="fa-solid fa-shirt"></i>
+
+<h2>
+Ironing
+</h2>
+
+<p>
+Fast premium ironing service
+</p>
+
+</div>
+
+<div class="quickCard">
+
+<i class="fa-solid fa-bucket-water"></i>
+
+<h2>
+Wash & Fold
+</h2>
+
+<p>
+Professional washing care
+</p>
+
+</div>
+
+<div class="quickCard">
+
+<i class="fa-solid fa-spray-can-sparkles"></i>
+
+<h2>
+Dry Clean
+</h2>
+
+<p>
+Luxury fabric cleaning
+</p>
+
+</div>
+
+<div class="quickCard">
+
+<i class="fa-solid fa-truck-fast"></i>
+
+<h2>
+Express
+</h2>
+
+<p>
+30 minute fast pickup
+</p>
+
+</div>
+
+</div>
+
 <!-- CATEGORIES -->
 
 <div class="section">
@@ -244,6 +842,10 @@ src="https://cdn-icons-png.flaticon.com/512/3082/3082037.png"
 <h1>
 🧺 Categories
 </h1>
+
+<div class="viewAll">
+View All →
+</div>
 
 </div>
 
@@ -329,9 +931,7 @@ Use Code:
 </div>
 
 <button class="offerBtn">
-
-Apply Offer
-
+Claim Offer
 </button>
 
 </div>
@@ -348,21 +948,97 @@ Apply Offer
 🔥 Popular Services
 </h1>
 
-<div
-class="viewAll"
-onclick="
-location.href='./services.html'
-"
->
+<div class="viewAll">
 View All →
 </div>
 
 </div>
 
-<div
-class="serviceGrid"
-id="serviceGrid"
->
+<div class="serviceGrid">
+
+<div class="serviceCard">
+
+<img
+src="https://images.unsplash.com/photo-1527515637462-cff94eecc1ac?q=80&w=900&auto=format&fit=crop"
+/>
+
+<h2>
+Wash & Fold
+</h2>
+
+<p>
+48 hrs delivery
+</p>
+
+<div class="serviceBottom">
+
+<div class="price">
+₹49/kg
+</div>
+
+<button class="addBtn">
+Add +
+</button>
+
+</div>
+
+</div>
+
+<div class="serviceCard">
+
+<img
+src="https://images.unsplash.com/photo-1563822249366-3efb23b8e0c9?q=80&w=900&auto=format&fit=crop"
+/>
+
+<h2>
+Ironing
+</h2>
+
+<p>
+24 hrs delivery
+</p>
+
+<div class="serviceBottom">
+
+<div class="price">
+₹29/kg
+</div>
+
+<button class="addBtn">
+Add +
+</button>
+
+</div>
+
+</div>
+
+<div class="serviceCard">
+
+<img
+src="https://images.unsplash.com/photo-1598032895397-b9472444bf93?q=80&w=900&auto=format&fit=crop"
+/>
+
+<h2>
+Dry Clean
+</h2>
+
+<p>
+Premium fabric care
+</p>
+
+<div class="serviceBottom">
+
+<div class="price">
+₹149/pc
+</div>
+
+<button class="addBtn">
+Add +
+</button>
+
+</div>
+
+</div>
 
 </div>
 
@@ -449,17 +1125,11 @@ Delivered
 <div class="trackNote">
 
 <div>
-
-🚚 Rider arriving in
-20 minutes
-
+🚚 Rider arriving in 20 mins
 </div>
 
 <div>
-
-Order ID:
-#QP89452
-
+Order #QP89452
 </div>
 
 </div>
@@ -474,7 +1144,7 @@ Order ID:
 
 <div class="bottomNav">
 
-<a href="./index.html">
+<a href="#">
 
 <i class="fa-solid fa-house"></i>
 
@@ -482,7 +1152,7 @@ Home
 
 </a>
 
-<a href="./orders.html">
+<a href="#">
 
 <i class="fa-regular fa-clipboard"></i>
 
@@ -490,18 +1160,11 @@ Orders
 
 </a>
 
-<div
-class="fastCircle"
-onclick="
-location.href='./services.html'
-"
->
-
+<div class="fastCircle">
 ⚡
-
 </div>
 
-<a href="./offers.html">
+<a href="#">
 
 <i class="fa-solid fa-tags"></i>
 
@@ -509,7 +1172,7 @@ Offers
 
 </a>
 
-<a href="./profile.html">
+<a href="#">
 
 <i class="fa-regular fa-user"></i>
 
@@ -519,193 +1182,13 @@ Profile
 
 </div>
 
-<script type="module">
+<script>
 
-// ===================================
-// IMPORTS
-// ===================================
-
-import {
-
-auth,
-db
-
-}
-
-from "./js/firebase.js";
-
-import {
-
-onAuthStateChanged,
-signOut
-
-}
-
-from "https://www.gstatic.com/firebasejs/12.11.0/firebase-auth.js";
-
-import {
-
-doc,
-getDoc,
-collection,
-onSnapshot
-
-}
-
-from "https://www.gstatic.com/firebasejs/12.11.0/firebase-firestore.js";
-
-// ===================================
-// AUTH CHECK
-// ===================================
-
-onAuthStateChanged(
-auth,
-async(user)=>{
-
-if(!user){
-
-window.location.href =
-"./login.html";
-
-return;
-
-}
-
-// USER DATA
-
-const userRef =
-doc(db,"users",user.uid);
-
-const userSnap =
-await getDoc(userRef);
-
-if(userSnap.exists()){
-
-const data =
-userSnap.data();
-
-document.getElementById(
-"userAddress"
-).innerHTML =
-data.address || "No Address";
-
-}
-
-// WALLET
-
-const walletRef =
-doc(db,"wallets",user.uid);
-
-const walletSnap =
-await getDoc(walletRef);
-
-if(walletSnap.exists()){
-
-document.getElementById(
-"walletBalance"
-).innerHTML =
-
-walletSnap.data().balance || 0;
-
-}
-
-});
-
-// ===================================
-// SERVICES
-// ===================================
-
-const serviceGrid =
-document.getElementById(
-"serviceGrid"
-);
-
-onSnapshot(
-collection(db,"services"),
-(snapshot)=>{
-
-let html = "";
-
-snapshot.forEach((doc)=>{
-
-const s =
-doc.data();
-
-html += `
-
-<div class="serviceCard">
-
-<img
-src="${
-s.image ||
-'https://images.unsplash.com/photo-1527515637462-cff94eecc1ac?q=80&w=900&auto=format&fit=crop'
-}"
->
-
-<h2>
-${s.name || "-"}
-</h2>
-
-<p>
-${s.description || ""}
-</p>
-
-<div class="serviceBottom">
-
-<div class="price">
-₹${s.price || 0}
-</div>
-
-<button
-class="addBtn"
-onclick="
-location.href='./services.html'
-"
->
-
-Book
-
-</button>
-
-</div>
-
-</div>
-
-`;
-
-});
-
-serviceGrid.innerHTML =
-html;
-
-});
-
-// ===================================
-// SIDEBAR
-// ===================================
-
-window.toggleSidebar =
-function(){
+function toggleSidebar(){
 
 document
 .getElementById("sidebar")
 .classList.toggle("active");
-
-}
-
-// ===================================
-// LOGOUT
-// ===================================
-
-window.logoutUser =
-async function(){
-
-await signOut(auth);
-
-localStorage.clear();
-
-window.location.href =
-"./login.html";
 
 }
 
