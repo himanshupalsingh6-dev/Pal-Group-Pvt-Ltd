@@ -1,0 +1,1133 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+<meta charset="UTF-8">
+
+<meta
+name="viewport"
+content="width=device-width, initial-scale=1.0"
+/>
+
+<title>
+QuickPress Checkout
+</title>
+
+<link
+rel="stylesheet"
+href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css"
+/>
+
+<style>
+
+/* =========================
+RESET
+========================= */
+
+*{
+margin:0;
+padding:0;
+box-sizing:border-box;
+font-family:
+"Poppins",
+sans-serif;
+}
+
+body{
+background:#F8FAFC;
+color:#111827;
+overflow-x:hidden;
+}
+
+/* =========================
+TOPBAR
+========================= */
+
+.topbar{
+position:sticky;
+top:0;
+z-index:999;
+background:#fff;
+padding:16px 18px;
+box-shadow:
+0 2px 10px rgba(0,0,0,0.05);
+}
+
+.topRow{
+display:flex;
+justify-content:space-between;
+align-items:center;
+gap:10px;
+}
+
+.leftTop{
+display:flex;
+align-items:center;
+gap:14px;
+}
+
+.backBtn{
+width:48px;
+height:48px;
+border:none;
+border-radius:16px;
+background:#FFD400;
+font-size:20px;
+font-weight:bold;
+cursor:pointer;
+}
+
+.pageTitle h2{
+font-size:24px;
+font-weight:800;
+}
+
+.pageTitle p{
+font-size:13px;
+color:#666;
+margin-top:4px;
+}
+
+.secureBox{
+background:#DCFCE7;
+color:#22C55E;
+padding:12px 18px;
+border-radius:16px;
+font-size:14px;
+font-weight:700;
+}
+
+/* =========================
+MAIN
+========================= */
+
+.main{
+padding:18px;
+padding-bottom:220px;
+display:flex;
+flex-direction:column;
+gap:22px;
+}
+
+/* =========================
+CARD
+========================= */
+
+.card{
+background:#fff;
+border-radius:30px;
+padding:24px;
+box-shadow:
+0 4px 12px rgba(0,0,0,0.05);
+border:1px solid #F1F5F9;
+}
+
+.cardTop{
+display:flex;
+justify-content:space-between;
+align-items:center;
+margin-bottom:20px;
+gap:10px;
+}
+
+.cardTop h2{
+font-size:24px;
+font-weight:800;
+}
+
+.changeBtn{
+height:46px;
+padding:0 18px;
+border:none;
+border-radius:16px;
+background:#F3F4F6;
+font-weight:700;
+cursor:pointer;
+}
+
+/* =========================
+ADDRESS
+========================= */
+
+.addressBox{
+display:flex;
+gap:18px;
+align-items:flex-start;
+}
+
+.addressIcon{
+width:60px;
+height:60px;
+border-radius:20px;
+background:#FFF7CC;
+display:flex;
+align-items:center;
+justify-content:center;
+font-size:26px;
+flex-shrink:0;
+}
+
+.addressInfo h3{
+font-size:20px;
+margin-bottom:10px;
+}
+
+.addressInfo p{
+font-size:14px;
+color:#666;
+line-height:1.8;
+margin-bottom:10px;
+}
+
+.addressTag{
+display:inline-block;
+padding:8px 14px;
+border-radius:14px;
+background:#DCFCE7;
+color:#22C55E;
+font-size:12px;
+font-weight:700;
+}
+
+/* =========================
+ORDER ITEM
+========================= */
+
+.orderList{
+display:flex;
+flex-direction:column;
+gap:18px;
+}
+
+.orderItem{
+display:flex;
+justify-content:space-between;
+align-items:center;
+gap:15px;
+padding-bottom:18px;
+border-bottom:1px solid #F1F5F9;
+}
+
+.leftOrder{
+display:flex;
+gap:16px;
+align-items:center;
+}
+
+.orderIcon{
+width:70px;
+height:70px;
+border-radius:20px;
+background:#FFF7CC;
+display:flex;
+align-items:center;
+justify-content:center;
+font-size:34px;
+}
+
+.orderInfo h3{
+font-size:18px;
+margin-bottom:8px;
+}
+
+.orderInfo p{
+font-size:14px;
+color:#666;
+}
+
+.orderPrice{
+font-size:22px;
+font-weight:800;
+color:#22C55E;
+}
+
+/* =========================
+DELIVERY
+========================= */
+
+.deliveryOptions{
+display:flex;
+flex-direction:column;
+gap:16px;
+}
+
+.deliveryCard{
+border:2px solid #F1F5F9;
+border-radius:24px;
+padding:20px;
+display:flex;
+justify-content:space-between;
+align-items:center;
+cursor:pointer;
+transition:0.3s;
+}
+
+.activeDelivery{
+border-color:#FFD400;
+background:#FFFDF2;
+}
+
+.deliveryLeft{
+display:flex;
+gap:16px;
+align-items:center;
+}
+
+.deliveryIcon{
+width:58px;
+height:58px;
+border-radius:18px;
+background:#FFF7CC;
+display:flex;
+align-items:center;
+justify-content:center;
+font-size:24px;
+}
+
+.deliveryInfo h3{
+font-size:18px;
+margin-bottom:6px;
+}
+
+.deliveryInfo p{
+font-size:13px;
+color:#666;
+}
+
+/* =========================
+PAYMENT
+========================= */
+
+.paymentList{
+display:flex;
+flex-direction:column;
+gap:16px;
+}
+
+.paymentCard{
+border:2px solid #F1F5F9;
+border-radius:22px;
+padding:18px;
+display:flex;
+justify-content:space-between;
+align-items:center;
+cursor:pointer;
+transition:0.3s;
+}
+
+.activePayment{
+border-color:#22C55E;
+background:#F0FDF4;
+}
+
+.paymentLeft{
+display:flex;
+align-items:center;
+gap:16px;
+}
+
+.paymentIcon{
+width:54px;
+height:54px;
+border-radius:18px;
+background:#F3F4F6;
+display:flex;
+align-items:center;
+justify-content:center;
+font-size:24px;
+}
+
+/* =========================
+BILL
+========================= */
+
+.billRows{
+display:flex;
+flex-direction:column;
+gap:18px;
+}
+
+.billRow{
+display:flex;
+justify-content:space-between;
+font-size:15px;
+}
+
+.totalRow{
+padding-top:18px;
+border-top:1px solid #E5E7EB;
+font-size:22px;
+font-weight:800;
+}
+
+/* =========================
+CHECKOUT
+========================= */
+
+.checkoutBar{
+position:fixed;
+bottom:78px;
+left:0;
+width:100%;
+background:#fff;
+padding:18px;
+box-shadow:
+0 -5px 15px rgba(0,0,0,0.05);
+display:flex;
+justify-content:space-between;
+align-items:center;
+gap:15px;
+z-index:999;
+}
+
+.totalInfo h2{
+font-size:28px;
+font-weight:900;
+color:#22C55E;
+}
+
+.totalInfo p{
+font-size:13px;
+color:#666;
+margin-top:4px;
+}
+
+.placeBtn{
+height:60px;
+padding:0 30px;
+border:none;
+border-radius:20px;
+background:#22C55E;
+color:#fff;
+font-size:16px;
+font-weight:800;
+cursor:pointer;
+box-shadow:
+0 10px 25px rgba(34,197,94,0.25);
+}
+
+/* =========================
+BOTTOM NAV
+========================= */
+
+.bottomNav{
+position:fixed;
+bottom:0;
+left:0;
+width:100%;
+height:78px;
+background:#fff;
+display:flex;
+justify-content:space-around;
+align-items:center;
+border-top:1px solid #E5E7EB;
+z-index:1000;
+}
+
+.bottomNav a{
+text-decoration:none;
+font-size:12px;
+text-align:center;
+font-weight:600;
+color:#6B7280;
+}
+
+.bottomNav i{
+display:block;
+font-size:22px;
+margin-bottom:5px;
+}
+
+.activeNav{
+color:#FFD400 !important;
+}
+
+/* =========================
+POPUP
+========================= */
+
+.popup{
+position:fixed;
+top:30px;
+left:50%;
+transform:translateX(-50%);
+background:#22C55E;
+color:#fff;
+padding:16px 24px;
+border-radius:18px;
+font-weight:700;
+opacity:0;
+pointer-events:none;
+transition:0.3s;
+z-index:9999;
+box-shadow:
+0 10px 25px rgba(34,197,94,0.25);
+}
+
+.popup.show{
+opacity:1;
+top:80px;
+}
+
+/* =========================
+RESPONSIVE
+========================= */
+
+@media screen and (max-width:768px){
+
+.checkoutBar{
+flex-direction:column;
+align-items:stretch;
+}
+
+.placeBtn{
+width:100%;
+}
+
+.orderItem{
+flex-direction:column;
+align-items:flex-start;
+}
+
+.deliveryCard,
+.paymentCard{
+flex-direction:column;
+align-items:flex-start;
+gap:15px;
+}
+
+}
+
+</style>
+
+</head>
+
+<body>
+
+<!-- POPUP -->
+
+<div
+class="popup"
+id="popup"
+>
+
+Success
+
+</div>
+
+<!-- TOPBAR -->
+
+<div class="topbar">
+
+<div class="topRow">
+
+<div class="leftTop">
+
+<button
+class="backBtn"
+onclick="history.back()"
+>
+
+←
+
+</button>
+
+<div class="pageTitle">
+
+<h2>
+Checkout
+</h2>
+
+<p>
+Secure Laundry Booking
+</p>
+
+</div>
+
+</div>
+
+<div class="secureBox">
+🔒 Secure
+</div>
+
+</div>
+
+</div>
+
+<!-- MAIN -->
+
+<div class="main">
+
+<!-- ADDRESS -->
+
+<div class="card">
+
+<div class="cardTop">
+
+<h2>
+Delivery Address
+</h2>
+
+<button
+class="changeBtn"
+onclick="
+showPopup('Change Address Opened 📍')
+"
+>
+
+Change
+
+</button>
+
+</div>
+
+<div class="addressBox">
+
+<div class="addressIcon">
+📍
+</div>
+
+<div class="addressInfo">
+
+<h3>
+Home Address
+</h3>
+
+<p>
+
+House 221, Sector 14,<br>
+Gurugram, Haryana 122001
+
+</p>
+
+<div class="addressTag">
+Default Address
+</div>
+
+</div>
+
+</div>
+
+</div>
+
+<!-- ORDER -->
+
+<div class="card">
+
+<div class="cardTop">
+
+<h2>
+Order Summary
+</h2>
+
+</div>
+
+<div class="orderList">
+
+<div class="orderItem">
+
+<div class="leftOrder">
+
+<div class="orderIcon">
+👔
+</div>
+
+<div class="orderInfo">
+
+<h3>
+Formal Shirt
+</h3>
+
+<p>
+Qty: 2
+</p>
+
+</div>
+
+</div>
+
+<div class="orderPrice">
+₹58
+</div>
+
+</div>
+
+<div class="orderItem">
+
+<div class="leftOrder">
+
+<div class="orderIcon">
+🧺
+</div>
+
+<div class="orderInfo">
+
+<h3>
+Wash & Fold
+</h3>
+
+<p>
+Qty: 1
+</p>
+
+</div>
+
+</div>
+
+<div class="orderPrice">
+₹49
+</div>
+
+</div>
+
+</div>
+
+</div>
+
+<!-- DELIVERY -->
+
+<div class="card">
+
+<div class="cardTop">
+
+<h2>
+Pickup & Delivery
+</h2>
+
+</div>
+
+<div class="deliveryOptions">
+
+<div
+class="deliveryCard activeDelivery"
+onclick="selectDelivery(this)"
+>
+
+<div class="deliveryLeft">
+
+<div class="deliveryIcon">
+⚡
+</div>
+
+<div class="deliveryInfo">
+
+<h3>
+Express Delivery
+</h3>
+
+<p>
+Pickup in 10 mins • Extra ₹49
+</p>
+
+</div>
+
+</div>
+
+<div>
+₹49
+</div>
+
+</div>
+
+<div
+class="deliveryCard"
+onclick="selectDelivery(this)"
+>
+
+<div class="deliveryLeft">
+
+<div class="deliveryIcon">
+📅
+</div>
+
+<div class="deliveryInfo">
+
+<h3>
+Scheduled Delivery
+</h3>
+
+<p>
+Pickup tomorrow morning
+</p>
+
+</div>
+
+</div>
+
+<div>
+FREE
+</div>
+
+</div>
+
+</div>
+
+</div>
+
+<!-- PAYMENT -->
+
+<div class="card">
+
+<div class="cardTop">
+
+<h2>
+Payment Method
+</h2>
+
+</div>
+
+<div class="paymentList">
+
+<div
+class="paymentCard activePayment"
+onclick="selectPayment(this)"
+>
+
+<div class="paymentLeft">
+
+<div class="paymentIcon">
+💵
+</div>
+
+<div>
+
+<h3>
+Cash On Delivery
+</h3>
+
+<p>
+Pay after delivery
+</p>
+
+</div>
+
+</div>
+
+<div>
+✓
+</div>
+
+</div>
+
+<div
+class="paymentCard"
+onclick="selectPayment(this)"
+>
+
+<div class="paymentLeft">
+
+<div class="paymentIcon">
+💳
+</div>
+
+<div>
+
+<h3>
+UPI / Card
+</h3>
+
+<p>
+Pay securely online
+</p>
+
+</div>
+
+</div>
+
+<div>
+○
+</div>
+
+</div>
+
+<div
+class="paymentCard"
+onclick="selectPayment(this)"
+>
+
+<div class="paymentLeft">
+
+<div class="paymentIcon">
+💰
+</div>
+
+<div>
+
+<h3>
+Wallet Balance
+</h3>
+
+<p>
+Available ₹420
+</p>
+
+</div>
+
+</div>
+
+<div>
+○
+</div>
+
+</div>
+
+</div>
+
+</div>
+
+<!-- BILL -->
+
+<div class="card">
+
+<div class="cardTop">
+
+<h2>
+Bill Details
+</h2>
+
+</div>
+
+<div class="billRows">
+
+<div class="billRow">
+
+<span>
+Item Total
+</span>
+
+<span>
+₹107
+</span>
+
+</div>
+
+<div class="billRow">
+
+<span>
+Delivery Charges
+</span>
+
+<span>
+₹49
+</span>
+
+</div>
+
+<div class="billRow">
+
+<span>
+Discount
+</span>
+
+<span>
+- ₹30
+</span>
+
+</div>
+
+<div class="billRow totalRow">
+
+<span>
+Grand Total
+</span>
+
+<span>
+₹126
+</span>
+
+</div>
+
+</div>
+
+</div>
+
+</div>
+
+<!-- CHECKOUT -->
+
+<div class="checkoutBar">
+
+<div class="totalInfo">
+
+<h2>
+₹126
+</h2>
+
+<p>
+Inclusive of all taxes
+</p>
+
+</div>
+
+<button
+class="placeBtn"
+onclick="placeOrder()"
+>
+
+Place Order →
+
+</button>
+
+</div>
+
+<!-- BOTTOM NAV -->
+
+<div class="bottomNav">
+
+<a href="index.html">
+
+<i class="fa-solid fa-house"></i>
+
+Home
+
+</a>
+
+<a href="services.html">
+
+<i class="fa-solid fa-shirt"></i>
+
+Services
+
+</a>
+
+<a href="cart.html">
+
+<i class="fa-solid fa-cart-shopping"></i>
+
+Cart
+
+</a>
+
+<a href="#">
+
+<i class="fa-solid fa-tags"></i>
+
+Offers
+
+</a>
+
+<a href="#">
+
+<i class="fa-regular fa-user"></i>
+
+Profile
+
+</a>
+
+</div>
+
+<script>
+
+/* =========================
+POPUP
+========================= */
+
+function showPopup(text){
+
+const popup =
+document.getElementById(
+"popup"
+);
+
+popup.innerHTML = text;
+
+popup.classList.add(
+"show"
+);
+
+setTimeout(()=>{
+
+popup.classList.remove(
+"show"
+);
+
+},1000);
+
+}
+
+/* =========================
+DELIVERY
+========================= */
+
+function selectDelivery(element){
+
+document
+.querySelectorAll(
+".deliveryCard"
+)
+.forEach((card)=>{
+
+card.classList.remove(
+"activeDelivery"
+);
+
+});
+
+element.classList.add(
+"activeDelivery"
+);
+
+showPopup(
+"Delivery Option Updated 🚚"
+);
+
+}
+
+/* =========================
+PAYMENT
+========================= */
+
+function selectPayment(element){
+
+document
+.querySelectorAll(
+".paymentCard"
+)
+.forEach((card)=>{
+
+card.classList.remove(
+"activePayment"
+);
+
+card.lastElementChild.innerHTML =
+"○";
+
+});
+
+element.classList.add(
+"activePayment"
+);
+
+element.lastElementChild.innerHTML =
+"✓";
+
+showPopup(
+"Payment Method Selected 💳"
+);
+
+}
+
+/* =========================
+PLACE ORDER
+========================= */
+
+function placeOrder(){
+
+showPopup(
+"Order Placed Successfully 🎉"
+);
+
+setTimeout(()=>{
+
+window.location.href =
+"tracking.html";
+
+},1500);
+
+}
+
+</script>
+
+</body>
+</html>
