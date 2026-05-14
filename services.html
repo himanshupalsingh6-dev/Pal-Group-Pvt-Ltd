@@ -1,655 +1,674 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>QuickPress Services</title>
 
-<meta charset="UTF-8">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
 
-<meta name="viewport"
-content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
 
-<title>
-QuickPress Services
-</title>
+  <style>
 
-<link
-rel="stylesheet"
-href="./css/style.css"
->
+    *{
+      margin:0;
+      padding:0;
+      box-sizing:border-box;
+      font-family:'Poppins',sans-serif;
+    }
 
-<link
-rel="stylesheet"
-href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css"
-/>
+    body{
+      background:#f3f7ff;
+      max-width:480px;
+      margin:auto;
+      color:#111827;
+      padding-bottom:120px;
+    }
 
-<style>
+    .container{
+      padding:18px;
+    }
 
-.servicesGrid{
-display:grid;
-grid-template-columns:
-repeat(auto-fit,minmax(260px,1fr));
-gap:20px;
-margin-top:20px;
-}
+    .header{
+      display:flex;
+      justify-content:space-between;
+      align-items:center;
+      margin-bottom:24px;
+    }
 
-.serviceCard{
-background:#fff;
-border-radius:24px;
-overflow:hidden;
-box-shadow:0 5px 18px rgba(0,0,0,0.08);
-transition:0.3s;
-}
+    .back-btn,
+    .cart-btn{
+      width:48px;
+      height:48px;
+      border-radius:16px;
+      background:white;
+      display:flex;
+      align-items:center;
+      justify-content:center;
+      box-shadow:0 4px 14px rgba(0,0,0,0.08);
+      cursor:pointer;
+      position:relative;
+    }
 
-.serviceCard:hover{
-transform:translateY(-5px);
-}
+    .cart-count{
+      position:absolute;
+      top:-4px;
+      right:-4px;
+      width:22px;
+      height:22px;
+      border-radius:50%;
+      background:#2563eb;
+      color:white;
+      font-size:12px;
+      display:flex;
+      align-items:center;
+      justify-content:center;
+    }
 
-.serviceImage{
-height:180px;
-background:#f3f4f6;
-display:flex;
-align-items:center;
-justify-content:center;
-font-size:70px;
-}
+    .header h2{
+      font-size:28px;
+      font-weight:800;
+    }
 
-.serviceContent{
-padding:20px;
-}
+    .search-box{
+      background:white;
+      border-radius:22px;
+      padding:16px 18px;
+      display:flex;
+      align-items:center;
+      gap:14px;
+      margin-bottom:22px;
+      box-shadow:0 4px 14px rgba(0,0,0,0.05);
+    }
 
-.serviceContent h2{
-margin-top:0;
-margin-bottom:10px;
-}
+    .search-box input{
+      border:none;
+      outline:none;
+      width:100%;
+      font-size:15px;
+    }
 
-.price{
-font-size:24px;
-font-weight:bold;
-color:#2563eb;
-margin-bottom:12px;
-}
+    .categories{
+      display:flex;
+      gap:12px;
+      overflow-x:auto;
+      margin-bottom:24px;
+      scrollbar-width:none;
+    }
 
-.qtyBox{
-display:flex;
-align-items:center;
-gap:10px;
-margin-top:15px;
-}
+    .categories::-webkit-scrollbar{
+      display:none;
+    }
 
-.qtyBtn{
-width:38px;
-height:38px;
-border:none;
-border-radius:10px;
-cursor:pointer;
-font-size:18px;
-font-weight:bold;
-background:#FFD400;
-}
+    .category{
+      min-width:110px;
+      background:white;
+      padding:14px;
+      border-radius:18px;
+      text-align:center;
+      box-shadow:0 4px 14px rgba(0,0,0,0.05);
+      cursor:pointer;
+      transition:0.3s;
+    }
 
-.addBtn{
-width:100%;
-padding:14px;
-border:none;
-border-radius:14px;
-background:#07142b;
-color:#fff;
-font-size:15px;
-font-weight:bold;
-cursor:pointer;
-margin-top:15px;
-}
+    .category.active{
+      background:#2563eb;
+      color:white;
+    }
 
-.topBanner{
-background:linear-gradient(
-135deg,
-#07142b,
-#0d2247
-);
-color:#fff;
-padding:30px;
-border-radius:24px;
-margin-bottom:25px;
-}
+    .category i{
+      font-size:22px;
+      margin-bottom:8px;
+    }
 
-.topBanner h1{
-margin:0;
-font-size:36px;
-}
+    .banner{
+      background:linear-gradient(135deg,#001a5c,#0037b8,#02143b);
+      border-radius:30px;
+      padding:28px;
+      color:white;
+      position:relative;
+      overflow:hidden;
+      margin-bottom:26px;
+    }
 
-.searchArea{
-display:grid;
-grid-template-columns:
-repeat(auto-fit,minmax(220px,1fr));
-gap:15px;
-margin-top:20px;
-}
+    .banner h1{
+      font-size:38px;
+      line-height:44px;
+      margin-bottom:12px;
+    }
 
-.cartFloat{
-position:fixed;
-right:20px;
-bottom:20px;
-background:#07142b;
-color:#fff;
-padding:15px 20px;
-border-radius:50px;
-font-weight:bold;
-box-shadow:0 5px 18px rgba(0,0,0,0.2);
-cursor:pointer;
-z-index:999;
-}
+    .banner span{
+      color:#ffcc00;
+    }
 
-.bottomNav{
-display:none;
-}
+    .banner p{
+      color:#dbeafe;
+      margin-bottom:20px;
+    }
 
-@media screen and (max-width:768px){
+    .banner button{
+      background:#ffcc00;
+      border:none;
+      padding:14px 22px;
+      border-radius:16px;
+      font-weight:700;
+      cursor:pointer;
+    }
 
-.bottomNav{
-display:flex;
-position:fixed;
-bottom:0;
-left:0;
-width:100%;
-background:#fff;
-justify-content:space-around;
-padding:12px 0;
-box-shadow:0 -5px 15px rgba(0,0,0,0.08);
-z-index:999;
-}
+    .services-grid{
+      display:grid;
+      gap:20px;
+    }
 
-.bottomNav a{
-text-decoration:none;
-color:#333;
-font-size:13px;
-text-align:center;
-}
+    .service-card{
+      background:white;
+      border-radius:28px;
+      overflow:hidden;
+      box-shadow:0 6px 18px rgba(0,0,0,0.06);
+    }
 
-.bottomNav i{
-display:block;
-font-size:20px;
-margin-bottom:4px;
-}
+    .service-image{
+      position:relative;
+    }
 
-.main{
-padding-bottom:100px;
-}
+    .service-image img{
+      width:100%;
+      height:210px;
+      object-fit:cover;
+    }
 
-.topBanner h1{
-font-size:28px;
-}
+    .badge{
+      position:absolute;
+      top:16px;
+      left:16px;
+      background:#ffcc00;
+      padding:8px 14px;
+      border-radius:12px;
+      font-size:13px;
+      font-weight:700;
+    }
 
-}
+    .favorite{
+      position:absolute;
+      top:16px;
+      right:16px;
+      width:42px;
+      height:42px;
+      background:white;
+      border-radius:14px;
+      display:flex;
+      align-items:center;
+      justify-content:center;
+      cursor:pointer;
+    }
 
-</style>
+    .service-content{
+      padding:20px;
+    }
 
+    .service-top{
+      display:flex;
+      justify-content:space-between;
+      align-items:center;
+      margin-bottom:12px;
+    }
+
+    .service-top h3{
+      font-size:24px;
+    }
+
+    .rating{
+      background:#eef4ff;
+      color:#2563eb;
+      padding:8px 12px;
+      border-radius:12px;
+      font-size:14px;
+      font-weight:600;
+    }
+
+    .service-content p{
+      color:#6b7280;
+      font-size:14px;
+      line-height:24px;
+      margin-bottom:18px;
+    }
+
+    .features{
+      display:flex;
+      flex-wrap:wrap;
+      gap:10px;
+      margin-bottom:20px;
+    }
+
+    .feature{
+      background:#f3f7ff;
+      color:#2563eb;
+      padding:10px 14px;
+      border-radius:14px;
+      font-size:13px;
+      font-weight:600;
+    }
+
+    .price-row{
+      display:flex;
+      justify-content:space-between;
+      align-items:center;
+    }
+
+    .price h2{
+      font-size:34px;
+    }
+
+    .price small{
+      color:#6b7280;
+    }
+
+    .actions{
+      display:flex;
+      gap:12px;
+    }
+
+    .btn{
+      border:none;
+      padding:14px 18px;
+      border-radius:16px;
+      font-weight:700;
+      cursor:pointer;
+      transition:0.3s;
+    }
+
+    .details-btn{
+      background:#eef4ff;
+      color:#2563eb;
+    }
+
+    .cart-btn2{
+      background:#2563eb;
+      color:white;
+    }
+
+    .btn:hover{
+      transform:translateY(-3px);
+    }
+
+    .floating-cart{
+      position:fixed;
+      bottom:100px;
+      left:50%;
+      transform:translateX(-50%);
+      width:90%;
+      max-width:420px;
+      background:#001a5c;
+      color:white;
+      border-radius:24px;
+      padding:18px 22px;
+      display:flex;
+      justify-content:space-between;
+      align-items:center;
+      box-shadow:0 12px 24px rgba(0,0,0,0.2);
+    }
+
+    .checkout-btn{
+      background:#ffcc00;
+      color:#111827;
+      border:none;
+      padding:14px 22px;
+      border-radius:16px;
+      font-weight:700;
+      cursor:pointer;
+    }
+
+    .bottom-nav{
+      position:fixed;
+      bottom:0;
+      left:50%;
+      transform:translateX(-50%);
+      width:100%;
+      max-width:480px;
+      background:white;
+      display:flex;
+      justify-content:space-around;
+      padding:16px 10px 24px;
+      border-top-left-radius:30px;
+      border-top-right-radius:30px;
+      box-shadow:0 -4px 20px rgba(0,0,0,0.08);
+    }
+
+    .nav-item{
+      display:flex;
+      flex-direction:column;
+      align-items:center;
+      gap:6px;
+      color:#6b7280;
+      font-size:13px;
+    }
+
+    .nav-item.active{
+      color:#2563eb;
+    }
+
+    @media(max-width:450px){
+
+      .banner h1{
+        font-size:32px;
+        line-height:38px;
+      }
+
+      .price-row{
+        flex-direction:column;
+        align-items:flex-start;
+        gap:18px;
+      }
+
+      .actions{
+        width:100%;
+      }
+
+      .actions button{
+        flex:1;
+      }
+
+    }
+
+  </style>
 </head>
-
 <body>
 
-<div class="layout">
+  <div class="container">
 
-<!-- SIDEBAR -->
+    <div class="header">
 
-<div class="sidebar">
+      <div class="back-btn">
+        <i class="fa-solid fa-arrow-left"></i>
+      </div>
 
-<div class="logo">
-QuickPress
-</div>
+      <h2>Services</h2>
 
-<a href="./index.html">
-<button>
-🏠 Dashboard
-</button>
-</a>
+      <div class="cart-btn">
+        <i class="fa-solid fa-cart-shopping"></i>
+        <div class="cart-count" id="cartCount">0</div>
+      </div>
 
-<a href="./services.html">
-<button class="activeBtn">
-🧺 Services
-</button>
-</a>
+    </div>
 
-<a href="./cart.html">
-<button>
-🛒 Cart
-</button>
-</a>
 
-<a href="./orders.html">
-<button>
-📦 Orders
-</button>
-</a>
+    <div class="search-box">
+      <i class="fa-solid fa-magnifying-glass"></i>
+      <input type="text" placeholder="Search laundry services...">
+    </div>
 
-<a href="./tracking.html">
-<button>
-🚚 Tracking
-</button>
-</a>
 
-<a href="./wallet.html">
-<button>
-💰 Wallet
-</button>
-</a>
+    <div class="categories">
 
-<a href="./support.html">
-<button>
-🛠 Support
-</button>
-</a>
+      <div class="category active">
+        <i class="fa-solid fa-shirt"></i>
+        <h4>Ironing</h4>
+      </div>
 
-<a href="./profile.html">
-<button>
-👤 Profile
-</button>
-</a>
+      <div class="category">
+        <i class="fa-solid fa-basket-shopping"></i>
+        <h4>Wash</h4>
+      </div>
 
-</div>
+      <div class="category">
+        <i class="fa-solid fa-jug-detergent"></i>
+        <h4>Dry Clean</h4>
+      </div>
 
-<!-- MAIN -->
+      <div class="category">
+        <i class="fa-solid fa-shoe-prints"></i>
+        <h4>Shoes</h4>
+      </div>
 
-<div class="main">
+    </div>
 
-<!-- TOPBAR -->
 
-<div class="topbar">
+    <div class="banner">
 
-<button
-class="menuBtn"
-onclick="toggleSidebar()"
->
-☰
-</button>
+      <h1>Premium <span>Laundry</span> Care</h1>
 
-<div>
+      <p>
+        Professional cleaning with express pickup and doorstep delivery.
+      </p>
 
-<h1>
-🧺 Laundry Services
-</h1>
+      <button onclick="fastOrder()">
+        ⚡ Fast Pickup
+      </button>
 
-<p>
-Choose your service and add to cart
-</p>
+    </div>
 
-</div>
 
-<div class="adminBox">
+    <div class="services-grid">
 
-🛒 Cart:
-<span id="cartCount">
-0
-</span>
+      <div class="service-card">
 
-</div>
+        <div class="service-image">
+          <img src="https://images.unsplash.com/photo-1610557892470-55d9e80c0bce?q=80&w=1200&auto=format&fit=crop">
 
-</div>
+          <div class="badge">BEST SELLER</div>
 
-<!-- BANNER -->
+          <div class="favorite">
+            <i class="fa-regular fa-heart"></i>
+          </div>
+        </div>
 
-<div class="topBanner">
 
-<h1>
-Premium Laundry Services ✨
-</h1>
+        <div class="service-content">
 
-<p>
-Fast pickup, expert ironing and
-doorstep delivery.
-</p>
+          <div class="service-top">
+            <h3>Wash & Fold</h3>
+            <div class="rating">⭐ 4.9</div>
+          </div>
 
-</div>
+          <p>
+            Deep premium washing, fabric softening and professional folding service.
+          </p>
 
-<!-- SEARCH -->
 
-<div class="filterCard">
+          <div class="features">
+            <div class="feature">24-48 Hours</div>
+            <div class="feature">Fabric Care</div>
+            <div class="feature">Express Available</div>
+          </div>
 
-<div class="searchArea">
 
-<input
-type="text"
-id="searchInput"
-placeholder="Search services..."
->
+          <div class="price-row">
 
-<select id="categoryFilter">
+            <div class="price">
+              <h2>₹49</h2>
+              <small>per kg</small>
+            </div>
 
-<option value="all">
-All Categories
-</option>
 
-<option value="Ironing">
-Ironing
-</option>
+            <div class="actions">
+              <button class="btn details-btn">Details</button>
+              <button class="btn cart-btn2 add-cart" data-name="Wash & Fold" data-price="49">
+                Add Cart
+              </button>
+            </div>
 
-<option value="Wash">
-Wash
-</option>
+          </div>
 
-<option value="Dry Clean">
-Dry Clean
-</option>
+        </div>
 
-</select>
+      </div>
 
-</div>
 
-</div>
+      <div class="service-card">
 
-<!-- SERVICES -->
+        <div class="service-image">
+          <img src="https://images.unsplash.com/photo-1603252109303-2751441dd157?q=80&w=1200&auto=format&fit=crop">
 
-<div
-class="servicesGrid"
-id="servicesGrid"
->
+          <div class="badge">FAST DELIVERY</div>
 
-</div>
+          <div class="favorite">
+            <i class="fa-regular fa-heart"></i>
+          </div>
+        </div>
 
-</div>
 
-</div>
+        <div class="service-content">
 
-<!-- FLOAT CART -->
+          <div class="service-top">
+            <h3>Steam Ironing</h3>
+            <div class="rating">⭐ 4.8</div>
+          </div>
 
-<div
-class="cartFloat"
-onclick="
-location.href='./cart.html'
-"
->
+          <p>
+            Premium steam ironing with wrinkle-free professional finishing.
+          </p>
 
-🛒 Go To Cart
 
-</div>
+          <div class="features">
+            <div class="feature">Same Day</div>
+            <div class="feature">Premium Finish</div>
+            <div class="feature">Low Heat Care</div>
+          </div>
 
-<!-- MOBILE NAV -->
 
-<div class="bottomNav">
+          <div class="price-row">
 
-<a href="./index.html">
-<i class="fa-solid fa-house"></i>
-Home
-</a>
+            <div class="price">
+              <h2>₹29</h2>
+              <small>per cloth</small>
+            </div>
 
-<a href="./services.html">
-<i class="fa-solid fa-shirt"></i>
-Services
-</a>
 
-<a href="./cart.html">
-<i class="fa-solid fa-cart-shopping"></i>
-Cart
-</a>
+            <div class="actions">
+              <button class="btn details-btn">Details</button>
+              <button class="btn cart-btn2 add-cart" data-name="Steam Ironing" data-price="29">
+                Add Cart
+              </button>
+            </div>
 
-<a href="./orders.html">
-<i class="fa-solid fa-box"></i>
-Orders
-</a>
+          </div>
 
-<a href="./profile.html">
-<i class="fa-solid fa-user"></i>
-Profile
-</a>
+        </div>
 
-</div>
+      </div>
 
-<script type="module">
+    </div>
 
-import {
+  </div>
 
-initializeApp
 
-}
+  <div class="floating-cart">
 
-from "https://www.gstatic.com/firebasejs/12.11.0/firebase-app.js";
+    <div>
+      <h3 id="cartItems">0 Items</h3>
+      <small id="cartTotal">Total ₹0</small>
+    </div>
 
-import {
+    <button class="checkout-btn">
+      Checkout
+    </button>
 
-getFirestore,
-collection,
-onSnapshot,
-addDoc
+  </div>
 
-}
 
-from "https://www.gstatic.com/firebasejs/12.11.0/firebase-firestore.js";
+  <div class="bottom-nav">
 
-/* FIREBASE */
+    <div class="nav-item active">
+      <i class="fa-solid fa-house"></i>
+      <span>Home</span>
+    </div>
 
-const firebaseConfig = {
+    <div class="nav-item">
+      <i class="fa-solid fa-box"></i>
+      <span>Orders</span>
+    </div>
 
-apiKey:
-"AIzaSyBBaslH5QsahoyESYpo1nVtlYIUYfVJ2d4",
+    <div class="nav-item">
+      <i class="fa-solid fa-tags"></i>
+      <span>Offers</span>
+    </div>
 
-authDomain:
-"quickpress-offical.firebaseapp.com",
+    <div class="nav-item">
+      <i class="fa-regular fa-user"></i>
+      <span>Profile</span>
+    </div>
 
-projectId:
-"quickpress-offical",
+  </div>
 
-storageBucket:
-"quickpress-offical.firebasestorage.app",
 
-messagingSenderId:
-"939286557961",
+  <script>
 
-appId:
-"1:939286557961:web:ddac64f197e14877718fd8"
+    let total = 0;
+    let count = 0;
 
-};
+    const cartButtons = document.querySelectorAll('.add-cart');
 
-const app =
-initializeApp(firebaseConfig);
+    cartButtons.forEach((button)=>{
 
-const db =
-getFirestore(app);
+      button.addEventListener('click',()=>{
 
-/* USER */
+        const price = Number(button.dataset.price);
+        const name = button.dataset.name;
 
-const userId =
-localStorage.getItem("userId");
+        total += price;
+        count++;
 
-/* SERVICES */
+        document.getElementById('cartCount').innerText = count;
+        document.getElementById('cartItems').innerText = count + ' Items';
+        document.getElementById('cartTotal').innerText = 'Total ₹' + total;
 
-const servicesGrid =
-document.getElementById(
-"servicesGrid"
-);
+        alert(name + ' Added To Cart 🛒');
 
-const cartCount =
-document.getElementById(
-"cartCount"
-);
+      });
 
-let allServices = [];
+    });
 
-onSnapshot(
-collection(db,"services"),
-(snapshot)=>{
 
-allServices = [];
+    function fastOrder(){
+      alert('⚡ Fast Pickup Booked Successfully');
+    }
 
-snapshot.forEach((doc)=>{
 
-allServices.push({
-id:doc.id,
-...doc.data()
-});
+    const favoriteButtons = document.querySelectorAll('.favorite');
 
-});
+    favoriteButtons.forEach((fav)=>{
 
-renderServices();
+      fav.addEventListener('click',()=>{
 
-});
+        fav.innerHTML = '<i class="fa-solid fa-heart" style="color:red"></i>';
 
-/* RENDER */
+      });
 
-function renderServices(){
+    });
 
-const keyword =
-document.getElementById(
-"searchInput"
-).value.toLowerCase();
 
-const category =
-document.getElementById(
-"categoryFilter"
-).value;
+    const categories = document.querySelectorAll('.category');
 
-let html = "";
+    categories.forEach((cat)=>{
 
-const filtered =
-allServices.filter((s)=>{
+      cat.addEventListener('click',()=>{
 
-const matchSearch =
+        categories.forEach((c)=>{
+          c.classList.remove('active');
+        });
 
-(s.name || "")
-.toLowerCase()
-.includes(keyword);
+        cat.classList.add('active');
 
-const matchCategory =
+      });
 
-category === "all"
-? true
-: s.category === category;
+    });
 
-return matchSearch &&
-matchCategory;
 
-});
+    document.querySelector('.checkout-btn').addEventListener('click',()=>{
 
-filtered.forEach((s)=>{
+      if(count === 0){
+        alert('🛒 Cart Empty');
+      }
+      else{
+        alert('Proceeding To Checkout 🚀');
+      }
 
-html += `
+    });
 
-<div class="serviceCard">
-
-<div class="serviceImage">
-🧺
-</div>
-
-<div class="serviceContent">
-
-<h2>
-${s.name || "-"}
-</h2>
-
-<p>
-${s.description || ""}
-</p>
-
-<div class="price">
-₹${s.price || 0}
-</div>
-
-<button
-class="addBtn"
-onclick='addToCart(${JSON.stringify(s)})'
->
-Add To Cart
-</button>
-
-</div>
-
-</div>
-
-`;
-
-});
-
-servicesGrid.innerHTML = html;
-
-}
-
-/* SEARCH */
-
-document
-.getElementById("searchInput")
-.addEventListener(
-"input",
-renderServices
-);
-
-document
-.getElementById("categoryFilter")
-.addEventListener(
-"change",
-renderServices
-);
-
-/* CART */
-
-window.addToCart =
-async function(service){
-
-await addDoc(
-collection(db,"cart"),
-{
-
-userId:userId,
-
-serviceId:service.id,
-
-name:service.name,
-
-price:service.price,
-
-qty:1,
-
-total:service.price,
-
-createdAt:Date.now()
-
-}
-);
-
-alert("Added To Cart ✅");
-
-loadCartCount();
-
-}
-
-/* COUNT */
-
-function loadCartCount(){
-
-onSnapshot(
-collection(db,"cart"),
-(snapshot)=>{
-
-let count = 0;
-
-snapshot.forEach((doc)=>{
-
-if(
-doc.data().userId === userId
-){
-count++;
-}
-
-});
-
-cartCount.innerHTML =
-count;
-
-});
-
-}
-
-loadCartCount();
-
-/* SIDEBAR */
-
-window.toggleSidebar =
-function(){
-
-document
-.querySelector(".sidebar")
-.classList.toggle("active");
-
-}
-
-</script>
+  </script>
 
 </body>
 </html>
