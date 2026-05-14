@@ -11,7 +11,7 @@ content="width=device-width, initial-scale=1.0"
 />
 
 <title>
-QuickPress Instamart Style
+QuickPress Home
 </title>
 
 <link
@@ -35,8 +35,8 @@ sans-serif;
 }
 
 body{
-background:#071A12;
-color:#fff;
+background:#FFFFFF;
+color:#111827;
 overflow-x:hidden;
 }
 
@@ -48,12 +48,10 @@ TOPBAR
 position:sticky;
 top:0;
 z-index:999;
-background:
-rgba(7,26,18,0.95);
-backdrop-filter:blur(12px);
+background:#fff;
 padding:16px 18px;
-border-bottom:
-1px solid rgba(255,255,255,0.05);
+box-shadow:
+0 2px 12px rgba(0,0,0,0.05);
 }
 
 .topRow{
@@ -73,18 +71,17 @@ gap:12px;
 .locationIcon{
 width:48px;
 height:48px;
-background:#FFD400;
 border-radius:16px;
+background:#FFD400;
 display:flex;
 align-items:center;
 justify-content:center;
 font-size:20px;
-color:#000;
 }
 
 .locationText h4{
 font-size:13px;
-color:#9CA3AF;
+color:#6B7280;
 margin-bottom:4px;
 }
 
@@ -95,7 +92,6 @@ font-weight:700;
 
 .topIcons{
 display:flex;
-align-items:center;
 gap:14px;
 }
 
@@ -103,13 +99,13 @@ gap:14px;
 width:46px;
 height:46px;
 border-radius:16px;
-background:#0F2A1D;
+background:#F3F4F6;
 display:flex;
 align-items:center;
 justify-content:center;
-font-size:18px;
 cursor:pointer;
 position:relative;
+font-size:18px;
 }
 
 .badge{
@@ -118,29 +114,33 @@ top:-5px;
 right:-5px;
 width:20px;
 height:20px;
-border-radius:50%;
 background:#22C55E;
+border-radius:50%;
 display:flex;
 align-items:center;
 justify-content:center;
 font-size:11px;
 font-weight:bold;
+color:#fff;
 }
 
-/* SEARCH */
+/* =========================
+SEARCH
+========================= */
 
 .searchBox{
-background:#fff;
 height:58px;
+background:#F9FAFB;
 border-radius:20px;
 display:flex;
 align-items:center;
 padding:0 18px;
+border:1px solid #E5E7EB;
 }
 
 .searchBox i{
-color:#666;
 font-size:18px;
+color:#666;
 margin-right:12px;
 }
 
@@ -148,8 +148,8 @@ margin-right:12px;
 border:none;
 outline:none;
 width:100%;
-font-size:15px;
 background:transparent;
+font-size:15px;
 }
 
 /* =========================
@@ -158,7 +158,7 @@ MAIN
 
 .main{
 padding:18px;
-padding-bottom:130px;
+padding-bottom:120px;
 }
 
 /* =========================
@@ -170,13 +170,13 @@ background:
 linear-gradient(
 135deg,
 #FFD400,
-#ffe666
+#FFE666
 );
 border-radius:34px;
-padding:32px;
+padding:30px;
 position:relative;
 overflow:hidden;
-margin-bottom:25px;
+margin-bottom:28px;
 }
 
 .hero::before{
@@ -185,7 +185,7 @@ position:absolute;
 width:300px;
 height:300px;
 background:
-rgba(255,255,255,0.15);
+rgba(255,255,255,0.2);
 border-radius:50%;
 top:-120px;
 right:-120px;
@@ -194,25 +194,22 @@ right:-120px;
 .heroContent{
 position:relative;
 z-index:2;
-max-width:600px;
 }
 
 .heroTag{
 display:inline-block;
 padding:10px 18px;
 background:
-rgba(255,255,255,0.6);
+rgba(255,255,255,0.7);
 border-radius:50px;
 font-size:13px;
 font-weight:700;
 margin-bottom:18px;
-color:#111;
 }
 
 .hero h1{
-font-size:60px;
+font-size:58px;
 line-height:1.05;
-color:#111;
 margin-bottom:18px;
 font-weight:900;
 }
@@ -220,8 +217,8 @@ font-weight:900;
 .hero p{
 font-size:18px;
 line-height:1.7;
-color:#333;
-margin-bottom:30px;
+margin-bottom:28px;
+max-width:550px;
 }
 
 .heroBtns{
@@ -231,23 +228,22 @@ flex-wrap:wrap;
 }
 
 .heroBtns button{
-height:58px;
+height:56px;
 padding:0 28px;
 border:none;
-border-radius:20px;
+border-radius:18px;
 font-size:15px;
 font-weight:800;
 cursor:pointer;
 }
 
 .fastBtn{
-background:#111;
+background:#111827;
 color:#fff;
 }
 
 .scheduleBtn{
 background:#fff;
-color:#111;
 }
 
 /* =========================
@@ -255,7 +251,7 @@ SECTION
 ========================= */
 
 .section{
-margin-top:28px;
+margin-top:30px;
 }
 
 .sectionTop{
@@ -266,18 +262,18 @@ margin-bottom:18px;
 }
 
 .sectionTop h1{
-font-size:30px;
+font-size:28px;
 font-weight:800;
 }
 
 .viewAll{
-color:#FFD400;
 font-weight:700;
+color:#22C55E;
 cursor:pointer;
 }
 
 /* =========================
-CATEGORY SLIDER
+CATEGORY
 ========================= */
 
 .categorySlider{
@@ -294,12 +290,13 @@ display:none;
 
 .categoryCard{
 min-width:120px;
-background:#0F2A1D;
+background:#fff;
 border-radius:28px;
-padding:20px;
+padding:22px;
 text-align:center;
-border:
-1px solid rgba(255,255,255,0.05);
+border:1px solid #F1F5F9;
+box-shadow:
+0 4px 12px rgba(0,0,0,0.05);
 cursor:pointer;
 transition:0.3s;
 }
@@ -308,18 +305,17 @@ transition:0.3s;
 transform:translateY(-5px);
 }
 
-.categoryCard i{
-width:65px;
-height:65px;
+.categoryIcon{
+width:70px;
+height:70px;
 border-radius:22px;
-background:#FFD400;
+background:#FFF7CC;
 display:flex;
 align-items:center;
 justify-content:center;
-font-size:28px;
-color:#000;
+font-size:32px;
 margin:auto;
-margin-bottom:15px;
+margin-bottom:14px;
 }
 
 .categoryCard h3{
@@ -327,15 +323,15 @@ font-size:15px;
 }
 
 /* =========================
-OFFERS
+OFFER
 ========================= */
 
 .offerSlider{
 display:flex;
 gap:18px;
 overflow-x:auto;
-scrollbar-width:none;
 padding-bottom:10px;
+scrollbar-width:none;
 }
 
 .offerSlider::-webkit-scrollbar{
@@ -350,8 +346,9 @@ linear-gradient(
 #22C55E,
 #16A34A
 );
-padding:25px;
+padding:28px;
 border-radius:30px;
+color:#fff;
 position:relative;
 overflow:hidden;
 }
@@ -369,13 +366,13 @@ right:-70px;
 }
 
 .offerCard h2{
-font-size:32px;
+font-size:34px;
 margin-bottom:12px;
 }
 
 .offerCard p{
 font-size:15px;
-opacity:0.9;
+line-height:1.6;
 margin-bottom:20px;
 }
 
@@ -396,16 +393,17 @@ SERVICE GRID
 .serviceGrid{
 display:grid;
 grid-template-columns:
-repeat(auto-fit,minmax(240px,1fr));
+repeat(auto-fit,minmax(220px,1fr));
 gap:18px;
 }
 
 .serviceCard{
-background:#0F2A1D;
+background:#fff;
 border-radius:30px;
-overflow:hidden;
-border:
-1px solid rgba(255,255,255,0.05);
+padding:22px;
+border:1px solid #F1F5F9;
+box-shadow:
+0 4px 12px rgba(0,0,0,0.05);
 transition:0.3s;
 }
 
@@ -413,41 +411,28 @@ transition:0.3s;
 transform:translateY(-5px);
 }
 
-.serviceImage{
-position:relative;
+.serviceIcon{
+width:85px;
+height:85px;
+border-radius:26px;
+background:#FFF7CC;
+display:flex;
+align-items:center;
+justify-content:center;
+font-size:42px;
+margin-bottom:18px;
 }
 
-.serviceImage img{
-width:100%;
-height:220px;
-object-fit:cover;
-}
-
-.offerBadge{
-position:absolute;
-top:15px;
-left:15px;
-background:#FFD400;
-color:#000;
-padding:8px 14px;
-border-radius:14px;
-font-size:13px;
-font-weight:800;
-}
-
-.serviceBody{
-padding:20px;
-}
-
-.serviceBody h2{
+.serviceCard h2{
 font-size:22px;
 margin-bottom:10px;
 }
 
-.serviceBody p{
+.serviceCard p{
 font-size:14px;
-color:#9CA3AF;
-margin-bottom:18px;
+color:#6B7280;
+line-height:1.6;
+margin-bottom:20px;
 }
 
 .serviceBottom{
@@ -460,7 +445,7 @@ gap:10px;
 .price{
 font-size:24px;
 font-weight:800;
-color:#FFD400;
+color:#22C55E;
 }
 
 .addBtn{
@@ -469,7 +454,6 @@ padding:0 18px;
 border:none;
 border-radius:16px;
 background:#FFD400;
-color:#000;
 font-weight:800;
 cursor:pointer;
 }
@@ -479,11 +463,12 @@ TRACKING
 ========================= */
 
 .trackBox{
-background:#0F2A1D;
+background:#fff;
 padding:28px;
-border-radius:32px;
-border:
-1px solid rgba(255,255,255,0.05);
+border-radius:30px;
+border:1px solid #F1F5F9;
+box-shadow:
+0 4px 12px rgba(0,0,0,0.05);
 }
 
 .trackTop{
@@ -517,27 +502,25 @@ text-align:center;
 width:58px;
 height:58px;
 border-radius:50%;
+background:#FFD400;
 display:flex;
 align-items:center;
 justify-content:center;
 margin:auto;
 margin-bottom:12px;
 font-size:22px;
-background:#FFD400;
-color:#000;
 font-weight:800;
 }
 
 .inactive{
-background:#1F3A2D;
-color:#9CA3AF;
+background:#F3F4F6;
 }
 
 .trackNote{
 margin-top:25px;
-background:#071A12;
 padding:18px;
-border-radius:20px;
+background:#F9FAFB;
+border-radius:18px;
 display:flex;
 justify-content:space-between;
 flex-wrap:wrap;
@@ -562,19 +545,19 @@ display:flex;
 justify-content:space-between;
 align-items:center;
 box-shadow:
-0 15px 35px
-rgba(34,197,94,0.35);
+0 15px 35px rgba(34,197,94,0.3);
 z-index:999;
 }
 
 .cartLeft h3{
 font-size:18px;
 margin-bottom:4px;
+color:#fff;
 }
 
 .cartLeft p{
 font-size:13px;
-opacity:0.9;
+color:#fff;
 }
 
 .cartBtn{
@@ -597,21 +580,20 @@ bottom:0;
 left:0;
 width:100%;
 height:78px;
-background:#0B1F16;
+background:#fff;
 display:flex;
 justify-content:space-around;
 align-items:center;
-border-top:
-1px solid rgba(255,255,255,0.05);
+border-top:1px solid #E5E7EB;
 z-index:1000;
 }
 
 .bottomNav a{
 text-decoration:none;
-color:#9CA3AF;
 font-size:12px;
 text-align:center;
 font-weight:600;
+color:#6B7280;
 }
 
 .bottomNav i{
@@ -634,11 +616,9 @@ align-items:center;
 justify-content:center;
 margin-top:-45px;
 font-size:30px;
-color:#000;
 font-weight:900;
 box-shadow:
-0 10px 25px
-rgba(255,212,0,0.35);
+0 10px 25px rgba(255,212,0,0.35);
 }
 
 /* =========================
@@ -694,11 +674,11 @@ min-width:280px;
 <div class="locationText">
 
 <h4>
-Delivery in 10 mins
+Live Location
 </h4>
 
-<h2>
-Gurugram, India
+<h2 id="liveLocation">
+Detecting...
 </h2>
 
 </div>
@@ -708,14 +688,12 @@ Gurugram, India
 <div class="topIcons">
 
 <div class="iconBtn">
-
-<i class="fa-regular fa-heart"></i>
-
+❤️
 </div>
 
 <div class="iconBtn">
 
-<i class="fa-regular fa-bell"></i>
+🔔
 
 <div class="badge">
 2
@@ -735,7 +713,8 @@ Gurugram, India
 
 <input
 type="text"
-placeholder="Search laundry services..."
+id="searchInput"
+placeholder="Search services..."
 />
 
 </div>
@@ -759,14 +738,14 @@ placeholder="Search laundry services..."
 <h1>
 
 Laundry<br>
-Made Fast ✨
+Made Easy ✨
 
 </h1>
 
 <p>
 
-Premium washing, ironing and
-real-time delivery at your doorstep.
+Fast washing, ironing and premium
+doorstep delivery experience.
 
 </p>
 
@@ -786,7 +765,7 @@ real-time delivery at your doorstep.
 
 </div>
 
-<!-- CATEGORIES -->
+<!-- CATEGORY -->
 
 <div class="section">
 
@@ -806,7 +785,9 @@ View All →
 
 <div class="categoryCard">
 
-<i class="fa-solid fa-shirt"></i>
+<div class="categoryIcon">
+👕
+</div>
 
 <h3>
 Ironing
@@ -816,7 +797,9 @@ Ironing
 
 <div class="categoryCard">
 
-<i class="fa-solid fa-bucket-water"></i>
+<div class="categoryIcon">
+🧺
+</div>
 
 <h3>
 Wash
@@ -826,7 +809,9 @@ Wash
 
 <div class="categoryCard">
 
-<i class="fa-solid fa-spray-can-sparkles"></i>
+<div class="categoryIcon">
+✨
+</div>
 
 <h3>
 Dry Clean
@@ -836,7 +821,9 @@ Dry Clean
 
 <div class="categoryCard">
 
-<i class="fa-solid fa-shoe-prints"></i>
+<div class="categoryIcon">
+👟
+</div>
 
 <h3>
 Shoes
@@ -846,7 +833,9 @@ Shoes
 
 <div class="categoryCard">
 
-<i class="fa-solid fa-truck-fast"></i>
+<div class="categoryIcon">
+🚚
+</div>
 
 <h3>
 Express
@@ -872,8 +861,7 @@ Express
 
 <p>
 
-Get instant discount on your
-first order today.
+Get discount on your first order.
 
 </p>
 
@@ -891,8 +879,7 @@ FREE Pickup
 
 <p>
 
-Enjoy free doorstep pickup
-for premium members.
+Free doorstep pickup for premium users.
 
 </p>
 
@@ -922,133 +909,16 @@ See All →
 
 </div>
 
-<div class="serviceGrid">
-
-<div class="serviceCard">
-
-<div class="serviceImage">
-
-<img
-src="https://images.unsplash.com/photo-1527515637462-cff94eecc1ac?q=80&w=900&auto=format&fit=crop"
-/>
-
-<div class="offerBadge">
-20% OFF
-</div>
-
-</div>
-
-<div class="serviceBody">
-
-<h2>
-Wash & Fold
-</h2>
-
-<p>
-Professional washing care
-</p>
-
-<div class="serviceBottom">
-
-<div class="price">
-₹49/kg
-</div>
-
-<button class="addBtn">
-ADD
-</button>
+<div
+class="serviceGrid"
+id="serviceGrid"
+>
 
 </div>
 
 </div>
 
-</div>
-
-<div class="serviceCard">
-
-<div class="serviceImage">
-
-<img
-src="https://images.unsplash.com/photo-1563822249366-3efb23b8e0c9?q=80&w=900&auto=format&fit=crop"
-/>
-
-<div class="offerBadge">
-FAST
-</div>
-
-</div>
-
-<div class="serviceBody">
-
-<h2>
-Ironing
-</h2>
-
-<p>
-Steam iron finish
-</p>
-
-<div class="serviceBottom">
-
-<div class="price">
-₹29/kg
-</div>
-
-<button class="addBtn">
-ADD
-</button>
-
-</div>
-
-</div>
-
-</div>
-
-<div class="serviceCard">
-
-<div class="serviceImage">
-
-<img
-src="https://images.unsplash.com/photo-1598032895397-b9472444bf93?q=80&w=900&auto=format&fit=crop"
-/>
-
-<div class="offerBadge">
-PREMIUM
-</div>
-
-</div>
-
-<div class="serviceBody">
-
-<h2>
-Dry Clean
-</h2>
-
-<p>
-Luxury fabric care
-</p>
-
-<div class="serviceBottom">
-
-<div class="price">
-₹149/pc
-</div>
-
-<button class="addBtn">
-ADD
-</button>
-
-</div>
-
-</div>
-
-</div>
-
-</div>
-
-</div>
-
-<!-- TRACKING -->
+<!-- TRACK -->
 
 <div class="section">
 
@@ -1222,6 +1092,196 @@ Profile
 </a>
 
 </div>
+
+<script>
+
+// =========================
+// LIVE LOCATION
+// =========================
+
+const liveLocation =
+
+document.getElementById(
+"liveLocation"
+);
+
+if(navigator.geolocation){
+
+navigator.geolocation.getCurrentPosition(
+
+async(position)=>{
+
+const lat =
+position.coords.latitude;
+
+const lon =
+position.coords.longitude;
+
+try{
+
+const response =
+await fetch(
+
+`https://nominatim.openstreetmap.org/reverse?format=json&lat=${lat}&lon=${lon}`
+
+);
+
+const data =
+await response.json();
+
+liveLocation.innerHTML =
+
+data.address.city ||
+
+data.address.town ||
+
+data.address.village ||
+
+"Your Location";
+
+}catch(error){
+
+liveLocation.innerHTML =
+"Location Error";
+
+}
+
+},
+
+()=>{
+
+liveLocation.innerHTML =
+"Location Disabled";
+
+}
+
+);
+
+}
+
+// =========================
+// SERVICES
+// =========================
+
+const services = [
+
+{
+icon:"👕",
+name:"Ironing",
+price:"₹29/kg",
+desc:"Steam ironing service"
+},
+
+{
+icon:"🧺",
+name:"Wash & Fold",
+price:"₹49/kg",
+desc:"Premium washing care"
+},
+
+{
+icon:"✨",
+name:"Dry Clean",
+price:"₹149/pc",
+desc:"Luxury fabric cleaning"
+},
+
+{
+icon:"👟",
+name:"Shoe Cleaning",
+price:"₹199",
+desc:"Sneaker deep cleaning"
+}
+
+];
+
+// =========================
+// RENDER SERVICES
+// =========================
+
+const serviceGrid =
+document.getElementById(
+"serviceGrid"
+);
+
+function renderServices(data){
+
+let html = "";
+
+data.forEach((service)=>{
+
+html += `
+
+<div class="serviceCard">
+
+<div class="serviceIcon">
+${service.icon}
+</div>
+
+<h2>
+${service.name}
+</h2>
+
+<p>
+${service.desc}
+</p>
+
+<div class="serviceBottom">
+
+<div class="price">
+${service.price}
+</div>
+
+<button class="addBtn">
+ADD
+</button>
+
+</div>
+
+</div>
+
+`;
+
+});
+
+serviceGrid.innerHTML = html;
+
+}
+
+renderServices(services);
+
+// =========================
+// SEARCH
+// =========================
+
+document
+.getElementById(
+"searchInput"
+)
+.addEventListener(
+"input",
+(e)=>{
+
+const value =
+
+e.target.value.toLowerCase();
+
+const filtered =
+
+services.filter((item)=>
+
+item.name
+.toLowerCase()
+.includes(value)
+
+);
+
+renderServices(filtered);
+
+}
+);
+
+</script>
 
 </body>
 </html>
