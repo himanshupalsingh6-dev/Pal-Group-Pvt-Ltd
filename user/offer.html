@@ -1,0 +1,1047 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+<meta charset="UTF-8">
+
+<meta
+name="viewport"
+content="width=device-width, initial-scale=1.0"
+/>
+
+<title>
+QuickPress Offers
+</title>
+
+<link
+rel="stylesheet"
+href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css"
+/>
+
+<style>
+
+/* =========================
+RESET
+========================= */
+
+*{
+margin:0;
+padding:0;
+box-sizing:border-box;
+font-family:
+"Poppins",
+sans-serif;
+}
+
+body{
+background:#F8FAFC;
+color:#111827;
+overflow-x:hidden;
+}
+
+/* =========================
+TOPBAR
+========================= */
+
+.topbar{
+position:sticky;
+top:0;
+z-index:999;
+background:#fff;
+padding:16px 18px;
+box-shadow:
+0 2px 10px rgba(0,0,0,0.05);
+}
+
+.topRow{
+display:flex;
+justify-content:space-between;
+align-items:center;
+gap:10px;
+}
+
+.leftTop{
+display:flex;
+align-items:center;
+gap:14px;
+}
+
+.backBtn{
+width:48px;
+height:48px;
+border:none;
+border-radius:16px;
+background:#FFD400;
+font-size:20px;
+font-weight:bold;
+cursor:pointer;
+}
+
+.pageTitle h2{
+font-size:24px;
+font-weight:800;
+}
+
+.pageTitle p{
+font-size:13px;
+color:#666;
+margin-top:4px;
+}
+
+.rewardBox{
+background:#DCFCE7;
+color:#22C55E;
+padding:12px 18px;
+border-radius:16px;
+font-size:14px;
+font-weight:700;
+}
+
+/* =========================
+MAIN
+========================= */
+
+.main{
+padding:18px;
+padding-bottom:120px;
+display:flex;
+flex-direction:column;
+gap:22px;
+}
+
+/* =========================
+HERO OFFER
+========================= */
+
+.heroOffer{
+background:
+linear-gradient(
+135deg,
+#FFD400,
+#FFE666
+);
+border-radius:34px;
+padding:30px;
+position:relative;
+overflow:hidden;
+}
+
+.heroOffer::before{
+content:"";
+position:absolute;
+width:260px;
+height:260px;
+background:
+rgba(255,255,255,0.2);
+border-radius:50%;
+top:-100px;
+right:-100px;
+}
+
+.heroContent{
+position:relative;
+z-index:2;
+}
+
+.heroTag{
+display:inline-block;
+padding:10px 18px;
+background:
+rgba(255,255,255,0.7);
+border-radius:50px;
+font-size:13px;
+font-weight:700;
+margin-bottom:18px;
+}
+
+.heroOffer h1{
+font-size:54px;
+line-height:1.05;
+margin-bottom:18px;
+font-weight:900;
+}
+
+.heroOffer p{
+font-size:16px;
+line-height:1.8;
+margin-bottom:24px;
+max-width:500px;
+}
+
+.claimBtn{
+height:58px;
+padding:0 28px;
+border:none;
+border-radius:20px;
+background:#111827;
+color:#fff;
+font-size:15px;
+font-weight:800;
+cursor:pointer;
+}
+
+/* =========================
+SECTION
+========================= */
+
+.sectionTitle{
+display:flex;
+justify-content:space-between;
+align-items:center;
+margin-bottom:18px;
+}
+
+.sectionTitle h2{
+font-size:28px;
+font-weight:800;
+}
+
+/* =========================
+GRID
+========================= */
+
+.offerGrid{
+display:grid;
+grid-template-columns:
+repeat(2,1fr);
+gap:18px;
+}
+
+/* =========================
+OFFER CARD
+========================= */
+
+.offerCard{
+background:#fff;
+border-radius:30px;
+padding:24px;
+position:relative;
+overflow:hidden;
+border:1px solid #F1F5F9;
+box-shadow:
+0 4px 12px rgba(0,0,0,0.05);
+transition:0.3s;
+}
+
+.offerCard:hover{
+transform:translateY(-5px);
+}
+
+.offerTop{
+display:flex;
+justify-content:space-between;
+align-items:center;
+margin-bottom:18px;
+}
+
+.offerIcon{
+width:72px;
+height:72px;
+border-radius:24px;
+background:#FFF7CC;
+display:flex;
+align-items:center;
+justify-content:center;
+font-size:34px;
+}
+
+.offerBadge{
+padding:8px 14px;
+border-radius:14px;
+background:#DCFCE7;
+color:#22C55E;
+font-size:12px;
+font-weight:700;
+}
+
+.offerCard h3{
+font-size:24px;
+margin-bottom:12px;
+}
+
+.offerCard p{
+font-size:14px;
+color:#666;
+line-height:1.8;
+margin-bottom:20px;
+}
+
+.couponCode{
+display:flex;
+justify-content:space-between;
+align-items:center;
+background:#F9FAFB;
+padding:14px 16px;
+border-radius:18px;
+margin-bottom:18px;
+}
+
+.couponCode h4{
+font-size:18px;
+letter-spacing:1px;
+}
+
+.copyBtn{
+width:42px;
+height:42px;
+border:none;
+border-radius:14px;
+background:#FFD400;
+cursor:pointer;
+font-weight:bold;
+}
+
+.useBtn{
+width:100%;
+height:54px;
+border:none;
+border-radius:18px;
+background:#111827;
+color:#fff;
+font-size:15px;
+font-weight:800;
+cursor:pointer;
+}
+
+/* =========================
+REWARD BOX
+========================= */
+
+.rewardCard{
+background:#111827;
+color:#fff;
+padding:28px;
+border-radius:30px;
+}
+
+.rewardTop{
+display:flex;
+justify-content:space-between;
+align-items:center;
+margin-bottom:24px;
+gap:10px;
+}
+
+.rewardTop h2{
+font-size:30px;
+}
+
+.rewardTop p{
+font-size:14px;
+color:#D1D5DB;
+margin-top:6px;
+}
+
+.rewardCircle{
+width:90px;
+height:90px;
+border-radius:50%;
+background:#FFD400;
+display:flex;
+align-items:center;
+justify-content:center;
+font-size:28px;
+color:#111827;
+font-weight:900;
+}
+
+.progressBox{
+margin-top:18px;
+}
+
+.progressBar{
+height:16px;
+background:
+rgba(255,255,255,0.12);
+border-radius:30px;
+overflow:hidden;
+margin-bottom:14px;
+}
+
+.progressFill{
+width:70%;
+height:100%;
+background:#22C55E;
+border-radius:30px;
+}
+
+.progressText{
+display:flex;
+justify-content:space-between;
+font-size:14px;
+}
+
+/* =========================
+REFER CARD
+========================= */
+
+.referCard{
+background:
+linear-gradient(
+135deg,
+#22C55E,
+#16A34A
+);
+color:#fff;
+padding:28px;
+border-radius:30px;
+position:relative;
+overflow:hidden;
+}
+
+.referCard::before{
+content:"";
+position:absolute;
+width:220px;
+height:220px;
+background:
+rgba(255,255,255,0.12);
+border-radius:50%;
+top:-100px;
+right:-100px;
+}
+
+.referContent{
+position:relative;
+z-index:2;
+}
+
+.referCard h2{
+font-size:34px;
+margin-bottom:16px;
+}
+
+.referCard p{
+font-size:15px;
+line-height:1.8;
+margin-bottom:22px;
+max-width:500px;
+}
+
+.referBtn{
+height:56px;
+padding:0 28px;
+border:none;
+border-radius:18px;
+background:#fff;
+font-size:15px;
+font-weight:800;
+cursor:pointer;
+}
+
+/* =========================
+BOTTOM NAV
+========================= */
+
+.bottomNav{
+position:fixed;
+bottom:0;
+left:0;
+width:100%;
+height:78px;
+background:#fff;
+display:flex;
+justify-content:space-around;
+align-items:center;
+border-top:1px solid #E5E7EB;
+z-index:1000;
+}
+
+.bottomNav a{
+text-decoration:none;
+font-size:12px;
+text-align:center;
+font-weight:600;
+color:#6B7280;
+}
+
+.bottomNav i{
+display:block;
+font-size:22px;
+margin-bottom:5px;
+}
+
+.activeNav{
+color:#FFD400 !important;
+}
+
+/* =========================
+POPUP
+========================= */
+
+.popup{
+position:fixed;
+top:30px;
+left:50%;
+transform:translateX(-50%);
+background:#22C55E;
+color:#fff;
+padding:16px 24px;
+border-radius:18px;
+font-weight:700;
+opacity:0;
+pointer-events:none;
+transition:0.3s;
+z-index:9999;
+box-shadow:
+0 10px 25px rgba(34,197,94,0.25);
+}
+
+.popup.show{
+opacity:1;
+top:80px;
+}
+
+/* =========================
+RESPONSIVE
+========================= */
+
+@media screen and (max-width:768px){
+
+.heroOffer h1{
+font-size:38px;
+}
+
+.offerGrid{
+grid-template-columns:1fr;
+}
+
+.rewardTop{
+flex-direction:column;
+align-items:flex-start;
+}
+
+}
+
+</style>
+
+</head>
+
+<body>
+
+<!-- POPUP -->
+
+<div
+class="popup"
+id="popup"
+>
+
+Success
+
+</div>
+
+<!-- TOPBAR -->
+
+<div class="topbar">
+
+<div class="topRow">
+
+<div class="leftTop">
+
+<button
+class="backBtn"
+onclick="history.back()"
+>
+
+←
+
+</button>
+
+<div class="pageTitle">
+
+<h2>
+Offers & Rewards
+</h2>
+
+<p>
+Save more on every order
+</p>
+
+</div>
+
+</div>
+
+<div class="rewardBox">
+🎁 Rewards
+</div>
+
+</div>
+
+</div>
+
+<!-- MAIN -->
+
+<div class="main">
+
+<!-- HERO -->
+
+<div class="heroOffer">
+
+<div class="heroContent">
+
+<div class="heroTag">
+🔥 LIMITED TIME OFFER
+</div>
+
+<h1>
+
+Get 50% OFF<br>
+On First Order
+
+</h1>
+
+<p>
+
+Book your first laundry pickup today
+and enjoy premium cleaning at half price.
+
+</p>
+
+<button
+class="claimBtn"
+onclick="
+showPopup('Offer Claimed 🎉')
+"
+>
+
+Claim Now
+
+</button>
+
+</div>
+
+</div>
+
+<!-- OFFERS -->
+
+<div>
+
+<div class="sectionTitle">
+
+<h2>
+Best Coupons
+</h2>
+
+</div>
+
+<div class="offerGrid">
+
+<!-- CARD -->
+
+<div class="offerCard">
+
+<div class="offerTop">
+
+<div class="offerIcon">
+🎉
+</div>
+
+<div class="offerBadge">
+HOT
+</div>
+
+</div>
+
+<h3>
+30% OFF
+</h3>
+
+<p>
+
+Applicable on ironing,
+washing and dry cleaning services.
+
+</p>
+
+<div class="couponCode">
+
+<h4>
+WELCOME30
+</h4>
+
+<button
+class="copyBtn"
+onclick="
+copyCode('WELCOME30')
+"
+>
+
+📋
+
+</button>
+
+</div>
+
+<button
+class="useBtn"
+onclick="
+showPopup('Coupon Applied 🎉')
+"
+>
+
+Use Coupon
+
+</button>
+
+</div>
+
+<!-- CARD -->
+
+<div class="offerCard">
+
+<div class="offerTop">
+
+<div class="offerIcon">
+⚡
+</div>
+
+<div class="offerBadge">
+FAST
+</div>
+
+</div>
+
+<h3>
+Free Pickup
+</h3>
+
+<p>
+
+Get free express pickup
+on orders above ₹299.
+
+</p>
+
+<div class="couponCode">
+
+<h4>
+FREEPICKUP
+</h4>
+
+<button
+class="copyBtn"
+onclick="
+copyCode('FREEPICKUP')
+"
+>
+
+📋
+
+</button>
+
+</div>
+
+<button
+class="useBtn"
+onclick="
+showPopup('Coupon Applied 🎉')
+"
+>
+
+Use Coupon
+
+</button>
+
+</div>
+
+<!-- CARD -->
+
+<div class="offerCard">
+
+<div class="offerTop">
+
+<div class="offerIcon">
+💰
+</div>
+
+<div class="offerBadge">
+CASHBACK
+</div>
+
+</div>
+
+<h3>
+₹100 Cashback
+</h3>
+
+<p>
+
+Instant cashback directly
+into your QuickPress wallet.
+
+</p>
+
+<div class="couponCode">
+
+<h4>
+CASH100
+</h4>
+
+<button
+class="copyBtn"
+onclick="
+copyCode('CASH100')
+"
+>
+
+📋
+
+</button>
+
+</div>
+
+<button
+class="useBtn"
+onclick="
+showPopup('Cashback Activated 💰')
+"
+>
+
+Use Coupon
+
+</button>
+
+</div>
+
+<!-- CARD -->
+
+<div class="offerCard">
+
+<div class="offerTop">
+
+<div class="offerIcon">
+👑
+</div>
+
+<div class="offerBadge">
+VIP
+</div>
+
+</div>
+
+<h3>
+Premium Pass
+</h3>
+
+<p>
+
+Unlimited free pickup and
+priority delivery benefits.
+
+</p>
+
+<div class="couponCode">
+
+<h4>
+VIPPASS
+</h4>
+
+<button
+class="copyBtn"
+onclick="
+copyCode('VIPPASS')
+"
+>
+
+📋
+
+</button>
+
+</div>
+
+<button
+class="useBtn"
+onclick="
+showPopup('Premium Activated 👑')
+"
+>
+
+Activate
+
+</button>
+
+</div>
+
+</div>
+
+</div>
+
+<!-- REWARD -->
+
+<div class="rewardCard">
+
+<div class="rewardTop">
+
+<div>
+
+<h2>
+🏆 Reward Progress
+</h2>
+
+<p>
+Complete more orders to unlock rewards
+</p>
+
+</div>
+
+<div class="rewardCircle">
+70%
+</div>
+
+</div>
+
+<div class="progressBox">
+
+<div class="progressBar">
+
+<div class="progressFill"></div>
+
+</div>
+
+<div class="progressText">
+
+<span>
+7 Orders Completed
+</span>
+
+<span>
+10 Needed
+</span>
+
+</div>
+
+</div>
+
+</div>
+
+<!-- REFER -->
+
+<div class="referCard">
+
+<div class="referContent">
+
+<h2>
+Invite Friends & Earn ₹200
+</h2>
+
+<p>
+
+Share your referral code with friends
+and earn instant wallet rewards.
+
+</p>
+
+<button
+class="referBtn"
+onclick="
+showPopup('Referral Link Shared 🚀')
+"
+>
+
+Invite Friends
+
+</button>
+
+</div>
+
+</div>
+
+</div>
+
+<!-- BOTTOM NAV -->
+
+<div class="bottomNav">
+
+<a href="index.html">
+
+<i class="fa-solid fa-house"></i>
+
+Home
+
+</a>
+
+<a href="services.html">
+
+<i class="fa-solid fa-shirt"></i>
+
+Services
+
+</a>
+
+<a href="cart.html">
+
+<i class="fa-solid fa-cart-shopping"></i>
+
+Cart
+
+</a>
+
+<a
+href="offers.html"
+class="activeNav"
+>
+
+<i class="fa-solid fa-tags"></i>
+
+Offers
+
+</a>
+
+<a href="#">
+
+<i class="fa-regular fa-user"></i>
+
+Profile
+
+</a>
+
+</div>
+
+<script>
+
+/* =========================
+POPUP
+========================= */
+
+function showPopup(text){
+
+const popup =
+document.getElementById(
+"popup"
+);
+
+popup.innerHTML = text;
+
+popup.classList.add(
+"show"
+);
+
+setTimeout(()=>{
+
+popup.classList.remove(
+"show"
+);
+
+},1000);
+
+}
+
+/* =========================
+COPY
+========================= */
+
+function copyCode(code){
+
+navigator.clipboard.writeText(code);
+
+showPopup(
+`${code} Copied 📋`
+);
+
+}
+
+</script>
+
+</body>
+</html>
