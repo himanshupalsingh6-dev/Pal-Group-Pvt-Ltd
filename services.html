@@ -1,674 +1,300 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>QuickPress Services</title>
+<meta charset="UTF-8">
+<title>QuickPress – Services</title>
+<meta name="viewport" content="width=device-width, initial-scale=1">
 
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+<style>
+:root{--yellow:#FFD400;--bg:#f6f7f9}
+body{margin:0;font-family:Segoe UI;background:var(--bg)}
 
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+.page{padding:14px}
 
-  <style>
+/* SEARCH 🔥 */
+.search{
+background:#fff;
+padding:10px;
+border-radius:12px;
+margin-bottom:12px;
+}
+.search input{
+width:100%;
+border:none;
+outline:none;
+font-size:14px;
+}
 
-    *{
-      margin:0;
-      padding:0;
-      box-sizing:border-box;
-      font-family:'Poppins',sans-serif;
-    }
+/* SERVICE */
+.services{display:flex;gap:10px;margin-bottom:10px}
+.service{
+flex:1;background:#fff;padding:10px;border-radius:12px;text-align:center;font-weight:800
+}
+.active{background:var(--yellow)}
 
-    body{
-      background:#f3f7ff;
-      max-width:480px;
-      margin:auto;
-      color:#111827;
-      padding-bottom:120px;
-    }
+/* POPULAR 🔥 */
+.popular{
+display:flex;
+gap:10px;
+overflow:auto;
+margin-bottom:12px;
+}
+.pop-card{
+min-width:120px;
+background:#fff;
+padding:10px;
+border-radius:12px;
+text-align:center;
+}
 
-    .container{
-      padding:18px;
-    }
+/* PRODUCTS */
+.products{
+display:grid;
+grid-template-columns:repeat(2,1fr);
+gap:12px;
+}
 
-    .header{
-      display:flex;
-      justify-content:space-between;
-      align-items:center;
-      margin-bottom:24px;
-    }
+.card{
+background:#fff;
+border-radius:16px;
+padding:12px;
+text-align:center;
+position:relative;
+}
 
-    .back-btn,
-    .cart-btn{
-      width:48px;
-      height:48px;
-      border-radius:16px;
-      background:white;
-      display:flex;
-      align-items:center;
-      justify-content:center;
-      box-shadow:0 4px 14px rgba(0,0,0,0.08);
-      cursor:pointer;
-      position:relative;
-    }
+/* OFFER */
+.offer{
+position:absolute;
+top:8px;
+left:8px;
+background:red;
+color:#fff;
+font-size:10px;
+padding:3px 6px;
+border-radius:6px;
+}
 
-    .cart-count{
-      position:absolute;
-      top:-4px;
-      right:-4px;
-      width:22px;
-      height:22px;
-      border-radius:50%;
-      background:#2563eb;
-      color:white;
-      font-size:12px;
-      display:flex;
-      align-items:center;
-      justify-content:center;
-    }
+.icon{font-size:36px}
+.name{font-weight:900}
+.price{font-weight:800;margin:4px 0}
 
-    .header h2{
-      font-size:28px;
-      font-weight:800;
-    }
+/* BUTTON */
+.add{
+background:var(--yellow);
+border:none;
+padding:8px;
+border-radius:12px;
+font-weight:900;
+width:100%;
+}
 
-    .search-box{
-      background:white;
-      border-radius:22px;
-      padding:16px 18px;
-      display:flex;
-      align-items:center;
-      gap:14px;
-      margin-bottom:22px;
-      box-shadow:0 4px 14px rgba(0,0,0,0.05);
-    }
+/* QTY */
+.qty{
+display:flex;
+justify-content:space-between;
+margin-top:6px;
+background:#eee;
+border-radius:10px;
+padding:4px;
+}
+.qty button{
+border:none;
+background:#000;
+color:#fff;
+border-radius:50%;
+width:26px;height:26px;
+}
 
-    .search-box input{
-      border:none;
-      outline:none;
-      width:100%;
-      font-size:15px;
-    }
-
-    .categories{
-      display:flex;
-      gap:12px;
-      overflow-x:auto;
-      margin-bottom:24px;
-      scrollbar-width:none;
-    }
-
-    .categories::-webkit-scrollbar{
-      display:none;
-    }
-
-    .category{
-      min-width:110px;
-      background:white;
-      padding:14px;
-      border-radius:18px;
-      text-align:center;
-      box-shadow:0 4px 14px rgba(0,0,0,0.05);
-      cursor:pointer;
-      transition:0.3s;
-    }
-
-    .category.active{
-      background:#2563eb;
-      color:white;
-    }
-
-    .category i{
-      font-size:22px;
-      margin-bottom:8px;
-    }
-
-    .banner{
-      background:linear-gradient(135deg,#001a5c,#0037b8,#02143b);
-      border-radius:30px;
-      padding:28px;
-      color:white;
-      position:relative;
-      overflow:hidden;
-      margin-bottom:26px;
-    }
-
-    .banner h1{
-      font-size:38px;
-      line-height:44px;
-      margin-bottom:12px;
-    }
-
-    .banner span{
-      color:#ffcc00;
-    }
-
-    .banner p{
-      color:#dbeafe;
-      margin-bottom:20px;
-    }
-
-    .banner button{
-      background:#ffcc00;
-      border:none;
-      padding:14px 22px;
-      border-radius:16px;
-      font-weight:700;
-      cursor:pointer;
-    }
-
-    .services-grid{
-      display:grid;
-      gap:20px;
-    }
-
-    .service-card{
-      background:white;
-      border-radius:28px;
-      overflow:hidden;
-      box-shadow:0 6px 18px rgba(0,0,0,0.06);
-    }
-
-    .service-image{
-      position:relative;
-    }
-
-    .service-image img{
-      width:100%;
-      height:210px;
-      object-fit:cover;
-    }
-
-    .badge{
-      position:absolute;
-      top:16px;
-      left:16px;
-      background:#ffcc00;
-      padding:8px 14px;
-      border-radius:12px;
-      font-size:13px;
-      font-weight:700;
-    }
-
-    .favorite{
-      position:absolute;
-      top:16px;
-      right:16px;
-      width:42px;
-      height:42px;
-      background:white;
-      border-radius:14px;
-      display:flex;
-      align-items:center;
-      justify-content:center;
-      cursor:pointer;
-    }
-
-    .service-content{
-      padding:20px;
-    }
-
-    .service-top{
-      display:flex;
-      justify-content:space-between;
-      align-items:center;
-      margin-bottom:12px;
-    }
-
-    .service-top h3{
-      font-size:24px;
-    }
-
-    .rating{
-      background:#eef4ff;
-      color:#2563eb;
-      padding:8px 12px;
-      border-radius:12px;
-      font-size:14px;
-      font-weight:600;
-    }
-
-    .service-content p{
-      color:#6b7280;
-      font-size:14px;
-      line-height:24px;
-      margin-bottom:18px;
-    }
-
-    .features{
-      display:flex;
-      flex-wrap:wrap;
-      gap:10px;
-      margin-bottom:20px;
-    }
-
-    .feature{
-      background:#f3f7ff;
-      color:#2563eb;
-      padding:10px 14px;
-      border-radius:14px;
-      font-size:13px;
-      font-weight:600;
-    }
-
-    .price-row{
-      display:flex;
-      justify-content:space-between;
-      align-items:center;
-    }
-
-    .price h2{
-      font-size:34px;
-    }
-
-    .price small{
-      color:#6b7280;
-    }
-
-    .actions{
-      display:flex;
-      gap:12px;
-    }
-
-    .btn{
-      border:none;
-      padding:14px 18px;
-      border-radius:16px;
-      font-weight:700;
-      cursor:pointer;
-      transition:0.3s;
-    }
-
-    .details-btn{
-      background:#eef4ff;
-      color:#2563eb;
-    }
-
-    .cart-btn2{
-      background:#2563eb;
-      color:white;
-    }
-
-    .btn:hover{
-      transform:translateY(-3px);
-    }
-
-    .floating-cart{
-      position:fixed;
-      bottom:100px;
-      left:50%;
-      transform:translateX(-50%);
-      width:90%;
-      max-width:420px;
-      background:#001a5c;
-      color:white;
-      border-radius:24px;
-      padding:18px 22px;
-      display:flex;
-      justify-content:space-between;
-      align-items:center;
-      box-shadow:0 12px 24px rgba(0,0,0,0.2);
-    }
-
-    .checkout-btn{
-      background:#ffcc00;
-      color:#111827;
-      border:none;
-      padding:14px 22px;
-      border-radius:16px;
-      font-weight:700;
-      cursor:pointer;
-    }
-
-    .bottom-nav{
-      position:fixed;
-      bottom:0;
-      left:50%;
-      transform:translateX(-50%);
-      width:100%;
-      max-width:480px;
-      background:white;
-      display:flex;
-      justify-content:space-around;
-      padding:16px 10px 24px;
-      border-top-left-radius:30px;
-      border-top-right-radius:30px;
-      box-shadow:0 -4px 20px rgba(0,0,0,0.08);
-    }
-
-    .nav-item{
-      display:flex;
-      flex-direction:column;
-      align-items:center;
-      gap:6px;
-      color:#6b7280;
-      font-size:13px;
-    }
-
-    .nav-item.active{
-      color:#2563eb;
-    }
-
-    @media(max-width:450px){
-
-      .banner h1{
-        font-size:32px;
-        line-height:38px;
-      }
-
-      .price-row{
-        flex-direction:column;
-        align-items:flex-start;
-        gap:18px;
-      }
-
-      .actions{
-        width:100%;
-      }
-
-      .actions button{
-        flex:1;
-      }
-
-    }
-
-  </style>
+/* CART */
+.cart-bar{
+position:fixed;
+bottom:0;
+left:0;
+right:0;
+background:#fff;
+padding:14px;
+display:flex;
+justify-content:space-between;
+box-shadow:0 -2px 10px rgba(0,0,0,.15);
+}
+.cart-bar button{
+background:var(--yellow);
+border:none;
+padding:10px;
+border-radius:20px;
+font-weight:900;
+}
+</style>
 </head>
+
 <body>
 
-  <div class="container">
-
-    <div class="header">
-
-      <div class="back-btn">
-        <i class="fa-solid fa-arrow-left"></i>
-      </div>
-
-      <h2>Services</h2>
-
-      <div class="cart-btn">
-        <i class="fa-solid fa-cart-shopping"></i>
-        <div class="cart-count" id="cartCount">0</div>
-      </div>
-
-    </div>
-
-
-    <div class="search-box">
-      <i class="fa-solid fa-magnifying-glass"></i>
-      <input type="text" placeholder="Search laundry services...">
-    </div>
-
-
-    <div class="categories">
-
-      <div class="category active">
-        <i class="fa-solid fa-shirt"></i>
-        <h4>Ironing</h4>
-      </div>
-
-      <div class="category">
-        <i class="fa-solid fa-basket-shopping"></i>
-        <h4>Wash</h4>
-      </div>
-
-      <div class="category">
-        <i class="fa-solid fa-jug-detergent"></i>
-        <h4>Dry Clean</h4>
-      </div>
-
-      <div class="category">
-        <i class="fa-solid fa-shoe-prints"></i>
-        <h4>Shoes</h4>
-      </div>
-
-    </div>
-
-
-    <div class="banner">
-
-      <h1>Premium <span>Laundry</span> Care</h1>
-
-      <p>
-        Professional cleaning with express pickup and doorstep delivery.
-      </p>
-
-      <button onclick="fastOrder()">
-        ⚡ Fast Pickup
-      </button>
-
-    </div>
-
-
-    <div class="services-grid">
-
-      <div class="service-card">
-
-        <div class="service-image">
-          <img src="https://images.unsplash.com/photo-1610557892470-55d9e80c0bce?q=80&w=1200&auto=format&fit=crop">
-
-          <div class="badge">BEST SELLER</div>
-
-          <div class="favorite">
-            <i class="fa-regular fa-heart"></i>
-          </div>
-        </div>
-
-
-        <div class="service-content">
-
-          <div class="service-top">
-            <h3>Wash & Fold</h3>
-            <div class="rating">⭐ 4.9</div>
-          </div>
-
-          <p>
-            Deep premium washing, fabric softening and professional folding service.
-          </p>
-
-
-          <div class="features">
-            <div class="feature">24-48 Hours</div>
-            <div class="feature">Fabric Care</div>
-            <div class="feature">Express Available</div>
-          </div>
-
-
-          <div class="price-row">
-
-            <div class="price">
-              <h2>₹49</h2>
-              <small>per kg</small>
-            </div>
-
-
-            <div class="actions">
-              <button class="btn details-btn">Details</button>
-              <button class="btn cart-btn2 add-cart" data-name="Wash & Fold" data-price="49">
-                Add Cart
-              </button>
-            </div>
-
-          </div>
-
-        </div>
-
-      </div>
-
-
-      <div class="service-card">
-
-        <div class="service-image">
-          <img src="https://images.unsplash.com/photo-1603252109303-2751441dd157?q=80&w=1200&auto=format&fit=crop">
-
-          <div class="badge">FAST DELIVERY</div>
-
-          <div class="favorite">
-            <i class="fa-regular fa-heart"></i>
-          </div>
-        </div>
-
-
-        <div class="service-content">
-
-          <div class="service-top">
-            <h3>Steam Ironing</h3>
-            <div class="rating">⭐ 4.8</div>
-          </div>
-
-          <p>
-            Premium steam ironing with wrinkle-free professional finishing.
-          </p>
-
-
-          <div class="features">
-            <div class="feature">Same Day</div>
-            <div class="feature">Premium Finish</div>
-            <div class="feature">Low Heat Care</div>
-          </div>
-
-
-          <div class="price-row">
-
-            <div class="price">
-              <h2>₹29</h2>
-              <small>per cloth</small>
-            </div>
-
-
-            <div class="actions">
-              <button class="btn details-btn">Details</button>
-              <button class="btn cart-btn2 add-cart" data-name="Steam Ironing" data-price="29">
-                Add Cart
-              </button>
-            </div>
-
-          </div>
-
-        </div>
-
-      </div>
-
-    </div>
-
-  </div>
-
-
-  <div class="floating-cart">
-
-    <div>
-      <h3 id="cartItems">0 Items</h3>
-      <small id="cartTotal">Total ₹0</small>
-    </div>
-
-    <button class="checkout-btn">
-      Checkout
-    </button>
-
-  </div>
-
-
-  <div class="bottom-nav">
-
-    <div class="nav-item active">
-      <i class="fa-solid fa-house"></i>
-      <span>Home</span>
-    </div>
-
-    <div class="nav-item">
-      <i class="fa-solid fa-box"></i>
-      <span>Orders</span>
-    </div>
-
-    <div class="nav-item">
-      <i class="fa-solid fa-tags"></i>
-      <span>Offers</span>
-    </div>
-
-    <div class="nav-item">
-      <i class="fa-regular fa-user"></i>
-      <span>Profile</span>
-    </div>
-
-  </div>
-
-
-  <script>
-
-    let total = 0;
-    let count = 0;
-
-    const cartButtons = document.querySelectorAll('.add-cart');
-
-    cartButtons.forEach((button)=>{
-
-      button.addEventListener('click',()=>{
-
-        const price = Number(button.dataset.price);
-        const name = button.dataset.name;
-
-        total += price;
-        count++;
-
-        document.getElementById('cartCount').innerText = count;
-        document.getElementById('cartItems').innerText = count + ' Items';
-        document.getElementById('cartTotal').innerText = 'Total ₹' + total;
-
-        alert(name + ' Added To Cart 🛒');
-
-      });
-
-    });
-
-
-    function fastOrder(){
-      alert('⚡ Fast Pickup Booked Successfully');
-    }
-
-
-    const favoriteButtons = document.querySelectorAll('.favorite');
-
-    favoriteButtons.forEach((fav)=>{
-
-      fav.addEventListener('click',()=>{
-
-        fav.innerHTML = '<i class="fa-solid fa-heart" style="color:red"></i>';
-
-      });
-
-    });
-
-
-    const categories = document.querySelectorAll('.category');
-
-    categories.forEach((cat)=>{
-
-      cat.addEventListener('click',()=>{
-
-        categories.forEach((c)=>{
-          c.classList.remove('active');
-        });
-
-        cat.classList.add('active');
-
-      });
-
-    });
-
-
-    document.querySelector('.checkout-btn').addEventListener('click',()=>{
-
-      if(count === 0){
-        alert('🛒 Cart Empty');
-      }
-      else{
-        alert('Proceeding To Checkout 🚀');
-      }
-
-    });
-
-  </script>
+<div class="page">
+
+<!-- 🔍 SEARCH -->
+<div class="search">
+<input placeholder="Search clothes..." oninput="searchItem(this.value)">
+</div>
+
+<!-- SERVICES -->
+<div class="services">
+<div class="service active" onclick="setService('ironing')">🧺 Ironing</div>
+<div class="service" onclick="setService('dry')">🧼 Dry</div>
+<div class="service" onclick="setService('washing')">🧽 Wash</div>
+</div>
+
+<!-- 🔥 POPULAR -->
+<div class="popular" id="popular"></div>
+
+<!-- PRODUCTS -->
+<div class="products" id="list"></div>
+
+</div>
+
+<!-- CART -->
+<div class="cart-bar" id="cartBar" style="display:none">
+<div><b id="count">0</b> items • ₹<b id="total">0</b></div>
+<button onclick="goCart()">View Cart</button>
+</div>
+
+<script>
+
+/* 🔥 FULL DATA */
+const DATA = {
+ironing:[
+{name:"Shirt",icon:"👕",price:10,offer:true},
+{name:"T-shirt",icon:"👕",price:8},
+{name:"Jeans",icon:"👖",price:15},
+{name:"Kurta",icon:"🥻",price:12},
+{name:"Saree",icon:"🥻",price:20},
+{name:"Blazer",icon:"🧥",price:30},
+{name:"Bedsheet",icon:"🛏️",price:25}
+],
+dry:[
+{name:"Suit",icon:"🤵",price:120,offer:true},
+{name:"Coat",icon:"🧥",price:100},
+{name:"Lehenga",icon:"👗",price:150},
+{name:"Sherwani",icon:"🤵",price:180},
+{name:"Designer Dress",icon:"👗",price:130}
+],
+washing:[
+{name:"T-shirt",icon:"👕",price:10},
+{name:"Jeans",icon:"👖",price:15},
+{name:"Track Pant",icon:"👖",price:12},
+{name:"Towel",icon:"🧻",price:8},
+{name:"Bedsheet",icon:"🛏️",price:20},
+{name:"Gym Wear",icon:"🏋️",price:15}
+]
+};
+
+let service="ironing";
+let cart = JSON.parse(localStorage.getItem("cart")||"[]");
+let filtered=[];
+
+/* SEARCH */
+function searchItem(q){
+q=q.toLowerCase();
+filtered = DATA[service].filter(i=> i.name.toLowerCase().includes(q));
+render(filtered);
+}
+
+/* SERVICE */
+function setService(s){
+service=s;
+filtered=[];
+document.querySelectorAll(".service").forEach(el=>el.classList.remove("active"));
+event.target.classList.add("active");
+render();
+renderPopular();
+}
+
+/* POPULAR */
+function renderPopular(){
+popular.innerHTML="";
+
+DATA[service].slice(0,5).forEach(i=>{
+popular.innerHTML+=`
+<div class="pop-card">${i.icon}<br>${i.name}</div>
+`;
+});
+}
+
+/* RENDER */
+function render(listData){
+let data = listData || DATA[service];
+
+list.innerHTML="";
+
+data.forEach(item=>{
+
+let found = cart.find(i=>i.name===item.name && i.service===service);
+let qty = found?found.qty:0;
+
+list.innerHTML+=`
+<div class="card">
+
+${item.offer?'<div class="offer">20% OFF</div>':''}
+
+<div class="icon">${item.icon}</div>
+<div class="name">${item.name}</div>
+<div class="price">₹${item.price}</div>
+
+${
+!found
+? `<button class="add" onclick="add('${item.name}',${item.price})">ADD</button>`
+: `<div class="qty">
+<button onclick="dec('${item.name}')">-</button>
+<b>${qty}</b>
+<button onclick="inc('${item.name}',${item.price})">+</button>
+</div>`
+}
+
+</div>
+`;
+});
+
+updateCart();
+}
+
+/* CART */
+function add(name,price){
+let item = cart.find(i=>i.name===name && i.service===service);
+if(item){item.qty++}
+else{cart.push({name,price,qty:1,service})}
+save();
+}
+
+function inc(n,p){add(n,p)}
+function dec(name){
+let i = cart.findIndex(x=>x.name===name && x.service===service);
+if(i>-1){cart[i].qty--; if(cart[i].qty<=0) cart.splice(i,1);}
+save();
+}
+
+function save(){
+localStorage.setItem("cart",JSON.stringify(cart));
+render();
+}
+
+/* CART BAR */
+function updateCart(){
+let t=0,c=0;
+cart.forEach(i=>{t+=i.price*i.qty;c+=i.qty});
+cartBar.style.display = cart.length?"flex":"none";
+total.innerText=t;
+count.innerText=c;
+}
+
+/* NAV */
+function goCart(){
+location.href="cart.html";
+}
+
+/* INIT */
+render();
+renderPopular();
+
+</script>
 
 </body>
 </html>
