@@ -620,3 +620,142 @@
 
 </body>
 </html>
+```
+
+# Live Functions Added
+
+```html
+<script>
+
+// ============================
+// QUICKPRESS LIVE FUNCTIONS
+// ============================
+
+let cart = [];
+let total = 0;
+
+
+// FAST ORDER
+function fastOrder(){
+  alert('⚡ Fast Order Created Successfully');
+}
+
+
+// APPLY COUPON
+function applyCoupon(){
+  alert('✅ Coupon Applied : WELCOME30');
+}
+
+
+// ADD TO CART
+const addButtons = document.querySelectorAll('.add');
+
+addButtons.forEach((btn,index)=>{
+
+  btn.addEventListener('click',()=>{
+
+    const productCards = document.querySelectorAll('.product');
+
+    const product = productCards[index];
+
+    const name = product.querySelector('h3').innerText;
+
+    const priceText = product.querySelector('.price').innerText;
+
+    const price = parseInt(priceText.replace('₹',''));
+
+    cart.push({
+      name:name,
+      price:price
+    });
+
+    total += price;
+
+    alert(name + ' Added To Cart 🛒');
+
+    console.log(cart);
+    console.log('Total = ₹' + total);
+
+  });
+
+});
+
+
+// SERVICES CLICK
+const services = document.querySelectorAll('.service');
+
+services.forEach((service)=>{
+
+  service.addEventListener('click',()=>{
+
+    const name = service.innerText;
+
+    alert(name + ' Service Opened');
+
+  });
+
+});
+
+
+// NAVIGATION BUTTONS
+const navItems = document.querySelectorAll('.nav-item');
+
+navItems.forEach((nav)=>{
+
+  nav.addEventListener('click',()=>{
+
+    navItems.forEach((n)=>{
+      n.classList.remove('active');
+    });
+
+    nav.classList.add('active');
+
+  });
+
+});
+
+
+// TRACKING LIVE STATUS
+const statuses = [
+  '🚚 Rider Coming',
+  '🧺 Laundry Washing Started',
+  '✨ Ironing In Progress',
+  '📦 Packed For Delivery',
+  '✅ Delivered Successfully'
+];
+
+let current = 0;
+
+setInterval(()=>{
+
+  const statusBox = document.querySelector('.status span');
+
+  current++;
+
+  if(current >= statuses.length){
+    current = 0;
+  }
+
+  statusBox.innerText = statuses[current];
+
+},5000);
+
+
+// HERO BUTTONS
+const heroButtons = document.querySelectorAll('.hero-buttons button');
+
+heroButtons[0].addEventListener('click',()=>{
+  fastOrder();
+});
+
+heroButtons[1].addEventListener('click',()=>{
+
+  const time = prompt('Enter Pickup Time');
+
+  if(time){
+    alert('📅 Pickup Scheduled At ' + time);
+  }
+
+});
+
+</script>
