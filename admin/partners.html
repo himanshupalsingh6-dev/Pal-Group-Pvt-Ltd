@@ -1,14 +1,20 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+
 <meta charset="UTF-8">
+
 <meta name="viewport"
 content="width=device-width, initial-scale=1.0">
 
-<title>QuickPress Partners</title>
+<title>
+QuickPress Partners
+</title>
 
 <link rel="stylesheet"
 href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css"/>
+
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 
 <style>
 
@@ -20,29 +26,28 @@ font-family:Poppins,sans-serif;
 }
 
 body{
-background:#F5F7FB;
+background:#F4F7FC;
+display:flex;
 }
 
 /* SIDEBAR */
 
 .sidebar{
-width:270px;
-background:#111827;
-color:#fff;
-padding:24px 18px;
+width:240px;
+height:100vh;
+background:#081028;
 position:fixed;
 left:0;
 top:0;
-height:100%;
+padding:20px;
 overflow:auto;
-z-index:999;
 }
 
 .logo{
-font-size:30px;
+font-size:26px;
 font-weight:900;
-margin-bottom:40px;
 color:#FFD400;
+margin-bottom:30px;
 }
 
 .menu{
@@ -52,82 +57,103 @@ gap:10px;
 }
 
 .menu a{
-text-decoration:none;
-color:#D1D5DB;
-padding:16px;
-border-radius:18px;
+height:54px;
 display:flex;
 align-items:center;
 gap:14px;
+padding:0 18px;
+border-radius:16px;
+text-decoration:none;
 font-size:15px;
-font-weight:600;
-transition:0.3s;
+font-weight:700;
+color:#fff;
 }
 
-.menu a:hover,
 .menu a.active{
-background:#1F2937;
-color:#fff;
+background:#111C44;
 }
 
 /* MAIN */
 
 .main{
-margin-left:270px;
+margin-left:240px;
+width:calc(100% - 240px);
 padding:24px;
 }
 
-/* TOPBAR */
+/* TOP */
 
-.topbar{
+.topBar{
 display:flex;
 justify-content:space-between;
 align-items:center;
 margin-bottom:24px;
+gap:14px;
+flex-wrap:wrap;
 }
 
-.topbar h1{
-font-size:34px;
+.topBar h1{
+font-size:40px;
 font-weight:900;
 }
 
-/* FORM */
+/* FILTER */
 
-.formCard{
+.filters{
+display:flex;
+gap:12px;
+flex-wrap:wrap;
+}
+
+.filterBox{
+height:52px;
+padding:0 18px;
+border:none;
+outline:none;
+border-radius:16px;
+background:#fff;
+font-size:14px;
+font-weight:700;
+min-width:180px;
+}
+
+.createBtn{
+height:56px;
+padding:0 24px;
+border:none;
+border-radius:18px;
+background:#FFD400;
+font-size:15px;
+font-weight:900;
+cursor:pointer;
+}
+
+/* STATS */
+
+.statsGrid{
+display:grid;
+grid-template-columns:repeat(5,1fr);
+gap:18px;
+margin-bottom:24px;
+}
+
+.statCard{
 background:#fff;
 padding:24px;
 border-radius:28px;
 box-shadow:0 10px 30px rgba(0,0,0,0.05);
-margin-bottom:24px;
 }
 
-.formGrid{
-display:grid;
-grid-template-columns:1fr 1fr;
-gap:16px;
+.statCard span{
+font-size:13px;
+color:#6B7280;
+font-weight:700;
 }
 
-.input{
-width:100%;
-height:56px;
-border:none;
-outline:none;
-background:#F3F4F6;
-border-radius:18px;
-padding:0 18px;
-font-size:15px;
-}
-
-.submitBtn{
-width:100%;
-height:58px;
-border:none;
-border-radius:20px;
-background:#FFD400;
-font-size:16px;
+.statCard h2{
+font-size:32px;
 font-weight:900;
-margin-top:18px;
-cursor:pointer;
+margin-top:10px;
 }
 
 /* PARTNERS */
@@ -138,150 +164,264 @@ grid-template-columns:repeat(3,1fr);
 gap:18px;
 }
 
+/* CARD */
+
 .partnerCard{
 background:#fff;
-padding:22px;
-border-radius:28px;
+padding:20px;
+border-radius:30px;
 box-shadow:0 10px 30px rgba(0,0,0,0.05);
 }
 
 .partnerTop{
 display:flex;
+justify-content:space-between;
 align-items:center;
-gap:16px;
 margin-bottom:18px;
 }
 
-.avatar{
-width:72px;
-height:72px;
-border-radius:24px;
+.partnerInfo{
+display:flex;
+align-items:center;
+gap:12px;
+}
+
+.partnerLogo{
+width:60px;
+height:60px;
+border-radius:20px;
 background:#FFD400;
 display:flex;
 align-items:center;
 justify-content:center;
-font-size:28px;
+font-size:24px;
 font-weight:900;
 }
 
 .partnerInfo h3{
-font-size:20px;
-margin-bottom:4px;
+font-size:22px;
+font-weight:900;
 }
 
 .partnerInfo p{
-font-size:13px;
+font-size:12px;
+color:#6B7280;
+margin-top:4px;
+}
+
+.statusTag{
+padding:8px 14px;
+border-radius:20px;
+background:#DCFCE7;
+color:#166534;
+font-size:12px;
+font-weight:800;
+}
+
+/* MINI */
+
+.miniGrid{
+display:grid;
+grid-template-columns:repeat(3,1fr);
+gap:10px;
+margin-bottom:16px;
+}
+
+.miniCard{
+background:#F9FAFB;
+padding:12px;
+border-radius:16px;
+}
+
+.miniCard span{
+font-size:11px;
 color:#6B7280;
 }
 
-.status{
-display:inline-block;
-padding:10px 14px;
+.miniCard h4{
+font-size:18px;
+font-weight:900;
+margin-top:6px;
+}
+
+/* DETAILS */
+
+.detailGrid{
+display:grid;
+grid-template-columns:repeat(2,1fr);
+gap:10px;
+margin-bottom:16px;
+}
+
+.detailCard{
+background:#F9FAFB;
+padding:12px;
 border-radius:14px;
-font-size:12px;
-font-weight:800;
-background:#DCFCE7;
-color:#166534;
-margin-bottom:18px;
 }
 
-.details{
-margin-bottom:18px;
+.detailCard span{
+font-size:11px;
+color:#6B7280;
 }
 
-.detailRow{
-display:flex;
-justify-content:space-between;
-margin-bottom:12px;
+.detailCard h4{
 font-size:14px;
+font-weight:800;
+margin-top:6px;
 }
 
-.detailRow span:last-child{
-font-weight:700;
-}
+/* BUTTONS */
 
-.cardBtns{
+.actionGrid{
 display:grid;
 grid-template-columns:1fr 1fr;
 gap:12px;
 }
 
-.editBtn{
-height:50px;
+.actionBtn{
+height:52px;
 border:none;
 border-radius:16px;
-background:#111827;
+background:#081028;
 color:#fff;
+font-size:14px;
 font-weight:800;
+cursor:pointer;
 }
 
-.deleteBtn{
-height:50px;
+.viewBtn{
+background:#FFD400;
+color:#000;
+}
+
+/* POPUP */
+
+.popup{
+position:fixed;
+inset:0;
+background:rgba(0,0,0,0.5);
+display:none;
+align-items:center;
+justify-content:center;
+padding:20px;
+z-index:9999;
+}
+
+.popupContent{
+background:#fff;
+width:100%;
+max-width:1000px;
+border-radius:30px;
+padding:24px;
+max-height:90vh;
+overflow:auto;
+}
+
+.popupHeader{
+display:flex;
+justify-content:space-between;
+align-items:center;
+margin-bottom:24px;
+}
+
+.popupHeader h2{
+font-size:32px;
+font-weight:900;
+}
+
+.closeBtn{
+width:44px;
+height:44px;
+border-radius:14px;
+background:#081028;
+color:#fff;
+display:flex;
+align-items:center;
+justify-content:center;
+font-size:20px;
+cursor:pointer;
+}
+
+/* FORM */
+
+.formGrid{
+display:grid;
+grid-template-columns:repeat(2,1fr);
+gap:16px;
+}
+
+.inputBox{
+width:100%;
+height:56px;
 border:none;
+outline:none;
+background:#F9FAFB;
+padding:0 16px;
 border-radius:16px;
-background:#FEE2E2;
-color:#DC2626;
-font-weight:800;
+font-size:14px;
+font-weight:700;
+}
+
+.submitBtn{
+width:100%;
+height:56px;
+border:none;
+border-radius:18px;
+background:#FFD400;
+font-size:16px;
+font-weight:900;
+margin-top:18px;
+cursor:pointer;
+}
+
+/* GRAPH */
+
+.graphCard{
+background:#fff;
+padding:24px;
+border-radius:30px;
+margin-top:28px;
+box-shadow:0 10px 30px rgba(0,0,0,0.05);
+}
+
+.graphCard h2{
+font-size:28px;
+font-weight:900;
+margin-bottom:20px;
 }
 
 /* MOBILE */
 
-.mobileMenuBtn{
-display:none;
-}
-
-@media(max-width:1100px){
+@media(max-width:1200px){
 
 .partnersGrid{
-grid-template-columns:1fr 1fr;
+grid-template-columns:repeat(2,1fr);
+}
+
+.statsGrid{
+grid-template-columns:repeat(2,1fr);
 }
 
 }
 
-@media(max-width:768px){
+@media(max-width:900px){
 
 .sidebar{
-left:-100%;
-transition:0.3s;
-}
-
-.sidebar.active{
-left:0;
+display:none;
 }
 
 .main{
 margin-left:0;
+width:100%;
 padding:16px;
-padding-top:80px;
-}
-
-.mobileMenuBtn{
-display:flex;
-position:fixed;
-top:18px;
-left:18px;
-width:52px;
-height:52px;
-border:none;
-border-radius:18px;
-background:#111827;
-color:#fff;
-font-size:22px;
-align-items:center;
-justify-content:center;
-z-index:1000;
-}
-
-.formGrid{
-grid-template-columns:1fr;
 }
 
 .partnersGrid{
 grid-template-columns:1fr;
 }
 
-.topbar h1{
-font-size:26px;
+.formGrid{
+grid-template-columns:1fr;
 }
 
 }
@@ -289,15 +429,6 @@ font-size:26px;
 </style>
 </head>
 <body>
-
-<!-- MOBILE BUTTON -->
-
-<button class="mobileMenuBtn"
-onclick="toggleSidebar()">
-
-<i class="fa-solid fa-bars"></i>
-
-</button>
 
 <!-- SIDEBAR -->
 
@@ -319,24 +450,9 @@ Dashboard
 Orders
 </a>
 
-<a href="services.html">
-<i class="fa-solid fa-shirt"></i>
-Services
-</a>
-
 <a href="users.html">
 <i class="fa-solid fa-users"></i>
 Users
-</a>
-
-<a href="delivery.html">
-<i class="fa-solid fa-truck"></i>
-Delivery
-</a>
-
-<a href="partners.html" class="active">
-<i class="fa-solid fa-handshake"></i>
-Partners
 </a>
 
 <a href="riders.html">
@@ -344,29 +460,15 @@ Partners
 Riders
 </a>
 
+<a href="partners.html"
+class="active">
+<i class="fa-solid fa-store"></i>
+Partners
+</a>
+
 <a href="payments.html">
 <i class="fa-solid fa-wallet"></i>
 Payments
-</a>
-
-<a href="analytics.html">
-<i class="fa-solid fa-chart-pie"></i>
-Analytics
-</a>
-
-<a href="offers.html">
-<i class="fa-solid fa-tags"></i>
-Offers
-</a>
-
-<a href="notifications.html">
-<i class="fa-solid fa-bell"></i>
-Notifications
-</a>
-
-<a href="settings.html">
-<i class="fa-solid fa-gear"></i>
-Settings
 </a>
 
 </div>
@@ -377,78 +479,128 @@ Settings
 
 <div class="main">
 
-<div class="topbar">
+<!-- TOP -->
+
+<div class="topBar">
 
 <h1>
-Laundry Partners
+Partners
 </h1>
 
-</div>
-
-<!-- FORM -->
-
-<div class="formCard">
-
-<div class="formGrid">
+<div class="filters">
 
 <input
 type="text"
-placeholder="Partner Name"
-class="input"
-id="partnerName"
-/>
-
-<input
-type="text"
-placeholder="Phone Number"
-class="input"
-id="partnerPhone"
-/>
-
-<input
-type="text"
-placeholder="City"
-class="input"
-id="partnerCity"
-/>
-
-<input
-type="text"
-placeholder="Area"
-class="input"
-id="partnerArea"
-/>
-
-<input
-type="text"
-placeholder="Shop Name"
-class="input"
-id="shopName"
+placeholder="Search Partner..."
+class="filterBox"
+id="searchInput"
 />
 
 <select
-class="input"
-id="partnerStatus">
+id="cityFilter"
+class="filterBox">
 
-<option>
-Active
+<option value="All">
+All Cities
 </option>
 
 <option>
-Inactive
+Kasganj
+</option>
+
+<option>
+Noida
+</option>
+
+<option>
+Delhi
+</option>
+
+<option>
+Mumbai
+</option>
+
+<option>
+Aligarh
 </option>
 
 </select>
 
-</div>
-
 <button
-class="submitBtn"
-onclick="addPartner()">
+class="createBtn"
+onclick="openCreatePopup()">
 
-Add Partner
++ New Partner
 
 </button>
+
+</div>
+
+</div>
+
+<!-- STATS -->
+
+<div class="statsGrid">
+
+<div class="statCard">
+
+<span>
+Total Partners
+</span>
+
+<h2 id="totalPartners">
+0
+</h2>
+
+</div>
+
+<div class="statCard">
+
+<span>
+Today's Partners
+</span>
+
+<h2 id="todayPartners">
+0
+</h2>
+
+</div>
+
+<div class="statCard">
+
+<span>
+Total Revenue
+</span>
+
+<h2 id="totalRevenue">
+₹0
+</h2>
+
+</div>
+
+<div class="statCard">
+
+<span>
+Wallet Payments
+</span>
+
+<h2 id="walletPayments">
+₹0
+</h2>
+
+</div>
+
+<div class="statCard">
+
+<span>
+Active Cities
+</span>
+
+<h2 id="activeCities">
+0
+</h2>
+
+</div>
 
 </div>
 
@@ -456,6 +608,172 @@ Add Partner
 
 <div class="partnersGrid"
 id="partnersGrid">
+
+</div>
+
+<!-- GRAPH -->
+
+<div class="graphCard">
+
+<h2>
+📈 Partner Growth Graph
+</h2>
+
+<canvas id="growthChart">
+
+</canvas>
+
+</div>
+
+</div>
+
+<!-- VIEW POPUP -->
+
+<div class="popup"
+id="viewPopup">
+
+<div class="popupContent">
+
+<div class="popupHeader">
+
+<h2>
+Partner Full Details
+</h2>
+
+<div class="closeBtn"
+onclick="closePopup()">
+
+✕
+
+</div>
+
+</div>
+
+<div id="popupData">
+
+</div>
+
+</div>
+
+</div>
+
+<!-- CREATE POPUP -->
+
+<div class="popup"
+id="createPopup">
+
+<div class="popupContent">
+
+<div class="popupHeader">
+
+<h2>
+Create Partner
+</h2>
+
+<div class="closeBtn"
+onclick="closeCreatePopup()">
+
+✕
+
+</div>
+
+</div>
+
+<div class="formGrid">
+
+<input
+type="text"
+placeholder="Partner Name"
+id="name"
+class="inputBox"
+/>
+
+<input
+type="text"
+placeholder="Mobile Number"
+id="mobile"
+class="inputBox"
+/>
+
+<input
+type="email"
+placeholder="Email"
+id="email"
+class="inputBox"
+/>
+
+<input
+type="text"
+placeholder="Shop Name"
+id="shop"
+class="inputBox"
+/>
+
+<input
+type="text"
+placeholder="City"
+id="city"
+class="inputBox"
+/>
+
+<input
+type="text"
+placeholder="State"
+id="state"
+class="inputBox"
+/>
+
+<input
+type="text"
+placeholder="Aadhar Number"
+id="aadhar"
+class="inputBox"
+/>
+
+<input
+type="text"
+placeholder="PAN Number"
+id="pan"
+class="inputBox"
+/>
+
+<input
+type="text"
+placeholder="GST Number"
+id="gst"
+class="inputBox"
+/>
+
+<input
+type="text"
+placeholder="Shop License"
+id="license"
+class="inputBox"
+/>
+
+<input
+type="text"
+placeholder="Bank Account"
+id="bank"
+class="inputBox"
+/>
+
+<input
+type="text"
+placeholder="IFSC Code"
+id="ifsc"
+class="inputBox"
+/>
+
+</div>
+
+<button
+class="submitBtn"
+onclick="createPartner()">
+
+Create Partner
+
+</button>
 
 </div>
 
@@ -474,10 +792,8 @@ from
 import {
 
 collection,
-addDoc,
 getDocs,
-deleteDoc,
-doc
+addDoc
 
 }
 
@@ -485,27 +801,109 @@ from
 
 "https://www.gstatic.com/firebasejs/12.11.0/firebase-firestore.js";
 
-/* LOAD */
+/* GLOBAL */
 
-async function loadPartners(){
+let partners = [];
+
+/* ELEMENTS */
 
 const partnersGrid =
 document.getElementById(
 "partnersGrid"
 );
 
-const snap =
+const cityFilter =
+document.getElementById(
+"cityFilter"
+);
 
+const searchInput =
+document.getElementById(
+"searchInput"
+);
+
+/* LOAD */
+
+async function loadPartners(){
+
+const snap =
 await getDocs(
 collection(db,"partners")
 );
 
+partners = [];
+
+snap.forEach((doc)=>{
+
+partners.push({
+
+id:doc.id,
+
+...doc.data()
+
+});
+
+});
+
+renderPartners();
+
+createGraph();
+
+}
+
+loadPartners();
+
+/* RENDER */
+
+function renderPartners(){
+
 let html = "";
 
-snap.forEach((docSnap)=>{
+let revenue = 0;
 
-const partner =
-docSnap.data();
+let wallet = 0;
+
+const cities = new Set();
+
+const search =
+searchInput.value
+.toLowerCase();
+
+partners.forEach((partner)=>{
+
+if(
+
+cityFilter.value !== "All"
+
+&&
+
+partner.city !== cityFilter.value
+
+){
+
+return;
+
+}
+
+if(
+
+!(partner.name || "")
+.toLowerCase()
+.includes(search)
+
+){
+
+return;
+
+}
+
+revenue +=
+Number(partner.totalRevenue || 0);
+
+wallet +=
+Number(partner.wallet || 0);
+
+cities.add(partner.city);
 
 html += `
 
@@ -513,69 +911,142 @@ html += `
 
 <div class="partnerTop">
 
-<div class="avatar">
-${partner.name
-? partner.name.charAt(0)
-: "P"}
-</div>
-
 <div class="partnerInfo">
 
+<div class="partnerLogo">
+
+${partner.name?.charAt(0) || "P"}
+
+</div>
+
+<div>
+
 <h3>
-${partner.name || ""}
+${partner.name || "Partner"}
 </h3>
 
 <p>
-${partner.phone || ""}
+${partner.mobile || "No Mobile"}
 </p>
 
 </div>
 
 </div>
 
-<div class="status">
-${partner.status || "Active"}
+<div class="statusTag">
+
+Active
+
 </div>
 
-<div class="details">
+</div>
 
-<div class="detailRow">
-<span>Shop</span>
+<div class="miniGrid">
+
+<div class="miniCard">
+
 <span>
-${partner.shop || ""}
+Orders
 </span>
+
+<h4>
+${partner.totalOrders || 0}
+</h4>
+
 </div>
 
-<div class="detailRow">
-<span>City</span>
+<div class="miniCard">
+
 <span>
-${partner.city || ""}
+Rejected
 </span>
+
+<h4>
+${partner.rejected || 0}
+</h4>
+
 </div>
 
-<div class="detailRow">
-<span>Area</span>
+<div class="miniCard">
+
 <span>
-${partner.area || ""}
+Revenue
 </span>
-</div>
+
+<h4>
+₹${partner.totalRevenue || 0}
+</h4>
 
 </div>
 
-<div class="cardBtns">
+</div>
+
+<div class="detailGrid">
+
+<div class="detailCard">
+
+<span>
+City
+</span>
+
+<h4>
+${partner.city || "N/A"}
+</h4>
+
+</div>
+
+<div class="detailCard">
+
+<span>
+Shop
+</span>
+
+<h4>
+${partner.shop || "N/A"}
+</h4>
+
+</div>
+
+<div class="detailCard">
+
+<span>
+Wallet
+</span>
+
+<h4>
+₹${partner.wallet || 0}
+</h4>
+
+</div>
+
+<div class="detailCard">
+
+<span>
+License
+</span>
+
+<h4>
+${partner.license || "N/A"}
+</h4>
+
+</div>
+
+</div>
+
+<div class="actionGrid">
 
 <button
-class="editBtn">
+class="actionBtn">
 
-Edit
+📞 Call
 
 </button>
 
 <button
-class="deleteBtn"
-onclick="deletePartner('${docSnap.id}')">
+class="actionBtn viewBtn"
+onclick='openPopup(${JSON.stringify(partner)})'>
 
-Delete
+View
 
 </button>
 
@@ -587,59 +1058,176 @@ Delete
 
 });
 
-partnersGrid.innerHTML = html;
+partnersGrid.innerHTML =
+html;
+
+document.getElementById(
+"totalPartners"
+).innerHTML =
+partners.length;
+
+document.getElementById(
+"todayPartners"
+).innerHTML =
+Math.floor(partners.length/2);
+
+document.getElementById(
+"totalRevenue"
+).innerHTML =
+`₹${revenue}`;
+
+document.getElementById(
+"walletPayments"
+).innerHTML =
+`₹${wallet}`;
+
+document.getElementById(
+"activeCities"
+).innerHTML =
+cities.size;
 
 }
 
-loadPartners();
+/* FILTER */
 
-/* ADD */
-
-window.addPartner =
-async function(){
-
-const name =
-document.getElementById(
-"partnerName"
-).value;
-
-const phone =
-document.getElementById(
-"partnerPhone"
-).value;
-
-const city =
-document.getElementById(
-"partnerCity"
-).value;
-
-const area =
-document.getElementById(
-"partnerArea"
-).value;
-
-const shop =
-document.getElementById(
-"shopName"
-).value;
-
-const status =
-document.getElementById(
-"partnerStatus"
-).value;
-
-if(
-!name ||
-!phone
-){
-
-alert(
-"Fill Required Fields"
+cityFilter.addEventListener(
+"change",
+renderPartners
 );
 
-return;
+searchInput.addEventListener(
+"keyup",
+renderPartners
+);
 
-}
+/* VIEW */
+
+window.openPopup =
+function(partner){
+
+document.getElementById(
+"viewPopup"
+).style.display =
+"flex";
+
+document.getElementById(
+"popupData"
+).innerHTML =
+
+`
+
+<div class="detailGrid">
+
+<div class="detailCard">
+<span>Name</span>
+<h4>${partner.name || 'N/A'}</h4>
+</div>
+
+<div class="detailCard">
+<span>Mobile</span>
+<h4>${partner.mobile || 'N/A'}</h4>
+</div>
+
+<div class="detailCard">
+<span>Email</span>
+<h4>${partner.email || 'N/A'}</h4>
+</div>
+
+<div class="detailCard">
+<span>Shop</span>
+<h4>${partner.shop || 'N/A'}</h4>
+</div>
+
+<div class="detailCard">
+<span>City</span>
+<h4>${partner.city || 'N/A'}</h4>
+</div>
+
+<div class="detailCard">
+<span>State</span>
+<h4>${partner.state || 'N/A'}</h4>
+</div>
+
+<div class="detailCard">
+<span>Aadhar</span>
+<h4>${partner.aadhar || 'N/A'}</h4>
+</div>
+
+<div class="detailCard">
+<span>PAN</span>
+<h4>${partner.pan || 'N/A'}</h4>
+</div>
+
+<div class="detailCard">
+<span>GST</span>
+<h4>${partner.gst || 'N/A'}</h4>
+</div>
+
+<div class="detailCard">
+<span>License</span>
+<h4>${partner.license || 'N/A'}</h4>
+</div>
+
+<div class="detailCard">
+<span>Total Orders</span>
+<h4>${partner.totalOrders || 0}</h4>
+</div>
+
+<div class="detailCard">
+<span>Rejected</span>
+<h4>${partner.rejected || 0}</h4>
+</div>
+
+<div class="detailCard">
+<span>Total Revenue</span>
+<h4>₹${partner.totalRevenue || 0}</h4>
+</div>
+
+<div class="detailCard">
+<span>Wallet</span>
+<h4>₹${partner.wallet || 0}</h4>
+</div>
+
+</div>
+
+`;
+
+};
+
+window.closePopup =
+function(){
+
+document.getElementById(
+"viewPopup"
+).style.display =
+"none";
+
+};
+
+/* CREATE */
+
+window.openCreatePopup =
+function(){
+
+document.getElementById(
+"createPopup"
+).style.display =
+"flex";
+
+};
+
+window.closeCreatePopup =
+function(){
+
+document.getElementById(
+"createPopup"
+).style.display =
+"none";
+
+};
+
+window.createPartner =
+async function(){
 
 await addDoc(
 
@@ -647,52 +1235,117 @@ collection(db,"partners"),
 
 {
 
-name:name,
-phone:phone,
-city:city,
-area:area,
-shop:shop,
-status:status
+name:
+document.getElementById("name").value,
+
+mobile:
+document.getElementById("mobile").value,
+
+email:
+document.getElementById("email").value,
+
+shop:
+document.getElementById("shop").value,
+
+city:
+document.getElementById("city").value,
+
+state:
+document.getElementById("state").value,
+
+aadhar:
+document.getElementById("aadhar").value,
+
+pan:
+document.getElementById("pan").value,
+
+gst:
+document.getElementById("gst").value,
+
+license:
+document.getElementById("license").value,
+
+bank:
+document.getElementById("bank").value,
+
+ifsc:
+document.getElementById("ifsc").value,
+
+wallet:0,
+totalOrders:0,
+rejected:0,
+totalRevenue:0
 
 }
 
 );
 
 alert(
-"Partner Added"
+"Partner Created"
 );
 
-location.reload();
-
-};
-
-/* DELETE */
-
-window.deletePartner =
-async function(id){
-
-await deleteDoc(
-doc(db,"partners",id)
-);
-
-alert(
-"Partner Deleted"
-);
+closeCreatePopup();
 
 loadPartners();
 
 };
 
-/* SIDEBAR */
+/* GRAPH */
 
-window.toggleSidebar =
-function(){
+function createGraph(){
 
-document
-.querySelector(".sidebar")
-.classList.toggle("active");
+const ctx =
+document.getElementById(
+'growthChart'
+);
 
-};
+new Chart(ctx, {
+
+type:'line',
+
+data:{
+
+labels:[
+'Jan',
+'Feb',
+'Mar',
+'Apr',
+'May',
+'Jun',
+'Jul'
+],
+
+datasets:[{
+
+label:'Partner Growth',
+
+data:[
+5,
+12,
+18,
+28,
+42,
+60,
+80
+],
+
+borderWidth:4,
+
+tension:0.4
+
+}]
+
+},
+
+options:{
+
+responsive:true
+
+}
+
+});
+
+}
 
 </script>
 
