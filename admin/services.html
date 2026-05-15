@@ -1,378 +1,385 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
+<meta charset="UTF-8">
+<meta name="viewport"
+content="width=device-width, initial-scale=1.0">
 
-<meta charset="UTF-8"/>
+<title>QuickPress Services</title>
 
-<meta
-name="viewport"
-content="width=device-width, initial-scale=1.0"
-/>
-
-<title>
-Admin Services Module
-</title>
-
-<link
-rel="stylesheet"
-href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css"
-/>
+<link rel="stylesheet"
+href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css"/>
 
 <style>
-
-/* =========================
-RESET
-========================= */
 
 *{
 margin:0;
 padding:0;
 box-sizing:border-box;
-font-family:
-"Poppins",
-sans-serif;
+font-family:Poppins,sans-serif;
 }
 
 body{
-background:#F8FAFC;
-color:#111827;
+background:#F5F7FB;
 }
 
-/* =========================
-TOPBAR
-========================= */
+/* SIDEBAR */
 
-.topbar{
-background:#fff;
-padding:18px;
-display:flex;
-justify-content:space-between;
-align-items:center;
-box-shadow:
-0 4px 18px rgba(0,0,0,0.05);
-position:sticky;
+.sidebar{
+width:270px;
+background:#111827;
+color:#fff;
+padding:24px 18px;
+position:fixed;
+left:0;
 top:0;
+height:100%;
+overflow:auto;
 z-index:999;
 }
 
-.topbar h1{
-font-size:24px;
+.logo{
+font-size:30px;
 font-weight:900;
+margin-bottom:40px;
+color:#FFD400;
 }
 
-.adminTag{
-padding:10px 16px;
-border-radius:14px;
-background:#FFD400;
-font-size:13px;
-font-weight:800;
+.menu{
+display:flex;
+flex-direction:column;
+gap:10px;
 }
 
-/* =========================
-MAIN
-========================= */
+.menu a{
+text-decoration:none;
+color:#D1D5DB;
+padding:16px;
+border-radius:18px;
+display:flex;
+align-items:center;
+gap:14px;
+font-size:15px;
+font-weight:600;
+transition:0.3s;
+}
+
+.menu a:hover,
+.menu a.active{
+background:#1F2937;
+color:#fff;
+}
+
+/* MAIN */
 
 .main{
-padding:18px;
-display:grid;
-grid-template-columns:
-380px 1fr;
-gap:18px;
+margin-left:270px;
+padding:24px;
 }
 
-/* =========================
-CARD
-========================= */
+/* TOPBAR */
 
-.card{
-background:#fff;
-border-radius:28px;
-padding:22px;
-box-shadow:
-0 4px 18px rgba(0,0,0,0.05);
+.topbar{
+display:flex;
+justify-content:space-between;
+align-items:center;
+margin-bottom:24px;
 }
 
-/* =========================
-FORM
-========================= */
-
-.formTitle{
-font-size:22px;
+.topbar h1{
+font-size:34px;
 font-weight:900;
-margin-bottom:18px;
 }
 
-.inputGroup{
-margin-bottom:16px;
+.addBtn{
+height:56px;
+padding:0 24px;
+border:none;
+border-radius:18px;
+background:#111827;
+color:#fff;
+font-size:15px;
+font-weight:800;
+cursor:pointer;
 }
 
-.inputGroup label{
-display:block;
-font-size:13px;
-font-weight:700;
-margin-bottom:8px;
+/* FORM */
+
+.formCard{
+background:#fff;
+padding:24px;
+border-radius:28px;
+box-shadow:0 8px 24px rgba(0,0,0,0.05);
+margin-bottom:24px;
 }
 
-.inputGroup input,
-.inputGroup select,
-.inputGroup textarea{
+.formGrid{
+display:grid;
+grid-template-columns:1fr 1fr;
+gap:16px;
+}
+
+.input{
 width:100%;
-height:52px;
+height:56px;
 border:none;
 outline:none;
-padding:0 16px;
-border-radius:16px;
-background:#F8FAFC;
-font-size:14px;
+background:#F3F4F6;
+border-radius:18px;
+padding:0 18px;
+font-size:15px;
 }
 
-.inputGroup textarea{
-height:100px;
-padding-top:14px;
+textarea.input{
+height:120px;
+padding-top:18px;
 resize:none;
 }
 
 .submitBtn{
 width:100%;
-height:54px;
+height:58px;
 border:none;
-border-radius:18px;
+border-radius:20px;
 background:#FFD400;
-font-size:15px;
+font-size:16px;
 font-weight:900;
+margin-top:18px;
 cursor:pointer;
 }
 
-/* =========================
-FILTER
-========================= */
+/* SERVICES */
 
-.filterBar{
-display:flex;
-gap:12px;
-margin-bottom:20px;
-flex-wrap:wrap;
-}
-
-.filterBar input,
-.filterBar select{
-height:48px;
-border:none;
-outline:none;
-padding:0 16px;
-border-radius:14px;
-background:#F8FAFC;
-font-size:14px;
-}
-
-/* =========================
-GRID
-========================= */
-
-.productGrid{
+.servicesGrid{
 display:grid;
-grid-template-columns:
-repeat(3,1fr);
-gap:16px;
+grid-template-columns:repeat(3,1fr);
+gap:18px;
 }
 
-/* =========================
-PRODUCT CARD
-========================= */
-
-.productCard{
+.serviceCard{
 background:#fff;
-border-radius:24px;
-padding:18px;
-border:1px solid #F1F5F9;
-box-shadow:
-0 4px 12px rgba(0,0,0,0.04);
+padding:22px;
+border-radius:28px;
+box-shadow:0 10px 30px rgba(0,0,0,0.05);
+position:relative;
+overflow:hidden;
 }
 
-.productTop{
-display:flex;
-justify-content:space-between;
-align-items:center;
-margin-bottom:14px;
+.serviceCard::after{
+content:'';
+position:absolute;
+right:-30px;
+top:-30px;
+width:120px;
+height:120px;
+background:rgba(255,212,0,0.15);
+border-radius:50%;
 }
 
-.productIcon{
-width:60px;
-height:60px;
-border-radius:18px;
-background:#fff;
+.serviceIcon{
+width:70px;
+height:70px;
+border-radius:22px;
+background:#F3F4F6;
 display:flex;
 align-items:center;
 justify-content:center;
-font-size:28px;
-box-shadow:
-0 4px 12px rgba(0,0,0,0.05);
+font-size:34px;
+margin-bottom:18px;
 }
 
-.status{
-padding:6px 12px;
-border-radius:12px;
-font-size:11px;
-font-weight:700;
-}
-
-.active{
-background:#DCFCE7;
-color:#166534;
-}
-
-.inactive{
-background:#FEE2E2;
-color:#991B1B;
-}
-
-.productCard h2{
-font-size:18px;
+.serviceCard h3{
+font-size:20px;
 margin-bottom:8px;
 }
 
-.productCard p{
-font-size:12px;
-color:#666;
-line-height:1.6;
+.serviceCard p{
+font-size:14px;
+color:#6B7280;
 margin-bottom:14px;
 }
 
 .price{
 font-size:24px;
 font-weight:900;
-color:#22C55E;
-margin-bottom:12px;
+margin-bottom:18px;
 }
 
-.tags{
-display:flex;
-gap:8px;
-flex-wrap:wrap;
-margin-bottom:16px;
-}
-
-.tag{
-padding:8px 12px;
-border-radius:12px;
-background:#F8FAFC;
-font-size:11px;
-font-weight:700;
-}
-
-.actionBtns{
-display:flex;
-gap:10px;
-}
-
-.editBtn,
-.deleteBtn{
-flex:1;
-height:42px;
-border:none;
-border-radius:14px;
-font-size:12px;
-font-weight:800;
-cursor:pointer;
+.cardBtns{
+display:grid;
+grid-template-columns:1fr 1fr;
+gap:12px;
 }
 
 .editBtn{
-background:#FFD400;
+height:48px;
+border:none;
+border-radius:16px;
+background:#111827;
+color:#fff;
+font-weight:800;
 }
 
 .deleteBtn{
-background:#EF4444;
-color:#fff;
-}
-
-/* =========================
-POPUP
-========================= */
-
-.popup{
-position:fixed;
-top:30px;
-left:50%;
-transform:translateX(-50%);
-background:#111827;
-color:#fff;
-padding:14px 22px;
+height:48px;
+border:none;
 border-radius:16px;
-font-size:13px;
-font-weight:700;
-opacity:0;
-pointer-events:none;
+background:#FEE2E2;
+color:#DC2626;
+font-weight:800;
+}
+
+/* MOBILE */
+
+.mobileMenuBtn{
+display:none;
+}
+
+@media(max-width:1100px){
+
+.servicesGrid{
+grid-template-columns:1fr 1fr;
+}
+
+}
+
+@media(max-width:768px){
+
+.sidebar{
+left:-100%;
 transition:0.3s;
-z-index:9999;
 }
 
-.showPopup{
-opacity:1;
-top:80px;
+.sidebar.active{
+left:0;
 }
-
-/* =========================
-RESPONSIVE
-========================= */
-
-@media screen and (max-width:1100px){
-
-.productGrid{
-grid-template-columns:
-1fr 1fr;
-}
-
-}
-
-@media screen and (max-width:768px){
 
 .main{
+margin-left:0;
+padding:16px;
+padding-top:80px;
+}
+
+.mobileMenuBtn{
+display:flex;
+position:fixed;
+top:18px;
+left:18px;
+width:52px;
+height:52px;
+border:none;
+border-radius:18px;
+background:#111827;
+color:#fff;
+font-size:22px;
+align-items:center;
+justify-content:center;
+z-index:1000;
+}
+
+.formGrid{
 grid-template-columns:1fr;
 }
 
-.productGrid{
+.servicesGrid{
 grid-template-columns:1fr;
+}
+
+.topbar{
+flex-direction:column;
+align-items:flex-start;
+gap:14px;
 }
 
 .topbar h1{
-font-size:20px;
-}
-
-.card{
-padding:18px;
-border-radius:22px;
+font-size:26px;
 }
 
 }
 
 </style>
-
 </head>
-
 <body>
 
-<!-- POPUP -->
+<!-- MOBILE BUTTON -->
 
-<div
-class="popup"
-id="popup"
->
+<button class="mobileMenuBtn"
+onclick="toggleSidebar()">
 
-Success
+<i class="fa-solid fa-bars"></i>
 
+</button>
+
+<!-- SIDEBAR -->
+
+<div class="sidebar">
+
+<div class="logo">
+QuickPress
 </div>
 
-<!-- TOPBAR -->
+<div class="menu">
 
-<div class="topbar">
+<a href="index.html">
+<i class="fa-solid fa-chart-line"></i>
+Dashboard
+</a>
 
-<h1>
-Services Module
-</h1>
+<a href="orders.html">
+<i class="fa-solid fa-basket-shopping"></i>
+Orders
+</a>
 
-<div class="adminTag">
-ADMIN PANEL
+<a href="services.html" class="active">
+<i class="fa-solid fa-shirt"></i>
+Services
+</a>
+
+<a href="users.html">
+<i class="fa-solid fa-users"></i>
+Users
+</a>
+
+<a href="delivery.html">
+<i class="fa-solid fa-truck"></i>
+Delivery
+</a>
+
+<a href="partners.html">
+<i class="fa-solid fa-handshake"></i>
+Partners
+</a>
+
+<a href="riders.html">
+<i class="fa-solid fa-motorcycle"></i>
+Riders
+</a>
+
+<a href="payments.html">
+<i class="fa-solid fa-wallet"></i>
+Payments
+</a>
+
+<a href="analytics.html">
+<i class="fa-solid fa-chart-pie"></i>
+Analytics
+</a>
+
+<a href="offers.html">
+<i class="fa-solid fa-tags"></i>
+Offers
+</a>
+
+<a href="notifications.html">
+<i class="fa-solid fa-bell"></i>
+Notifications
+</a>
+
+<a href="settings.html">
+<i class="fa-solid fa-gear"></i>
+Settings
+</a>
+
 </div>
 
 </div>
@@ -381,167 +388,85 @@ ADMIN PANEL
 
 <div class="main">
 
-<!-- LEFT FORM -->
+<!-- TOPBAR -->
 
-<div class="card">
+<div class="topbar">
 
-<h2 class="formTitle">
-Add Service
-</h2>
+<h1>
+Services
+</h1>
 
-<div class="inputGroup">
+<button class="addBtn">
+Add New Service
+</button>
 
-<label>
-Product Name
-</label>
+</div>
+
+<!-- FORM -->
+
+<div class="formCard">
+
+<div class="formGrid">
 
 <input
 type="text"
-id="name"
-placeholder="Formal Shirt"
+placeholder="Service Name"
+class="input"
+id="serviceName"
 />
-
-</div>
-
-<div class="inputGroup">
-
-<label>
-Price
-</label>
-
-<input
-type="number"
-id="price"
-placeholder="29"
-/>
-
-</div>
-
-<div class="inputGroup">
-
-<label>
-Category
-</label>
-
-<select id="category">
-
-<option>
-Ironing
-</option>
-
-<option>
-Wash
-</option>
-
-<option>
-Dry Clean
-</option>
-
-<option>
-Steam
-</option>
-
-<option>
-Premium
-</option>
-
-</select>
-
-</div>
-
-<div class="inputGroup">
-
-<label>
-Icon
-</label>
 
 <input
 type="text"
-id="icon"
-placeholder="👔"
+placeholder="Price"
+class="input"
+id="servicePrice"
 />
-
-</div>
-
-<div class="inputGroup">
-
-<label>
-City
-</label>
-
-<select id="city">
-
-<option>
-Meerut
-</option>
-
-<option>
-Delhi
-</option>
-
-<option>
-Noida
-</option>
-
-<option>
-Ghaziabad
-</option>
-
-</select>
-
-</div>
-
-<div class="inputGroup">
-
-<label>
-Area
-</label>
 
 <input
 type="text"
-id="area"
-placeholder="Shastri Nagar"
+placeholder="Category"
+class="input"
+id="serviceCategory"
 />
 
-</div>
+<input
+type="text"
+placeholder="Icon Emoji"
+class="input"
+id="serviceIcon"
+/>
 
-<div class="inputGroup">
+<input
+type="text"
+placeholder="City"
+class="input"
+id="serviceCity"
+/>
 
-<label>
-Description
-</label>
+<select
+class="input"
+id="serviceStatus">
 
-<textarea
-id="desc"
-placeholder="Premium steam ironing"
-></textarea>
-
-</div>
-
-<div class="inputGroup">
-
-<label>
-Status
-</label>
-
-<select id="status">
-
-<option value="active">
+<option>
 Active
 </option>
 
-<option value="inactive">
-Inactive
+<option>
+Disabled
 </option>
 
 </select>
 
 </div>
 
+<textarea
+placeholder="Service Description"
+class="input"
+id="serviceDesc"></textarea>
+
 <button
 class="submitBtn"
-onclick="addService()"
->
+onclick="addService()">
 
 Add Service
 
@@ -549,70 +474,10 @@ Add Service
 
 </div>
 
-<!-- RIGHT -->
+<!-- SERVICES -->
 
-<div class="card">
-
-<!-- FILTER -->
-
-<div class="filterBar">
-
-<input
-type="text"
-placeholder="Search..."
-id="searchInput"
-/>
-
-<select id="cityFilter">
-
-<option value="all">
-All Cities
-</option>
-
-<option>
-Meerut
-</option>
-
-<option>
-Delhi
-</option>
-
-<option>
-Noida
-</option>
-
-</select>
-
-<select id="categoryFilter">
-
-<option value="all">
-All Categories
-</option>
-
-<option>
-Ironing
-</option>
-
-<option>
-Wash
-</option>
-
-<option>
-Dry Clean
-</option>
-
-</select>
-
-</div>
-
-<!-- GRID -->
-
-<div
-class="productGrid"
-id="productGrid"
->
-
-</div>
+<div class="servicesGrid"
+id="servicesGrid">
 
 </div>
 
@@ -622,17 +487,11 @@ id="productGrid"
 
 <script type="module">
 
-/* =========================
-IMPORTS
-========================= */
+import { db }
 
-import {
+from
 
-db
-
-}
-
-from "../firebase.js";
+"/Pal-Group-Pvt-Ltd/firebase.js";
 
 import {
 
@@ -648,209 +507,56 @@ from
 
 "https://www.gstatic.com/firebasejs/12.11.0/firebase-firestore.js";
 
-/* =========================
-ELEMENTS
-========================= */
+/* LOAD */
 
-const productGrid =
+async function loadServices(){
 
+const servicesGrid =
 document.getElementById(
-"productGrid"
+"servicesGrid"
 );
 
-let allProducts = [];
-
-/* =========================
-POPUP
-========================= */
-
-function showPopup(text){
-
-const popup =
-
-document.getElementById(
-"popup"
-);
-
-popup.innerHTML = text;
-
-popup.classList.add(
-"showPopup"
-);
-
-setTimeout(()=>{
-
-popup.classList.remove(
-"showPopup"
-);
-
-},2000);
-
-}
-
-/* =========================
-ADD SERVICE
-========================= */
-
-window.addService =
-async function(){
-
-const service = {
-
-name:
-document.getElementById(
-"name"
-).value,
-
-price:
-document.getElementById(
-"price"
-).value,
-
-category:
-document.getElementById(
-"category"
-).value,
-
-icon:
-document.getElementById(
-"icon"
-).value,
-
-city:
-document.getElementById(
-"city"
-).value,
-
-area:
-document.getElementById(
-"area"
-).value,
-
-desc:
-document.getElementById(
-"desc"
-).value,
-
-status:
-document.getElementById(
-"status"
-).value,
-
-createdAt:
-new Date()
-
-};
-
-await addDoc(
-
-collection(db,"services"),
-
-service
-
-);
-
-showPopup(
-"Service Added Successfully"
-);
-
-loadProducts();
-
-};
-
-/* =========================
-LOAD PRODUCTS
-========================= */
-
-async function loadProducts(){
-
-const querySnapshot =
+const snap =
 
 await getDocs(
-
 collection(db,"services")
-
 );
-
-allProducts = [];
-
-querySnapshot.forEach((doc)=>{
-
-allProducts.push({
-
-id:doc.id,
-
-...doc.data()
-
-});
-
-});
-
-renderProducts(allProducts);
-
-}
-
-loadProducts();
-
-/* =========================
-RENDER
-========================= */
-
-function renderProducts(products){
 
 let html = "";
 
-products.forEach((product)=>{
+snap.forEach((docSnap)=>{
+
+const service =
+docSnap.data();
 
 html += `
 
-<div class="productCard">
+<div class="serviceCard">
 
-<div class="productTop">
-
-<div class="productIcon">
-${product.icon}
+<div class="serviceIcon">
+${service.icon || "👕"}
 </div>
 
-<div class="status ${product.status}">
-${product.status}
-</div>
-
-</div>
-
-<h2>
-${product.name}
-</h2>
+<h3>
+${service.name}
+</h3>
 
 <p>
-${product.desc}
+${service.description || ""}
 </p>
 
 <div class="price">
-₹${product.price}
+₹${service.price || 0}
 </div>
 
-<div class="tags">
+<p>
+${service.city || ""}
+</p>
 
-<div class="tag">
-${product.category}
-</div>
-
-<div class="tag">
-${product.city}
-</div>
-
-<div class="tag">
-${product.area}
-</div>
-
-</div>
-
-<div class="actionBtns">
+<div class="cardBtns">
 
 <button
-class="editBtn"
->
+class="editBtn">
 
 Edit
 
@@ -858,10 +564,7 @@ Edit
 
 <button
 class="deleteBtn"
-onclick="
-deleteService('${product.id}')
-"
->
+onclick="deleteService('${docSnap.id}')">
 
 Delete
 
@@ -875,126 +578,118 @@ Delete
 
 });
 
-productGrid.innerHTML = html;
+servicesGrid.innerHTML = html;
 
 }
 
-/* =========================
-DELETE
-========================= */
+loadServices();
+
+/* ADD */
+
+window.addService =
+async function(){
+
+const name =
+document.getElementById(
+"serviceName"
+).value;
+
+const price =
+document.getElementById(
+"servicePrice"
+).value;
+
+const category =
+document.getElementById(
+"serviceCategory"
+).value;
+
+const icon =
+document.getElementById(
+"serviceIcon"
+).value;
+
+const city =
+document.getElementById(
+"serviceCity"
+).value;
+
+const status =
+document.getElementById(
+"serviceStatus"
+).value;
+
+const description =
+document.getElementById(
+"serviceDesc"
+).value;
+
+if(
+!name ||
+!price
+){
+
+alert(
+"Fill Required Fields"
+);
+
+return;
+
+}
+
+await addDoc(
+
+collection(db,"services"),
+
+{
+
+name:name,
+price:Number(price),
+category:category,
+icon:icon,
+city:city,
+status:status,
+description:description
+
+}
+
+);
+
+alert(
+"Service Added"
+);
+
+location.reload();
+
+};
+
+/* DELETE */
 
 window.deleteService =
 async function(id){
 
 await deleteDoc(
-
 doc(db,"services",id)
-
 );
 
-showPopup(
+alert(
 "Service Deleted"
 );
 
-loadProducts();
+loadServices();
 
 };
 
-/* =========================
-SEARCH
-========================= */
+/* SIDEBAR */
+
+window.toggleSidebar =
+function(){
 
 document
-.getElementById(
-"searchInput"
-)
-.addEventListener(
-"input",
-filterProducts
-);
+.querySelector(".sidebar")
+.classList.toggle("active");
 
-document
-.getElementById(
-"cityFilter"
-)
-.addEventListener(
-"change",
-filterProducts
-);
-
-document
-.getElementById(
-"categoryFilter"
-)
-.addEventListener(
-"change",
-filterProducts
-);
-
-/* =========================
-FILTER
-========================= */
-
-function filterProducts(){
-
-const search =
-
-document
-.getElementById(
-"searchInput"
-)
-.value
-.toLowerCase();
-
-const city =
-
-document
-.getElementById(
-"cityFilter"
-)
-.value;
-
-const category =
-
-document
-.getElementById(
-"categoryFilter"
-)
-.value;
-
-const filtered =
-
-allProducts.filter((item)=>{
-
-const matchSearch =
-
-item.name
-.toLowerCase()
-.includes(search);
-
-const matchCity =
-
-city === "all" ||
-item.city === city;
-
-const matchCategory =
-
-category === "all" ||
-item.category === category;
-
-return(
-
-matchSearch &&
-matchCity &&
-matchCategory
-
-);
-
-});
-
-renderProducts(filtered);
-
-}
+};
 
 </script>
 
