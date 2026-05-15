@@ -1,0 +1,562 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport"
+content="width=device-width, initial-scale=1.0">
+
+<title>QuickPress Notifications</title>
+
+<link rel="stylesheet"
+href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css"/>
+
+<style>
+
+*{
+margin:0;
+padding:0;
+box-sizing:border-box;
+font-family:Poppins,sans-serif;
+}
+
+body{
+background:#F5F7FB;
+}
+
+/* SIDEBAR */
+
+.sidebar{
+width:270px;
+background:#111827;
+color:#fff;
+padding:24px 18px;
+position:fixed;
+left:0;
+top:0;
+height:100%;
+overflow:auto;
+z-index:999;
+}
+
+.logo{
+font-size:30px;
+font-weight:900;
+margin-bottom:40px;
+color:#FFD400;
+}
+
+.menu{
+display:flex;
+flex-direction:column;
+gap:10px;
+}
+
+.menu a{
+text-decoration:none;
+color:#D1D5DB;
+padding:16px;
+border-radius:18px;
+display:flex;
+align-items:center;
+gap:14px;
+font-size:15px;
+font-weight:600;
+transition:0.3s;
+}
+
+.menu a:hover,
+.menu a.active{
+background:#1F2937;
+color:#fff;
+}
+
+/* MAIN */
+
+.main{
+margin-left:270px;
+padding:24px;
+}
+
+/* TOPBAR */
+
+.topbar{
+display:flex;
+justify-content:space-between;
+align-items:center;
+margin-bottom:24px;
+}
+
+.topbar h1{
+font-size:34px;
+font-weight:900;
+}
+
+/* FORM */
+
+.formCard{
+background:#fff;
+padding:24px;
+border-radius:28px;
+box-shadow:0 10px 30px rgba(0,0,0,0.05);
+margin-bottom:24px;
+}
+
+.input{
+width:100%;
+height:56px;
+border:none;
+outline:none;
+background:#F3F4F6;
+border-radius:18px;
+padding:0 18px;
+font-size:15px;
+margin-bottom:16px;
+}
+
+textarea.input{
+height:140px;
+padding-top:18px;
+resize:none;
+}
+
+.sendBtn{
+width:100%;
+height:58px;
+border:none;
+border-radius:20px;
+background:#FFD400;
+font-size:16px;
+font-weight:900;
+cursor:pointer;
+}
+
+/* LIST */
+
+.notificationsList{
+display:flex;
+flex-direction:column;
+gap:18px;
+}
+
+.notificationCard{
+background:#fff;
+padding:22px;
+border-radius:28px;
+box-shadow:0 10px 30px rgba(0,0,0,0.05);
+display:flex;
+justify-content:space-between;
+align-items:center;
+gap:18px;
+}
+
+.left{
+display:flex;
+align-items:center;
+gap:16px;
+}
+
+.icon{
+width:70px;
+height:70px;
+border-radius:22px;
+background:#FFD400;
+display:flex;
+align-items:center;
+justify-content:center;
+font-size:30px;
+}
+
+.info h3{
+font-size:20px;
+margin-bottom:6px;
+}
+
+.info p{
+font-size:14px;
+color:#6B7280;
+}
+
+.deleteBtn{
+height:50px;
+padding:0 20px;
+border:none;
+border-radius:16px;
+background:#FEE2E2;
+color:#DC2626;
+font-weight:800;
+cursor:pointer;
+}
+
+/* MOBILE */
+
+.mobileMenuBtn{
+display:none;
+}
+
+@media(max-width:768px){
+
+.sidebar{
+left:-100%;
+transition:0.3s;
+}
+
+.sidebar.active{
+left:0;
+}
+
+.main{
+margin-left:0;
+padding:16px;
+padding-top:80px;
+}
+
+.mobileMenuBtn{
+display:flex;
+position:fixed;
+top:18px;
+left:18px;
+width:52px;
+height:52px;
+border:none;
+border-radius:18px;
+background:#111827;
+color:#fff;
+font-size:22px;
+align-items:center;
+justify-content:center;
+z-index:1000;
+}
+
+.topbar h1{
+font-size:26px;
+}
+
+.notificationCard{
+flex-direction:column;
+align-items:flex-start;
+}
+
+}
+
+</style>
+</head>
+<body>
+
+<!-- MOBILE BUTTON -->
+
+<button class="mobileMenuBtn"
+onclick="toggleSidebar()">
+
+<i class="fa-solid fa-bars"></i>
+
+</button>
+
+<!-- SIDEBAR -->
+
+<div class="sidebar">
+
+<div class="logo">
+QuickPress
+</div>
+
+<div class="menu">
+
+<a href="index.html">
+<i class="fa-solid fa-chart-line"></i>
+Dashboard
+</a>
+
+<a href="orders.html">
+<i class="fa-solid fa-basket-shopping"></i>
+Orders
+</a>
+
+<a href="services.html">
+<i class="fa-solid fa-shirt"></i>
+Services
+</a>
+
+<a href="users.html">
+<i class="fa-solid fa-users"></i>
+Users
+</a>
+
+<a href="delivery.html">
+<i class="fa-solid fa-truck"></i>
+Delivery
+</a>
+
+<a href="partners.html">
+<i class="fa-solid fa-handshake"></i>
+Partners
+</a>
+
+<a href="riders.html">
+<i class="fa-solid fa-motorcycle"></i>
+Riders
+</a>
+
+<a href="payments.html">
+<i class="fa-solid fa-wallet"></i>
+Payments
+</a>
+
+<a href="analytics.html">
+<i class="fa-solid fa-chart-pie"></i>
+Analytics
+</a>
+
+<a href="offers.html">
+<i class="fa-solid fa-tags"></i>
+Offers
+</a>
+
+<a href="notifications.html" class="active">
+<i class="fa-solid fa-bell"></i>
+Notifications
+</a>
+
+<a href="settings.html">
+<i class="fa-solid fa-gear"></i>
+Settings
+</a>
+
+</div>
+
+</div>
+
+<!-- MAIN -->
+
+<div class="main">
+
+<!-- TOPBAR -->
+
+<div class="topbar">
+
+<h1>
+Notifications
+</h1>
+
+</div>
+
+<!-- FORM -->
+
+<div class="formCard">
+
+<input
+type="text"
+placeholder="Notification Title"
+class="input"
+id="title"
+/>
+
+<textarea
+placeholder="Notification Message"
+class="input"
+id="message"></textarea>
+
+<input
+type="text"
+placeholder="Emoji Icon"
+class="input"
+id="icon"
+/>
+
+<button
+class="sendBtn"
+onclick="sendNotification()">
+
+Send Notification
+
+</button>
+
+</div>
+
+<!-- LIST -->
+
+<div class="notificationsList"
+id="notificationsList">
+
+</div>
+
+</div>
+
+<!-- FIREBASE -->
+
+<script type="module">
+
+import { db }
+
+from
+
+"/Pal-Group-Pvt-Ltd/firebase.js";
+
+import {
+
+collection,
+addDoc,
+getDocs,
+deleteDoc,
+doc,
+serverTimestamp
+
+}
+
+from
+
+"https://www.gstatic.com/firebasejs/12.11.0/firebase-firestore.js";
+
+/* LOAD */
+
+async function loadNotifications(){
+
+const notificationsList =
+document.getElementById(
+"notificationsList"
+);
+
+const snap =
+
+await getDocs(
+collection(db,"notifications")
+);
+
+let html = "";
+
+snap.forEach((docSnap)=>{
+
+const notification =
+docSnap.data();
+
+html += `
+
+<div class="notificationCard">
+
+<div class="left">
+
+<div class="icon">
+${notification.icon || "🔔"}
+</div>
+
+<div class="info">
+
+<h3>
+${notification.title || ""}
+</h3>
+
+<p>
+${notification.message || ""}
+</p>
+
+</div>
+
+</div>
+
+<button
+class="deleteBtn"
+onclick="deleteNotification('${docSnap.id}')">
+
+Delete
+
+</button>
+
+</div>
+
+`;
+
+});
+
+notificationsList.innerHTML = html;
+
+}
+
+loadNotifications();
+
+/* SEND */
+
+window.sendNotification =
+async function(){
+
+const title =
+document.getElementById(
+"title"
+).value;
+
+const message =
+document.getElementById(
+"message"
+).value;
+
+const icon =
+document.getElementById(
+"icon"
+).value;
+
+if(
+!title ||
+!message
+){
+
+alert(
+"Fill Required Fields"
+);
+
+return;
+
+}
+
+await addDoc(
+
+collection(db,"notifications"),
+
+{
+
+title:title,
+message:message,
+icon:icon,
+createdAt:serverTimestamp()
+
+}
+
+);
+
+alert(
+"Notification Sent"
+);
+
+location.reload();
+
+};
+
+/* DELETE */
+
+window.deleteNotification =
+async function(id){
+
+await deleteDoc(
+doc(db,"notifications",id)
+);
+
+alert(
+"Notification Deleted"
+);
+
+loadNotifications();
+
+};
+
+/* SIDEBAR */
+
+window.toggleSidebar =
+function(){
+
+document
+.querySelector(".sidebar")
+.classList.toggle("active");
+
+};
+
+</script>
+
+</body>
+</html>
