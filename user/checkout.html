@@ -849,6 +849,45 @@ Track Order
   
 <script type="module">
 
+/* =========================
+LOGIN SECURITY
+========================= */
+
+const isLoggedIn =
+
+localStorage.getItem(
+"isLoggedIn"
+);
+
+const userPhone =
+
+localStorage.getItem(
+"userPhone"
+);
+
+/* NOT LOGIN */
+
+if(
+isLoggedIn !== "true" ||
+!userPhone
+){
+
+alert(
+"Please Login First"
+);
+
+/* REDIRECT LOGIN */
+
+window.location.href =
+
+"/Pal-Group-Pvt-Ltd/user/login.html";
+
+}
+
+/* =========================
+FIREBASE
+========================= */
+
 import { db }
 
 from
@@ -881,16 +920,6 @@ let cart =
 JSON.parse(
 localStorage.getItem("cart")
 ) || [];
-
-/* =========================
-USER
-========================= */
-
-const userPhone =
-
-localStorage.getItem(
-"userPhone"
-) || "";
 
 /* =========================
 GLOBAL
@@ -1144,7 +1173,26 @@ async function placeOrder(){
 
 try{
 
-console.log("ORDER START");
+/* SECURITY CHECK */
+
+const loginCheck =
+
+localStorage.getItem(
+"isLoggedIn"
+);
+
+if(loginCheck !== "true"){
+
+alert(
+"Login Required"
+);
+
+window.location.href =
+"/Pal-Group-Pvt-Ltd/user/login.html";
+
+return;
+
+}
 
 /* FORM */
 
@@ -1248,8 +1296,6 @@ serverTimestamp()
 
 };
 
-console.log(orderData);
-
 /* SAVE FIREBASE */
 
 const orderRef =
@@ -1260,11 +1306,6 @@ collection(db,"orders"),
 
 orderData
 
-);
-
-console.log(
-"ORDER SUCCESS",
-orderRef.id
 );
 
 /* SAVE TRACKING */
@@ -1332,7 +1373,7 @@ window.goTracking =
 goTracking;
 
 </script>
-
+  
 </body>
 
 </html>
