@@ -91,13 +91,48 @@ padding:24px;
 display:flex;
 justify-content:space-between;
 align-items:center;
-margin-bottom:26px;
-gap:18px;
+margin-bottom:24px;
+gap:16px;
 }
 
 .topbar h1{
 font-size:36px;
 font-weight:900;
+}
+
+/* SEARCH */
+
+.searchGrid{
+display:grid;
+grid-template-columns:1fr 1fr;
+gap:16px;
+margin-bottom:24px;
+}
+
+.input{
+width:100%;
+height:58px;
+border:none;
+outline:none;
+background:#fff;
+border-radius:18px;
+padding:0 18px;
+font-size:15px;
+box-shadow:0 10px 30px rgba(0,0,0,0.05);
+}
+
+.textarea{
+width:100%;
+height:120px;
+border:none;
+outline:none;
+background:#fff;
+border-radius:18px;
+padding:18px;
+font-size:15px;
+resize:none;
+grid-column:1/3;
+box-shadow:0 10px 30px rgba(0,0,0,0.05);
 }
 
 /* FORM */
@@ -112,32 +147,15 @@ box-shadow:0 10px 30px rgba(0,0,0,0.05);
 
 .formGrid{
 display:grid;
-grid-template-columns:1fr 1fr 1fr;
+grid-template-columns:1fr 1fr;
 gap:16px;
 }
 
-.input{
-width:100%;
-height:58px;
-border:none;
-outline:none;
-background:#F3F4F6;
-border-radius:18px;
-padding:0 18px;
-font-size:15px;
-}
-
-.textarea{
-width:100%;
-height:120px;
-border:none;
-outline:none;
-background:#F3F4F6;
-border-radius:18px;
-padding:18px;
-font-size:15px;
-resize:none;
-grid-column:1/4;
+.priceGrid{
+display:grid;
+grid-template-columns:1fr 1fr 1fr;
+gap:16px;
+margin-top:18px;
 }
 
 .submitBtn{
@@ -156,32 +174,6 @@ cursor:pointer;
 margin-top:18px;
 }
 
-/* CATEGORY STATS */
-
-.categoryGrid{
-display:grid;
-grid-template-columns:repeat(4,1fr);
-gap:18px;
-margin-bottom:26px;
-}
-
-.categoryCard{
-background:#fff;
-padding:24px;
-border-radius:28px;
-box-shadow:0 10px 30px rgba(0,0,0,0.05);
-}
-
-.categoryCard h3{
-font-size:18px;
-margin-bottom:12px;
-}
-
-.categoryCard p{
-font-size:34px;
-font-weight:900;
-}
-
 /* SERVICES */
 
 .servicesGrid{
@@ -193,7 +185,7 @@ gap:18px;
 .serviceCard{
 background:#fff;
 padding:22px;
-border-radius:30px;
+border-radius:28px;
 box-shadow:0 10px 30px rgba(0,0,0,0.05);
 position:relative;
 overflow:hidden;
@@ -202,12 +194,12 @@ overflow:hidden;
 .serviceCard::before{
 content:"";
 position:absolute;
-width:150px;
-height:150px;
+width:140px;
+height:140px;
 background:rgba(255,212,0,0.15);
 border-radius:50%;
-top:-60px;
-right:-60px;
+top:-50px;
+right:-50px;
 }
 
 .serviceTop{
@@ -222,7 +214,7 @@ font-size:22px;
 font-weight:900;
 }
 
-.categoryTag{
+.category{
 padding:10px 14px;
 border-radius:14px;
 background:#111827;
@@ -231,28 +223,28 @@ font-size:11px;
 font-weight:800;
 }
 
-.description{
+.desc{
 font-size:14px;
 line-height:1.6;
 color:#6B7280;
 margin-bottom:18px;
 }
 
-/* CITY RATES */
+/* PRICES */
 
-.cityRates{
+.cityPriceBox{
 display:flex;
 flex-direction:column;
 gap:10px;
 margin-bottom:18px;
 }
 
-.rateItem{
+.cityPrice{
 display:flex;
 justify-content:space-between;
-background:#F9FAFB;
 padding:12px 14px;
 border-radius:14px;
+background:#F9FAFB;
 font-size:14px;
 font-weight:700;
 }
@@ -297,10 +289,6 @@ display:none;
 grid-template-columns:1fr 1fr;
 }
 
-.categoryGrid{
-grid-template-columns:1fr 1fr;
-}
-
 }
 
 @media(max-width:768px){
@@ -337,7 +325,9 @@ justify-content:center;
 z-index:9999;
 }
 
-.formGrid{
+.formGrid,
+.searchGrid,
+.priceGrid{
 grid-template-columns:1fr;
 }
 
@@ -346,10 +336,6 @@ grid-column:1/2;
 }
 
 .servicesGrid{
-grid-template-columns:1fr;
-}
-
-.categoryGrid{
 grid-template-columns:1fr;
 }
 
@@ -400,34 +386,6 @@ Services
 
 </a>
 
-<a href="users.html">
-
-<i class="fa-solid fa-users"></i>
-Users
-
-</a>
-
-<a href="delivery.html">
-
-<i class="fa-solid fa-truck"></i>
-Delivery
-
-</a>
-
-<a href="partners.html">
-
-<i class="fa-solid fa-handshake"></i>
-Partners
-
-</a>
-
-<a href="riders.html">
-
-<i class="fa-solid fa-motorcycle"></i>
-Riders
-
-</a>
-
 </div>
 
 </div>
@@ -436,13 +394,60 @@ Riders
 
 <div class="main">
 
-<!-- TOP -->
-
 <div class="topbar">
 
 <h1>
 Services
 </h1>
+
+</div>
+
+<!-- SEARCH -->
+
+<div class="searchGrid">
+
+<input
+type="text"
+placeholder="Search Service..."
+class="input"
+id="searchInput"
+onkeyup="searchServices()"
+/>
+
+<select
+class="input"
+id="citySearch"
+onchange="searchServices()">
+
+<option value="All">
+All Cities
+</option>
+
+<option value="Noida">
+Noida
+</option>
+
+<option value="Kasganj">
+Kasganj
+</option>
+
+<option value="Aligarh">
+Aligarh
+</option>
+
+<option value="Badaun">
+Badaun
+</option>
+
+<option value="Delhi">
+Delhi
+</option>
+
+<option value="Mumbai">
+Mumbai
+</option>
+
+</select>
 
 </div>
 
@@ -479,74 +484,68 @@ Dry Cleaning
 Premium
 </option>
 
-</select>
-
-<select
-class="input"
-id="state">
-
 <option>
-Uttar Pradesh
+Shoe & Bag
 </option>
 
 <option>
-Delhi
-</option>
-
-<option>
-Maharashtra
+Home Cleaning
 </option>
 
 </select>
-
-<select
-class="input"
-id="city">
-
-<option>
-Noida
-</option>
-
-<option>
-Kasganj
-</option>
-
-<option>
-Aligarh
-</option>
-
-<option>
-Badaun
-</option>
-
-<option>
-Delhi
-</option>
-
-<option>
-Mumbai
-</option>
-
-</select>
-
-<input
-type="number"
-placeholder="Price"
-class="input"
-id="price"
-/>
-
-<input
-type="text"
-placeholder="Image URL"
-class="input"
-id="image"
-/>
 
 <textarea
 placeholder="Description"
 class="textarea"
 id="description"></textarea>
+
+</div>
+
+<!-- CITY PRICES -->
+
+<div class="priceGrid">
+
+<input
+type="number"
+placeholder="Noida Price"
+class="input"
+id="noidaPrice"
+/>
+
+<input
+type="number"
+placeholder="Kasganj Price"
+class="input"
+id="kasganjPrice"
+/>
+
+<input
+type="number"
+placeholder="Aligarh Price"
+class="input"
+id="aligarhPrice"
+/>
+
+<input
+type="number"
+placeholder="Badaun Price"
+class="input"
+id="badaunPrice"
+/>
+
+<input
+type="number"
+placeholder="Delhi Price"
+class="input"
+id="delhiPrice"
+/>
+
+<input
+type="number"
+placeholder="Mumbai Price"
+class="input"
+id="mumbaiPrice"
+/>
 
 </div>
 
@@ -557,60 +556,6 @@ onclick="addService()">
 Add Service
 
 </button>
-
-</div>
-
-<!-- CATEGORY STATS -->
-
-<div class="categoryGrid">
-
-<div class="categoryCard">
-
-<h3>
-Ironing Services
-</h3>
-
-<p id="ironCount">
-0
-</p>
-
-</div>
-
-<div class="categoryCard">
-
-<h3>
-Washing Services
-</h3>
-
-<p id="washCount">
-0
-</p>
-
-</div>
-
-<div class="categoryCard">
-
-<h3>
-Dry Cleaning
-</h3>
-
-<p id="dryCount">
-0
-</p>
-
-</div>
-
-<div class="categoryCard">
-
-<h3>
-Premium Services
-</h3>
-
-<p id="premiumCount">
-0
-</p>
-
-</div>
 
 </div>
 
@@ -648,6 +593,8 @@ from
 
 "https://www.gstatic.com/firebasejs/12.11.0/firebase-firestore.js";
 
+let allServices = [];
+
 /* LOAD */
 
 async function loadServices(){
@@ -662,51 +609,41 @@ await getDocs(
 collection(db,"services")
 );
 
-let html = "";
+allServices = [];
 
-let iron = 0;
-let wash = 0;
-let dry = 0;
-let premium = 0;
+let html = "";
 
 snap.forEach((docSnap)=>{
 
 const service =
 docSnap.data();
 
-if(
-service.category==="Ironing"
-){
+allServices.push({
 
-iron++;
+id:docSnap.id,
+...service
 
-}
+});
 
-if(
-service.category==="Washing"
-){
+html += createCard(
+docSnap.id,
+service
+);
 
-wash++;
+});
 
-}
-
-if(
-service.category==="Dry Cleaning"
-){
-
-dry++;
+servicesGrid.innerHTML =
+html;
 
 }
 
-if(
-service.category==="Premium"
-){
+loadServices();
 
-premium++;
+/* CARD */
 
-}
+function createCard(id,service){
 
-html += `
+return `
 
 <div class="serviceCard">
 
@@ -716,28 +653,58 @@ html += `
 ${service.name || ""}
 </div>
 
-<div class="categoryTag">
+<div class="category">
 ${service.category || ""}
 </div>
 
 </div>
 
-<div class="description">
+<div class="desc">
 ${service.description || ""}
 </div>
 
-<div class="cityRates">
+<div class="cityPriceBox">
 
-<div class="rateItem">
-
+<div class="cityPrice">
+<span>Noida</span>
 <span>
-${service.city || ""}
+₹${service.prices?.Noida || 0}
 </span>
+</div>
 
+<div class="cityPrice">
+<span>Kasganj</span>
 <span>
-₹${service.price || 0}
+₹${service.prices?.Kasganj || 0}
 </span>
+</div>
 
+<div class="cityPrice">
+<span>Aligarh</span>
+<span>
+₹${service.prices?.Aligarh || 0}
+</span>
+</div>
+
+<div class="cityPrice">
+<span>Badaun</span>
+<span>
+₹${service.prices?.Badaun || 0}
+</span>
+</div>
+
+<div class="cityPrice">
+<span>Delhi</span>
+<span>
+₹${service.prices?.Delhi || 0}
+</span>
+</div>
+
+<div class="cityPrice">
+<span>Mumbai</span>
+<span>
+₹${service.prices?.Mumbai || 0}
+</span>
 </div>
 
 </div>
@@ -746,11 +713,7 @@ ${service.city || ""}
 
 <button
 class="editBtn"
-onclick="editService(
-'${docSnap.id}',
-'${service.name}',
-'${service.price}'
-)">
+onclick="editService('${id}')">
 
 Edit
 
@@ -758,7 +721,7 @@ Edit
 
 <button
 class="deleteBtn"
-onclick="deleteService('${docSnap.id}')">
+onclick="deleteService('${id}')">
 
 Delete
 
@@ -770,34 +733,7 @@ Delete
 
 `;
 
-});
-
-servicesGrid.innerHTML =
-html;
-
-document.getElementById(
-"ironCount"
-).innerHTML =
-iron;
-
-document.getElementById(
-"washCount"
-).innerHTML =
-wash;
-
-document.getElementById(
-"dryCount"
-).innerHTML =
-dry;
-
-document.getElementById(
-"premiumCount"
-).innerHTML =
-premium;
-
 }
-
-loadServices();
 
 /* ADD */
 
@@ -814,43 +750,10 @@ document.getElementById(
 "category"
 ).value;
 
-const state =
-document.getElementById(
-"state"
-).value;
-
-const city =
-document.getElementById(
-"city"
-).value;
-
-const price =
-document.getElementById(
-"price"
-).value;
-
-const image =
-document.getElementById(
-"image"
-).value;
-
 const description =
 document.getElementById(
 "description"
 ).value;
-
-if(
-!name ||
-!price
-){
-
-alert(
-"Fill Required Fields"
-);
-
-return;
-
-}
 
 await addDoc(
 
@@ -859,12 +762,50 @@ collection(db,"services"),
 {
 
 name:name,
+
 category:category,
-state:state,
-city:city,
-price:Number(price),
-image:image,
-description:description
+
+description:description,
+
+prices:{
+
+Noida:Number(
+document.getElementById(
+"noidaPrice"
+).value || 0
+),
+
+Kasganj:Number(
+document.getElementById(
+"kasganjPrice"
+).value || 0
+),
+
+Aligarh:Number(
+document.getElementById(
+"aligarhPrice"
+).value || 0
+),
+
+Badaun:Number(
+document.getElementById(
+"badaunPrice"
+).value || 0
+),
+
+Delhi:Number(
+document.getElementById(
+"delhiPrice"
+).value || 0
+),
+
+Mumbai:Number(
+document.getElementById(
+"mumbaiPrice"
+).value || 0
+)
+
+}
 
 }
 
@@ -888,7 +829,7 @@ doc(db,"services",id)
 );
 
 alert(
-"Service Deleted"
+"Deleted"
 );
 
 loadServices();
@@ -898,28 +839,14 @@ loadServices();
 /* EDIT */
 
 window.editService =
-async function(id,name,price){
+async function(id){
 
 const newName =
 prompt(
-"Edit Service Name",
-name
+"New Service Name"
 );
 
-const newPrice =
-prompt(
-"Edit Price",
-price
-);
-
-if(
-!newName ||
-!newPrice
-){
-
-return;
-
-}
+if(!newName)return;
 
 await updateDoc(
 
@@ -927,18 +854,82 @@ doc(db,"services",id),
 
 {
 
-name:newName,
-price:Number(newPrice)
+name:newName
 
 }
 
 );
 
 alert(
-"Service Updated"
+"Updated"
 );
 
 loadServices();
+
+};
+
+/* SEARCH */
+
+window.searchServices =
+function(){
+
+const search =
+document.getElementById(
+"searchInput"
+).value.toLowerCase();
+
+const city =
+document.getElementById(
+"citySearch"
+).value;
+
+const servicesGrid =
+document.getElementById(
+"servicesGrid"
+);
+
+let html = "";
+
+allServices.forEach((service)=>{
+
+const name =
+service.name
+.toLowerCase();
+
+if(
+!name.includes(search)
+){
+
+return;
+
+}
+
+if(
+city !== "All"
+){
+
+const cityPrice =
+service.prices?.[city];
+
+if(
+cityPrice === undefined
+){
+
+return;
+
+}
+
+}
+
+html += createCard(
+service.id,
+service
+);
+
+});
+
+servicesGrid.innerHTML =
+html;
 
 };
 
@@ -952,449 +943,7 @@ document
 .classList.toggle("active");
 
 };
-/* =========================
-AUTO ADD ALL SERVICES
-services.html SCRIPT KE LAST ME ADD KARO
-========================= */
 
-window.addDefaultServices =
-async function(){
-
-const services = [
-
-/* =========================
-IRONING
-========================= */
-
-{
-name:"👔 Shirt",
-category:"Ironing",
-description:"Formal shirt ironing"
-},
-
-{
-name:"👕 T-Shirt",
-category:"Ironing",
-description:"Daily wear press"
-},
-
-{
-name:"👖 Jeans",
-category:"Ironing",
-description:"Steam ironing for jeans"
-},
-
-{
-name:"👖 Trousers",
-category:"Ironing",
-description:"Office pant press"
-},
-
-{
-name:"🥻 Saree",
-category:"Ironing",
-description:"Soft heat saree ironing"
-},
-
-{
-name:"👗 Kurti",
-category:"Ironing",
-description:"Simple wrinkle removal"
-},
-
-{
-name:"🧥 Blazer",
-category:"Ironing",
-description:"Premium coat pressing"
-},
-
-{
-name:"👶 School Uniform",
-category:"Ironing",
-description:"Uniform ironing"
-},
-
-{
-name:"🛏️ Bedsheet",
-category:"Ironing",
-description:"Fold & iron service"
-},
-
-{
-name:"🧣 Dupatta",
-category:"Ironing",
-description:"Light fabric ironing"
-},
-
-/* =========================
-WASHING
-========================= */
-
-{
-name:"👕 T-Shirt Wash",
-category:"Washing",
-description:"Daily wash cleaning"
-},
-
-{
-name:"👖 Jeans Wash",
-category:"Washing",
-description:"Deep denim wash"
-},
-
-{
-name:"👔 Shirt Wash",
-category:"Washing",
-description:"Machine cleaned shirt"
-},
-
-{
-name:"🧥 Jacket Wash",
-category:"Washing",
-description:"Winter jacket wash"
-},
-
-{
-name:"👶 Kids Clothes",
-category:"Washing",
-description:"Gentle fabric wash"
-},
-
-{
-name:"🛏️ Blanket Wash",
-category:"Washing",
-description:"Heavy blanket cleaning"
-},
-
-{
-name:"🧺 Laundry Mix",
-category:"Washing",
-description:"Mixed clothes wash"
-},
-
-{
-name:"🧦 Socks Wash",
-category:"Washing",
-description:"Hygiene sock cleaning"
-},
-
-{
-name:"🧣 Woolen Wash",
-category:"Washing",
-description:"Winter fabric care"
-},
-
-{
-name:"🧵 Curtain Wash",
-category:"Washing",
-description:"Curtain deep wash"
-},
-
-/* =========================
-DRY CLEANING
-========================= */
-
-{
-name:"🧥 Suit Dry Clean",
-category:"Dry Cleaning",
-description:"Premium suit cleaning"
-},
-
-{
-name:"👗 Lehenga Clean",
-category:"Dry Cleaning",
-description:"Bridal wear care"
-},
-
-{
-name:"🥻 Silk Saree",
-category:"Dry Cleaning",
-description:"Luxury silk cleaning"
-},
-
-{
-name:"👔 Blazer Clean",
-category:"Dry Cleaning",
-description:"Coat dry cleaning"
-},
-
-{
-name:"🧸 Soft Toys",
-category:"Dry Cleaning",
-description:"Dust-free toy cleaning"
-},
-
-{
-name:"🛏️ Quilt Clean",
-category:"Dry Cleaning",
-description:"Heavy fabric cleaning"
-},
-
-{
-name:"👜 Handbag Clean",
-category:"Dry Cleaning",
-description:"Leather bag cleaning"
-},
-
-{
-name:"👞 Shoe Clean",
-category:"Dry Cleaning",
-description:"Premium shoe care"
-},
-
-{
-name:"🧤 Leather Jacket",
-category:"Dry Cleaning",
-description:"Leather protection wash"
-},
-
-{
-name:"🎩 Sherwani Clean",
-category:"Dry Cleaning",
-description:"Wedding wear cleaning"
-},
-
-/* =========================
-PREMIUM
-========================= */
-
-{
-name:"🌟 Express Delivery",
-category:"Premium",
-description:"Fast same-day service"
-},
-
-{
-name:"🚀 2 Hour Delivery",
-category:"Premium",
-description:"Ultra fast delivery"
-},
-
-{
-name:"🧴 Perfume Finish",
-category:"Premium",
-description:"Premium fragrance finish"
-},
-
-{
-name:"✨ Steam Finish",
-category:"Premium",
-description:"Luxury steam ironing"
-},
-
-{
-name:"👑 VIP Packaging",
-category:"Premium",
-description:"Premium fold packing"
-},
-
-{
-name:"🛡️ Fabric Protection",
-category:"Premium",
-description:"Cloth safety treatment"
-},
-
-{
-name:"🌈 Color Care",
-category:"Premium",
-description:"Color-safe washing"
-},
-
-{
-name:"🧼 Stain Removal",
-category:"Premium",
-description:"Tough stain treatment"
-},
-
-{
-name:"🧵 Hand Wash",
-category:"Premium",
-description:"Delicate cloth hand wash"
-},
-
-{
-name:"📦 Premium Box Pack",
-category:"Premium",
-description:"Luxury package finish"
-},
-
-/* =========================
-SHOE & BAG
-========================= */
-
-{
-name:"👟 Shoe Cleaning",
-category:"Shoe & Bag",
-description:"Sports shoe cleaning"
-},
-
-{
-name:"👞 Leather Polish",
-category:"Shoe & Bag",
-description:"Leather shoe shine"
-},
-
-{
-name:"👜 Bag Cleaning",
-category:"Shoe & Bag",
-description:"Dust removal cleaning"
-},
-
-{
-name:"🎒 School Bag Wash",
-category:"Shoe & Bag",
-description:"Full bag wash"
-},
-
-{
-name:"👢 Boot Cleaning",
-category:"Shoe & Bag",
-description:"Premium boot care"
-},
-
-/* =========================
-HOME CLEANING
-========================= */
-
-{
-name:"🛏️ Mattress Clean",
-category:"Home Cleaning",
-description:"Deep mattress cleaning"
-},
-
-{
-name:"🪑 Sofa Cover Wash",
-category:"Home Cleaning",
-description:"Sofa fabric cleaning"
-},
-
-{
-name:"🧺 Curtain Cleaning",
-category:"Home Cleaning",
-description:"Curtain wash service"
-},
-
-{
-name:"🪟 Carpet Wash",
-category:"Home Cleaning",
-description:"Carpet shampoo cleaning"
-},
-
-{
-name:"🧸 Pillow Cleaning",
-category:"Home Cleaning",
-description:"Pillow sanitizing"
-}
-
-];
-
-/* =========================
-CITY LIST
-========================= */
-
-const cities = [
-
-{
-state:"Uttar Pradesh",
-city:"Noida"
-},
-
-{
-state:"Uttar Pradesh",
-city:"Kasganj"
-},
-
-{
-state:"Uttar Pradesh",
-city:"Aligarh"
-},
-
-{
-state:"Uttar Pradesh",
-city:"Badaun"
-},
-
-{
-state:"Delhi",
-city:"Delhi"
-},
-
-{
-state:"Maharashtra",
-city:"Mumbai"
-}
-
-];
-
-/* =========================
-ADD ALL
-========================= */
-
-for(const service of services){
-
-for(const location of cities){
-
-await addDoc(
-
-collection(db,"services"),
-
-{
-
-name:service.name,
-
-category:service.category,
-
-description:service.description,
-
-price:0,
-
-state:location.state,
-
-city:location.city,
-
-image:""
-
-}
-
-);
-
-}
-
-}
-
-alert(
-"All Services Added Successfully"
-);
-
-loadServices();
-
-};
-
-/* =========================
-AUTO BUTTON
-HTML ME ADD KARO
-========================= */
-
-const autoBtn = `
-
-<button
-class="submitBtn"
-style="
-margin-top:12px;
-background:#111827;
-color:#fff;
-"
-onclick="addDefaultServices()">
-
-Auto Add All Services
-
-</button>
-
-`;
-
-document.querySelector(
-".formCard"
-).innerHTML += autoBtn;
 </script>
 
 </body>
