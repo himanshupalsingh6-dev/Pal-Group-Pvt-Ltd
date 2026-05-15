@@ -1,12 +1,15 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+
 <meta charset="UTF-8">
 
 <meta name="viewport"
 content="width=device-width, initial-scale=1.0">
 
-<title>QuickPress Advanced Orders</title>
+<title>
+QuickPress Admin Orders
+</title>
 
 <link rel="stylesheet"
 href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css"/>
@@ -21,28 +24,28 @@ font-family:Poppins,sans-serif;
 }
 
 body{
-background:#F5F7FB;
+background:#F4F7FC;
+display:flex;
 }
 
 /* SIDEBAR */
 
 .sidebar{
-width:260px;
-background:#111827;
+width:240px;
+height:100vh;
+background:#081028;
 position:fixed;
 left:0;
 top:0;
-height:100%;
-padding:24px 18px;
+padding:20px;
 overflow:auto;
-z-index:999;
 }
 
 .logo{
-font-size:30px;
+font-size:24px;
 font-weight:900;
 color:#FFD400;
-margin-bottom:40px;
+margin-bottom:30px;
 }
 
 .menu{
@@ -52,82 +55,48 @@ gap:10px;
 }
 
 .menu a{
-text-decoration:none;
-color:#D1D5DB;
-padding:16px;
-border-radius:18px;
+height:54px;
 display:flex;
 align-items:center;
 gap:14px;
+padding:0 18px;
+border-radius:16px;
+text-decoration:none;
 font-size:15px;
 font-weight:700;
-transition:0.3s;
+color:#fff;
+transition:0.2s;
 }
 
-.menu a:hover,
 .menu a.active{
-background:#1F2937;
-color:#fff;
+background:#111C44;
+}
+
+.menu a:hover{
+background:#111C44;
 }
 
 /* MAIN */
 
 .main{
-margin-left:260px;
+margin-left:240px;
+width:calc(100% - 240px);
 padding:24px;
 }
 
-/* TOPBAR */
+/* TOP */
 
-.topbar{
+.topBar{
 display:flex;
 justify-content:space-between;
 align-items:center;
-gap:16px;
 margin-bottom:24px;
+gap:14px;
+flex-wrap:wrap;
 }
 
-.topbar h1{
-font-size:34px;
-font-weight:900;
-}
-
-.searchBox{
-flex:1;
-height:58px;
-border:none;
-outline:none;
-background:#fff;
-border-radius:20px;
-padding:0 20px;
-font-size:15px;
-box-shadow:0 6px 20px rgba(0,0,0,0.05);
-}
-
-/* STATS */
-
-.statsGrid{
-display:grid;
-grid-template-columns:repeat(4,1fr);
-gap:18px;
-margin-bottom:24px;
-}
-
-.statCard{
-background:#fff;
-padding:22px;
-border-radius:28px;
-box-shadow:0 10px 30px rgba(0,0,0,0.05);
-}
-
-.statTitle{
-font-size:14px;
-color:#6B7280;
-margin-bottom:10px;
-}
-
-.statValue{
-font-size:32px;
+.topBar h1{
+font-size:38px;
 font-weight:900;
 }
 
@@ -136,24 +105,70 @@ font-weight:900;
 .filters{
 display:flex;
 gap:12px;
-overflow:auto;
-margin-bottom:24px;
-padding-bottom:4px;
+flex-wrap:wrap;
 }
 
-.filterBtn{
-padding:12px 18px;
+.filterBox{
+height:52px;
+padding:0 18px;
 border:none;
+outline:none;
 border-radius:16px;
 background:#fff;
+font-size:14px;
 font-weight:700;
-cursor:pointer;
-white-space:nowrap;
-box-shadow:0 4px 14px rgba(0,0,0,0.05);
+min-width:160px;
 }
 
-.filterBtn.active{
-background:#111827;
+/* STATS */
+
+.statsGrid{
+display:grid;
+grid-template-columns:repeat(4,1fr);
+gap:16px;
+margin-bottom:24px;
+}
+
+.statCard{
+background:#fff;
+border-radius:22px;
+padding:22px;
+box-shadow:0 10px 30px rgba(0,0,0,0.05);
+}
+
+.statCard span{
+font-size:13px;
+color:#6B7280;
+font-weight:600;
+}
+
+.statCard h2{
+font-size:34px;
+font-weight:900;
+margin-top:10px;
+}
+
+/* FILTER BUTTONS */
+
+.statusBar{
+display:flex;
+gap:12px;
+overflow:auto;
+margin-bottom:24px;
+}
+
+.statusBtn{
+padding:14px 20px;
+background:#fff;
+border-radius:14px;
+font-size:14px;
+font-weight:800;
+cursor:pointer;
+white-space:nowrap;
+}
+
+.statusBtn.active{
+background:#081028;
 color:#fff;
 }
 
@@ -162,170 +177,228 @@ color:#fff;
 .ordersGrid{
 display:grid;
 grid-template-columns:repeat(3,1fr);
-gap:16px;
+gap:18px;
 }
-
-/* CARD */
 
 .orderCard{
 background:#fff;
-border-radius:26px;
+border-radius:28px;
 padding:18px;
 box-shadow:0 10px 30px rgba(0,0,0,0.05);
 }
 
 /* TOP */
 
-.miniTop{
+.orderTop{
 display:flex;
 justify-content:space-between;
 align-items:center;
-margin-bottom:16px;
+margin-bottom:18px;
 }
 
-.miniLeft{
+.userBox{
 display:flex;
 align-items:center;
 gap:12px;
 }
 
-.avatar{
-width:58px;
-height:58px;
+.userLogo{
+width:54px;
+height:54px;
 border-radius:18px;
 background:#FFD400;
 display:flex;
 align-items:center;
 justify-content:center;
-font-size:22px;
+font-size:24px;
 font-weight:900;
 }
 
-.miniLeft h3{
-font-size:17px;
-margin-bottom:3px;
+.userBox h3{
+font-size:24px;
+font-weight:900;
 }
 
-.miniLeft p{
-font-size:12px;
+.userBox p{
+font-size:13px;
 color:#6B7280;
+margin-top:4px;
 }
 
-.miniStatus{
-padding:8px 12px;
-border-radius:12px;
-background:#DCFCE7;
-font-size:11px;
+.statusTag{
+padding:8px 14px;
+border-radius:20px;
+font-size:12px;
 font-weight:800;
 }
 
-/* MINI INFO */
+.Pending{
+background:#FEF3C7;
+color:#B45309;
+}
 
-.miniInfo{
+.Pickup{
+background:#DBEAFE;
+color:#1D4ED8;
+}
+
+.Ironing{
+background:#E0E7FF;
+color:#4338CA;
+}
+
+.Delivery{
+background:#FCE7F3;
+color:#BE185D;
+}
+
+.Delivered{
+background:#DCFCE7;
+color:#166534;
+}
+
+/* MINI GRID */
+
+.miniGrid{
 display:grid;
-grid-template-columns:1fr 1fr 1fr;
+grid-template-columns:repeat(3,1fr);
 gap:10px;
 margin-bottom:16px;
 }
 
-.miniInfo div{
+.miniCard{
 background:#F9FAFB;
+border-radius:16px;
 padding:12px;
-border-radius:14px;
-font-size:13px;
-font-weight:700;
-text-align:center;
 }
 
-/* BUTTONS */
+.miniCard span{
+font-size:11px;
+color:#6B7280;
+}
 
-.miniBtns{
-display:grid;
-grid-template-columns:1fr 1fr;
+.miniCard h4{
+font-size:18px;
+font-weight:900;
+margin-top:6px;
+}
+
+/* SERVICES */
+
+.servicesBox{
+background:#F9FAFB;
+padding:14px;
+border-radius:18px;
+margin-bottom:16px;
+}
+
+.sectionTitle{
+font-size:15px;
+font-weight:900;
+margin-bottom:12px;
+}
+
+.serviceItem{
+display:flex;
+justify-content:space-between;
+align-items:center;
+padding:12px;
+background:#fff;
+border-radius:14px;
+margin-bottom:10px;
+}
+
+.serviceLeft{
+display:flex;
+align-items:center;
 gap:10px;
 }
 
-.viewBtn,
-.callBtn{
-height:48px;
-border:none;
+.serviceIcon{
+width:42px;
+height:42px;
+border-radius:14px;
+background:#FFF7CC;
+display:flex;
+align-items:center;
+justify-content:center;
+font-size:18px;
+}
+
+.serviceItem h5{
+font-size:14px;
+font-weight:800;
+}
+
+.serviceItem p{
+font-size:11px;
+color:#6B7280;
+margin-top:3px;
+}
+
+.servicePrice{
+font-size:15px;
+font-weight:900;
+color:#22C55E;
+}
+
+/* DETAILS */
+
+.detailGrid{
+display:grid;
+grid-template-columns:repeat(2,1fr);
+gap:10px;
+margin-bottom:16px;
+}
+
+.detailCard{
+background:#F9FAFB;
+padding:12px;
+border-radius:14px;
+}
+
+.detailCard span{
+font-size:11px;
+color:#6B7280;
+}
+
+.detailCard h4{
+font-size:14px;
+font-weight:800;
+margin-top:6px;
+}
+
+/* TIMER */
+
+.timerBox{
+background:#081028;
+padding:14px;
 border-radius:16px;
+color:#fff;
+font-size:14px;
+font-weight:800;
+margin-bottom:16px;
+}
+
+/* ACTIONS */
+
+.actionGrid{
+display:grid;
+grid-template-columns:repeat(3,1fr);
+gap:10px;
+margin-bottom:14px;
+}
+
+.actionBtn{
+height:46px;
+border-radius:14px;
+background:#081028;
+color:#fff;
 font-size:13px;
 font-weight:800;
 display:flex;
 align-items:center;
 justify-content:center;
-text-decoration:none;
-cursor:pointer;
-}
-
-.viewBtn{
-background:#111827;
-color:#fff;
-}
-
-.callBtn{
-background:#FFD400;
-color:#111827;
-}
-
-/* DETAIL */
-
-.fullDetail{
-display:none;
-margin-top:18px;
-padding-top:18px;
-border-top:1px solid #F3F4F6;
-}
-
-.fullDetail.active{
-display:block;
-}
-
-.detailGrid{
-display:grid;
-grid-template-columns:1fr 1fr;
-gap:12px;
-margin-bottom:18px;
-}
-
-.detailItem{
-background:#F9FAFB;
-padding:14px;
-border-radius:16px;
-}
-
-.detailItem span{
-display:block;
-font-size:12px;
-color:#6B7280;
-margin-bottom:5px;
-}
-
-.detailItem b{
-font-size:13px;
-}
-
-/* CALLS */
-
-.callGrid{
-display:grid;
-grid-template-columns:1fr 1fr 1fr;
-gap:10px;
-margin-bottom:14px;
-}
-
-.callAction{
-height:46px;
-background:#111827;
-color:#fff;
-border-radius:14px;
-display:flex;
-align-items:center;
-justify-content:center;
-gap:8px;
-font-size:12px;
-font-weight:700;
 text-decoration:none;
 }
 
@@ -337,10 +410,14 @@ height:52px;
 border:none;
 outline:none;
 background:#F3F4F6;
-border-radius:16px;
-padding:0 16px;
+border-radius:14px;
+padding:0 14px;
+font-size:14px;
+font-weight:700;
 margin-bottom:12px;
 }
+
+/* UPDATE */
 
 .updateBtn{
 width:100%;
@@ -348,94 +425,39 @@ height:54px;
 border:none;
 border-radius:16px;
 background:#FFD400;
-font-size:14px;
+font-size:15px;
 font-weight:900;
 cursor:pointer;
 }
 
 /* MOBILE */
 
-.mobileMenuBtn{
-display:none;
-}
-
 @media(max-width:1200px){
 
 .ordersGrid{
-grid-template-columns:1fr 1fr;
+grid-template-columns:repeat(2,1fr);
 }
 
 }
 
 @media(max-width:900px){
 
-.statsGrid{
-grid-template-columns:1fr 1fr;
-}
-
-}
-
-@media(max-width:768px){
-
 .sidebar{
-left:-100%;
-transition:0.3s;
-}
-
-.sidebar.active{
-left:0;
+display:none;
 }
 
 .main{
 margin-left:0;
+width:100%;
 padding:16px;
-padding-top:80px;
 }
 
-.mobileMenuBtn{
-display:flex;
-position:fixed;
-top:18px;
-left:18px;
-width:52px;
-height:52px;
-border:none;
-border-radius:18px;
-background:#111827;
-color:#fff;
-font-size:22px;
-align-items:center;
-justify-content:center;
-z-index:1000;
+.statsGrid{
+grid-template-columns:repeat(2,1fr);
 }
 
 .ordersGrid{
 grid-template-columns:1fr;
-}
-
-.statsGrid{
-grid-template-columns:1fr;
-}
-
-.detailGrid{
-grid-template-columns:1fr;
-}
-
-.callGrid{
-grid-template-columns:1fr;
-}
-
-.topbar{
-flex-direction:column;
-align-items:flex-start;
-}
-
-.topbar h1{
-font-size:26px;
-}
-
-.searchBox{
-width:100%;
 }
 
 }
@@ -443,15 +465,6 @@ width:100%;
 </style>
 </head>
 <body>
-
-<!-- MOBILE BUTTON -->
-
-<button class="mobileMenuBtn"
-onclick="toggleSidebar()">
-
-<i class="fa-solid fa-bars"></i>
-
-</button>
 
 <!-- SIDEBAR -->
 
@@ -468,7 +481,8 @@ QuickPress
 Dashboard
 </a>
 
-<a href="orders.html" class="active">
+<a href="orders.html"
+class="active">
 <i class="fa-solid fa-basket-shopping"></i>
 Orders
 </a>
@@ -489,13 +503,8 @@ Delivery
 </a>
 
 <a href="partners.html">
-<i class="fa-solid fa-handshake"></i>
+<i class="fa-solid fa-store"></i>
 Partners
-</a>
-
-<a href="riders.html">
-<i class="fa-solid fa-motorcycle"></i>
-Riders
 </a>
 
 <a href="payments.html">
@@ -506,21 +515,6 @@ Payments
 <a href="analytics.html">
 <i class="fa-solid fa-chart-pie"></i>
 Analytics
-</a>
-
-<a href="offers.html">
-<i class="fa-solid fa-tags"></i>
-Offers
-</a>
-
-<a href="notifications.html">
-<i class="fa-solid fa-bell"></i>
-Notifications
-</a>
-
-<a href="withdrawal.html">
-<i class="fa-solid fa-money-bill-transfer"></i>
-Withdrawals
 </a>
 
 <a href="settings.html">
@@ -536,19 +530,54 @@ Settings
 
 <div class="main">
 
-<!-- TOPBAR -->
+<!-- TOP -->
 
-<div class="topbar">
+<div class="topBar">
 
 <h1>
 Orders
 </h1>
 
+<div class="filters">
+
 <input
 type="text"
-placeholder="Search order..."
-class="searchBox"
+placeholder="Search Customer..."
+class="filterBox"
+id="searchInput"
 />
+
+<select
+id="cityFilter"
+class="filterBox">
+
+<option value="All">
+All Cities
+</option>
+
+<option value="Kasganj">
+Kasganj
+</option>
+
+<option value="Noida">
+Noida
+</option>
+
+<option value="Aligarh">
+Aligarh
+</option>
+
+<option value="Delhi">
+Delhi
+</option>
+
+<option value="Mumbai">
+Mumbai
+</option>
+
+</select>
+
+</div>
 
 </div>
 
@@ -558,111 +587,99 @@ class="searchBox"
 
 <div class="statCard">
 
-<div class="statTitle">
+<span>
 Total Orders
-</div>
+</span>
 
-<div class="statValue"
-id="totalOrders">
+<h2 id="totalOrders">
 0
-</div>
+</h2>
 
 </div>
 
 <div class="statCard">
 
-<div class="statTitle">
+<span>
 Revenue
-</div>
+</span>
 
-<div class="statValue"
-id="totalRevenue">
+<h2 id="totalRevenue">
 ₹0
-</div>
+</h2>
 
 </div>
 
 <div class="statCard">
 
-<div class="statTitle">
+<span>
 Pending
-</div>
+</span>
 
-<div class="statValue"
-id="pendingOrders">
+<h2 id="pendingOrders">
 0
-</div>
+</h2>
 
 </div>
 
 <div class="statCard">
 
-<div class="statTitle">
-Running
-</div>
-
-<div class="statValue"
-id="runningOrders">
-0
-</div>
-
-</div>
-
-</div>
-
-<!-- FILTERS -->
-
-<div class="filters">
-
-<button class="filterBtn active"
-onclick="filterOrders('All')">
-All
-</button>
-
-<button class="filterBtn"
-onclick="filterOrders('Order Placed')">
-Pending
-</button>
-
-<button class="filterBtn"
-onclick="filterOrders('Pickup Assigned')">
-Pickup
-</button>
-
-<button class="filterBtn"
-onclick="filterOrders('Ironing Started')">
-Ironing
-</button>
-
-<button class="filterBtn"
-onclick="filterOrders('Out For Delivery')">
-Delivery
-</button>
-
-<button class="filterBtn"
-onclick="filterOrders('Delivered')">
+<span>
 Delivered
-</button>
+</span>
 
-<button class="filterBtn"
-onclick="filterOrders('Today')">
-Today
-</button>
+<h2 id="deliveredOrders">
+0
+</h2>
 
-<button class="filterBtn"
-onclick="filterOrders('7 Days')">
-7 Days
-</button>
+</div>
 
-<button class="filterBtn"
-onclick="filterOrders('15 Days')">
-15 Days
-</button>
+</div>
 
-<button class="filterBtn"
-onclick="filterOrders('Month')">
-Month
-</button>
+<!-- STATUS -->
+
+<div class="statusBar">
+
+<div class="statusBtn active"
+data-status="All">
+
+All
+
+</div>
+
+<div class="statusBtn"
+data-status="Pending">
+
+Pending
+
+</div>
+
+<div class="statusBtn"
+data-status="Pickup">
+
+Pickup
+
+</div>
+
+<div class="statusBtn"
+data-status="Ironing">
+
+Ironing
+
+</div>
+
+<div class="statusBtn"
+data-status="Delivery">
+
+Delivery
+
+</div>
+
+<div class="statusBtn"
+data-status="Delivered">
+
+Delivered
+
+</div>
 
 </div>
 
@@ -698,303 +715,373 @@ from
 
 "https://www.gstatic.com/firebasejs/12.11.0/firebase-firestore.js";
 
-let allOrders = [];
+/* GLOBAL */
 
-window.partnerOptions = "";
-window.riderOptions = "";
+let orders = [];
 
-const statusFlow = [
+let currentStatus =
+"All";
 
-"Order Placed",
-"Pickup Assigned",
-"Picked Up",
-"Ironing Started",
-"Ironing Complete",
-"Out For Delivery",
-"Delivered"
-
-];
-
-/* LOAD */
-
-async function loadOrders(){
+/* ELEMENTS */
 
 const ordersGrid =
 document.getElementById(
 "ordersGrid"
 );
 
-const ordersSnap =
+const cityFilter =
+document.getElementById(
+"cityFilter"
+);
+
+const searchInput =
+document.getElementById(
+"searchInput"
+);
+
+/* LOAD */
+
+async function loadOrders(){
+
+const snap =
 await getDocs(
 collection(db,"orders")
 );
 
-const partnersSnap =
-await getDocs(
-collection(db,"partners")
-);
+orders = [];
 
-const ridersSnap =
-await getDocs(
-collection(db,"riders")
-);
+snap.forEach((docu)=>{
 
-window.partnerOptions = "";
-window.riderOptions = "";
+orders.push({
 
-partnersSnap.forEach((doc)=>{
+id:docu.id,
 
-const partner =
-doc.data();
-
-window.partnerOptions += `
-
-<option value="${partner.name}">
-${partner.name}
-(${partner.city || ""})
-</option>
-
-`;
+...docu.data()
 
 });
 
-ridersSnap.forEach((doc)=>{
-
-const rider =
-doc.data();
-
-window.riderOptions += `
-
-<option value="${rider.name}">
-${rider.name}
-(${rider.city || ""})
-</option>
-
-`;
-
 });
 
-let html = "";
-
-let totalRevenue = 0;
-let pending = 0;
-let running = 0;
-
-allOrders = [];
-
-ordersSnap.forEach((docSnap)=>{
-
-const order =
-docSnap.data();
-
-allOrders.push({
-id:docSnap.id,
-...order
-});
-
-totalRevenue +=
-order.total || 0;
-
-if(
-order.status === "Order Placed"
-){
-
-pending++;
-
-}
-
-if(
-order.status !== "Delivered"
-){
-
-running++;
-
-}
-
-html += createOrderCard(
-docSnap.id,
-order
-);
-
-});
-
-ordersGrid.innerHTML = html;
-
-document.getElementById(
-"totalOrders"
-).innerHTML =
-ordersSnap.size;
-
-document.getElementById(
-"totalRevenue"
-).innerHTML =
-"₹"+totalRevenue;
-
-document.getElementById(
-"pendingOrders"
-).innerHTML =
-pending;
-
-document.getElementById(
-"runningOrders"
-).innerHTML =
-running;
+renderOrders();
 
 }
 
 loadOrders();
 
-/* CARD */
+/* RENDER */
 
-function createOrderCard(
-id,
-order
+function renderOrders(){
+
+let html = "";
+
+/* FILTER */
+
+const search =
+searchInput.value
+.toLowerCase();
+
+let revenue = 0;
+
+let pending = 0;
+
+let delivered = 0;
+
+orders.forEach((order)=>{
+
+/* STATUS */
+
+if(
+
+currentStatus !== "All"
+
+&&
+
+order.status !== currentStatus
+
 ){
 
-return `
+return;
+
+}
+
+/* CITY */
+
+if(
+
+cityFilter.value !== "All"
+
+&&
+
+order.city !== cityFilter.value
+
+){
+
+return;
+
+}
+
+/* SEARCH */
+
+if(
+
+!(order.name || "")
+.toLowerCase()
+.includes(search)
+
+){
+
+return;
+
+}
+
+/* STATS */
+
+revenue +=
+Number(order.total || 0);
+
+if(order.status === "Pending"){
+pending++;
+}
+
+if(order.status === "Delivered"){
+delivered++;
+}
+
+/* CARD */
+
+html += `
 
 <div class="orderCard">
 
-<div class="miniTop">
+<div class="orderTop">
 
-<div class="miniLeft">
+<div class="userBox">
 
-<div class="avatar">
-${order.name
-? order.name.charAt(0)
-: "U"}
+<div class="userLogo">
+
+${order.name?.charAt(0) || "Q"}
+
 </div>
 
 <div>
 
 <h3>
-${order.name || ""}
+${order.name || "Customer"}
 </h3>
 
 <p>
-#${id.slice(0,6)}
+#${order.orderId || order.id}
 </p>
 
 </div>
 
 </div>
 
-<div class="miniStatus">
-${order.status || ""}
-</div>
+<div class="statusTag ${order.status}">
+
+${order.status || "Pending"}
 
 </div>
 
-<div class="miniInfo">
+</div>
 
-<div>
+<div class="miniGrid">
+
+<div class="miniCard">
+
+<span>
+Total
+</span>
+
+<h4>
 ₹${order.total || 0}
+</h4>
+
+</div>
+
+<div class="miniCard">
+
+<span>
+City
+</span>
+
+<h4>
+${order.city || "Kasganj"}
+</h4>
+
+</div>
+
+<div class="miniCard">
+
+<span>
+Items
+</span>
+
+<h4>
+${order.items?.length || 0}
+</h4>
+
+</div>
+
+</div>
+
+<div class="servicesBox">
+
+<h4 class="sectionTitle">
+
+🧺 Ordered Services
+
+</h4>
+
+${
+order.items?.map(item=>`
+
+<div class="serviceItem">
+
+<div class="serviceLeft">
+
+<div class="serviceIcon">
+
+🧺
+
 </div>
 
 <div>
-${order.city || ""}
-</div>
 
-<div>
-${order.items?.length || 0} Items
-</div>
+<h5>
+${item.name}
+</h5>
 
-</div>
-
-<div class="miniBtns">
-
-<button
-class="viewBtn"
-onclick="openOrder('${id}')">
-
-View
-
-</button>
-
-<a
-href="tel:${order.phone || ""}"
-class="callBtn">
-
-Customer
-
-</a>
+<p>
+Qty : ${item.qty || 1}
+</p>
 
 </div>
 
-<div
-class="fullDetail"
-id="detail-${id}">
+</div>
+
+<div class="servicePrice">
+
+₹${item.price}
+
+</div>
+
+</div>
+
+`).join("")
+|| ""
+}
+
+</div>
 
 <div class="detailGrid">
 
-<div class="detailItem">
-<span>Mobile</span>
-<b>${order.phone || ""}</b>
-</div>
+<div class="detailCard">
 
-<div class="detailItem">
-<span>Address</span>
-<b>${order.address || ""}</b>
-</div>
+<span>
+Mobile
+</span>
 
-<div class="detailItem">
-<span>City</span>
-<b>${order.city || ""}</b>
-</div>
-
-<div class="detailItem">
-<span>Pickup Time</span>
-<b>${order.pickupTime || ""}</b>
-</div>
-
-<div class="detailItem">
-<span>Partner</span>
-<b>${order.partnerName || "Pending"}</b>
-</div>
-
-<div class="detailItem">
-<span>Pickup By</span>
-<b>${order.pickupBy || "Pending"}</b>
-</div>
-
-<div class="detailItem">
-<span>Delivery By</span>
-<b>${order.deliveryBy || "Pending"}</b>
-</div>
-
-<div class="detailItem">
-<span>Status</span>
-<b>${order.status || ""}</b>
-</div>
+<h4>
+${order.mobile || "N/A"}
+</h4>
 
 </div>
 
-<div class="callGrid">
+<div class="detailCard">
 
-<a
-href="tel:${order.phone || ""}"
-class="callAction">
+<span>
+Address
+</span>
 
-<i class="fa-solid fa-phone"></i>
-Customer
+<h4>
+${order.address || "N/A"}
+</h4>
 
-</a>
+</div>
 
-<a
-href="tel:${order.riderPhone || ""}"
-class="callAction">
+<div class="detailCard">
 
-<i class="fa-solid fa-motorcycle"></i>
-Rider
-
-</a>
-
-<a
-href="tel:${order.partnerPhone || ""}"
-class="callAction">
-
-<i class="fa-solid fa-store"></i>
+<span>
 Partner
+</span>
+
+<h4>
+${order.partner || "Pending"}
+</h4>
+
+</div>
+
+<div class="detailCard">
+
+<span>
+Rider
+</span>
+
+<h4>
+${order.rider || "Pending"}
+</h4>
+
+</div>
+
+<div class="detailCard">
+
+<span>
+Pickup By
+</span>
+
+<h4>
+${order.pickupBy || "Pending"}
+</h4>
+
+</div>
+
+<div class="detailCard">
+
+<span>
+Delivery By
+</span>
+
+<h4>
+${order.deliveryBy || "Pending"}
+</h4>
+
+</div>
+
+</div>
+
+<div class="timerBox">
+
+⏱️ Order Running :
+<span id="timer-${order.id}">
+Loading...
+</span>
+
+</div>
+
+<div class="actionGrid">
+
+<a
+href="tel:${order.mobile || ''}"
+class="actionBtn">
+
+📞 Customer
+
+</a>
+
+<a
+href="tel:${order.riderMobile || ''}"
+class="actionBtn">
+
+🚴 Rider
+
+</a>
+
+<a
+href="tel:${order.partnerMobile || ''}"
+class="actionBtn">
+
+🏪 Partner
 
 </a>
 
@@ -1002,49 +1089,79 @@ Partner
 
 <select
 class="selectBox"
-id="partner-${id}">
+id="partner-${order.id}">
 
-<option value="">
+<option>
 Assign Partner
 </option>
 
-${window.partnerOptions}
+<option>
+QuickPress Laundry
+</option>
+
+<option>
+Kasganj Laundry
+</option>
+
+<option>
+Noida Premium
+</option>
 
 </select>
 
 <select
 class="selectBox"
-id="rider-${id}">
+id="rider-${order.id}">
 
-<option value="">
+<option>
 Assign Rider
 </option>
 
-${window.riderOptions}
+<option>
+Rider 1
+</option>
+
+<option>
+Rider 2
+</option>
+
+<option>
+Rider 3
+</option>
 
 </select>
 
 <select
 class="selectBox"
-id="status-${id}">
+id="status-${order.id}">
 
-<option value="">
-Update Status
+<option>
+Pending
 </option>
 
-${statusFlow.map(status=>`
-
-<option value="${status}">
-${status}
+<option>
+Pickup
 </option>
 
-`).join("")}
+<option>
+Ironing
+</option>
+
+<option>
+Delivery
+</option>
+
+<option>
+Delivered
+</option>
 
 </select>
 
 <button
 class="updateBtn"
-onclick="updateOrder('${id}')">
+onclick="updateOrder(
+'${order.id}'
+)">
 
 Update Order
 
@@ -1052,32 +1169,164 @@ Update Order
 
 </div>
 
+`;
+
+});
+
+/* STATS */
+
+document.getElementById(
+"totalOrders"
+).innerHTML =
+orders.length;
+
+document.getElementById(
+"totalRevenue"
+).innerHTML =
+`₹${revenue}`;
+
+document.getElementById(
+"pendingOrders"
+).innerHTML =
+pending;
+
+document.getElementById(
+"deliveredOrders"
+).innerHTML =
+delivered;
+
+/* EMPTY */
+
+if(html === ""){
+
+html =
+
+`
+
+<div style="
+padding:40px;
+font-size:18px;
+font-weight:800;
+">
+
+No Orders Found
+
 </div>
 
 `;
 
 }
 
-/* VIEW */
+ordersGrid.innerHTML =
+html;
 
-window.openOrder =
-function(id){
+startOrderTimers();
+
+}
+
+/* STATUS BUTTONS */
 
 document
-.getElementById(
-`detail-${id}`
+.querySelectorAll(
+".statusBtn"
 )
-.classList.toggle("active");
+.forEach((btn)=>{
 
-};
+btn.addEventListener(
+
+"click",
+
+()=>{
+
+document
+.querySelectorAll(
+".statusBtn"
+)
+.forEach((b)=>{
+
+b.classList.remove(
+"active"
+);
+
+});
+
+btn.classList.add(
+"active"
+);
+
+currentStatus =
+btn.dataset.status;
+
+renderOrders();
+
+}
+
+);
+
+});
+
+/* FILTER */
+
+cityFilter.addEventListener(
+"change",
+renderOrders
+);
+
+searchInput.addEventListener(
+"keyup",
+renderOrders
+);
+
+/* TIMER */
+
+function startOrderTimers(){
+
+orders.forEach((order)=>{
+
+const timer =
+document.getElementById(
+`timer-${order.id}`
+);
+
+if(!timer)return;
+
+setInterval(()=>{
+
+const start =
+new Date(
+order.createdAt || Date.now()
+);
+
+const now =
+new Date();
+
+const diff =
+now - start;
+
+const hours =
+Math.floor(
+diff / 3600000
+);
+
+const mins =
+Math.floor(
+(diff % 3600000)
+/ 60000
+);
+
+timer.innerHTML =
+`${hours}h ${mins}m`;
+
+},1000);
+
+});
+
+}
 
 /* UPDATE */
 
 window.updateOrder =
 async function(id){
-
-const order =
-allOrders.find(o=>o.id===id);
 
 const partner =
 document.getElementById(
@@ -1094,78 +1343,15 @@ document.getElementById(
 `status-${id}`
 ).value;
 
-/* LOCK */
-
-if(
-order.status === "Delivered"
-){
-
-alert(
-"Delivered order locked"
-);
-
-return;
-
-}
-
-/* REQUIRE */
-
-if(
-!partner ||
-!rider
-){
-
-alert(
-"Assign partner & rider first"
-);
-
-return;
-
-}
-
-const currentIndex =
-statusFlow.indexOf(
-order.status
-);
-
-const newIndex =
-statusFlow.indexOf(
-status);
-
-/* BACK BLOCK */
-
-if(
-newIndex < currentIndex
-){
-
-alert(
-"Cannot move backward"
-);
-
-return;
-
-}
-
 await updateDoc(
 
 doc(db,"orders",id),
 
 {
 
-partnerName:partner,
-riderName:rider,
-
-pickupBy:
-newIndex >= 2
-? rider
-: "",
-
-deliveryBy:
-newIndex >= 5
-? rider
-: "",
-
-status:status
+partner,
+rider,
+status
 
 }
 
@@ -1176,92 +1362,6 @@ alert(
 );
 
 loadOrders();
-
-};
-
-/* FILTER */
-
-window.filterOrders =
-function(type){
-
-const ordersGrid =
-document.getElementById(
-"ordersGrid"
-);
-
-let html = "";
-
-allOrders.forEach((order)=>{
-
-const orderDate =
-order.createdAt?.seconds
-? new Date(
-order.createdAt.seconds*1000
-)
-: new Date();
-
-const now =
-new Date();
-
-const diff =
-Math.floor(
-(now-orderDate)
-/
-(1000*60*60*24)
-);
-
-if(
-type==="Today" &&
-diff!==0
-)return;
-
-if(
-type==="7 Days" &&
-diff>7
-)return;
-
-if(
-type==="15 Days" &&
-diff>15
-)return;
-
-if(
-type==="Month" &&
-diff>30
-)return;
-
-if(
-
-type!=="All" &&
-[
-"Today",
-"7 Days",
-"15 Days",
-"Month"
-].includes(type)===false &&
-order.status!==type
-
-)return;
-
-html += createOrderCard(
-order.id,
-order
-);
-
-});
-
-ordersGrid.innerHTML = html;
-
-};
-
-/* SIDEBAR */
-
-window.toggleSidebar =
-function(){
-
-document
-.querySelector(".sidebar")
-.classList.toggle("active");
 
 };
 
