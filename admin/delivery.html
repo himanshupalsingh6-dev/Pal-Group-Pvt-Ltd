@@ -1,0 +1,589 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport"
+content="width=device-width, initial-scale=1.0">
+
+<title>QuickPress Delivery</title>
+
+<link rel="stylesheet"
+href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css"/>
+
+<style>
+
+*{
+margin:0;
+padding:0;
+box-sizing:border-box;
+font-family:Poppins,sans-serif;
+}
+
+body{
+background:#F5F7FB;
+}
+
+/* SIDEBAR */
+
+.sidebar{
+width:270px;
+background:#111827;
+color:#fff;
+padding:24px 18px;
+position:fixed;
+left:0;
+top:0;
+height:100%;
+overflow:auto;
+z-index:999;
+}
+
+.logo{
+font-size:30px;
+font-weight:900;
+margin-bottom:40px;
+color:#FFD400;
+}
+
+.menu{
+display:flex;
+flex-direction:column;
+gap:10px;
+}
+
+.menu a{
+text-decoration:none;
+color:#D1D5DB;
+padding:16px;
+border-radius:18px;
+display:flex;
+align-items:center;
+gap:14px;
+font-size:15px;
+font-weight:600;
+transition:0.3s;
+}
+
+.menu a:hover,
+.menu a.active{
+background:#1F2937;
+color:#fff;
+}
+
+/* MAIN */
+
+.main{
+margin-left:270px;
+padding:24px;
+}
+
+/* TOPBAR */
+
+.topbar{
+display:flex;
+justify-content:space-between;
+align-items:center;
+margin-bottom:24px;
+}
+
+.topbar h1{
+font-size:34px;
+font-weight:900;
+}
+
+.addBtn{
+height:56px;
+padding:0 24px;
+border:none;
+border-radius:18px;
+background:#111827;
+color:#fff;
+font-size:15px;
+font-weight:800;
+cursor:pointer;
+}
+
+/* GRID */
+
+.deliveryGrid{
+display:grid;
+grid-template-columns:repeat(3,1fr);
+gap:18px;
+}
+
+/* CARD */
+
+.deliveryCard{
+background:#fff;
+padding:22px;
+border-radius:28px;
+box-shadow:0 10px 30px rgba(0,0,0,0.05);
+position:relative;
+overflow:hidden;
+}
+
+.deliveryCard::after{
+content:'';
+position:absolute;
+right:-30px;
+top:-30px;
+width:120px;
+height:120px;
+background:rgba(255,212,0,0.15);
+border-radius:50%;
+}
+
+.cardTop{
+display:flex;
+align-items:center;
+gap:16px;
+margin-bottom:18px;
+}
+
+.avatar{
+width:72px;
+height:72px;
+border-radius:24px;
+background:#FFD400;
+display:flex;
+align-items:center;
+justify-content:center;
+font-size:28px;
+font-weight:900;
+}
+
+.riderInfo h3{
+font-size:20px;
+margin-bottom:4px;
+}
+
+.riderInfo p{
+font-size:13px;
+color:#6B7280;
+}
+
+.status{
+padding:10px 14px;
+border-radius:14px;
+font-size:12px;
+font-weight:800;
+display:inline-block;
+margin-bottom:18px;
+}
+
+.online{
+background:#DCFCE7;
+color:#166534;
+}
+
+.offline{
+background:#FEE2E2;
+color:#DC2626;
+}
+
+/* DETAILS */
+
+.details{
+margin-bottom:18px;
+}
+
+.detailRow{
+display:flex;
+justify-content:space-between;
+margin-bottom:12px;
+font-size:14px;
+}
+
+.detailRow span:last-child{
+font-weight:700;
+}
+
+/* BUTTONS */
+
+.btnGrid{
+display:grid;
+grid-template-columns:1fr 1fr;
+gap:12px;
+}
+
+.actionBtn{
+height:50px;
+border:none;
+border-radius:16px;
+font-weight:800;
+cursor:pointer;
+}
+
+.trackBtn{
+background:#111827;
+color:#fff;
+}
+
+.toggleBtn{
+background:#FFD400;
+color:#111827;
+}
+
+/* MOBILE */
+
+.mobileMenuBtn{
+display:none;
+}
+
+@media(max-width:1100px){
+
+.deliveryGrid{
+grid-template-columns:1fr 1fr;
+}
+
+}
+
+@media(max-width:768px){
+
+.sidebar{
+left:-100%;
+transition:0.3s;
+}
+
+.sidebar.active{
+left:0;
+}
+
+.main{
+margin-left:0;
+padding:16px;
+padding-top:80px;
+}
+
+.mobileMenuBtn{
+display:flex;
+position:fixed;
+top:18px;
+left:18px;
+width:52px;
+height:52px;
+border:none;
+border-radius:18px;
+background:#111827;
+color:#fff;
+font-size:22px;
+align-items:center;
+justify-content:center;
+z-index:1000;
+}
+
+.deliveryGrid{
+grid-template-columns:1fr;
+}
+
+.topbar{
+flex-direction:column;
+align-items:flex-start;
+gap:14px;
+}
+
+.topbar h1{
+font-size:26px;
+}
+
+}
+
+</style>
+</head>
+<body>
+
+<!-- MOBILE BUTTON -->
+
+<button class="mobileMenuBtn"
+onclick="toggleSidebar()">
+
+<i class="fa-solid fa-bars"></i>
+
+</button>
+
+<!-- SIDEBAR -->
+
+<div class="sidebar">
+
+<div class="logo">
+QuickPress
+</div>
+
+<div class="menu">
+
+<a href="index.html">
+<i class="fa-solid fa-chart-line"></i>
+Dashboard
+</a>
+
+<a href="orders.html">
+<i class="fa-solid fa-basket-shopping"></i>
+Orders
+</a>
+
+<a href="services.html">
+<i class="fa-solid fa-shirt"></i>
+Services
+</a>
+
+<a href="users.html">
+<i class="fa-solid fa-users"></i>
+Users
+</a>
+
+<a href="delivery.html" class="active">
+<i class="fa-solid fa-truck"></i>
+Delivery
+</a>
+
+<a href="partners.html">
+<i class="fa-solid fa-handshake"></i>
+Partners
+</a>
+
+<a href="riders.html">
+<i class="fa-solid fa-motorcycle"></i>
+Riders
+</a>
+
+<a href="payments.html">
+<i class="fa-solid fa-wallet"></i>
+Payments
+</a>
+
+<a href="analytics.html">
+<i class="fa-solid fa-chart-pie"></i>
+Analytics
+</a>
+
+<a href="offers.html">
+<i class="fa-solid fa-tags"></i>
+Offers
+</a>
+
+<a href="notifications.html">
+<i class="fa-solid fa-bell"></i>
+Notifications
+</a>
+
+<a href="settings.html">
+<i class="fa-solid fa-gear"></i>
+Settings
+</a>
+
+</div>
+
+</div>
+
+<!-- MAIN -->
+
+<div class="main">
+
+<!-- TOPBAR -->
+
+<div class="topbar">
+
+<h1>
+Delivery Riders
+</h1>
+
+<button class="addBtn">
+Add Rider
+</button>
+
+</div>
+
+<!-- GRID -->
+
+<div class="deliveryGrid"
+id="deliveryGrid">
+
+</div>
+
+</div>
+
+<!-- FIREBASE -->
+
+<script type="module">
+
+import { db }
+
+from
+
+"/Pal-Group-Pvt-Ltd/firebase.js";
+
+import {
+
+collection,
+getDocs,
+doc,
+updateDoc
+
+}
+
+from
+
+"https://www.gstatic.com/firebasejs/12.11.0/firebase-firestore.js";
+
+/* LOAD RIDERS */
+
+async function loadRiders(){
+
+const deliveryGrid =
+document.getElementById(
+"deliveryGrid"
+);
+
+const snap =
+
+await getDocs(
+collection(db,"riders")
+);
+
+let html = "";
+
+snap.forEach((docSnap)=>{
+
+const rider =
+docSnap.data();
+
+html += `
+
+<div class="deliveryCard">
+
+<div class="cardTop">
+
+<div class="avatar">
+${rider.name
+? rider.name.charAt(0)
+: "R"}
+</div>
+
+<div class="riderInfo">
+
+<h3>
+${rider.name || "Rider"}
+</h3>
+
+<p>
+${rider.phone || ""}
+</p>
+
+</div>
+
+</div>
+
+<div class="status
+${rider.online
+? "online"
+: "offline"}">
+
+${rider.online
+? "Online"
+: "Offline"}
+
+</div>
+
+<div class="details">
+
+<div class="detailRow">
+<span>City</span>
+<span>
+${rider.city || "N/A"}
+</span>
+</div>
+
+<div class="detailRow">
+<span>Total Orders</span>
+<span>
+${rider.orders || 0}
+</span>
+</div>
+
+<div class="detailRow">
+<span>Earnings</span>
+<span>
+₹${rider.earnings || 0}
+</span>
+</div>
+
+</div>
+
+<div class="btnGrid">
+
+<button
+class="actionBtn trackBtn">
+
+Track
+
+</button>
+
+<button
+class="actionBtn toggleBtn"
+onclick="toggleRider(
+'${docSnap.id}',
+${rider.online || false}
+)">
+
+${rider.online
+? "Go Offline"
+: "Go Online"}
+
+</button>
+
+</div>
+
+</div>
+
+`;
+
+});
+
+deliveryGrid.innerHTML = html;
+
+}
+
+loadRiders();
+
+/* TOGGLE */
+
+window.toggleRider =
+async function(id,current){
+
+await updateDoc(
+
+doc(db,"riders",id),
+
+{
+
+online:!current
+
+}
+
+);
+
+alert(
+current
+? "Rider Offline"
+: "Rider Online"
+);
+
+loadRiders();
+
+};
+
+/* SIDEBAR */
+
+window.toggleSidebar =
+function(){
+
+document
+.querySelector(".sidebar")
+.classList.toggle("active");
+
+};
+
+</script>
+
+</body>
+</html>
