@@ -1,0 +1,573 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport"
+content="width=device-width, initial-scale=1.0">
+
+<title>QuickPress Payments</title>
+
+<link rel="stylesheet"
+href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css"/>
+
+<style>
+
+*{
+margin:0;
+padding:0;
+box-sizing:border-box;
+font-family:Poppins,sans-serif;
+}
+
+body{
+background:#F5F7FB;
+}
+
+/* SIDEBAR */
+
+.sidebar{
+width:270px;
+background:#111827;
+color:#fff;
+padding:24px 18px;
+position:fixed;
+left:0;
+top:0;
+height:100%;
+overflow:auto;
+z-index:999;
+}
+
+.logo{
+font-size:30px;
+font-weight:900;
+margin-bottom:40px;
+color:#FFD400;
+}
+
+.menu{
+display:flex;
+flex-direction:column;
+gap:10px;
+}
+
+.menu a{
+text-decoration:none;
+color:#D1D5DB;
+padding:16px;
+border-radius:18px;
+display:flex;
+align-items:center;
+gap:14px;
+font-size:15px;
+font-weight:600;
+transition:0.3s;
+}
+
+.menu a:hover,
+.menu a.active{
+background:#1F2937;
+color:#fff;
+}
+
+/* MAIN */
+
+.main{
+margin-left:270px;
+padding:24px;
+}
+
+/* TOPBAR */
+
+.topbar{
+display:flex;
+justify-content:space-between;
+align-items:center;
+margin-bottom:24px;
+}
+
+.topbar h1{
+font-size:34px;
+font-weight:900;
+}
+
+/* STATS */
+
+.statsGrid{
+display:grid;
+grid-template-columns:repeat(4,1fr);
+gap:18px;
+margin-bottom:24px;
+}
+
+.statCard{
+background:#fff;
+padding:22px;
+border-radius:28px;
+box-shadow:0 10px 30px rgba(0,0,0,0.05);
+position:relative;
+overflow:hidden;
+}
+
+.statCard::after{
+content:'';
+position:absolute;
+right:-30px;
+top:-30px;
+width:120px;
+height:120px;
+background:rgba(255,212,0,0.15);
+border-radius:50%;
+}
+
+.statTitle{
+font-size:14px;
+color:#6B7280;
+margin-bottom:10px;
+}
+
+.statValue{
+font-size:32px;
+font-weight:900;
+}
+
+/* TRANSACTIONS */
+
+.card{
+background:#fff;
+padding:24px;
+border-radius:28px;
+box-shadow:0 10px 30px rgba(0,0,0,0.05);
+}
+
+.cardTitle{
+font-size:24px;
+font-weight:900;
+margin-bottom:22px;
+}
+
+.transactionItem{
+display:flex;
+justify-content:space-between;
+align-items:center;
+padding:18px 0;
+border-bottom:1px solid #F3F4F6;
+}
+
+.left{
+display:flex;
+align-items:center;
+gap:14px;
+}
+
+.icon{
+width:56px;
+height:56px;
+border-radius:18px;
+background:#F3F4F6;
+display:flex;
+align-items:center;
+justify-content:center;
+font-size:24px;
+}
+
+.info h4{
+font-size:16px;
+margin-bottom:4px;
+}
+
+.info p{
+font-size:13px;
+color:#6B7280;
+}
+
+.amount{
+font-size:18px;
+font-weight:900;
+}
+
+.success{
+color:#16A34A;
+}
+
+.pending{
+color:#F59E0B;
+}
+
+/* MOBILE */
+
+.mobileMenuBtn{
+display:none;
+}
+
+@media(max-width:1000px){
+
+.statsGrid{
+grid-template-columns:1fr 1fr;
+}
+
+}
+
+@media(max-width:768px){
+
+.sidebar{
+left:-100%;
+transition:0.3s;
+}
+
+.sidebar.active{
+left:0;
+}
+
+.main{
+margin-left:0;
+padding:16px;
+padding-top:80px;
+}
+
+.mobileMenuBtn{
+display:flex;
+position:fixed;
+top:18px;
+left:18px;
+width:52px;
+height:52px;
+border:none;
+border-radius:18px;
+background:#111827;
+color:#fff;
+font-size:22px;
+align-items:center;
+justify-content:center;
+z-index:1000;
+}
+
+.statsGrid{
+grid-template-columns:1fr;
+}
+
+.topbar h1{
+font-size:26px;
+}
+
+}
+
+</style>
+</head>
+<body>
+
+<!-- MOBILE BUTTON -->
+
+<button class="mobileMenuBtn"
+onclick="toggleSidebar()">
+
+<i class="fa-solid fa-bars"></i>
+
+</button>
+
+<!-- SIDEBAR -->
+
+<div class="sidebar">
+
+<div class="logo">
+QuickPress
+</div>
+
+<div class="menu">
+
+<a href="index.html">
+<i class="fa-solid fa-chart-line"></i>
+Dashboard
+</a>
+
+<a href="orders.html">
+<i class="fa-solid fa-basket-shopping"></i>
+Orders
+</a>
+
+<a href="services.html">
+<i class="fa-solid fa-shirt"></i>
+Services
+</a>
+
+<a href="users.html">
+<i class="fa-solid fa-users"></i>
+Users
+</a>
+
+<a href="delivery.html">
+<i class="fa-solid fa-truck"></i>
+Delivery
+</a>
+
+<a href="partners.html">
+<i class="fa-solid fa-handshake"></i>
+Partners
+</a>
+
+<a href="riders.html">
+<i class="fa-solid fa-motorcycle"></i>
+Riders
+</a>
+
+<a href="payments.html" class="active">
+<i class="fa-solid fa-wallet"></i>
+Payments
+</a>
+
+<a href="analytics.html">
+<i class="fa-solid fa-chart-pie"></i>
+Analytics
+</a>
+
+<a href="offers.html">
+<i class="fa-solid fa-tags"></i>
+Offers
+</a>
+
+<a href="notifications.html">
+<i class="fa-solid fa-bell"></i>
+Notifications
+</a>
+
+<a href="settings.html">
+<i class="fa-solid fa-gear"></i>
+Settings
+</a>
+
+</div>
+
+</div>
+
+<!-- MAIN -->
+
+<div class="main">
+
+<!-- TOPBAR -->
+
+<div class="topbar">
+
+<h1>
+Payments
+</h1>
+
+</div>
+
+<!-- STATS -->
+
+<div class="statsGrid">
+
+<div class="statCard">
+<div class="statTitle">
+Total Revenue
+</div>
+<div class="statValue"
+id="totalRevenue">
+₹0
+</div>
+</div>
+
+<div class="statCard">
+<div class="statTitle">
+COD Orders
+</div>
+<div class="statValue"
+id="codOrders">
+0
+</div>
+</div>
+
+<div class="statCard">
+<div class="statTitle">
+Wallet Payments
+</div>
+<div class="statValue"
+id="walletPayments">
+0
+</div>
+</div>
+
+<div class="statCard">
+<div class="statTitle">
+Pending Payments
+</div>
+<div class="statValue"
+id="pendingPayments">
+0
+</div>
+</div>
+
+</div>
+
+<!-- TRANSACTIONS -->
+
+<div class="card">
+
+<div class="cardTitle">
+Recent Transactions
+</div>
+
+<div id="transactionsList">
+
+</div>
+
+</div>
+
+</div>
+
+<!-- FIREBASE -->
+
+<script type="module">
+
+import { db }
+
+from
+
+"/Pal-Group-Pvt-Ltd/firebase.js";
+
+import {
+
+collection,
+getDocs
+
+}
+
+from
+
+"https://www.gstatic.com/firebasejs/12.11.0/firebase-firestore.js";
+
+/* LOAD */
+
+async function loadPayments(){
+
+const ordersSnap =
+
+await getDocs(
+collection(db,"orders")
+);
+
+let revenue = 0;
+let cod = 0;
+let wallet = 0;
+let pending = 0;
+
+let html = "";
+
+ordersSnap.forEach((doc)=>{
+
+const order =
+doc.data();
+
+revenue +=
+order.total || 0;
+
+if(
+order.paymentMethod ===
+"COD"
+){
+
+cod++;
+
+}
+
+if(
+order.paymentMethod ===
+"Wallet"
+){
+
+wallet++;
+
+}
+
+if(
+order.status !==
+"Delivered"
+){
+
+pending++;
+
+}
+
+html += `
+
+<div class="transactionItem">
+
+<div class="left">
+
+<div class="icon">
+💳
+</div>
+
+<div class="info">
+
+<h4>
+${order.name || "User"}
+</h4>
+
+<p>
+${order.paymentMethod || "COD"}
+</p>
+
+</div>
+
+</div>
+
+<div class="amount
+${order.status === "Delivered"
+? "success"
+: "pending"}">
+
+₹${order.total || 0}
+
+</div>
+
+</div>
+
+`;
+
+});
+
+document.getElementById(
+"transactionsList"
+).innerHTML =
+html;
+
+document.getElementById(
+"totalRevenue"
+).innerHTML =
+"₹"+revenue;
+
+document.getElementById(
+"codOrders"
+).innerHTML =
+cod;
+
+document.getElementById(
+"walletPayments"
+).innerHTML =
+wallet;
+
+document.getElementById(
+"pendingPayments"
+).innerHTML =
+pending;
+
+}
+
+loadPayments();
+
+/* SIDEBAR */
+
+window.toggleSidebar =
+function(){
+
+document
+.querySelector(".sidebar")
+.classList.toggle("active");
+
+};
+
+</script>
+
+</body>
+</html>
