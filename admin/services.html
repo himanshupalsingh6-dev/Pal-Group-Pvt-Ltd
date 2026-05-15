@@ -726,6 +726,41 @@ onclick="deleteService('${id}')">
 Delete
 
 </button>
+<!-- =========================
+DELETE BUTTON
+FORM CARD KE NICHE ADD KARO
+========================= -->
+
+<button
+class="submitBtn"
+style="
+background:#DC2626;
+color:#fff;
+margin-top:14px;
+"
+onclick="deleteAllServices()">
+
+Delete All Old Services
+
+</button>
+
+<!-- =========================
+AUTO ADD CATEGORY SERVICES
+DELETE BUTTON KE NICHE ADD KARO
+========================= -->
+
+<button
+class="submitBtn"
+style="
+background:#111827;
+color:#fff;
+margin-top:14px;
+"
+onclick="addDefaultServices()">
+
+Auto Add Category Wise Services
+
+</button>
 
 </div>
 
@@ -943,7 +978,417 @@ document
 .classList.toggle("active");
 
 };
+/* =========================
+DELETE ALL OLD SERVICES
+SERVICES PAGE SCRIPT ME ADD KARO
+========================= */
 
+window.deleteAllServices =
+async function(){
+
+const confirmDelete =
+confirm(
+"Delete All Old Services?"
+);
+
+if(!confirmDelete)return;
+
+const snap =
+await getDocs(
+collection(db,"services")
+);
+
+for(const item of snap.docs){
+
+await deleteDoc(
+doc(db,"services",item.id)
+);
+
+}
+
+alert(
+"All Old Services Deleted"
+);
+
+location.reload();
+
+};
+/* =========================
+FULL CATEGORY WISE DATA
+SCRIPT KE LAST ME ADD KARO
+========================= */
+
+window.addDefaultServices =
+async function(){
+
+const services = [
+
+/* =========================
+IRONING
+========================= */
+
+{
+name:"👔 Shirt",
+category:"Ironing",
+description:"Formal shirt ironing"
+},
+
+{
+name:"👕 T-Shirt",
+category:"Ironing",
+description:"Daily wear press"
+},
+
+{
+name:"👖 Jeans",
+category:"Ironing",
+description:"Steam ironing for jeans"
+},
+
+{
+name:"👖 Trousers",
+category:"Ironing",
+description:"Office pant press"
+},
+
+{
+name:"🥻 Saree",
+category:"Ironing",
+description:"Soft heat saree ironing"
+},
+
+{
+name:"👗 Kurti",
+category:"Ironing",
+description:"Simple wrinkle removal"
+},
+
+{
+name:"🧥 Blazer",
+category:"Ironing",
+description:"Premium coat pressing"
+},
+
+{
+name:"👶 School Uniform",
+category:"Ironing",
+description:"Uniform ironing"
+},
+
+{
+name:"🛏️ Bedsheet",
+category:"Ironing",
+description:"Fold & iron service"
+},
+
+{
+name:"🧣 Dupatta",
+category:"Ironing",
+description:"Light fabric ironing"
+},
+
+/* =========================
+WASHING
+========================= */
+
+{
+name:"👕 T-Shirt Wash",
+category:"Washing",
+description:"Daily wash cleaning"
+},
+
+{
+name:"👖 Jeans Wash",
+category:"Washing",
+description:"Deep denim wash"
+},
+
+{
+name:"👔 Shirt Wash",
+category:"Washing",
+description:"Machine cleaned shirt"
+},
+
+{
+name:"🧥 Jacket Wash",
+category:"Washing",
+description:"Winter jacket wash"
+},
+
+{
+name:"👶 Kids Clothes",
+category:"Washing",
+description:"Gentle fabric wash"
+},
+
+{
+name:"🛏️ Blanket Wash",
+category:"Washing",
+description:"Heavy blanket cleaning"
+},
+
+{
+name:"🧺 Laundry Mix",
+category:"Washing",
+description:"Mixed clothes wash"
+},
+
+{
+name:"🧦 Socks Wash",
+category:"Washing",
+description:"Hygiene sock cleaning"
+},
+
+{
+name:"🧣 Woolen Wash",
+category:"Washing",
+description:"Winter fabric care"
+},
+
+{
+name:"🧵 Curtain Wash",
+category:"Washing",
+description:"Curtain deep wash"
+},
+
+/* =========================
+DRY CLEANING
+========================= */
+
+{
+name:"🧥 Suit Dry Clean",
+category:"Dry Cleaning",
+description:"Premium suit cleaning"
+},
+
+{
+name:"👗 Lehenga Clean",
+category:"Dry Cleaning",
+description:"Bridal wear care"
+},
+
+{
+name:"🥻 Silk Saree",
+category:"Dry Cleaning",
+description:"Luxury silk cleaning"
+},
+
+{
+name:"👔 Blazer Clean",
+category:"Dry Cleaning",
+description:"Coat dry cleaning"
+},
+
+{
+name:"🧸 Soft Toys",
+category:"Dry Cleaning",
+description:"Dust-free toy cleaning"
+},
+
+{
+name:"🛏️ Quilt Clean",
+category:"Dry Cleaning",
+description:"Heavy fabric cleaning"
+},
+
+{
+name:"👜 Handbag Clean",
+category:"Dry Cleaning",
+description:"Leather bag cleaning"
+},
+
+{
+name:"👞 Shoe Clean",
+category:"Dry Cleaning",
+description:"Premium shoe care"
+},
+
+{
+name:"🧤 Leather Jacket",
+category:"Dry Cleaning",
+description:"Leather protection wash"
+},
+
+{
+name:"🎩 Sherwani Clean",
+category:"Dry Cleaning",
+description:"Wedding wear cleaning"
+},
+
+/* =========================
+PREMIUM
+========================= */
+
+{
+name:"🌟 Express Delivery",
+category:"Premium",
+description:"Fast same-day service"
+},
+
+{
+name:"🚀 2 Hour Delivery",
+category:"Premium",
+description:"Ultra fast delivery"
+},
+
+{
+name:"🧴 Perfume Finish",
+category:"Premium",
+description:"Premium fragrance finish"
+},
+
+{
+name:"✨ Steam Finish",
+category:"Premium",
+description:"Luxury steam ironing"
+},
+
+{
+name:"👑 VIP Packaging",
+category:"Premium",
+description:"Premium fold packing"
+},
+
+{
+name:"🛡️ Fabric Protection",
+category:"Premium",
+description:"Cloth safety treatment"
+},
+
+{
+name:"🌈 Color Care",
+category:"Premium",
+description:"Color-safe washing"
+},
+
+{
+name:"🧼 Stain Removal",
+category:"Premium",
+description:"Tough stain treatment"
+},
+
+{
+name:"🧵 Hand Wash",
+category:"Premium",
+description:"Delicate cloth hand wash"
+},
+
+{
+name:"📦 Premium Box Pack",
+category:"Premium",
+description:"Luxury package finish"
+},
+
+/* =========================
+SHOE & BAG
+========================= */
+
+{
+name:"👟 Shoe Cleaning",
+category:"Shoe & Bag",
+description:"Sports shoe cleaning"
+},
+
+{
+name:"👞 Leather Polish",
+category:"Shoe & Bag",
+description:"Leather shoe shine"
+},
+
+{
+name:"👜 Bag Cleaning",
+category:"Shoe & Bag",
+description:"Dust removal cleaning"
+},
+
+{
+name:"🎒 School Bag Wash",
+category:"Shoe & Bag",
+description:"Full bag wash"
+},
+
+{
+name:"👢 Boot Cleaning",
+category:"Shoe & Bag",
+description:"Premium boot care"
+},
+
+/* =========================
+HOME CLEANING
+========================= */
+
+{
+name:"🛏️ Mattress Clean",
+category:"Home Cleaning",
+description:"Deep mattress cleaning"
+},
+
+{
+name:"🪑 Sofa Cover Wash",
+category:"Home Cleaning",
+description:"Sofa fabric cleaning"
+},
+
+{
+name:"🧺 Curtain Cleaning",
+category:"Home Cleaning",
+description:"Curtain wash service"
+},
+
+{
+name:"🪟 Carpet Wash",
+category:"Home Cleaning",
+description:"Carpet shampoo cleaning"
+},
+
+{
+name:"🧸 Pillow Cleaning",
+category:"Home Cleaning",
+description:"Pillow sanitizing"
+}
+
+];
+
+/* ADD ALL */
+
+for(const service of services){
+
+await addDoc(
+
+collection(db,"services"),
+
+{
+
+name:service.name,
+
+category:service.category,
+
+description:service.description,
+
+prices:{
+
+Noida:0,
+Kasganj:0,
+Aligarh:0,
+Badaun:0,
+Delhi:0,
+Mumbai:0
+
+}
+
+}
+
+);
+
+}
+
+alert(
+"All Category Services Added"
+);
+
+location.reload();
+
+};
 </script>
 
 </body>
