@@ -1,1204 +1,557 @@
-<!DOCTYPE html>
-<html lang="en">
+<!-- =========================================
+LIVE ORDER TRACKING POPUP FULL CODE
+ADD BEFORE </body> IN index.html
+========================================= -->
 
-<head>
+<!-- =========================
+LIVE ORDER POPUP
+========================= -->
 
-<meta charset="UTF-8"/>
+<div
+class="liveOrderPopup"
+id="liveOrderPopup"
+onclick="openTracking()"
+style="display:none;"
+>
 
-<meta
-name="viewport"
-content="width=device-width, initial-scale=1.0"
-/>
+<!-- TOP -->
 
-<title>
-QuickPress Profile
-</title>
+<div class="popupTop">
 
-<link
-rel="stylesheet"
-href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css"
-/>
+<div class="popupLeft">
+
+<div class="bikeBox">
+
+<div class="bikeEmoji">
+🛵
+</div>
+
+</div>
+
+<div>
+
+<h3>
+Order In Progress
+</h3>
+
+<p id="popupStatusText">
+
+Pickup Partner Assigned
+
+</p>
+
+</div>
+
+</div>
+
+<div class="popupRight">
+
+<div
+class="circleProgress"
+id="circleProgress"
+>
+
+25%
+
+</div>
+
+</div>
+
+</div>
+
+<!-- PROGRESS BAR -->
+
+<div class="progressBar">
+
+<div
+class="progressFill"
+id="progressFill"
+></div>
+
+</div>
+
+<!-- STEPS -->
+
+<div class="stepContainer">
+
+<div
+class="step activeStep"
+id="step1"
+>
+
+<div class="stepDot"></div>
+
+<span>
+Placed
+</span>
+
+</div>
+
+<div
+class="step activeStep"
+id="step2"
+>
+
+<div class="stepDot"></div>
+
+<span>
+Pickup
+</span>
+
+</div>
+
+<div
+class="step"
+id="step3"
+>
+
+<div class="stepDot"></div>
+
+<span>
+Cleaning
+</span>
+
+</div>
+
+<div
+class="step"
+id="step4"
+>
+
+<div class="stepDot"></div>
+
+<span>
+Delivery
+</span>
+
+</div>
+
+</div>
+
+<!-- BOTTOM -->
+
+<div class="popupBottom">
+
+<div class="etaBox">
+
+⏱ ETA:
+<span id="etaText">
+25 mins
+</span>
+
+</div>
+
+<div class="trackBtn">
+
+Track Live →
+
+</div>
+
+</div>
+
+</div>
 
 <style>
 
 /* =========================
-RESET
+LIVE POPUP
 ========================= */
 
-*{
-margin:0;
-padding:0;
-box-sizing:border-box;
-font-family:
-"Poppins",
-sans-serif;
-}
+.liveOrderPopup{
 
-body{
-background:#F8FAFC;
-color:#111827;
-overflow-x:hidden;
-}
-
-/* =========================
-TOPBAR
-========================= */
-
-.topbar{
-position:sticky;
-top:0;
-z-index:999;
-padding:16px;
-background:
-rgba(255,255,255,0.96);
-backdrop-filter:blur(18px);
-border-bottom:
-1px solid #EEF2F7;
-}
-
-.topRow{
-display:flex;
-align-items:center;
-gap:12px;
-}
-
-.backBtn{
-width:46px;
-height:46px;
-border:none;
-border-radius:16px;
-background:#FFD400;
-font-size:18px;
-font-weight:900;
-cursor:pointer;
-}
-
-.pageText h2{
-font-size:22px;
-font-weight:900;
-margin-bottom:4px;
-}
-
-.pageText p{
-font-size:12px;
-color:#6B7280;
-}
-
-/* =========================
-MAIN
-========================= */
-
-.main{
-width:100%;
-max-width:1200px;
-margin:auto;
-padding:16px;
-padding-bottom:120px;
-}
-
-/* =========================
-PROFILE HEADER
-========================= */
-
-.profileCard{
+position:fixed;
+left:50%;
+bottom:90px;
+transform:translateX(-50%);
+width:94%;
+max-width:430px;
 background:#111827;
-padding:28px;
-border-radius:34px;
 color:#fff;
-margin-bottom:18px;
-position:relative;
-overflow:hidden;
-}
-
-.profileTop{
-display:flex;
-align-items:center;
-gap:16px;
-}
-
-.profileAvatar{
-width:92px;
-height:92px;
+padding:18px;
 border-radius:30px;
-background:#FFD400;
-display:flex;
-align-items:center;
-justify-content:center;
-font-size:38px;
-font-weight:900;
-color:#111827;
-}
+z-index:9999;
 
-.profileInfo h2{
-font-size:28px;
-margin-bottom:6px;
-}
-
-.profileInfo p{
-font-size:14px;
-opacity:0.8;
-}
-
-.cityTag{
-display:inline-block;
-margin-top:10px;
-padding:8px 14px;
-border-radius:14px;
-background:rgba(255,255,255,0.1);
-font-size:12px;
-font-weight:700;
-}
-
-/* =========================
-CARD
-========================= */
-
-.card{
-background:#fff;
-padding:22px;
-border-radius:28px;
-margin-bottom:18px;
 box-shadow:
-0 8px 24px rgba(15,23,42,0.05);
-border:1px solid #EEF2F7;
-}
+0 24px 50px rgba(0,0,0,0.28);
 
-.cardTitle{
-font-size:22px;
-font-weight:900;
-margin-bottom:18px;
-}
+animation:
+popupSlide 0.4s ease;
 
-/* =========================
-WALLET
-========================= */
-
-.walletBalance{
-font-size:38px;
-font-weight:900;
-margin-bottom:20px;
-}
-
-.walletBtns{
-display:grid;
-grid-template-columns:1fr 1fr;
-gap:12px;
-}
-
-.walletBtn{
-height:56px;
-border:none;
-border-radius:18px;
-font-size:14px;
-font-weight:900;
 cursor:pointer;
-}
+overflow:hidden;
 
-.addBtn{
-background:#FFD400;
-}
-
-.withdrawBtn{
-background:#111827;
-color:#fff;
 }
 
 /* =========================
-ORDER
+ANIMATION
 ========================= */
 
-.orderItem{
+@keyframes popupSlide{
+
+from{
+
+opacity:0;
+
+transform:
+translateX(-50%)
+translateY(100px);
+
+}
+
+to{
+
+opacity:1;
+
+transform:
+translateX(-50%)
+translateY(0);
+
+}
+
+}
+
+@keyframes bikeMove{
+
+0%{
+transform:translateX(0);
+}
+
+50%{
+transform:translateX(8px);
+}
+
+100%{
+transform:translateX(0);
+}
+
+}
+
+/* =========================
+TOP
+========================= */
+
+.popupTop{
 display:flex;
 justify-content:space-between;
-align-items:center;
-padding:16px;
-border-radius:20px;
-background:#F8FAFC;
-margin-bottom:12px;
-}
-
-.orderLeft{
-display:flex;
 align-items:center;
 gap:14px;
-}
-
-.orderIcon{
-width:54px;
-height:54px;
-border-radius:18px;
-background:#fff;
-display:flex;
-align-items:center;
-justify-content:center;
-font-size:24px;
-}
-
-.status{
-padding:8px 14px;
-border-radius:12px;
-font-size:11px;
-font-weight:800;
-background:#DCFCE7;
-color:#166534;
-}
-
-/* =========================
-TRANSACTION
-========================= */
-
-.transactionItem{
-display:flex;
-justify-content:space-between;
-align-items:center;
-padding:14px 0;
-border-bottom:
-1px solid #F1F5F9;
-}
-
-.transactionLeft{
-display:flex;
-align-items:center;
-gap:12px;
-}
-
-.transactionIcon{
-width:48px;
-height:48px;
-border-radius:16px;
-background:#F8FAFC;
-display:flex;
-align-items:center;
-justify-content:center;
-font-size:22px;
-}
-
-.credit{
-color:#22C55E;
-font-weight:900;
-}
-
-.debit{
-color:#EF4444;
-font-weight:900;
-}
-
-/* =========================
-MENU
-========================= */
-
-.menuItem{
-display:flex;
-justify-content:space-between;
-align-items:center;
-padding:18px 0;
-border-bottom:
-1px solid #F1F5F9;
-cursor:pointer;
-}
-
-.menuLeft{
-display:flex;
-align-items:center;
-gap:14px;
-}
-
-.menuIcon{
-width:54px;
-height:54px;
-border-radius:18px;
-background:#F8FAFC;
-display:flex;
-align-items:center;
-justify-content:center;
-font-size:22px;
-}
-
-.menuText h3{
-font-size:16px;
-margin-bottom:4px;
-}
-
-.menuText p{
-font-size:12px;
-color:#6B7280;
-}
-
-/* =========================
-FORM
-========================= */
-
-.inputGroup{
 margin-bottom:16px;
 }
 
-.inputGroup label{
-display:block;
-font-size:13px;
-font-weight:700;
-margin-bottom:8px;
+.popupLeft{
+display:flex;
+align-items:center;
+gap:14px;
 }
 
-.inputGroup input,
-.inputGroup textarea{
+.bikeBox{
+width:60px;
+height:60px;
+border-radius:20px;
+background:#FFD400;
+display:flex;
+align-items:center;
+justify-content:center;
+flex-shrink:0;
+}
+
+.bikeEmoji{
+font-size:30px;
+animation:
+bikeMove 1s infinite;
+}
+
+.popupLeft h3{
+font-size:16px;
+font-weight:900;
+margin-bottom:4px;
+}
+
+.popupLeft p{
+font-size:12px;
+opacity:0.8;
+}
+
+/* =========================
+CIRCLE
+========================= */
+
+.circleProgress{
+width:62px;
+height:62px;
+border-radius:50%;
+background:#FFD400;
+color:#111827;
+display:flex;
+align-items:center;
+justify-content:center;
+font-size:16px;
+font-weight:900;
+}
+
+/* =========================
+PROGRESS BAR
+========================= */
+
+.progressBar{
 width:100%;
-border:none;
-outline:none;
-background:#F8FAFC;
-border-radius:16px;
+height:10px;
+border-radius:40px;
+background:
+rgba(255,255,255,0.12);
+overflow:hidden;
+margin-bottom:18px;
+}
+
+.progressFill{
+width:25%;
+height:100%;
+background:#FFD400;
+border-radius:40px;
+transition:0.5s;
+}
+
+/* =========================
+STEPS
+========================= */
+
+.stepContainer{
+display:flex;
+justify-content:space-between;
+gap:8px;
+margin-bottom:18px;
+}
+
+.step{
+flex:1;
+text-align:center;
+opacity:0.4;
+transition:0.3s;
+}
+
+.stepDot{
+width:14px;
+height:14px;
+border-radius:50%;
+background:#6B7280;
+margin:auto;
+margin-bottom:8px;
+transition:0.3s;
+}
+
+.step span{
+font-size:10px;
+font-weight:700;
+}
+
+.activeStep{
+opacity:1;
+}
+
+.activeStep .stepDot{
+background:#22C55E;
+}
+
+/* =========================
+BOTTOM
+========================= */
+
+.popupBottom{
+display:flex;
+justify-content:space-between;
+align-items:center;
+gap:12px;
+}
+
+.etaBox{
+font-size:12px;
+font-weight:700;
+opacity:0.9;
+}
+
+.trackBtn{
+padding:12px 16px;
+border-radius:14px;
+background:#FFD400;
+color:#111827;
+font-size:12px;
+font-weight:900;
+}
+
+/* =========================
+MOBILE
+========================= */
+
+@media screen and (max-width:768px){
+
+.liveOrderPopup{
+
+bottom:82px;
 padding:16px;
+border-radius:24px;
+
+}
+
+.popupLeft h3{
 font-size:14px;
 }
 
-.inputGroup textarea{
-height:90px;
-resize:none;
+.circleProgress{
+width:54px;
+height:54px;
+font-size:14px;
 }
 
-.saveBtn{
-width:100%;
-height:56px;
-border:none;
-border-radius:18px;
-background:#111827;
-color:#fff;
-font-size:15px;
-font-weight:900;
-cursor:pointer;
-margin-top:10px;
-}
-
-/* =========================
-LOGOUT
-========================= */
-
-.logoutBtn{
-width:100%;
-height:58px;
-border:none;
-border-radius:20px;
-background:#EF4444;
-color:#fff;
-font-size:15px;
-font-weight:900;
-cursor:pointer;
-}
-
-/* =========================
-RESPONSIVE
-========================= */
-
-@media screen and (min-width:900px){
-
-.main{
-display:grid;
-grid-template-columns:
-1fr 1fr;
-gap:20px;
-align-items:start;
-}
-
-.profileFull{
-grid-column:1/3;
+.trackBtn{
+padding:10px 14px;
+font-size:11px;
 }
 
 }
 
 </style>
 
-</head>
-
-<body>
-
-<!-- TOPBAR -->
-
-<div class="topbar">
-
-<div class="topRow">
-
-<button
-class="backBtn"
-onclick="history.back()"
->
-
-←
-
-</button>
-
-<div class="pageText">
-
-<h2>
-My Profile
-</h2>
-
-<p>
-Manage your account
-</p>
-
-</div>
-
-</div>
-
-</div>
-
-<!-- MAIN -->
-
-<div class="main">
-
-<!-- PROFILE -->
-
-<div class="profileFull">
-
-<div class="profileCard">
-
-<div class="profileTop">
-
-<div
-class="profileAvatar"
-id="profileAvatar"
->
-
-H
-
-</div>
-
-<div class="profileInfo">
-
-<h2 id="profileName">
-User
-</h2>
-
-<p id="profileEmail">
-example@gmail.com
-</p>
-
-<div
-class="cityTag"
-id="profileCity"
->
-
-Meerut
-
-</div>
-
-</div>
-
-</div>
-
-</div>
-
-</div>
-
-<!-- WALLET -->
-
-<div class="card">
-
-<h2 class="cardTitle">
-Wallet
-</h2>
-
-<div
-class="walletBalance"
-id="walletBalance"
->
-
-₹0
-
-</div>
-
-<div class="walletBtns">
-
-<button
-class="walletBtn addBtn"
-onclick="
-addFunds()
-"
->
-
-Add ₹100
-
-</button>
-
-<button
-class="walletBtn withdrawBtn"
->
-
-Withdraw
-
-</button>
-
-</div>
-
-</div>
-
-<!-- ORDERS -->
-
-<div class="card">
-
-<h2 class="cardTitle">
-My Orders
-</h2>
-
-<div id="ordersContainer">
-
-Loading...
-
-</div>
-
-</div>
-
-<!-- TRANSACTIONS -->
-
-<div class="card">
-
-<h2 class="cardTitle">
-Wallet Transactions
-</h2>
-
-<div id="transactionsContainer">
-
-No Transactions
-
-</div>
-
-</div>
-
-<!-- PROFILE FORM -->
-
-<div class="card">
-
-<h2 class="cardTitle">
-Edit Profile
-</h2>
-
-<div class="inputGroup">
-
-<label>
-Full Name
-</label>
-
-<input
-type="text"
-id="fullName"
-/>
-
-</div>
-
-<div class="inputGroup">
-
-<label>
-Email
-</label>
-
-<input
-type="email"
-id="email"
-/>
-
-</div>
-
-<div class="inputGroup">
-
-<label>
-Password
-</label>
-
-<input
-type="password"
-id="password"
-/>
-
-</div>
-
-<div class="inputGroup">
-
-<label>
-City
-</label>
-
-<input
-type="text"
-id="city"
-/>
-
-</div>
-
-<div class="inputGroup">
-
-<label>
-Saved Address
-</label>
-
-<textarea
-id="address"
-></textarea>
-
-</div>
-
-<button
-class="saveBtn"
-onclick="
-saveProfile()
-"
->
-
-Save Changes
-
-</button>
-
-</div>
-
-<!-- HELP -->
-
-<div class="card">
-
-<h2 class="cardTitle">
-Help & Support
-</h2>
-
-<div class="menuItem">
-
-<div class="menuLeft">
-
-<div class="menuIcon">
-📞
-</div>
-
-<div class="menuText">
-
-<h3>
-Customer Support
-</h3>
-
-<p>
-24x7 support available
-</p>
-
-</div>
-
-</div>
-
-<i class="fa-solid fa-chevron-right"></i>
-
-</div>
-
-<div class="menuItem">
-
-<div class="menuLeft">
-
-<div class="menuIcon">
-🔐
-</div>
-
-<div class="menuText">
-
-<h3>
-Forgot Password
-</h3>
-
-<p>
-Reset your password
-</p>
-
-</div>
-
-</div>
-
-<i class="fa-solid fa-chevron-right"></i>
-
-</div>
-
-<div class="menuItem">
-
-<div class="menuLeft">
-
-<div class="menuIcon">
-📍
-</div>
-
-<div class="menuText">
-
-<h3>
-Saved Addresses
-</h3>
-
-<p>
-Manage pickup locations
-</p>
-
-</div>
-
-</div>
-
-<i class="fa-solid fa-chevron-right"></i>
-
-</div>
-
-</div>
-
-<!-- LOGOUT -->
-
-<button
-class="logoutBtn"
-onclick="
-logout()
-"
->
-
-Logout
-
-</button>
-
-</div>
-
-<!-- FIREBASE -->
-
-<script type="module">
-
-import {
-
-db
-
-}
-
-from "../firebase.js";
-
-import {
-
-doc,
-getDoc,
-updateDoc,
-collection,
-query,
-where,
-getDocs
-
-}
-
-from
-
-"https://www.gstatic.com/firebasejs/12.11.0/firebase-firestore.js";
+<script>
+
+/* =========================================
+REAL ORDER POPUP SYSTEM
+========================================= */
 
 /* =========================
-LOGIN CHECK
+GET ORDER
 ========================= */
 
-if(
-localStorage.getItem(
-"isLoggedIn"
-) !== "true"
-){
-
-window.location.href =
-"user/login.html";
-
-}
-
-/* =========================
-USER PHONE
-========================= */
-
-const userPhone =
-
-localStorage.getItem(
-"userPhone"
-);
-
-/* =========================
-LOAD USER
-========================= */
-
-async function loadUser(){
-
-const userRef =
-
-doc(db,"users",userPhone);
-
-const userSnap =
-
-await getDoc(userRef);
-
-if(userSnap.exists()){
-
-const user =
-userSnap.data();
-
-/* HEADER */
-
-document.getElementById(
-"profileName"
-).innerHTML =
-user.name || "User";
-
-document.getElementById(
-"profileEmail"
-).innerHTML =
-user.email || "No Email";
-
-document.getElementById(
-"profileCity"
-).innerHTML =
-user.city || "City";
-
-document.getElementById(
-"profileAvatar"
-).innerHTML =
-user.name
-? user.name.charAt(0)
-: "U";
-
-/* FORM */
-
-document.getElementById(
-"fullName"
-).value =
-user.name || "";
-
-document.getElementById(
-"email"
-).value =
-user.email || "";
-
-document.getElementById(
-"password"
-).value =
-user.password || "";
-
-document.getElementById(
-"city"
-).value =
-user.city || "";
-
-document.getElementById(
-"address"
-).value =
-user.address || "";
-
-/* WALLET */
-
-document.getElementById(
-"walletBalance"
-).innerHTML =
-"₹" + (user.wallet || 0);
-
-}
-
-}
-
-loadUser();
-
-/* =========================
-SAVE PROFILE
-========================= */
-
-window.saveProfile =
-async function(){
-
-const name =
-document.getElementById(
-"fullName"
-).value;
-
-const email =
-document.getElementById(
-"email"
-).value;
-
-const password =
-document.getElementById(
-"password"
-).value;
-
-const city =
-document.getElementById(
-"city"
-).value;
-
-const address =
-document.getElementById(
-"address"
-).value;
-
-await updateDoc(
-
-doc(db,"users",userPhone),
-
-{
-
-name,
-email,
-password,
-city,
-address
-
-}
-
-);
-
-/* SAVE LOCAL */
-
-localStorage.setItem(
-"userAddress",
-address
-);
-
-alert(
-"Profile Updated"
-);
-
-loadUser();
-
-};
-
-/* =========================
-ADD FUNDS
-========================= */
-
-window.addFunds =
-async function(){
-
-const userRef =
-
-doc(db,"users",userPhone);
-
-const userSnap =
-
-await getDoc(userRef);
-
-const user =
-userSnap.data();
-
-const newBalance =
-
-(user.wallet || 0) + 100;
-
-/* UPDATE */
-
-await updateDoc(
-
-userRef,
-
-{
-
-wallet:newBalance
-
-}
-
-);
-
-/* TRANSACTION */
-
-const transactions =
+const activeOrder =
 
 JSON.parse(
 localStorage.getItem(
-"walletTransactions"
+"lastOrder"
 )
-) || [];
-
-transactions.unshift({
-
-type:"credit",
-title:"Wallet Topup",
-amount:"+₹100"
-
-});
-
-localStorage.setItem(
-
-"walletTransactions",
-
-JSON.stringify(transactions)
-
 );
-
-loadTransactions();
-
-loadUser();
-
-alert(
-"₹100 Added Successfully"
-);
-
-};
 
 /* =========================
-LOAD TRANSACTIONS
+SHOW POPUP
 ========================= */
 
-function loadTransactions(){
-
-const transactions =
-
-JSON.parse(
-localStorage.getItem(
-"walletTransactions"
-)
-) || [];
-
-let html = "";
-
-transactions.forEach((item)=>{
-
-html += `
-
-<div class="transactionItem">
-
-<div class="transactionLeft">
-
-<div class="transactionIcon">
-
-${item.type === "credit"
-? "💰"
-: "💸"}
-
-</div>
-
-<div>
-
-<h4>
-${item.title}
-</h4>
-
-<p>
-Wallet Activity
-</p>
-
-</div>
-
-</div>
-
-<div
-class="
-${item.type}
-"
->
-
-${item.amount}
-
-</div>
-
-</div>
-
-`;
-
-});
+if(activeOrder){
 
 document.getElementById(
-"transactionsContainer"
+"liveOrderPopup"
+).style.display =
+"block";
+
+}
+
+/* =========================
+DEFAULT STATUS
+========================= */
+
+let progress = 25;
+
+let eta = 25;
+
+let statusText =
+"Pickup Partner Assigned";
+
+/* =========================
+AUTO UPDATE
+========================= */
+
+setInterval(()=>{
+
+if(progress < 100){
+
+progress += 25;
+
+eta -= 5;
+
+/* STATUS */
+
+if(progress === 50){
+
+statusText =
+"Clothes Picked Up";
+
+document.getElementById(
+"step3"
+).classList.add(
+"activeStep"
+);
+
+}
+
+if(progress === 75){
+
+statusText =
+"Laundry Cleaning Started";
+
+}
+
+if(progress === 100){
+
+statusText =
+"Out For Delivery";
+
+document.getElementById(
+"step4"
+).classList.add(
+"activeStep"
+);
+
+/* COMPLETE */
+
+setTimeout(()=>{
+
+document.getElementById(
+"liveOrderPopup"
+).style.display =
+"none";
+
+/* CLEAR ORDER */
+
+localStorage.removeItem(
+"lastOrder"
+);
+
+},8000);
+
+}
+
+/* UPDATE UI */
+
+document.getElementById(
+"progressFill"
+).style.width =
+progress + "%";
+
+document.getElementById(
+"circleProgress"
 ).innerHTML =
-
-html || "No Transactions";
-
-}
-
-loadTransactions();
-
-/* =========================
-LOAD ORDERS
-========================= */
-
-async function loadOrders(){
-
-const container =
+progress + "%";
 
 document.getElementById(
-"ordersContainer"
-);
+"popupStatusText"
+).innerHTML =
+statusText;
 
-const q = query(
-
-collection(db,"orders"),
-
-where(
-"userPhone",
-"==",
-userPhone
-)
-
-);
-
-const querySnapshot =
-
-await getDocs(q);
-
-let html = "";
-
-querySnapshot.forEach((doc)=>{
-
-const order =
-doc.data();
-
-html += `
-
-<div class="orderItem">
-
-<div class="orderLeft">
-
-<div class="orderIcon">
-🧺
-</div>
-
-<div>
-
-<h4>
-Laundry Order
-</h4>
-
-<p>
-₹${order.total}
-</p>
-
-</div>
-
-</div>
-
-<div class="status">
-
-${order.status}
-
-</div>
-
-</div>
-
-`;
-
-});
-
-container.innerHTML =
-
-html || "No Orders Found";
+document.getElementById(
+"etaText"
+).innerHTML =
+eta + " mins";
 
 }
 
-loadOrders();
+},7000);
 
 /* =========================
-LOGOUT
+OPEN TRACKING
 ========================= */
 
-window.logout =
-function(){
-
-localStorage.removeItem(
-"isLoggedIn"
-);
-
-localStorage.removeItem(
-"userPhone"
-);
-
-localStorage.removeItem(
-"userProfile"
-);
+function openTracking(){
 
 window.location.href =
-"user/login.html";
+"tracking.html";
 
-};
+}
 
 </script>
-
-</body>
-
-</html>
