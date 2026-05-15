@@ -1,0 +1,636 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport"
+content="width=device-width, initial-scale=1.0">
+
+<title>QuickPress Offers</title>
+
+<link rel="stylesheet"
+href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css"/>
+
+<style>
+
+*{
+margin:0;
+padding:0;
+box-sizing:border-box;
+font-family:Poppins,sans-serif;
+}
+
+body{
+background:#F5F7FB;
+}
+
+/* SIDEBAR */
+
+.sidebar{
+width:270px;
+background:#111827;
+color:#fff;
+padding:24px 18px;
+position:fixed;
+left:0;
+top:0;
+height:100%;
+overflow:auto;
+z-index:999;
+}
+
+.logo{
+font-size:30px;
+font-weight:900;
+margin-bottom:40px;
+color:#FFD400;
+}
+
+.menu{
+display:flex;
+flex-direction:column;
+gap:10px;
+}
+
+.menu a{
+text-decoration:none;
+color:#D1D5DB;
+padding:16px;
+border-radius:18px;
+display:flex;
+align-items:center;
+gap:14px;
+font-size:15px;
+font-weight:600;
+transition:0.3s;
+}
+
+.menu a:hover,
+.menu a.active{
+background:#1F2937;
+color:#fff;
+}
+
+/* MAIN */
+
+.main{
+margin-left:270px;
+padding:24px;
+}
+
+/* TOPBAR */
+
+.topbar{
+display:flex;
+justify-content:space-between;
+align-items:center;
+margin-bottom:24px;
+}
+
+.topbar h1{
+font-size:34px;
+font-weight:900;
+}
+
+/* FORM */
+
+.formCard{
+background:#fff;
+padding:24px;
+border-radius:28px;
+box-shadow:0 10px 30px rgba(0,0,0,0.05);
+margin-bottom:24px;
+}
+
+.formGrid{
+display:grid;
+grid-template-columns:1fr 1fr;
+gap:16px;
+}
+
+.input{
+width:100%;
+height:56px;
+border:none;
+outline:none;
+background:#F3F4F6;
+border-radius:18px;
+padding:0 18px;
+font-size:15px;
+}
+
+.submitBtn{
+width:100%;
+height:58px;
+border:none;
+border-radius:20px;
+background:#FFD400;
+font-size:16px;
+font-weight:900;
+margin-top:18px;
+cursor:pointer;
+}
+
+/* OFFERS */
+
+.offersGrid{
+display:grid;
+grid-template-columns:repeat(3,1fr);
+gap:18px;
+}
+
+.offerCard{
+background:#fff;
+padding:22px;
+border-radius:28px;
+box-shadow:0 10px 30px rgba(0,0,0,0.05);
+position:relative;
+overflow:hidden;
+}
+
+.offerCard::after{
+content:'';
+position:absolute;
+right:-30px;
+top:-30px;
+width:120px;
+height:120px;
+background:rgba(255,212,0,0.15);
+border-radius:50%;
+}
+
+.offerIcon{
+width:72px;
+height:72px;
+border-radius:24px;
+background:#FFD400;
+display:flex;
+align-items:center;
+justify-content:center;
+font-size:32px;
+margin-bottom:18px;
+}
+
+.offerCard h3{
+font-size:22px;
+margin-bottom:8px;
+}
+
+.offerCard p{
+font-size:14px;
+color:#6B7280;
+margin-bottom:14px;
+}
+
+.code{
+display:inline-block;
+padding:12px 18px;
+background:#111827;
+color:#fff;
+border-radius:16px;
+font-size:14px;
+font-weight:800;
+margin-bottom:18px;
+}
+
+.discount{
+font-size:30px;
+font-weight:900;
+margin-bottom:18px;
+}
+
+.cardBtns{
+display:grid;
+grid-template-columns:1fr 1fr;
+gap:12px;
+}
+
+.editBtn{
+height:50px;
+border:none;
+border-radius:16px;
+background:#111827;
+color:#fff;
+font-weight:800;
+}
+
+.deleteBtn{
+height:50px;
+border:none;
+border-radius:16px;
+background:#FEE2E2;
+color:#DC2626;
+font-weight:800;
+}
+
+/* MOBILE */
+
+.mobileMenuBtn{
+display:none;
+}
+
+@media(max-width:1100px){
+
+.offersGrid{
+grid-template-columns:1fr 1fr;
+}
+
+}
+
+@media(max-width:768px){
+
+.sidebar{
+left:-100%;
+transition:0.3s;
+}
+
+.sidebar.active{
+left:0;
+}
+
+.main{
+margin-left:0;
+padding:16px;
+padding-top:80px;
+}
+
+.mobileMenuBtn{
+display:flex;
+position:fixed;
+top:18px;
+left:18px;
+width:52px;
+height:52px;
+border:none;
+border-radius:18px;
+background:#111827;
+color:#fff;
+font-size:22px;
+align-items:center;
+justify-content:center;
+z-index:1000;
+}
+
+.formGrid{
+grid-template-columns:1fr;
+}
+
+.offersGrid{
+grid-template-columns:1fr;
+}
+
+.topbar h1{
+font-size:26px;
+}
+
+}
+
+</style>
+</head>
+<body>
+
+<!-- MOBILE BUTTON -->
+
+<button class="mobileMenuBtn"
+onclick="toggleSidebar()">
+
+<i class="fa-solid fa-bars"></i>
+
+</button>
+
+<!-- SIDEBAR -->
+
+<div class="sidebar">
+
+<div class="logo">
+QuickPress
+</div>
+
+<div class="menu">
+
+<a href="index.html">
+<i class="fa-solid fa-chart-line"></i>
+Dashboard
+</a>
+
+<a href="orders.html">
+<i class="fa-solid fa-basket-shopping"></i>
+Orders
+</a>
+
+<a href="services.html">
+<i class="fa-solid fa-shirt"></i>
+Services
+</a>
+
+<a href="users.html">
+<i class="fa-solid fa-users"></i>
+Users
+</a>
+
+<a href="delivery.html">
+<i class="fa-solid fa-truck"></i>
+Delivery
+</a>
+
+<a href="partners.html">
+<i class="fa-solid fa-handshake"></i>
+Partners
+</a>
+
+<a href="riders.html">
+<i class="fa-solid fa-motorcycle"></i>
+Riders
+</a>
+
+<a href="payments.html">
+<i class="fa-solid fa-wallet"></i>
+Payments
+</a>
+
+<a href="analytics.html">
+<i class="fa-solid fa-chart-pie"></i>
+Analytics
+</a>
+
+<a href="offers.html" class="active">
+<i class="fa-solid fa-tags"></i>
+Offers
+</a>
+
+<a href="notifications.html">
+<i class="fa-solid fa-bell"></i>
+Notifications
+</a>
+
+<a href="settings.html">
+<i class="fa-solid fa-gear"></i>
+Settings
+</a>
+
+</div>
+
+</div>
+
+<!-- MAIN -->
+
+<div class="main">
+
+<!-- TOPBAR -->
+
+<div class="topbar">
+
+<h1>
+Offers & Coupons
+</h1>
+
+</div>
+
+<!-- FORM -->
+
+<div class="formCard">
+
+<div class="formGrid">
+
+<input
+type="text"
+placeholder="Offer Title"
+class="input"
+id="offerTitle"
+/>
+
+<input
+type="text"
+placeholder="Coupon Code"
+class="input"
+id="offerCode"
+/>
+
+<input
+type="text"
+placeholder="Discount %"
+class="input"
+id="offerDiscount"
+/>
+
+<input
+type="text"
+placeholder="Offer Icon Emoji"
+class="input"
+id="offerIcon"
+/>
+
+</div>
+
+<button
+class="submitBtn"
+onclick="addOffer()">
+
+Create Offer
+
+</button>
+
+</div>
+
+<!-- OFFERS -->
+
+<div class="offersGrid"
+id="offersGrid">
+
+</div>
+
+</div>
+
+<!-- FIREBASE -->
+
+<script type="module">
+
+import { db }
+
+from
+
+"/Pal-Group-Pvt-Ltd/firebase.js";
+
+import {
+
+collection,
+addDoc,
+getDocs,
+deleteDoc,
+doc
+
+}
+
+from
+
+"https://www.gstatic.com/firebasejs/12.11.0/firebase-firestore.js";
+
+/* LOAD */
+
+async function loadOffers(){
+
+const offersGrid =
+document.getElementById(
+"offersGrid"
+);
+
+const snap =
+
+await getDocs(
+collection(db,"offers")
+);
+
+let html = "";
+
+snap.forEach((docSnap)=>{
+
+const offer =
+docSnap.data();
+
+html += `
+
+<div class="offerCard">
+
+<div class="offerIcon">
+${offer.icon || "🎁"}
+</div>
+
+<h3>
+${offer.title || ""}
+</h3>
+
+<p>
+Special QuickPress Offer
+</p>
+
+<div class="code">
+${offer.code || ""}
+</div>
+
+<div class="discount">
+${offer.discount || 0}% OFF
+</div>
+
+<div class="cardBtns">
+
+<button
+class="editBtn">
+
+Edit
+
+</button>
+
+<button
+class="deleteBtn"
+onclick="deleteOffer('${docSnap.id}')">
+
+Delete
+
+</button>
+
+</div>
+
+</div>
+
+`;
+
+});
+
+offersGrid.innerHTML = html;
+
+}
+
+loadOffers();
+
+/* ADD */
+
+window.addOffer =
+async function(){
+
+const title =
+document.getElementById(
+"offerTitle"
+).value;
+
+const code =
+document.getElementById(
+"offerCode"
+).value;
+
+const discount =
+document.getElementById(
+"offerDiscount"
+).value;
+
+const icon =
+document.getElementById(
+"offerIcon"
+).value;
+
+if(
+!title ||
+!code
+){
+
+alert(
+"Fill Required Fields"
+);
+
+return;
+
+}
+
+await addDoc(
+
+collection(db,"offers"),
+
+{
+
+title:title,
+code:code,
+discount:discount,
+icon:icon
+
+}
+
+);
+
+alert(
+"Offer Created"
+);
+
+location.reload();
+
+};
+
+/* DELETE */
+
+window.deleteOffer =
+async function(id){
+
+await deleteDoc(
+doc(db,"offers",id)
+);
+
+alert(
+"Offer Deleted"
+);
+
+loadOffers();
+
+};
+
+/* SIDEBAR */
+
+window.toggleSidebar =
+function(){
+
+document
+.querySelector(".sidebar")
+.classList.toggle("active");
+
+};
+
+</script>
+
+</body>
+</html>
