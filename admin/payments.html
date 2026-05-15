@@ -1,14 +1,20 @@
-<!DOCTYPE html>
+=<!DOCTYPE html>
 <html lang="en">
 <head>
+
 <meta charset="UTF-8">
+
 <meta name="viewport"
 content="width=device-width, initial-scale=1.0">
 
-<title>QuickPress Payments</title>
+<title>
+QuickPress Payments
+</title>
 
 <link rel="stylesheet"
 href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css"/>
+
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 
 <style>
 
@@ -20,29 +26,28 @@ font-family:Poppins,sans-serif;
 }
 
 body{
-background:#F5F7FB;
+background:#F4F7FC;
+display:flex;
 }
 
 /* SIDEBAR */
 
 .sidebar{
-width:270px;
-background:#111827;
-color:#fff;
-padding:24px 18px;
+width:240px;
+height:100vh;
+background:#081028;
 position:fixed;
 left:0;
 top:0;
-height:100%;
+padding:20px;
 overflow:auto;
-z-index:999;
 }
 
 .logo{
-font-size:30px;
+font-size:26px;
 font-weight:900;
-margin-bottom:40px;
 color:#FFD400;
+margin-bottom:30px;
 }
 
 .menu{
@@ -52,202 +57,337 @@ gap:10px;
 }
 
 .menu a{
-text-decoration:none;
-color:#D1D5DB;
-padding:16px;
-border-radius:18px;
+height:54px;
 display:flex;
 align-items:center;
 gap:14px;
+padding:0 18px;
+border-radius:16px;
+text-decoration:none;
 font-size:15px;
-font-weight:600;
-transition:0.3s;
+font-weight:700;
+color:#fff;
 }
 
-.menu a:hover,
 .menu a.active{
-background:#1F2937;
-color:#fff;
+background:#111C44;
 }
 
 /* MAIN */
 
 .main{
-margin-left:270px;
+margin-left:240px;
+width:calc(100% - 240px);
 padding:24px;
 }
 
-/* TOPBAR */
+/* TOP */
 
-.topbar{
+.topBar{
 display:flex;
 justify-content:space-between;
 align-items:center;
 margin-bottom:24px;
+gap:14px;
+flex-wrap:wrap;
 }
 
-.topbar h1{
-font-size:34px;
+.topBar h1{
+font-size:40px;
 font-weight:900;
+}
+
+/* FILTERS */
+
+.filters{
+display:flex;
+gap:12px;
+flex-wrap:wrap;
+}
+
+.filterBox{
+height:52px;
+padding:0 18px;
+border:none;
+outline:none;
+border-radius:16px;
+background:#fff;
+font-size:14px;
+font-weight:700;
+min-width:180px;
 }
 
 /* STATS */
 
 .statsGrid{
 display:grid;
-grid-template-columns:repeat(4,1fr);
+grid-template-columns:repeat(5,1fr);
 gap:18px;
 margin-bottom:24px;
 }
 
 .statCard{
 background:#fff;
-padding:22px;
-border-radius:28px;
-box-shadow:0 10px 30px rgba(0,0,0,0.05);
-position:relative;
-overflow:hidden;
-}
-
-.statCard::after{
-content:'';
-position:absolute;
-right:-30px;
-top:-30px;
-width:120px;
-height:120px;
-background:rgba(255,212,0,0.15);
-border-radius:50%;
-}
-
-.statTitle{
-font-size:14px;
-color:#6B7280;
-margin-bottom:10px;
-}
-
-.statValue{
-font-size:32px;
-font-weight:900;
-}
-
-/* TRANSACTIONS */
-
-.card{
-background:#fff;
 padding:24px;
 border-radius:28px;
 box-shadow:0 10px 30px rgba(0,0,0,0.05);
 }
 
-.cardTitle{
-font-size:24px;
-font-weight:900;
-margin-bottom:22px;
+.statCard span{
+font-size:13px;
+color:#6B7280;
+font-weight:700;
 }
 
-.transactionItem{
+.statCard h2{
+font-size:30px;
+font-weight:900;
+margin-top:10px;
+}
+
+/* PAYMENTS */
+
+.paymentsGrid{
+display:grid;
+grid-template-columns:repeat(3,1fr);
+gap:18px;
+}
+
+/* CARD */
+
+.paymentCard{
+background:#fff;
+padding:20px;
+border-radius:30px;
+box-shadow:0 10px 30px rgba(0,0,0,0.05);
+}
+
+.paymentTop{
 display:flex;
 justify-content:space-between;
 align-items:center;
-padding:18px 0;
-border-bottom:1px solid #F3F4F6;
+margin-bottom:18px;
 }
 
-.left{
+.userInfo{
 display:flex;
 align-items:center;
-gap:14px;
+gap:12px;
 }
 
-.icon{
-width:56px;
-height:56px;
-border-radius:18px;
-background:#F3F4F6;
+.userLogo{
+width:60px;
+height:60px;
+border-radius:20px;
+background:#FFD400;
 display:flex;
 align-items:center;
 justify-content:center;
 font-size:24px;
-}
-
-.info h4{
-font-size:16px;
-margin-bottom:4px;
-}
-
-.info p{
-font-size:13px;
-color:#6B7280;
-}
-
-.amount{
-font-size:18px;
 font-weight:900;
 }
 
+.userInfo h3{
+font-size:22px;
+font-weight:900;
+}
+
+.userInfo p{
+font-size:12px;
+color:#6B7280;
+margin-top:4px;
+}
+
+.statusTag{
+padding:8px 14px;
+border-radius:20px;
+font-size:12px;
+font-weight:800;
+}
+
 .success{
-color:#16A34A;
+background:#DCFCE7;
+color:#166534;
 }
 
 .pending{
-color:#F59E0B;
+background:#FEF3C7;
+color:#92400E;
+}
+
+.failed{
+background:#FEE2E2;
+color:#B91C1C;
+}
+
+/* MINI */
+
+.miniGrid{
+display:grid;
+grid-template-columns:repeat(3,1fr);
+gap:10px;
+margin-bottom:16px;
+}
+
+.miniCard{
+background:#F9FAFB;
+padding:12px;
+border-radius:16px;
+}
+
+.miniCard span{
+font-size:11px;
+color:#6B7280;
+}
+
+.miniCard h4{
+font-size:16px;
+font-weight:900;
+margin-top:6px;
+}
+
+/* DETAILS */
+
+.detailGrid{
+display:grid;
+grid-template-columns:repeat(2,1fr);
+gap:10px;
+margin-bottom:16px;
+}
+
+.detailCard{
+background:#F9FAFB;
+padding:12px;
+border-radius:14px;
+}
+
+.detailCard span{
+font-size:11px;
+color:#6B7280;
+}
+
+.detailCard h4{
+font-size:14px;
+font-weight:800;
+margin-top:6px;
+}
+
+/* BUTTONS */
+
+.actionGrid{
+display:grid;
+grid-template-columns:1fr 1fr;
+gap:12px;
+}
+
+.actionBtn{
+height:52px;
+border:none;
+border-radius:16px;
+background:#081028;
+color:#fff;
+font-size:14px;
+font-weight:800;
+cursor:pointer;
+}
+
+.viewBtn{
+background:#FFD400;
+color:#000;
+}
+
+/* GRAPH */
+
+.graphCard{
+background:#fff;
+padding:24px;
+border-radius:30px;
+margin-top:28px;
+box-shadow:0 10px 30px rgba(0,0,0,0.05);
+}
+
+.graphCard h2{
+font-size:28px;
+font-weight:900;
+margin-bottom:20px;
+}
+
+/* POPUP */
+
+.popup{
+position:fixed;
+inset:0;
+background:rgba(0,0,0,0.5);
+display:none;
+align-items:center;
+justify-content:center;
+padding:20px;
+z-index:9999;
+}
+
+.popupContent{
+background:#fff;
+width:100%;
+max-width:900px;
+border-radius:30px;
+padding:24px;
+max-height:90vh;
+overflow:auto;
+}
+
+.popupHeader{
+display:flex;
+justify-content:space-between;
+align-items:center;
+margin-bottom:24px;
+}
+
+.popupHeader h2{
+font-size:32px;
+font-weight:900;
+}
+
+.closeBtn{
+width:44px;
+height:44px;
+border-radius:14px;
+background:#081028;
+color:#fff;
+display:flex;
+align-items:center;
+justify-content:center;
+font-size:20px;
+cursor:pointer;
 }
 
 /* MOBILE */
 
-.mobileMenuBtn{
-display:none;
-}
+@media(max-width:1200px){
 
-@media(max-width:1000px){
+.paymentsGrid{
+grid-template-columns:repeat(2,1fr);
+}
 
 .statsGrid{
-grid-template-columns:1fr 1fr;
+grid-template-columns:repeat(2,1fr);
 }
 
 }
 
-@media(max-width:768px){
+@media(max-width:900px){
 
 .sidebar{
-left:-100%;
-transition:0.3s;
-}
-
-.sidebar.active{
-left:0;
+display:none;
 }
 
 .main{
 margin-left:0;
+width:100%;
 padding:16px;
-padding-top:80px;
 }
 
-.mobileMenuBtn{
-display:flex;
-position:fixed;
-top:18px;
-left:18px;
-width:52px;
-height:52px;
-border:none;
-border-radius:18px;
-background:#111827;
-color:#fff;
-font-size:22px;
-align-items:center;
-justify-content:center;
-z-index:1000;
-}
-
-.statsGrid{
+.paymentsGrid{
 grid-template-columns:1fr;
-}
-
-.topbar h1{
-font-size:26px;
 }
 
 }
@@ -255,15 +395,6 @@ font-size:26px;
 </style>
 </head>
 <body>
-
-<!-- MOBILE BUTTON -->
-
-<button class="mobileMenuBtn"
-onclick="toggleSidebar()">
-
-<i class="fa-solid fa-bars"></i>
-
-</button>
 
 <!-- SIDEBAR -->
 
@@ -285,54 +416,20 @@ Dashboard
 Orders
 </a>
 
-<a href="services.html">
-<i class="fa-solid fa-shirt"></i>
-Services
-</a>
-
 <a href="users.html">
 <i class="fa-solid fa-users"></i>
 Users
 </a>
 
-<a href="delivery.html">
-<i class="fa-solid fa-truck"></i>
-Delivery
-</a>
-
-<a href="partners.html">
-<i class="fa-solid fa-handshake"></i>
-Partners
-</a>
-
-<a href="riders.html">
-<i class="fa-solid fa-motorcycle"></i>
-Riders
-</a>
-
-<a href="payments.html" class="active">
+<a href="payments.html"
+class="active">
 <i class="fa-solid fa-wallet"></i>
 Payments
 </a>
 
-<a href="analytics.html">
-<i class="fa-solid fa-chart-pie"></i>
-Analytics
-</a>
-
-<a href="offers.html">
-<i class="fa-solid fa-tags"></i>
-Offers
-</a>
-
-<a href="notifications.html">
-<i class="fa-solid fa-bell"></i>
-Notifications
-</a>
-
-<a href="settings.html">
-<i class="fa-solid fa-gear"></i>
-Settings
+<a href="partners.html">
+<i class="fa-solid fa-store"></i>
+Partners
 </a>
 
 </div>
@@ -343,13 +440,46 @@ Settings
 
 <div class="main">
 
-<!-- TOPBAR -->
+<!-- TOP -->
 
-<div class="topbar">
+<div class="topBar">
 
 <h1>
 Payments
 </h1>
+
+<div class="filters">
+
+<input
+type="text"
+placeholder="Search User..."
+class="filterBox"
+id="searchInput"
+/>
+
+<select
+id="paymentFilter"
+class="filterBox">
+
+<option value="All">
+All Payments
+</option>
+
+<option value="COD">
+COD
+</option>
+
+<option value="Online">
+Online
+</option>
+
+<option value="Wallet">
+Wallet
+</option>
+
+</select>
+
+</div>
 
 </div>
 
@@ -358,56 +488,113 @@ Payments
 <div class="statsGrid">
 
 <div class="statCard">
-<div class="statTitle">
+
+<span>
 Total Revenue
-</div>
-<div class="statValue"
-id="totalRevenue">
+</span>
+
+<h2 id="totalRevenue">
 ₹0
-</div>
+</h2>
+
 </div>
 
 <div class="statCard">
-<div class="statTitle">
+
+<span>
 COD Orders
-</div>
-<div class="statValue"
-id="codOrders">
+</span>
+
+<h2 id="codOrders">
 0
-</div>
+</h2>
+
 </div>
 
 <div class="statCard">
-<div class="statTitle">
-Wallet Payments
-</div>
-<div class="statValue"
-id="walletPayments">
-0
-</div>
+
+<span>
+Online Payments
+</span>
+
+<h2 id="onlinePayments">
+₹0
+</h2>
+
 </div>
 
 <div class="statCard">
-<div class="statTitle">
-Pending Payments
-</div>
-<div class="statValue"
-id="pendingPayments">
-0
-</div>
-</div>
+
+<span>
+Wallet Funds
+</span>
+
+<h2 id="walletFunds">
+₹0
+</h2>
 
 </div>
 
-<!-- TRANSACTIONS -->
+<div class="statCard">
 
-<div class="card">
+<span>
+Total Deposits
+</span>
 
-<div class="cardTitle">
-Recent Transactions
+<h2 id="totalDeposits">
+₹0
+</h2>
+
 </div>
 
-<div id="transactionsList">
+</div>
+
+<!-- PAYMENTS -->
+
+<div class="paymentsGrid"
+id="paymentsGrid">
+
+</div>
+
+<!-- GRAPH -->
+
+<div class="graphCard">
+
+<h2>
+📈 Revenue Growth Graph
+</h2>
+
+<canvas id="growthChart">
+
+</canvas>
+
+</div>
+
+</div>
+
+<!-- POPUP -->
+
+<div class="popup"
+id="popup">
+
+<div class="popupContent">
+
+<div class="popupHeader">
+
+<h2>
+Payment Full Details
+</h2>
+
+<div class="closeBtn"
+onclick="closePopup()">
+
+✕
+
+</div>
+
+</div>
+
+<div id="popupData">
 
 </div>
 
@@ -436,88 +623,268 @@ from
 
 "https://www.gstatic.com/firebasejs/12.11.0/firebase-firestore.js";
 
+/* GLOBAL */
+
+let payments = [];
+
+/* ELEMENTS */
+
+const paymentsGrid =
+document.getElementById(
+"paymentsGrid"
+);
+
+const paymentFilter =
+document.getElementById(
+"paymentFilter"
+);
+
+const searchInput =
+document.getElementById(
+"searchInput"
+);
+
 /* LOAD */
 
 async function loadPayments(){
 
-const ordersSnap =
-
+const snap =
 await getDocs(
-collection(db,"orders")
+collection(db,"payments")
 );
 
-let revenue = 0;
-let cod = 0;
-let wallet = 0;
-let pending = 0;
+payments = [];
+
+snap.forEach((doc)=>{
+
+payments.push({
+
+id:doc.id,
+
+...doc.data()
+
+});
+
+});
+
+renderPayments();
+
+createGraph();
+
+}
+
+loadPayments();
+
+/* RENDER */
+
+function renderPayments(){
 
 let html = "";
 
-ordersSnap.forEach((doc)=>{
+let totalRevenue = 0;
 
-const order =
-doc.data();
+let cod = 0;
 
-revenue +=
-order.total || 0;
+let online = 0;
+
+let wallet = 0;
+
+let deposits = 0;
+
+const search =
+searchInput.value
+.toLowerCase();
+
+payments.forEach((pay)=>{
 
 if(
-order.paymentMethod ===
-"COD"
+
+paymentFilter.value !== "All"
+
+&&
+
+pay.type !== paymentFilter.value
+
 ){
 
+return;
+
+}
+
+if(
+
+!(pay.name || "")
+.toLowerCase()
+.includes(search)
+
+){
+
+return;
+
+}
+
+totalRevenue +=
+Number(pay.amount || 0);
+
+if(pay.type === "COD"){
 cod++;
-
 }
 
-if(
-order.paymentMethod ===
-"Wallet"
-){
-
-wallet++;
-
+if(pay.type === "Online"){
+online += Number(pay.amount || 0);
 }
 
-if(
-order.status !==
-"Delivered"
-){
-
-pending++;
-
+if(pay.type === "Wallet"){
+wallet += Number(pay.amount || 0);
 }
+
+deposits +=
+Number(pay.deposit || 0);
 
 html += `
 
-<div class="transactionItem">
+<div class="paymentCard">
 
-<div class="left">
+<div class="paymentTop">
 
-<div class="icon">
-💳
+<div class="userInfo">
+
+<div class="userLogo">
+
+${pay.name?.charAt(0) || "P"}
+
 </div>
 
-<div class="info">
+<div>
 
-<h4>
-${order.name || "User"}
-</h4>
+<h3>
+${pay.name || "User"}
+</h3>
 
 <p>
-${order.paymentMethod || "COD"}
+#${pay.transactionId || "TXN"}
 </p>
 
 </div>
 
 </div>
 
-<div class="amount
-${order.status === "Delivered"
-? "success"
-: "pending"}">
+<div class="statusTag ${pay.status || 'success'}">
 
-₹${order.total || 0}
+${pay.status || 'Success'}
+
+</div>
+
+</div>
+
+<div class="miniGrid">
+
+<div class="miniCard">
+
+<span>
+Amount
+</span>
+
+<h4>
+₹${pay.amount || 0}
+</h4>
+
+</div>
+
+<div class="miniCard">
+
+<span>
+Deposit
+</span>
+
+<h4>
+₹${pay.deposit || 0}
+</h4>
+
+</div>
+
+<div class="miniCard">
+
+<span>
+Deduction
+</span>
+
+<h4>
+₹${pay.deduction || 0}
+</h4>
+
+</div>
+
+</div>
+
+<div class="detailGrid">
+
+<div class="detailCard">
+
+<span>
+Payment Type
+</span>
+
+<h4>
+${pay.type || 'N/A'}
+</h4>
+
+</div>
+
+<div class="detailCard">
+
+<span>
+Wallet
+</span>
+
+<h4>
+₹${pay.wallet || 0}
+</h4>
+
+</div>
+
+<div class="detailCard">
+
+<span>
+Date
+</span>
+
+<h4>
+${pay.date || 'N/A'}
+</h4>
+
+</div>
+
+<div class="detailCard">
+
+<span>
+Mobile
+</span>
+
+<h4>
+${pay.mobile || 'N/A'}
+</h4>
+
+</div>
+
+</div>
+
+<div class="actionGrid">
+
+<button
+class="actionBtn">
+
+📞 Call
+
+</button>
+
+<button
+class="actionBtn viewBtn"
+onclick='openPopup(${JSON.stringify(pay)})'>
+
+View
+
+</button>
 
 </div>
 
@@ -527,15 +894,15 @@ ${order.status === "Delivered"
 
 });
 
-document.getElementById(
-"transactionsList"
-).innerHTML =
+paymentsGrid.innerHTML =
 html;
+
+/* STATS */
 
 document.getElementById(
 "totalRevenue"
 ).innerHTML =
-"₹"+revenue;
+`₹${totalRevenue}`;
 
 document.getElementById(
 "codOrders"
@@ -543,29 +910,184 @@ document.getElementById(
 cod;
 
 document.getElementById(
-"walletPayments"
+"onlinePayments"
 ).innerHTML =
-wallet;
+`₹${online}`;
 
 document.getElementById(
-"pendingPayments"
+"walletFunds"
 ).innerHTML =
-pending;
+`₹${wallet}`;
+
+document.getElementById(
+"totalDeposits"
+).innerHTML =
+`₹${deposits}`;
 
 }
 
-loadPayments();
+/* FILTER */
 
-/* SIDEBAR */
+paymentFilter.addEventListener(
+"change",
+renderPayments
+);
 
-window.toggleSidebar =
-function(){
+searchInput.addEventListener(
+"keyup",
+renderPayments
+);
 
-document
-.querySelector(".sidebar")
-.classList.toggle("active");
+/* POPUP */
+
+window.openPopup =
+function(pay){
+
+document.getElementById(
+"popup"
+).style.display =
+"flex";
+
+document.getElementById(
+"popupData"
+).innerHTML =
+
+`
+
+<div class="detailGrid">
+
+<div class="detailCard">
+<span>Name</span>
+<h4>${pay.name || 'N/A'}</h4>
+</div>
+
+<div class="detailCard">
+<span>Mobile</span>
+<h4>${pay.mobile || 'N/A'}</h4>
+</div>
+
+<div class="detailCard">
+<span>Transaction ID</span>
+<h4>${pay.transactionId || 'N/A'}</h4>
+</div>
+
+<div class="detailCard">
+<span>Payment Type</span>
+<h4>${pay.type || 'N/A'}</h4>
+</div>
+
+<div class="detailCard">
+<span>Total Amount</span>
+<h4>₹${pay.amount || 0}</h4>
+</div>
+
+<div class="detailCard">
+<span>Total Deposit</span>
+<h4>₹${pay.deposit || 0}</h4>
+</div>
+
+<div class="detailCard">
+<span>Deduction</span>
+<h4>₹${pay.deduction || 0}</h4>
+</div>
+
+<div class="detailCard">
+<span>Wallet Balance</span>
+<h4>₹${pay.wallet || 0}</h4>
+</div>
+
+<div class="detailCard">
+<span>Order ID</span>
+<h4>${pay.orderId || 'N/A'}</h4>
+</div>
+
+<div class="detailCard">
+<span>Payment Status</span>
+<h4>${pay.status || 'Success'}</h4>
+</div>
+
+<div class="detailCard">
+<span>Bank</span>
+<h4>${pay.bank || 'N/A'}</h4>
+</div>
+
+<div class="detailCard">
+<span>Date</span>
+<h4>${pay.date || 'N/A'}</h4>
+</div>
+
+</div>
+
+`;
 
 };
+
+window.closePopup =
+function(){
+
+document.getElementById(
+"popup"
+).style.display =
+"none";
+
+};
+
+/* GRAPH */
+
+function createGraph(){
+
+const ctx =
+document.getElementById(
+'growthChart'
+);
+
+new Chart(ctx, {
+
+type:'line',
+
+data:{
+
+labels:[
+'Jan',
+'Feb',
+'Mar',
+'Apr',
+'May',
+'Jun',
+'Jul'
+],
+
+datasets:[{
+
+label:'Revenue Growth',
+
+data:[
+1200,
+2500,
+4200,
+7000,
+9800,
+14000,
+22000
+],
+
+borderWidth:4,
+
+tension:0.4
+
+}]
+
+},
+
+options:{
+
+responsive:true
+
+}
+
+});
+
+}
 
 </script>
 
