@@ -704,19 +704,19 @@ Profile
 
 <!-- FIREBASE -->
 
+<!-- =========================================
+FULL LOCATION BASED PRICE SCRIPT
+user/services.html
+OLD SCRIPT FULL REPLACE KARO
+========================================= -->
+
 <script type="module">
 
-/* =========================
-IMPORTS
-========================= */
+import { db }
 
-import {
+from
 
-db
-
-}
-
-from "../firebase.js";
+"/Pal-Group-Pvt-Ltd/firebase.js";
 
 import {
 
@@ -729,63 +729,147 @@ from
 
 "https://www.gstatic.com/firebasejs/12.11.0/firebase-firestore.js";
 
-/* =========================
+/* =========================================
 ELEMENTS
-========================= */
+========================================= */
 
-const serviceGrid =
-
+const servicesGrid =
 document.getElementById(
-"serviceGrid"
+"servicesGrid"
 );
 
-const emptyBox =
-
+const searchInput =
 document.getElementById(
-"emptyBox"
+"searchInput"
 );
 
-/* =========================
-LOCAL CART
-========================= */
+const categoryBtns =
+document.querySelectorAll(
+".categoryBtn"
+);
 
-let cart =
+/* =========================================
+GLOBAL
+========================================= */
 
-JSON.parse(
-localStorage.getItem("cart")
-) || [];
+let allServices = [];
 
-document.getElementById(
-"cartCount"
-).innerHTML = cart.length;
+let currentCategory = "All";
 
-/* =========================
-ALL PRODUCTS
-========================= */
+let userCity = "Kasganj";
 
-let allProducts = [];
+/* =========================================
+CITY DETECTION
+========================================= */
 
-/* =========================
-LOAD PRODUCTS
-========================= */
+async function detectLocation(){
 
-async function loadProducts(){
+/* FIRST LOCAL STORAGE */
 
-serviceGrid.innerHTML = "";
+const savedCity =
+localStorage.getItem(
+"userCity"
+);
 
-const querySnapshot =
+if(savedCity){
 
+userCity = savedCity;
+
+loadServices();
+
+return;
+
+}
+
+/* LOCATION */
+
+if(navigator.geolocation){
+
+navigator.geolocation.getCurrentPosition(
+
+async(position)=>{
+
+const lat =
+position.coords.latitude;
+
+const lon =
+position.coords.longitude;
+
+/* API */
+
+const response =
+await fetch(
+
+`https://nominatim.openstreetmap.org/reverse?format=jsonv2&lat=${lat}&lon=${lon}`
+
+);
+
+const data =
+await response.json();
+
+/* CITY */
+
+const city =
+
+data.address.city ||
+
+data.address.town ||
+
+data.address.state_district ||
+
+"Kasganj";
+
+/* SAVE */
+
+userCity = city;
+
+localStorage.setItem(
+"userCity",
+city
+);
+
+/* LOAD */
+
+loadServices();
+
+},
+
+(error)=>{
+
+console.log(error);
+
+loadServices();
+
+}
+
+);
+
+}else{
+
+loadServices();
+
+}
+
+}
+
+detectLocation();
+
+/* =========================================
+LOAD SERVICES
+========================================= */
+
+async function loadServices(){
+
+const snap =
 await getDocs(
-
 collection(db,"services")
-
 );
 
-allProducts = [];
+allServices = [];
 
-querySnapshot.forEach((doc)=>{
+snap.forEach((doc)=>{
 
-allProducts.push({
+allServices.push({
 
 id:doc.id,
 
@@ -795,78 +879,125 @@ id:doc.id,
 
 });
 
-renderProducts(allProducts);
+renderServices();
 
 }
 
-loadProducts();
+/* =========================================
+RENDER
+========================================= */
 
-/* =========================
-RENDER PRODUCTS
-========================= */
+function renderServices(){
 
-function renderProducts(products){
+let html = "";
 
-if(products.length === 0){
+/* FILTER */
 
-serviceGrid.style.display =
-"none";
+const search =
+searchInput.value.toLowerCase();
 
-emptyBox.style.display =
-"block";
+allServices.forEach((service)=>{
+
+/* CATEGORY */
+
+if(
+
+currentCategory !== "All"
+
+&&
+
+service.category !== currentCategory
+
+){
 
 return;
 
 }
 
-serviceGrid.style.display =
-"grid";
+/* SEARCH */
 
-emptyBox.style.display =
-"none";
+if(
 
-let html = "";
+!service.name
+.toLowerCase()
+.includes(search)
 
-products.forEach((product)=>{
+){
+
+return;
+
+}
+
+/* PRICE */
+
+const finalPrice =
+
+service.prices?.[userCity]
+
+?? 0;
+
+/* HIDE IF NO PRICE */
+
+if(finalPrice <= 0){
+
+return;
+
+}
+
+/* CARD */
 
 html += `
 
 <div class="serviceCard">
 
-<div class="cardTop">
+<div class="topRow">
 
-<div class="productIcon">
-${product.icon || "👕"}
+<div class="serviceImage">
+
+${service.name.charAt(0)}
+
 </div>
 
-<div class="wishlist">
+<button class="favBtn">
+
 ❤️
-</div>
+
+</button>
 
 </div>
 
-<h2>
-${product.name}
-</h2>
+<h3 class="serviceName">
 
-<p>
-${product.desc}
+${service.name}
+
+</h3>
+
+<p class="serviceDesc">
+
+${service.description
+|| "Premium laundry care"}
+
 </p>
 
-<div class="priceRow">
+<div class="cityBox">
 
-<div class="price">
-₹${product.price}
+📍 ${userCity}
+
+</div>
+
+<div class="bottomRow">
+
+<div class="servicePrice">
+
+₹${finalPrice}
+
 </div>
 
 <button
 class="addBtn"
-onclick='
-addToCart(
-${JSON.stringify(product)}
-)
-'
->
+onclick="addToCart(
+'${service.id}'
+)">
 
 ADD
 
@@ -880,92 +1011,114 @@ ADD
 
 });
 
-serviceGrid.innerHTML = html;
+servicesGrid.innerHTML =
+html;
 
 }
 
-/* =========================
-FILTER CATEGORY
-========================= */
+/* =========================================
+SEARCH
+========================================= */
 
-window.filterCategory =
-function(category,button){
+searchInput.addEventListener(
 
-document
-.querySelectorAll(
-".categoryBtn"
-)
-.forEach((btn)=>{
+"keyup",
 
-btn.classList.remove(
-"activeCategory"
+()=>{
+
+renderServices();
+
+}
+
+);
+
+/* =========================================
+CATEGORY
+========================================= */
+
+categoryBtns.forEach((btn)=>{
+
+btn.addEventListener(
+
+"click",
+
+()=>{
+
+/* ACTIVE */
+
+categoryBtns.forEach((b)=>{
+
+b.classList.remove(
+"active"
 );
 
 });
 
-button.classList.add(
-"activeCategory"
+btn.classList.add(
+"active"
 );
 
-if(category === "all"){
+/* SET */
 
-renderProducts(allProducts);
+currentCategory =
+btn.dataset.category;
 
-return;
+/* RENDER */
+
+renderServices();
 
 }
 
-const filtered =
-
-allProducts.filter((item)=>
-
-item.category === category
-
 );
 
-renderProducts(filtered);
+});
 
-};
-
-/* =========================
-SEARCH
-========================= */
-
-document
-.getElementById(
-"searchInput"
-)
-.addEventListener(
-"input",
-(e)=>{
-
-const value =
-
-e.target.value.toLowerCase();
-
-const filtered =
-
-allProducts.filter((item)=>
-
-item.name
-.toLowerCase()
-.includes(value)
-
-);
-
-renderProducts(filtered);
-
-}
-);
-
-/* =========================
+/* =========================================
 ADD TO CART
-========================= */
+========================================= */
 
 window.addToCart =
-function(product){
+function(id){
 
-cart.push(product);
+const service =
+allServices.find(
+item=>item.id===id
+);
+
+let cart =
+JSON.parse(
+localStorage.getItem(
+"cart"
+)
+) || [];
+
+/* PRICE */
+
+const finalPrice =
+
+service.prices?.[userCity]
+
+?? 0;
+
+/* PUSH */
+
+cart.push({
+
+id:service.id,
+
+name:service.name,
+
+description:service.description,
+
+price:finalPrice,
+
+city:userCity,
+
+qty:1
+
+});
+
+/* SAVE */
 
 localStorage.setItem(
 
@@ -975,79 +1128,34 @@ JSON.stringify(cart)
 
 );
 
+/* COUNT */
+
 document.getElementById(
 "cartCount"
-).innerHTML = cart.length;
+).innerHTML =
+cart.length;
 
-updateCartPopup();
+alert(
+"Added To Cart"
+);
 
 };
 
-/* =========================
-CART POPUP
-========================= */
+/* =========================================
+CART COUNT
+========================================= */
 
-function updateCartPopup(){
-
-const popup =
+const cart =
+JSON.parse(
+localStorage.getItem(
+"cart"
+)
+) || [];
 
 document.getElementById(
-"cartPopup"
-);
-
-popup.classList.add(
-"showCartPopup"
-);
-
-setTimeout(()=>{
-
-popup.classList.remove(
-"showCartPopup"
-);
-
-},2000);
-
-}
-
-/* =========================
-URL CATEGORY
-========================= */
-
-const params =
-
-new URLSearchParams(
-window.location.search
-);
-
-const category =
-
-params.get("category");
-
-if(category){
-
-setTimeout(()=>{
-
-const buttons =
-
-document.querySelectorAll(
-".categoryBtn"
-);
-
-buttons.forEach((btn)=>{
-
-if(
-btn.innerText === category
-){
-
-btn.click();
-
-}
-
-});
-
-},1000);
-
-}
+"cartCount"
+).innerHTML =
+cart.length;
 
 </script>
 
