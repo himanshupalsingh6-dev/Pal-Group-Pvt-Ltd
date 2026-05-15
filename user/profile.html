@@ -747,8 +747,11 @@ Logout
 </div>
 
 <!-- FIREBASE -->
-
 <script type="module">
+
+/* =========================
+FIREBASE IMPORT
+========================= */
 
 import {
 
@@ -779,14 +782,16 @@ from
 LOGIN CHECK
 ========================= */
 
-if(
+const isLoggedIn =
+
 localStorage.getItem(
 "isLoggedIn"
-) !== "true"
-){
+);
+
+if(isLoggedIn !== "true"){
 
 window.location.href =
-"user/login.html";
+"/Pal-Group-Pvt-Ltd/user/login.html";
 
 }
 
@@ -805,6 +810,8 @@ LOAD USER
 ========================= */
 
 async function loadUser(){
+
+try{
 
 const userRef =
 
@@ -881,6 +888,14 @@ document.getElementById(
 
 }
 
+catch(error){
+
+console.log(error);
+
+}
+
+}
+
 loadUser();
 
 /* =========================
@@ -889,6 +904,8 @@ SAVE PROFILE
 
 window.saveProfile =
 async function(){
+
+try{
 
 const name =
 document.getElementById(
@@ -931,18 +948,23 @@ address
 
 );
 
-/* SAVE ADDRESS */
-
-localStorage.setItem(
-"userAddress",
-address
-);
-
 alert(
 "Profile Updated"
 );
 
 loadUser();
+
+}
+
+catch(error){
+
+console.log(error);
+
+alert(
+"Update Failed"
+);
+
+}
 
 };
 
@@ -952,6 +974,8 @@ ADD FUNDS
 
 window.addFunds =
 async function(){
+
+try{
 
 const userRef =
 
@@ -1013,8 +1037,16 @@ loadTransactions();
 loadUser();
 
 alert(
-"₹100 Added Successfully"
+"₹100 Added"
 );
+
+}
+
+catch(error){
+
+console.log(error);
+
+}
 
 };
 
@@ -1023,6 +1055,8 @@ LOAD TRANSACTIONS
 ========================= */
 
 async function loadTransactions(){
+
+try{
 
 const q = query(
 
@@ -1058,9 +1092,7 @@ html += `
 
 <div class="transactionIcon">
 
-${item.type === "credit"
-? "💰"
-: "💸"}
+💰
 
 </div>
 
@@ -1078,11 +1110,7 @@ Wallet Activity
 
 </div>
 
-<div
-class="
-${item.type}
-"
->
+<div class="credit">
 
 ${item.amount}
 
@@ -1102,6 +1130,14 @@ html || "No Transactions";
 
 }
 
+catch(error){
+
+console.log(error);
+
+}
+
+}
+
 loadTransactions();
 
 /* =========================
@@ -1110,11 +1146,7 @@ LOAD ORDERS
 
 async function loadOrders(){
 
-const container =
-
-document.getElementById(
-"ordersContainer"
-);
+try{
 
 const q = query(
 
@@ -1175,9 +1207,19 @@ ${order.status}
 
 });
 
-container.innerHTML =
+document.getElementById(
+"ordersContainer"
+).innerHTML =
 
 html || "No Orders Found";
+
+}
+
+catch(error){
+
+console.log(error);
+
+}
 
 }
 
@@ -1190,24 +1232,15 @@ LOGOUT
 window.logout =
 function(){
 
-localStorage.removeItem(
-"isLoggedIn"
-);
-
-localStorage.removeItem(
-"userPhone"
-);
-
-localStorage.removeItem(
-"userProfile"
-);
+localStorage.clear();
 
 window.location.href =
-"user/login.html";
+"/Pal-Group-Pvt-Ltd/user/login.html";
 
 };
 
 </script>
+
 
 </body>
 
