@@ -52,7 +52,6 @@ padding:18px;
 background:
 rgba(255,255,255,0.92);
 backdrop-filter:blur(18px);
--webkit-backdrop-filter:blur(18px);
 border-bottom:
 1px solid rgba(255,255,255,0.4);
 box-shadow:
@@ -111,7 +110,7 @@ gap:12px;
 width:50px;
 height:50px;
 border-radius:18px;
-background:#ffffff;
+background:#fff;
 border:1px solid #F1F5F9;
 display:flex;
 align-items:center;
@@ -181,7 +180,7 @@ MAIN
 
 .main{
 padding:18px;
-padding-bottom:120px;
+padding-bottom:150px;
 }
 
 /* =========================
@@ -261,10 +260,6 @@ cursor:pointer;
 transition:0.3s;
 }
 
-.heroBtns button:hover{
-transform:translateY(-4px);
-}
-
 .fastBtn{
 background:#111827;
 color:#fff;
@@ -323,29 +318,12 @@ cursor:pointer;
 transition:0.35s;
 position:relative;
 overflow:hidden;
-animation:floatCard 4s ease-in-out infinite;
-}
-
-.categoryCard::before{
-content:"";
-position:absolute;
-width:120px;
-height:120px;
-background:
-rgba(255,212,0,0.08);
-border-radius:50%;
-top:-50px;
-right:-50px;
 }
 
 .categoryCard:hover{
 transform:
 translateY(-6px)
 scale(1.03);
-}
-
-.activeCategory{
-background:#FFD400;
 }
 
 .categoryIcon{
@@ -361,34 +339,6 @@ margin:auto;
 margin-bottom:14px;
 box-shadow:
 0 6px 16px rgba(0,0,0,0.08);
-position:relative;
-z-index:2;
-}
-
-.categoryCard h3{
-font-size:15px;
-position:relative;
-z-index:2;
-}
-
-/* =========================
-ANIMATION
-========================= */
-
-@keyframes floatCard{
-
-0%{
-transform:translateY(0px);
-}
-
-50%{
-transform:translateY(-4px);
-}
-
-100%{
-transform:translateY(0px);
-}
-
 }
 
 /* =========================
@@ -412,18 +362,6 @@ box-shadow:
 transition:0.35s;
 position:relative;
 overflow:hidden;
-}
-
-.trendCard::before{
-content:"";
-position:absolute;
-width:130px;
-height:130px;
-background:
-rgba(255,212,0,0.08);
-border-radius:50%;
-top:-60px;
-right:-60px;
 }
 
 .trendCard:hover{
@@ -462,8 +400,6 @@ display:flex;
 align-items:center;
 justify-content:center;
 cursor:pointer;
-box-shadow:
-0 4px 12px rgba(0,0,0,0.05);
 }
 
 .trendCard h2{
@@ -513,20 +449,12 @@ border-radius:34px;
 margin-top:34px;
 }
 
-.partnerTop{
-display:flex;
-justify-content:space-between;
-align-items:center;
-margin-bottom:28px;
-flex-wrap:wrap;
-gap:10px;
-}
-
 .partnerStats{
 display:grid;
 grid-template-columns:
 repeat(3,1fr);
 gap:18px;
+margin-top:24px;
 }
 
 .statCard{
@@ -544,7 +472,7 @@ color:#FFD400;
 }
 
 /* =========================
-REVIEW
+REVIEWS
 ========================= */
 
 .reviewSlider{
@@ -588,10 +516,72 @@ font-weight:bold;
 font-size:20px;
 }
 
-.reviewCard p{
+/* =========================
+CART POPUP
+========================= */
+
+.cartPopup{
+position:fixed;
+bottom:-120px;
+left:50%;
+transform:translateX(-50%);
+width:92%;
+max-width:520px;
+background:#111827;
+padding:18px;
+border-radius:24px;
+display:flex;
+justify-content:space-between;
+align-items:center;
+gap:14px;
+z-index:9999;
+transition:0.4s;
+box-shadow:
+0 15px 35px rgba(0,0,0,0.25);
+}
+
+.showCartPopup{
+bottom:95px;
+}
+
+.cartPopupLeft{
+display:flex;
+align-items:center;
+gap:14px;
+}
+
+.cartPopupIcon{
+width:58px;
+height:58px;
+border-radius:18px;
+background:#FFD400;
+display:flex;
+align-items:center;
+justify-content:center;
+font-size:26px;
+}
+
+.cartPopup h3{
+font-size:18px;
+color:#fff;
+margin-bottom:6px;
+}
+
+.cartPopup p{
 font-size:14px;
-line-height:1.8;
-color:#666;
+color:#D1D5DB;
+}
+
+.viewCartBtn{
+height:52px;
+padding:0 20px;
+border:none;
+border-radius:18px;
+background:#22C55E;
+color:#fff;
+font-size:14px;
+font-weight:800;
+cursor:pointer;
 }
 
 /* =========================
@@ -649,59 +639,17 @@ color:#FFD400 !important;
 }
 
 /* =========================
-POPUP
-========================= */
-
-.popup{
-position:fixed;
-top:30px;
-left:50%;
-transform:translateX(-50%);
-background:#22C55E;
-color:#fff;
-padding:16px 24px;
-border-radius:18px;
-font-weight:700;
-opacity:0;
-pointer-events:none;
-transition:0.3s;
-z-index:9999;
-box-shadow:
-0 10px 25px rgba(34,197,94,0.25);
-}
-
-.popup.show{
-opacity:1;
-top:80px;
-}
-
-/* =========================
 RESPONSIVE
 ========================= */
 
 @media screen and (max-width:768px){
 
-.topbar{
-padding:14px;
-}
-
-.locationText h2{
-font-size:16px;
-}
-
 .hero{
 padding:24px;
-border-radius:28px;
 }
 
 .hero h1{
-font-size:34px;
-line-height:1.15;
-}
-
-.hero p{
-font-size:14px;
-line-height:1.7;
+font-size:36px;
 }
 
 .heroBtns{
@@ -712,64 +660,21 @@ flex-direction:column;
 width:100%;
 }
 
-.categorySlider{
-gap:12px;
-}
-
-.categoryCard{
-min-width:110px;
-padding:18px 14px;
-border-radius:24px;
-}
-
-.categoryIcon{
-width:64px;
-height:64px;
-font-size:30px;
-}
-
 .trendingGrid{
-grid-template-columns:1fr 1fr;
-gap:14px;
-}
-
-.trendCard{
-padding:16px;
-border-radius:24px;
-}
-
-.trendIcon{
-width:64px;
-height:64px;
-font-size:30px;
+grid-template-columns:1fr;
 }
 
 .partnerStats{
 grid-template-columns:1fr;
 }
 
-.bottomNav{
-height:74px;
+.cartPopup{
+flex-direction:column;
+align-items:stretch;
 }
 
-.bottomNav i{
-font-size:20px;
-}
-
-}
-
-@media screen and (max-width:480px){
-
-.trendingGrid{
-grid-template-columns:1fr;
-}
-
-.hero h1{
-font-size:30px;
-}
-
-.sectionTop h1{
-font-size:22px;
+.viewCartBtn{
+width:100%;
 }
 
 }
@@ -779,17 +684,6 @@ font-size:22px;
 </head>
 
 <body>
-
-<!-- POPUP -->
-
-<div
-class="popup"
-id="popup"
->
-
-Success
-
-</div>
 
 <!-- TOPBAR -->
 
@@ -819,23 +713,13 @@ Detecting...
 
 <div class="topIcons">
 
-<div
-class="iconBtn"
-onclick="
-showPopup('Wishlist Opened ❤️')
-"
->
+<div class="iconBtn">
 
 ❤️
 
 </div>
 
-<div
-class="iconBtn"
-onclick="
-showPopup('Notifications Opened 🔔')
-"
->
+<div class="iconBtn">
 
 🔔
 
@@ -848,8 +732,6 @@ showPopup('Notifications Opened 🔔')
 </div>
 
 </div>
-
-<!-- SEARCH -->
 
 <div class="searchBox">
 
@@ -895,23 +777,13 @@ doorstep laundry experience.
 
 <div class="heroBtns">
 
-<button
-class="fastBtn"
-onclick="
-showPopup('Fast Order Started ⚡')
-"
->
+<button class="fastBtn">
 
 ⚡ Fast Order
 
 </button>
 
-<button
-class="scheduleBtn"
-onclick="
-showPopup('Pickup Scheduled 📅')
-"
->
+<button class="scheduleBtn">
 
 📅 Schedule Pickup
 
@@ -937,10 +809,13 @@ Categories
 
 <div class="categorySlider">
 
-<div class="categoryCard">
+<div
+class="categoryCard"
+onclick="openCategory('Ironing')"
+>
 
 <div class="categoryIcon">
-👕
+👔
 </div>
 
 <h3>
@@ -949,7 +824,10 @@ Ironing
 
 </div>
 
-<div class="categoryCard">
+<div
+class="categoryCard"
+onclick="openCategory('Wash')"
+>
 
 <div class="categoryIcon">
 🧺
@@ -961,7 +839,10 @@ Wash
 
 </div>
 
-<div class="categoryCard">
+<div
+class="categoryCard"
+onclick="openCategory('Dry Clean')"
+>
 
 <div class="categoryIcon">
 ✨
@@ -973,7 +854,10 @@ Dry Clean
 
 </div>
 
-<div class="categoryCard">
+<div
+class="categoryCard"
+onclick="openCategory('Steam')"
+>
 
 <div class="categoryIcon">
 💨
@@ -985,7 +869,10 @@ Steam
 
 </div>
 
-<div class="categoryCard">
+<div
+class="categoryCard"
+onclick="openCategory('Premium')"
+>
 
 <div class="categoryIcon">
 👑
@@ -997,7 +884,10 @@ Premium
 
 </div>
 
-<div class="categoryCard">
+<div
+class="categoryCard"
+onclick="openCategory('Blanket')"
+>
 
 <div class="categoryIcon">
 🛏️
@@ -1009,7 +899,10 @@ Blanket
 
 </div>
 
-<div class="categoryCard">
+<div
+class="categoryCard"
+onclick="openCategory('Curtain')"
+>
 
 <div class="categoryIcon">
 🪟
@@ -1021,7 +914,10 @@ Curtain
 
 </div>
 
-<div class="categoryCard">
+<div
+class="categoryCard"
+onclick="openCategory('Shoes')"
+>
 
 <div class="categoryIcon">
 👟
@@ -1062,25 +958,9 @@ id="serviceGrid"
 
 <div class="partnerBox">
 
-<div class="partnerTop">
-
-<div>
-
 <h1>
 🏆 Top Partners
 </h1>
-
-<p>
-Trusted premium laundry partners
-</p>
-
-</div>
-
-<h2>
-25K+ Orders
-</h2>
-
-</div>
 
 <div class="partnerStats">
 
@@ -1160,9 +1040,8 @@ Aman
 
 <p>
 
-Amazing service and very fast
-pickup. Clothes came perfectly
-cleaned and packed.
+Amazing service and fast pickup.
+Very premium quality.
 
 </p>
 
@@ -1190,9 +1069,8 @@ Riya
 
 <p>
 
-Premium ironing quality and
-very smooth experience.
-Loved the delivery timing.
+Loved the ironing quality and
+super smooth delivery.
 
 </p>
 
@@ -1211,6 +1089,48 @@ Made in <span>Uttar Pradesh</span><br>
 Crafted by <span>Himanshu Baghel</span> ❤️
 
 </div>
+
+</div>
+
+<!-- CART POPUP -->
+
+<div
+class="cartPopup"
+id="cartPopup"
+>
+
+<div class="cartPopupLeft">
+
+<div class="cartPopupIcon">
+🛒
+</div>
+
+<div>
+
+<h3>
+Item Added To Cart
+</h3>
+
+<p>
+
+Cart Updated Successfully
+
+</p>
+
+</div>
+
+</div>
+
+<button
+class="viewCartBtn"
+onclick="
+window.location.href='cart.html'
+"
+>
+
+View Cart →
+
+</button>
 
 </div>
 
@@ -1305,8 +1225,6 @@ data.address.city ||
 
 data.address.town ||
 
-data.address.village ||
-
 "Your Location";
 
 }catch(error){
@@ -1323,45 +1241,40 @@ liveLocation.innerHTML =
 }
 
 /* =========================
-POPUP
+FAST ORDER
 ========================= */
 
-function showPopup(text){
+document
+.querySelector(".fastBtn")
+.onclick = function(){
 
-const popup =
-document.getElementById(
-"popup"
-);
+window.location.href =
+"services.html?category=all";
 
-popup.innerHTML = text;
-
-popup.classList.add(
-"show"
-);
-
-setTimeout(()=>{
-
-popup.classList.remove(
-"show"
-);
-
-},1000);
-
-}
+};
 
 /* =========================
-WISHLIST
+SCHEDULE PICKUP
 ========================= */
 
-let wishlist = [];
+document
+.querySelector(".scheduleBtn")
+.onclick = function(){
 
-function addWishlist(name){
+window.location.href =
+"checkout.html?schedule=true";
 
-wishlist.push(name);
+};
 
-showPopup(
-`${name} Added To Wishlist ❤️`
-);
+/* =========================
+CATEGORY REDIRECT
+========================= */
+
+function openCategory(category){
+
+window.location.href =
+
+`services.html?category=${category}`;
 
 }
 
@@ -1398,10 +1311,67 @@ price:"₹199"
 ];
 
 /* =========================
-RENDER
+LOCAL CART
+========================= */
+
+let cart =
+
+JSON.parse(
+localStorage.getItem("cart")
+) || [];
+
+/* =========================
+ADD TO CART
+========================= */
+
+function addToCart(product){
+
+cart.push(product);
+
+localStorage.setItem(
+
+"cart",
+
+JSON.stringify(cart)
+
+);
+
+updateCartPopup();
+
+}
+
+/* =========================
+CART POPUP
+========================= */
+
+function updateCartPopup(){
+
+const popup =
+
+document.getElementById(
+"cartPopup"
+);
+
+popup.classList.add(
+"showCartPopup"
+);
+
+setTimeout(()=>{
+
+popup.classList.remove(
+"showCartPopup"
+);
+
+},2000);
+
+}
+
+/* =========================
+RENDER SERVICES
 ========================= */
 
 const serviceGrid =
+
 document.getElementById(
 "serviceGrid"
 );
@@ -1422,12 +1392,7 @@ html += `
 ${service.icon}
 </div>
 
-<div
-class="wishlist"
-onclick="
-addWishlist('${service.name}')
-"
->
+<div class="wishlist">
 
 ❤️
 
@@ -1451,9 +1416,11 @@ ${service.price}
 
 <button
 class="addBtn"
-onclick="
-showPopup('${service.name} Added 🛒')
-"
+onclick='
+addToCart(
+${JSON.stringify(service)}
+)
+'
 >
 
 ADD
