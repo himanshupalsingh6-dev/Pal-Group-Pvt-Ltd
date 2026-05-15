@@ -58,13 +58,6 @@ border-bottom:
 
 .topRow{
 display:flex;
-justify-content:space-between;
-align-items:center;
-gap:12px;
-}
-
-.leftTop{
-display:flex;
 align-items:center;
 gap:12px;
 }
@@ -102,7 +95,7 @@ width:100%;
 max-width:1200px;
 margin:auto;
 padding:18px;
-padding-bottom:260px;
+padding-bottom:220px;
 }
 
 /* =========================
@@ -156,7 +149,7 @@ cursor:pointer;
 }
 
 /* =========================
-CART GRID
+GRID
 ========================= */
 
 .cartGrid{
@@ -207,6 +200,15 @@ flex-shrink:0;
 
 .productInfo{
 flex:1;
+}
+
+.categoryTag{
+display:inline-block;
+padding:6px 12px;
+border-radius:12px;
+font-size:11px;
+font-weight:700;
+margin-bottom:8px;
 }
 
 .productInfo h2{
@@ -287,7 +289,7 @@ font-weight:900;
 }
 
 /* =========================
-BILL BOX
+BILL
 ========================= */
 
 .billWrapper{
@@ -297,6 +299,7 @@ left:0;
 width:100%;
 padding:14px;
 z-index:998;
+transition:0.3s;
 }
 
 .billBox{
@@ -386,6 +389,23 @@ color:#FFD400 !important;
 }
 
 /* =========================
+DESKTOP
+========================= */
+
+@media screen and (min-width:768px){
+
+.bottomNav a{
+font-size:12px;
+}
+
+.bottomNav i{
+display:block;
+margin-bottom:4px;
+}
+
+}
+
+/* =========================
 MOBILE
 ========================= */
 
@@ -393,7 +413,7 @@ MOBILE
 
 .main{
 padding:14px;
-padding-bottom:260px;
+padding-bottom:220px;
 }
 
 .cartCard{
@@ -440,23 +460,6 @@ font-size:0;
 
 }
 
-/* =========================
-DESKTOP
-========================= */
-
-@media screen and (min-width:768px){
-
-.bottomNav a{
-font-size:12px;
-}
-
-.bottomNav i{
-display:block;
-margin-bottom:4px;
-}
-
-}
-
 </style>
 
 </head>
@@ -468,8 +471,6 @@ margin-bottom:4px;
 <div class="topbar">
 
 <div class="topRow">
-
-<div class="leftTop">
 
 <button
 class="backBtn"
@@ -489,8 +490,6 @@ My Cart
 <p id="cartItemCount">
 0 Items
 </p>
-
-</div>
 
 </div>
 
@@ -556,42 +555,6 @@ id="billWrapper"
 >
 
 <div class="billBox">
-
-<div class="billRow">
-
-<h4>
-Subtotal
-</h4>
-
-<h3 id="subtotal">
-₹0
-</h3>
-
-</div>
-
-<div class="billRow">
-
-<h4>
-Delivery Charge
-</h4>
-
-<h3>
-₹29
-</h3>
-
-</div>
-
-<div class="billRow">
-
-<h4>
-Platform Fee
-</h4>
-
-<h3>
-₹9
-</h3>
-
-</div>
 
 <div class="billRow totalRow">
 
@@ -752,6 +715,40 @@ String(item.price)
 
 subtotal += price * qty;
 
+/* CATEGORY */
+
+const category =
+item.category || "Laundry";
+
+/* CATEGORY STYLE */
+
+let bg =
+"#E0F2FE";
+
+let color =
+"#0369A1";
+
+if(category === "Ironing"){
+
+bg = "#FEF3C7";
+color = "#92400E";
+
+}
+
+if(category === "Washing"){
+
+bg = "#DCFCE7";
+color = "#166534";
+
+}
+
+if(category === "Dry Clean"){
+
+bg = "#F3E8FF";
+color = "#6B21A8";
+
+}
+
 html += `
 
 <div class="cartCard">
@@ -765,6 +762,18 @@ ${item.icon || "👕"}
 </div>
 
 <div class="productInfo">
+
+<div
+class="categoryTag"
+style="
+background:${bg};
+color:${color};
+"
+>
+
+${category}
+
+</div>
 
 <h2>
 ${item.name}
@@ -844,17 +853,9 @@ changeQty(${index},1)
 cartGrid.innerHTML = html;
 
 document.getElementById(
-"subtotal"
-).innerHTML =
-`₹${subtotal}`;
-
-const total =
-subtotal + 29 + 9;
-
-document.getElementById(
 "total"
 ).innerHTML =
-`₹${total}`;
+`₹${subtotal}`;
 
 document.getElementById(
 "cartItemCount"
@@ -864,7 +865,7 @@ document.getElementById(
 }
 
 /* =========================
-REMOVE ITEM
+REMOVE
 ========================= */
 
 function removeItem(index){
@@ -929,6 +930,37 @@ window.location.href =
 }
 
 /* =========================
+SCROLL HIDE BILL
+========================= */
+
+let lastScroll = 0;
+
+window.addEventListener(
+"scroll",
+function(){
+
+const currentScroll =
+window.pageYOffset;
+
+if(currentScroll > lastScroll){
+
+billWrapper.style.transform =
+"translateY(200px)";
+
+}
+
+else{
+
+billWrapper.style.transform =
+"translateY(0px)";
+
+}
+
+lastScroll = currentScroll;
+
+});
+
+/* =========================
 INIT
 ========================= */
 
@@ -938,4 +970,4 @@ renderCart();
 
 </body>
 
-</html>s
+</html>
