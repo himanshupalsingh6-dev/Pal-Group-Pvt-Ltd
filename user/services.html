@@ -703,10 +703,10 @@ Profile
 </div>
 
 <!-- FIREBASE -->
-
 <!-- =========================================
-FULL LOCATION BASED PRICE SCRIPT
+FINAL LOCATION WISE PRICING SYSTEM
 user/services.html
+FULL WORKING SCRIPT
 OLD SCRIPT FULL REPLACE KARO
 ========================================= -->
 
@@ -754,111 +754,50 @@ GLOBAL
 
 let allServices = [];
 
-let currentCategory = "All";
-
-let userCity = "Kasganj";
+let currentCategory =
+"All";
 
 /* =========================================
-CITY DETECTION
+USER CITY
 ========================================= */
 
-async function detectLocation(){
+/* TEMP */
 
-/* FIRST LOCAL STORAGE */
-
-const savedCity =
+let userCity =
 localStorage.getItem(
 "userCity"
+) || "Kasganj";
+
+/* MANUAL CITY */
+
+console.log(
+"User City:",
+userCity
 );
-
-if(savedCity){
-
-userCity = savedCity;
-
-loadServices();
-
-return;
-
-}
-
-/* LOCATION */
-
-if(navigator.geolocation){
-
-navigator.geolocation.getCurrentPosition(
-
-async(position)=>{
-
-const lat =
-position.coords.latitude;
-
-const lon =
-position.coords.longitude;
-
-/* API */
-
-const response =
-await fetch(
-
-`https://nominatim.openstreetmap.org/reverse?format=jsonv2&lat=${lat}&lon=${lon}`
-
-);
-
-const data =
-await response.json();
-
-/* CITY */
-
-const city =
-
-data.address.city ||
-
-data.address.town ||
-
-data.address.state_district ||
-
-"Kasganj";
-
-/* SAVE */
-
-userCity = city;
-
-localStorage.setItem(
-"userCity",
-city
-);
-
-/* LOAD */
-
-loadServices();
-
-},
-
-(error)=>{
-
-console.log(error);
-
-loadServices();
-
-}
-
-);
-
-}else{
-
-loadServices();
-
-}
-
-}
-
-detectLocation();
 
 /* =========================================
 LOAD SERVICES
 ========================================= */
 
 async function loadServices(){
+
+servicesGrid.innerHTML =
+
+`
+
+<div style="
+padding:40px;
+font-size:18px;
+font-weight:700;
+">
+
+Loading Services...
+
+</div>
+
+`;
+
+try{
 
 const snap =
 await getDocs(
@@ -879,22 +818,53 @@ id:doc.id,
 
 });
 
+console.log(
+allServices
+);
+
 renderServices();
+
+}catch(error){
+
+console.log(error);
+
+servicesGrid.innerHTML =
+
+`
+
+<div style="
+padding:40px;
+color:red;
+font-weight:700;
+">
+
+Failed To Load Services
+
+</div>
+
+`;
 
 }
 
+}
+
+loadServices();
+
 /* =========================================
-RENDER
+RENDER SERVICES
 ========================================= */
 
 function renderServices(){
 
 let html = "";
 
-/* FILTER */
+/* SEARCH */
 
 const search =
-searchInput.value.toLowerCase();
+searchInput.value
+.toLowerCase();
+
+/* LOOP */
 
 allServices.forEach((service)=>{
 
@@ -928,15 +898,34 @@ return;
 
 }
 
-/* PRICE */
+/* =========================================
+LOCATION PRICE
+========================================= */
 
-const finalPrice =
+let finalPrice = 0;
 
-service.prices?.[userCity]
+/* NEW SYSTEM */
+
+if(service.prices){
+
+finalPrice =
+
+service.prices[userCity]
 
 ?? 0;
 
-/* HIDE IF NO PRICE */
+}
+
+/* OLD SYSTEM SUPPORT */
+
+if(finalPrice === 0){
+
+finalPrice =
+service.price || 0;
+
+}
+
+/* HIDE IF PRICE ZERO */
 
 if(finalPrice <= 0){
 
@@ -944,7 +933,9 @@ return;
 
 }
 
-/* CARD */
+/* =========================================
+CARD
+========================================= */
 
 html += `
 
@@ -979,7 +970,7 @@ ${service.description
 
 </p>
 
-<div class="cityBox">
+<div class="locationTag">
 
 📍 ${userCity}
 
@@ -1010,6 +1001,28 @@ ADD
 `;
 
 });
+
+/* EMPTY */
+
+if(html === ""){
+
+html =
+
+`
+
+<div style="
+padding:40px;
+font-size:18px;
+font-weight:700;
+">
+
+No Services Found For ${userCity}
+
+</div>
+
+`;
+
+}
 
 servicesGrid.innerHTML =
 html;
@@ -1044,8 +1057,6 @@ btn.addEventListener(
 
 ()=>{
 
-/* ACTIVE */
-
 categoryBtns.forEach((b)=>{
 
 b.classList.remove(
@@ -1058,12 +1069,8 @@ btn.classList.add(
 "active"
 );
 
-/* SET */
-
 currentCategory =
 btn.dataset.category;
-
-/* RENDER */
 
 renderServices();
 
@@ -1085,20 +1092,37 @@ allServices.find(
 item=>item.id===id
 );
 
+if(!service)return;
+
+/* PRICE */
+
+let finalPrice = 0;
+
+if(service.prices){
+
+finalPrice =
+
+service.prices[userCity]
+
+?? 0;
+
+}
+
+if(finalPrice === 0){
+
+finalPrice =
+service.price || 0;
+
+}
+
+/* CART */
+
 let cart =
 JSON.parse(
 localStorage.getItem(
 "cart"
 )
 ) || [];
-
-/* PRICE */
-
-const finalPrice =
-
-service.prices?.[userCity]
-
-?? 0;
 
 /* PUSH */
 
