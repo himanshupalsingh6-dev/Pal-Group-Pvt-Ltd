@@ -1,14 +1,11 @@
-<!-- profile.html -->
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>QuickPress Profile</title>
 
-<title>Profile</title>
-
-<link rel="stylesheet"
-href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css"/>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" />
 
 <style>
 
@@ -20,919 +17,630 @@ font-family:Poppins,sans-serif;
 }
 
 body{
-background:#f3f4f7;
-padding:14px;
-color:#111;
+background:#F5F7FB;
+color:#111827;
+padding-bottom:120px;
 }
-
-.container{
-max-width:500px;
-margin:auto;
-}
-
-/* =====================
-TOPBAR
-===================== */
 
 .topbar{
+padding:18px;
 display:flex;
 align-items:center;
 justify-content:space-between;
-margin-bottom:18px;
+position:sticky;
+top:0;
+z-index:999;
+background:rgba(255,255,255,0.96);
+backdrop-filter:blur(14px);
 }
 
-.back-btn{
-width:42px;
-height:42px;
-border-radius:14px;
+.topbar h2{
+font-size:30px;
+font-weight:900;
+}
+
+.iconBtn{
+width:48px;
+height:48px;
+border:none;
+border-radius:16px;
 background:#fff;
-display:flex;
-align-items:center;
-justify-content:center;
-font-size:18px;
-box-shadow:0 5px 15px rgba(0,0,0,0.05);
-cursor:pointer;
+font-size:20px;
+box-shadow:0 4px 14px rgba(0,0,0,0.08);
 }
 
-.header-title{
-font-size:24px;
-font-weight:700;
+.main{
+padding:0 18px;
+max-width:700px;
+margin:auto;
 }
 
-/* =====================
-PROFILE CARD
-===================== */
-
-.profile-card{
+.profileCard{
 background:#fff;
-border-radius:24px;
+border-radius:34px;
 overflow:hidden;
-box-shadow:0 10px 25px rgba(0,0,0,0.05);
-margin-bottom:16px;
+margin-bottom:18px;
+box-shadow:0 10px 30px rgba(0,0,0,0.05);
 }
 
-.profile-top{
-padding:20px;
+.profileTop{
+padding:24px;
 display:flex;
-gap:15px;
+justify-content:space-between;
+align-items:center;
+}
+
+.profileLeft{
+display:flex;
+gap:16px;
 align-items:center;
 }
 
 .avatar{
-width:68px;
-height:68px;
+width:90px;
+height:90px;
 border-radius:50%;
-background:linear-gradient(135deg,#dbe6ff,#eef4ff);
+background:#DDE8FF;
 display:flex;
 align-items:center;
 justify-content:center;
-font-size:30px;
-font-weight:700;
-color:#3478ff;
+font-size:40px;
+font-weight:900;
+color:#2563EB;
 }
 
-.user-info{
-flex:1;
-}
-
-.user-info h2{
-font-size:24px;
+.profileInfo h2{
+font-size:28px;
+font-weight:900;
 margin-bottom:4px;
 }
 
-.user-info p{
-font-size:13px;
-color:#666;
-margin-bottom:8px;
-word-break:break-word;
-}
-
-.edit-btn{
-color:#ff4f6d;
-font-weight:600;
+.profileInfo p{
 font-size:14px;
-cursor:pointer;
+color:#6B7280;
+margin-bottom:10px;
 }
 
-/* =====================
-GOLD CARD
-===================== */
+.editBtn{
+color:#EF4444;
+font-weight:700;
+font-size:15px;
+text-decoration:none;
+}
 
-.gold-card{
-background:#111118;
-padding:18px;
+.goldCard{
+background:linear-gradient(135deg,#111827,#1F2937);
+padding:20px;
 display:flex;
-justify-content:space-between;
 align-items:center;
+justify-content:space-between;
 color:#fff;
 }
 
-.gold-left{
-display:flex;
-align-items:center;
-gap:12px;
-}
-
-.gold-icon{
-width:45px;
-height:45px;
-border-radius:50%;
-background:linear-gradient(135deg,#ffd777,#9f742d);
-display:flex;
-align-items:center;
-justify-content:center;
-font-size:18px;
-color:#000;
-}
-
-.gold-left h3{
-font-size:16px;
-margin-bottom:2px;
-}
-
-.gold-left p{
-font-size:12px;
-color:#bbb;
-}
-
-/* =====================
-QUICK BOX
-===================== */
-
-.quick-grid{
-display:grid;
-grid-template-columns:1fr 1fr;
-gap:12px;
-margin-bottom:16px;
-}
-
-.quick-box{
-background:#fff;
-padding:15px;
-border-radius:18px;
-display:flex;
-gap:12px;
-align-items:center;
-box-shadow:0 6px 20px rgba(0,0,0,0.04);
-}
-
-.quick-icon{
-width:42px;
-height:42px;
-border-radius:50%;
-background:#f3f4f7;
-display:flex;
-align-items:center;
-justify-content:center;
-font-size:17px;
-color:#777;
-}
-
-.quick-box h4{
-font-size:14px;
-margin-bottom:3px;
-}
-
-.quick-box p{
-font-size:13px;
-font-weight:600;
-color:#00a05b;
-}
-
-/* =====================
-SECTION
-===================== */
-
-.section{
-background:#fff;
-border-radius:22px;
-overflow:hidden;
-margin-bottom:16px;
-box-shadow:0 8px 25px rgba(0,0,0,0.04);
-}
-
-.section-title{
-padding:18px;
-font-size:21px;
-font-weight:700;
-position:relative;
-}
-
-.section-title::before{
-content:'';
-position:absolute;
-left:0;
-top:20px;
-width:5px;
-height:28px;
-background:#ff4f6d;
-border-radius:20px;
-}
-
-.menu-item{
-display:flex;
-align-items:center;
-justify-content:space-between;
-padding:18px;
-border-top:1px solid #eee;
-cursor:pointer;
-transition:0.2s;
-}
-
-.menu-item:hover{
-background:#fafafa;
-}
-
-.menu-left{
+.goldLeft{
 display:flex;
 align-items:center;
 gap:14px;
 }
 
-.menu-left i{
-width:20px;
-font-size:18px;
-color:#888;
+.goldIcon{
+width:54px;
+height:54px;
+border-radius:50%;
+background:#FFD400;
+display:flex;
+align-items:center;
+justify-content:center;
+font-size:24px;
+color:#111827;
 }
 
-.menu-left span{
-font-size:16px;
+.gridRow{
+display:grid;
+grid-template-columns:1fr 1fr;
+gap:14px;
+margin-bottom:18px;
 }
 
-.menu-right{
+.smallCard{
+background:#fff;
+padding:18px;
+border-radius:24px;
+box-shadow:0 8px 24px rgba(0,0,0,0.05);
+}
+
+.smallTop{
 display:flex;
 align-items:center;
 gap:12px;
-font-size:15px;
-color:#999;
+margin-bottom:12px;
 }
 
-/* =====================
-TOGGLE
-===================== */
-
-.toggle{
+.smallIcon{
 width:46px;
-height:26px;
-background:#ddd;
-border-radius:30px;
-position:relative;
-cursor:pointer;
-transition:0.3s;
+height:46px;
+border-radius:16px;
+background:#F3F4F6;
+display:flex;
+align-items:center;
+justify-content:center;
+font-size:20px;
 }
 
-.toggle::before{
-content:'';
-position:absolute;
-width:20px;
-height:20px;
+.smallTitle{
+font-size:16px;
+font-weight:700;
+}
+
+.smallValue{
+font-size:24px;
+font-weight:900;
+color:#16A34A;
+}
+
+.sectionCard{
 background:#fff;
-border-radius:50%;
-top:3px;
-left:3px;
+border-radius:28px;
+overflow:hidden;
+margin-bottom:18px;
+box-shadow:0 10px 30px rgba(0,0,0,0.05);
+}
+
+.sectionHeader{
+padding:20px 22px;
+font-size:16px;
+font-weight:900;
+color:#EF4444;
+}
+
+.menuItem{
+display:flex;
+justify-content:space-between;
+align-items:center;
+padding:20px 22px;
+border-top:1px solid #F1F5F9;
 transition:0.3s;
+cursor:pointer;
 }
 
-.toggle.active{
-background:#00c46a;
+.menuItem:hover{
+background:#FAFAFA;
 }
 
-.toggle.active::before{
-left:23px;
+.menuLeft{
+display:flex;
+align-items:center;
+gap:16px;
 }
 
-/* =====================
-POPUP
-===================== */
+.menuIcon{
+width:46px;
+height:46px;
+border-radius:16px;
+background:#F3F4F6;
+display:flex;
+align-items:center;
+justify-content:center;
+font-size:20px;
+color:#6B7280;
+}
 
-.overlay{
+.menuText h3{
+font-size:18px;
+margin-bottom:4px;
+}
+
+.menuText p{
+font-size:13px;
+color:#6B7280;
+}
+
+.bottomNav{
 position:fixed;
-inset:0;
-background:rgba(0,0,0,0.35);
-opacity:0;
-pointer-events:none;
-transition:0.3s;
+bottom:0;
+left:0;
+width:100%;
+background:#fff;
+border-top:1px solid #E5E7EB;
+display:flex;
+justify-content:space-around;
+padding:10px 0;
+z-index:999;
 }
 
-.overlay.active{
-opacity:1;
-pointer-events:auto;
+.navItem{
+display:flex;
+flex-direction:column;
+align-items:center;
+gap:6px;
+font-size:11px;
+font-weight:700;
+color:#6B7280;
+}
+
+.navItem.active{
+color:#111827;
+}
+
+.navItem i{
+font-size:22px;
 }
 
 .popup{
 position:fixed;
-left:0;
-bottom:-100%;
-width:100%;
-background:#fff;
-padding:22px;
-border-radius:28px 28px 0 0;
-transition:0.4s;
-z-index:999;
-}
-
-.popup.active{
-bottom:0;
-}
-
-.popup h2{
-margin-bottom:15px;
-}
-
-.popup input{
-width:100%;
-padding:15px;
-border:none;
-outline:none;
-background:#f3f4f7;
-border-radius:14px;
-margin-bottom:14px;
-font-size:15px;
-}
-
-.save-btn{
-width:100%;
-padding:15px;
-border:none;
-border-radius:14px;
-background:#111;
+top:20px;
+left:50%;
+transform:translateX(-50%);
+background:#111827;
 color:#fff;
+padding:14px 22px;
+border-radius:18px;
+font-size:14px;
+font-weight:700;
+display:none;
+z-index:9999;
+box-shadow:0 10px 30px rgba(0,0,0,0.2);
+}
+
+@media(max-width:768px){
+
+.topbar h2{
+font-size:24px;
+}
+
+.profileInfo h2{
+font-size:22px;
+}
+
+.avatar{
+width:78px;
+height:78px;
+font-size:34px;
+}
+
+.menuText h3{
 font-size:16px;
-font-weight:600;
-cursor:pointer;
 }
 
-/* =====================
-DARK MODE
-===================== */
-
-.dark{
-background:#111;
-color:#fff;
-}
-
-.dark .profile-card,
-.dark .section,
-.dark .quick-box,
-.dark .popup{
-background:#1b1b1b;
-color:#fff;
-}
-
-.dark .menu-item{
-border-color:#2d2d2d;
-}
-
-.dark .quick-icon{
-background:#2b2b2b;
-}
-
-.dark .popup input{
-background:#2a2a2a;
-color:#fff;
-}
-
-.dark .back-btn{
-background:#1b1b1b;
-color:#fff;
-}
-
-/* =====================
-MOBILE
-===================== */
-
-@media(max-width:360px){
-
-.quick-grid{
-grid-template-columns:1fr;
-}
-
-.profile-top{
-flex-direction:column;
-align-items:flex-start;
+.smallValue{
+font-size:20px;
 }
 
 }
 
 </style>
 </head>
-
 <body>
 
-<div class="container">
-
-<!-- TOP -->
+<div class="popup" id="popup">
+Action Completed
+</div>
 
 <div class="topbar">
-
-<div class="back-btn"
-onclick="history.back()">
+<button class="iconBtn" onclick="history.back()">
 <i class="fa-solid fa-arrow-left"></i>
+</button>
+
+<h2>Profile</h2>
+
+<button class="iconBtn" onclick="window.location.href='support.html'">
+<i class="fa-regular fa-circle-question"></i>
+</button>
 </div>
 
-<div class="header-title">
-Profile
-</div>
+<div class="main">
 
-<div style="width:42px;"></div>
+<div class="profileCard">
 
-</div>
+<div class="profileTop">
 
-<!-- PROFILE -->
-
-<div class="profile-card">
-
-<div class="profile-top">
+<div class="profileLeft">
 
 <div class="avatar" id="avatar">
 H
 </div>
 
-<div class="user-info">
+<div class="profileInfo">
+<h2 id="userName">Loading...</h2>
+<p id="userEmail">loading@gmail.com</p>
+<a href="profile-edit.html" class="editBtn">
+Edit profile ▸
+</a>
+</div>
 
-<h2 id="userName">
-Loading...
-</h2>
+</div>
 
-<p id="userEmail">
-Loading...
+<i class="fa-solid fa-chevron-right"></i>
+
+</div>
+
+<div class="goldCard" onclick="window.location.href='offers.html'">
+
+<div class="goldLeft">
+
+<div class="goldIcon">
+👑
+</div>
+
+<div>
+<h3>QuickPress Gold</h3>
+<p style="font-size:13px;color:#D1D5DB;">
+Free pickup & extra cashback
 </p>
-
-<div class="edit-btn"
-onclick="openPopup()">
-Edit profile
-<i class="fa-solid fa-angle-right"></i>
 </div>
 
 </div>
 
-</div>
-
-<!-- GOLD -->
-
-<div class="gold-card">
-
-<div class="gold-left">
-
-<div class="gold-icon">
-<i class="fa-solid fa-crown"></i>
-</div>
-
-<div>
-<h3>Join QuickPress Gold</h3>
-<p>Premium laundry membership</p>
-</div>
-
-</div>
-
-<i class="fa-solid fa-angle-right"></i>
+<i class="fa-solid fa-chevron-right"></i>
 
 </div>
 
 </div>
 
-<!-- QUICK -->
+<div class="gridRow">
 
-<div class="quick-grid">
-
-<div class="quick-box">
-
-<div class="quick-icon">
-<i class="fa-solid fa-wallet"></i>
+<div class="smallCard" onclick="window.location.href='payments.html'">
+<div class="smallTop">
+<div class="smallIcon">💰</div>
+<div class="smallTitle">Wallet</div>
 </div>
-
-<div>
-<h4>Quick Money</h4>
-<p id="wallet">
+<div class="smallValue" id="walletBalance">
 ₹0
-</p>
+</div>
+</div>
+
+<div class="smallCard" onclick="window.location.href='offers.html'">
+<div class="smallTop">
+<div class="smallIcon">🎁</div>
+<div class="smallTitle">Coupons</div>
+</div>
+<div class="smallValue">
+12
+</div>
 </div>
 
 </div>
 
-<div class="quick-box">
+<div class="sectionCard">
 
-<div class="quick-icon">
-<i class="fa-solid fa-ticket"></i>
-</div>
-
-<div>
-<h4>Your Coupons</h4>
-<p id="coupon">
-0 Active
-</p>
-</div>
-
-</div>
-
-</div>
-
-<!-- PREFERENCES -->
-
-<div class="section">
-
-<div class="section-title">
+<div class="sectionHeader">
 Your Preferences
 </div>
 
-<div class="menu-item">
-
-<div class="menu-left">
-<i class="fa-regular fa-star"></i>
-<span>Personalised Ratings</span>
+<div class="menuItem" onclick="window.location.href='settings.html'">
+<div class="menuLeft">
+<div class="menuIcon">⚙️</div>
+<div class="menuText">
+<h3>Settings</h3>
+<p>Theme & preferences</p>
+</div>
+</div>
+<i class="fa-solid fa-chevron-right"></i>
 </div>
 
-<div class="toggle"
-id="ratingToggle">
+<div class="menuItem" onclick="window.location.href='payments.html'">
+<div class="menuLeft">
+<div class="menuIcon">💳</div>
+<div class="menuText">
+<h3>Payment Methods</h3>
+<p>UPI, Wallet & Cards</p>
+</div>
+</div>
+<i class="fa-solid fa-chevron-right"></i>
 </div>
 
+<div class="menuItem" onclick="window.location.href='notifications.html'">
+<div class="menuLeft">
+<div class="menuIcon">🔔</div>
+<div class="menuText">
+<h3>Notifications</h3>
+<p>Order & offer updates</p>
 </div>
-
-<div class="menu-item"
-onclick="toggleTheme()">
-
-<div class="menu-left">
-<i class="fa-regular fa-moon"></i>
-<span>Appearance</span>
 </div>
-
-<div class="menu-right">
-<span id="themeText">
-Light
-</span>
-<i class="fa-solid fa-angle-right"></i>
-</div>
-
-</div>
-
-<div class="menu-item"
-onclick="window.location.href='payments.html'">
-
-<div class="menu-left">
-<i class="fa-regular fa-credit-card"></i>
-<span>Payment Methods</span>
-</div>
-
-<div class="menu-right">
-<i class="fa-solid fa-angle-right"></i>
+<i class="fa-solid fa-chevron-right"></i>
 </div>
 
 </div>
 
-<div class="menu-item"
-onclick="window.location.href='settings.html'">
+<div class="sectionCard">
 
-<div class="menu-left">
-<i class="fa-solid fa-gear"></i>
-<span>Settings</span>
+<div class="sectionHeader">
+Laundry Services
 </div>
 
-<div class="menu-right">
-<i class="fa-solid fa-angle-right"></i>
+<div class="menuItem" onclick="window.location.href='myorders.html'">
+<div class="menuLeft">
+<div class="menuIcon">🧺</div>
+<div class="menuText">
+<h3>My Orders</h3>
+<p>Track your orders</p>
+</div>
+</div>
+<i class="fa-solid fa-chevron-right"></i>
 </div>
 
+<div class="menuItem" onclick="window.location.href='tracking.html'">
+<div class="menuLeft">
+<div class="menuIcon">🚚</div>
+<div class="menuText">
+<h3>Live Tracking</h3>
+<p>Real-time delivery tracking</p>
+</div>
+</div>
+<i class="fa-solid fa-chevron-right"></i>
 </div>
 
+<div class="menuItem" onclick="window.location.href='address.html'">
+<div class="menuLeft">
+<div class="menuIcon">📍</div>
+<div class="menuText">
+<h3>Address Book</h3>
+<p>Saved addresses</p>
+</div>
+</div>
+<i class="fa-solid fa-chevron-right"></i>
 </div>
 
-<!-- DELIVERY -->
-
-<div class="section">
-
-<div class="section-title">
-Food Delivery
+<div class="menuItem" onclick="window.location.href='support.html'">
+<div class="menuLeft">
+<div class="menuIcon">📞</div>
+<div class="menuText">
+<h3>Help & Support</h3>
+<p>24x7 customer support</p>
+</div>
+</div>
+<i class="fa-solid fa-chevron-right"></i>
 </div>
 
-<div class="menu-item"
-onclick="window.location.href='myorders.html'">
-
-<div class="menu-left">
-<i class="fa-solid fa-bag-shopping"></i>
-<span>Your Orders</span>
+<div class="menuItem" onclick="logout()">
+<div class="menuLeft">
+<div class="menuIcon">🚪</div>
+<div class="menuText">
+<h3>Logout</h3>
+<p>Secure account logout</p>
 </div>
-
-<div class="menu-right">
-<span id="orders">
-0
-</span>
-<i class="fa-solid fa-angle-right"></i>
 </div>
-
-</div>
-
-<div class="menu-item"
-onclick="window.location.href='addressbook.html'">
-
-<div class="menu-left">
-<i class="fa-regular fa-address-book"></i>
-<span>Address Book</span>
-</div>
-
-<div class="menu-right">
-<i class="fa-solid fa-angle-right"></i>
-</div>
-
-</div>
-
-<div class="menu-item"
-onclick="window.location.href='collections.html'">
-
-<div class="menu-left">
-<i class="fa-regular fa-bookmark"></i>
-<span>Your Collections</span>
-</div>
-
-<div class="menu-right">
-<i class="fa-solid fa-angle-right"></i>
-</div>
-
-</div>
-
-<div class="menu-item"
-onclick="window.location.href='offers.html'">
-
-<div class="menu-left">
-<i class="fa-solid fa-tag"></i>
-<span>Offers & Coupons</span>
-</div>
-
-<div class="menu-right">
-<i class="fa-solid fa-angle-right"></i>
-</div>
-
-</div>
-
-<div class="menu-item"
-onclick="logout()">
-
-<div class="menu-left">
-<i class="fa-solid fa-right-from-bracket"></i>
-<span>Logout</span>
-</div>
-
-<div class="menu-right">
-<i class="fa-solid fa-angle-right"></i>
+<i class="fa-solid fa-chevron-right"></i>
 </div>
 
 </div>
 
 </div>
 
+<div class="bottomNav">
+
+<div class="navItem" onclick="window.location.href='index.html'">
+<i class="fa-solid fa-house"></i>
+<span>Home</span>
 </div>
 
-<!-- POPUP -->
-
-<div class="overlay"
-id="overlay"></div>
-
-<div class="popup"
-id="popup">
-
-<h2>Edit Profile</h2>
-
-<input type="text"
-id="editName"
-placeholder="Enter Name">
-
-<input type="email"
-id="editEmail"
-placeholder="Enter Email">
-
-<button class="save-btn"
-onclick="saveProfile()">
-Save Changes
-</button>
-
+<div class="navItem" onclick="window.location.href='services.html'">
+<i class="fa-solid fa-shirt"></i>
+<span>Services</span>
 </div>
 
-<!-- FIREBASE MODULE -->
+<div class="navItem" onclick="window.location.href='cart.html'">
+<i class="fa-solid fa-cart-shopping"></i>
+<span>Cart</span>
+</div>
+
+<div class="navItem active">
+<i class="fa-solid fa-user"></i>
+<span>Profile</span>
+</div>
+
+</div>
 
 <script type="module">
 
-/* =========================
-IMPORTS
-========================= */
-
-import { db, auth } from './firebase.js';
+import { db } from '../firebase.js';
 
 import {
 doc,
 getDoc,
 updateDoc
-} from "https://www.gstatic.com/firebasejs/12.11.0/firebase-firestore.js";
-
-import {
-onAuthStateChanged,
-signOut,
-updateEmail
-} from "https://www.gstatic.com/firebasejs/12.11.0/firebase-auth.js";
-
-/* =========================
-DOM
-========================= */
-
-const userName = document.getElementById("userName");
-const userEmail = document.getElementById("userEmail");
-const avatar = document.getElementById("avatar");
-const wallet = document.getElementById("wallet");
-const coupon = document.getElementById("coupon");
-const orders = document.getElementById("orders");
-
-const popup = document.getElementById("popup");
-const overlay = document.getElementById("overlay");
-
-const editName = document.getElementById("editName");
-const editEmail = document.getElementById("editEmail");
-
-/* =========================
-AUTH
-========================= */
-
-let currentUser = null;
-
-onAuthStateChanged(auth, async(user)=>{
-
-if(user){
-
-currentUser = user;
-
-userEmail.innerText = user.email;
-
-const userRef = doc(db,"users",user.uid);
-
-const snap = await getDoc(userRef);
-
-if(snap.exists()){
-
-const data = snap.data();
-
-userName.innerText =
-data.name || "User";
-
-wallet.innerText =
-"₹" + (data.wallet || 0);
-
-coupon.innerText =
-(data.coupons || 0) + " Active";
-
-orders.innerText =
-data.orders || 0;
-
-avatar.innerText =
-(data.name || "U")
-.charAt(0)
-.toUpperCase();
-
-}else{
-
-await updateDoc(
-doc(db,"users",user.uid),
-{
-name:"Quick User",
-wallet:0,
-coupons:0,
-orders:0
 }
-);
+from 'https://www.gstatic.com/firebasejs/12.11.0/firebase-firestore.js';
 
+const popup = document.getElementById('popup');
+
+function showPopup(message){
+popup.innerHTML = message;
+popup.style.display = 'block';
+
+setTimeout(()=>{
+popup.style.display='none';
+},2000);
 }
 
-}else{
+const isLoggedIn = localStorage.getItem('isLoggedIn');
 
-window.location.href = "login.html";
-
+if(isLoggedIn !== 'true'){
+window.location.href='/Pal-Group-Pvt-Ltd/user/login.html';
 }
 
-});
+const userPhone = localStorage.getItem('userPhone');
 
-/* =========================
-POPUP
-========================= */
-
-window.openPopup = ()=>{
-
-popup.classList.add("active");
-overlay.classList.add("active");
-
-editName.value = userName.innerText;
-editEmail.value = userEmail.innerText;
-
-};
-
-overlay.onclick = ()=>{
-
-popup.classList.remove("active");
-overlay.classList.remove("active");
-
-};
-
-/* =========================
-SAVE PROFILE
-========================= */
-
-window.saveProfile = async()=>{
+async function loadProfile(){
 
 try{
 
-await updateEmail(
-currentUser,
-editEmail.value
-);
+const userRef = doc(db,'users',userPhone);
+const userSnap = await getDoc(userRef);
 
-await updateDoc(
-doc(db,"users",currentUser.uid),
-{
-name:editName.value
-}
-);
+if(userSnap.exists()){
 
-userName.innerText =
-editName.value;
+const user = userSnap.data();
 
-userEmail.innerText =
-editEmail.value;
+/* USER DATA */
 
-avatar.innerText =
-editName.value
-.charAt(0)
-.toUpperCase();
+document.getElementById('userName').innerHTML =
+user.name || 'QuickPress User';
 
-alert("Profile Updated");
+document.getElementById('userEmail').innerHTML =
+user.email || 'No Email';
 
-popup.classList.remove("active");
-overlay.classList.remove("active");
+document.getElementById('walletBalance').innerHTML =
+'₹'+(user.wallet || 0);
 
-}catch(error){
-
-alert(error.message);
+document.getElementById('avatar').innerHTML =
+user.name
+? user.name.charAt(0).toUpperCase()
+: 'Q';
 
 }
 
-};
+}
 
-/* =========================
-TOGGLE
-========================= */
-
-const toggle =
-document.getElementById("ratingToggle");
-
-toggle.onclick = ()=>{
-
-toggle.classList.toggle("active");
-
-localStorage.setItem(
-"ratings",
-toggle.classList.contains("active")
-);
-
-};
-
-if(localStorage.getItem("ratings")==="true"){
-
-toggle.classList.add("active");
+catch(error){
+console.log(error);
+showPopup('Failed To Load Profile');
+}
 
 }
 
-/* =========================
-THEME
-========================= */
+loadProfile();
 
-window.toggleTheme = ()=>{
+/* WALLET ADD DEMO */
 
-document.body.classList.toggle("dark");
+window.addWalletMoney = async function(){
 
-const dark =
-document.body.classList.contains("dark");
+try{
 
-document.getElementById("themeText")
-.innerText =
-dark ? "Dark" : "Light";
+const userRef = doc(db,'users',userPhone);
+const snap = await getDoc(userRef);
+const user = snap.data();
 
-localStorage.setItem("theme",dark);
+const newBalance = (user.wallet || 0) + 100;
 
-};
+await updateDoc(userRef,{
+wallet:newBalance
+});
 
-if(localStorage.getItem("theme")==="true"){
-
-document.body.classList.add("dark");
-
-document.getElementById("themeText")
-.innerText = "Dark";
+loadProfile();
+showPopup('₹100 Added To Wallet');
 
 }
 
-/* =========================
-LOGOUT
-========================= */
+catch(error){
+console.log(error);
+}
 
-window.logout = async()=>{
+}
 
-await signOut(auth);
+/* LOGOUT */
 
-window.location.href = "login.html";
+window.logout = function(){
 
-};
+localStorage.clear();
+
+showPopup('Logged Out');
+
+setTimeout(()=>{
+window.location.href='/Pal-Group-Pvt-Ltd/user/login.html';
+},1000);
+
+}
 
 </script>
 
