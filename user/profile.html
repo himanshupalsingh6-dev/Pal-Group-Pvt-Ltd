@@ -1,183 +1,207 @@
 <!DOCTYPE html>
+
 <html lang="en">
-
 <head>
-
 <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>QuickPress Profile</title>
 
-<meta
-name="viewport"
-content="width=device-width, initial-scale=1.0"
-/>
-
-<title>
-QuickPress Profile
-</title>
-
-<link
-rel="stylesheet"
-href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css"
-/>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css"/>
 
 <style>
-
-/* =========================
-RESET
-========================= */
 
 *{
 margin:0;
 padding:0;
 box-sizing:border-box;
-font-family:
-"Poppins",
-sans-serif;
+font-family:Poppins,sans-serif;
 }
 
 body{
-background:#F8FAFC;
+background:#F4F7FB;
 color:#111827;
-overflow-x:hidden;
+padding-bottom:120px;
 }
-
-/* =========================
-TOPBAR
-========================= */
 
 .topbar{
 position:sticky;
 top:0;
 z-index:999;
-background:
-rgba(255,255,255,0.95);
+background:rgba(255,255,255,0.95);
 backdrop-filter:blur(18px);
-padding:16px;
-border-bottom:
-1px solid #EEF2F7;
-}
-
-.topRow{
+padding:18px;
 display:flex;
 align-items:center;
-gap:12px;
+justify-content:space-between;
+border-bottom:1px solid #EEF2F7;
 }
 
-.backBtn{
-width:46px;
-height:46px;
-border:none;
-border-radius:16px;
-background:#FFD400;
+.topbar h2{
+font-size:30px;
+font-weight:900;
+}
+
+.helpBtn{
+width:110px;
+height:52px;
+border-radius:50px;
+border:2px solid #E5E7EB;
+background:#fff;
 font-size:18px;
-font-weight:900;
-cursor:pointer;
+font-weight:700;
 }
-
-.pageText h2{
-font-size:22px;
-font-weight:900;
-margin-bottom:4px;
-}
-
-.pageText p{
-font-size:12px;
-color:#6B7280;
-}
-
-/* =========================
-MAIN
-========================= */
 
 .main{
-width:100%;
-max-width:1200px;
+padding:18px;
+max-width:700px;
 margin:auto;
-padding:16px;
-padding-bottom:120px;
 }
 
-/* =========================
-PROFILE HEADER
-========================= */
-
 .profileCard{
-background:#111827;
+background:#fff;
 border-radius:34px;
-padding:28px;
-margin-bottom:18px;
-color:#fff;
-position:relative;
-overflow:hidden;
+padding:22px;
+margin-bottom:24px;
+box-shadow:0 8px 24px rgba(0,0,0,0.05);
 }
 
 .profileTop{
+display:flex;
+justify-content:space-between;
+align-items:center;
+}
+
+.profileLeft{
 display:flex;
 align-items:center;
 gap:16px;
 }
 
-.profileAvatar{
-width:92px;
-height:92px;
-border-radius:30px;
-background:#FFD400;
+.avatar{
+width:85px;
+height:85px;
+border-radius:50%;
+background:#E8F0FE;
 display:flex;
 align-items:center;
 justify-content:center;
 font-size:38px;
 font-weight:900;
-color:#111827;
+color:#1D4ED8;
 }
 
-.profileInfo h2{
-font-size:28px;
+.profileInfo h3{
+font-size:30px;
+font-weight:900;
 margin-bottom:6px;
 }
 
 .profileInfo p{
-font-size:14px;
-opacity:0.8;
+font-size:18px;
+color:#6B7280;
 }
 
-.cityTag{
-display:inline-block;
-margin-top:10px;
-padding:8px 14px;
-border-radius:14px;
-background:
-rgba(255,255,255,0.12);
-font-size:12px;
-font-weight:700;
+.ratingCard{
+margin-top:20px;
+padding-top:18px;
+border-top:1px solid #EEF2F7;
+display:flex;
+align-items:center;
+gap:14px;
 }
 
-/* =========================
-CARD
-========================= */
+.ratingCard i{
+color:#FFD400;
+font-size:26px;
+}
 
-.card{
+.ratingCard h4{
+font-size:24px;
+}
+
+.sectionTitle{
+font-size:15px;
+font-weight:900;
+color:#1E3A8A;
+margin:28px 0 18px;
+}
+
+.menuCard{
 background:#fff;
-padding:22px;
 border-radius:28px;
-margin-bottom:18px;
-box-shadow:
-0 8px 24px rgba(15,23,42,0.05);
-border:1px solid #EEF2F7;
+overflow:hidden;
+box-shadow:0 8px 24px rgba(0,0,0,0.05);
+margin-bottom:22px;
 }
 
-.cardTitle{
-font-size:22px;
-font-weight:900;
-margin-bottom:18px;
+.menuItem{
+display:flex;
+align-items:center;
+justify-content:space-between;
+padding:22px;
+border-bottom:1px solid #EEF2F7;
+cursor:pointer;
+transition:0.3s;
 }
 
-/* =========================
-WALLET
-========================= */
+.menuItem:last-child{
+border-bottom:none;
+}
 
-.walletBalance{
-font-size:38px;
+.menuItem:hover{
+background:#F9FAFB;
+}
+
+.menuLeft{
+display:flex;
+align-items:center;
+gap:18px;
+}
+
+.menuIcon{
+width:56px;
+height:56px;
+border-radius:18px;
+background:#F4F7FB;
+display:flex;
+align-items:center;
+justify-content:center;
+font-size:24px;
+color:#4B5563;
+}
+
+.menuText h3{
+font-size:25px;
+margin-bottom:4px;
+}
+
+.menuText p{
+font-size:16px;
+color:#6B7280;
+}
+
+.arrow{
+font-size:20px;
+color:#9CA3AF;
+}
+
+.walletCard{
+background:#111827;
+color:#fff;
+padding:24px;
+border-radius:30px;
+margin-bottom:24px;
+}
+
+.walletCard h3{
+font-size:20px;
+margin-bottom:14px;
+}
+
+.balance{
+font-size:42px;
 font-weight:900;
-margin-bottom:18px;
+margin-bottom:20px;
 }
 
 .walletBtns{
@@ -186,221 +210,129 @@ grid-template-columns:1fr 1fr;
 gap:12px;
 }
 
-.walletBtn{
-height:56px;
+.walletBtns button{
+height:54px;
 border:none;
 border-radius:18px;
-font-size:14px;
-font-weight:900;
-cursor:pointer;
-}
-
-.addBtn{
-background:#FFD400;
-}
-
-.withdrawBtn{
-background:#111827;
-color:#fff;
-}
-
-/* =========================
-ORDER
-========================= */
-
-.orderItem{
-display:flex;
-justify-content:space-between;
-align-items:center;
-padding:16px;
-border-radius:20px;
-background:#F8FAFC;
-margin-bottom:12px;
-}
-
-.orderLeft{
-display:flex;
-align-items:center;
-gap:14px;
-}
-
-.orderIcon{
-width:54px;
-height:54px;
-border-radius:18px;
-background:#fff;
-display:flex;
-align-items:center;
-justify-content:center;
-font-size:24px;
-}
-
-.status{
-padding:8px 14px;
-border-radius:12px;
-font-size:11px;
-font-weight:800;
-background:#DCFCE7;
-color:#166534;
-}
-
-/* =========================
-TRANSACTION
-========================= */
-
-.transactionItem{
-display:flex;
-justify-content:space-between;
-align-items:center;
-padding:14px 0;
-border-bottom:
-1px solid #F1F5F9;
-}
-
-.transactionLeft{
-display:flex;
-align-items:center;
-gap:12px;
-}
-
-.transactionIcon{
-width:48px;
-height:48px;
-border-radius:16px;
-background:#F8FAFC;
-display:flex;
-align-items:center;
-justify-content:center;
-font-size:22px;
-}
-
-.credit{
-color:#22C55E;
-font-weight:900;
-}
-
-.debit{
-color:#EF4444;
-font-weight:900;
-}
-
-/* =========================
-MENU
-========================= */
-
-.menuItem{
-display:flex;
-justify-content:space-between;
-align-items:center;
-padding:18px 0;
-border-bottom:
-1px solid #F1F5F9;
-cursor:pointer;
-}
-
-.menuLeft{
-display:flex;
-align-items:center;
-gap:14px;
-}
-
-.menuIcon{
-width:54px;
-height:54px;
-border-radius:18px;
-background:#F8FAFC;
-display:flex;
-align-items:center;
-justify-content:center;
-font-size:22px;
-}
-
-.menuText h3{
 font-size:16px;
-margin-bottom:4px;
+font-weight:900;
 }
 
-.menuText p{
-font-size:12px;
-color:#6B7280;
+.addMoney{
+background:#FFD400;
+color:#111827;
 }
 
-/* =========================
-FORM
-========================= */
-
-.inputGroup{
-margin-bottom:16px;
+.passbook{
+background:#fff;
+color:#111827;
 }
 
-.inputGroup label{
-display:block;
-font-size:13px;
-font-weight:700;
+.rewardBanner{
+background:linear-gradient(135deg,#FFD400,#FFE566);
+padding:24px;
+border-radius:30px;
+display:flex;
+justify-content:space-between;
+align-items:center;
+margin-bottom:24px;
+}
+
+.rewardBanner h2{
+font-size:28px;
 margin-bottom:8px;
 }
 
-.inputGroup input,
-.inputGroup textarea{
-width:100%;
-border:none;
-outline:none;
-background:#F8FAFC;
-border-radius:16px;
-padding:16px;
-font-size:14px;
+.rewardBanner p{
+font-size:15px;
+max-width:230px;
 }
 
-.inputGroup textarea{
-height:90px;
-resize:none;
-}
-
-.saveBtn{
-width:100%;
-height:56px;
+.rewardBanner button{
+width:120px;
+height:50px;
 border:none;
 border-radius:18px;
 background:#111827;
 color:#fff;
-font-size:15px;
 font-weight:900;
-cursor:pointer;
-margin-top:10px;
 }
-
-/* =========================
-LOGOUT
-========================= */
 
 .logoutBtn{
 width:100%;
-height:58px;
+height:60px;
 border:none;
-border-radius:20px;
+border-radius:24px;
 background:#EF4444;
 color:#fff;
-font-size:15px;
+font-size:18px;
 font-weight:900;
-cursor:pointer;
+margin-top:20px;
 }
 
-/* =========================
-RESPONSIVE
-========================= */
-
-@media screen and (min-width:900px){
-
-.main{
-display:grid;
-grid-template-columns:
-1fr 1fr;
-gap:20px;
-align-items:start;
+.bottomNav{
+position:fixed;
+bottom:0;
+left:0;
+width:100%;
+background:#fff;
+border-top:1px solid #E5E7EB;
+display:flex;
+justify-content:space-around;
+padding:12px 0;
+z-index:999;
 }
 
-.profileFull{
-grid-column:1/3;
+.bottomItem{
+display:flex;
+flex-direction:column;
+align-items:center;
+gap:6px;
+font-size:12px;
+font-weight:700;
+color:#6B7280;
+}
+
+.bottomItem.active{
+color:#111827;
+}
+
+.bottomItem i{
+font-size:22px;
+}
+
+@media(max-width:768px){
+
+.topbar h2{
+font-size:22px;
+}
+
+.helpBtn{
+width:90px;
+height:48px;
+font-size:16px;
+}
+
+.profileInfo h3{
+font-size:24px;
+}
+
+.menuText h3{
+font-size:20px;
+}
+
+.balance{
+font-size:34px;
+}
+
+.rewardBanner{
+flex-direction:column;
+align-items:flex-start;
+gap:18px;
+}
+
+.rewardBanner button{
+width:100%;
 }
 
 }
@@ -408,480 +340,272 @@ grid-column:1/3;
 </style>
 
 </head>
-
 <body>
 
-<!-- TOPBAR -->
-
 <div class="topbar">
-
-<div class="topRow">
-
-<button
-class="backBtn"
-onclick="history.back()"
->
-
-←
-
+<h2>Profile</h2>
+<button class="helpBtn">
+<i class="fa-regular fa-circle-question"></i>
+ Help
 </button>
-
-<div class="pageText">
-
-<h2>
-My Profile
-</h2>
-
-<p>
-Manage your account
-</p>
-
 </div>
-
-</div>
-
-</div>
-
-<!-- MAIN -->
 
 <div class="main">
-
-<!-- PROFILE -->
-
-<div class="profileFull">
 
 <div class="profileCard">
 
 <div class="profileTop">
 
-<div
-class="profileAvatar"
-id="profileAvatar"
->
+<div class="profileLeft">
 
+<div class="avatar" id="avatar">
 H
-
 </div>
 
 <div class="profileInfo">
-
-<h2 id="profileName">
-User
-</h2>
-
-<p id="profileEmail">
-example@gmail.com
-</p>
-
-<div
-class="cityTag"
-id="profileCity"
->
-
-Meerut
-
+<h3 id="userName">Loading...</h3>
+<p id="userPhone">+91 0000000000</p>
 </div>
 
 </div>
 
+<div class="arrow">
+<i class="fa-solid fa-chevron-right"></i>
 </div>
 
 </div>
 
+<div class="ratingCard">
+<i class="fa-solid fa-star"></i>
+<div>
+<h4>
+4.82 My Rating
+</h4>
+</div>
 </div>
 
-<!-- WALLET -->
+</div>
 
-<div class="card">
-
-<h2 class="cardTitle">
-Wallet
-</h2>
-
-<div
-class="walletBalance"
-id="walletBalance"
->
-
+<div class="walletCard">
+<h3>QuickPress Wallet</h3>
+<div class="balance" id="walletBalance">
 ₹0
-
 </div>
 
 <div class="walletBtns">
-
-<button
-class="walletBtn addBtn"
-onclick="addFunds()"
->
-
-Add ₹100
-
+<button class="addMoney" onclick="addMoney()">
+Add Money
 </button>
 
-<button
-class="walletBtn withdrawBtn"
->
-
-Withdraw
-
+<button class="passbook" onclick="window.location.href='payments.html'">
+Passbook
 </button>
-
+</div>
 </div>
 
-</div>
-
-<!-- ORDERS -->
-
-<div class="card">
-
-<h2 class="cardTitle">
-My Orders
-</h2>
-
-<div id="ordersContainer">
-
-No Orders Found
-
-</div>
-
-</div>
-
-<!-- TRANSACTIONS -->
-
-<div class="card">
-
-<h2 class="cardTitle">
-Wallet Transactions
-</h2>
-
-<div id="transactionsContainer">
-
-No Transactions
-
-</div>
-
-</div>
-
-<!-- PROFILE FORM -->
-
-<div class="card">
-
-<h2 class="cardTitle">
-Edit Profile
-</h2>
-
-<div class="inputGroup">
-
-<label>
-Full Name
-</label>
-
-<input
-type="text"
-id="fullName"
-/>
-
-</div>
-
-<div class="inputGroup">
-
-<label>
-Email
-</label>
-
-<input
-type="email"
-id="email"
-/>
-
-</div>
-
-<div class="inputGroup">
-
-<label>
-Password
-</label>
-
-<input
-type="password"
-id="password"
-/>
-
-</div>
-
-<div class="inputGroup">
-
-<label>
-City
-</label>
-
-<input
-type="text"
-id="city"
-/>
-
-</div>
-
-<div class="inputGroup">
-
-<label>
-Saved Address
-</label>
-
-<textarea
-id="address"
-></textarea>
-
-</div>
-
-<button
-class="saveBtn"
-onclick="saveProfile()"
->
-
-Save Changes
-
-</button>
-
-</div>
-
-<!-- HELP -->
-
-<div class="card">
-
-<h2 class="cardTitle">
-Help & Support
-</h2>
-
-<div class="menuItem">
-
-<div class="menuLeft">
-
-<div class="menuIcon">
-📞
-</div>
-
-<div class="menuText">
-
-<h3>
-Customer Support
-</h3>
-
+<div class="rewardBanner">
+<div>
+<h2>QuickPress Gold</h2>
 <p>
-24x7 support available
+Free pickup, faster delivery & extra cashback rewards.
 </p>
-
 </div>
 
+<button>
+Upgrade
+</button>
 </div>
 
+<div class="menuCard">
+
+<div class="menuItem" onclick="window.location.href='profile-edit.html'">
+<div class="menuLeft">
+<div class="menuIcon">
+<i class="fa-regular fa-user"></i>
+</div>
+<div class="menuText">
+<h3>My Profile</h3>
+<p>Edit personal details</p>
+</div>
+</div>
+<div class="arrow">
 <i class="fa-solid fa-chevron-right"></i>
+</div>
+</div>
 
+<div class="menuItem" onclick="window.location.href='payments.html'">
+<div class="menuLeft">
+<div class="menuIcon">
+<i class="fa-regular fa-credit-card"></i>
+</div>
+<div class="menuText">
+<h3>Payments</h3>
+<p>Wallet, UPI & cards</p>
+</div>
+</div>
+<div class="arrow">
+<i class="fa-solid fa-chevron-right"></i>
+</div>
+</div>
+
+<div class="menuItem" onclick="window.location.href='myorders.html'">
+<div class="menuLeft">
+<div class="menuIcon">
+<i class="fa-solid fa-basket-shopping"></i>
+</div>
+<div class="menuText">
+<h3>My Orders</h3>
+<p>Track laundry orders</p>
+</div>
+</div>
+<div class="arrow">
+<i class="fa-solid fa-chevron-right"></i>
+</div>
 </div>
 
 <div class="menuItem">
-
 <div class="menuLeft">
-
 <div class="menuIcon">
-🔐
+<i class="fa-solid fa-shield-heart"></i>
 </div>
-
 <div class="menuText">
-
-<h3>
-Forgot Password
-</h3>
-
-<p>
-Reset your password
-</p>
-
+<h3>Safety</h3>
+<p>Emergency contact & OTP</p>
 </div>
-
 </div>
-
+<div class="arrow">
 <i class="fa-solid fa-chevron-right"></i>
-
+</div>
 </div>
 
 <div class="menuItem">
-
 <div class="menuLeft">
-
 <div class="menuIcon">
-📍
+<i class="fa-solid fa-gift"></i>
 </div>
-
 <div class="menuText">
-
-<h3>
-Saved Addresses
-</h3>
-
-<p>
-Manage pickup locations
-</p>
-
+<h3>Refer & Earn</h3>
+<p>Invite friends & earn rewards</p>
 </div>
-
 </div>
-
+<div class="arrow">
 <i class="fa-solid fa-chevron-right"></i>
+</div>
+</div>
 
+<div class="menuItem" onclick="window.location.href='settings.html'">
+<div class="menuLeft">
+<div class="menuIcon">
+<i class="fa-solid fa-gear"></i>
+</div>
+<div class="menuText">
+<h3>Settings</h3>
+<p>Preferences & notifications</p>
+</div>
+</div>
+<div class="arrow">
+<i class="fa-solid fa-chevron-right"></i>
+</div>
+</div>
+
+<div class="menuItem">
+<div class="menuLeft">
+<div class="menuIcon">
+<i class="fa-solid fa-headset"></i>
+</div>
+<div class="menuText">
+<h3>Help & Support</h3>
+<p>24x7 customer support</p>
+</div>
+</div>
+<div class="arrow">
+<i class="fa-solid fa-chevron-right"></i>
+</div>
 </div>
 
 </div>
 
-<!-- LOGOUT -->
-
-<button
-class="logoutBtn"
-onclick="logout()"
->
-
+<button class="logoutBtn" onclick="logout()">
 Logout
-
 </button>
 
 </div>
 
-<!-- FIREBASE -->
+<div class="bottomNav">
+
+<div class="bottomItem" onclick="window.location.href='index.html'">
+<i class="fa-solid fa-house"></i>
+<span>Home</span>
+</div>
+
+<div class="bottomItem" onclick="window.location.href='services.html'">
+<i class="fa-solid fa-shirt"></i>
+<span>Services</span>
+</div>
+
+<div class="bottomItem" onclick="window.location.href='cart.html'">
+<i class="fa-solid fa-cart-shopping"></i>
+<span>Cart</span>
+</div>
+
+<div class="bottomItem active">
+<i class="fa-solid fa-user"></i>
+<span>Profile</span>
+</div>
+
+</div>
+
 <script type="module">
 
-/* =========================
-FIREBASE IMPORT
-========================= */
+import { db } from "../firebase.js";
 
 import {
-
-db
-
-}
-
-from "../firebase.js";
-
-import {
-
 doc,
 getDoc,
-updateDoc,
-collection,
-query,
-where,
-getDocs,
-setDoc
-
+updateDoc
 }
-
-from
-
-"https://www.gstatic.com/firebasejs/12.11.0/firebase-firestore.js";
-
-/* =========================
-LOGIN CHECK
-========================= */
+from "https://www.gstatic.com/firebasejs/12.11.0/firebase-firestore.js";
 
 const isLoggedIn =
-
-localStorage.getItem(
-"isLoggedIn"
-);
+localStorage.getItem("isLoggedIn");
 
 if(isLoggedIn !== "true"){
-
-window.location.href =
-"/Pal-Group-Pvt-Ltd/user/login.html";
-
+window.location.href = "/Pal-Group-Pvt-Ltd/user/login.html";
 }
 
-/* =========================
-USER PHONE
-========================= */
-
 const userPhone =
+localStorage.getItem("userPhone");
 
-localStorage.getItem(
-"userPhone"
-);
-
-/* =========================
-LOAD USER
-========================= */
-
-async function loadUser(){
+async function loadProfile(){
 
 try{
 
 const userRef =
-
 doc(db,"users",userPhone);
 
 const userSnap =
-
 await getDoc(userRef);
 
 if(userSnap.exists()){
 
-const user =
-userSnap.data();
+const user = userSnap.data();
 
-/* PROFILE */
+/* USER INFO */
 
-document.getElementById(
-"profileName"
-).innerHTML =
+document.getElementById("userName").innerHTML =
 user.name || "User";
 
-document.getElementById(
-"profileEmail"
-).innerHTML =
-user.email || "No Email";
+document.getElementById("userPhone").innerHTML =
+user.phone || "+91 0000000000";
 
-document.getElementById(
-"profileCity"
-).innerHTML =
-user.city || "City";
-
-document.getElementById(
-"profileAvatar"
-).innerHTML =
+document.getElementById("avatar").innerHTML =
 user.name
 ? user.name.charAt(0)
 : "U";
 
-/* FORM */
-
-document.getElementById(
-"fullName"
-).value =
-user.name || "";
-
-document.getElementById(
-"email"
-).value =
-user.email || "";
-
-document.getElementById(
-"password"
-).value =
-user.password || "";
-
-document.getElementById(
-"city"
-).value =
-user.city || "";
-
-document.getElementById(
-"address"
-).value =
-user.address || "";
-
 /* WALLET */
 
-document.getElementById(
-"walletBalance"
-).innerHTML =
+document.getElementById("walletBalance").innerHTML =
 "₹" + (user.wallet || 0);
 
 }
@@ -889,348 +613,50 @@ document.getElementById(
 }
 
 catch(error){
-
 console.log(error);
-
 }
 
 }
 
-loadUser();
+loadProfile();
 
-/* =========================
-SAVE PROFILE
-========================= */
+/* ADD MONEY */
 
-window.saveProfile =
-async function(){
-
-try{
-
-const name =
-document.getElementById(
-"fullName"
-).value;
-
-const email =
-document.getElementById(
-"email"
-).value;
-
-const password =
-document.getElementById(
-"password"
-).value;
-
-const city =
-document.getElementById(
-"city"
-).value;
-
-const address =
-document.getElementById(
-"address"
-).value;
-
-await updateDoc(
-
-doc(db,"users",userPhone),
-
-{
-
-name,
-email,
-password,
-city,
-address
-
-}
-
-);
-
-alert(
-"Profile Updated"
-);
-
-loadUser();
-
-}
-
-catch(error){
-
-console.log(error);
-
-alert(
-"Update Failed"
-);
-
-}
-
-};
-
-/* =========================
-ADD FUNDS
-========================= */
-
-window.addFunds =
+window.addMoney =
 async function(){
 
 try{
 
 const userRef =
-
 doc(db,"users",userPhone);
 
 const userSnap =
-
 await getDoc(userRef);
 
-const user =
-userSnap.data();
+const user = userSnap.data();
 
 const newBalance =
-
 (user.wallet || 0) + 100;
 
-/* UPDATE */
-
-await updateDoc(
-
-userRef,
-
-{
-
+await updateDoc(userRef,{
 wallet:newBalance
+});
 
-}
+loadProfile();
 
-);
-
-/* TRANSACTION */
-
-const transactionId =
-Date.now().toString();
-
-await setDoc(
-
-doc(
-db,
-"walletTransactions",
-transactionId
-),
-
-{
-
-userPhone,
-type:"credit",
-title:"Wallet Topup",
-amount:"+₹100",
-createdAt:
-new Date()
-
-}
-
-);
-
-loadTransactions();
-
-loadUser();
-
-alert(
-"₹100 Added"
-);
+alert("₹100 Added Successfully");
 
 }
 
 catch(error){
-
 console.log(error);
-
 }
 
 };
 
-/* =========================
-LOAD TRANSACTIONS
-========================= */
+/* LOGOUT */
 
-async function loadTransactions(){
-
-try{
-
-const q = query(
-
-collection(
-db,
-"walletTransactions"
-),
-
-where(
-"userPhone",
-"==",
-userPhone
-)
-
-);
-
-const querySnapshot =
-
-await getDocs(q);
-
-let html = "";
-
-querySnapshot.forEach((doc)=>{
-
-const item =
-doc.data();
-
-html += `
-
-<div class="transactionItem">
-
-<div class="transactionLeft">
-
-<div class="transactionIcon">
-
-💰
-
-</div>
-
-<div>
-
-<h4>
-${item.title}
-</h4>
-
-<p>
-Wallet Activity
-</p>
-
-</div>
-
-</div>
-
-<div class="credit">
-
-${item.amount}
-
-</div>
-
-</div>
-
-`;
-
-});
-
-document.getElementById(
-"transactionsContainer"
-).innerHTML =
-
-html || "No Transactions";
-
-}
-
-catch(error){
-
-console.log(error);
-
-}
-
-}
-
-loadTransactions();
-
-/* =========================
-LOAD ORDERS
-========================= */
-
-async function loadOrders(){
-
-try{
-
-const q = query(
-
-collection(db,"orders"),
-
-where(
-"userPhone",
-"==",
-userPhone
-)
-
-);
-
-const querySnapshot =
-
-await getDocs(q);
-
-let html = "";
-
-querySnapshot.forEach((doc)=>{
-
-const order =
-doc.data();
-
-html += `
-
-<div class="orderItem">
-
-<div class="orderLeft">
-
-<div class="orderIcon">
-🧺
-</div>
-
-<div>
-
-<h4>
-Laundry Order
-</h4>
-
-<p>
-₹${order.total}
-</p>
-
-</div>
-
-</div>
-
-<div class="status">
-
-${order.status}
-
-</div>
-
-</div>
-
-`;
-
-});
-
-document.getElementById(
-"ordersContainer"
-).innerHTML =
-
-html || "No Orders Found";
-
-}
-
-catch(error){
-
-console.log(error);
-
-}
-
-}
-
-loadOrders();
-
-/* =========================
-LOGOUT
-========================= */
-
-window.logout =
-function(){
+window.logout = function(){
 
 localStorage.clear();
 
@@ -1241,7 +667,5 @@ window.location.href =
 
 </script>
 
-
 </body>
-
 </html>
