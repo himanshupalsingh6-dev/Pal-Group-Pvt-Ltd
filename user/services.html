@@ -3,7 +3,7 @@
 
 <head>
 
-<meta charset="UTF-8">
+<meta charset="UTF-8"/>
 
 <meta
 name="viewport"
@@ -48,76 +48,85 @@ TOPBAR
 position:sticky;
 top:0;
 z-index:999;
-background:#fff;
-padding:16px 18px;
+padding:16px;
+background:
+rgba(255,255,255,0.95);
+backdrop-filter:blur(15px);
+border-bottom:
+1px solid #F1F5F9;
 box-shadow:
-0 2px 10px rgba(0,0,0,0.05);
+0 4px 18px rgba(0,0,0,0.04);
 }
 
-.topTop{
+.topRow{
 display:flex;
 justify-content:space-between;
 align-items:center;
-margin-bottom:15px;
-gap:10px;
+gap:15px;
+margin-bottom:14px;
+}
+
+.leftTop{
+display:flex;
+align-items:center;
+gap:12px;
 }
 
 .backBtn{
-width:48px;
-height:48px;
+width:46px;
+height:46px;
 border:none;
 border-radius:16px;
 background:#FFD400;
-font-size:20px;
+font-size:18px;
+font-weight:bold;
 cursor:pointer;
 }
 
-.pageTitle h2{
-font-size:24px;
-font-weight:800;
+.pageText h2{
+font-size:20px;
+font-weight:900;
+margin-bottom:4px;
 }
 
-.pageTitle p{
-font-size:13px;
+.pageText p{
+font-size:12px;
 color:#666;
-margin-top:4px;
 }
 
 .topIcons{
 display:flex;
-gap:12px;
+gap:10px;
 }
 
 .iconBtn{
 width:46px;
 height:46px;
 border-radius:16px;
-background:#F3F4F6;
+background:#fff;
+border:1px solid #F1F5F9;
 display:flex;
 align-items:center;
 justify-content:center;
-cursor:pointer;
-position:relative;
 font-size:18px;
-transition:0.3s;
-}
-
-.iconBtn:hover{
-background:#FFD400;
+position:relative;
+cursor:pointer;
+box-shadow:
+0 4px 12px rgba(0,0,0,0.05);
 }
 
 .badge{
 position:absolute;
-top:-5px;
-right:-5px;
-width:20px;
-height:20px;
+top:-4px;
+right:-4px;
+width:18px;
+height:18px;
 border-radius:50%;
 background:#22C55E;
 display:flex;
 align-items:center;
 justify-content:center;
-font-size:11px;
+font-size:10px;
 font-weight:bold;
 color:#fff;
 }
@@ -127,13 +136,15 @@ SEARCH
 ========================= */
 
 .searchBox{
-height:58px;
-background:#F9FAFB;
-border-radius:20px;
+height:54px;
+background:#fff;
+border-radius:18px;
 display:flex;
 align-items:center;
 padding:0 18px;
-border:1px solid #E5E7EB;
+border:1px solid #F1F5F9;
+box-shadow:
+0 4px 12px rgba(0,0,0,0.04);
 }
 
 .searchBox i{
@@ -146,7 +157,7 @@ border:none;
 outline:none;
 background:transparent;
 width:100%;
-font-size:15px;
+font-size:14px;
 }
 
 /* =========================
@@ -154,41 +165,42 @@ MAIN
 ========================= */
 
 .main{
-padding:18px;
-padding-bottom:130px;
+padding:14px;
+padding-bottom:100px;
 }
 
 /* =========================
-FILTERS
+CATEGORY
 ========================= */
 
-.filterSlider{
+.categorySlider{
 display:flex;
-gap:14px;
+gap:10px;
 overflow-x:auto;
 padding-bottom:10px;
 scrollbar-width:none;
-margin-bottom:28px;
+margin-bottom:20px;
 }
 
-.filterSlider::-webkit-scrollbar{
+.categorySlider::-webkit-scrollbar{
 display:none;
 }
 
-.filterBtn{
-min-width:110px;
-height:48px;
-padding:0 18px;
+.categoryBtn{
+min-width:100px;
+height:42px;
+padding:0 16px;
 border:none;
-border-radius:16px;
-background:#F3F4F6;
+border-radius:14px;
+background:#F8FAFC;
+font-size:12px;
 font-weight:700;
 cursor:pointer;
 transition:0.3s;
 }
 
-.activeFilter{
-background:#FFD400 !important;
+.activeCategory{
+background:#FFD400;
 }
 
 /* =========================
@@ -197,9 +209,8 @@ GRID
 
 .serviceGrid{
 display:grid;
-grid-template-columns:
-repeat(2,1fr);
-gap:18px;
+grid-template-columns:1fr 1fr;
+gap:10px;
 }
 
 /* =========================
@@ -208,75 +219,56 @@ CARD
 
 .serviceCard{
 background:#fff;
-border-radius:30px;
-padding:22px;
+padding:14px;
+border-radius:20px;
 border:1px solid #F1F5F9;
 box-shadow:
-0 4px 12px rgba(0,0,0,0.05);
-transition:0.3s;
-position:relative;
-overflow:hidden;
+0 4px 12px rgba(0,0,0,0.04);
 }
 
-.serviceCard:hover{
-transform:translateY(-5px);
-}
-
-.topRow{
+.cardTop{
 display:flex;
 justify-content:space-between;
 align-items:center;
-margin-bottom:18px;
+margin-bottom:12px;
 }
 
-.serviceIcon{
-width:75px;
-height:75px;
-border-radius:24px;
-background:#FFF7CC;
+.productIcon{
+width:54px;
+height:54px;
+border-radius:18px;
+background:#fff;
 display:flex;
 align-items:center;
 justify-content:center;
-font-size:36px;
+font-size:24px;
+box-shadow:
+0 4px 12px rgba(0,0,0,0.05);
 }
 
 .wishlist{
-width:42px;
-height:42px;
-border-radius:14px;
-background:#F3F4F6;
+width:34px;
+height:34px;
+border-radius:12px;
+background:#fff;
+border:1px solid #F1F5F9;
 display:flex;
 align-items:center;
 justify-content:center;
+font-size:13px;
 cursor:pointer;
-transition:0.3s;
-}
-
-.wishlist:hover{
-background:#FFD400;
-}
-
-.offerBadge{
-display:inline-block;
-padding:8px 14px;
-border-radius:14px;
-background:#DCFCE7;
-color:#22C55E;
-font-size:12px;
-font-weight:700;
-margin-bottom:14px;
 }
 
 .serviceCard h2{
-font-size:22px;
-margin-bottom:10px;
+font-size:15px;
+margin-bottom:6px;
 }
 
 .serviceCard p{
-font-size:14px;
+font-size:11px;
+line-height:1.5;
 color:#666;
-line-height:1.7;
-margin-bottom:20px;
+margin-bottom:12px;
 }
 
 .priceRow{
@@ -284,147 +276,108 @@ display:flex;
 justify-content:space-between;
 align-items:center;
 gap:10px;
-margin-bottom:18px;
 }
 
 .price{
-font-size:24px;
-font-weight:800;
+font-size:17px;
+font-weight:900;
 color:#22C55E;
 }
 
-.oldPrice{
-font-size:14px;
-color:#999;
-text-decoration:line-through;
-margin-left:8px;
-}
-
-/* =========================
-QTY
-========================= */
-
-.qtyBox{
-display:flex;
-align-items:center;
-gap:12px;
-background:#F9FAFB;
-padding:8px 12px;
-border-radius:16px;
-width:max-content;
-}
-
-.qtyBtn{
-width:32px;
-height:32px;
-border:none;
-border-radius:10px;
-background:#FFD400;
-font-weight:bold;
-cursor:pointer;
-}
-
-.qtyText{
-font-weight:700;
-}
-
-/* =========================
-BUTTONS
-========================= */
-
-.actionBtns{
-display:flex;
-gap:12px;
-margin-top:18px;
-}
-
 .addBtn{
-flex:1;
-height:52px;
+height:40px;
+padding:0 12px;
 border:none;
-border-radius:18px;
+border-radius:12px;
 background:#FFD400;
+font-size:11px;
 font-weight:800;
 cursor:pointer;
 }
 
-.buyBtn{
-flex:1;
-height:52px;
-border:none;
-border-radius:18px;
+/* =========================
+EMPTY
+========================= */
+
+.emptyBox{
+padding:50px 20px;
+text-align:center;
+display:none;
+}
+
+.emptyBox h2{
+font-size:22px;
+margin-bottom:10px;
+}
+
+.emptyBox p{
+font-size:13px;
+color:#666;
+}
+
+/* =========================
+CART POPUP
+========================= */
+
+.cartPopup{
+position:fixed;
+bottom:-120px;
+left:50%;
+transform:translateX(-50%);
+width:88%;
 background:#111827;
-color:#fff;
-font-weight:800;
-cursor:pointer;
-}
-
-/* =========================
-POPUP
-========================= */
-
-.popup{
-position:fixed;
-top:30px;
-left:50%;
-transform:translateX(-50%);
-background:#22C55E;
-color:#fff;
-padding:16px 24px;
+padding:12px;
 border-radius:18px;
-font-weight:700;
-opacity:0;
-pointer-events:none;
-transition:0.3s;
-z-index:9999;
-box-shadow:
-0 10px 25px rgba(34,197,94,0.25);
-}
-
-.popup.show{
-opacity:1;
-top:80px;
-}
-
-/* =========================
-FLOATING CART
-========================= */
-
-.floatingCart{
-position:fixed;
-bottom:90px;
-left:50%;
-transform:translateX(-50%);
-width:92%;
-max-width:600px;
-background:#22C55E;
-padding:18px 22px;
-border-radius:22px;
 display:flex;
 justify-content:space-between;
 align-items:center;
+gap:10px;
+z-index:9999;
+transition:0.4s;
 box-shadow:
-0 15px 35px rgba(34,197,94,0.3);
-z-index:999;
+0 15px 35px rgba(0,0,0,0.25);
 }
 
-.cartLeft h3{
-font-size:18px;
-margin-bottom:4px;
-color:#fff;
+.showCartPopup{
+bottom:82px;
 }
 
-.cartLeft p{
+.cartPopupLeft{
+display:flex;
+align-items:center;
+gap:10px;
+}
+
+.cartPopupIcon{
+width:44px;
+height:44px;
+border-radius:14px;
+background:#FFD400;
+display:flex;
+align-items:center;
+justify-content:center;
+font-size:20px;
+}
+
+.cartPopup h3{
 font-size:13px;
 color:#fff;
+margin-bottom:4px;
 }
 
-.cartBtn{
-height:50px;
-padding:0 22px;
+.cartPopup p{
+font-size:11px;
+color:#D1D5DB;
+}
+
+.viewCartBtn{
+height:42px;
+padding:0 14px;
 border:none;
-border-radius:16px;
-background:#fff;
+border-radius:14px;
+background:#22C55E;
+color:#fff;
+font-size:12px;
 font-weight:800;
 cursor:pointer;
 }
@@ -438,27 +391,23 @@ position:fixed;
 bottom:0;
 left:0;
 width:100%;
-height:78px;
+height:68px;
 background:#fff;
 display:flex;
 justify-content:space-around;
 align-items:center;
-border-top:1px solid #E5E7EB;
+border-top:1px solid #F1F5F9;
 z-index:1000;
 }
 
 .bottomNav a{
 text-decoration:none;
-font-size:12px;
-text-align:center;
-font-weight:600;
 color:#6B7280;
+font-size:0;
 }
 
 .bottomNav i{
-display:block;
 font-size:22px;
-margin-bottom:5px;
 }
 
 .activeNav{
@@ -466,34 +415,28 @@ color:#FFD400 !important;
 }
 
 /* =========================
-RESPONSIVE
+DESKTOP
 ========================= */
 
-@media screen and (max-width:768px){
+@media screen and (min-width:768px){
+
+.main{
+max-width:1300px;
+margin:auto;
+}
 
 .serviceGrid{
-grid-template-columns:1fr 1fr;
-gap:14px;
+grid-template-columns:
+repeat(4,1fr);
 }
 
-.serviceCard{
-padding:18px;
+.bottomNav a{
+font-size:12px;
 }
 
-.serviceCard h2{
-font-size:18px;
-}
-
-.actionBtns{
-flex-direction:column;
-}
-
-}
-
-@media screen and (max-width:550px){
-
-.serviceGrid{
-grid-template-columns:1fr;
+.bottomNav i{
+display:block;
+margin-bottom:4px;
 }
 
 }
@@ -504,30 +447,13 @@ grid-template-columns:1fr;
 
 <body>
 
-<!-- POPUP -->
-
-<div
-class="popup"
-id="popup"
->
-
-Added Successfully ✅
-
-</div>
-
 <!-- TOPBAR -->
 
 <div class="topbar">
 
-<div class="topTop">
+<div class="topRow">
 
-<div
-style="
-display:flex;
-align-items:center;
-gap:14px;
-"
->
+<div class="leftTop">
 
 <button
 class="backBtn"
@@ -538,14 +464,14 @@ onclick="history.back()"
 
 </button>
 
-<div class="pageTitle">
+<div class="pageText">
 
 <h2>
 Services
 </h2>
 
 <p>
-Premium Laundry Collection
+Premium laundry collection
 </p>
 
 </div>
@@ -554,23 +480,11 @@ Premium Laundry Collection
 
 <div class="topIcons">
 
-<div
-class="iconBtn"
-onclick="
-showPopup('Wishlist Opened ❤️')
-"
->
-
+<div class="iconBtn">
 ❤️
-
 </div>
 
-<div
-class="iconBtn"
-onclick="
-showPopup('Cart Opened 🛒')
-"
->
+<div class="iconBtn">
 
 🛒
 
@@ -589,16 +503,14 @@ id="cartCount"
 
 </div>
 
-<!-- SEARCH -->
-
 <div class="searchBox">
 
 <i class="fa-solid fa-magnifying-glass"></i>
 
 <input
 type="text"
-id="searchInput"
 placeholder="Search services..."
+id="searchInput"
 />
 
 </div>
@@ -609,16 +521,18 @@ placeholder="Search services..."
 
 <div class="main">
 
-<!-- FILTER -->
+<!-- CATEGORY -->
 
 <div
-class="filterSlider"
-id="filterSlider"
+class="categorySlider"
+id="categorySlider"
 >
 
 <button
-class="filterBtn activeFilter"
-onclick="filterCategory('all',this)"
+class="categoryBtn activeCategory"
+onclick="
+filterCategory('all',this)
+"
 >
 
 All
@@ -626,8 +540,10 @@ All
 </button>
 
 <button
-class="filterBtn"
-onclick="filterCategory('Ironing',this)"
+class="categoryBtn"
+onclick="
+filterCategory('Ironing',this)
+"
 >
 
 Ironing
@@ -635,8 +551,10 @@ Ironing
 </button>
 
 <button
-class="filterBtn"
-onclick="filterCategory('Wash',this)"
+class="categoryBtn"
+onclick="
+filterCategory('Wash',this)
+"
 >
 
 Wash
@@ -644,8 +562,10 @@ Wash
 </button>
 
 <button
-class="filterBtn"
-onclick="filterCategory('Dry Clean',this)"
+class="categoryBtn"
+onclick="
+filterCategory('Dry Clean',this)
+"
 >
 
 Dry Clean
@@ -653,11 +573,13 @@ Dry Clean
 </button>
 
 <button
-class="filterBtn"
-onclick="filterCategory('Shoes',this)"
+class="categoryBtn"
+onclick="
+filterCategory('Steam',this)
+"
 >
 
-Shoes
+Steam
 
 </button>
 
@@ -672,32 +594,60 @@ id="serviceGrid"
 
 </div>
 
-</div>
+<!-- EMPTY -->
 
-<!-- FLOATING CART -->
+<div
+class="emptyBox"
+id="emptyBox"
+>
 
-<div class="floatingCart">
+<h2>
+No Services Found
+</h2>
 
-<div class="cartLeft">
-
-<h3 id="totalItems">
-0 Items Added
-</h3>
-
-<p id="totalPrice">
-Total ₹0
+<p>
+Admin has not added products yet
 </p>
 
 </div>
 
+</div>
+
+<!-- CART POPUP -->
+
+<div
+class="cartPopup"
+id="cartPopup"
+>
+
+<div class="cartPopupLeft">
+
+<div class="cartPopupIcon">
+🛒
+</div>
+
+<div>
+
+<h3>
+Added To Cart
+</h3>
+
+<p>
+Item added successfully
+</p>
+
+</div>
+
+</div>
+
 <button
-class="cartBtn"
+class="viewCartBtn"
 onclick="
 window.location.href='cart.html'
 "
 >
 
-View Cart →
+View
 
 </button>
 
@@ -752,217 +702,173 @@ Profile
 
 </div>
 
-<script>
+<!-- FIREBASE -->
+
+<script type="module">
 
 /* =========================
-POPUP
+IMPORTS
 ========================= */
 
-function showPopup(text){
+import {
 
-const popup =
-document.getElementById(
-"popup"
-);
-
-popup.innerHTML = text;
-
-popup.classList.add(
-"show"
-);
-
-setTimeout(()=>{
-
-popup.classList.remove(
-"show"
-);
-
-},1000);
+db
 
 }
 
-/* =========================
-SERVICES
-========================= */
+from "../firebase.js";
 
-const services = [
+import {
 
-{
-id:1,
-icon:"👔",
-name:"Formal Shirt",
-category:"Ironing",
-price:29,
-oldPrice:49,
-desc:"Premium steam ironing"
-},
+collection,
+getDocs
 
-{
-id:2,
-icon:"👕",
-name:"T-Shirt",
-category:"Ironing",
-price:19,
-oldPrice:39,
-desc:"Cotton ironing service"
-},
-
-{
-id:3,
-icon:"👖",
-name:"Jeans",
-category:"Ironing",
-price:39,
-oldPrice:59,
-desc:"Denim ironing care"
-},
-
-{
-id:4,
-icon:"🧺",
-name:"Wash & Fold",
-category:"Wash",
-price:49,
-oldPrice:69,
-desc:"Premium washing care"
-},
-
-{
-id:5,
-icon:"🧼",
-name:"Wash Only",
-category:"Wash",
-price:39,
-oldPrice:59,
-desc:"Deep cleaning wash"
-},
-
-{
-id:6,
-icon:"✨",
-name:"Blazer Dry Clean",
-category:"Dry Clean",
-price:199,
-oldPrice:249,
-desc:"Luxury fabric cleaning"
-},
-
-{
-id:7,
-icon:"🧥",
-name:"Jacket Dry Clean",
-category:"Dry Clean",
-price:249,
-oldPrice:299,
-desc:"Premium dry cleaning"
-},
-
-{
-id:8,
-icon:"👟",
-name:"Sneaker Cleaning",
-category:"Shoes",
-price:199,
-oldPrice:249,
-desc:"Deep sneaker cleaning"
 }
 
-];
+from
+
+"https://www.gstatic.com/firebasejs/12.11.0/firebase-firestore.js";
 
 /* =========================
-STATE
-========================= */
-
-let cart = [];
-let currentCategory = "all";
-
-/* =========================
-RENDER
+ELEMENTS
 ========================= */
 
 const serviceGrid =
+
 document.getElementById(
 "serviceGrid"
 );
 
-function renderServices(data){
+const emptyBox =
+
+document.getElementById(
+"emptyBox"
+);
+
+/* =========================
+LOCAL CART
+========================= */
+
+let cart =
+
+JSON.parse(
+localStorage.getItem("cart")
+) || [];
+
+document.getElementById(
+"cartCount"
+).innerHTML = cart.length;
+
+/* =========================
+ALL PRODUCTS
+========================= */
+
+let allProducts = [];
+
+/* =========================
+LOAD PRODUCTS
+========================= */
+
+async function loadProducts(){
+
+serviceGrid.innerHTML = "";
+
+const querySnapshot =
+
+await getDocs(
+
+collection(db,"services")
+
+);
+
+allProducts = [];
+
+querySnapshot.forEach((doc)=>{
+
+allProducts.push({
+
+id:doc.id,
+
+...doc.data()
+
+});
+
+});
+
+renderProducts(allProducts);
+
+}
+
+loadProducts();
+
+/* =========================
+RENDER PRODUCTS
+========================= */
+
+function renderProducts(products){
+
+if(products.length === 0){
+
+serviceGrid.style.display =
+"none";
+
+emptyBox.style.display =
+"block";
+
+return;
+
+}
+
+serviceGrid.style.display =
+"grid";
+
+emptyBox.style.display =
+"none";
 
 let html = "";
 
-data.forEach((service)=>{
+products.forEach((product)=>{
 
 html += `
 
 <div class="serviceCard">
 
-<div class="topRow">
+<div class="cardTop">
 
-<div class="serviceIcon">
-${service.icon}
+<div class="productIcon">
+${product.icon || "👕"}
 </div>
 
-<div
-class="wishlist"
-onclick="
-showPopup('Added to Wishlist ❤️')
-"
->
-
+<div class="wishlist">
 ❤️
-
 </div>
 
-</div>
-
-<div class="offerBadge">
-20% OFF
 </div>
 
 <h2>
-${service.name}
+${product.name}
 </h2>
 
 <p>
-${service.desc}
+${product.desc}
 </p>
 
 <div class="priceRow">
 
-<div>
-
-<span class="price">
-₹${service.price}
-</span>
-
-<span class="oldPrice">
-₹${service.oldPrice}
-</span>
-
+<div class="price">
+₹${product.price}
 </div>
-
-</div>
-
-<div class="actionBtns">
 
 <button
 class="addBtn"
-onclick="
-addToCart(${service.id})
-"
+onclick='
+addToCart(
+${JSON.stringify(product)}
+)
+'
 >
 
-ADD TO CART
-
-</button>
-
-<button
-class="buyBtn"
-onclick="
-buyNow('${service.name}')
-"
->
-
-BUY NOW
+ADD
 
 </button>
 
@@ -978,38 +884,32 @@ serviceGrid.innerHTML = html;
 
 }
 
-renderServices(services);
-
 /* =========================
-CATEGORY FILTER
+FILTER CATEGORY
 ========================= */
 
-function filterCategory(
-category,
-element
-){
-
-currentCategory = category;
+window.filterCategory =
+function(category,button){
 
 document
 .querySelectorAll(
-".filterBtn"
+".categoryBtn"
 )
 .forEach((btn)=>{
 
 btn.classList.remove(
-"activeFilter"
+"activeCategory"
 );
 
 });
 
-element.classList.add(
-"activeFilter"
+button.classList.add(
+"activeCategory"
 );
 
 if(category === "all"){
 
-renderServices(services);
+renderProducts(allProducts);
 
 return;
 
@@ -1017,15 +917,15 @@ return;
 
 const filtered =
 
-services.filter((item)=>
+allProducts.filter((item)=>
 
 item.category === category
 
 );
 
-renderServices(filtered);
+renderProducts(filtered);
 
-}
+};
 
 /* =========================
 SEARCH
@@ -1040,24 +940,12 @@ document
 (e)=>{
 
 const value =
+
 e.target.value.toLowerCase();
 
-let filtered =
-services;
+const filtered =
 
-if(currentCategory !== "all"){
-
-filtered =
-filtered.filter((item)=>
-
-item.category === currentCategory
-
-);
-
-}
-
-filtered =
-filtered.filter((item)=>
+allProducts.filter((item)=>
 
 item.name
 .toLowerCase()
@@ -1065,7 +953,7 @@ item.name
 
 );
 
-renderServices(filtered);
+renderProducts(filtered);
 
 }
 );
@@ -1074,67 +962,50 @@ renderServices(filtered);
 ADD TO CART
 ========================= */
 
-function addToCart(id){
-
-const product =
-
-services.find((item)=>
-
-item.id === id
-
-);
+window.addToCart =
+function(product){
 
 cart.push(product);
 
-updateCart();
+localStorage.setItem(
 
-showPopup(
-`${product.name} Added 🛒`
+"cart",
+
+JSON.stringify(cart)
+
 );
-
-}
-
-/* =========================
-BUY NOW
-========================= */
-
-function buyNow(name){
-
-showPopup(
-`${name} Ready To Checkout ⚡`
-);
-
-}
-
-/* =========================
-UPDATE CART
-========================= */
-
-function updateCart(){
 
 document.getElementById(
 "cartCount"
 ).innerHTML = cart.length;
 
-document.getElementById(
-"totalItems"
-).innerHTML =
+updateCartPopup();
 
-`${cart.length} Items Added`;
+};
 
-let total = 0;
+/* =========================
+CART POPUP
+========================= */
 
-cart.forEach((item)=>{
+function updateCartPopup(){
 
-total += item.price;
-
-});
+const popup =
 
 document.getElementById(
-"totalPrice"
-).innerHTML =
+"cartPopup"
+);
 
-`Total ₹${total}`;
+popup.classList.add(
+"showCartPopup"
+);
+
+setTimeout(()=>{
+
+popup.classList.remove(
+"showCartPopup"
+);
+
+},2000);
 
 }
 
@@ -1143,24 +1014,29 @@ URL CATEGORY
 ========================= */
 
 const params =
+
 new URLSearchParams(
 window.location.search
 );
 
 const category =
+
 params.get("category");
 
 if(category){
 
-const btns =
+setTimeout(()=>{
+
+const buttons =
+
 document.querySelectorAll(
-".filterBtn"
+".categoryBtn"
 );
 
-btns.forEach((btn)=>{
+buttons.forEach((btn)=>{
 
 if(
-btn.innerHTML.trim() === category
+btn.innerText === category
 ){
 
 btn.click();
@@ -1168,6 +1044,8 @@ btn.click();
 }
 
 });
+
+},1000);
 
 }
 
