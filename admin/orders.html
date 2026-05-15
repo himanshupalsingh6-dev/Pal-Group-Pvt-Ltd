@@ -2,10 +2,11 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8">
+
 <meta name="viewport"
 content="width=device-width, initial-scale=1.0">
 
-<title>QuickPress Orders</title>
+<title>QuickPress Advanced Orders</title>
 
 <link rel="stylesheet"
 href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css"/>
@@ -26,14 +27,13 @@ background:#F5F7FB;
 /* SIDEBAR */
 
 .sidebar{
-width:270px;
+width:260px;
 background:#111827;
-color:#fff;
-padding:24px 18px;
 position:fixed;
 left:0;
 top:0;
 height:100%;
+padding:24px 18px;
 overflow:auto;
 z-index:999;
 }
@@ -41,8 +41,8 @@ z-index:999;
 .logo{
 font-size:30px;
 font-weight:900;
-margin-bottom:40px;
 color:#FFD400;
+margin-bottom:40px;
 }
 
 .menu{
@@ -60,7 +60,7 @@ display:flex;
 align-items:center;
 gap:14px;
 font-size:15px;
-font-weight:600;
+font-weight:700;
 transition:0.3s;
 }
 
@@ -73,7 +73,7 @@ color:#fff;
 /* MAIN */
 
 .main{
-margin-left:270px;
+margin-left:260px;
 padding:24px;
 }
 
@@ -83,8 +83,8 @@ padding:24px;
 display:flex;
 justify-content:space-between;
 align-items:center;
-margin-bottom:24px;
 gap:16px;
+margin-bottom:24px;
 }
 
 .topbar h1{
@@ -138,6 +138,7 @@ display:flex;
 gap:12px;
 overflow:auto;
 margin-bottom:24px;
+padding-bottom:4px;
 }
 
 .filterBtn{
@@ -160,131 +161,195 @@ color:#fff;
 
 .ordersGrid{
 display:grid;
-grid-template-columns:1fr 1fr;
-gap:18px;
+grid-template-columns:repeat(3,1fr);
+gap:16px;
 }
+
+/* CARD */
 
 .orderCard{
 background:#fff;
-padding:24px;
-border-radius:28px;
+border-radius:26px;
+padding:18px;
 box-shadow:0 10px 30px rgba(0,0,0,0.05);
 }
 
-.orderTop{
+/* TOP */
+
+.miniTop{
 display:flex;
 justify-content:space-between;
 align-items:center;
-margin-bottom:18px;
+margin-bottom:16px;
 }
 
-.userBox{
+.miniLeft{
 display:flex;
 align-items:center;
-gap:14px;
+gap:12px;
 }
 
 .avatar{
-width:70px;
-height:70px;
-border-radius:22px;
+width:58px;
+height:58px;
+border-radius:18px;
 background:#FFD400;
 display:flex;
 align-items:center;
 justify-content:center;
-font-size:28px;
+font-size:22px;
 font-weight:900;
 }
 
-.userInfo h3{
-font-size:20px;
-margin-bottom:4px;
+.miniLeft h3{
+font-size:17px;
+margin-bottom:3px;
 }
 
-.userInfo p{
-font-size:13px;
+.miniLeft p{
+font-size:12px;
 color:#6B7280;
 }
 
-.status{
-padding:10px 14px;
-border-radius:14px;
-font-size:12px;
-font-weight:800;
+.miniStatus{
+padding:8px 12px;
+border-radius:12px;
 background:#DCFCE7;
-color:#166534;
+font-size:11px;
+font-weight:800;
 }
 
-/* DETAILS */
+/* MINI INFO */
 
-.details{
+.miniInfo{
+display:grid;
+grid-template-columns:1fr 1fr 1fr;
+gap:10px;
+margin-bottom:16px;
+}
+
+.miniInfo div{
+background:#F9FAFB;
+padding:12px;
+border-radius:14px;
+font-size:13px;
+font-weight:700;
+text-align:center;
+}
+
+/* BUTTONS */
+
+.miniBtns{
+display:grid;
+grid-template-columns:1fr 1fr;
+gap:10px;
+}
+
+.viewBtn,
+.callBtn{
+height:48px;
+border:none;
+border-radius:16px;
+font-size:13px;
+font-weight:800;
+display:flex;
+align-items:center;
+justify-content:center;
+text-decoration:none;
+cursor:pointer;
+}
+
+.viewBtn{
+background:#111827;
+color:#fff;
+}
+
+.callBtn{
+background:#FFD400;
+color:#111827;
+}
+
+/* DETAIL */
+
+.fullDetail{
+display:none;
+margin-top:18px;
+padding-top:18px;
+border-top:1px solid #F3F4F6;
+}
+
+.fullDetail.active{
+display:block;
+}
+
+.detailGrid{
+display:grid;
+grid-template-columns:1fr 1fr;
+gap:12px;
 margin-bottom:18px;
 }
 
-.detailRow{
-display:flex;
-justify-content:space-between;
-margin-bottom:12px;
-gap:10px;
-font-size:14px;
+.detailItem{
+background:#F9FAFB;
+padding:14px;
+border-radius:16px;
 }
 
-.detailRow span:last-child{
+.detailItem span{
+display:block;
+font-size:12px;
+color:#6B7280;
+margin-bottom:5px;
+}
+
+.detailItem b{
+font-size:13px;
+}
+
+/* CALLS */
+
+.callGrid{
+display:grid;
+grid-template-columns:1fr 1fr 1fr;
+gap:10px;
+margin-bottom:14px;
+}
+
+.callAction{
+height:46px;
+background:#111827;
+color:#fff;
+border-radius:14px;
+display:flex;
+align-items:center;
+justify-content:center;
+gap:8px;
+font-size:12px;
 font-weight:700;
-text-align:right;
+text-decoration:none;
 }
 
 /* SELECT */
 
 .selectBox{
 width:100%;
-height:56px;
+height:52px;
 border:none;
 outline:none;
 background:#F3F4F6;
-border-radius:18px;
-padding:0 18px;
-font-size:15px;
-margin-bottom:14px;
-}
-
-/* BUTTONS */
-
-.btnGrid{
-display:grid;
-grid-template-columns:1fr 1fr;
-gap:12px;
-margin-top:12px;
-}
-
-.actionBtn{
-height:54px;
-border:none;
-border-radius:18px;
-font-size:14px;
-font-weight:800;
-cursor:pointer;
-}
-
-.acceptBtn{
-background:#111827;
-color:#fff;
-}
-
-.rejectBtn{
-background:#FEE2E2;
-color:#DC2626;
+border-radius:16px;
+padding:0 16px;
+margin-bottom:12px;
 }
 
 .updateBtn{
 width:100%;
-height:56px;
+height:54px;
 border:none;
-border-radius:18px;
+border-radius:16px;
 background:#FFD400;
-font-size:15px;
+font-size:14px;
 font-weight:900;
-margin-top:14px;
 cursor:pointer;
 }
 
@@ -294,14 +359,18 @@ cursor:pointer;
 display:none;
 }
 
-@media(max-width:1100px){
+@media(max-width:1200px){
 
-.statsGrid{
+.ordersGrid{
 grid-template-columns:1fr 1fr;
 }
 
-.ordersGrid{
-grid-template-columns:1fr;
+}
+
+@media(max-width:900px){
+
+.statsGrid{
+grid-template-columns:1fr 1fr;
 }
 
 }
@@ -340,7 +409,19 @@ justify-content:center;
 z-index:1000;
 }
 
+.ordersGrid{
+grid-template-columns:1fr;
+}
+
 .statsGrid{
+grid-template-columns:1fr;
+}
+
+.detailGrid{
+grid-template-columns:1fr;
+}
+
+.callGrid{
 grid-template-columns:1fr;
 }
 
@@ -437,6 +518,10 @@ Offers
 Notifications
 </a>
 
+<a href="withdrawal.html">
+<i class="fa-solid fa-money-bill-transfer"></i>
+Withdrawals
+</a>
 
 <a href="settings.html">
 <i class="fa-solid fa-gear"></i>
@@ -463,7 +548,6 @@ Orders
 type="text"
 placeholder="Search order..."
 class="searchBox"
-id="searchInput"
 />
 
 </div>
@@ -473,43 +557,55 @@ id="searchInput"
 <div class="statsGrid">
 
 <div class="statCard">
+
 <div class="statTitle">
 Total Orders
 </div>
+
 <div class="statValue"
 id="totalOrders">
 0
 </div>
+
 </div>
 
 <div class="statCard">
+
 <div class="statTitle">
 Revenue
 </div>
+
 <div class="statValue"
 id="totalRevenue">
 ₹0
 </div>
+
 </div>
 
 <div class="statCard">
+
 <div class="statTitle">
-Pending Orders
+Pending
 </div>
+
 <div class="statValue"
 id="pendingOrders">
 0
 </div>
+
 </div>
 
 <div class="statCard">
+
 <div class="statTitle">
-Running Orders
+Running
 </div>
+
 <div class="statValue"
 id="runningOrders">
 0
 </div>
+
 </div>
 
 </div>
@@ -548,6 +644,26 @@ onclick="filterOrders('Delivered')">
 Delivered
 </button>
 
+<button class="filterBtn"
+onclick="filterOrders('Today')">
+Today
+</button>
+
+<button class="filterBtn"
+onclick="filterOrders('7 Days')">
+7 Days
+</button>
+
+<button class="filterBtn"
+onclick="filterOrders('15 Days')">
+15 Days
+</button>
+
+<button class="filterBtn"
+onclick="filterOrders('Month')">
+Month
+</button>
+
 </div>
 
 <!-- ORDERS -->
@@ -584,6 +700,21 @@ from
 
 let allOrders = [];
 
+window.partnerOptions = "";
+window.riderOptions = "";
+
+const statusFlow = [
+
+"Order Placed",
+"Pickup Assigned",
+"Picked Up",
+"Ironing Started",
+"Ironing Complete",
+"Out For Delivery",
+"Delivered"
+
+];
+
 /* LOAD */
 
 async function loadOrders(){
@@ -608,15 +739,15 @@ await getDocs(
 collection(db,"riders")
 );
 
-let partnerOptions = "";
-let riderOptions = "";
+window.partnerOptions = "";
+window.riderOptions = "";
 
 partnersSnap.forEach((doc)=>{
 
 const partner =
 doc.data();
 
-partnerOptions += `
+window.partnerOptions += `
 
 <option value="${partner.name}">
 ${partner.name}
@@ -632,7 +763,7 @@ ridersSnap.forEach((doc)=>{
 const rider =
 doc.data();
 
-riderOptions += `
+window.riderOptions += `
 
 <option value="${rider.name}">
 ${rider.name}
@@ -665,14 +796,6 @@ totalRevenue +=
 order.total || 0;
 
 if(
-order.status !== "Delivered"
-){
-
-running++;
-
-}
-
-if(
 order.status === "Order Placed"
 ){
 
@@ -680,19 +803,22 @@ pending++;
 
 }
 
+if(
+order.status !== "Delivered"
+){
+
+running++;
+
+}
+
 html += createOrderCard(
 docSnap.id,
-order,
-partnerOptions,
-riderOptions
+order
 );
 
 });
 
-document.getElementById(
-"ordersGrid"
-).innerHTML =
-html;
+ordersGrid.innerHTML = html;
 
 document.getElementById(
 "totalOrders"
@@ -722,18 +848,16 @@ loadOrders();
 
 function createOrderCard(
 id,
-order,
-partnerOptions,
-riderOptions
+order
 ){
 
 return `
 
 <div class="orderCard">
 
-<div class="orderTop">
+<div class="miniTop">
 
-<div class="userBox">
+<div class="miniLeft">
 
 <div class="avatar">
 ${order.name
@@ -741,77 +865,138 @@ ${order.name
 : "U"}
 </div>
 
-<div class="userInfo">
+<div>
 
 <h3>
 ${order.name || ""}
 </h3>
 
 <p>
-${order.phone || ""}
+#${id.slice(0,6)}
 </p>
 
 </div>
 
 </div>
 
-<div class="status">
+<div class="miniStatus">
 ${order.status || ""}
 </div>
 
 </div>
 
-<div class="details">
+<div class="miniInfo">
 
-<div class="detailRow">
-<span>Order Total</span>
-<span>₹${order.total || 0}</span>
+<div>
+₹${order.total || 0}
 </div>
 
-<div class="detailRow">
+<div>
+${order.city || ""}
+</div>
+
+<div>
+${order.items?.length || 0} Items
+</div>
+
+</div>
+
+<div class="miniBtns">
+
+<button
+class="viewBtn"
+onclick="openOrder('${id}')">
+
+View
+
+</button>
+
+<a
+href="tel:${order.phone || ""}"
+class="callBtn">
+
+Customer
+
+</a>
+
+</div>
+
+<div
+class="fullDetail"
+id="detail-${id}">
+
+<div class="detailGrid">
+
+<div class="detailItem">
+<span>Mobile</span>
+<b>${order.phone || ""}</b>
+</div>
+
+<div class="detailItem">
 <span>Address</span>
-<span>${order.address || ""}</span>
+<b>${order.address || ""}</b>
 </div>
 
-<div class="detailRow">
+<div class="detailItem">
 <span>City</span>
-<span>${order.city || ""}</span>
+<b>${order.city || ""}</b>
 </div>
 
-<div class="detailRow">
+<div class="detailItem">
 <span>Pickup Time</span>
-<span>${order.pickupTime || ""}</span>
+<b>${order.pickupTime || ""}</b>
 </div>
 
-<div class="detailRow">
-<span>Placed By</span>
-<span>${order.name || ""}</span>
+<div class="detailItem">
+<span>Partner</span>
+<b>${order.partnerName || "Pending"}</b>
 </div>
 
-<div class="detailRow">
-<span>Assigned Partner</span>
-<span>${order.partnerName || "Not Assigned"}</span>
+<div class="detailItem">
+<span>Pickup By</span>
+<b>${order.pickupBy || "Pending"}</b>
 </div>
 
-<div class="detailRow">
-<span>Assigned Rider</span>
-<span>${order.riderName || "Not Assigned"}</span>
-</div>
-
-<div class="detailRow">
+<div class="detailItem">
 <span>Delivery By</span>
-<span>${order.deliveryBy || "Pending"}</span>
+<b>${order.deliveryBy || "Pending"}</b>
 </div>
 
-<div class="detailRow">
-<span>Order Time</span>
-<span>${order.createdAt?.seconds
-? new Date(
-order.createdAt.seconds * 1000
-).toLocaleString()
-: "N/A"}
-</span>
+<div class="detailItem">
+<span>Status</span>
+<b>${order.status || ""}</b>
 </div>
+
+</div>
+
+<div class="callGrid">
+
+<a
+href="tel:${order.phone || ""}"
+class="callAction">
+
+<i class="fa-solid fa-phone"></i>
+Customer
+
+</a>
+
+<a
+href="tel:${order.riderPhone || ""}"
+class="callAction">
+
+<i class="fa-solid fa-motorcycle"></i>
+Rider
+
+</a>
+
+<a
+href="tel:${order.partnerPhone || ""}"
+class="callAction">
+
+<i class="fa-solid fa-store"></i>
+Partner
+
+</a>
 
 </div>
 
@@ -819,11 +1004,11 @@ order.createdAt.seconds * 1000
 class="selectBox"
 id="partner-${id}">
 
-<option>
+<option value="">
 Assign Partner
 </option>
 
-${partnerOptions}
+${window.partnerOptions}
 
 </select>
 
@@ -831,11 +1016,11 @@ ${partnerOptions}
 class="selectBox"
 id="rider-${id}">
 
-<option>
+<option value="">
 Assign Rider
 </option>
 
-${riderOptions}
+${window.riderOptions}
 
 </select>
 
@@ -843,37 +1028,17 @@ ${riderOptions}
 class="selectBox"
 id="status-${id}">
 
-<option value="Order Placed">
-Order Placed
+<option value="">
+Update Status
 </option>
 
-<option value="Pickup Assigned">
-Pickup Assigned
+${statusFlow.map(status=>`
+
+<option value="${status}">
+${status}
 </option>
 
-<option value="Picked Up">
-Picked Up
-</option>
-
-<option value="Ironing Started">
-Ironing Started
-</option>
-
-<option value="Ironing Complete">
-Ironing Complete
-</option>
-
-<option value="Out For Delivery">
-Out For Delivery
-</option>
-
-<option value="Delivered">
-Delivered
-</option>
-
-<option value="Cancelled">
-Cancelled
-</option>
+`).join("")}
 
 </select>
 
@@ -885,24 +1050,6 @@ Update Order
 
 </button>
 
-<div class="btnGrid">
-
-<button
-class="actionBtn acceptBtn"
-onclick="acceptOrder('${id}')">
-
-Accept
-
-</button>
-
-<button
-class="actionBtn rejectBtn"
-onclick="rejectOrder('${id}')">
-
-Reject
-
-</button>
-
 </div>
 
 </div>
@@ -911,10 +1058,26 @@ Reject
 
 }
 
+/* VIEW */
+
+window.openOrder =
+function(id){
+
+document
+.getElementById(
+`detail-${id}`
+)
+.classList.toggle("active");
+
+};
+
 /* UPDATE */
 
 window.updateOrder =
 async function(id){
+
+const order =
+allOrders.find(o=>o.id===id);
 
 const partner =
 document.getElementById(
@@ -931,6 +1094,58 @@ document.getElementById(
 `status-${id}`
 ).value;
 
+/* LOCK */
+
+if(
+order.status === "Delivered"
+){
+
+alert(
+"Delivered order locked"
+);
+
+return;
+
+}
+
+/* REQUIRE */
+
+if(
+!partner ||
+!rider
+){
+
+alert(
+"Assign partner & rider first"
+);
+
+return;
+
+}
+
+const currentIndex =
+statusFlow.indexOf(
+order.status
+);
+
+const newIndex =
+statusFlow.indexOf(
+status);
+
+/* BACK BLOCK */
+
+if(
+newIndex < currentIndex
+){
+
+alert(
+"Cannot move backward"
+);
+
+return;
+
+}
+
 await updateDoc(
 
 doc(db,"orders",id),
@@ -939,7 +1154,17 @@ doc(db,"orders",id),
 
 partnerName:partner,
 riderName:rider,
-deliveryBy:rider,
+
+pickupBy:
+newIndex >= 2
+? rider
+: "",
+
+deliveryBy:
+newIndex >= 5
+? rider
+: "",
+
 status:status
 
 }
@@ -954,83 +1179,10 @@ loadOrders();
 
 };
 
-/* ACCEPT */
-
-window.acceptOrder =
-async function(id){
-
-await updateDoc(
-
-doc(db,"orders",id),
-
-{
-
-status:"Pickup Assigned"
-
-}
-
-);
-
-alert(
-"Order Accepted"
-);
-
-loadOrders();
-
-};
-
-/* REJECT */
-
-window.rejectOrder =
-async function(id){
-
-await updateDoc(
-
-doc(db,"orders",id),
-
-{
-
-status:"Cancelled"
-
-}
-
-);
-
-alert(
-"Order Cancelled"
-);
-
-loadOrders();
-
-};
-
 /* FILTER */
 
 window.filterOrders =
-function(status){
-
-const buttons =
-document.querySelectorAll(
-".filterBtn"
-);
-
-buttons.forEach((btn)=>{
-
-btn.classList.remove("active");
-
-if(
-btn.innerText === status ||
-(
-status === "All" &&
-btn.innerText === "All"
-)
-){
-
-btn.classList.add("active");
-
-}
-
-});
+function(type){
 
 const ordersGrid =
 document.getElementById(
@@ -1041,19 +1193,60 @@ let html = "";
 
 allOrders.forEach((order)=>{
 
+const orderDate =
+order.createdAt?.seconds
+? new Date(
+order.createdAt.seconds*1000
+)
+: new Date();
+
+const now =
+new Date();
+
+const diff =
+Math.floor(
+(now-orderDate)
+/
+(1000*60*60*24)
+);
+
 if(
-status === "All" ||
-order.status === status
-){
+type==="Today" &&
+diff!==0
+)return;
+
+if(
+type==="7 Days" &&
+diff>7
+)return;
+
+if(
+type==="15 Days" &&
+diff>15
+)return;
+
+if(
+type==="Month" &&
+diff>30
+)return;
+
+if(
+
+type!=="All" &&
+[
+"Today",
+"7 Days",
+"15 Days",
+"Month"
+].includes(type)===false &&
+order.status!==type
+
+)return;
 
 html += createOrderCard(
 order.id,
-order,
-"",
-""
+order
 );
-
-}
 
 });
 
