@@ -11,7 +11,7 @@ content="width=device-width, initial-scale=1.0"
 />
 
 <title>
-QuickPress Checkout
+QuickPress Tracking
 </title>
 
 <link
@@ -92,10 +92,10 @@ MAIN
 
 .main{
 width:100%;
-max-width:1200px;
+max-width:900px;
 margin:auto;
 padding:16px;
-padding-bottom:240px;
+padding-bottom:120px;
 }
 
 /* =========================
@@ -119,84 +119,131 @@ margin-bottom:18px;
 }
 
 /* =========================
-ADDRESS
+ORDER HEADER
 ========================= */
 
-.addressBox{
+.orderHeader{
 display:flex;
-gap:14px;
-align-items:flex-start;
-}
-
-.addressIcon{
-width:56px;
-height:56px;
-border-radius:18px;
-background:#FFF7CC;
-display:flex;
+justify-content:space-between;
 align-items:center;
-justify-content:center;
-font-size:24px;
-flex-shrink:0;
+gap:12px;
+margin-bottom:18px;
 }
 
-.addressContent h3{
-font-size:16px;
-margin-bottom:6px;
-}
-
-.addressContent p{
-font-size:13px;
-line-height:1.7;
-color:#6B7280;
-margin-bottom:10px;
-}
-
-.changeBtn{
-height:42px;
-padding:0 16px;
-border:none;
+.orderId{
+padding:10px 16px;
 border-radius:14px;
-background:#111827;
-color:#fff;
+background:#FFF7CC;
 font-size:12px;
 font-weight:800;
-cursor:pointer;
+}
+
+.status{
+padding:10px 16px;
+border-radius:14px;
+font-size:12px;
+font-weight:800;
+}
+
+.pending{
+background:#FEF3C7;
+color:#92400E;
+}
+
+.processing{
+background:#DBEAFE;
+color:#1D4ED8;
+}
+
+.completed{
+background:#DCFCE7;
+color:#166534;
 }
 
 /* =========================
-INPUT
+DETAILS
 ========================= */
 
-.inputGroup{
-margin-bottom:16px;
+.detailGrid{
+display:grid;
+grid-template-columns:
+1fr 1fr;
+gap:14px;
 }
 
-.inputGroup label{
-display:block;
-font-size:13px;
-font-weight:700;
+.detailBox{
+background:#F8FAFC;
+padding:16px;
+border-radius:18px;
+}
+
+.detailBox h4{
+font-size:12px;
+color:#6B7280;
 margin-bottom:8px;
 }
 
-.inputGroup input,
-.inputGroup textarea{
-width:100%;
-border:none;
-outline:none;
-background:#F8FAFC;
-border-radius:16px;
-padding:16px;
-font-size:14px;
-}
-
-.inputGroup textarea{
-height:100px;
-resize:none;
+.detailBox p{
+font-size:15px;
+font-weight:700;
+line-height:1.7;
 }
 
 /* =========================
-ORDER ITEMS
+TIMELINE
+========================= */
+
+.timeline{
+margin-top:10px;
+}
+
+.timelineItem{
+display:flex;
+gap:14px;
+position:relative;
+padding-bottom:24px;
+}
+
+.timelineItem:last-child{
+padding-bottom:0;
+}
+
+.timelineLine{
+position:absolute;
+left:10px;
+top:26px;
+width:3px;
+height:100%;
+background:#E5E7EB;
+}
+
+.timelineDot{
+width:22px;
+height:22px;
+border-radius:50%;
+background:#E5E7EB;
+z-index:2;
+flex-shrink:0;
+margin-top:2px;
+}
+
+.activeDot{
+background:#22C55E;
+}
+
+.timelineContent h3{
+font-size:15px;
+margin-bottom:4px;
+}
+
+.timelineContent p{
+font-size:12px;
+line-height:1.7;
+color:#6B7280;
+}
+
+/* =========================
+ITEMS
 ========================= */
 
 .orderItem{
@@ -216,14 +263,14 @@ gap:12px;
 }
 
 .itemIcon{
-width:48px;
-height:48px;
+width:50px;
+height:50px;
 border-radius:16px;
 background:#fff;
 display:flex;
 align-items:center;
 justify-content:center;
-font-size:22px;
+font-size:24px;
 box-shadow:
 0 4px 12px rgba(0,0,0,0.05);
 }
@@ -238,184 +285,48 @@ margin-bottom:6px;
 }
 
 /* =========================
-PAYMENT
+MAP
 ========================= */
 
-.paymentOption{
-display:flex;
-justify-content:space-between;
-align-items:center;
-padding:16px;
-border-radius:18px;
-background:#F8FAFC;
-margin-bottom:12px;
-cursor:pointer;
-border:2px solid transparent;
+.mapBox{
+height:240px;
+border-radius:24px;
+overflow:hidden;
+background:#E5E7EB;
+position:relative;
 }
 
-.activePayment{
-border-color:#FFD400;
-background:#FFF9D9;
+.mapBox iframe{
+width:100%;
+height:100%;
+border:none;
 }
 
-.paymentLeft{
-display:flex;
-align-items:center;
-gap:14px;
-}
-
-.paymentIcon{
-width:50px;
-height:50px;
-border-radius:16px;
-background:#fff;
-display:flex;
-align-items:center;
-justify-content:center;
-font-size:22px;
-}
-
-/* =========================
-BILL
-========================= */
-
-.billRow{
-display:flex;
-justify-content:space-between;
-align-items:center;
-margin-bottom:14px;
-}
-
-.billRow h4{
-font-size:13px;
-color:#6B7280;
-}
-
-.billRow h3{
-font-size:15px;
-font-weight:800;
-}
-
-.totalRow{
-padding-top:14px;
-border-top:
-1px dashed #CBD5E1;
-margin-top:10px;
-}
-
-.totalRow h2{
-font-size:24px;
-font-weight:900;
+.liveTag{
+position:absolute;
+top:14px;
+left:14px;
+padding:8px 12px;
+border-radius:12px;
+background:#111827;
+color:#fff;
+font-size:11px;
+font-weight:700;
+z-index:2;
 }
 
 /* =========================
 BOTTOM
 ========================= */
 
-.bottomBar{
-position:fixed;
-bottom:0;
-left:0;
+.supportBtn{
 width:100%;
-padding:14px;
-background:#fff;
-border-top:
-1px solid #EEF2F7;
-z-index:1000;
-}
-
-.bottomContent{
-max-width:1200px;
-margin:auto;
-display:flex;
-justify-content:space-between;
-align-items:center;
-gap:14px;
-}
-
-.totalBox h2{
-font-size:26px;
-font-weight:900;
-}
-
-.totalBox p{
-font-size:12px;
-color:#6B7280;
-}
-
-.placeBtn{
-flex:1;
-height:58px;
-border:none;
-border-radius:20px;
-background:#111827;
-color:#fff;
-font-size:15px;
-font-weight:900;
-cursor:pointer;
-}
-
-/* =========================
-SUCCESS
-========================= */
-
-.successPopup{
-position:fixed;
-top:0;
-left:0;
-width:100%;
-height:100%;
-background:
-rgba(0,0,0,0.55);
-display:none;
-align-items:center;
-justify-content:center;
-padding:20px;
-z-index:9999;
-}
-
-.successCard{
-width:100%;
-max-width:420px;
-background:#fff;
-border-radius:30px;
-padding:30px;
-text-align:center;
-}
-
-.successIcon{
-width:100px;
-height:100px;
-border-radius:30px;
-background:#DCFCE7;
-display:flex;
-align-items:center;
-justify-content:center;
-font-size:48px;
-margin:auto;
-margin-bottom:22px;
-}
-
-.successCard h2{
-font-size:28px;
-margin-bottom:12px;
-}
-
-.successCard p{
-font-size:14px;
-line-height:1.7;
-color:#6B7280;
-margin-bottom:22px;
-}
-
-.trackBtn{
-width:100%;
-height:54px;
+height:56px;
 border:none;
 border-radius:18px;
 background:#111827;
 color:#fff;
-font-size:14px;
+font-size:15px;
 font-weight:900;
 cursor:pointer;
 }
@@ -424,18 +335,6 @@ cursor:pointer;
 RESPONSIVE
 ========================= */
 
-@media screen and (min-width:768px){
-
-.main{
-display:grid;
-grid-template-columns:
-1.2fr 0.8fr;
-gap:20px;
-align-items:start;
-}
-
-}
-
 @media screen and (max-width:768px){
 
 .card{
@@ -443,13 +342,13 @@ padding:18px;
 border-radius:22px;
 }
 
-.bottomContent{
-flex-direction:column;
-align-items:stretch;
+.detailGrid{
+grid-template-columns:1fr;
 }
 
-.placeBtn{
-width:100%;
+.orderHeader{
+flex-direction:column;
+align-items:flex-start;
 }
 
 }
@@ -478,11 +377,11 @@ onclick="history.back()"
 <div class="pageText">
 
 <h2>
-Checkout
+Track Order
 </h2>
 
 <p>
-Complete your order
+Live order updates
 </p>
 
 </div>
@@ -495,34 +394,102 @@ Complete your order
 
 <div class="main">
 
-<!-- LEFT -->
-
-<div>
-
-<!-- ADDRESS -->
+<!-- ORDER INFO -->
 
 <div class="card">
 
-<h2 class="cardTitle">
-Saved Address
-</h2>
+<div class="orderHeader">
 
-<div class="addressBox">
+<div
+class="orderId"
+id="orderId"
+>
 
-<div class="addressIcon">
-📍
+#000000
+
 </div>
 
-<div class="addressContent">
+<div
+class="status pending"
+id="statusBadge"
+>
 
-<h3>
-Home
-</h3>
+Pending
 
-<p id="savedAddress">
+</div>
 
-No saved address
+</div>
 
+<div class="detailGrid">
+
+<div class="detailBox">
+
+<h4>
+Customer Name
+</h4>
+
+<p id="customerName">
+-
+</p>
+
+</div>
+
+<div class="detailBox">
+
+<h4>
+Phone Number
+</h4>
+
+<p id="customerPhone">
+-
+</p>
+
+</div>
+
+<div class="detailBox">
+
+<h4>
+Pickup Date
+</h4>
+
+<p id="pickupDate">
+-
+</p>
+
+</div>
+
+<div class="detailBox">
+
+<h4>
+Pickup Time
+</h4>
+
+<p id="pickupTime">
+-
+</p>
+
+</div>
+
+<div class="detailBox">
+
+<h4>
+Address
+</h4>
+
+<p id="customerAddress">
+-
+</p>
+
+</div>
+
+<div class="detailBox">
+
+<h4>
+Total Amount
+</h4>
+
+<p id="orderTotal">
+₹0
 </p>
 
 </div>
@@ -531,105 +498,137 @@ No saved address
 
 </div>
 
-<!-- USER DETAILS -->
+<!-- MAP -->
 
 <div class="card">
 
 <h2 class="cardTitle">
-Customer Details
+Live Tracking
 </h2>
 
-<div class="inputGroup">
+<div class="mapBox">
 
-<label>
-Full Name
-</label>
-
-<input
-type="text"
-id="name"
-placeholder="Enter your name"
-/>
-
+<div class="liveTag">
+LIVE LOCATION
 </div>
 
-<div class="inputGroup">
-
-<label>
-Phone Number
-</label>
-
-<input
-type="tel"
-id="phone"
-placeholder="Enter mobile number"
-/>
-
-</div>
-
-<div class="inputGroup">
-
-<label>
-Pickup Address
-</label>
-
-<textarea
-id="address"
-placeholder="Enter full pickup address"
-></textarea>
+<iframe
+src="https://maps.google.com/maps?q=meerut&t=&z=13&ie=UTF8&iwloc=&output=embed"
+></iframe>
 
 </div>
 
 </div>
 
-<!-- PICKUP -->
+<!-- TIMELINE -->
 
 <div class="card">
 
 <h2 class="cardTitle">
-Pickup Schedule
+Order Status
 </h2>
 
-<div class="inputGroup">
+<div class="timeline">
 
-<label>
-Pickup Date
-</label>
+<div class="timelineItem">
 
-<input
-type="date"
-id="pickupDate"
-/>
+<div class="timelineLine"></div>
 
-</div>
+<div
+class="timelineDot activeDot"
+></div>
 
-<div class="inputGroup">
+<div class="timelineContent">
 
-<label>
-Pickup Time
-</label>
+<h3>
+Order Placed
+</h3>
 
-<input
-type="time"
-id="pickupTime"
-/>
+<p>
+Your order has been placed successfully.
+</p>
 
 </div>
 
 </div>
 
+<div class="timelineItem">
+
+<div class="timelineLine"></div>
+
+<div
+class="timelineDot"
+id="pickupDot"
+></div>
+
+<div class="timelineContent">
+
+<h3>
+Pickup Assigned
+</h3>
+
+<p>
+Pickup partner will arrive shortly.
+</p>
+
 </div>
 
-<!-- RIGHT -->
+</div>
 
-<div>
+<div class="timelineItem">
 
-<!-- ORDER -->
+<div class="timelineLine"></div>
+
+<div
+class="timelineDot"
+id="processDot"
+></div>
+
+<div class="timelineContent">
+
+<h3>
+Laundry Processing
+</h3>
+
+<p>
+Your clothes are being cleaned.
+</p>
+
+</div>
+
+</div>
+
+<div class="timelineItem">
+
+<div
+class="timelineDot"
+id="deliveryDot"
+></div>
+
+<div class="timelineContent">
+
+<h3>
+Out For Delivery
+</h3>
+
+<p>
+Your order is on the way.
+</p>
+
+</div>
+
+</div>
+
+</div>
+
+</div>
+
+<!-- ITEMS -->
 
 <div class="card">
 
 <h2 class="cardTitle">
-Order Summary
+Order Items
 </h2>
 
 <div id="orderItems">
@@ -638,304 +637,208 @@ Order Summary
 
 </div>
 
-<!-- BILL -->
+<!-- SUPPORT -->
 
-<div class="card">
+<button class="supportBtn">
 
-<h2 class="cardTitle">
-Bill Details
-</h2>
-
-<div class="billRow">
-
-<h4>
-Subtotal
-</h4>
-
-<h3 id="subtotal">
-₹0
-</h3>
-
-</div>
-
-<div class="billRow">
-
-<h4>
-Delivery Fee
-</h4>
-
-<h3 id="deliveryCharge">
-₹10
-</h3>
-
-</div>
-
-<div class="billRow">
-
-<h4>
-Handling Fee
-</h4>
-
-<h3 id="handlingFee">
-₹4
-</h3>
-
-</div>
-
-<div class="billRow totalRow">
-
-<h2>
-Total
-</h2>
-
-<h2 id="total">
-₹0
-</h2>
-
-</div>
-
-</div>
-
-<!-- PAYMENT -->
-
-<div class="card">
-
-<h2 class="cardTitle">
-Payment Method
-</h2>
-
-<div
-class="paymentOption activePayment"
-onclick="
-selectPayment(this)
-"
->
-
-<div class="paymentLeft">
-
-<div class="paymentIcon">
-💵
-</div>
-
-<div>
-
-<h3>
-Cash On Delivery
-</h3>
-
-<p>
-Pay after delivery
-</p>
-
-</div>
-
-</div>
-
-<input
-type="radio"
-checked
-/>
-
-</div>
-
-<div
-class="paymentOption"
-onclick="
-selectPayment(this)
-"
->
-
-<div class="paymentLeft">
-
-<div class="paymentIcon">
-💳
-</div>
-
-<div>
-
-<h3>
-UPI / Card
-</h3>
-
-<p>
-Pay online instantly
-</p>
-
-</div>
-
-</div>
-
-<input type="radio"/>
-
-</div>
-
-</div>
-
-</div>
-
-</div>
-
-<!-- BOTTOM -->
-
-<div class="bottomBar">
-
-<div class="bottomContent">
-
-<div class="totalBox">
-
-<p>
-Total Payable
-</p>
-
-<h2 id="bottomTotal">
-₹0
-</h2>
-
-</div>
-
-<button
-class="placeBtn"
-onclick="
-placeOrder()
-"
->
-
-Place Order →
+Need Help & Support
 
 </button>
-
-</div>
-
-</div>
-
-<!-- SUCCESS -->
-
-<div
-class="successPopup"
-id="successPopup"
->
-
-<div class="successCard">
-
-<div class="successIcon">
-✅
-</div>
-
-<h2>
-Order Placed
-</h2>
-
-<p>
-
-Your order has been
-successfully placed.
-
-</p>
-
-<button
-class="trackBtn"
-onclick="
-goTracking()
-"
->
-
-Track Order
-
-</button>
-
-</div>
 
 </div>
 
 <script>
 
 /* =========================
-CART
+GET ORDER
 ========================= */
 
-let cart =
+const order =
 
 JSON.parse(
-localStorage.getItem("cart")
-) || [];
-
-/* =========================
-SAVED ADDRESS
-========================= */
-
-const savedAddress =
-
 localStorage.getItem(
-"userAddress"
-) || "";
-
-if(savedAddress){
-
-document.getElementById(
-"savedAddress"
-).innerHTML =
-savedAddress;
-
-document.getElementById(
-"address"
-).value =
-savedAddress;
-
-}
-
-/* =========================
-ORDER COUNT
-========================= */
-
-let orderCount =
-
-parseInt(
-
-localStorage.getItem(
-"orderCount"
+"lastOrder"
 )
-
-) || 0;
+);
 
 /* =========================
-DELIVERY FEES
+NO ORDER
 ========================= */
 
-let deliveryCharge = 19;
+if(!order){
 
-if(orderCount === 0){
+document.body.innerHTML = `
 
-deliveryCharge = 10;
+<div
+style="
+height:100vh;
+display:flex;
+align-items:center;
+justify-content:center;
+flex-direction:column;
+padding:20px;
+text-align:center;
+"
+>
+
+<h1
+style="
+font-size:32px;
+margin-bottom:14px;
+"
+>
+
+No Active Order
+
+</h1>
+
+<p
+style="
+color:#6B7280;
+margin-bottom:20px;
+"
+>
+
+You don't have any active orders.
+
+</p>
+
+<button
+onclick="
+window.location.href='services.html'
+"
+style="
+height:54px;
+padding:0 24px;
+border:none;
+border-radius:18px;
+background:#111827;
+color:#fff;
+font-weight:800;
+cursor:pointer;
+"
+>
+
+Browse Services
+
+</button>
+
+</div>
+
+`;
 
 }
 
-else if(orderCount === 1){
+/* =========================
+LOAD DATA
+========================= */
 
-deliveryCharge = 13;
+else{
+
+document.getElementById(
+"orderId"
+).innerHTML =
+"#QP" +
+Math.floor(
+Math.random()*999999
+);
+
+document.getElementById(
+"customerName"
+).innerHTML =
+order.name || "-";
+
+document.getElementById(
+"customerPhone"
+).innerHTML =
+order.phone || "-";
+
+document.getElementById(
+"pickupDate"
+).innerHTML =
+order.pickupDate || "-";
+
+document.getElementById(
+"pickupTime"
+).innerHTML =
+order.pickupTime || "-";
+
+document.getElementById(
+"customerAddress"
+).innerHTML =
+order.address || "-";
+
+document.getElementById(
+"orderTotal"
+).innerHTML =
+"₹" + order.total;
+
+/* STATUS */
+
+const status =
+order.status || "Pending";
+
+const badge =
+document.getElementById(
+"statusBadge"
+);
+
+badge.innerHTML = status;
+
+if(status === "Processing"){
+
+badge.className =
+"status processing";
+
+document.getElementById(
+"pickupDot"
+).classList.add(
+"activeDot"
+);
+
+document.getElementById(
+"processDot"
+).classList.add(
+"activeDot"
+);
 
 }
 
-const handlingFee = 4;
+if(status === "Completed"){
 
-/* =========================
-RENDER ITEMS
-========================= */
+badge.className =
+"status completed";
 
-let subtotal = 0;
+document.getElementById(
+"pickupDot"
+).classList.add(
+"activeDot"
+);
 
-function renderItems(){
+document.getElementById(
+"processDot"
+).classList.add(
+"activeDot"
+);
+
+document.getElementById(
+"deliveryDot"
+).classList.add(
+"activeDot"
+);
+
+}
+
+/* ITEMS */
 
 const orderItems =
-
 document.getElementById(
 "orderItems"
 );
 
 let html = "";
 
-subtotal = 0;
-
-cart.forEach((item)=>{
+(order.items || []).forEach((item)=>{
 
 const qty =
 item.qty || 1;
@@ -945,10 +848,6 @@ parseInt(
 String(item.price)
 .replace("₹","")
 ) || 0;
-
-subtotal += price * qty;
-
-/* CATEGORY */
 
 const category =
 item.category || "Laundry";
@@ -1029,195 +928,6 @@ Qty: ${qty}
 });
 
 orderItems.innerHTML = html;
-
-/* TOTAL */
-
-const total =
-subtotal +
-deliveryCharge +
-handlingFee;
-
-document.getElementById(
-"subtotal"
-).innerHTML =
-`₹${subtotal}`;
-
-document.getElementById(
-"deliveryCharge"
-).innerHTML =
-`₹${deliveryCharge}`;
-
-document.getElementById(
-"handlingFee"
-).innerHTML =
-`₹${handlingFee}`;
-
-document.getElementById(
-"total"
-).innerHTML =
-`₹${total}`;
-
-document.getElementById(
-"bottomTotal"
-).innerHTML =
-`₹${total}`;
-
-}
-
-renderItems();
-
-/* =========================
-PAYMENT
-========================= */
-
-function selectPayment(element){
-
-document
-.querySelectorAll(
-".paymentOption"
-)
-.forEach((item)=>{
-
-item.classList.remove(
-"activePayment"
-);
-
-});
-
-element.classList.add(
-"activePayment"
-);
-
-}
-
-/* =========================
-PLACE ORDER
-========================= */
-
-function placeOrder(){
-
-const name =
-document.getElementById(
-"name"
-).value;
-
-const phone =
-document.getElementById(
-"phone"
-).value;
-
-const address =
-document.getElementById(
-"address"
-).value;
-
-const pickupDate =
-document.getElementById(
-"pickupDate"
-).value;
-
-const pickupTime =
-document.getElementById(
-"pickupTime"
-).value;
-
-if(
-!name ||
-!phone ||
-!address ||
-!pickupDate ||
-!pickupTime
-){
-
-alert(
-"Please fill all details"
-);
-
-return;
-
-}
-
-/* SAVE ADDRESS */
-
-localStorage.setItem(
-"userAddress",
-address
-);
-
-/* FINAL TOTAL */
-
-const finalTotal =
-subtotal +
-deliveryCharge +
-handlingFee;
-
-/* ORDER */
-
-const order = {
-
-name,
-phone,
-address,
-
-pickupDate,
-pickupTime,
-
-items:cart,
-
-deliveryCharge,
-handlingFee,
-
-total:finalTotal,
-
-status:"Pending",
-
-createdAt:
-new Date()
-
-};
-
-/* SAVE */
-
-localStorage.setItem(
-
-"lastOrder",
-
-JSON.stringify(order)
-
-);
-
-/* ORDER COUNT */
-
-orderCount++;
-
-localStorage.setItem(
-"orderCount",
-orderCount
-);
-
-/* CLEAR */
-
-localStorage.removeItem(
-"cart"
-);
-
-/* SUCCESS */
-
-document.getElementById(
-"successPopup"
-).style.display =
-"flex";
-
-}
-
-/* =========================
-TRACKING
-========================= */
-
-function goTracking(){
-
-window.location.href =
-"tracking.html";
 
 }
 
