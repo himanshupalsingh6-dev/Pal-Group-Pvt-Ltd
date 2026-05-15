@@ -1,69 +1,45 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
 
-<meta charset="UTF-8"/>
+<meta charset="UTF-8">
 
-<meta
-name="viewport"
-content="width=device-width, initial-scale=1.0"
-/>
+<meta name="viewport"
+content="width=device-width, initial-scale=1.0">
 
 <title>
 QuickPress Services
 </title>
 
-<link
-rel="stylesheet"
-href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css"
-/>
+<link rel="stylesheet"
+href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css"/>
 
 <style>
-
-/* =========================
-RESET
-========================= */
 
 *{
 margin:0;
 padding:0;
 box-sizing:border-box;
-font-family:
-"Poppins",
-sans-serif;
+font-family:Poppins,sans-serif;
 }
 
 body{
+background:#F7F8FC;
+padding-bottom:100px;
+}
+
+/* TOP */
+
+.topHeader{
+padding:18px;
 background:#fff;
-color:#111827;
-overflow-x:hidden;
-}
-
-/* =========================
-TOPBAR
-========================= */
-
-.topbar{
-position:sticky;
-top:0;
-z-index:999;
-padding:16px;
-background:
-rgba(255,255,255,0.95);
-backdrop-filter:blur(15px);
-border-bottom:
-1px solid #F1F5F9;
-box-shadow:
-0 4px 18px rgba(0,0,0,0.04);
-}
-
-.topRow{
 display:flex;
 justify-content:space-between;
 align-items:center;
-gap:15px;
-margin-bottom:14px;
+box-shadow:0 4px 20px rgba(0,0,0,0.04);
+position:sticky;
+top:0;
+z-index:999;
 }
 
 .leftTop{
@@ -73,398 +49,309 @@ gap:12px;
 }
 
 .backBtn{
-width:46px;
-height:46px;
-border:none;
-border-radius:16px;
+width:42px;
+height:42px;
+border-radius:14px;
 background:#FFD400;
+display:flex;
+align-items:center;
+justify-content:center;
 font-size:18px;
-font-weight:bold;
+font-weight:900;
 cursor:pointer;
 }
 
-.pageText h2{
-font-size:20px;
+.titleBox h2{
+font-size:30px;
 font-weight:900;
-margin-bottom:4px;
 }
 
-.pageText p{
-font-size:12px;
-color:#666;
+.titleBox p{
+font-size:13px;
+color:#6B7280;
 }
 
-.topIcons{
+.rightTop{
 display:flex;
-gap:10px;
+align-items:center;
+gap:12px;
 }
 
 .iconBtn{
-width:46px;
-height:46px;
-border-radius:16px;
+width:44px;
+height:44px;
+border-radius:14px;
 background:#fff;
-border:1px solid #F1F5F9;
 display:flex;
 align-items:center;
 justify-content:center;
-font-size:18px;
+box-shadow:0 5px 20px rgba(0,0,0,0.06);
 position:relative;
 cursor:pointer;
-box-shadow:
-0 4px 12px rgba(0,0,0,0.05);
 }
 
-.badge{
+.cartCount{
 position:absolute;
 top:-4px;
 right:-4px;
-width:18px;
-height:18px;
+width:20px;
+height:20px;
 border-radius:50%;
 background:#22C55E;
+color:#fff;
+font-size:11px;
+font-weight:700;
 display:flex;
 align-items:center;
 justify-content:center;
-font-size:10px;
-font-weight:bold;
-color:#fff;
 }
 
-/* =========================
-SEARCH
-========================= */
+/* SEARCH */
 
 .searchBox{
-height:54px;
-background:#fff;
-border-radius:18px;
-display:flex;
-align-items:center;
-padding:0 18px;
-border:1px solid #F1F5F9;
-box-shadow:
-0 4px 12px rgba(0,0,0,0.04);
+padding:18px;
 }
 
-.searchBox i{
-margin-right:12px;
-color:#666;
-}
-
-.searchBox input{
+.searchInput{
+width:100%;
+height:58px;
 border:none;
 outline:none;
-background:transparent;
-width:100%;
-font-size:14px;
+padding:0 20px;
+border-radius:18px;
+background:#fff;
+font-size:15px;
+box-shadow:0 6px 25px rgba(0,0,0,0.05);
 }
 
-/* =========================
-MAIN
-========================= */
+/* CITY */
 
-.main{
-padding:14px;
-padding-bottom:100px;
-}
-
-/* =========================
-CATEGORY
-========================= */
-
-.categorySlider{
+.cityBar{
+padding:0 18px 18px;
 display:flex;
-gap:10px;
-overflow-x:auto;
-padding-bottom:10px;
-scrollbar-width:none;
-margin-bottom:20px;
+gap:12px;
+overflow:auto;
 }
 
-.categorySlider::-webkit-scrollbar{
-display:none;
-}
-
-.categoryBtn{
-min-width:100px;
-height:42px;
-padding:0 16px;
-border:none;
-border-radius:14px;
-background:#F8FAFC;
-font-size:12px;
+.cityBtn{
+padding:14px 20px;
+background:#fff;
+border-radius:16px;
+font-size:14px;
 font-weight:700;
+white-space:nowrap;
 cursor:pointer;
-transition:0.3s;
+box-shadow:0 5px 20px rgba(0,0,0,0.04);
 }
 
-.activeCategory{
+.cityBtn.active{
 background:#FFD400;
 }
 
-/* =========================
-GRID
-========================= */
+/* CATEGORY */
 
-.serviceGrid{
-display:grid;
-grid-template-columns:1fr 1fr;
-gap:10px;
+.categoryBar{
+padding:0 18px 18px;
+display:flex;
+gap:12px;
+overflow:auto;
 }
 
-/* =========================
-CARD
-========================= */
+.categoryBtn{
+padding:14px 22px;
+background:#fff;
+border-radius:16px;
+font-size:14px;
+font-weight:700;
+white-space:nowrap;
+cursor:pointer;
+box-shadow:0 5px 20px rgba(0,0,0,0.04);
+}
+
+.categoryBtn.active{
+background:#111827;
+color:#fff;
+}
+
+/* SERVICES */
+
+.servicesGrid{
+padding:0 18px;
+display:grid;
+grid-template-columns:repeat(auto-fill,minmax(220px,1fr));
+gap:18px;
+}
 
 .serviceCard{
 background:#fff;
-padding:14px;
-border-radius:20px;
-border:1px solid #F1F5F9;
-box-shadow:
-0 4px 12px rgba(0,0,0,0.04);
+border-radius:28px;
+padding:18px;
+position:relative;
+overflow:hidden;
+box-shadow:0 10px 30px rgba(0,0,0,0.05);
 }
 
-.cardTop{
+.serviceCard::before{
+content:"";
+position:absolute;
+width:140px;
+height:140px;
+background:rgba(255,212,0,0.15);
+border-radius:50%;
+top:-50px;
+right:-50px;
+}
+
+.topRow{
 display:flex;
 justify-content:space-between;
 align-items:center;
-margin-bottom:12px;
+margin-bottom:18px;
 }
 
-.productIcon{
+.serviceImage{
 width:54px;
 height:54px;
 border-radius:18px;
-background:#fff;
+background:#F3F4F6;
 display:flex;
 align-items:center;
 justify-content:center;
-font-size:24px;
-box-shadow:
-0 4px 12px rgba(0,0,0,0.05);
+font-size:22px;
+font-weight:900;
 }
 
-.wishlist{
-width:34px;
-height:34px;
+.favBtn{
+width:38px;
+height:38px;
+border:none;
 border-radius:12px;
 background:#fff;
-border:1px solid #F1F5F9;
-display:flex;
-align-items:center;
-justify-content:center;
-font-size:13px;
+box-shadow:0 5px 20px rgba(0,0,0,0.05);
 cursor:pointer;
 }
 
-.serviceCard h2{
-font-size:15px;
+.serviceName{
+font-size:22px;
+font-weight:900;
 margin-bottom:6px;
 }
 
-.serviceCard p{
-font-size:11px;
+.serviceDesc{
+font-size:13px;
+color:#6B7280;
 line-height:1.5;
-color:#666;
-margin-bottom:12px;
+margin-bottom:14px;
 }
 
-.priceRow{
+.locationTag{
+display:inline-block;
+padding:8px 12px;
+border-radius:12px;
+background:#F3F4F6;
+font-size:12px;
+font-weight:700;
+margin-bottom:16px;
+}
+
+.bottomRow{
 display:flex;
 justify-content:space-between;
 align-items:center;
-gap:10px;
 }
 
-.price{
-font-size:17px;
+.servicePrice{
+font-size:28px;
 font-weight:900;
 color:#22C55E;
 }
 
 .addBtn{
-height:40px;
-padding:0 12px;
-border:none;
-border-radius:12px;
-background:#FFD400;
-font-size:11px;
-font-weight:800;
-cursor:pointer;
-}
-
-/* =========================
-EMPTY
-========================= */
-
-.emptyBox{
-padding:50px 20px;
-text-align:center;
-display:none;
-}
-
-.emptyBox h2{
-font-size:22px;
-margin-bottom:10px;
-}
-
-.emptyBox p{
-font-size:13px;
-color:#666;
-}
-
-/* =========================
-CART POPUP
-========================= */
-
-.cartPopup{
-position:fixed;
-bottom:-120px;
-left:50%;
-transform:translateX(-50%);
-width:88%;
-background:#111827;
-padding:12px;
-border-radius:18px;
-display:flex;
-justify-content:space-between;
-align-items:center;
-gap:10px;
-z-index:9999;
-transition:0.4s;
-box-shadow:
-0 15px 35px rgba(0,0,0,0.25);
-}
-
-.showCartPopup{
-bottom:82px;
-}
-
-.cartPopupLeft{
-display:flex;
-align-items:center;
-gap:10px;
-}
-
-.cartPopupIcon{
-width:44px;
 height:44px;
-border-radius:14px;
-background:#FFD400;
-display:flex;
-align-items:center;
-justify-content:center;
-font-size:20px;
-}
-
-.cartPopup h3{
-font-size:13px;
-color:#fff;
-margin-bottom:4px;
-}
-
-.cartPopup p{
-font-size:11px;
-color:#D1D5DB;
-}
-
-.viewCartBtn{
-height:42px;
-padding:0 14px;
+padding:0 20px;
 border:none;
 border-radius:14px;
-background:#22C55E;
-color:#fff;
-font-size:12px;
-font-weight:800;
+background:#FFD400;
+font-size:14px;
+font-weight:900;
 cursor:pointer;
 }
 
-/* =========================
-BOTTOM NAV
-========================= */
+/* BOTTOM NAV */
 
 .bottomNav{
 position:fixed;
-bottom:0;
 left:0;
+bottom:0;
 width:100%;
-height:68px;
+height:78px;
 background:#fff;
 display:flex;
 justify-content:space-around;
 align-items:center;
-border-top:1px solid #F1F5F9;
-z-index:1000;
+box-shadow:0 -5px 20px rgba(0,0,0,0.05);
+z-index:999;
 }
 
-.bottomNav a{
-text-decoration:none;
-color:#6B7280;
-font-size:0;
-}
-
-.bottomNav i{
-font-size:22px;
-}
-
-.activeNav{
-color:#FFD400 !important;
-}
-
-/* =========================
-DESKTOP
-========================= */
-
-@media screen and (min-width:768px){
-
-.main{
-max-width:1300px;
-margin:auto;
-}
-
-.serviceGrid{
-grid-template-columns:
-repeat(4,1fr);
-}
-
-.bottomNav a{
+.navItem{
+display:flex;
+flex-direction:column;
+align-items:center;
+gap:6px;
 font-size:12px;
+font-weight:700;
+color:#6B7280;
+text-decoration:none;
 }
 
-.bottomNav i{
-display:block;
-margin-bottom:4px;
+.navItem.active{
+color:#FFD400;
+}
+
+.navItem i{
+font-size:20px;
+}
+
+/* MOBILE */
+
+@media(max-width:768px){
+
+.servicesGrid{
+grid-template-columns:1fr 1fr;
+}
+
+}
+
+@media(max-width:500px){
+
+.servicesGrid{
+grid-template-columns:1fr;
+}
+
+.titleBox h2{
+font-size:24px;
 }
 
 }
 
 </style>
-
 </head>
-
 <body>
 
-<!-- TOPBAR -->
+<!-- TOP -->
 
-<div class="topbar">
-
-<div class="topRow">
+<div class="topHeader">
 
 <div class="leftTop">
 
-<button
-class="backBtn"
-onclick="history.back()"
->
+<div class="backBtn"
+onclick="history.back()">
 
 ←
 
-</button>
+</div>
 
-<div class="pageText">
+<div class="titleBox">
 
 <h2>
 Services
@@ -478,20 +365,21 @@ Premium laundry collection
 
 </div>
 
-<div class="topIcons">
+<div class="rightTop">
 
 <div class="iconBtn">
+
 ❤️
+
 </div>
 
-<div class="iconBtn">
+<div class="iconBtn"
+onclick="location.href='cart.html'">
 
 🛒
 
-<div
-class="badge"
-id="cartCount"
->
+<div class="cartCount"
+id="cartCount">
 
 0
 
@@ -503,153 +391,139 @@ id="cartCount"
 
 </div>
 
-<div class="searchBox">
+<!-- SEARCH -->
 
-<i class="fa-solid fa-magnifying-glass"></i>
+<div class="searchBox">
 
 <input
 type="text"
 placeholder="Search services..."
+class="searchInput"
 id="searchInput"
 />
 
 </div>
 
+<!-- CITY -->
+
+<div class="cityBar">
+
+<div
+class="cityBtn active"
+data-city="Kasganj">
+
+Kasganj
+
 </div>
 
-<!-- MAIN -->
+<div
+class="cityBtn"
+data-city="Noida">
 
-<div class="main">
+Noida
+
+</div>
+
+<div
+class="cityBtn"
+data-city="Aligarh">
+
+Aligarh
+
+</div>
+
+<div
+class="cityBtn"
+data-city="Badaun">
+
+Badaun
+
+</div>
+
+<div
+class="cityBtn"
+data-city="Delhi">
+
+Delhi
+
+</div>
+
+<div
+class="cityBtn"
+data-city="Mumbai">
+
+Mumbai
+
+</div>
+
+</div>
 
 <!-- CATEGORY -->
 
-<div
-class="categorySlider"
-id="categorySlider"
->
+<div class="categoryBar">
 
-<button
-class="categoryBtn activeCategory"
-onclick="
-filterCategory('all',this)
-"
->
+<div
+class="categoryBtn active"
+data-category="All">
 
 All
 
-</button>
+</div>
 
-<button
+<div
 class="categoryBtn"
-onclick="
-filterCategory('Ironing',this)
-"
->
+data-category="Ironing">
 
 Ironing
 
-</button>
-
-<button
-class="categoryBtn"
-onclick="
-filterCategory('Wash',this)
-"
->
-
-Wash
-
-</button>
-
-<button
-class="categoryBtn"
-onclick="
-filterCategory('Dry Clean',this)
-"
->
-
-Dry Clean
-
-</button>
-
-<button
-class="categoryBtn"
-onclick="
-filterCategory('Steam',this)
-"
->
-
-Steam
-
-</button>
-
 </div>
-
-<!-- GRID -->
 
 <div
-class="serviceGrid"
-id="serviceGrid"
->
+class="categoryBtn"
+data-category="Washing">
+
+Washing
 
 </div>
-
-<!-- EMPTY -->
 
 <div
-class="emptyBox"
-id="emptyBox"
->
+class="categoryBtn"
+data-category="Dry Cleaning">
 
-<h2>
-No Services Found
-</h2>
-
-<p>
-Admin has not added products yet
-</p>
+Dry Cleaning
 
 </div>
-
-</div>
-
-<!-- CART POPUP -->
 
 <div
-class="cartPopup"
-id="cartPopup"
->
+class="categoryBtn"
+data-category="Premium">
 
-<div class="cartPopupLeft">
-
-<div class="cartPopupIcon">
-🛒
-</div>
-
-<div>
-
-<h3>
-Added To Cart
-</h3>
-
-<p>
-Item added successfully
-</p>
+Premium
 
 </div>
 
+<div
+class="categoryBtn"
+data-category="Shoe & Bag">
+
+Shoe & Bag
+
 </div>
 
-<button
-class="viewCartBtn"
-onclick="
-window.location.href='cart.html'
-"
->
+<div
+class="categoryBtn"
+data-category="Home Cleaning">
 
-View
+Home Cleaning
 
-</button>
+</div>
+
+</div>
+
+<!-- SERVICES -->
+
+<div class="servicesGrid"
+id="servicesGrid">
 
 </div>
 
@@ -657,7 +531,8 @@ View
 
 <div class="bottomNav">
 
-<a href="index.html">
+<a href="index.html"
+class="navItem">
 
 <i class="fa-solid fa-house"></i>
 
@@ -665,10 +540,8 @@ Home
 
 </a>
 
-<a
-href="services.html"
-class="activeNav"
->
+<a href="services.html"
+class="navItem active">
 
 <i class="fa-solid fa-shirt"></i>
 
@@ -676,7 +549,8 @@ Services
 
 </a>
 
-<a href="cart.html">
+<a href="cart.html"
+class="navItem">
 
 <i class="fa-solid fa-cart-shopping"></i>
 
@@ -684,7 +558,8 @@ Cart
 
 </a>
 
-<a href="offers.html">
+<a href="offers.html"
+class="navItem">
 
 <i class="fa-solid fa-tags"></i>
 
@@ -692,7 +567,8 @@ Offers
 
 </a>
 
-<a href="profile.html">
+<a href="profile.html"
+class="navItem">
 
 <i class="fa-regular fa-user"></i>
 
@@ -703,12 +579,6 @@ Profile
 </div>
 
 <!-- FIREBASE -->
-<!-- =========================================
-FINAL LOCATION WISE PRICING SYSTEM
-user/services.html
-FULL WORKING SCRIPT
-OLD SCRIPT FULL REPLACE KARO
-========================================= -->
 
 <script type="module">
 
@@ -729,9 +599,18 @@ from
 
 "https://www.gstatic.com/firebasejs/12.11.0/firebase-firestore.js";
 
-/* =========================================
-ELEMENTS
-========================================= */
+/* GLOBAL */
+
+let allServices = [];
+
+let currentCategory = "All";
+
+let userCity =
+localStorage.getItem(
+"userCity"
+) || "Kasganj";
+
+/* ELEMENTS */
 
 const servicesGrid =
 document.getElementById(
@@ -743,41 +622,7 @@ document.getElementById(
 "searchInput"
 );
 
-const categoryBtns =
-document.querySelectorAll(
-".categoryBtn"
-);
-
-/* =========================================
-GLOBAL
-========================================= */
-
-let allServices = [];
-
-let currentCategory =
-"All";
-
-/* =========================================
-USER CITY
-========================================= */
-
-/* TEMP */
-
-let userCity =
-localStorage.getItem(
-"userCity"
-) || "Kasganj";
-
-/* MANUAL CITY */
-
-console.log(
-"User City:",
-userCity
-);
-
-/* =========================================
-LOAD SERVICES
-========================================= */
+/* LOAD */
 
 async function loadServices(){
 
@@ -786,7 +631,7 @@ servicesGrid.innerHTML =
 `
 
 <div style="
-padding:40px;
+padding:30px;
 font-size:18px;
 font-weight:700;
 ">
@@ -818,10 +663,6 @@ id:doc.id,
 
 });
 
-console.log(
-allServices
-);
-
 renderServices();
 
 }catch(error){
@@ -833,9 +674,10 @@ servicesGrid.innerHTML =
 `
 
 <div style="
-padding:40px;
-color:red;
+padding:30px;
+font-size:18px;
 font-weight:700;
+color:red;
 ">
 
 Failed To Load Services
@@ -850,21 +692,15 @@ Failed To Load Services
 
 loadServices();
 
-/* =========================================
-RENDER SERVICES
-========================================= */
+/* RENDER */
 
 function renderServices(){
 
 let html = "";
 
-/* SEARCH */
-
 const search =
 searchInput.value
 .toLowerCase();
-
-/* LOOP */
 
 allServices.forEach((service)=>{
 
@@ -898,13 +734,11 @@ return;
 
 }
 
-/* =========================================
-LOCATION PRICE
-========================================= */
+/* PRICE */
 
 let finalPrice = 0;
 
-/* NEW SYSTEM */
+/* NEW LOCATION SYSTEM */
 
 if(service.prices){
 
@@ -916,7 +750,7 @@ service.prices[userCity]
 
 }
 
-/* OLD SYSTEM SUPPORT */
+/* OLD SUPPORT */
 
 if(finalPrice === 0){
 
@@ -925,7 +759,7 @@ service.price || 0;
 
 }
 
-/* HIDE IF PRICE ZERO */
+/* HIDE */
 
 if(finalPrice <= 0){
 
@@ -933,9 +767,7 @@ return;
 
 }
 
-/* =========================================
-CARD
-========================================= */
+/* CARD */
 
 html += `
 
@@ -1011,12 +843,12 @@ html =
 `
 
 <div style="
-padding:40px;
+padding:30px;
 font-size:18px;
 font-weight:700;
 ">
 
-No Services Found For ${userCity}
+No Services Found
 
 </div>
 
@@ -1029,9 +861,7 @@ html;
 
 }
 
-/* =========================================
-SEARCH
-========================================= */
+/* SEARCH */
 
 searchInput.addEventListener(
 
@@ -1045,11 +875,13 @@ renderServices();
 
 );
 
-/* =========================================
-CATEGORY
-========================================= */
+/* CATEGORY */
 
-categoryBtns.forEach((btn)=>{
+document
+.querySelectorAll(
+".categoryBtn"
+)
+.forEach((btn)=>{
 
 btn.addEventListener(
 
@@ -1057,7 +889,11 @@ btn.addEventListener(
 
 ()=>{
 
-categoryBtns.forEach((b)=>{
+document
+.querySelectorAll(
+".categoryBtn"
+)
+.forEach((b)=>{
 
 b.classList.remove(
 "active"
@@ -1080,9 +916,53 @@ renderServices();
 
 });
 
-/* =========================================
-ADD TO CART
-========================================= */
+/* CITY */
+
+document
+.querySelectorAll(
+".cityBtn"
+)
+.forEach((btn)=>{
+
+btn.addEventListener(
+
+"click",
+
+()=>{
+
+document
+.querySelectorAll(
+".cityBtn"
+)
+.forEach((b)=>{
+
+b.classList.remove(
+"active"
+);
+
+});
+
+btn.classList.add(
+"active"
+);
+
+userCity =
+btn.dataset.city;
+
+localStorage.setItem(
+"userCity",
+userCity
+);
+
+renderServices();
+
+}
+
+);
+
+});
+
+/* CART */
 
 window.addToCart =
 function(id){
@@ -1165,9 +1045,7 @@ alert(
 
 };
 
-/* =========================================
-CART COUNT
-========================================= */
+/* CART COUNT */
 
 const cart =
 JSON.parse(
