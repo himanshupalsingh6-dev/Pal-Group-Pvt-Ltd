@@ -2,10 +2,11 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8">
+
 <meta name="viewport"
 content="width=device-width, initial-scale=1.0">
 
-<title>QuickPress Orders</title>
+<title>QuickPress Advanced Orders</title>
 
 <link rel="stylesheet"
 href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css"/>
@@ -103,27 +104,6 @@ font-size:15px;
 box-shadow:0 6px 20px rgba(0,0,0,0.05);
 }
 
-/* FILTERS */
-
-.filterSection{
-display:grid;
-grid-template-columns:1fr 1fr 1fr;
-gap:16px;
-margin-bottom:24px;
-}
-
-.selectBox{
-width:100%;
-height:58px;
-border:none;
-outline:none;
-background:#fff;
-border-radius:18px;
-padding:0 18px;
-font-size:15px;
-box-shadow:0 6px 20px rgba(0,0,0,0.05);
-}
-
 /* STATS */
 
 .statsGrid{
@@ -151,29 +131,59 @@ font-size:32px;
 font-weight:900;
 }
 
+/* FILTERS */
+
+.filters{
+display:flex;
+gap:12px;
+overflow:auto;
+margin-bottom:24px;
+padding-bottom:4px;
+}
+
+.filterBtn{
+padding:12px 18px;
+border:none;
+border-radius:16px;
+background:#fff;
+font-weight:700;
+cursor:pointer;
+white-space:nowrap;
+box-shadow:0 4px 14px rgba(0,0,0,0.05);
+}
+
+.filterBtn.active{
+background:#111827;
+color:#fff;
+}
+
 /* ORDERS */
 
 .ordersGrid{
 display:grid;
 grid-template-columns:repeat(3,1fr);
-gap:18px;
+gap:16px;
 }
+
+/* CARD */
 
 .orderCard{
 background:#fff;
-padding:20px;
 border-radius:26px;
+padding:18px;
 box-shadow:0 10px 30px rgba(0,0,0,0.05);
 }
 
-.orderTop{
+/* TOP */
+
+.miniTop{
 display:flex;
 justify-content:space-between;
 align-items:center;
 margin-bottom:16px;
 }
 
-.userBox{
+.miniLeft{
 display:flex;
 align-items:center;
 gap:12px;
@@ -191,17 +201,17 @@ font-size:22px;
 font-weight:900;
 }
 
-.userInfo h3{
+.miniLeft h3{
 font-size:17px;
-margin-bottom:4px;
+margin-bottom:3px;
 }
 
-.userInfo p{
+.miniLeft p{
 font-size:12px;
 color:#6B7280;
 }
 
-.status{
+.miniStatus{
 padding:8px 12px;
 border-radius:12px;
 background:#DCFCE7;
@@ -209,46 +219,43 @@ font-size:11px;
 font-weight:800;
 }
 
-/* DETAILS */
+/* MINI INFO */
 
-.details{
+.miniInfo{
 display:grid;
-grid-template-columns:1fr 1fr;
+grid-template-columns:1fr 1fr 1fr;
 gap:10px;
 margin-bottom:16px;
 }
 
-.detailBox{
+.miniInfo div{
 background:#F9FAFB;
 padding:12px;
 border-radius:14px;
-}
-
-.detailBox span{
-display:block;
-font-size:11px;
-color:#6B7280;
-margin-bottom:4px;
-}
-
-.detailBox b{
 font-size:13px;
+font-weight:700;
+text-align:center;
 }
 
 /* BUTTONS */
 
-.btnGrid{
+.miniBtns{
 display:grid;
 grid-template-columns:1fr 1fr;
 gap:10px;
 }
 
-.actionBtn{
-height:50px;
+.viewBtn,
+.callBtn{
+height:48px;
 border:none;
 border-radius:16px;
 font-size:13px;
 font-weight:800;
+display:flex;
+align-items:center;
+justify-content:center;
+text-decoration:none;
 cursor:pointer;
 }
 
@@ -260,6 +267,90 @@ color:#fff;
 .callBtn{
 background:#FFD400;
 color:#111827;
+}
+
+/* DETAIL */
+
+.fullDetail{
+display:none;
+margin-top:18px;
+padding-top:18px;
+border-top:1px solid #F3F4F6;
+}
+
+.fullDetail.active{
+display:block;
+}
+
+.detailGrid{
+display:grid;
+grid-template-columns:1fr 1fr;
+gap:12px;
+margin-bottom:18px;
+}
+
+.detailItem{
+background:#F9FAFB;
+padding:14px;
+border-radius:16px;
+}
+
+.detailItem span{
+display:block;
+font-size:12px;
+color:#6B7280;
+margin-bottom:5px;
+}
+
+.detailItem b{
+font-size:13px;
+}
+
+/* CALLS */
+
+.callGrid{
+display:grid;
+grid-template-columns:1fr 1fr 1fr;
+gap:10px;
+margin-bottom:14px;
+}
+
+.callAction{
+height:46px;
+background:#111827;
+color:#fff;
+border-radius:14px;
+display:flex;
+align-items:center;
+justify-content:center;
+gap:8px;
+font-size:12px;
+font-weight:700;
+text-decoration:none;
+}
+
+/* SELECT */
+
+.selectBox{
+width:100%;
+height:52px;
+border:none;
+outline:none;
+background:#F3F4F6;
+border-radius:16px;
+padding:0 16px;
+margin-bottom:12px;
+}
+
+.updateBtn{
+width:100%;
+height:54px;
+border:none;
+border-radius:16px;
+background:#FFD400;
+font-size:14px;
+font-weight:900;
+cursor:pointer;
 }
 
 /* MOBILE */
@@ -280,10 +371,6 @@ grid-template-columns:1fr 1fr;
 
 .statsGrid{
 grid-template-columns:1fr 1fr;
-}
-
-.filterSection{
-grid-template-columns:1fr;
 }
 
 }
@@ -330,6 +417,14 @@ grid-template-columns:1fr;
 grid-template-columns:1fr;
 }
 
+.detailGrid{
+grid-template-columns:1fr;
+}
+
+.callGrid{
+grid-template-columns:1fr;
+}
+
 .topbar{
 flex-direction:column;
 align-items:flex-start;
@@ -349,7 +444,7 @@ width:100%;
 </head>
 <body>
 
-<!-- MOBILE -->
+<!-- MOBILE BUTTON -->
 
 <button class="mobileMenuBtn"
 onclick="toggleSidebar()">
@@ -368,12 +463,14 @@ QuickPress
 
 <div class="menu">
 
-<a href="orders.html"
-class="active">
+<a href="index.html">
+<i class="fa-solid fa-chart-line"></i>
+Dashboard
+</a>
 
+<a href="orders.html" class="active">
 <i class="fa-solid fa-basket-shopping"></i>
 Orders
-
 </a>
 
 <a href="services.html">
@@ -401,6 +498,36 @@ Partners
 Riders
 </a>
 
+<a href="payments.html">
+<i class="fa-solid fa-wallet"></i>
+Payments
+</a>
+
+<a href="analytics.html">
+<i class="fa-solid fa-chart-pie"></i>
+Analytics
+</a>
+
+<a href="offers.html">
+<i class="fa-solid fa-tags"></i>
+Offers
+</a>
+
+<a href="notifications.html">
+<i class="fa-solid fa-bell"></i>
+Notifications
+</a>
+
+<a href="withdrawal.html">
+<i class="fa-solid fa-money-bill-transfer"></i>
+Withdrawals
+</a>
+
+<a href="settings.html">
+<i class="fa-solid fa-gear"></i>
+Settings
+</a>
+
 </div>
 
 </div>
@@ -409,7 +536,7 @@ Riders
 
 <div class="main">
 
-<!-- TOP -->
+<!-- TOPBAR -->
 
 <div class="topbar">
 
@@ -419,65 +546,9 @@ Orders
 
 <input
 type="text"
-placeholder="Search Customer..."
+placeholder="Search order..."
 class="searchBox"
-id="searchInput"
 />
-
-</div>
-
-<!-- FILTERS -->
-
-<div class="filterSection">
-
-<select
-class="selectBox"
-id="stateFilter"
-onchange="loadCities()">
-
-<option>
-Select State
-</option>
-
-</select>
-
-<select
-class="selectBox"
-id="cityFilter"
-onchange="filterOrders()">
-
-<option>
-Select City
-</option>
-
-</select>
-
-<select
-class="selectBox"
-id="dateFilter"
-onchange="filterOrders()">
-
-<option value="All">
-All Time
-</option>
-
-<option value="Today">
-Today
-</option>
-
-<option value="7">
-Last 7 Days
-</option>
-
-<option value="15">
-Last 15 Days
-</option>
-
-<option value="30">
-This Month
-</option>
-
-</select>
 
 </div>
 
@@ -539,6 +610,62 @@ id="runningOrders">
 
 </div>
 
+<!-- FILTERS -->
+
+<div class="filters">
+
+<button class="filterBtn active"
+onclick="filterOrders('All')">
+All
+</button>
+
+<button class="filterBtn"
+onclick="filterOrders('Order Placed')">
+Pending
+</button>
+
+<button class="filterBtn"
+onclick="filterOrders('Pickup Assigned')">
+Pickup
+</button>
+
+<button class="filterBtn"
+onclick="filterOrders('Ironing Started')">
+Ironing
+</button>
+
+<button class="filterBtn"
+onclick="filterOrders('Out For Delivery')">
+Delivery
+</button>
+
+<button class="filterBtn"
+onclick="filterOrders('Delivered')">
+Delivered
+</button>
+
+<button class="filterBtn"
+onclick="filterOrders('Today')">
+Today
+</button>
+
+<button class="filterBtn"
+onclick="filterOrders('7 Days')">
+7 Days
+</button>
+
+<button class="filterBtn"
+onclick="filterOrders('15 Days')">
+15 Days
+</button>
+
+<button class="filterBtn"
+onclick="filterOrders('Month')">
+Month
+</button>
+
+</div>
+
 <!-- ORDERS -->
 
 <div class="ordersGrid"
@@ -561,7 +688,9 @@ from
 import {
 
 collection,
-getDocs
+getDocs,
+doc,
+updateDoc
 
 }
 
@@ -569,121 +698,22 @@ from
 
 "https://www.gstatic.com/firebasejs/12.11.0/firebase-firestore.js";
 
-/* STATES */
-
-const statesData = {
-
-"Uttar Pradesh":[
-"Lucknow",
-"Noida",
-"Kanpur",
-"Agra",
-"Moradabad",
-"Meerut"
-],
-
-"Delhi":[
-"New Delhi",
-"Dwarka",
-"Rohini",
-"Saket"
-],
-
-"Maharashtra":[
-"Mumbai",
-"Pune",
-"Nagpur",
-"Nashik"
-],
-
-"Rajasthan":[
-"Jaipur",
-"Jodhpur",
-"Kota",
-"Ajmer"
-],
-
-"Haryana":[
-"Gurgaon",
-"Faridabad",
-"Panipat"
-],
-
-"Punjab":[
-"Ludhiana",
-"Amritsar",
-"Patiala"
-]
-
-};
-
-/* LOAD STATES */
-
-const stateFilter =
-document.getElementById(
-"stateFilter"
-);
-
-Object.keys(statesData)
-.forEach((state)=>{
-
-stateFilter.innerHTML += `
-
-<option value="${state}">
-${state}
-</option>
-
-`;
-
-});
-
-/* LOAD CITIES */
-
-window.loadCities =
-function(){
-
-const state =
-document.getElementById(
-"stateFilter"
-).value;
-
-const cityFilter =
-document.getElementById(
-"cityFilter"
-);
-
-cityFilter.innerHTML = `
-
-<option value="">
-All Cities
-</option>
-
-`;
-
-if(
-statesData[state]
-){
-
-statesData[state]
-.forEach((city)=>{
-
-cityFilter.innerHTML += `
-
-<option value="${city}">
-${city}
-</option>
-
-`;
-
-});
-
-}
-
-};
-
-/* ORDERS */
-
 let allOrders = [];
+
+window.partnerOptions = "";
+window.riderOptions = "";
+
+const statusFlow = [
+
+"Order Placed",
+"Pickup Assigned",
+"Picked Up",
+"Ironing Started",
+"Ironing Complete",
+"Out For Delivery",
+"Delivered"
+
+];
 
 /* LOAD */
 
@@ -694,32 +724,79 @@ document.getElementById(
 "ordersGrid"
 );
 
-const snap =
+const ordersSnap =
 await getDocs(
 collection(db,"orders")
 );
 
+const partnersSnap =
+await getDocs(
+collection(db,"partners")
+);
+
+const ridersSnap =
+await getDocs(
+collection(db,"riders")
+);
+
+window.partnerOptions = "";
+window.riderOptions = "";
+
+partnersSnap.forEach((doc)=>{
+
+const partner =
+doc.data();
+
+window.partnerOptions += `
+
+<option value="${partner.name}">
+${partner.name}
+(${partner.city || ""})
+</option>
+
+`;
+
+});
+
+ridersSnap.forEach((doc)=>{
+
+const rider =
+doc.data();
+
+window.riderOptions += `
+
+<option value="${rider.name}">
+${rider.name}
+(${rider.city || ""})
+</option>
+
+`;
+
+});
+
 let html = "";
 
-let revenue = 0;
+let totalRevenue = 0;
 let pending = 0;
 let running = 0;
 
 allOrders = [];
 
-snap.forEach((doc)=>{
+ordersSnap.forEach((docSnap)=>{
 
 const order =
-doc.data();
+docSnap.data();
 
-allOrders.push(order);
+allOrders.push({
+id:docSnap.id,
+...order
+});
 
-revenue +=
+totalRevenue +=
 order.total || 0;
 
 if(
-order.status ===
-"Order Placed"
+order.status === "Order Placed"
 ){
 
 pending++;
@@ -727,15 +804,17 @@ pending++;
 }
 
 if(
-order.status !==
-"Delivered"
+order.status !== "Delivered"
 ){
 
 running++;
 
 }
 
-html += createCard(order);
+html += createOrderCard(
+docSnap.id,
+order
+);
 
 });
 
@@ -744,12 +823,12 @@ ordersGrid.innerHTML = html;
 document.getElementById(
 "totalOrders"
 ).innerHTML =
-snap.size;
+ordersSnap.size;
 
 document.getElementById(
 "totalRevenue"
 ).innerHTML =
-"₹"+revenue;
+"₹"+totalRevenue;
 
 document.getElementById(
 "pendingOrders"
@@ -767,15 +846,18 @@ loadOrders();
 
 /* CARD */
 
-function createCard(order){
+function createOrderCard(
+id,
+order
+){
 
 return `
 
 <div class="orderCard">
 
-<div class="orderTop">
+<div class="miniTop">
 
-<div class="userBox">
+<div class="miniLeft">
 
 <div class="avatar">
 ${order.name
@@ -783,73 +865,190 @@ ${order.name
 : "U"}
 </div>
 
-<div class="userInfo">
+<div>
 
 <h3>
 ${order.name || ""}
 </h3>
 
 <p>
-${order.phone || ""}
+#${id.slice(0,6)}
 </p>
 
 </div>
 
 </div>
 
-<div class="status">
+<div class="miniStatus">
 ${order.status || ""}
 </div>
 
 </div>
 
-<div class="details">
+<div class="miniInfo">
 
-<div class="detailBox">
-<span>Total</span>
-<b>₹${order.total || 0}</b>
+<div>
+₹${order.total || 0}
 </div>
 
-<div class="detailBox">
-<span>City</span>
-<b>${order.city || ""}</b>
+<div>
+${order.city || ""}
 </div>
 
-<div class="detailBox">
-<span>Partner</span>
-<b>${order.partnerName || ""}</b>
-</div>
-
-<div class="detailBox">
-<span>Rider</span>
-<b>${order.riderName || ""}</b>
-</div>
-
-<div class="detailBox">
-<span>Pickup By</span>
-<b>${order.pickupBy || ""}</b>
-</div>
-
-<div class="detailBox">
-<span>Delivery By</span>
-<b>${order.deliveryBy || ""}</b>
+<div>
+${order.items?.length || 0} Items
 </div>
 
 </div>
 
-<div class="btnGrid">
+<div class="miniBtns">
 
-<button class="actionBtn viewBtn">
+<button
+class="viewBtn"
+onclick="openOrder('${id}')">
+
 View
+
 </button>
 
 <a
 href="tel:${order.phone || ""}"
-class="actionBtn callBtn">
+class="callBtn">
 
-Call
+Customer
 
 </a>
+
+</div>
+
+<div
+class="fullDetail"
+id="detail-${id}">
+
+<div class="detailGrid">
+
+<div class="detailItem">
+<span>Mobile</span>
+<b>${order.phone || ""}</b>
+</div>
+
+<div class="detailItem">
+<span>Address</span>
+<b>${order.address || ""}</b>
+</div>
+
+<div class="detailItem">
+<span>City</span>
+<b>${order.city || ""}</b>
+</div>
+
+<div class="detailItem">
+<span>Pickup Time</span>
+<b>${order.pickupTime || ""}</b>
+</div>
+
+<div class="detailItem">
+<span>Partner</span>
+<b>${order.partnerName || "Pending"}</b>
+</div>
+
+<div class="detailItem">
+<span>Pickup By</span>
+<b>${order.pickupBy || "Pending"}</b>
+</div>
+
+<div class="detailItem">
+<span>Delivery By</span>
+<b>${order.deliveryBy || "Pending"}</b>
+</div>
+
+<div class="detailItem">
+<span>Status</span>
+<b>${order.status || ""}</b>
+</div>
+
+</div>
+
+<div class="callGrid">
+
+<a
+href="tel:${order.phone || ""}"
+class="callAction">
+
+<i class="fa-solid fa-phone"></i>
+Customer
+
+</a>
+
+<a
+href="tel:${order.riderPhone || ""}"
+class="callAction">
+
+<i class="fa-solid fa-motorcycle"></i>
+Rider
+
+</a>
+
+<a
+href="tel:${order.partnerPhone || ""}"
+class="callAction">
+
+<i class="fa-solid fa-store"></i>
+Partner
+
+</a>
+
+</div>
+
+<select
+class="selectBox"
+id="partner-${id}">
+
+<option value="">
+Assign Partner
+</option>
+
+${window.partnerOptions}
+
+</select>
+
+<select
+class="selectBox"
+id="rider-${id}">
+
+<option value="">
+Assign Rider
+</option>
+
+${window.riderOptions}
+
+</select>
+
+<select
+class="selectBox"
+id="status-${id}">
+
+<option value="">
+Update Status
+</option>
+
+${statusFlow.map(status=>`
+
+<option value="${status}">
+${status}
+</option>
+
+`).join("")}
+
+</select>
+
+<button
+class="updateBtn"
+onclick="updateOrder('${id}')">
+
+Update Order
+
+</button>
 
 </div>
 
@@ -859,20 +1058,131 @@ Call
 
 }
 
+/* VIEW */
+
+window.openOrder =
+function(id){
+
+document
+.getElementById(
+`detail-${id}`
+)
+.classList.toggle("active");
+
+};
+
+/* UPDATE */
+
+window.updateOrder =
+async function(id){
+
+const order =
+allOrders.find(o=>o.id===id);
+
+const partner =
+document.getElementById(
+`partner-${id}`
+).value;
+
+const rider =
+document.getElementById(
+`rider-${id}`
+).value;
+
+const status =
+document.getElementById(
+`status-${id}`
+).value;
+
+/* LOCK */
+
+if(
+order.status === "Delivered"
+){
+
+alert(
+"Delivered order locked"
+);
+
+return;
+
+}
+
+/* REQUIRE */
+
+if(
+!partner ||
+!rider
+){
+
+alert(
+"Assign partner & rider first"
+);
+
+return;
+
+}
+
+const currentIndex =
+statusFlow.indexOf(
+order.status
+);
+
+const newIndex =
+statusFlow.indexOf(
+status);
+
+/* BACK BLOCK */
+
+if(
+newIndex < currentIndex
+){
+
+alert(
+"Cannot move backward"
+);
+
+return;
+
+}
+
+await updateDoc(
+
+doc(db,"orders",id),
+
+{
+
+partnerName:partner,
+riderName:rider,
+
+pickupBy:
+newIndex >= 2
+? rider
+: "",
+
+deliveryBy:
+newIndex >= 5
+? rider
+: "",
+
+status:status
+
+}
+
+);
+
+alert(
+"Order Updated"
+);
+
+loadOrders();
+
+};
+
 /* FILTER */
 
 window.filterOrders =
-function(){
-
-const city =
-document.getElementById(
-"cityFilter"
-).value;
-
-const date =
-document.getElementById(
-"dateFilter"
-).value;
+function(type){
 
 const ordersGrid =
 document.getElementById(
@@ -882,23 +1192,6 @@ document.getElementById(
 let html = "";
 
 allOrders.forEach((order)=>{
-
-/* CITY */
-
-if(
-city &&
-order.city !== city
-){
-
-return;
-
-}
-
-/* DATE */
-
-if(
-date !== "All"
-){
 
 const orderDate =
 order.createdAt?.seconds
@@ -918,26 +1211,42 @@ Math.floor(
 );
 
 if(
-date==="Today" &&
+type==="Today" &&
 diff!==0
-){
-
-return;
-
-}
+)return;
 
 if(
-date!=="Today" &&
-diff > Number(date)
-){
+type==="7 Days" &&
+diff>7
+)return;
 
-return;
+if(
+type==="15 Days" &&
+diff>15
+)return;
 
-}
+if(
+type==="Month" &&
+diff>30
+)return;
 
-}
+if(
 
-html += createCard(order);
+type!=="All" &&
+[
+"Today",
+"7 Days",
+"15 Days",
+"Month"
+].includes(type)===false &&
+order.status!==type
+
+)return;
+
+html += createOrderCard(
+order.id,
+order
+);
 
 });
 
