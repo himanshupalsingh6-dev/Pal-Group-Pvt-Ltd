@@ -846,12 +846,14 @@ Track Order
 </div>
 
 </div>
-
-<script>
   
 <script type="module">
 
-import { db } from "../firebase.js";
+import { db }
+
+from
+
+"/Pal-Group-Pvt-Ltd/firebase.js";
 
 import {
 
@@ -885,12 +887,23 @@ USER
 ========================= */
 
 const userPhone =
+
 localStorage.getItem(
 "userPhone"
 ) || "";
 
 /* =========================
-ADDRESS
+GLOBAL
+========================= */
+
+let subtotal = 0;
+
+let deliveryCharge = 19;
+
+const handlingFee = 4;
+
+/* =========================
+LOAD USER
 ========================= */
 
 async function loadUser(){
@@ -898,9 +911,11 @@ async function loadUser(){
 try{
 
 const userRef =
+
 doc(db,"users",userPhone);
 
 const userSnap =
+
 await getDoc(userRef);
 
 if(userSnap.exists()){
@@ -943,18 +958,12 @@ console.log(error);
 loadUser();
 
 /* =========================
-ORDER COUNT
-========================= */
-
-let subtotal = 0;
-let deliveryCharge = 19;
-const handlingFee = 4;
-
-/* =========================
-DELIVERY CALCULATION
+DELIVERY CHARGES
 ========================= */
 
 async function calculateDelivery(){
+
+try{
 
 const q = query(
 
@@ -994,6 +1003,14 @@ deliveryCharge = 19;
 
 }
 
+catch(error){
+
+console.log(error);
+
+}
+
+}
+
 /* =========================
 RENDER ITEMS
 ========================= */
@@ -1003,6 +1020,7 @@ async function renderItems(){
 await calculateDelivery();
 
 const orderItems =
+
 document.getElementById(
 "orderItems"
 );
@@ -1122,10 +1140,13 @@ selectPayment;
 PLACE ORDER
 ========================= */
 
-window.placeOrder =
-async function(){
+async function placeOrder(){
 
 try{
+
+console.log("ORDER START");
+
+/* FORM */
 
 const name =
 document.getElementById(
@@ -1152,6 +1173,8 @@ document.getElementById(
 "pickupTime"
 ).value;
 
+/* VALIDATION */
+
 if(
 !name ||
 !phone ||
@@ -1168,7 +1191,22 @@ return;
 
 }
 
+/* EMPTY CART */
+
+if(cart.length === 0){
+
+alert(
+"Cart Empty"
+);
+
+return;
+
+}
+
+/* TOTAL */
+
 const finalTotal =
+
 subtotal +
 deliveryCharge +
 handlingFee;
@@ -1203,10 +1241,14 @@ status:"Order Placed",
 
 trackingStep:1,
 
+paymentMethod:"COD",
+
 createdAt:
 serverTimestamp()
 
 };
+
+console.log(orderData);
 
 /* SAVE FIREBASE */
 
@@ -1221,11 +1263,11 @@ orderData
 );
 
 console.log(
-"ORDER SAVED:",
+"ORDER SUCCESS",
 orderRef.id
 );
 
-/* SAVE ID */
+/* SAVE TRACKING */
 
 localStorage.setItem(
 
@@ -1235,7 +1277,7 @@ orderRef.id
 
 );
 
-/* LAST ORDER */
+/* SAVE LAST ORDER */
 
 localStorage.setItem(
 
@@ -1268,19 +1310,26 @@ alert(error.message);
 
 }
 
-};
+}
+
+/* GLOBAL */
+
+window.placeOrder =
+placeOrder;
 
 /* =========================
 TRACKING
 ========================= */
 
-window.goTracking =
-function(){
+function goTracking(){
 
 window.location.href =
 "tracking.html";
 
-};
+}
+
+window.goTracking =
+goTracking;
 
 </script>
 
