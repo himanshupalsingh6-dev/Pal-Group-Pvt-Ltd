@@ -95,7 +95,7 @@ width:100%;
 max-width:1200px;
 margin:auto;
 padding:16px;
-padding-bottom:260px;
+padding-bottom:240px;
 }
 
 /* =========================
@@ -180,8 +180,7 @@ margin-bottom:8px;
 }
 
 .inputGroup input,
-.inputGroup textarea,
-.inputGroup select{
+.inputGroup textarea{
 width:100%;
 border:none;
 outline:none;
@@ -197,29 +196,45 @@ resize:none;
 }
 
 /* =========================
-SLOTS
+ORDER ITEMS
 ========================= */
 
-.slotGrid{
-display:grid;
-grid-template-columns:
-repeat(2,1fr);
+.orderItem{
+display:flex;
+justify-content:space-between;
+align-items:center;
+padding:14px 0;
+border-bottom:
+1px solid #F1F5F9;
 gap:12px;
 }
 
-.slotBtn{
-height:54px;
-border:none;
-border-radius:18px;
-background:#F8FAFC;
-font-size:13px;
-font-weight:700;
-cursor:pointer;
-transition:0.3s;
+.itemLeft{
+display:flex;
+align-items:center;
+gap:12px;
 }
 
-.activeSlot{
-background:#FFD400;
+.itemIcon{
+width:48px;
+height:48px;
+border-radius:16px;
+background:#fff;
+display:flex;
+align-items:center;
+justify-content:center;
+font-size:22px;
+box-shadow:
+0 4px 12px rgba(0,0,0,0.05);
+}
+
+.categoryTag{
+display:inline-block;
+padding:5px 10px;
+border-radius:10px;
+font-size:10px;
+font-weight:700;
+margin-bottom:6px;
 }
 
 /* =========================
@@ -258,38 +273,6 @@ display:flex;
 align-items:center;
 justify-content:center;
 font-size:22px;
-}
-
-/* =========================
-ORDER ITEMS
-========================= */
-
-.orderItem{
-display:flex;
-justify-content:space-between;
-align-items:center;
-padding:14px 0;
-border-bottom:
-1px solid #F1F5F9;
-}
-
-.itemLeft{
-display:flex;
-align-items:center;
-gap:12px;
-}
-
-.itemIcon{
-width:48px;
-height:48px;
-border-radius:16px;
-background:#fff;
-display:flex;
-align-items:center;
-justify-content:center;
-font-size:22px;
-box-shadow:
-0 4px 12px rgba(0,0,0,0.05);
 }
 
 /* =========================
@@ -398,21 +381,6 @@ background:#fff;
 border-radius:30px;
 padding:30px;
 text-align:center;
-animation:popup 0.3s ease;
-}
-
-@keyframes popup{
-
-from{
-transform:scale(0.8);
-opacity:0;
-}
-
-to{
-transform:scale(1);
-opacity:1;
-}
-
 }
 
 .successIcon{
@@ -453,7 +421,7 @@ cursor:pointer;
 }
 
 /* =========================
-DESKTOP
+RESPONSIVE
 ========================= */
 
 @media screen and (min-width:768px){
@@ -466,25 +434,13 @@ gap:20px;
 align-items:start;
 }
 
-.bottomBar{
-padding:18px;
 }
-
-}
-
-/* =========================
-MOBILE
-========================= */
 
 @media screen and (max-width:768px){
 
 .card{
 padding:18px;
 border-radius:22px;
-}
-
-.slotGrid{
-grid-template-columns:1fr;
 }
 
 .bottomContent{
@@ -548,7 +504,7 @@ Complete your order
 <div class="card">
 
 <h2 class="cardTitle">
-Delivery Address
+Saved Address
 </h2>
 
 <div class="addressBox">
@@ -563,15 +519,11 @@ Delivery Address
 Home
 </h3>
 
-<p id="userAddress">
+<p id="savedAddress">
 
-Meerut, Uttar Pradesh
+No saved address
 
 </p>
-
-<button class="changeBtn">
-Change Address
-</button>
 
 </div>
 
@@ -635,30 +587,110 @@ placeholder="Enter full pickup address"
 <div class="card">
 
 <h2 class="cardTitle">
-Pickup Time
+Pickup Schedule
 </h2>
 
-<div class="slotGrid">
+<div class="inputGroup">
 
-<button
-class="slotBtn activeSlot"
->
+<label>
+Pickup Date
+</label>
 
-Today • 10 AM
+<input
+type="date"
+id="pickupDate"
+/>
 
-</button>
+</div>
 
-<button class="slotBtn">
-Today • 2 PM
-</button>
+<div class="inputGroup">
 
-<button class="slotBtn">
-Today • 6 PM
-</button>
+<label>
+Pickup Time
+</label>
 
-<button class="slotBtn">
-Tomorrow • 10 AM
-</button>
+<input
+type="time"
+id="pickupTime"
+/>
+
+</div>
+
+</div>
+
+</div>
+
+<!-- RIGHT -->
+
+<div>
+
+<!-- ORDER -->
+
+<div class="card">
+
+<h2 class="cardTitle">
+Order Summary
+</h2>
+
+<div id="orderItems">
+
+</div>
+
+</div>
+
+<!-- BILL -->
+
+<div class="card">
+
+<h2 class="cardTitle">
+Bill Details
+</h2>
+
+<div class="billRow">
+
+<h4>
+Subtotal
+</h4>
+
+<h3 id="subtotal">
+₹0
+</h3>
+
+</div>
+
+<div class="billRow">
+
+<h4>
+Delivery Fee
+</h4>
+
+<h3 id="deliveryCharge">
+₹10
+</h3>
+
+</div>
+
+<div class="billRow">
+
+<h4>
+Handling Fee
+</h4>
+
+<h3 id="handlingFee">
+₹4
+</h3>
+
+</div>
+
+<div class="billRow totalRow">
+
+<h2>
+Total
+</h2>
+
+<h2 id="total">
+₹0
+</h2>
 
 </div>
 
@@ -741,84 +773,6 @@ Pay online instantly
 
 </div>
 
-<!-- RIGHT -->
-
-<div>
-
-<!-- ITEMS -->
-
-<div class="card">
-
-<h2 class="cardTitle">
-Order Summary
-</h2>
-
-<div id="orderItems">
-
-</div>
-
-</div>
-
-<!-- BILL -->
-
-<div class="card">
-
-<h2 class="cardTitle">
-Bill Details
-</h2>
-
-<div class="billRow">
-
-<h4>
-Subtotal
-</h4>
-
-<h3 id="subtotal">
-₹0
-</h3>
-
-</div>
-
-<div class="billRow">
-
-<h4>
-Delivery Charge
-</h4>
-
-<h3>
-₹29
-</h3>
-
-</div>
-
-<div class="billRow">
-
-<h4>
-Platform Fee
-</h4>
-
-<h3>
-₹9
-</h3>
-
-</div>
-
-<div class="billRow totalRow">
-
-<h2>
-Total
-</h2>
-
-<h2 id="total">
-₹0
-</h2>
-
-</div>
-
-</div>
-
-</div>
-
 </div>
 
 <!-- BOTTOM -->
@@ -873,8 +827,8 @@ Order Placed
 
 <p>
 
-Your laundry pickup request
-has been successfully placed.
+Your order has been
+successfully placed.
 
 </p>
 
@@ -896,7 +850,7 @@ Track Order
 <script>
 
 /* =========================
-LOCAL CART
+CART
 ========================= */
 
 let cart =
@@ -904,6 +858,64 @@ let cart =
 JSON.parse(
 localStorage.getItem("cart")
 ) || [];
+
+/* =========================
+SAVED ADDRESS
+========================= */
+
+const savedAddress =
+
+localStorage.getItem(
+"userAddress"
+) || "";
+
+if(savedAddress){
+
+document.getElementById(
+"savedAddress"
+).innerHTML =
+savedAddress;
+
+document.getElementById(
+"address"
+).value =
+savedAddress;
+
+}
+
+/* =========================
+ORDER COUNT
+========================= */
+
+let orderCount =
+
+parseInt(
+
+localStorage.getItem(
+"orderCount"
+)
+
+) || 0;
+
+/* =========================
+DELIVERY FEES
+========================= */
+
+let deliveryCharge = 19;
+
+if(orderCount === 0){
+
+deliveryCharge = 10;
+
+}
+
+else if(orderCount === 1){
+
+deliveryCharge = 13;
+
+}
+
+const handlingFee = 4;
 
 /* =========================
 RENDER ITEMS
@@ -936,6 +948,38 @@ String(item.price)
 
 subtotal += price * qty;
 
+/* CATEGORY */
+
+const category =
+item.category || "Laundry";
+
+let bg =
+"#E0F2FE";
+
+let color =
+"#0369A1";
+
+if(category === "Ironing"){
+
+bg = "#FEF3C7";
+color = "#92400E";
+
+}
+
+if(category === "Washing"){
+
+bg = "#DCFCE7";
+color = "#166534";
+
+}
+
+if(category === "Dry Clean"){
+
+bg = "#F3E8FF";
+color = "#6B21A8";
+
+}
+
 html += `
 
 <div class="orderItem">
@@ -947,6 +991,18 @@ ${item.icon || "👕"}
 </div>
 
 <div>
+
+<div
+class="categoryTag"
+style="
+background:${bg};
+color:${color};
+"
+>
+
+${category}
+
+</div>
 
 <h4>
 ${item.name}
@@ -974,13 +1030,27 @@ Qty: ${qty}
 
 orderItems.innerHTML = html;
 
+/* TOTAL */
+
+const total =
+subtotal +
+deliveryCharge +
+handlingFee;
+
 document.getElementById(
 "subtotal"
 ).innerHTML =
 `₹${subtotal}`;
 
-const total =
-subtotal + 29 + 9;
+document.getElementById(
+"deliveryCharge"
+).innerHTML =
+`₹${deliveryCharge}`;
+
+document.getElementById(
+"handlingFee"
+).innerHTML =
+`₹${handlingFee}`;
 
 document.getElementById(
 "total"
@@ -1021,38 +1091,6 @@ element.classList.add(
 }
 
 /* =========================
-SLOTS
-========================= */
-
-document
-.querySelectorAll(
-".slotBtn"
-)
-.forEach((btn)=>{
-
-btn.onclick = function(){
-
-document
-.querySelectorAll(
-".slotBtn"
-)
-.forEach((b)=>{
-
-b.classList.remove(
-"activeSlot"
-);
-
-});
-
-btn.classList.add(
-"activeSlot"
-);
-
-};
-
-});
-
-/* =========================
 PLACE ORDER
 ========================= */
 
@@ -1073,10 +1111,22 @@ document.getElementById(
 "address"
 ).value;
 
+const pickupDate =
+document.getElementById(
+"pickupDate"
+).value;
+
+const pickupTime =
+document.getElementById(
+"pickupTime"
+).value;
+
 if(
 !name ||
 !phone ||
-!address
+!address ||
+!pickupDate ||
+!pickupTime
 ){
 
 alert(
@@ -1087,16 +1137,37 @@ return;
 
 }
 
+/* SAVE ADDRESS */
+
+localStorage.setItem(
+"userAddress",
+address
+);
+
+/* FINAL TOTAL */
+
+const finalTotal =
+subtotal +
+deliveryCharge +
+handlingFee;
+
+/* ORDER */
+
 const order = {
 
 name,
 phone,
 address,
 
+pickupDate,
+pickupTime,
+
 items:cart,
 
-total:
-subtotal + 29 + 9,
+deliveryCharge,
+handlingFee,
+
+total:finalTotal,
 
 status:"Pending",
 
@@ -1105,7 +1176,7 @@ new Date()
 
 };
 
-/* SAVE ORDER */
+/* SAVE */
 
 localStorage.setItem(
 
@@ -1115,7 +1186,16 @@ JSON.stringify(order)
 
 );
 
-/* CLEAR CART */
+/* ORDER COUNT */
+
+orderCount++;
+
+localStorage.setItem(
+"orderCount",
+orderCount
+);
+
+/* CLEAR */
 
 localStorage.removeItem(
 "cart"
