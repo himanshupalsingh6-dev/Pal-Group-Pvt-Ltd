@@ -1,11 +1,15 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+
 <meta charset="UTF-8">
+
 <meta name="viewport"
 content="width=device-width, initial-scale=1.0">
 
-<title>QuickPress Services</title>
+<title>
+QuickPress Services
+</title>
 
 <link rel="stylesheet"
 href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css"/>
@@ -20,29 +24,29 @@ font-family:Poppins,sans-serif;
 }
 
 body{
-background:#F5F7FB;
+background:#F4F7FB;
+overflow-x:hidden;
 }
 
 /* SIDEBAR */
 
 .sidebar{
-width:270px;
-background:#111827;
-color:#fff;
-padding:24px 18px;
+width:260px;
+background:#0F172A;
 position:fixed;
 left:0;
 top:0;
 height:100%;
+padding:24px 18px;
 overflow:auto;
 z-index:999;
 }
 
 .logo{
-font-size:30px;
+font-size:32px;
 font-weight:900;
-margin-bottom:40px;
 color:#FFD400;
+margin-bottom:40px;
 }
 
 .menu{
@@ -53,54 +57,47 @@ gap:10px;
 
 .menu a{
 text-decoration:none;
-color:#D1D5DB;
+color:#CBD5E1;
 padding:16px;
 border-radius:18px;
 display:flex;
 align-items:center;
 gap:14px;
 font-size:15px;
-font-weight:600;
+font-weight:700;
 transition:0.3s;
 }
 
 .menu a:hover,
 .menu a.active{
-background:#1F2937;
-color:#fff;
+background:linear-gradient(
+135deg,
+#FFD400,
+#FFB800
+);
+color:#111827;
 }
 
 /* MAIN */
 
 .main{
-margin-left:270px;
+margin-left:260px;
 padding:24px;
 }
 
-/* TOPBAR */
+/* TOP */
 
 .topbar{
 display:flex;
 justify-content:space-between;
 align-items:center;
-margin-bottom:24px;
+margin-bottom:26px;
+gap:18px;
 }
 
 .topbar h1{
-font-size:34px;
+font-size:36px;
 font-weight:900;
-}
-
-.addBtn{
-height:56px;
-padding:0 24px;
-border:none;
-border-radius:18px;
-background:#111827;
-color:#fff;
-font-size:15px;
-font-weight:800;
-cursor:pointer;
 }
 
 /* FORM */
@@ -108,20 +105,20 @@ cursor:pointer;
 .formCard{
 background:#fff;
 padding:24px;
-border-radius:28px;
-box-shadow:0 8px 24px rgba(0,0,0,0.05);
-margin-bottom:24px;
+border-radius:30px;
+margin-bottom:26px;
+box-shadow:0 10px 30px rgba(0,0,0,0.05);
 }
 
 .formGrid{
 display:grid;
-grid-template-columns:1fr 1fr;
+grid-template-columns:1fr 1fr 1fr;
 gap:16px;
 }
 
 .input{
 width:100%;
-height:56px;
+height:58px;
 border:none;
 outline:none;
 background:#F3F4F6;
@@ -130,22 +127,59 @@ padding:0 18px;
 font-size:15px;
 }
 
-textarea.input{
+.textarea{
+width:100%;
 height:120px;
-padding-top:18px;
+border:none;
+outline:none;
+background:#F3F4F6;
+border-radius:18px;
+padding:18px;
+font-size:15px;
 resize:none;
+grid-column:1/4;
 }
 
 .submitBtn{
 width:100%;
-height:58px;
+height:60px;
 border:none;
 border-radius:20px;
-background:#FFD400;
+background:linear-gradient(
+135deg,
+#FFD400,
+#FFB800
+);
 font-size:16px;
 font-weight:900;
-margin-top:18px;
 cursor:pointer;
+margin-top:18px;
+}
+
+/* CATEGORY STATS */
+
+.categoryGrid{
+display:grid;
+grid-template-columns:repeat(4,1fr);
+gap:18px;
+margin-bottom:26px;
+}
+
+.categoryCard{
+background:#fff;
+padding:24px;
+border-radius:28px;
+box-shadow:0 10px 30px rgba(0,0,0,0.05);
+}
+
+.categoryCard h3{
+font-size:18px;
+margin-bottom:12px;
+}
+
+.categoryCard p{
+font-size:34px;
+font-weight:900;
 }
 
 /* SERVICES */
@@ -159,74 +193,96 @@ gap:18px;
 .serviceCard{
 background:#fff;
 padding:22px;
-border-radius:28px;
+border-radius:30px;
 box-shadow:0 10px 30px rgba(0,0,0,0.05);
 position:relative;
 overflow:hidden;
 }
 
-.serviceCard::after{
-content:'';
+.serviceCard::before{
+content:"";
 position:absolute;
-right:-30px;
-top:-30px;
-width:120px;
-height:120px;
+width:150px;
+height:150px;
 background:rgba(255,212,0,0.15);
 border-radius:50%;
+top:-60px;
+right:-60px;
 }
 
-.serviceIcon{
-width:70px;
-height:70px;
-border-radius:22px;
-background:#F3F4F6;
+.serviceTop{
 display:flex;
+justify-content:space-between;
 align-items:center;
-justify-content:center;
-font-size:34px;
 margin-bottom:18px;
 }
 
-.serviceCard h3{
-font-size:20px;
-margin-bottom:8px;
-}
-
-.serviceCard p{
-font-size:14px;
-color:#6B7280;
-margin-bottom:14px;
-}
-
-.price{
-font-size:24px;
+.serviceName{
+font-size:22px;
 font-weight:900;
+}
+
+.categoryTag{
+padding:10px 14px;
+border-radius:14px;
+background:#111827;
+color:#fff;
+font-size:11px;
+font-weight:800;
+}
+
+.description{
+font-size:14px;
+line-height:1.6;
+color:#6B7280;
 margin-bottom:18px;
 }
 
-.cardBtns{
+/* CITY RATES */
+
+.cityRates{
+display:flex;
+flex-direction:column;
+gap:10px;
+margin-bottom:18px;
+}
+
+.rateItem{
+display:flex;
+justify-content:space-between;
+background:#F9FAFB;
+padding:12px 14px;
+border-radius:14px;
+font-size:14px;
+font-weight:700;
+}
+
+/* BUTTONS */
+
+.btnGrid{
 display:grid;
 grid-template-columns:1fr 1fr;
 gap:12px;
 }
 
 .editBtn{
-height:48px;
+height:52px;
 border:none;
 border-radius:16px;
 background:#111827;
 color:#fff;
 font-weight:800;
+cursor:pointer;
 }
 
 .deleteBtn{
-height:48px;
+height:52px;
 border:none;
 border-radius:16px;
 background:#FEE2E2;
 color:#DC2626;
 font-weight:800;
+cursor:pointer;
 }
 
 /* MOBILE */
@@ -235,9 +291,13 @@ font-weight:800;
 display:none;
 }
 
-@media(max-width:1100px){
+@media(max-width:1200px){
 
 .servicesGrid{
+grid-template-columns:1fr 1fr;
+}
+
+.categoryGrid{
 grid-template-columns:1fr 1fr;
 }
 
@@ -274,25 +334,23 @@ color:#fff;
 font-size:22px;
 align-items:center;
 justify-content:center;
-z-index:1000;
+z-index:9999;
 }
 
 .formGrid{
 grid-template-columns:1fr;
 }
 
+.textarea{
+grid-column:1/2;
+}
+
 .servicesGrid{
 grid-template-columns:1fr;
 }
 
-.topbar{
-flex-direction:column;
-align-items:flex-start;
-gap:14px;
-}
-
-.topbar h1{
-font-size:26px;
+.categoryGrid{
+grid-template-columns:1fr;
 }
 
 }
@@ -301,7 +359,7 @@ font-size:26px;
 </head>
 <body>
 
-<!-- MOBILE BUTTON -->
+<!-- MOBILE -->
 
 <button class="mobileMenuBtn"
 onclick="toggleSidebar()">
@@ -321,63 +379,53 @@ QuickPress
 <div class="menu">
 
 <a href="index.html">
+
 <i class="fa-solid fa-chart-line"></i>
 Dashboard
+
 </a>
 
 <a href="orders.html">
+
 <i class="fa-solid fa-basket-shopping"></i>
 Orders
+
 </a>
 
-<a href="services.html" class="active">
+<a href="services.html"
+class="active">
+
 <i class="fa-solid fa-shirt"></i>
 Services
+
 </a>
 
 <a href="users.html">
+
 <i class="fa-solid fa-users"></i>
 Users
+
 </a>
 
 <a href="delivery.html">
+
 <i class="fa-solid fa-truck"></i>
 Delivery
+
 </a>
 
 <a href="partners.html">
+
 <i class="fa-solid fa-handshake"></i>
 Partners
+
 </a>
 
 <a href="riders.html">
+
 <i class="fa-solid fa-motorcycle"></i>
 Riders
-</a>
 
-<a href="payments.html">
-<i class="fa-solid fa-wallet"></i>
-Payments
-</a>
-
-<a href="analytics.html">
-<i class="fa-solid fa-chart-pie"></i>
-Analytics
-</a>
-
-<a href="offers.html">
-<i class="fa-solid fa-tags"></i>
-Offers
-</a>
-
-<a href="notifications.html">
-<i class="fa-solid fa-bell"></i>
-Notifications
-</a>
-
-<a href="settings.html">
-<i class="fa-solid fa-gear"></i>
-Settings
 </a>
 
 </div>
@@ -388,17 +436,13 @@ Settings
 
 <div class="main">
 
-<!-- TOPBAR -->
+<!-- TOP -->
 
 <div class="topbar">
 
 <h1>
 Services
 </h1>
-
-<button class="addBtn">
-Add New Service
-</button>
 
 </div>
 
@@ -415,54 +459,96 @@ class="input"
 id="serviceName"
 />
 
-<input
-type="text"
-placeholder="Price"
-class="input"
-id="servicePrice"
-/>
-
-<input
-type="text"
-placeholder="Category"
-class="input"
-id="serviceCategory"
-/>
-
-<input
-type="text"
-placeholder="Icon Emoji"
-class="input"
-id="serviceIcon"
-/>
-
-<input
-type="text"
-placeholder="City"
-class="input"
-id="serviceCity"
-/>
-
 <select
 class="input"
-id="serviceStatus">
+id="category">
 
 <option>
-Active
+Ironing
 </option>
 
 <option>
-Disabled
+Washing
+</option>
+
+<option>
+Dry Cleaning
+</option>
+
+<option>
+Premium
 </option>
 
 </select>
 
-</div>
+<select
+class="input"
+id="state">
+
+<option>
+Uttar Pradesh
+</option>
+
+<option>
+Delhi
+</option>
+
+<option>
+Maharashtra
+</option>
+
+</select>
+
+<select
+class="input"
+id="city">
+
+<option>
+Noida
+</option>
+
+<option>
+Kasganj
+</option>
+
+<option>
+Aligarh
+</option>
+
+<option>
+Badaun
+</option>
+
+<option>
+Delhi
+</option>
+
+<option>
+Mumbai
+</option>
+
+</select>
+
+<input
+type="number"
+placeholder="Price"
+class="input"
+id="price"
+/>
+
+<input
+type="text"
+placeholder="Image URL"
+class="input"
+id="image"
+/>
 
 <textarea
-placeholder="Service Description"
-class="input"
-id="serviceDesc"></textarea>
+placeholder="Description"
+class="textarea"
+id="description"></textarea>
+
+</div>
 
 <button
 class="submitBtn"
@@ -471,6 +557,60 @@ onclick="addService()">
 Add Service
 
 </button>
+
+</div>
+
+<!-- CATEGORY STATS -->
+
+<div class="categoryGrid">
+
+<div class="categoryCard">
+
+<h3>
+Ironing Services
+</h3>
+
+<p id="ironCount">
+0
+</p>
+
+</div>
+
+<div class="categoryCard">
+
+<h3>
+Washing Services
+</h3>
+
+<p id="washCount">
+0
+</p>
+
+</div>
+
+<div class="categoryCard">
+
+<h3>
+Dry Cleaning
+</h3>
+
+<p id="dryCount">
+0
+</p>
+
+</div>
+
+<div class="categoryCard">
+
+<h3>
+Premium Services
+</h3>
+
+<p id="premiumCount">
+0
+</p>
+
+</div>
 
 </div>
 
@@ -499,7 +639,8 @@ collection,
 addDoc,
 getDocs,
 deleteDoc,
-doc
+doc,
+updateDoc
 
 }
 
@@ -517,46 +658,99 @@ document.getElementById(
 );
 
 const snap =
-
 await getDocs(
 collection(db,"services")
 );
 
 let html = "";
 
+let iron = 0;
+let wash = 0;
+let dry = 0;
+let premium = 0;
+
 snap.forEach((docSnap)=>{
 
 const service =
 docSnap.data();
 
+if(
+service.category==="Ironing"
+){
+
+iron++;
+
+}
+
+if(
+service.category==="Washing"
+){
+
+wash++;
+
+}
+
+if(
+service.category==="Dry Cleaning"
+){
+
+dry++;
+
+}
+
+if(
+service.category==="Premium"
+){
+
+premium++;
+
+}
+
 html += `
 
 <div class="serviceCard">
 
-<div class="serviceIcon">
-${service.icon || "👕"}
+<div class="serviceTop">
+
+<div class="serviceName">
+${service.name || ""}
 </div>
 
-<h3>
-${service.name}
-</h3>
+<div class="categoryTag">
+${service.category || ""}
+</div>
 
-<p>
+</div>
+
+<div class="description">
 ${service.description || ""}
-</p>
-
-<div class="price">
-₹${service.price || 0}
 </div>
 
-<p>
-${service.city || ""}
-</p>
+<div class="cityRates">
 
-<div class="cardBtns">
+<div class="rateItem">
+
+<span>
+${service.city || ""}
+</span>
+
+<span>
+₹${service.price || 0}
+</span>
+
+</div>
+
+</div>
+
+<div class="btnGrid">
 
 <button
-class="editBtn">
+class="editBtn"
+onclick="editService(
+'${docSnap.id}',
+'${service.name}',
+'${service.price}'
+)">
 
 Edit
 
@@ -578,7 +772,28 @@ Delete
 
 });
 
-servicesGrid.innerHTML = html;
+servicesGrid.innerHTML =
+html;
+
+document.getElementById(
+"ironCount"
+).innerHTML =
+iron;
+
+document.getElementById(
+"washCount"
+).innerHTML =
+wash;
+
+document.getElementById(
+"dryCount"
+).innerHTML =
+dry;
+
+document.getElementById(
+"premiumCount"
+).innerHTML =
+premium;
 
 }
 
@@ -594,34 +809,34 @@ document.getElementById(
 "serviceName"
 ).value;
 
-const price =
-document.getElementById(
-"servicePrice"
-).value;
-
 const category =
 document.getElementById(
-"serviceCategory"
+"category"
 ).value;
 
-const icon =
+const state =
 document.getElementById(
-"serviceIcon"
+"state"
 ).value;
 
 const city =
 document.getElementById(
-"serviceCity"
+"city"
 ).value;
 
-const status =
+const price =
 document.getElementById(
-"serviceStatus"
+"price"
+).value;
+
+const image =
+document.getElementById(
+"image"
 ).value;
 
 const description =
 document.getElementById(
-"serviceDesc"
+"description"
 ).value;
 
 if(
@@ -644,11 +859,11 @@ collection(db,"services"),
 {
 
 name:name,
-price:Number(price),
 category:category,
-icon:icon,
+state:state,
 city:city,
-status:status,
+price:Number(price),
+image:image,
 description:description
 
 }
@@ -674,6 +889,53 @@ doc(db,"services",id)
 
 alert(
 "Service Deleted"
+);
+
+loadServices();
+
+};
+
+/* EDIT */
+
+window.editService =
+async function(id,name,price){
+
+const newName =
+prompt(
+"Edit Service Name",
+name
+);
+
+const newPrice =
+prompt(
+"Edit Price",
+price
+);
+
+if(
+!newName ||
+!newPrice
+){
+
+return;
+
+}
+
+await updateDoc(
+
+doc(db,"services",id),
+
+{
+
+name:newName,
+price:Number(newPrice)
+
+}
+
+);
+
+alert(
+"Service Updated"
 );
 
 loadServices();
