@@ -1,0 +1,1002 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+<meta charset="UTF-8"/>
+
+<meta
+name="viewport"
+content="width=device-width, initial-scale=1.0"
+/>
+
+<title>
+Admin Services Module
+</title>
+
+<link
+rel="stylesheet"
+href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css"
+/>
+
+<style>
+
+/* =========================
+RESET
+========================= */
+
+*{
+margin:0;
+padding:0;
+box-sizing:border-box;
+font-family:
+"Poppins",
+sans-serif;
+}
+
+body{
+background:#F8FAFC;
+color:#111827;
+}
+
+/* =========================
+TOPBAR
+========================= */
+
+.topbar{
+background:#fff;
+padding:18px;
+display:flex;
+justify-content:space-between;
+align-items:center;
+box-shadow:
+0 4px 18px rgba(0,0,0,0.05);
+position:sticky;
+top:0;
+z-index:999;
+}
+
+.topbar h1{
+font-size:24px;
+font-weight:900;
+}
+
+.adminTag{
+padding:10px 16px;
+border-radius:14px;
+background:#FFD400;
+font-size:13px;
+font-weight:800;
+}
+
+/* =========================
+MAIN
+========================= */
+
+.main{
+padding:18px;
+display:grid;
+grid-template-columns:
+380px 1fr;
+gap:18px;
+}
+
+/* =========================
+CARD
+========================= */
+
+.card{
+background:#fff;
+border-radius:28px;
+padding:22px;
+box-shadow:
+0 4px 18px rgba(0,0,0,0.05);
+}
+
+/* =========================
+FORM
+========================= */
+
+.formTitle{
+font-size:22px;
+font-weight:900;
+margin-bottom:18px;
+}
+
+.inputGroup{
+margin-bottom:16px;
+}
+
+.inputGroup label{
+display:block;
+font-size:13px;
+font-weight:700;
+margin-bottom:8px;
+}
+
+.inputGroup input,
+.inputGroup select,
+.inputGroup textarea{
+width:100%;
+height:52px;
+border:none;
+outline:none;
+padding:0 16px;
+border-radius:16px;
+background:#F8FAFC;
+font-size:14px;
+}
+
+.inputGroup textarea{
+height:100px;
+padding-top:14px;
+resize:none;
+}
+
+.submitBtn{
+width:100%;
+height:54px;
+border:none;
+border-radius:18px;
+background:#FFD400;
+font-size:15px;
+font-weight:900;
+cursor:pointer;
+}
+
+/* =========================
+FILTER
+========================= */
+
+.filterBar{
+display:flex;
+gap:12px;
+margin-bottom:20px;
+flex-wrap:wrap;
+}
+
+.filterBar input,
+.filterBar select{
+height:48px;
+border:none;
+outline:none;
+padding:0 16px;
+border-radius:14px;
+background:#F8FAFC;
+font-size:14px;
+}
+
+/* =========================
+GRID
+========================= */
+
+.productGrid{
+display:grid;
+grid-template-columns:
+repeat(3,1fr);
+gap:16px;
+}
+
+/* =========================
+PRODUCT CARD
+========================= */
+
+.productCard{
+background:#fff;
+border-radius:24px;
+padding:18px;
+border:1px solid #F1F5F9;
+box-shadow:
+0 4px 12px rgba(0,0,0,0.04);
+}
+
+.productTop{
+display:flex;
+justify-content:space-between;
+align-items:center;
+margin-bottom:14px;
+}
+
+.productIcon{
+width:60px;
+height:60px;
+border-radius:18px;
+background:#fff;
+display:flex;
+align-items:center;
+justify-content:center;
+font-size:28px;
+box-shadow:
+0 4px 12px rgba(0,0,0,0.05);
+}
+
+.status{
+padding:6px 12px;
+border-radius:12px;
+font-size:11px;
+font-weight:700;
+}
+
+.active{
+background:#DCFCE7;
+color:#166534;
+}
+
+.inactive{
+background:#FEE2E2;
+color:#991B1B;
+}
+
+.productCard h2{
+font-size:18px;
+margin-bottom:8px;
+}
+
+.productCard p{
+font-size:12px;
+color:#666;
+line-height:1.6;
+margin-bottom:14px;
+}
+
+.price{
+font-size:24px;
+font-weight:900;
+color:#22C55E;
+margin-bottom:12px;
+}
+
+.tags{
+display:flex;
+gap:8px;
+flex-wrap:wrap;
+margin-bottom:16px;
+}
+
+.tag{
+padding:8px 12px;
+border-radius:12px;
+background:#F8FAFC;
+font-size:11px;
+font-weight:700;
+}
+
+.actionBtns{
+display:flex;
+gap:10px;
+}
+
+.editBtn,
+.deleteBtn{
+flex:1;
+height:42px;
+border:none;
+border-radius:14px;
+font-size:12px;
+font-weight:800;
+cursor:pointer;
+}
+
+.editBtn{
+background:#FFD400;
+}
+
+.deleteBtn{
+background:#EF4444;
+color:#fff;
+}
+
+/* =========================
+POPUP
+========================= */
+
+.popup{
+position:fixed;
+top:30px;
+left:50%;
+transform:translateX(-50%);
+background:#111827;
+color:#fff;
+padding:14px 22px;
+border-radius:16px;
+font-size:13px;
+font-weight:700;
+opacity:0;
+pointer-events:none;
+transition:0.3s;
+z-index:9999;
+}
+
+.showPopup{
+opacity:1;
+top:80px;
+}
+
+/* =========================
+RESPONSIVE
+========================= */
+
+@media screen and (max-width:1100px){
+
+.productGrid{
+grid-template-columns:
+1fr 1fr;
+}
+
+}
+
+@media screen and (max-width:768px){
+
+.main{
+grid-template-columns:1fr;
+}
+
+.productGrid{
+grid-template-columns:1fr;
+}
+
+.topbar h1{
+font-size:20px;
+}
+
+.card{
+padding:18px;
+border-radius:22px;
+}
+
+}
+
+</style>
+
+</head>
+
+<body>
+
+<!-- POPUP -->
+
+<div
+class="popup"
+id="popup"
+>
+
+Success
+
+</div>
+
+<!-- TOPBAR -->
+
+<div class="topbar">
+
+<h1>
+Services Module
+</h1>
+
+<div class="adminTag">
+ADMIN PANEL
+</div>
+
+</div>
+
+<!-- MAIN -->
+
+<div class="main">
+
+<!-- LEFT FORM -->
+
+<div class="card">
+
+<h2 class="formTitle">
+Add Service
+</h2>
+
+<div class="inputGroup">
+
+<label>
+Product Name
+</label>
+
+<input
+type="text"
+id="name"
+placeholder="Formal Shirt"
+/>
+
+</div>
+
+<div class="inputGroup">
+
+<label>
+Price
+</label>
+
+<input
+type="number"
+id="price"
+placeholder="29"
+/>
+
+</div>
+
+<div class="inputGroup">
+
+<label>
+Category
+</label>
+
+<select id="category">
+
+<option>
+Ironing
+</option>
+
+<option>
+Wash
+</option>
+
+<option>
+Dry Clean
+</option>
+
+<option>
+Steam
+</option>
+
+<option>
+Premium
+</option>
+
+</select>
+
+</div>
+
+<div class="inputGroup">
+
+<label>
+Icon
+</label>
+
+<input
+type="text"
+id="icon"
+placeholder="👔"
+/>
+
+</div>
+
+<div class="inputGroup">
+
+<label>
+City
+</label>
+
+<select id="city">
+
+<option>
+Meerut
+</option>
+
+<option>
+Delhi
+</option>
+
+<option>
+Noida
+</option>
+
+<option>
+Ghaziabad
+</option>
+
+</select>
+
+</div>
+
+<div class="inputGroup">
+
+<label>
+Area
+</label>
+
+<input
+type="text"
+id="area"
+placeholder="Shastri Nagar"
+/>
+
+</div>
+
+<div class="inputGroup">
+
+<label>
+Description
+</label>
+
+<textarea
+id="desc"
+placeholder="Premium steam ironing"
+></textarea>
+
+</div>
+
+<div class="inputGroup">
+
+<label>
+Status
+</label>
+
+<select id="status">
+
+<option value="active">
+Active
+</option>
+
+<option value="inactive">
+Inactive
+</option>
+
+</select>
+
+</div>
+
+<button
+class="submitBtn"
+onclick="addService()"
+>
+
+Add Service
+
+</button>
+
+</div>
+
+<!-- RIGHT -->
+
+<div class="card">
+
+<!-- FILTER -->
+
+<div class="filterBar">
+
+<input
+type="text"
+placeholder="Search..."
+id="searchInput"
+/>
+
+<select id="cityFilter">
+
+<option value="all">
+All Cities
+</option>
+
+<option>
+Meerut
+</option>
+
+<option>
+Delhi
+</option>
+
+<option>
+Noida
+</option>
+
+</select>
+
+<select id="categoryFilter">
+
+<option value="all">
+All Categories
+</option>
+
+<option>
+Ironing
+</option>
+
+<option>
+Wash
+</option>
+
+<option>
+Dry Clean
+</option>
+
+</select>
+
+</div>
+
+<!-- GRID -->
+
+<div
+class="productGrid"
+id="productGrid"
+>
+
+</div>
+
+</div>
+
+</div>
+
+<!-- FIREBASE -->
+
+<script type="module">
+
+/* =========================
+IMPORTS
+========================= */
+
+import {
+
+db
+
+}
+
+from "../firebase.js";
+
+import {
+
+collection,
+addDoc,
+getDocs,
+deleteDoc,
+doc
+
+}
+
+from
+
+"https://www.gstatic.com/firebasejs/12.11.0/firebase-firestore.js";
+
+/* =========================
+ELEMENTS
+========================= */
+
+const productGrid =
+
+document.getElementById(
+"productGrid"
+);
+
+let allProducts = [];
+
+/* =========================
+POPUP
+========================= */
+
+function showPopup(text){
+
+const popup =
+
+document.getElementById(
+"popup"
+);
+
+popup.innerHTML = text;
+
+popup.classList.add(
+"showPopup"
+);
+
+setTimeout(()=>{
+
+popup.classList.remove(
+"showPopup"
+);
+
+},2000);
+
+}
+
+/* =========================
+ADD SERVICE
+========================= */
+
+window.addService =
+async function(){
+
+const service = {
+
+name:
+document.getElementById(
+"name"
+).value,
+
+price:
+document.getElementById(
+"price"
+).value,
+
+category:
+document.getElementById(
+"category"
+).value,
+
+icon:
+document.getElementById(
+"icon"
+).value,
+
+city:
+document.getElementById(
+"city"
+).value,
+
+area:
+document.getElementById(
+"area"
+).value,
+
+desc:
+document.getElementById(
+"desc"
+).value,
+
+status:
+document.getElementById(
+"status"
+).value,
+
+createdAt:
+new Date()
+
+};
+
+await addDoc(
+
+collection(db,"services"),
+
+service
+
+);
+
+showPopup(
+"Service Added Successfully"
+);
+
+loadProducts();
+
+};
+
+/* =========================
+LOAD PRODUCTS
+========================= */
+
+async function loadProducts(){
+
+const querySnapshot =
+
+await getDocs(
+
+collection(db,"services")
+
+);
+
+allProducts = [];
+
+querySnapshot.forEach((doc)=>{
+
+allProducts.push({
+
+id:doc.id,
+
+...doc.data()
+
+});
+
+});
+
+renderProducts(allProducts);
+
+}
+
+loadProducts();
+
+/* =========================
+RENDER
+========================= */
+
+function renderProducts(products){
+
+let html = "";
+
+products.forEach((product)=>{
+
+html += `
+
+<div class="productCard">
+
+<div class="productTop">
+
+<div class="productIcon">
+${product.icon}
+</div>
+
+<div class="status ${product.status}">
+${product.status}
+</div>
+
+</div>
+
+<h2>
+${product.name}
+</h2>
+
+<p>
+${product.desc}
+</p>
+
+<div class="price">
+₹${product.price}
+</div>
+
+<div class="tags">
+
+<div class="tag">
+${product.category}
+</div>
+
+<div class="tag">
+${product.city}
+</div>
+
+<div class="tag">
+${product.area}
+</div>
+
+</div>
+
+<div class="actionBtns">
+
+<button
+class="editBtn"
+>
+
+Edit
+
+</button>
+
+<button
+class="deleteBtn"
+onclick="
+deleteService('${product.id}')
+"
+>
+
+Delete
+
+</button>
+
+</div>
+
+</div>
+
+`;
+
+});
+
+productGrid.innerHTML = html;
+
+}
+
+/* =========================
+DELETE
+========================= */
+
+window.deleteService =
+async function(id){
+
+await deleteDoc(
+
+doc(db,"services",id)
+
+);
+
+showPopup(
+"Service Deleted"
+);
+
+loadProducts();
+
+};
+
+/* =========================
+SEARCH
+========================= */
+
+document
+.getElementById(
+"searchInput"
+)
+.addEventListener(
+"input",
+filterProducts
+);
+
+document
+.getElementById(
+"cityFilter"
+)
+.addEventListener(
+"change",
+filterProducts
+);
+
+document
+.getElementById(
+"categoryFilter"
+)
+.addEventListener(
+"change",
+filterProducts
+);
+
+/* =========================
+FILTER
+========================= */
+
+function filterProducts(){
+
+const search =
+
+document
+.getElementById(
+"searchInput"
+)
+.value
+.toLowerCase();
+
+const city =
+
+document
+.getElementById(
+"cityFilter"
+)
+.value;
+
+const category =
+
+document
+.getElementById(
+"categoryFilter"
+)
+.value;
+
+const filtered =
+
+allProducts.filter((item)=>{
+
+const matchSearch =
+
+item.name
+.toLowerCase()
+.includes(search);
+
+const matchCity =
+
+city === "all" ||
+item.city === city;
+
+const matchCategory =
+
+category === "all" ||
+item.category === category;
+
+return(
+
+matchSearch &&
+matchCity &&
+matchCategory
+
+);
+
+});
+
+renderProducts(filtered);
+
+}
+
+</script>
+
+</body>
+</html>
