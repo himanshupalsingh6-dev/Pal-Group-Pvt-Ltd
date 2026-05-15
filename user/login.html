@@ -3,7 +3,7 @@
 
 <head>
 
-<meta charset="UTF-8">
+<meta charset="UTF-8"/>
 
 <meta
 name="viewport"
@@ -35,379 +35,238 @@ sans-serif;
 }
 
 body{
-background:
-linear-gradient(
-135deg,
-#FFD400,
-#fff7cc
-);
+background:#F8FAFC;
 min-height:100vh;
+display:flex;
+align-items:center;
+justify-content:center;
+padding:20px;
 overflow-x:hidden;
 }
 
 /* =========================
-WRAPPER
+LOGIN CONTAINER
 ========================= */
 
-.loginPage{
-display:grid;
-grid-template-columns:
-1fr 1fr;
-min-height:100vh;
-}
-
-/* =========================
-LEFT SIDE
-========================= */
-
-.leftSide{
-position:relative;
-background:
-linear-gradient(
-135deg,
-rgba(255,212,0,0.95),
-rgba(255,235,120,0.9)
-);
-
-display:flex;
-align-items:center;
-justify-content:center;
-padding:40px;
-overflow:hidden;
-}
-
-.leftSide::before{
-content:"";
-position:absolute;
-width:500px;
-height:500px;
-background:
-rgba(255,255,255,0.25);
-border-radius:50%;
-top:-150px;
-left:-150px;
-}
-
-.leftSide::after{
-content:"";
-position:absolute;
-width:300px;
-height:300px;
-background:
-rgba(255,255,255,0.18);
-border-radius:50%;
-bottom:-120px;
-right:-120px;
-}
-
-/* CONTENT */
-
-.heroContent{
-position:relative;
-z-index:2;
-max-width:520px;
-}
-
-.logo{
-font-size:50px;
-font-weight:900;
-color:#111;
-margin-bottom:30px;
-}
-
-.heroTitle{
-font-size:72px;
-line-height:1.05;
-font-weight:900;
-margin-bottom:25px;
-color:#111;
-}
-
-.heroText{
-font-size:20px;
-line-height:1.8;
-color:#333;
-margin-bottom:35px;
-}
-
-.heroFeatures{
-display:flex;
-flex-direction:column;
-gap:18px;
-}
-
-.heroFeatures div{
-background:
-rgba(255,255,255,0.45);
-backdrop-filter:blur(10px);
-padding:16px 20px;
-border-radius:18px;
-font-weight:600;
-font-size:16px;
-}
-
-/* =========================
-RIGHT SIDE
-========================= */
-
-.rightSide{
-background:#fff;
-display:flex;
-align-items:center;
-justify-content:center;
-padding:40px;
-position:relative;
-}
-
-/* LOGIN BOX */
-
-.loginBox{
+.loginContainer{
 width:100%;
-max-width:500px;
+max-width:430px;
 }
 
-.topText{
-margin-bottom:35px;
+/* =========================
+LOGO
+========================= */
+
+.logoBox{
+text-align:center;
+margin-bottom:24px;
 }
 
-.topText h1{
-font-size:52px;
-font-weight:900;
-color:#111827;
-margin-bottom:10px;
-}
-
-.topText p{
-font-size:17px;
-color:#666;
-line-height:1.6;
-}
-
-/* TABS */
-
-.loginTabs{
+.logoIcon{
+width:110px;
+height:110px;
+border-radius:34px;
+background:#FFD400;
 display:flex;
-background:#f5f5f5;
+align-items:center;
+justify-content:center;
+font-size:52px;
+margin:auto;
+margin-bottom:18px;
+box-shadow:
+0 10px 30px rgba(255,212,0,0.35);
+}
+
+.logoBox h1{
+font-size:34px;
+font-weight:900;
+margin-bottom:10px;
+color:#111827;
+}
+
+.logoBox p{
+font-size:14px;
+line-height:1.8;
+color:#6B7280;
+}
+
+/* =========================
+CARD
+========================= */
+
+.loginCard{
+background:#fff;
+border-radius:32px;
+padding:28px;
+box-shadow:
+0 10px 40px rgba(15,23,42,0.06);
+border:1px solid #EEF2F7;
+}
+
+/* =========================
+TABS
+========================= */
+
+.tabBox{
+display:grid;
+grid-template-columns:1fr 1fr;
+background:#F8FAFC;
 padding:6px;
 border-radius:18px;
-margin-bottom:28px;
+margin-bottom:24px;
 }
 
-.loginTabs button{
-flex:1;
-height:52px;
+.tabBtn{
+height:48px;
 border:none;
 border-radius:14px;
-font-size:15px;
-font-weight:700;
-cursor:pointer;
 background:transparent;
+font-size:14px;
+font-weight:800;
+cursor:pointer;
 transition:0.3s;
 }
 
 .activeTab{
-background:#FFD400 !important;
-color:#111;
+background:#FFD400;
+color:#111827;
 }
 
-/* FORM */
+/* =========================
+FORM
+========================= */
 
 .inputGroup{
-margin-bottom:22px;
+margin-bottom:18px;
+}
+
+.inputGroup label{
+display:block;
+font-size:13px;
+font-weight:700;
+margin-bottom:8px;
+}
+
+.inputBox{
 position:relative;
 }
 
-.inputGroup i{
+.inputBox i{
 position:absolute;
-left:18px;
+left:16px;
 top:50%;
 transform:translateY(-50%);
-font-size:18px;
-color:#666;
-}
-
-.inputGroup input{
-width:100%;
-height:62px;
-border:none;
-background:#f7f7f7;
-border-radius:20px;
-padding-left:55px;
-padding-right:18px;
+color:#9CA3AF;
 font-size:16px;
-outline:none;
-transition:0.3s;
 }
 
-.inputGroup input:focus{
-background:#fff;
-border:2px solid #FFD400;
-}
-
-/* OPTIONS */
-
-.options{
-display:flex;
-justify-content:space-between;
-align-items:center;
-margin-bottom:25px;
-flex-wrap:wrap;
-gap:10px;
-}
-
-.remember{
-display:flex;
-align-items:center;
-gap:10px;
-font-size:14px;
-color:#555;
-}
-
-.remember input{
-width:18px;
-height:18px;
-accent-color:#FFD400;
-}
-
-.forgot{
-font-size:14px;
-font-weight:600;
-color:#111;
-text-decoration:none;
-}
-
-/* LOGIN BUTTON */
-
-.loginBtn{
+.inputBox input{
 width:100%;
-height:62px;
+height:58px;
 border:none;
-border-radius:22px;
-background:#FFD400;
-font-size:18px;
-font-weight:800;
-cursor:pointer;
-transition:0.3s;
-box-shadow:
-0 10px 25px
-rgba(255,212,0,0.4);
-}
-
-.loginBtn:hover{
-transform:translateY(-3px);
-}
-
-/* DIVIDER */
-
-.divider{
-display:flex;
-align-items:center;
-gap:15px;
-margin:30px 0;
-color:#888;
+outline:none;
+background:#F8FAFC;
+border-radius:18px;
+padding:0 18px 0 48px;
 font-size:14px;
 }
 
-.divider::before,
-.divider::after{
-content:"";
-flex:1;
-height:1px;
-background:#ddd;
-}
-
-/* SOCIAL */
-
-.socials{
+.forgotBox{
 display:flex;
-gap:15px;
+justify-content:flex-end;
+margin-bottom:22px;
 }
 
-.socialBtn{
-flex:1;
-height:60px;
+.forgotBox a{
+text-decoration:none;
+font-size:13px;
+font-weight:700;
+color:#111827;
+}
+
+/* =========================
+BUTTON
+========================= */
+
+.submitBtn{
+width:100%;
+height:58px;
 border:none;
 border-radius:20px;
-background:#f7f7f7;
-font-size:18px;
-font-weight:700;
+background:#111827;
+color:#fff;
+font-size:15px;
+font-weight:900;
 cursor:pointer;
 transition:0.3s;
 }
 
-.socialBtn:hover{
-background:#FFD400;
+.submitBtn:hover{
+transform:translateY(-2px);
 }
 
-/* SIGNUP */
+/* =========================
+BOTTOM TEXT
+========================= */
 
-.signupText{
-margin-top:30px;
+.bottomText{
 text-align:center;
-font-size:15px;
-color:#666;
+margin-top:22px;
+font-size:13px;
+color:#6B7280;
 }
 
-.signupText a{
-color:#111;
+.bottomText span{
+color:#111827;
 font-weight:800;
-text-decoration:none;
+cursor:pointer;
 }
 
-/* FLOATING */
+/* =========================
+SUCCESS POPUP
+========================= */
 
-.floatShape{
-position:absolute;
-width:140px;
-height:140px;
-background:
-rgba(255,212,0,0.15);
-border-radius:50%;
-top:40px;
-right:40px;
+.popup{
+position:fixed;
+top:20px;
+left:50%;
+transform:translateX(-50%);
+background:#111827;
+color:#fff;
+padding:14px 22px;
+border-radius:16px;
+font-size:13px;
+font-weight:700;
+opacity:0;
+pointer-events:none;
+transition:0.3s;
+z-index:9999;
+}
+
+.showPopup{
+opacity:1;
+top:80px;
 }
 
 /* =========================
 RESPONSIVE
 ========================= */
 
-@media screen and (max-width:1000px){
+@media screen and (max-width:768px){
 
-.loginPage{
-grid-template-columns:1fr;
+.loginCard{
+padding:24px;
+border-radius:28px;
 }
 
-.leftSide{
-display:none;
+.logoIcon{
+width:95px;
+height:95px;
+font-size:46px;
 }
 
-.rightSide{
-padding:25px;
-}
-
-.topText h1{
-font-size:40px;
-}
-
-}
-
-@media screen and (max-width:600px){
-
-.loginBox{
-max-width:100%;
-}
-
-.topText h1{
-font-size:34px;
-}
-
-.loginBtn{
-height:58px;
-font-size:16px;
-}
-
-.socialBtn{
-height:56px;
+.logoBox h1{
+font-size:30px;
 }
 
 }
@@ -418,187 +277,224 @@ height:56px;
 
 <body>
 
-<div class="loginPage">
+<!-- POPUP -->
 
-<!-- LEFT -->
+<div
+class="popup"
+id="popup"
+>
 
-<div class="leftSide">
-
-<div class="heroContent">
-
-<div class="logo">
-QuickPress ⚡
-</div>
-
-<div class="heroTitle">
-
-Laundry<br>
-Made Easy
+Success
 
 </div>
 
-<div class="heroText">
+<!-- LOGIN -->
 
-Fast pickup, premium washing,
-professional ironing and real-time tracking
-for your clothes.
+<div class="loginContainer">
 
+<!-- LOGO -->
+
+<div class="logoBox">
+
+<div class="logoIcon">
+🧺
 </div>
-
-<div class="heroFeatures">
-
-<div>
-⚡ Pickup in 10 Minutes
-</div>
-
-<div>
-🧺 Premium Laundry Care
-</div>
-
-<div>
-🚚 Live Order Tracking
-</div>
-
-<div>
-💰 Cashback & Wallet Rewards
-</div>
-
-</div>
-
-</div>
-
-</div>
-
-<!-- RIGHT -->
-
-<div class="rightSide">
-
-<div class="floatShape"></div>
-
-<div class="loginBox">
-
-<div class="topText">
 
 <h1>
-Welcome Back 👋
+QuickPress
 </h1>
 
 <p>
-Login to continue your premium
-laundry experience.
+
+Premium laundry service
+with fast pickup & delivery.
+
 </p>
 
 </div>
 
+<!-- CARD -->
+
+<div class="loginCard">
+
 <!-- TABS -->
 
-<div class="loginTabs">
+<div class="tabBox">
 
-<button class="activeTab">
-Email Login
+<button
+class="tabBtn activeTab"
+id="loginTab"
+onclick="
+showLogin()
+"
+>
+
+Login
+
 </button>
 
-<button>
-OTP Login
+<button
+class="tabBtn"
+id="signupTab"
+onclick="
+showSignup()
+"
+>
+
+Signup
+
 </button>
 
 </div>
 
-<!-- EMAIL -->
+<!-- LOGIN FORM -->
+
+<div id="loginForm">
 
 <div class="inputGroup">
+
+<label>
+Email Address
+</label>
+
+<div class="inputBox">
 
 <i class="fa-regular fa-envelope"></i>
 
 <input
 type="email"
-id="email"
-placeholder="Enter Email Address"
+id="loginEmail"
+placeholder="Enter your email"
 />
 
 </div>
 
-<!-- PASSWORD -->
+</div>
 
 <div class="inputGroup">
+
+<label>
+Password
+</label>
+
+<div class="inputBox">
 
 <i class="fa-solid fa-lock"></i>
 
 <input
 type="password"
-id="password"
-placeholder="Enter Password"
+id="loginPassword"
+placeholder="Enter password"
 />
 
 </div>
 
-<!-- OPTIONS -->
+</div>
 
-<div class="options">
+<div class="forgotBox">
 
-<label class="remember">
-
-<input type="checkbox">
-
-Remember Me
-
-</label>
-
-<a
-href="#"
-class="forgot"
->
-
+<a href="#">
 Forgot Password?
-
 </a>
 
 </div>
-
-<!-- LOGIN BUTTON -->
 
 <button
-class="loginBtn"
-onclick="loginUser()"
+class="submitBtn"
+onclick="
+login()
+"
 >
 
-Login Account
+Login Now
 
-</button>
-
-<!-- DIVIDER -->
-
-<div class="divider">
-OR CONTINUE WITH
-</div>
-
-<!-- SOCIAL -->
-
-<div class="socials">
-
-<button class="socialBtn">
-<i class="fa-brands fa-google"></i>
-</button>
-
-<button class="socialBtn">
-<i class="fa-brands fa-facebook-f"></i>
-</button>
-
-<button class="socialBtn">
-<i class="fa-brands fa-apple"></i>
 </button>
 
 </div>
 
-<!-- SIGNUP -->
+<!-- SIGNUP FORM -->
 
-<div class="signupText">
+<div
+id="signupForm"
+style="display:none;"
+>
 
-Don't have an account?
+<div class="inputGroup">
 
-<a href="./signup.html">
+<label>
+Full Name
+</label>
+
+<div class="inputBox">
+
+<i class="fa-regular fa-user"></i>
+
+<input
+type="text"
+id="signupName"
+placeholder="Enter your name"
+/>
+
+</div>
+
+</div>
+
+<div class="inputGroup">
+
+<label>
+Email Address
+</label>
+
+<div class="inputBox">
+
+<i class="fa-regular fa-envelope"></i>
+
+<input
+type="email"
+id="signupEmail"
+placeholder="Enter your email"
+/>
+
+</div>
+
+</div>
+
+<div class="inputGroup">
+
+<label>
+Password
+</label>
+
+<div class="inputBox">
+
+<i class="fa-solid fa-lock"></i>
+
+<input
+type="password"
+id="signupPassword"
+placeholder="Create password"
+/>
+
+</div>
+
+</div>
+
+<button
+class="submitBtn"
+onclick="
+signup()
+"
+>
+
 Create Account
-</a>
+
+</button>
+
+</div>
+
+<div class="bottomText">
+
+Premium Laundry Experience
 
 </div>
 
@@ -606,96 +502,251 @@ Create Account
 
 </div>
 
-</div>
+<script>
 
-<script type="module">
+/* =========================
+AUTO REDIRECT
+========================= */
 
-// =========================
-// IMPORT FIREBASE
-// =========================
-
-import {
-
-auth
-
-}
-
-from "./js/firebase.js";
-
-import {
-
-signInWithEmailAndPassword,
-onAuthStateChanged
-
-}
-
-from "https://www.gstatic.com/firebasejs/12.11.0/firebase-auth.js";
-
-// =========================
-// AUTO LOGIN
-// =========================
-
-onAuthStateChanged(
-auth,
-(user)=>{
-
-if(user){
+if(
+localStorage.getItem(
+"isLoggedIn"
+) === "true"
+){
 
 window.location.href =
-"./index.html";
+"index.html";
 
 }
 
-}
+/* =========================
+POPUP
+========================= */
+
+function showPopup(text){
+
+const popup =
+document.getElementById(
+"popup"
 );
 
-// =========================
-// LOGIN
-// =========================
+popup.innerHTML = text;
 
-window.loginUser =
-async function(){
+popup.classList.add(
+"showPopup"
+);
+
+setTimeout(()=>{
+
+popup.classList.remove(
+"showPopup"
+);
+
+},2000);
+
+}
+
+/* =========================
+TAB SWITCH
+========================= */
+
+function showLogin(){
+
+document.getElementById(
+"loginForm"
+).style.display =
+"block";
+
+document.getElementById(
+"signupForm"
+).style.display =
+"none";
+
+document.getElementById(
+"loginTab"
+).classList.add(
+"activeTab"
+);
+
+document.getElementById(
+"signupTab"
+).classList.remove(
+"activeTab"
+);
+
+}
+
+function showSignup(){
+
+document.getElementById(
+"loginForm"
+).style.display =
+"none";
+
+document.getElementById(
+"signupForm"
+).style.display =
+"block";
+
+document.getElementById(
+"signupTab"
+).classList.add(
+"activeTab"
+);
+
+document.getElementById(
+"loginTab"
+).classList.remove(
+"activeTab"
+);
+
+}
+
+/* =========================
+SIGNUP
+========================= */
+
+function signup(){
+
+const name =
+document.getElementById(
+"signupName"
+).value;
 
 const email =
 document.getElementById(
-"email"
+"signupEmail"
 ).value;
 
 const password =
 document.getElementById(
-"password"
+"signupPassword"
 ).value;
 
-if(!email || !password){
+if(
+!name ||
+!email ||
+!password
+){
 
-alert(
-"Please fill all fields"
+showPopup(
+"Fill all details"
 );
 
 return;
 
 }
 
-try{
+/* SAVE USER */
 
-await signInWithEmailAndPassword(
-auth,
+const user = {
+
+name,
 email,
-password
+password,
+address:""
+
+};
+
+localStorage.setItem(
+
+"userProfile",
+
+JSON.stringify(user)
+
 );
 
+/* LOGIN */
+
+localStorage.setItem(
+"isLoggedIn",
+"true"
+);
+
+showPopup(
+"Account Created"
+);
+
+setTimeout(()=>{
+
 window.location.href =
-"./index.html";
+"index.html";
 
-}catch(error){
-
-alert(error.message);
+},1200);
 
 }
 
-};
+/* =========================
+LOGIN
+========================= */
+
+function login(){
+
+const email =
+document.getElementById(
+"loginEmail"
+).value;
+
+const password =
+document.getElementById(
+"loginPassword"
+).value;
+
+const savedUser =
+
+JSON.parse(
+localStorage.getItem(
+"userProfile"
+)
+);
+
+/* CHECK */
+
+if(!savedUser){
+
+showPopup(
+"No account found"
+);
+
+return;
+
+}
+
+if(
+email === savedUser.email &&
+password === savedUser.password
+){
+
+localStorage.setItem(
+"isLoggedIn",
+"true"
+);
+
+showPopup(
+"Login Successful"
+);
+
+setTimeout(()=>{
+
+window.location.href =
+"index.html";
+
+},1200);
+
+}
+
+else{
+
+showPopup(
+"Invalid credentials"
+);
+
+}
+
+}
 
 </script>
 
 </body>
+
 </html>
