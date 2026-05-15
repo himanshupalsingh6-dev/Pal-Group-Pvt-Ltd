@@ -31,7 +31,7 @@ padding-bottom:100px;
 /* TOP */
 
 .topHeader{
-padding:18px;
+padding:16px;
 background:#fff;
 display:flex;
 justify-content:space-between;
@@ -49,8 +49,8 @@ gap:12px;
 }
 
 .backBtn{
-width:42px;
-height:42px;
+width:40px;
+height:40px;
 border-radius:14px;
 background:#FFD400;
 display:flex;
@@ -62,24 +62,24 @@ cursor:pointer;
 }
 
 .titleBox h2{
-font-size:30px;
+font-size:26px;
 font-weight:900;
 }
 
 .titleBox p{
-font-size:13px;
+font-size:12px;
 color:#6B7280;
 }
 
 .rightTop{
 display:flex;
 align-items:center;
-gap:12px;
+gap:10px;
 }
 
 .iconBtn{
-width:44px;
-height:44px;
+width:42px;
+height:42px;
 border-radius:14px;
 background:#fff;
 display:flex;
@@ -94,12 +94,12 @@ cursor:pointer;
 position:absolute;
 top:-4px;
 right:-4px;
-width:20px;
-height:20px;
+width:18px;
+height:18px;
 border-radius:50%;
 background:#22C55E;
 color:#fff;
-font-size:11px;
+font-size:10px;
 font-weight:700;
 display:flex;
 align-items:center;
@@ -109,59 +109,54 @@ justify-content:center;
 /* SEARCH */
 
 .searchBox{
-padding:18px;
+padding:14px;
 }
 
 .searchInput{
 width:100%;
-height:58px;
+height:54px;
 border:none;
 outline:none;
-padding:0 20px;
+padding:0 18px;
 border-radius:18px;
 background:#fff;
-font-size:15px;
+font-size:14px;
 box-shadow:0 6px 25px rgba(0,0,0,0.05);
 }
 
 /* CITY */
 
-.cityBar{
-padding:0 18px 18px;
-display:flex;
-gap:12px;
-overflow:auto;
+.cityWrap{
+padding:0 14px 14px;
 }
 
-.cityBtn{
-padding:14px 20px;
+.citySelector{
+width:100%;
+height:54px;
+border:none;
+outline:none;
 background:#fff;
-border-radius:16px;
+border-radius:18px;
+padding:0 18px;
 font-size:14px;
 font-weight:700;
-white-space:nowrap;
-cursor:pointer;
-box-shadow:0 5px 20px rgba(0,0,0,0.04);
-}
-
-.cityBtn.active{
-background:#FFD400;
+box-shadow:0 5px 20px rgba(0,0,0,0.05);
 }
 
 /* CATEGORY */
 
 .categoryBar{
-padding:0 18px 18px;
+padding:0 14px 14px;
 display:flex;
-gap:12px;
+gap:10px;
 overflow:auto;
 }
 
 .categoryBtn{
-padding:14px 22px;
+padding:12px 18px;
 background:#fff;
-border-radius:16px;
-font-size:14px;
+border-radius:14px;
+font-size:13px;
 font-weight:700;
 white-space:nowrap;
 cursor:pointer;
@@ -176,27 +171,27 @@ color:#fff;
 /* SERVICES */
 
 .servicesGrid{
-padding:0 18px;
+padding:0 14px;
 display:grid;
-grid-template-columns:repeat(auto-fill,minmax(220px,1fr));
-gap:18px;
+grid-template-columns:repeat(2,1fr);
+gap:14px;
 }
 
 .serviceCard{
 background:#fff;
-border-radius:28px;
-padding:18px;
+border-radius:22px;
+padding:14px;
 position:relative;
 overflow:hidden;
-box-shadow:0 10px 30px rgba(0,0,0,0.05);
+box-shadow:0 8px 24px rgba(0,0,0,0.05);
 }
 
 .serviceCard::before{
 content:"";
 position:absolute;
-width:140px;
-height:140px;
-background:rgba(255,212,0,0.15);
+width:120px;
+height:120px;
+background:rgba(255,212,0,0.14);
 border-radius:50%;
 top:-50px;
 right:-50px;
@@ -206,73 +201,76 @@ right:-50px;
 display:flex;
 justify-content:space-between;
 align-items:center;
-margin-bottom:18px;
+margin-bottom:14px;
 }
 
 .serviceImage{
-width:54px;
-height:54px;
-border-radius:18px;
+width:46px;
+height:46px;
+border-radius:14px;
 background:#F3F4F6;
 display:flex;
 align-items:center;
 justify-content:center;
-font-size:22px;
+font-size:18px;
 font-weight:900;
 }
 
 .favBtn{
-width:38px;
-height:38px;
+width:34px;
+height:34px;
 border:none;
 border-radius:12px;
 background:#fff;
 box-shadow:0 5px 20px rgba(0,0,0,0.05);
 cursor:pointer;
+font-size:12px;
 }
 
 .serviceName{
-font-size:22px;
-font-weight:900;
-margin-bottom:6px;
+font-size:17px;
+font-weight:800;
+margin-bottom:5px;
 }
 
 .serviceDesc{
-font-size:13px;
+font-size:11px;
 color:#6B7280;
-line-height:1.5;
-margin-bottom:14px;
+line-height:1.4;
+margin-bottom:12px;
+min-height:30px;
 }
 
 .locationTag{
 display:inline-block;
-padding:8px 12px;
+padding:7px 10px;
 border-radius:12px;
 background:#F3F4F6;
-font-size:12px;
+font-size:11px;
 font-weight:700;
-margin-bottom:16px;
+margin-bottom:14px;
 }
 
 .bottomRow{
 display:flex;
 justify-content:space-between;
 align-items:center;
+gap:10px;
 }
 
 .servicePrice{
-font-size:28px;
+font-size:22px;
 font-weight:900;
 color:#22C55E;
 }
 
 .addBtn{
-height:44px;
-padding:0 20px;
+height:40px;
+padding:0 16px;
 border:none;
-border-radius:14px;
+border-radius:12px;
 background:#FFD400;
-font-size:14px;
+font-size:12px;
 font-weight:900;
 cursor:pointer;
 }
@@ -284,7 +282,7 @@ position:fixed;
 left:0;
 bottom:0;
 width:100%;
-height:78px;
+height:74px;
 background:#fff;
 display:flex;
 justify-content:space-around;
@@ -297,8 +295,8 @@ z-index:999;
 display:flex;
 flex-direction:column;
 align-items:center;
-gap:6px;
-font-size:12px;
+gap:5px;
+font-size:11px;
 font-weight:700;
 color:#6B7280;
 text-decoration:none;
@@ -309,27 +307,34 @@ color:#FFD400;
 }
 
 .navItem i{
-font-size:20px;
+font-size:18px;
+}
+
+/* CART POPUP */
+
+#cartPopup{
+position:fixed;
+left:50%;
+bottom:-100px;
+transform:translateX(-50%);
+background:#111827;
+color:#fff;
+padding:14px 24px;
+border-radius:18px;
+font-size:14px;
+font-weight:700;
+z-index:9999;
+transition:0.3s;
 }
 
 /* MOBILE */
 
-@media(max-width:768px){
-
-.servicesGrid{
-grid-template-columns:1fr 1fr;
-}
-
-}
-
 @media(max-width:500px){
 
 .servicesGrid{
-grid-template-columns:1fr;
-}
-
-.titleBox h2{
-font-size:24px;
+grid-template-columns:1fr 1fr;
+gap:12px;
+padding:0 12px;
 }
 
 }
@@ -406,55 +411,37 @@ id="searchInput"
 
 <!-- CITY -->
 
-<div class="cityBar">
+<div class="cityWrap">
 
-<div
-class="cityBtn active"
-data-city="Kasganj">
+<select
+id="citySelector"
+class="citySelector">
 
+<option value="Kasganj">
 Kasganj
+</option>
 
-</div>
-
-<div
-class="cityBtn"
-data-city="Noida">
-
+<option value="Noida">
 Noida
+</option>
 
-</div>
-
-<div
-class="cityBtn"
-data-city="Aligarh">
-
+<option value="Aligarh">
 Aligarh
+</option>
 
-</div>
-
-<div
-class="cityBtn"
-data-city="Badaun">
-
+<option value="Badaun">
 Badaun
+</option>
 
-</div>
-
-<div
-class="cityBtn"
-data-city="Delhi">
-
+<option value="Delhi">
 Delhi
+</option>
 
-</div>
-
-<div
-class="cityBtn"
-data-city="Mumbai">
-
+<option value="Mumbai">
 Mumbai
+</option>
 
-</div>
+</select>
 
 </div>
 
@@ -522,7 +509,8 @@ Home Cleaning
 
 <!-- SERVICES -->
 
-<div class="servicesGrid"
+<div
+class="servicesGrid"
 id="servicesGrid">
 
 </div>
@@ -578,6 +566,14 @@ Profile
 
 </div>
 
+<!-- CART POPUP -->
+
+<div id="cartPopup">
+
+Added To Cart ✅
+
+</div>
+
 <!-- FIREBASE -->
 
 <script type="module">
@@ -603,7 +599,8 @@ from
 
 let allServices = [];
 
-let currentCategory = "All";
+let currentCategory =
+"All";
 
 let userCity =
 localStorage.getItem(
@@ -621,6 +618,16 @@ const searchInput =
 document.getElementById(
 "searchInput"
 );
+
+const citySelector =
+document.getElementById(
+"citySelector"
+);
+
+/* DEFAULT CITY */
+
+citySelector.value =
+userCity;
 
 /* LOAD */
 
@@ -738,7 +745,7 @@ return;
 
 let finalPrice = 0;
 
-/* NEW LOCATION SYSTEM */
+/* LOCATION PRICE */
 
 if(service.prices){
 
@@ -918,36 +925,14 @@ renderServices();
 
 /* CITY */
 
-document
-.querySelectorAll(
-".cityBtn"
-)
-.forEach((btn)=>{
+citySelector.addEventListener(
 
-btn.addEventListener(
-
-"click",
+"change",
 
 ()=>{
 
-document
-.querySelectorAll(
-".cityBtn"
-)
-.forEach((b)=>{
-
-b.classList.remove(
-"active"
-);
-
-});
-
-btn.classList.add(
-"active"
-);
-
 userCity =
-btn.dataset.city;
+citySelector.value;
 
 localStorage.setItem(
 "userCity",
@@ -960,9 +945,7 @@ renderServices();
 
 );
 
-});
-
-/* CART */
+/* ADD TO CART */
 
 window.addToCart =
 function(id){
@@ -1039,11 +1022,32 @@ document.getElementById(
 ).innerHTML =
 cart.length;
 
-alert(
-"Added To Cart"
-);
+/* POPUP */
+
+showCartPopup();
 
 };
+
+/* POPUP */
+
+function showCartPopup(){
+
+const popup =
+document.getElementById(
+"cartPopup"
+);
+
+popup.style.bottom =
+"90px";
+
+setTimeout(()=>{
+
+popup.style.bottom =
+"-100px";
+
+},2000);
+
+}
 
 /* CART COUNT */
 
