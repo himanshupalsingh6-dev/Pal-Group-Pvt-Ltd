@@ -21,45 +21,114 @@ font-family:Poppins,sans-serif;
 
 body{
 background:#F5F7FB;
-padding-bottom:120px;
 }
 
-/* TOPBAR */
+/* SIDEBAR */
 
-.topbar{
-position:sticky;
+.sidebar{
+width:270px;
+background:#111827;
+color:#fff;
+padding:24px 18px;
+position:fixed;
+left:0;
 top:0;
-background:#fff;
-padding:18px;
-display:flex;
-justify-content:space-between;
-align-items:center;
+height:100%;
+overflow:auto;
 z-index:999;
-box-shadow:0 4px 18px rgba(0,0,0,0.04);
 }
 
-.topbar h2{
+.logo{
 font-size:30px;
 font-weight:900;
+margin-bottom:40px;
+color:#FFD400;
 }
 
-.searchBox{
-width:280px;
-height:52px;
-border:none;
-outline:none;
-background:#F3F4F6;
+.menu{
+display:flex;
+flex-direction:column;
+gap:10px;
+}
+
+.menu a{
+text-decoration:none;
+color:#D1D5DB;
+padding:16px;
 border-radius:18px;
-padding:0 18px;
+display:flex;
+align-items:center;
+gap:14px;
 font-size:15px;
+font-weight:600;
+transition:0.3s;
+}
+
+.menu a:hover,
+.menu a.active{
+background:#1F2937;
+color:#fff;
 }
 
 /* MAIN */
 
 .main{
-padding:18px;
-max-width:1400px;
-margin:auto;
+margin-left:270px;
+padding:24px;
+}
+
+/* TOPBAR */
+
+.topbar{
+display:flex;
+justify-content:space-between;
+align-items:center;
+margin-bottom:24px;
+gap:16px;
+}
+
+.topbar h1{
+font-size:34px;
+font-weight:900;
+}
+
+.searchBox{
+flex:1;
+height:58px;
+border:none;
+outline:none;
+background:#fff;
+border-radius:20px;
+padding:0 20px;
+font-size:15px;
+box-shadow:0 6px 20px rgba(0,0,0,0.05);
+}
+
+/* STATS */
+
+.statsGrid{
+display:grid;
+grid-template-columns:repeat(4,1fr);
+gap:18px;
+margin-bottom:24px;
+}
+
+.statCard{
+background:#fff;
+padding:22px;
+border-radius:28px;
+box-shadow:0 10px 30px rgba(0,0,0,0.05);
+}
+
+.statTitle{
+font-size:14px;
+color:#6B7280;
+margin-bottom:10px;
+}
+
+.statValue{
+font-size:32px;
+font-weight:900;
 }
 
 /* FILTERS */
@@ -68,7 +137,7 @@ margin:auto;
 display:flex;
 gap:12px;
 overflow:auto;
-margin-bottom:20px;
+margin-bottom:24px;
 }
 
 .filterBtn{
@@ -77,9 +146,9 @@ border:none;
 border-radius:16px;
 background:#fff;
 font-weight:700;
+cursor:pointer;
 white-space:nowrap;
 box-shadow:0 4px 14px rgba(0,0,0,0.05);
-cursor:pointer;
 }
 
 .filterBtn.active{
@@ -91,14 +160,14 @@ color:#fff;
 
 .ordersGrid{
 display:grid;
-grid-template-columns:repeat(2,1fr);
+grid-template-columns:1fr 1fr;
 gap:18px;
 }
 
 .orderCard{
 background:#fff;
+padding:24px;
 border-radius:28px;
-padding:22px;
 box-shadow:0 10px 30px rgba(0,0,0,0.05);
 }
 
@@ -109,26 +178,26 @@ align-items:center;
 margin-bottom:18px;
 }
 
-.orderUser{
+.userBox{
 display:flex;
 align-items:center;
 gap:14px;
 }
 
 .avatar{
-width:56px;
-height:56px;
-border-radius:18px;
+width:70px;
+height:70px;
+border-radius:22px;
 background:#FFD400;
 display:flex;
 align-items:center;
 justify-content:center;
-font-size:22px;
+font-size:28px;
 font-weight:900;
 }
 
 .userInfo h3{
-font-size:18px;
+font-size:20px;
 margin-bottom:4px;
 }
 
@@ -146,7 +215,9 @@ background:#DCFCE7;
 color:#166534;
 }
 
-.orderDetails{
+/* DETAILS */
+
+.details{
 margin-bottom:18px;
 }
 
@@ -154,24 +225,26 @@ margin-bottom:18px;
 display:flex;
 justify-content:space-between;
 margin-bottom:12px;
+gap:10px;
 font-size:14px;
 }
 
 .detailRow span:last-child{
 font-weight:700;
+text-align:right;
 }
 
-/* SELECTS */
+/* SELECT */
 
 .selectBox{
 width:100%;
-height:54px;
+height:56px;
 border:none;
 outline:none;
 background:#F3F4F6;
 border-radius:18px;
-padding:0 16px;
-font-size:14px;
+padding:0 18px;
+font-size:15px;
 margin-bottom:14px;
 }
 
@@ -181,14 +254,15 @@ margin-bottom:14px;
 display:grid;
 grid-template-columns:1fr 1fr;
 gap:12px;
+margin-top:12px;
 }
 
 .actionBtn{
-height:52px;
+height:54px;
 border:none;
 border-radius:18px;
-font-weight:800;
 font-size:14px;
+font-weight:800;
 cursor:pointer;
 }
 
@@ -206,16 +280,25 @@ color:#DC2626;
 width:100%;
 height:56px;
 border:none;
-border-radius:20px;
+border-radius:18px;
 background:#FFD400;
 font-size:15px;
 font-weight:900;
 margin-top:14px;
+cursor:pointer;
 }
 
 /* MOBILE */
 
-@media(max-width:900px){
+.mobileMenuBtn{
+display:none;
+}
+
+@media(max-width:1100px){
+
+.statsGrid{
+grid-template-columns:1fr 1fr;
+}
 
 .ordersGrid{
 grid-template-columns:1fr;
@@ -225,23 +308,53 @@ grid-template-columns:1fr;
 
 @media(max-width:768px){
 
+.sidebar{
+left:-100%;
+transition:0.3s;
+}
+
+.sidebar.active{
+left:0;
+}
+
+.main{
+margin-left:0;
+padding:16px;
+padding-top:80px;
+}
+
+.mobileMenuBtn{
+display:flex;
+position:fixed;
+top:18px;
+left:18px;
+width:52px;
+height:52px;
+border:none;
+border-radius:18px;
+background:#111827;
+color:#fff;
+font-size:22px;
+align-items:center;
+justify-content:center;
+z-index:1000;
+}
+
+.statsGrid{
+grid-template-columns:1fr;
+}
+
 .topbar{
 flex-direction:column;
 align-items:flex-start;
-gap:14px;
+}
+
+.topbar h1{
+font-size:26px;
 }
 
 .searchBox{
 width:100%;
-}
-
-.topbar h2{
-font-size:24px;
-}
-
-.orderCard{
-padding:18px;
-border-radius:24px;
 }
 
 }
@@ -250,20 +363,91 @@ border-radius:24px;
 </head>
 <body>
 
-<!-- TOPBAR -->
+<!-- MOBILE BUTTON -->
 
-<div class="topbar">
+<button class="mobileMenuBtn"
+onclick="toggleSidebar()">
 
-<h2>
+<i class="fa-solid fa-bars"></i>
+
+</button>
+
+<!-- SIDEBAR -->
+
+<div class="sidebar">
+
+<div class="logo">
+QuickPress
+</div>
+
+<div class="menu">
+
+<a href="index.html">
+<i class="fa-solid fa-chart-line"></i>
+Dashboard
+</a>
+
+<a href="orders.html" class="active">
+<i class="fa-solid fa-basket-shopping"></i>
 Orders
-</h2>
+</a>
 
-<input
-type="text"
-placeholder="Search orders..."
-class="searchBox"
-id="searchInput"
-/>
+<a href="services.html">
+<i class="fa-solid fa-shirt"></i>
+Services
+</a>
+
+<a href="users.html">
+<i class="fa-solid fa-users"></i>
+Users
+</a>
+
+<a href="delivery.html">
+<i class="fa-solid fa-truck"></i>
+Delivery
+</a>
+
+<a href="partners.html">
+<i class="fa-solid fa-handshake"></i>
+Partners
+</a>
+
+<a href="riders.html">
+<i class="fa-solid fa-motorcycle"></i>
+Riders
+</a>
+
+<a href="payments.html">
+<i class="fa-solid fa-wallet"></i>
+Payments
+</a>
+
+<a href="analytics.html">
+<i class="fa-solid fa-chart-pie"></i>
+Analytics
+</a>
+
+<a href="offers.html">
+<i class="fa-solid fa-tags"></i>
+Offers
+</a>
+
+<a href="notifications.html">
+<i class="fa-solid fa-bell"></i>
+Notifications
+</a>
+
+<a href="withdrawal.html">
+<i class="fa-solid fa-money-bill-transfer"></i>
+Withdrawals
+</a>
+
+<a href="settings.html">
+<i class="fa-solid fa-gear"></i>
+Settings
+</a>
+
+</div>
 
 </div>
 
@@ -271,32 +455,101 @@ id="searchInput"
 
 <div class="main">
 
+<!-- TOPBAR -->
+
+<div class="topbar">
+
+<h1>
+Orders
+</h1>
+
+<input
+type="text"
+placeholder="Search order..."
+class="searchBox"
+id="searchInput"
+/>
+
+</div>
+
+<!-- STATS -->
+
+<div class="statsGrid">
+
+<div class="statCard">
+<div class="statTitle">
+Total Orders
+</div>
+<div class="statValue"
+id="totalOrders">
+0
+</div>
+</div>
+
+<div class="statCard">
+<div class="statTitle">
+Revenue
+</div>
+<div class="statValue"
+id="totalRevenue">
+₹0
+</div>
+</div>
+
+<div class="statCard">
+<div class="statTitle">
+Pending Orders
+</div>
+<div class="statValue"
+id="pendingOrders">
+0
+</div>
+</div>
+
+<div class="statCard">
+<div class="statTitle">
+Running Orders
+</div>
+<div class="statValue"
+id="runningOrders">
+0
+</div>
+</div>
+
+</div>
+
 <!-- FILTERS -->
 
 <div class="filters">
 
-<button class="filterBtn active">
+<button class="filterBtn active"
+onclick="filterOrders('All')">
 All
 </button>
 
-<button class="filterBtn">
+<button class="filterBtn"
+onclick="filterOrders('Order Placed')">
 Pending
 </button>
 
-<button class="filterBtn">
+<button class="filterBtn"
+onclick="filterOrders('Pickup Assigned')">
 Pickup
 </button>
 
-<button class="filterBtn">
+<button class="filterBtn"
+onclick="filterOrders('Ironing Started')">
 Ironing
 </button>
 
-<button class="filterBtn">
+<button class="filterBtn"
+onclick="filterOrders('Out For Delivery')">
 Delivery
 </button>
 
-<button class="filterBtn">
-Completed
+<button class="filterBtn"
+onclick="filterOrders('Delivered')">
+Delivered
 </button>
 
 </div>
@@ -305,8 +558,6 @@ Completed
 
 <div class="ordersGrid"
 id="ordersGrid">
-
-<!-- DYNAMIC -->
 
 </div>
 
@@ -335,7 +586,9 @@ from
 
 "https://www.gstatic.com/firebasejs/12.11.0/firebase-firestore.js";
 
-/* LOAD ORDERS */
+let allOrders = [];
+
+/* LOAD */
 
 async function loadOrders(){
 
@@ -345,24 +598,22 @@ document.getElementById(
 );
 
 const ordersSnap =
-
 await getDocs(
 collection(db,"orders")
 );
 
 const partnersSnap =
-
 await getDocs(
 collection(db,"partners")
 );
 
 const ridersSnap =
-
 await getDocs(
 collection(db,"riders")
 );
 
 let partnerOptions = "";
+let riderOptions = "";
 
 partnersSnap.forEach((doc)=>{
 
@@ -373,13 +624,12 @@ partnerOptions += `
 
 <option value="${partner.name}">
 ${partner.name}
+(${partner.city || ""})
 </option>
 
 `;
 
 });
-
-let riderOptions = "";
 
 ridersSnap.forEach((doc)=>{
 
@@ -390,6 +640,7 @@ riderOptions += `
 
 <option value="${rider.name}">
 ${rider.name}
+(${rider.city || ""})
 </option>
 
 `;
@@ -398,18 +649,95 @@ ${rider.name}
 
 let html = "";
 
+let totalRevenue = 0;
+let pending = 0;
+let running = 0;
+
+allOrders = [];
+
 ordersSnap.forEach((docSnap)=>{
 
 const order =
 docSnap.data();
 
-html += `
+allOrders.push({
+id:docSnap.id,
+...order
+});
+
+totalRevenue +=
+order.total || 0;
+
+if(
+order.status !== "Delivered"
+){
+
+running++;
+
+}
+
+if(
+order.status === "Order Placed"
+){
+
+pending++;
+
+}
+
+html += createOrderCard(
+docSnap.id,
+order,
+partnerOptions,
+riderOptions
+);
+
+});
+
+document.getElementById(
+"ordersGrid"
+).innerHTML =
+html;
+
+document.getElementById(
+"totalOrders"
+).innerHTML =
+ordersSnap.size;
+
+document.getElementById(
+"totalRevenue"
+).innerHTML =
+"₹"+totalRevenue;
+
+document.getElementById(
+"pendingOrders"
+).innerHTML =
+pending;
+
+document.getElementById(
+"runningOrders"
+).innerHTML =
+running;
+
+}
+
+loadOrders();
+
+/* CARD */
+
+function createOrderCard(
+id,
+order,
+partnerOptions,
+riderOptions
+){
+
+return `
 
 <div class="orderCard">
 
 <div class="orderTop">
 
-<div class="orderUser">
+<div class="userBox">
 
 <div class="avatar">
 ${order.name
@@ -420,7 +748,7 @@ ${order.name
 <div class="userInfo">
 
 <h3>
-${order.name || "User"}
+${order.name || ""}
 </h3>
 
 <p>
@@ -432,41 +760,68 @@ ${order.phone || ""}
 </div>
 
 <div class="status">
-${order.status || "Placed"}
+${order.status || ""}
 </div>
 
 </div>
 
-<div class="orderDetails">
+<div class="details">
 
 <div class="detailRow">
 <span>Order Total</span>
-<span>
-₹${order.total || 0}
-</span>
-</div>
-
-<div class="detailRow">
-<span>Pickup Time</span>
-<span>
-${order.pickupTime || "N/A"}
-</span>
+<span>₹${order.total || 0}</span>
 </div>
 
 <div class="detailRow">
 <span>Address</span>
-<span>
-${order.address || ""}
+<span>${order.address || ""}</span>
+</div>
+
+<div class="detailRow">
+<span>City</span>
+<span>${order.city || ""}</span>
+</div>
+
+<div class="detailRow">
+<span>Pickup Time</span>
+<span>${order.pickupTime || ""}</span>
+</div>
+
+<div class="detailRow">
+<span>Placed By</span>
+<span>${order.name || ""}</span>
+</div>
+
+<div class="detailRow">
+<span>Assigned Partner</span>
+<span>${order.partnerName || "Not Assigned"}</span>
+</div>
+
+<div class="detailRow">
+<span>Assigned Rider</span>
+<span>${order.riderName || "Not Assigned"}</span>
+</div>
+
+<div class="detailRow">
+<span>Delivery By</span>
+<span>${order.deliveryBy || "Pending"}</span>
+</div>
+
+<div class="detailRow">
+<span>Order Time</span>
+<span>${order.createdAt?.seconds
+? new Date(
+order.createdAt.seconds * 1000
+).toLocaleString()
+: "N/A"}
 </span>
 </div>
 
 </div>
 
-<!-- PARTNER -->
-
 <select
 class="selectBox"
-id="partner-${docSnap.id}">
+id="partner-${id}">
 
 <option>
 Assign Partner
@@ -476,11 +831,9 @@ ${partnerOptions}
 
 </select>
 
-<!-- RIDER -->
-
 <select
 class="selectBox"
-id="rider-${docSnap.id}">
+id="rider-${id}">
 
 <option>
 Assign Rider
@@ -490,11 +843,9 @@ ${riderOptions}
 
 </select>
 
-<!-- STATUS -->
-
 <select
 class="selectBox"
-id="status-${docSnap.id}">
+id="status-${id}">
 
 <option value="Order Placed">
 Order Placed
@@ -530,11 +881,19 @@ Cancelled
 
 </select>
 
+<button
+class="updateBtn"
+onclick="updateOrder('${id}')">
+
+Update Order
+
+</button>
+
 <div class="btnGrid">
 
 <button
 class="actionBtn acceptBtn"
-onclick="acceptOrder('${docSnap.id}')">
+onclick="acceptOrder('${id}')">
 
 Accept
 
@@ -542,7 +901,7 @@ Accept
 
 <button
 class="actionBtn rejectBtn"
-onclick="rejectOrder('${docSnap.id}')">
+onclick="rejectOrder('${id}')">
 
 Reject
 
@@ -550,57 +909,41 @@ Reject
 
 </div>
 
-<button
-class="updateBtn"
-onclick="updateOrder('${docSnap.id}')">
-
-Update Order
-
-</button>
-
 </div>
 
 `;
 
-});
-
-ordersGrid.innerHTML = html;
-
 }
-
-loadOrders();
 
 /* UPDATE */
 
 window.updateOrder =
-async function(orderId){
+async function(id){
 
 const partner =
-
 document.getElementById(
-`partner-${orderId}`
+`partner-${id}`
 ).value;
 
 const rider =
-
 document.getElementById(
-`rider-${orderId}`
+`rider-${id}`
 ).value;
 
 const status =
-
 document.getElementById(
-`status-${orderId}`
+`status-${id}`
 ).value;
 
 await updateDoc(
 
-doc(db,"orders",orderId),
+doc(db,"orders",id),
 
 {
 
 partnerName:partner,
 riderName:rider,
+deliveryBy:rider,
 status:status
 
 }
@@ -618,15 +961,15 @@ loadOrders();
 /* ACCEPT */
 
 window.acceptOrder =
-async function(orderId){
+async function(id){
 
 await updateDoc(
 
-doc(db,"orders",orderId),
+doc(db,"orders",id),
 
 {
 
-status:"Accepted"
+status:"Pickup Assigned"
 
 }
 
@@ -643,25 +986,93 @@ loadOrders();
 /* REJECT */
 
 window.rejectOrder =
-async function(orderId){
+async function(id){
 
 await updateDoc(
 
-doc(db,"orders",orderId),
+doc(db,"orders",id),
 
 {
 
-status:"Rejected"
+status:"Cancelled"
 
 }
 
 );
 
 alert(
-"Order Rejected"
+"Order Cancelled"
 );
 
 loadOrders();
+
+};
+
+/* FILTER */
+
+window.filterOrders =
+function(status){
+
+const buttons =
+document.querySelectorAll(
+".filterBtn"
+);
+
+buttons.forEach((btn)=>{
+
+btn.classList.remove("active");
+
+if(
+btn.innerText === status ||
+(
+status === "All" &&
+btn.innerText === "All"
+)
+){
+
+btn.classList.add("active");
+
+}
+
+});
+
+const ordersGrid =
+document.getElementById(
+"ordersGrid"
+);
+
+let html = "";
+
+allOrders.forEach((order)=>{
+
+if(
+status === "All" ||
+order.status === status
+){
+
+html += createOrderCard(
+order.id,
+order,
+"",
+""
+);
+
+}
+
+});
+
+ordersGrid.innerHTML = html;
+
+};
+
+/* SIDEBAR */
+
+window.toggleSidebar =
+function(){
+
+document
+.querySelector(".sidebar")
+.classList.toggle("active");
 
 };
 
