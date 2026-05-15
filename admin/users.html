@@ -1,14 +1,20 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+
 <meta charset="UTF-8">
+
 <meta name="viewport"
 content="width=device-width, initial-scale=1.0">
 
-<title>QuickPress Users</title>
+<title>
+QuickPress Users
+</title>
 
 <link rel="stylesheet"
 href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css"/>
+
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 
 <style>
 
@@ -20,29 +26,28 @@ font-family:Poppins,sans-serif;
 }
 
 body{
-background:#F5F7FB;
+background:#F4F7FC;
+display:flex;
 }
 
 /* SIDEBAR */
 
 .sidebar{
-width:270px;
-background:#111827;
-color:#fff;
-padding:24px 18px;
+width:240px;
+height:100vh;
+background:#081028;
 position:fixed;
 left:0;
 top:0;
-height:100%;
+padding:20px;
 overflow:auto;
-z-index:999;
 }
 
 .logo{
-font-size:30px;
+font-size:24px;
 font-weight:900;
-margin-bottom:40px;
 color:#FFD400;
+margin-bottom:30px;
 }
 
 .menu{
@@ -52,55 +57,92 @@ gap:10px;
 }
 
 .menu a{
-text-decoration:none;
-color:#D1D5DB;
-padding:16px;
-border-radius:18px;
+height:54px;
 display:flex;
 align-items:center;
 gap:14px;
+padding:0 18px;
+border-radius:16px;
+text-decoration:none;
 font-size:15px;
-font-weight:600;
-transition:0.3s;
+font-weight:700;
+color:#fff;
 }
 
-.menu a:hover,
 .menu a.active{
-background:#1F2937;
-color:#fff;
+background:#111C44;
 }
 
 /* MAIN */
 
 .main{
-margin-left:270px;
+margin-left:240px;
+width:calc(100% - 240px);
 padding:24px;
 }
 
-/* TOPBAR */
+/* TOP */
 
-.topbar{
+.topBar{
 display:flex;
 justify-content:space-between;
 align-items:center;
 margin-bottom:24px;
+flex-wrap:wrap;
+gap:14px;
 }
 
-.topbar h1{
-font-size:34px;
+.topBar h1{
+font-size:38px;
 font-weight:900;
 }
 
-.searchBox{
-width:300px;
-height:56px;
+/* FILTERS */
+
+.filters{
+display:flex;
+gap:12px;
+flex-wrap:wrap;
+}
+
+.filterBox{
+height:52px;
+padding:0 18px;
 border:none;
 outline:none;
+border-radius:16px;
 background:#fff;
-border-radius:18px;
-padding:0 18px;
-font-size:15px;
-box-shadow:0 4px 18px rgba(0,0,0,0.05);
+font-size:14px;
+font-weight:700;
+min-width:180px;
+}
+
+/* STATS */
+
+.statsGrid{
+display:grid;
+grid-template-columns:repeat(4,1fr);
+gap:18px;
+margin-bottom:24px;
+}
+
+.statCard{
+background:#fff;
+padding:24px;
+border-radius:24px;
+box-shadow:0 10px 30px rgba(0,0,0,0.05);
+}
+
+.statCard span{
+font-size:13px;
+color:#6B7280;
+font-weight:700;
+}
+
+.statCard h2{
+font-size:34px;
+font-weight:900;
+margin-top:10px;
 }
 
 /* USERS */
@@ -111,171 +153,228 @@ grid-template-columns:repeat(3,1fr);
 gap:18px;
 }
 
+/* CARD */
+
 .userCard{
 background:#fff;
-padding:22px;
 border-radius:28px;
+padding:18px;
 box-shadow:0 10px 30px rgba(0,0,0,0.05);
-position:relative;
-overflow:hidden;
-}
-
-.userCard::after{
-content:'';
-position:absolute;
-right:-30px;
-top:-30px;
-width:120px;
-height:120px;
-background:rgba(255,212,0,0.15);
-border-radius:50%;
 }
 
 .userTop{
 display:flex;
+justify-content:space-between;
 align-items:center;
-gap:16px;
 margin-bottom:18px;
 }
 
-.avatar{
-width:70px;
-height:70px;
-border-radius:22px;
+.userInfo{
+display:flex;
+align-items:center;
+gap:12px;
+}
+
+.userLogo{
+width:56px;
+height:56px;
+border-radius:18px;
 background:#FFD400;
 display:flex;
 align-items:center;
 justify-content:center;
-font-size:28px;
+font-size:24px;
 font-weight:900;
 }
 
 .userInfo h3{
-font-size:20px;
-margin-bottom:4px;
+font-size:22px;
+font-weight:900;
 }
 
 .userInfo p{
-font-size:13px;
+font-size:12px;
+color:#6B7280;
+margin-top:4px;
+}
+
+.cityTag{
+padding:8px 14px;
+border-radius:20px;
+background:#DCFCE7;
+color:#166534;
+font-size:12px;
+font-weight:800;
+}
+
+/* MINI */
+
+.miniGrid{
+display:grid;
+grid-template-columns:repeat(3,1fr);
+gap:10px;
+margin-bottom:16px;
+}
+
+.miniCard{
+background:#F9FAFB;
+padding:12px;
+border-radius:16px;
+}
+
+.miniCard span{
+font-size:11px;
 color:#6B7280;
 }
 
-.details{
-margin-bottom:18px;
+.miniCard h4{
+font-size:16px;
+font-weight:900;
+margin-top:6px;
 }
 
-.detailRow{
-display:flex;
-justify-content:space-between;
-margin-bottom:12px;
-font-size:14px;
+/* DETAILS */
+
+.detailGrid{
+display:grid;
+grid-template-columns:repeat(2,1fr);
+gap:10px;
+margin-bottom:16px;
 }
 
-.detailRow span:last-child{
-font-weight:700;
-}
-
-.status{
-padding:10px 14px;
+.detailCard{
+background:#F9FAFB;
+padding:12px;
 border-radius:14px;
-font-size:12px;
+}
+
+.detailCard span{
+font-size:11px;
+color:#6B7280;
+}
+
+.detailCard h4{
+font-size:14px;
 font-weight:800;
-background:#DCFCE7;
-color:#166534;
-display:inline-block;
-margin-bottom:18px;
+margin-top:6px;
 }
 
 /* BUTTONS */
 
-.btnGrid{
+.actionGrid{
 display:grid;
 grid-template-columns:1fr 1fr;
 gap:12px;
 }
 
 .actionBtn{
-height:50px;
+height:52px;
 border:none;
 border-radius:16px;
+background:#081028;
+color:#fff;
+font-size:14px;
 font-weight:800;
 cursor:pointer;
 }
 
 .viewBtn{
-background:#111827;
-color:#fff;
+background:#FFD400;
+color:#000;
 }
 
-.blockBtn{
-background:#FEE2E2;
-color:#DC2626;
+/* POPUP */
+
+.popup{
+position:fixed;
+inset:0;
+background:rgba(0,0,0,0.5);
+display:none;
+align-items:center;
+justify-content:center;
+z-index:9999;
+padding:20px;
+}
+
+.popupContent{
+background:#fff;
+width:100%;
+max-width:900px;
+border-radius:30px;
+padding:24px;
+max-height:90vh;
+overflow:auto;
+}
+
+.popupHeader{
+display:flex;
+justify-content:space-between;
+align-items:center;
+margin-bottom:24px;
+}
+
+.popupHeader h2{
+font-size:30px;
+font-weight:900;
+}
+
+.closeBtn{
+width:44px;
+height:44px;
+border-radius:14px;
+background:#081028;
+color:#fff;
+display:flex;
+align-items:center;
+justify-content:center;
+font-size:20px;
+cursor:pointer;
+}
+
+/* GRAPH */
+
+.graphCard{
+background:#fff;
+padding:24px;
+border-radius:28px;
+margin-top:28px;
+box-shadow:0 10px 30px rgba(0,0,0,0.05);
+}
+
+.graphCard h2{
+font-size:26px;
+font-weight:900;
+margin-bottom:20px;
 }
 
 /* MOBILE */
 
-.mobileMenuBtn{
-display:none;
-}
-
-@media(max-width:1100px){
+@media(max-width:1200px){
 
 .usersGrid{
-grid-template-columns:1fr 1fr;
+grid-template-columns:repeat(2,1fr);
 }
 
 }
 
-@media(max-width:768px){
+@media(max-width:900px){
 
 .sidebar{
-left:-100%;
-transition:0.3s;
-}
-
-.sidebar.active{
-left:0;
+display:none;
 }
 
 .main{
 margin-left:0;
+width:100%;
 padding:16px;
-padding-top:80px;
 }
 
-.mobileMenuBtn{
-display:flex;
-position:fixed;
-top:18px;
-left:18px;
-width:52px;
-height:52px;
-border:none;
-border-radius:18px;
-background:#111827;
-color:#fff;
-font-size:22px;
-align-items:center;
-justify-content:center;
-z-index:1000;
+.statsGrid{
+grid-template-columns:repeat(2,1fr);
 }
 
 .usersGrid{
 grid-template-columns:1fr;
-}
-
-.topbar{
-flex-direction:column;
-align-items:flex-start;
-gap:14px;
-}
-
-.searchBox{
-width:100%;
-}
-
-.topbar h1{
-font-size:26px;
 }
 
 }
@@ -283,15 +382,6 @@ font-size:26px;
 </style>
 </head>
 <body>
-
-<!-- MOBILE BUTTON -->
-
-<button class="mobileMenuBtn"
-onclick="toggleSidebar()">
-
-<i class="fa-solid fa-bars"></i>
-
-</button>
 
 <!-- SIDEBAR -->
 
@@ -318,7 +408,8 @@ Orders
 Services
 </a>
 
-<a href="users.html" class="active">
+<a href="users.html"
+class="active">
 <i class="fa-solid fa-users"></i>
 Users
 </a>
@@ -329,13 +420,8 @@ Delivery
 </a>
 
 <a href="partners.html">
-<i class="fa-solid fa-handshake"></i>
+<i class="fa-solid fa-store"></i>
 Partners
-</a>
-
-<a href="riders.html">
-<i class="fa-solid fa-motorcycle"></i>
-Riders
 </a>
 
 <a href="payments.html">
@@ -348,21 +434,6 @@ Payments
 Analytics
 </a>
 
-<a href="offers.html">
-<i class="fa-solid fa-tags"></i>
-Offers
-</a>
-
-<a href="notifications.html">
-<i class="fa-solid fa-bell"></i>
-Notifications
-</a>
-
-<a href="settings.html">
-<i class="fa-solid fa-gear"></i>
-Settings
-</a>
-
 </div>
 
 </div>
@@ -371,20 +442,108 @@ Settings
 
 <div class="main">
 
-<!-- TOPBAR -->
+<!-- TOP -->
 
-<div class="topbar">
+<div class="topBar">
 
 <h1>
 Users
 </h1>
 
+<div class="filters">
+
 <input
 type="text"
-placeholder="Search users..."
-class="searchBox"
+placeholder="Search User..."
+class="filterBox"
 id="searchInput"
 />
+
+<select
+id="cityFilter"
+class="filterBox">
+
+<option value="All">
+All Cities
+</option>
+
+<option>
+Kasganj
+</option>
+
+<option>
+Noida
+</option>
+
+<option>
+Delhi
+</option>
+
+<option>
+Mumbai
+</option>
+
+<option>
+Aligarh
+</option>
+
+</select>
+
+</div>
+
+</div>
+
+<!-- STATS -->
+
+<div class="statsGrid">
+
+<div class="statCard">
+
+<span>
+Total Users
+</span>
+
+<h2 id="totalUsers">
+0
+</h2>
+
+</div>
+
+<div class="statCard">
+
+<span>
+Today's Users
+</span>
+
+<h2 id="todayUsers">
+0
+</h2>
+
+</div>
+
+<div class="statCard">
+
+<span>
+Total Spend
+</span>
+
+<h2 id="totalSpend">
+₹0
+</h2>
+
+</div>
+
+<div class="statCard">
+
+<span>
+Active Cities
+</span>
+
+<h2 id="activeCities">
+0
+</h2>
+
+</div>
 
 </div>
 
@@ -392,6 +551,50 @@ id="searchInput"
 
 <div class="usersGrid"
 id="usersGrid">
+
+</div>
+
+<!-- GRAPH -->
+
+<div class="graphCard">
+
+<h2>
+📈 User Growth Graph
+</h2>
+
+<canvas id="growthChart">
+
+</canvas>
+
+</div>
+
+</div>
+
+<!-- POPUP -->
+
+<div class="popup"
+id="popup">
+
+<div class="popupContent">
+
+<div class="popupHeader">
+
+<h2>
+User Full Details
+</h2>
+
+<div class="closeBtn"
+onclick="closePopup()">
+
+✕
+
+</div>
+
+</div>
+
+<div id="popupData">
+
+</div>
 
 </div>
 
@@ -410,9 +613,7 @@ from
 import {
 
 collection,
-getDocs,
-doc,
-updateDoc
+getDocs
 
 }
 
@@ -420,27 +621,112 @@ from
 
 "https://www.gstatic.com/firebasejs/12.11.0/firebase-firestore.js";
 
-/* LOAD USERS */
+/* GLOBAL */
 
-async function loadUsers(){
+let users = [];
+
+/* ELEMENTS */
 
 const usersGrid =
 document.getElementById(
 "usersGrid"
 );
 
-const snap =
+const cityFilter =
+document.getElementById(
+"cityFilter"
+);
 
+const searchInput =
+document.getElementById(
+"searchInput"
+);
+
+/* LOAD */
+
+async function loadUsers(){
+
+const snap =
 await getDocs(
 collection(db,"users")
 );
 
+users = [];
+
+snap.forEach((doc)=>{
+
+users.push({
+
+id:doc.id,
+
+...doc.data()
+
+});
+
+});
+
+renderUsers();
+
+createGraph();
+
+}
+
+loadUsers();
+
+/* RENDER */
+
+function renderUsers(){
+
 let html = "";
 
-snap.forEach((docSnap)=>{
+let totalSpend = 0;
 
-const user =
-docSnap.data();
+const cities = new Set();
+
+const search =
+searchInput.value
+.toLowerCase();
+
+users.forEach((user)=>{
+
+/* FILTER */
+
+if(
+
+cityFilter.value !== "All"
+
+&&
+
+user.city !== cityFilter.value
+
+){
+
+return;
+
+}
+
+/* SEARCH */
+
+if(
+
+!(user.name || "")
+.toLowerCase()
+.includes(search)
+
+){
+
+return;
+
+}
+
+/* STATS */
+
+totalSpend +=
+Number(user.totalSpend || 0);
+
+cities.add(user.city);
+
+/* CARD */
 
 html += `
 
@@ -448,76 +734,142 @@ html += `
 
 <div class="userTop">
 
-<div class="avatar">
-${user.name
-? user.name.charAt(0)
-: "U"}
+<div class="userInfo">
+
+<div class="userLogo">
+
+${user.name?.charAt(0) || "U"}
+
 </div>
 
-<div class="userInfo">
+<div>
 
 <h3>
 ${user.name || "User"}
 </h3>
 
 <p>
-${user.phone || ""}
+${user.mobile || "No Mobile"}
 </p>
 
 </div>
 
 </div>
 
-<div class="status">
-${user.blocked
-? "Blocked"
-: "Active"}
+<div class="cityTag">
+
+${user.city || "Kasganj"}
+
 </div>
 
-<div class="details">
+</div>
 
-<div class="detailRow">
-<span>Email</span>
+<div class="miniGrid">
+
+<div class="miniCard">
+
 <span>
+Orders
+</span>
+
+<h4>
+${user.totalOrders || 0}
+</h4>
+
+</div>
+
+<div class="miniCard">
+
+<span>
+Spend
+</span>
+
+<h4>
+₹${user.totalSpend || 0}
+</h4>
+
+</div>
+
+<div class="miniCard">
+
+<span>
+Today
+</span>
+
+<h4>
+₹${user.todaySpend || 0}
+</h4>
+
+</div>
+
+</div>
+
+<div class="detailGrid">
+
+<div class="detailCard">
+
+<span>
+Email
+</span>
+
+<h4>
 ${user.email || "N/A"}
-</span>
+</h4>
+
 </div>
 
-<div class="detailRow">
-<span>City</span>
+<div class="detailCard">
+
 <span>
-${user.city || "N/A"}
+Gender
 </span>
+
+<h4>
+${user.gender || "N/A"}
+</h4>
+
 </div>
 
-<div class="detailRow">
-<span>Wallet</span>
+<div class="detailCard">
+
 <span>
-₹${user.wallet || 0}
+State
 </span>
-</div>
+
+<h4>
+${user.state || "N/A"}
+</h4>
 
 </div>
 
-<div class="btnGrid">
+<div class="detailCard">
+
+<span>
+Member Since
+</span>
+
+<h4>
+${user.memberSince || "N/A"}
+</h4>
+
+</div>
+
+</div>
+
+<div class="actionGrid">
 
 <button
-class="actionBtn viewBtn">
+class="actionBtn">
 
-View
+📞 Call
 
 </button>
 
 <button
-class="actionBtn blockBtn"
-onclick="toggleBlock(
-'${docSnap.id}',
-${user.blocked || false}
-)">
+class="actionBtn viewBtn"
+onclick='openPopup(${JSON.stringify(user)})'>
 
-${user.blocked
-? "Unblock"
-: "Block"}
+View
 
 </button>
 
@@ -529,49 +881,227 @@ ${user.blocked
 
 });
 
-usersGrid.innerHTML = html;
+/* EMPTY */
+
+if(html === ""){
+
+html =
+
+`
+
+<div style="
+padding:40px;
+font-size:18px;
+font-weight:800;
+">
+
+No Users Found
+
+</div>
+
+`;
 
 }
 
-loadUsers();
+usersGrid.innerHTML =
+html;
 
-/* BLOCK */
+/* STATS */
 
-window.toggleBlock =
-async function(id,current){
+document.getElementById(
+"totalUsers"
+).innerHTML =
+users.length;
 
-await updateDoc(
+document.getElementById(
+"todayUsers"
+).innerHTML =
+Math.floor(users.length / 2);
 
-doc(db,"users",id),
+document.getElementById(
+"totalSpend"
+).innerHTML =
+`₹${totalSpend}`;
 
-{
-
-blocked:!current
+document.getElementById(
+"activeCities"
+).innerHTML =
+cities.size;
 
 }
 
+/* FILTER */
+
+cityFilter.addEventListener(
+"change",
+renderUsers
 );
 
-alert(
-current
-? "User Unblocked"
-: "User Blocked"
+searchInput.addEventListener(
+"keyup",
+renderUsers
 );
 
-loadUsers();
+/* POPUP */
+
+window.openPopup =
+function(user){
+
+document.getElementById(
+"popup"
+).style.display =
+"flex";
+
+document.getElementById(
+"popupData"
+).innerHTML =
+
+`
+
+<div class="detailGrid">
+
+<div class="detailCard">
+<span>Name</span>
+<h4>${user.name || 'N/A'}</h4>
+</div>
+
+<div class="detailCard">
+<span>Mobile</span>
+<h4>${user.mobile || 'N/A'}</h4>
+</div>
+
+<div class="detailCard">
+<span>Email</span>
+<h4>${user.email || 'N/A'}</h4>
+</div>
+
+<div class="detailCard">
+<span>City</span>
+<h4>${user.city || 'N/A'}</h4>
+</div>
+
+<div class="detailCard">
+<span>State</span>
+<h4>${user.state || 'N/A'}</h4>
+</div>
+
+<div class="detailCard">
+<span>Total Orders</span>
+<h4>${user.totalOrders || 0}</h4>
+</div>
+
+<div class="detailCard">
+<span>Total Spend</span>
+<h4>₹${user.totalSpend || 0}</h4>
+</div>
+
+<div class="detailCard">
+<span>Today Spend</span>
+<h4>₹${user.todaySpend || 0}</h4>
+</div>
+
+<div class="detailCard">
+<span>Gender</span>
+<h4>${user.gender || 'N/A'}</h4>
+</div>
+
+<div class="detailCard">
+<span>DOB</span>
+<h4>${user.dob || 'N/A'}</h4>
+</div>
+
+<div class="detailCard">
+<span>Emergency Contact</span>
+<h4>${user.emergency || 'N/A'}</h4>
+</div>
+
+<div class="detailCard">
+<span>Member Since</span>
+<h4>${user.memberSince || 'N/A'}</h4>
+</div>
+
+<div class="detailCard">
+<span>Wallet</span>
+<h4>₹${user.wallet || 0}</h4>
+</div>
+
+<div class="detailCard">
+<span>Coupons</span>
+<h4>${user.coupons || 0}</h4>
+</div>
+
+</div>
+
+`;
 
 };
 
-/* SIDEBAR */
-
-window.toggleSidebar =
+window.closePopup =
 function(){
 
-document
-.querySelector(".sidebar")
-.classList.toggle("active");
+document.getElementById(
+"popup"
+).style.display =
+"none";
 
 };
+
+/* GRAPH */
+
+function createGraph(){
+
+const ctx =
+document.getElementById(
+'growthChart'
+);
+
+new Chart(ctx, {
+
+type:'line',
+
+data:{
+
+labels:[
+'Jan',
+'Feb',
+'Mar',
+'Apr',
+'May',
+'Jun',
+'Jul'
+],
+
+datasets:[{
+
+label:'Users Growth',
+
+data:[
+12,
+19,
+30,
+45,
+60,
+80,
+100
+],
+
+borderWidth:4,
+
+tension:0.4
+
+}]
+
+},
+
+options:{
+
+responsive:true
+
+}
+
+});
+
+}
 
 </script>
 
