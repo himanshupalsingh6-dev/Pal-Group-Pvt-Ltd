@@ -3,7 +3,7 @@
 
 <head>
 
-<meta charset="UTF-8">
+<meta charset="UTF-8"/>
 
 <meta
 name="viewport"
@@ -41,6 +41,73 @@ overflow-x:hidden;
 }
 
 /* =========================
+LOGIN CHECK
+========================= */
+
+.loginScreen{
+position:fixed;
+top:0;
+left:0;
+width:100%;
+height:100%;
+background:#F8FAFC;
+display:none;
+align-items:center;
+justify-content:center;
+padding:20px;
+z-index:99999;
+}
+
+.loginCard{
+width:100%;
+max-width:420px;
+background:#fff;
+padding:30px;
+border-radius:30px;
+text-align:center;
+box-shadow:
+0 10px 40px rgba(0,0,0,0.08);
+}
+
+.loginIcon{
+width:110px;
+height:110px;
+border-radius:32px;
+background:#FFF7CC;
+display:flex;
+align-items:center;
+justify-content:center;
+font-size:52px;
+margin:auto;
+margin-bottom:24px;
+}
+
+.loginCard h2{
+font-size:30px;
+margin-bottom:12px;
+font-weight:900;
+}
+
+.loginCard p{
+font-size:14px;
+line-height:1.8;
+color:#6B7280;
+margin-bottom:24px;
+}
+
+.loginBtn{
+width:100%;
+height:56px;
+border:none;
+border-radius:20px;
+background:#111827;
+color:#fff;
+font-size:15px;
+font-weight:900;
+cursor:pointer;
+}
+
+/* =========================
 TOPBAR
 ========================= */
 
@@ -48,55 +115,40 @@ TOPBAR
 position:sticky;
 top:0;
 z-index:999;
-background:#fff;
-padding:16px 18px;
-box-shadow:
-0 2px 10px rgba(0,0,0,0.05);
+padding:16px;
+background:
+rgba(255,255,255,0.95);
+backdrop-filter:blur(18px);
+border-bottom:
+1px solid #EEF2F7;
 }
 
 .topRow{
 display:flex;
-justify-content:space-between;
 align-items:center;
-gap:10px;
-}
-
-.leftTop{
-display:flex;
-align-items:center;
-gap:14px;
+gap:12px;
 }
 
 .backBtn{
-width:48px;
-height:48px;
+width:46px;
+height:46px;
 border:none;
 border-radius:16px;
 background:#FFD400;
-font-size:20px;
-font-weight:bold;
-cursor:pointer;
-}
-
-.pageTitle h2{
-font-size:24px;
-font-weight:800;
-}
-
-.pageTitle p{
-font-size:13px;
-color:#666;
-margin-top:4px;
-}
-
-.settingBtn{
-width:48px;
-height:48px;
-border:none;
-border-radius:16px;
-background:#F3F4F6;
 font-size:18px;
+font-weight:900;
 cursor:pointer;
+}
+
+.pageText h2{
+font-size:22px;
+font-weight:900;
+margin-bottom:4px;
+}
+
+.pageText p{
+font-size:12px;
+color:#6B7280;
 }
 
 /* =========================
@@ -104,221 +156,207 @@ MAIN
 ========================= */
 
 .main{
-padding:18px;
+width:100%;
+max-width:1200px;
+margin:auto;
+padding:16px;
 padding-bottom:120px;
-display:flex;
-flex-direction:column;
-gap:22px;
 }
 
 /* =========================
-PROFILE HERO
+PROFILE HEADER
 ========================= */
 
-.profileHero{
-background:
-linear-gradient(
-135deg,
-#FFD400,
-#FFE666
-);
-border-radius:34px;
-padding:30px;
+.profileCard{
+background:#111827;
+border-radius:32px;
+padding:28px;
+color:#fff;
+margin-bottom:18px;
 position:relative;
 overflow:hidden;
 }
 
-.profileHero::before{
-content:"";
-position:absolute;
-width:260px;
-height:260px;
-background:
-rgba(255,255,255,0.2);
-border-radius:50%;
-top:-100px;
-right:-100px;
-}
-
-.heroContent{
-position:relative;
-z-index:2;
-display:flex;
-justify-content:space-between;
-align-items:center;
-gap:20px;
-flex-wrap:wrap;
-}
-
-.leftProfile{
+.profileTop{
 display:flex;
 align-items:center;
-gap:20px;
+gap:16px;
 }
 
-.profileImg{
-width:110px;
-height:110px;
-border-radius:30px;
-background:#fff;
+.profileAvatar{
+width:90px;
+height:90px;
+border-radius:28px;
+background:#FFD400;
 display:flex;
 align-items:center;
 justify-content:center;
-font-size:46px;
+font-size:38px;
 font-weight:900;
 color:#111827;
-box-shadow:
-0 10px 25px rgba(0,0,0,0.08);
 }
 
-.profileInfo h1{
-font-size:34px;
-margin-bottom:10px;
-font-weight:900;
+.profileInfo h2{
+font-size:28px;
+margin-bottom:6px;
 }
 
 .profileInfo p{
-font-size:15px;
-line-height:1.8;
-margin-bottom:12px;
-}
-
-.memberTag{
-display:inline-block;
-padding:10px 16px;
-border-radius:16px;
-background:
-rgba(255,255,255,0.7);
-font-size:13px;
-font-weight:800;
-}
-
-.editBtn{
-height:54px;
-padding:0 24px;
-border:none;
-border-radius:18px;
-background:#111827;
-color:#fff;
-font-size:15px;
-font-weight:800;
-cursor:pointer;
-}
-
-/* =========================
-STATS
-========================= */
-
-.statsGrid{
-display:grid;
-grid-template-columns:
-repeat(4,1fr);
-gap:18px;
-}
-
-.statCard{
-background:#fff;
-padding:24px;
-border-radius:28px;
-text-align:center;
-border:1px solid #F1F5F9;
-box-shadow:
-0 4px 12px rgba(0,0,0,0.05);
-}
-
-.statIcon{
-width:68px;
-height:68px;
-border-radius:22px;
-background:#FFF7CC;
-display:flex;
-align-items:center;
-justify-content:center;
-font-size:30px;
-margin:auto;
-margin-bottom:16px;
-}
-
-.statCard h2{
-font-size:30px;
-margin-bottom:8px;
-color:#22C55E;
-}
-
-.statCard p{
 font-size:14px;
-color:#666;
+opacity:0.8;
 }
 
-/* =========================
-SECTION
-========================= */
-
-.section{
-background:#fff;
-border-radius:30px;
-padding:26px;
-border:1px solid #F1F5F9;
-box-shadow:
-0 4px 12px rgba(0,0,0,0.05);
-}
-
-.sectionTop{
-display:flex;
-justify-content:space-between;
-align-items:center;
-margin-bottom:22px;
-}
-
-.sectionTop h2{
-font-size:26px;
-font-weight:800;
-}
-
-.viewBtn{
+.editProfileBtn{
+margin-top:18px;
 height:48px;
 padding:0 18px;
 border:none;
 border-radius:16px;
-background:#F3F4F6;
-font-weight:700;
+background:#FFD400;
+color:#111827;
+font-size:13px;
+font-weight:900;
 cursor:pointer;
 }
 
 /* =========================
-MENU LIST
+WALLET
 ========================= */
 
-.menuList{
-display:flex;
-flex-direction:column;
-gap:16px;
+.walletCard{
+background:#fff;
+border-radius:28px;
+padding:22px;
+margin-bottom:18px;
+box-shadow:
+0 8px 24px rgba(15,23,42,0.05);
 }
+
+.walletTop{
+display:flex;
+justify-content:space-between;
+align-items:center;
+margin-bottom:18px;
+}
+
+.walletTop h2{
+font-size:22px;
+font-weight:900;
+}
+
+.balance{
+font-size:34px;
+font-weight:900;
+margin-bottom:18px;
+}
+
+.walletBtns{
+display:grid;
+grid-template-columns:1fr 1fr;
+gap:12px;
+}
+
+.walletBtn{
+height:54px;
+border:none;
+border-radius:18px;
+font-size:14px;
+font-weight:900;
+cursor:pointer;
+}
+
+.addFund{
+background:#FFD400;
+}
+
+.withdraw{
+background:#111827;
+color:#fff;
+}
+
+/* =========================
+CARD
+========================= */
+
+.card{
+background:#fff;
+border-radius:28px;
+padding:22px;
+margin-bottom:18px;
+box-shadow:
+0 8px 24px rgba(15,23,42,0.05);
+}
+
+.cardTitle{
+font-size:22px;
+font-weight:900;
+margin-bottom:18px;
+}
+
+/* =========================
+MENU
+========================= */
 
 .menuItem{
 display:flex;
 justify-content:space-between;
 align-items:center;
-padding:18px;
-border-radius:22px;
-background:#F9FAFB;
+padding:18px 0;
+border-bottom:
+1px solid #F1F5F9;
 cursor:pointer;
-transition:0.3s;
-}
-
-.menuItem:hover{
-background:#FFF7CC;
 }
 
 .menuLeft{
 display:flex;
 align-items:center;
-gap:16px;
+gap:14px;
 }
 
 .menuIcon{
-width:58px;
-height:58px;
+width:52px;
+height:52px;
+border-radius:18px;
+background:#F8FAFC;
+display:flex;
+align-items:center;
+justify-content:center;
+font-size:22px;
+}
+
+.menuText h3{
+font-size:16px;
+margin-bottom:4px;
+}
+
+.menuText p{
+font-size:12px;
+color:#6B7280;
+}
+
+/* =========================
+ORDERS
+========================= */
+
+.orderItem{
+display:flex;
+justify-content:space-between;
+align-items:center;
+padding:16px;
+border-radius:20px;
+background:#F8FAFC;
+margin-bottom:12px;
+}
+
+.orderLeft{
+display:flex;
+align-items:center;
+gap:14px;
+}
+
+.orderIcon{
+width:54px;
+height:54px;
 border-radius:18px;
 background:#fff;
 display:flex;
@@ -327,65 +365,92 @@ justify-content:center;
 font-size:24px;
 }
 
-.menuInfo h3{
-font-size:18px;
-margin-bottom:6px;
-}
-
-.menuInfo p{
-font-size:13px;
-color:#666;
+.status{
+padding:8px 14px;
+border-radius:12px;
+font-size:11px;
+font-weight:800;
+background:#DCFCE7;
+color:#166534;
 }
 
 /* =========================
-ADDRESS
+TRANSACTIONS
 ========================= */
 
-.addressCard{
+.transactionItem{
 display:flex;
 justify-content:space-between;
-align-items:flex-start;
-gap:18px;
-padding:22px;
-border-radius:24px;
-background:#F9FAFB;
+align-items:center;
+padding:14px 0;
+border-bottom:
+1px solid #F1F5F9;
 }
 
-.addressLeft{
+.transactionLeft{
 display:flex;
-gap:18px;
+align-items:center;
+gap:12px;
 }
 
-.addressIcon{
-width:60px;
-height:60px;
-border-radius:20px;
-background:#FFF7CC;
+.transactionIcon{
+width:48px;
+height:48px;
+border-radius:16px;
+background:#F8FAFC;
 display:flex;
 align-items:center;
 justify-content:center;
-font-size:28px;
+font-size:22px;
 }
 
-.addressInfo h3{
-font-size:20px;
-margin-bottom:10px;
+.credit{
+color:#22C55E;
+font-weight:900;
 }
 
-.addressInfo p{
-font-size:14px;
-line-height:1.8;
-color:#666;
+.debit{
+color:#EF4444;
+font-weight:900;
 }
 
-.editAddress{
-height:50px;
-padding:0 18px;
+/* =========================
+FORM
+========================= */
+
+.inputGroup{
+margin-bottom:16px;
+}
+
+.inputGroup label{
+display:block;
+font-size:13px;
+font-weight:700;
+margin-bottom:8px;
+}
+
+.inputGroup input,
+.inputGroup textarea{
+width:100%;
 border:none;
+outline:none;
+background:#F8FAFC;
 border-radius:16px;
-background:#FFD400;
-font-weight:800;
+padding:16px;
+font-size:14px;
+}
+
+.saveBtn{
+width:100%;
+height:56px;
+border:none;
+border-radius:18px;
+background:#111827;
+color:#fff;
+font-size:15px;
+font-weight:900;
 cursor:pointer;
+margin-top:10px;
 }
 
 /* =========================
@@ -394,115 +459,32 @@ LOGOUT
 
 .logoutBtn{
 width:100%;
-height:62px;
+height:58px;
 border:none;
-border-radius:22px;
+border-radius:20px;
 background:#EF4444;
 color:#fff;
-font-size:16px;
-font-weight:800;
+font-size:15px;
+font-weight:900;
 cursor:pointer;
-box-shadow:
-0 10px 25px rgba(239,68,68,0.2);
-}
-
-/* =========================
-BOTTOM NAV
-========================= */
-
-.bottomNav{
-position:fixed;
-bottom:0;
-left:0;
-width:100%;
-height:78px;
-background:#fff;
-display:flex;
-justify-content:space-around;
-align-items:center;
-border-top:1px solid #E5E7EB;
-z-index:1000;
-}
-
-.bottomNav a{
-text-decoration:none;
-font-size:12px;
-text-align:center;
-font-weight:600;
-color:#6B7280;
-}
-
-.bottomNav i{
-display:block;
-font-size:22px;
-margin-bottom:5px;
-}
-
-.activeNav{
-color:#FFD400 !important;
-}
-
-/* =========================
-POPUP
-========================= */
-
-.popup{
-position:fixed;
-top:30px;
-left:50%;
-transform:translateX(-50%);
-background:#22C55E;
-color:#fff;
-padding:16px 24px;
-border-radius:18px;
-font-weight:700;
-opacity:0;
-pointer-events:none;
-transition:0.3s;
-z-index:9999;
-box-shadow:
-0 10px 25px rgba(34,197,94,0.25);
-}
-
-.popup.show{
-opacity:1;
-top:80px;
 }
 
 /* =========================
 RESPONSIVE
 ========================= */
 
-@media screen and (max-width:900px){
+@media screen and (min-width:900px){
 
-.statsGrid{
-grid-template-columns:1fr 1fr;
+.main{
+display:grid;
+grid-template-columns:
+1fr 1fr;
+gap:20px;
+align-items:start;
 }
 
-}
-
-@media screen and (max-width:768px){
-
-.heroContent{
-flex-direction:column;
-align-items:flex-start;
-}
-
-.leftProfile{
-flex-direction:column;
-align-items:flex-start;
-}
-
-.profileInfo h1{
-font-size:28px;
-}
-
-.statsGrid{
-grid-template-columns:1fr;
-}
-
-.addressCard{
-flex-direction:column;
+.profileSection{
+grid-column:1/3;
 }
 
 }
@@ -513,14 +495,42 @@ flex-direction:column;
 
 <body>
 
-<!-- POPUP -->
+<!-- LOGIN SCREEN -->
 
 <div
-class="popup"
-id="popup"
+class="loginScreen"
+id="loginScreen"
 >
 
-Success
+<div class="loginCard">
+
+<div class="loginIcon">
+🔒
+</div>
+
+<h2>
+Login Required
+</h2>
+
+<p>
+
+Please login first to access
+your profile and wallet.
+
+</p>
+
+<button
+class="loginBtn"
+onclick="
+window.location.href='login.html'
+"
+>
+
+Login Now
+
+</button>
+
+</div>
 
 </div>
 
@@ -529,8 +539,6 @@ Success
 <div class="topbar">
 
 <div class="topRow">
-
-<div class="leftTop">
 
 <button
 class="backBtn"
@@ -541,30 +549,17 @@ onclick="history.back()"
 
 </button>
 
-<div class="pageTitle">
+<div class="pageText">
 
 <h2>
 My Profile
 </h2>
 
 <p>
-Manage your QuickPress account
+Manage your account
 </p>
 
 </div>
-
-</div>
-
-<button
-class="settingBtn"
-onclick="
-showPopup('Settings Opened ⚙️')
-"
->
-
-⚙️
-
-</button>
 
 </div>
 
@@ -574,45 +569,38 @@ showPopup('Settings Opened ⚙️')
 
 <div class="main">
 
-<!-- HERO -->
+<!-- PROFILE -->
 
-<div class="profileHero">
+<div class="profileSection">
 
-<div class="heroContent">
+<div class="profileCard">
 
-<div class="leftProfile">
+<div class="profileTop">
 
-<div class="profileImg">
+<div
+class="profileAvatar"
+id="profileAvatar"
+>
+
 H
+
 </div>
 
 <div class="profileInfo">
 
-<h1>
+<h2 id="profileName">
 Himanshu
-</h1>
+</h2>
 
-<p>
-
-himanshu@gmail.com<br>
-+91 9876543210
-
+<p id="profileEmail">
+example@gmail.com
 </p>
 
-<div class="memberTag">
-👑 Premium Member
 </div>
 
 </div>
 
-</div>
-
-<button
-class="editBtn"
-onclick="
-showPopup('Edit Profile Opened ✏️')
-"
->
+<button class="editProfileBtn">
 
 Edit Profile
 
@@ -622,269 +610,238 @@ Edit Profile
 
 </div>
 
-<!-- STATS -->
+<!-- WALLET -->
 
-<div class="statsGrid">
+<div class="walletCard">
 
-<div class="statCard">
-
-<div class="statIcon">
-📦
-</div>
+<div class="walletTop">
 
 <h2>
-48
+Wallet
 </h2>
 
-<p>
-Total Orders
-</p>
+💳
 
 </div>
 
-<div class="statCard">
+<div
+class="balance"
+id="walletBalance"
+>
 
-<div class="statIcon">
-💰
-</div>
-
-<h2>
-₹420
-</h2>
-
-<p>
-Wallet Balance
-</p>
+₹0
 
 </div>
 
-<div class="statCard">
+<div class="walletBtns">
 
-<div class="statIcon">
-⭐
-</div>
+<button
+class="walletBtn addFund"
+onclick="
+addFunds()
+"
+>
 
-<h2>
-4.9
-</h2>
+Add Fund
 
-<p>
-User Rating
-</p>
+</button>
 
-</div>
+<button
+class="walletBtn withdraw"
+>
 
-<div class="statCard">
+Withdraw
 
-<div class="statIcon">
-🎁
-</div>
-
-<h2>
-12
-</h2>
-
-<p>
-Rewards Earned
-</p>
-
-</div>
-
-</div>
-
-<!-- MENU -->
-
-<div class="section">
-
-<div class="sectionTop">
-
-<h2>
-Quick Actions
-</h2>
-
-<button class="viewBtn">
-View All
 </button>
 
 </div>
 
-<div class="menuList">
-
-<div
-class="menuItem"
-onclick="
-showPopup('Orders Opened 📦')
-"
->
-
-<div class="menuLeft">
-
-<div class="menuIcon">
-📦
 </div>
 
-<div class="menuInfo">
+<!-- MY ORDERS -->
 
-<h3>
+<div class="card">
+
+<h2 class="cardTitle">
 My Orders
-</h3>
-
-<p>
-Track and manage all orders
-</p>
-
-</div>
-
-</div>
-
-➜
-
-</div>
-
-<div
-class="menuItem"
-onclick="
-showPopup('Wallet Opened 💰')
-"
->
-
-<div class="menuLeft">
-
-<div class="menuIcon">
-💰
-</div>
-
-<div class="menuInfo">
-
-<h3>
-Wallet
-</h3>
-
-<p>
-Check balance and cashback
-</p>
-
-</div>
-
-</div>
-
-➜
-
-</div>
-
-<div
-class="menuItem"
-onclick="
-showPopup('Offers Opened 🎁')
-"
->
-
-<div class="menuLeft">
-
-<div class="menuIcon">
-🎁
-</div>
-
-<div class="menuInfo">
-
-<h3>
-Offers & Rewards
-</h3>
-
-<p>
-Unlock premium discounts
-</p>
-
-</div>
-
-</div>
-
-➜
-
-</div>
-
-<div
-class="menuItem"
-onclick="
-showPopup('Support Opened 🎧')
-"
->
-
-<div class="menuLeft">
-
-<div class="menuIcon">
-🎧
-</div>
-
-<div class="menuInfo">
-
-<h3>
-Help & Support
-</h3>
-
-<p>
-Get instant customer support
-</p>
-
-</div>
-
-</div>
-
-➜
-
-</div>
-
-</div>
-
-</div>
-
-<!-- ADDRESS -->
-
-<div class="section">
-
-<div class="sectionTop">
-
-<h2>
-Saved Address
 </h2>
 
-</div>
-
-<div class="addressCard">
-
-<div class="addressLeft">
-
-<div class="addressIcon">
-📍
-</div>
-
-<div class="addressInfo">
-
-<h3>
-Home Address
-</h3>
-
-<p>
-
-House 221, Sector 14,<br>
-Gurugram, Haryana 122001
-
-</p>
+<div id="ordersContainer">
 
 </div>
+
+</div>
+
+<!-- TRANSACTIONS -->
+
+<div class="card">
+
+<h2 class="cardTitle">
+Wallet Transactions
+</h2>
+
+<div id="transactionsContainer">
+
+</div>
+
+</div>
+
+<!-- PROFILE SETTINGS -->
+
+<div class="card">
+
+<h2 class="cardTitle">
+My Profile
+</h2>
+
+<div class="inputGroup">
+
+<label>
+Full Name
+</label>
+
+<input
+type="text"
+id="fullName"
+/>
+
+</div>
+
+<div class="inputGroup">
+
+<label>
+Email
+</label>
+
+<input
+type="email"
+id="email"
+/>
+
+</div>
+
+<div class="inputGroup">
+
+<label>
+Password
+</label>
+
+<input
+type="password"
+id="password"
+/>
+
+</div>
+
+<div class="inputGroup">
+
+<label>
+Saved Address
+</label>
+
+<textarea
+id="address"
+placeholder="Enter your address"
+></textarea>
 
 </div>
 
 <button
-class="editAddress"
+class="saveBtn"
 onclick="
-showPopup('Address Editor Opened 📍')
+saveProfile()
 "
 >
 
-Edit
+Save Profile
 
 </button>
+
+</div>
+
+<!-- HELP -->
+
+<div class="card">
+
+<h2 class="cardTitle">
+Help & Support
+</h2>
+
+<div class="menuItem">
+
+<div class="menuLeft">
+
+<div class="menuIcon">
+📞
+</div>
+
+<div class="menuText">
+
+<h3>
+Customer Support
+</h3>
+
+<p>
+24x7 support available
+</p>
+
+</div>
+
+</div>
+
+<i class="fa-solid fa-chevron-right"></i>
+
+</div>
+
+<div class="menuItem">
+
+<div class="menuLeft">
+
+<div class="menuIcon">
+🔐
+</div>
+
+<div class="menuText">
+
+<h3>
+Forgot Password
+</h3>
+
+<p>
+Reset your password
+</p>
+
+</div>
+
+</div>
+
+<i class="fa-solid fa-chevron-right"></i>
+
+</div>
+
+<div class="menuItem">
+
+<div class="menuLeft">
+
+<div class="menuIcon">
+📍
+</div>
+
+<div class="menuText">
+
+<h3>
+Saved Addresses
+</h3>
+
+<p>
+Manage delivery addresses
+</p>
+
+</div>
+
+</div>
+
+<i class="fa-solid fa-chevron-right"></i>
 
 </div>
 
@@ -894,113 +851,350 @@ Edit
 
 <button
 class="logoutBtn"
-onclick="logoutUser()"
+onclick="
+logout()
+"
 >
 
-Logout Account
+Logout
 
 </button>
-
-</div>
-
-<!-- BOTTOM NAV -->
-
-<div class="bottomNav">
-
-<a href="index.html">
-
-<i class="fa-solid fa-house"></i>
-
-Home
-
-</a>
-
-<a href="services.html">
-
-<i class="fa-solid fa-shirt"></i>
-
-Services
-
-</a>
-
-<a href="cart.html">
-
-<i class="fa-solid fa-cart-shopping"></i>
-
-Cart
-
-</a>
-
-<a href="offers.html">
-
-<i class="fa-solid fa-tags"></i>
-
-Offers
-
-</a>
-
-<a
-href="profile.html"
-class="activeNav"
->
-
-<i class="fa-regular fa-user"></i>
-
-Profile
-
-</a>
 
 </div>
 
 <script>
 
 /* =========================
-POPUP
+LOGIN CHECK
 ========================= */
 
-function showPopup(text){
+const isLoggedIn =
 
-const popup =
+localStorage.getItem(
+"isLoggedIn"
+);
+
+if(!isLoggedIn){
+
 document.getElementById(
-"popup"
-);
-
-popup.innerHTML = text;
-
-popup.classList.add(
-"show"
-);
-
-setTimeout(()=>{
-
-popup.classList.remove(
-"show"
-);
-
-},1000);
+"loginScreen"
+).style.display =
+"flex";
 
 }
+
+/* =========================
+PROFILE DATA
+========================= */
+
+const user =
+
+JSON.parse(
+localStorage.getItem(
+"userProfile"
+)
+) || {
+
+name:"Guest User",
+email:"guest@gmail.com",
+password:"",
+address:""
+
+};
+
+/* =========================
+LOAD PROFILE
+========================= */
+
+document.getElementById(
+"profileName"
+).innerHTML =
+user.name;
+
+document.getElementById(
+"profileEmail"
+).innerHTML =
+user.email;
+
+document.getElementById(
+"profileAvatar"
+).innerHTML =
+user.name.charAt(0);
+
+document.getElementById(
+"fullName"
+).value =
+user.name;
+
+document.getElementById(
+"email"
+).value =
+user.email;
+
+document.getElementById(
+"password"
+).value =
+user.password;
+
+document.getElementById(
+"address"
+).value =
+user.address;
+
+/* =========================
+SAVE PROFILE
+========================= */
+
+function saveProfile(){
+
+const updatedUser = {
+
+name:
+document.getElementById(
+"fullName"
+).value,
+
+email:
+document.getElementById(
+"email"
+).value,
+
+password:
+document.getElementById(
+"password"
+).value,
+
+address:
+document.getElementById(
+"address"
+).value
+
+};
+
+localStorage.setItem(
+
+"userProfile",
+
+JSON.stringify(updatedUser)
+
+);
+
+localStorage.setItem(
+"userAddress",
+updatedUser.address
+);
+
+alert(
+"Profile Updated Successfully"
+);
+
+location.reload();
+
+}
+
+/* =========================
+WALLET
+========================= */
+
+let wallet =
+
+parseInt(
+
+localStorage.getItem(
+"walletBalance"
+)
+
+) || 0;
+
+document.getElementById(
+"walletBalance"
+).innerHTML =
+"₹" + wallet;
+
+/* =========================
+ADD FUND
+========================= */
+
+function addFunds(){
+
+wallet += 100;
+
+localStorage.setItem(
+"walletBalance",
+wallet
+);
+
+let transactions =
+
+JSON.parse(
+localStorage.getItem(
+"walletTransactions"
+)
+) || [];
+
+transactions.unshift({
+
+type:"credit",
+title:"Wallet Topup",
+amount:"+₹100"
+
+});
+
+localStorage.setItem(
+
+"walletTransactions",
+
+JSON.stringify(transactions)
+
+);
+
+location.reload();
+
+}
+
+/* =========================
+TRANSACTIONS
+========================= */
+
+const transactions =
+
+JSON.parse(
+localStorage.getItem(
+"walletTransactions"
+)
+) || [];
+
+let transactionHTML = "";
+
+transactions.forEach((item)=>{
+
+transactionHTML += `
+
+<div class="transactionItem">
+
+<div class="transactionLeft">
+
+<div class="transactionIcon">
+
+${item.type === "credit"
+? "💰"
+: "💸"}
+
+</div>
+
+<div>
+
+<h4>
+${item.title}
+</h4>
+
+<p>
+Wallet Activity
+</p>
+
+</div>
+
+</div>
+
+<div
+class="
+${item.type}
+"
+>
+
+${item.amount}
+
+</div>
+
+</div>
+
+`;
+
+});
+
+document.getElementById(
+"transactionsContainer"
+).innerHTML =
+transactionHTML || "No Transactions";
+
+/* =========================
+ORDERS
+========================= */
+
+const order =
+
+JSON.parse(
+localStorage.getItem(
+"lastOrder"
+)
+);
+
+let orderHTML = "";
+
+if(order){
+
+orderHTML += `
+
+<div class="orderItem">
+
+<div class="orderLeft">
+
+<div class="orderIcon">
+🧺
+</div>
+
+<div>
+
+<h4>
+Laundry Order
+</h4>
+
+<p>
+₹${order.total}
+</p>
+
+</div>
+
+</div>
+
+<div class="status">
+
+${order.status}
+
+</div>
+
+</div>
+
+`;
+
+}
+
+document.getElementById(
+"ordersContainer"
+).innerHTML =
+orderHTML || "No Orders Yet";
 
 /* =========================
 LOGOUT
 ========================= */
 
-function logoutUser(){
+function logout(){
 
-showPopup(
-"Logged Out Successfully 👋"
+localStorage.removeItem(
+"isLoggedIn"
 );
 
-setTimeout(()=>{
+alert(
+"Logged Out Successfully"
+);
 
 window.location.href =
 "login.html";
-
-},1500);
 
 }
 
 </script>
 
 </body>
+
 </html>
