@@ -1,6 +1,6 @@
 <!-- =========================================================
 FILE : admin/index.html
-QUICKPRESS ENTERPRISE DASHBOARD V2
+QUICKPRESS ENTERPRISE DASHBOARD V4
 ========================================================= -->
 
 <!DOCTYPE html>
@@ -42,13 +42,13 @@ SIDEBAR
 ===================================================== */
 
 .sidebar{
-width:270px;
+width:280px;
 height:100vh;
-background:#081028;
+background:linear-gradient(180deg,#081028,#111C44);
 position:fixed;
 left:0;
 top:0;
-padding:20px;
+padding:22px;
 overflow:auto;
 }
 
@@ -60,15 +60,16 @@ margin-bottom:35px;
 }
 
 .logoBox{
-width:65px;
-height:65px;
-background:#FFD400;
-border-radius:22px;
+width:70px;
+height:70px;
+border-radius:24px;
+background:linear-gradient(135deg,#FFD400,#F59E0B);
 display:flex;
 align-items:center;
 justify-content:center;
-font-size:28px;
+font-size:30px;
 font-weight:900;
+box-shadow:0 10px 30px rgba(255,212,0,0.3);
 }
 
 .logoText h1{
@@ -92,12 +93,12 @@ gap:12px;
 }
 
 .menu a{
-height:58px;
+height:60px;
 padding:0 20px;
 display:flex;
 align-items:center;
 gap:14px;
-border-radius:18px;
+border-radius:20px;
 text-decoration:none;
 color:#fff;
 font-size:15px;
@@ -106,11 +107,13 @@ transition:0.3s;
 }
 
 .menu a:hover{
-background:#111C44;
+background:#1D4ED8;
+transform:translateX(4px);
 }
 
 .menu a.active{
-background:#1D4ED8;
+background:linear-gradient(135deg,#2563EB,#1D4ED8);
+box-shadow:0 10px 30px rgba(37,99,235,0.3);
 }
 
 /* =====================================================
@@ -118,8 +121,8 @@ MAIN
 ===================================================== */
 
 .main{
-margin-left:270px;
-width:calc(100% - 270px);
+margin-left:280px;
+width:calc(100% - 280px);
 padding:24px;
 }
 
@@ -137,8 +140,9 @@ flex-wrap:wrap;
 }
 
 .topLeft h1{
-font-size:42px;
+font-size:46px;
 font-weight:900;
+color:#081028;
 }
 
 .topLeft p{
@@ -153,13 +157,14 @@ margin-top:8px;
 display:flex;
 align-items:center;
 gap:14px;
+flex-wrap:wrap;
 }
 
 .searchBox{
-width:320px;
-height:58px;
+width:340px;
+height:60px;
 background:#fff;
-border-radius:18px;
+border-radius:20px;
 display:flex;
 align-items:center;
 padding:0 18px;
@@ -172,40 +177,40 @@ flex:1;
 border:none;
 outline:none;
 font-size:14px;
-font-weight:600;
+font-weight:700;
 }
 
 .citySelect{
-height:58px;
+height:60px;
 padding:0 18px;
 border:none;
 outline:none;
-border-radius:18px;
+border-radius:20px;
+background:#fff;
 font-size:14px;
 font-weight:700;
-background:#fff;
 box-shadow:0 10px 30px rgba(0,0,0,0.05);
 }
 
 .iconBtn{
-width:58px;
-height:58px;
-border-radius:18px;
+width:60px;
+height:60px;
+border-radius:20px;
 background:#fff;
 display:flex;
 align-items:center;
 justify-content:center;
 font-size:20px;
-position:relative;
 cursor:pointer;
+position:relative;
 box-shadow:0 10px 30px rgba(0,0,0,0.05);
 }
 
 .dot{
 width:10px;
 height:10px;
-background:red;
 border-radius:50%;
+background:red;
 position:absolute;
 top:10px;
 right:10px;
@@ -217,13 +222,13 @@ align-items:center;
 gap:12px;
 padding:8px 14px;
 background:#fff;
-border-radius:20px;
+border-radius:22px;
 box-shadow:0 10px 30px rgba(0,0,0,0.05);
 }
 
 .profile img{
-width:52px;
-height:52px;
+width:55px;
+height:55px;
 border-radius:18px;
 object-fit:cover;
 }
@@ -240,7 +245,7 @@ margin-top:4px;
 }
 
 /* =====================================================
-STATS GRID
+STATS
 ===================================================== */
 
 .statsGrid{
@@ -250,27 +255,33 @@ gap:18px;
 margin-bottom:24px;
 }
 
-.card{
+.statCard{
 background:#fff;
 padding:24px;
-border-radius:30px;
-box-shadow:0 10px 30px rgba(0,0,0,0.05);
+border-radius:32px;
 position:relative;
 overflow:hidden;
+cursor:pointer;
+transition:0.3s;
+box-shadow:0 10px 30px rgba(0,0,0,0.05);
 }
 
-.card::after{
+.statCard:hover{
+transform:translateY(-5px);
+}
+
+.statCard::after{
 content:'';
 position:absolute;
-width:120px;
-height:120px;
-background:#EEF2FF;
+width:140px;
+height:140px;
 border-radius:50%;
+background:#EEF2FF;
 right:-40px;
 top:-40px;
 }
 
-.cardTop{
+.statTop{
 display:flex;
 justify-content:space-between;
 align-items:center;
@@ -278,20 +289,47 @@ position:relative;
 z-index:2;
 }
 
-.cardTop i{
-font-size:26px;
+.statIcon{
+width:58px;
+height:58px;
+border-radius:20px;
+display:flex;
+align-items:center;
+justify-content:center;
+font-size:24px;
+color:#fff;
 }
 
-.card span{
+.blue{
+background:#2563EB;
+}
+
+.green{
+background:#22C55E;
+}
+
+.purple{
+background:#7C3AED;
+}
+
+.orange{
+background:#F59E0B;
+}
+
+.red{
+background:#EF4444;
+}
+
+.statCard span{
 font-size:13px;
 color:#6B7280;
 font-weight:700;
 }
 
-.card h2{
-font-size:34px;
+.statCard h2{
+font-size:38px;
 font-weight:900;
-margin-top:14px;
+margin-top:18px;
 position:relative;
 z-index:2;
 }
@@ -312,14 +350,29 @@ margin-bottom:24px;
 .graphCard{
 background:#fff;
 padding:24px;
-border-radius:30px;
+border-radius:32px;
 box-shadow:0 10px 30px rgba(0,0,0,0.05);
 }
 
-.graphCard h2{
+.graphHead{
+display:flex;
+justify-content:space-between;
+align-items:center;
+margin-bottom:24px;
+}
+
+.graphHead h2{
 font-size:30px;
 font-weight:900;
-margin-bottom:18px;
+}
+
+.liveBadge{
+padding:10px 16px;
+border-radius:16px;
+background:#DCFCE7;
+color:#166534;
+font-size:13px;
+font-weight:900;
 }
 
 /* LIVE ORDERS */
@@ -327,14 +380,14 @@ margin-bottom:18px;
 .liveCard{
 background:#fff;
 padding:24px;
-border-radius:30px;
+border-radius:32px;
 box-shadow:0 10px 30px rgba(0,0,0,0.05);
 }
 
 .liveCard h2{
 font-size:30px;
 font-weight:900;
-margin-bottom:18px;
+margin-bottom:20px;
 }
 
 .liveItem{
@@ -343,10 +396,16 @@ justify-content:space-between;
 align-items:center;
 padding:16px 0;
 border-bottom:1px solid #eee;
+cursor:pointer;
+transition:0.3s;
+}
+
+.liveItem:hover{
+transform:translateX(4px);
 }
 
 .liveLeft h4{
-font-size:16px;
+font-size:15px;
 font-weight:900;
 }
 
@@ -381,6 +440,18 @@ color:#166534;
 /* =====================================================
 CITY GRID
 ===================================================== */
+
+.cityHead{
+display:flex;
+justify-content:space-between;
+align-items:center;
+margin-bottom:18px;
+}
+
+.cityHead h2{
+font-size:32px;
+font-weight:900;
+}
 
 .cityGrid{
 display:grid;
@@ -420,7 +491,7 @@ ACTIVITY
 .activityCard{
 background:#fff;
 padding:24px;
-border-radius:30px;
+border-radius:32px;
 box-shadow:0 10px 30px rgba(0,0,0,0.05);
 margin-bottom:24px;
 }
@@ -440,14 +511,14 @@ border-bottom:1px solid #eee;
 }
 
 .activityIcon{
-width:54px;
-height:54px;
-border-radius:18px;
+width:58px;
+height:58px;
+border-radius:20px;
 background:#EEF2FF;
 display:flex;
 align-items:center;
 justify-content:center;
-font-size:20px;
+font-size:22px;
 }
 
 .activity h4{
@@ -472,10 +543,10 @@ gap:18px;
 }
 
 .actionBtn{
-height:90px;
+height:100px;
 border:none;
-border-radius:26px;
-background:#1D4ED8;
+border-radius:28px;
+background:linear-gradient(135deg,#2563EB,#1D4ED8);
 color:#fff;
 font-size:14px;
 font-weight:900;
@@ -484,19 +555,24 @@ display:flex;
 flex-direction:column;
 align-items:center;
 justify-content:center;
-gap:10px;
-box-shadow:0 10px 30px rgba(29,78,216,0.3);
+gap:12px;
+box-shadow:0 10px 30px rgba(37,99,235,0.3);
+transition:0.3s;
+}
+
+.actionBtn:hover{
+transform:translateY(-5px);
 }
 
 .actionBtn i{
-font-size:24px;
+font-size:28px;
 }
 
 /* =====================================================
 RESPONSIVE
 ===================================================== */
 
-@media(max-width:1500px){
+@media(max-width:1600px){
 
 .statsGrid{
 grid-template-columns:repeat(3,1fr);
@@ -646,25 +722,27 @@ id="globalSearch"
 
 </div>
 
-<select class="citySelect">
+<select
+class="citySelect"
+id="citySelector">
 
-<option>
+<option value="All">
 All Cities
 </option>
 
-<option>
+<option value="Kasganj">
 Kasganj
 </option>
 
-<option>
+<option value="Noida">
 Noida
 </option>
 
-<option>
+<option value="Delhi">
 Delhi
 </option>
 
-<option>
+<option value="Mumbai">
 Mumbai
 </option>
 
@@ -710,53 +788,125 @@ Super Admin
 
 </div>
 
-<!-- STATS -->
+<!-- =====================================================
+STATS
+===================================================== -->
 
 <div class="statsGrid">
 
-<div class="card">
-<div class="cardTop">
-<span>Total Orders</span>
+<div
+class="statCard"
+onclick="window.location='orders.html'">
+
+<div class="statTop">
+
+<span>
+Total Orders
+</span>
+
+<div class="statIcon blue">
 <i class="fa-solid fa-basket-shopping"></i>
 </div>
-<h2 id="totalOrders">0</h2>
+
 </div>
 
-<div class="card">
-<div class="cardTop">
-<span>Today Revenue</span>
+<h2 id="totalOrders">
+0
+</h2>
+
+</div>
+
+<div
+class="statCard"
+onclick="window.location='payments.html'">
+
+<div class="statTop">
+
+<span>
+Today Revenue
+</span>
+
+<div class="statIcon green">
 <i class="fa-solid fa-wallet"></i>
 </div>
-<h2 id="todayRevenue">₹0</h2>
+
 </div>
 
-<div class="card">
-<div class="cardTop">
-<span>Total Users</span>
+<h2 id="todayRevenue">
+₹0
+</h2>
+
+</div>
+
+<div
+class="statCard"
+onclick="window.location='users.html'">
+
+<div class="statTop">
+
+<span>
+Total Users
+</span>
+
+<div class="statIcon purple">
 <i class="fa-solid fa-users"></i>
 </div>
-<h2 id="totalUsers">0</h2>
+
 </div>
 
-<div class="card">
-<div class="cardTop">
-<span>Partners</span>
+<h2 id="totalUsers">
+0
+</h2>
+
+</div>
+
+<div
+class="statCard"
+onclick="window.location='partners.html'">
+
+<div class="statTop">
+
+<span>
+Partners
+</span>
+
+<div class="statIcon orange">
 <i class="fa-solid fa-store"></i>
 </div>
-<h2 id="totalPartners">0</h2>
+
 </div>
 
-<div class="card">
-<div class="cardTop">
-<span>Online Riders</span>
+<h2 id="totalPartners">
+0
+</h2>
+
+</div>
+
+<div
+class="statCard"
+onclick="window.location='riders.html'">
+
+<div class="statTop">
+
+<span>
+Online Riders
+</span>
+
+<div class="statIcon red">
 <i class="fa-solid fa-motorcycle"></i>
 </div>
-<h2 id="onlineRiders">0</h2>
-</div>
 
 </div>
 
-<!-- GRID -->
+<h2 id="onlineRiders">
+0
+</h2>
+
+</div>
+
+</div>
+
+<!-- GRAPH + LIVE -->
 
 <div class="grid2">
 
@@ -764,9 +914,19 @@ Super Admin
 
 <div class="graphCard">
 
+<div class="graphHead">
+
 <h2>
 Revenue Growth
 </h2>
+
+<div class="liveBadge">
+
+🟢 Live Data
+
+</div>
+
+</div>
 
 <canvas id="revenueChart"></canvas>
 
@@ -789,6 +949,14 @@ Live Orders
 </div>
 
 <!-- CITY -->
+
+<div class="cityHead">
+
+<h2>
+City Performance
+</h2>
+
+</div>
 
 <div class="cityGrid">
 
