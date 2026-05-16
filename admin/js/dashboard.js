@@ -1,9 +1,10 @@
 /* =========================================================
 FILE : admin/js/dashboard.js
+QUICKPRESS ENTERPRISE DASHBOARD V2
 ========================================================= */
 
 /* =========================================================
-FIREBASE
+IMPORT FIREBASE
 ========================================================= */
 
 import { db }
@@ -15,7 +16,10 @@ from
 import {
 
 collection,
-getDocs
+onSnapshot,
+query,
+orderBy,
+limit
 
 }
 
@@ -40,7 +44,7 @@ window.location.href =
 }
 
 /* =========================================================
-MOBILE BLOCK
+DESKTOP ONLY
 ========================================================= */
 
 const isTouch =
@@ -127,9 +131,14 @@ document.getElementById(
 "totalOrders"
 );
 
-const totalRevenue =
+const todayRevenue =
 document.getElementById(
-"totalRevenue"
+"todayRevenue"
+);
+
+const totalUsers =
+document.getElementById(
+"totalUsers"
 );
 
 const totalPartners =
@@ -137,14 +146,19 @@ document.getElementById(
 "totalPartners"
 );
 
-const totalRiders =
+const onlineRiders =
 document.getElementById(
-"totalRiders"
+"onlineRiders"
 );
 
-const liveOrdersList =
+const liveOrders =
 document.getElementById(
-"liveOrdersList"
+"liveOrders"
+);
+
+const activityFeed =
+document.getElementById(
+"activityFeed"
 );
 
 const kasganjRevenue =
@@ -162,46 +176,45 @@ document.getElementById(
 "delhiRevenue"
 );
 
-/* =========================================================
-LOAD DASHBOARD
-========================================================= */
-
-async function loadDashboard(){
-
-/* =========================================
-LOAD ORDERS
-========================================= */
-
-const ordersSnap =
-await getDocs(
-collection(db,"orders")
+const mumbaiRevenue =
+document.getElementById(
+"mumbaiRevenue"
 );
 
-let orderCount = 0;
-let revenue = 0;
+/* =========================================================
+LIVE ORDERS
+========================================================= */
+
+onSnapshot(
+
+query(
+collection(db,"orders"),
+orderBy("createdAt","desc"),
+limit(8)
+),
+
+(snapshot)=>{
+
+let ordersHTML = "";
+
+let total = 0;
 
 let kasganj = 0;
 let noida = 0;
 let delhi = 0;
+let mumbai = 0;
 
-let liveHTML = "";
+snapshot.forEach((doc)=>{
 
-/* =========================================
-ORDERS LOOP
-========================================= */
+const order =
+doc.data();
 
-ordersSnap.forEach((doc)=>{
-
-const order = doc.data();
-
-orderCount++;
-
-revenue +=
+total +=
 Number(order.total || 0);
 
-/* =========================================
+/* =====================================
 CITY REVENUE
-========================================= */
+===================================== */
 
 if(order.city === "Kasganj"){
 
@@ -224,15 +237,45 @@ Number(order.total || 0);
 
 }
 
-/* =========================================
-LIVE ORDERS
-========================================= */
+if(order.city === "Mumbai"){
 
-liveHTML += `
+mumbai +=
+Number(order.total || 0);
 
-<div class="orderItem">
+}
 
-<div class="orderLeft">
+/* =====================================
+STATUS CLASS
+===================================== */
+
+let statusClass =
+"pending";
+
+if(order.status === "Delivered"){
+
+statusClass =
+"delivered";
+
+}
+
+if(
+order.status === "Out For Delivery"
+){
+
+statusClass =
+"delivery";
+
+}
+
+/* =====================================
+ORDER HTML
+===================================== */
+
+ordersHTML += `
+
+<div class="liveItem">
+
+<div class="liveLeft">
 
 <h4>
 ${order.name || "Customer"}
@@ -245,21 +288,7 @@ ${order.city || ""}
 
 </div>
 
-<div class="orderStatus ${
-
-(order.status === "Pending")
-? "pending"
-
-:
-
-(order.status === "Delivered")
-? "delivered"
-
-:
-
-"delivery"
-
-}">
+<div class="status ${statusClass}">
 
 ${order.status || "Pending"}
 
@@ -271,15 +300,18 @@ ${order.status || "Pending"}
 
 });
 
-/* =========================================
+/* =====================================
 UPDATE UI
-========================================= */
+===================================== */
+
+liveOrders.innerHTML =
+ordersHTML;
 
 totalOrders.innerHTML =
-orderCount;
+snapshot.size;
 
-totalRevenue.innerHTML =
-`₹${revenue}`;
+todayRevenue.innerHTML =
+`₹${total}`;
 
 kasganjRevenue.innerHTML =
 `₹${kasganj}`;
@@ -290,45 +322,133 @@ noidaRevenue.innerHTML =
 delhiRevenue.innerHTML =
 `₹${delhi}`;
 
-liveOrdersList.innerHTML =
-liveHTML;
+mumbaiRevenue.innerHTML =
+`₹${mumbai}`;
 
-/* =========================================
-LOAD PARTNERS
-========================================= */
-
-const partnersSnap =
-await getDocs(
-collection(db,"partners")
-);
-
-totalPartners.innerHTML =
-partnersSnap.size;
-
-/* =========================================
-LOAD RIDERS
-========================================= */
-
-const ridersSnap =
-await getDocs(
-collection(db,"riders")
-);
-
-totalRiders.innerHTML =
-ridersSnap.size;
-
-/* =========================================
-LOAD GRAPH
-========================================= */
-
-loadRevenueChart(
-revenue
-);
+loadRevenueChart(total);
 
 }
 
+/* END SNAPSHOT */
+
+);
+
 /* =========================================================
-GRAPH
+USERS
+========================================================= */
+
+onSnapshot(
+
+collection(db,"users"),
+
+(snapshot)=>{
+
+totalUsers.innerHTML =
+snapshot.size;
+
+}
+
+);
+
+/* =========================================================
+PARTNERS
+========================================================= */
+
+onSnapshot(
+
+collection(db,"partners"),
+
+(snapshot)=>{
+
+totalPartners.innerHTML =
+snapshot.size;
+
+}
+
+);
+
+/* =========================================================
+RIDERS
+========================================================= */
+
+onSnapshot(
+
+collection(db,"riders"),
+
+(snapshot)=>{
+
+onlineRiders.innerHTML =
+snapshot.size;
+
+}
+
+);
+
+/* =========================================================
+ACTIVITY FEED
+========================================================= */
+
+onSnapshot(
+
+query(
+collection(db,"orders"),
+orderBy("createdAt","desc"),
+limit(5)
+),
+
+(snapshot)=>{
+
+let activityHTML = "";
+
+snapshot.forEach((doc)=>{
+
+const order =
+doc.data();
+
+activityHTML += `
+
+<div class="activity">
+
+<div class="activityIcon">
+
+🟢
+
+</div>
+
+<div>
+
+<h4>
+New Order From
+${order.name || "Customer"}
+</h4>
+
+<p>
+
+${order.city || ""}
+• ₹${order.total || 0}
+• ${order.status || "Pending"}
+
+</p>
+
+</div>
+
+</div>
+
+`;
+
+});
+
+activityFeed.innerHTML =
+activityHTML;
+
+}
+
+/* END */
+
+);
+
+/* =========================================================
+REVENUE GRAPH
 ========================================================= */
 
 function loadRevenueChart(total){
@@ -360,12 +480,12 @@ label:"Revenue",
 
 data:[
 1200,
-2400,
-3800,
-5200,
-7100,
-9400,
-total || 12000
+2800,
+4200,
+5900,
+7600,
+10400,
+total || 15000
 ],
 
 borderWidth:4,
@@ -404,17 +524,14 @@ beginAtZero:true
 }
 
 /* =========================================================
-AUTO REFRESH
+LIVE CLOCK
 ========================================================= */
 
 setInterval(()=>{
 
-loadDashboard();
+const now =
+new Date();
 
-},10000);
+console.log(now);
 
-/* =========================================================
-START
-========================================================= */
-
-loadDashboard();
+},1000);
