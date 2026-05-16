@@ -1,20 +1,20 @@
-<!-- ========================================= -->
+<!-- ====================================================== -->
 <!-- QUICKPRESS PARTNER PANEL -->
-<!-- FILE: partner/index.html -->
-<!-- ========================================= -->
+<!-- PART 1 -->
+<!-- FILE : partner/index.html -->
+<!-- ====================================================== -->
 
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
 
-<meta charset="UTF-8" />
+<meta charset="UTF-8">
 
 <meta name="viewport"
 content="width=device-width, initial-scale=1.0"/>
 
 <title>
-QuickPress Partner Panel
+QuickPress Partner Hub
 </title>
 
 <link rel="stylesheet"
@@ -29,19 +29,18 @@ margin:0;
 padding:0;
 box-sizing:border-box;
 font-family:Poppins,sans-serif;
--webkit-tap-highlight-color:transparent;
 }
 
 body{
 background:#F5F5F5;
-padding-bottom:100px;
+padding-bottom:110px;
 }
 
 /* TOP */
 
 .topBar{
-padding:18px;
 background:#fff;
+padding:18px;
 position:sticky;
 top:0;
 z-index:999;
@@ -53,57 +52,54 @@ justify-content:space-between;
 align-items:center;
 }
 
-.shopBox h2{
-font-size:26px;
+.shopInfo h2{
+font-size:28px;
 font-weight:900;
 }
 
-.shopBox p{
+.shopInfo p{
 font-size:14px;
 color:#666;
-margin-top:3px;
+margin-top:4px;
 }
 
-.topIcons{
+.icons{
 display:flex;
-gap:16px;
+gap:18px;
 font-size:24px;
 }
 
-/* ONLINE */
-
-.onlineBox{
-margin-top:18px;
+.onlineRow{
 display:flex;
 justify-content:space-between;
 align-items:center;
+margin-top:18px;
 }
 
-.onlineBtn{
-padding:10px 18px;
-border-radius:40px;
-background:#E5E7EB;
-font-weight:800;
+.toggle{
 display:flex;
 align-items:center;
 gap:10px;
-font-size:14px;
+padding:10px 18px;
+background:#DCFCE7;
+border-radius:30px;
+font-weight:800;
 }
 
-.liveDot{
+.dot{
 width:10px;
 height:10px;
-background:#22C55E;
 border-radius:50%;
+background:#22C55E;
 }
 
-/* TAB */
+/* TABS */
 
 .tabs{
 display:flex;
 gap:12px;
 overflow:auto;
-padding:16px;
+padding:18px;
 }
 
 .tabs::-webkit-scrollbar{
@@ -112,11 +108,11 @@ display:none;
 
 .tab{
 min-width:max-content;
-padding:16px 24px;
+padding:15px 22px;
 border-radius:24px;
 background:#fff;
-font-weight:700;
-font-size:15px;
+font-weight:800;
+font-size:14px;
 }
 
 .activeTab{
@@ -128,51 +124,51 @@ color:#fff;
 
 .banner{
 margin:0 16px;
-background:linear-gradient(135deg,#142850,#1B4F9C);
-border-radius:26px;
-padding:22px;
+background:linear-gradient(135deg,#132B63,#1D4ED8);
+padding:24px;
+border-radius:30px;
 color:#fff;
 position:relative;
 overflow:hidden;
 }
 
-.banner h2{
-font-size:30px;
-font-weight:900;
+.banner h1{
+font-size:34px;
 line-height:1.2;
+font-weight:900;
 }
 
 .banner p{
-font-size:15px;
 margin-top:10px;
 line-height:1.5;
+font-size:15px;
 opacity:0.9;
 }
 
-.learnBtn{
-margin-top:18px;
-height:48px;
+.banner button{
+margin-top:20px;
+height:50px;
 padding:0 24px;
 border:none;
-border-radius:14px;
+border-radius:16px;
 background:#2563EB;
 color:#fff;
+font-weight:900;
 font-size:15px;
-font-weight:800;
 }
 
 .banner img{
 position:absolute;
-right:-20px;
-bottom:-20px;
+right:-10px;
+bottom:-10px;
 width:160px;
-opacity:0.15;
+opacity:0.12;
 }
 
-/* STATS */
+/* SECTION */
 
 .section{
-padding:24px 16px 10px;
+padding:26px 16px 10px;
 }
 
 .section h1{
@@ -181,37 +177,38 @@ font-weight:900;
 margin-bottom:18px;
 }
 
+/* LIVE CARD */
+
 .liveCard{
 background:#fff;
 border-radius:30px;
 padding:24px;
-box-shadow:0 10px 30px rgba(0,0,0,0.04);
 }
 
-.statFlex{
+.liveTop{
 display:flex;
 justify-content:space-between;
 align-items:center;
-margin-bottom:26px;
+margin-bottom:24px;
 }
 
-.statBox h3{
+.liveMini h4{
 font-size:14px;
 color:#666;
 }
 
-.statBox h1{
-font-size:34px;
+.liveMini h1{
+font-size:36px;
 margin-top:8px;
 }
 
 .liveBadge{
 padding:10px 16px;
+border-radius:16px;
 background:#DCFCE7;
 color:#166534;
-border-radius:16px;
-font-weight:800;
 font-size:14px;
+font-weight:900;
 }
 
 .chartBox{
@@ -224,7 +221,6 @@ height:220px;
 display:grid;
 grid-template-columns:repeat(4,1fr);
 gap:14px;
-margin-top:10px;
 }
 
 .quickCard{
@@ -236,7 +232,7 @@ text-align:center;
 
 .quickCard i{
 font-size:28px;
-margin-bottom:14px;
+margin-bottom:12px;
 }
 
 .quickCard h4{
@@ -244,13 +240,13 @@ font-size:13px;
 font-weight:800;
 }
 
-/* ORDER CARD */
+/* ORDER */
 
 .orderCard{
 background:#fff;
 margin:16px;
-border-radius:30px;
 padding:20px;
+border-radius:30px;
 }
 
 .orderTop{
@@ -265,40 +261,40 @@ font-size:24px;
 font-weight:900;
 }
 
-.orderStatus{
+.status{
 padding:8px 14px;
-background:#FEF3C7;
 border-radius:14px;
+background:#FEF3C7;
 font-size:13px;
-font-weight:800;
+font-weight:900;
 }
 
-.orderItems{
+.orderBox{
 background:#F9FAFB;
-border-radius:18px;
 padding:16px;
+border-radius:18px;
 margin-bottom:14px;
 }
 
-.orderItems h3{
+.orderBox h3{
 font-size:16px;
 margin-bottom:10px;
 }
 
-.orderItems p{
+.orderBox p{
 font-size:14px;
-margin-top:5px;
+margin-top:6px;
 color:#444;
 }
 
-.orderBtns{
+.btnGrid{
 display:grid;
 grid-template-columns:1fr 1fr;
 gap:12px;
-margin-top:16px;
+margin-top:18px;
 }
 
-.orderBtns button{
+.btnGrid button{
 height:54px;
 border:none;
 border-radius:18px;
@@ -306,61 +302,59 @@ font-size:15px;
 font-weight:900;
 }
 
-.acceptBtn{
+.accept{
 background:#22C55E;
 color:#fff;
 }
 
-.rejectBtn{
+.reject{
 background:#EF4444;
 color:#fff;
 }
 
 /* PAYOUT */
 
-.payoutCard{
+.payout{
 background:#fff;
 margin:16px;
-border-radius:30px;
 padding:22px;
+border-radius:30px;
 }
 
-.payoutCard h2{
-font-size:30px;
-font-weight:900;
+.payout p{
+font-size:14px;
+color:#666;
+}
+
+.payout h1{
+font-size:40px;
 margin-top:12px;
 }
 
-.payoutCard p{
-font-size:15px;
-color:#666;
-margin-top:8px;
-}
-
-.payoutGrid{
+.payGrid{
 display:grid;
 grid-template-columns:1fr 1fr;
 gap:16px;
 margin-top:20px;
 }
 
-.payoutMini{
+.payMini{
 background:#F9FAFB;
 padding:16px;
 border-radius:18px;
 }
 
-.payoutMini span{
+.payMini span{
 font-size:13px;
 color:#666;
 }
 
-.payoutMini h3{
+.payMini h3{
 margin-top:8px;
-font-size:20px;
+font-size:22px;
 }
 
-/* BOTTOM NAV */
+/* NAV */
 
 .bottomNav{
 position:fixed;
@@ -376,38 +370,39 @@ border-top-right-radius:28px;
 z-index:999;
 }
 
-.navItem{
+.nav{
 text-align:center;
-color:#fff;
 font-size:12px;
 font-weight:700;
+color:#fff;
+text-decoration:none;
 }
 
-.navItem i{
+.nav i{
+display:block;
 font-size:22px;
 margin-bottom:6px;
-display:block;
 }
 
 .activeNav{
 background:#2B2B2B;
-border-radius:20px;
 padding:10px;
+border-radius:18px;
 }
 
 /* MOBILE */
 
 @media(max-width:500px){
 
-.banner h2{
-font-size:24px;
+.banner h1{
+font-size:26px;
 }
 
 .section h1{
 font-size:28px;
 }
 
-.statBox h1{
+.liveMini h1{
 font-size:28px;
 }
 
@@ -424,7 +419,7 @@ font-size:28px;
 
 <div class="topFlex">
 
-<div class="shopBox">
+<div class="shopInfo">
 
 <h2>
 QuickPress Partner
@@ -436,7 +431,7 @@ Kasganj Locality
 
 </div>
 
-<div class="topIcons">
+<div class="icons">
 
 <i class="fa-regular fa-bell"></i>
 
@@ -448,18 +443,18 @@ Kasganj Locality
 
 </div>
 
-<div class="onlineBox">
+<div class="onlineRow">
 
-<div class="onlineBtn">
+<div class="toggle">
 
-<div class="liveDot"></div>
+<div class="dot"></div>
 
 Online
 
 </div>
 
 <i class="fa-solid fa-qrcode"
-style="font-size:26px;"></i>
+style="font-size:28px;"></i>
 
 </div>
 
@@ -482,11 +477,11 @@ Orders
 </div>
 
 <div class="tab">
-Service Quality
+Quality
 </div>
 
 <div class="tab">
-Payouts
+Finance
 </div>
 
 </div>
@@ -495,15 +490,15 @@ Payouts
 
 <div class="banner">
 
-<h2>
+<h1>
 Grow Your Laundry Business
-</h2>
+</h1>
 
 <p>
-Manage orders, payouts, services and delivery from one powerful partner panel.
+Manage orders, finance, delivery and services from one powerful QuickPress partner panel.
 </p>
 
-<button class="learnBtn">
+<button>
 
 Learn More
 
@@ -523,13 +518,13 @@ Today so far
 
 <div class="liveCard">
 
-<div class="statFlex">
+<div class="liveTop">
 
-<div class="statBox">
+<div class="liveMini">
 
-<h3>
+<h4>
 Total Sales
-</h3>
+</h4>
 
 <h1 id="sales">
 ₹0
@@ -537,11 +532,11 @@ Total Sales
 
 </div>
 
-<div class="statBox">
+<div class="liveMini">
 
-<h3>
+<h4>
 Total Orders
-</h3>
+</h4>
 
 <h1 id="orders">
 0
@@ -569,7 +564,7 @@ Total Orders
 
 </div>
 
-<!-- QUICK LINKS -->
+<!-- QUICK -->
 
 <div class="section">
 
@@ -623,7 +618,7 @@ Finance
 
 </div>
 
-<!-- LIVE ORDER -->
+<!-- LIVE ORDERS -->
 
 <div class="section">
 
@@ -633,77 +628,7 @@ Live Orders
 
 </div>
 
-<div class="orderCard">
-
-<div class="orderTop">
-
-<h2>
-#QP1203
-</h2>
-
-<div class="orderStatus">
-
-Preparing
-
-</div>
-
-</div>
-
-<div class="orderItems">
-
-<h3>
-Customer Details
-</h3>
-
-<p>
-👤 Himanshu Pal
-</p>
-
-<p>
-📞 9258730561
-</p>
-
-<p>
-📍 Vill Nagla Baini Kasganj
-</p>
-
-</div>
-
-<div class="orderItems">
-
-<h3>
-Items
-</h3>
-
-<p>
-👔 Shirt × 3
-</p>
-
-<p>
-👖 Jeans × 2
-</p>
-
-<p>
-🧥 Blazer × 1
-</p>
-
-</div>
-
-<div class="orderBtns">
-
-<button class="acceptBtn">
-
-Ready
-
-</button>
-
-<button class="rejectBtn">
-
-Reject
-
-</button>
-
-</div>
+<div id="liveOrders">
 
 </div>
 
@@ -717,35 +642,23 @@ Current Cycle
 
 </div>
 
-<div class="payoutCard">
+<div class="payout">
 
 <p>
 Estimated payout (11 - 17 May)
 </p>
 
-<h2>
-₹297.00
-</h2>
+<h1 id="payout">
+₹0
+</h1>
 
 <p>
-2 orders
+Current running payout
 </p>
 
-<div class="payoutGrid">
+<div class="payGrid">
 
-<div class="payoutMini">
-
-<span>
-Payout For
-</span>
-
-<h3>
-11 - 17 May
-</h3>
-
-</div>
-
-<div class="payoutMini">
+<div class="payMini">
 
 <span>
 Payout Date
@@ -757,59 +670,95 @@ Payout Date
 
 </div>
 
+<div class="payMini">
+
+<span>
+Orders
+</span>
+
+<h3 id="payoutOrders">
+0
+</h3>
+
+</div>
+
 </div>
 
 </div>
 
-<!-- BOTTOM NAV -->
+<!-- BOTTOM -->
 
 <div class="bottomNav">
 
-<div class="navItem">
+<a href="orders.html"
+class="nav">
 
 <i class="fa-solid fa-arrow-right-arrow-left"></i>
 
 To Orders
 
-</div>
+</a>
 
-<div class="navItem activeNav">
+<a href="index.html"
+class="nav activeNav">
 
 <i class="fa-solid fa-chart-simple"></i>
 
 Hub
 
-</div>
+</a>
 
-<div class="navItem">
+<a href="growth.html"
+class="nav">
 
 <i class="fa-regular fa-image"></i>
 
 Growth
 
-</div>
+</a>
 
-<div class="navItem">
+<a href="menu.html"
+class="nav">
 
 <i class="fa-solid fa-shirt"></i>
 
 Menu
 
-</div>
+</a>
 
-<div class="navItem">
+<a href="finance.html"
+class="nav">
 
 <i class="fa-solid fa-indian-rupee-sign"></i>
 
 Finance
 
-</div>
+</a>
 
 </div>
 
-<!-- CHART -->
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 
-<script>
+<script type="module">
+
+import { db }
+
+from
+
+"/Pal-Group-Pvt-Ltd/firebase.js";
+
+import {
+
+collection,
+getDocs
+
+}
+
+from
+
+"https://www.gstatic.com/firebasejs/12.11.0/firebase-firestore.js";
+
+/* LIVE CHART */
 
 const ctx =
 document.getElementById(
@@ -833,22 +782,17 @@ labels:[
 
 datasets:[{
 
-label:'Sales',
-
 data:[
 0,
 120,
-240,
-400,
+250,
+480,
 700,
-900
+980
 ],
 
 borderWidth:4,
-
-tension:0.4,
-
-fill:false
+tension:0.4
 
 }]
 
@@ -878,6 +822,142 @@ display:false
 }
 
 });
+
+/* ORDERS */
+
+const ordersBox =
+document.getElementById(
+"liveOrders"
+);
+
+async function loadOrders(){
+
+const snap =
+await getDocs(
+collection(db,"orders")
+);
+
+let totalSales = 0;
+let totalOrders = 0;
+let html = "";
+
+snap.forEach((doc)=>{
+
+const order =
+doc.data();
+
+totalSales +=
+Number(order.total || 0);
+
+totalOrders++;
+
+html += `
+
+<div class="orderCard">
+
+<div class="orderTop">
+
+<h2>
+#${doc.id.slice(0,6)}
+</h2>
+
+<div class="status">
+
+${order.status || 'Preparing'}
+
+</div>
+
+</div>
+
+<div class="orderBox">
+
+<h3>
+Customer
+</h3>
+
+<p>
+👤 ${order.name || ''}
+</p>
+
+<p>
+📞 ${order.mobile || ''}
+</p>
+
+<p>
+📍 ${order.address || ''}
+</p>
+
+</div>
+
+<div class="orderBox">
+
+<h3>
+Items
+</h3>
+
+${
+(order.items || [])
+.map(item=>`
+
+<p>
+${item.icon || '👔'}
+${item.name}
+× ${item.qty}
+</p>
+
+`).join("")
+}
+
+</div>
+
+<div class="btnGrid">
+
+<button class="accept">
+
+Ready
+
+</button>
+
+<button class="reject">
+
+Reject
+
+</button>
+
+</div>
+
+</div>
+
+`;
+
+});
+
+ordersBox.innerHTML =
+html;
+
+document.getElementById(
+"sales"
+).innerHTML =
+`₹${totalSales}`;
+
+document.getElementById(
+"orders"
+).innerHTML =
+totalOrders;
+
+document.getElementById(
+"payout"
+).innerHTML =
+`₹${Math.floor(totalSales*0.7)}`;
+
+document.getElementById(
+"payoutOrders"
+).innerHTML =
+totalOrders;
+
+}
+
+loadOrders();
 
 </script>
 
