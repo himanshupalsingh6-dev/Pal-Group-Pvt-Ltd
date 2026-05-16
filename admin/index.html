@@ -1,6 +1,6 @@
 <!-- =========================================================
 FILE : admin/index.html
-QUICKPRESS ENTERPRISE DASHBOARD V4
+QUICKPRESS MINIMAL ENTERPRISE DASHBOARD
 ========================================================= -->
 
 <!DOCTYPE html>
@@ -14,7 +14,7 @@ QUICKPRESS ENTERPRISE DASHBOARD V4
 content="width=device-width, initial-scale=1.0"/>
 
 <title>
-QuickPress Enterprise Dashboard
+QuickPress Dashboard
 </title>
 
 <link rel="stylesheet"
@@ -42,49 +42,22 @@ SIDEBAR
 ===================================================== */
 
 .sidebar{
-width:280px;
+width:260px;
 height:100vh;
-background:linear-gradient(180deg,#081028,#111C44);
+background:#081028;
 position:fixed;
 left:0;
 top:0;
-padding:22px;
+padding:20px;
 overflow:auto;
 }
 
 .logo{
-display:flex;
-align-items:center;
-gap:14px;
-margin-bottom:35px;
-}
-
-.logoBox{
-width:70px;
-height:70px;
-border-radius:24px;
-background:linear-gradient(135deg,#FFD400,#F59E0B);
-display:flex;
-align-items:center;
-justify-content:center;
-font-size:30px;
-font-weight:900;
-box-shadow:0 10px 30px rgba(255,212,0,0.3);
-}
-
-.logoText h1{
 font-size:34px;
 font-weight:900;
 color:#fff;
+margin-bottom:35px;
 }
-
-.logoText p{
-font-size:13px;
-color:#9CA3AF;
-margin-top:4px;
-}
-
-/* MENU */
 
 .menu{
 display:flex;
@@ -93,27 +66,25 @@ gap:12px;
 }
 
 .menu a{
-height:60px;
-padding:0 20px;
+height:58px;
 display:flex;
 align-items:center;
 gap:14px;
-border-radius:20px;
+padding:0 18px;
+border-radius:18px;
 text-decoration:none;
-color:#fff;
 font-size:15px;
 font-weight:700;
+color:#fff;
 transition:0.3s;
 }
 
-.menu a:hover{
+.menu a.active{
 background:#1D4ED8;
-transform:translateX(4px);
 }
 
-.menu a.active{
-background:linear-gradient(135deg,#2563EB,#1D4ED8);
-box-shadow:0 10px 30px rgba(37,99,235,0.3);
+.menu a:hover{
+background:#111C44;
 }
 
 /* =====================================================
@@ -121,8 +92,8 @@ MAIN
 ===================================================== */
 
 .main{
-margin-left:280px;
-width:calc(100% - 280px);
+margin-left:260px;
+width:calc(100% - 260px);
 padding:24px;
 }
 
@@ -135,14 +106,13 @@ display:flex;
 justify-content:space-between;
 align-items:center;
 margin-bottom:24px;
-gap:20px;
+gap:18px;
 flex-wrap:wrap;
 }
 
 .topLeft h1{
-font-size:46px;
+font-size:44px;
 font-weight:900;
-color:#081028;
 }
 
 .topLeft p{
@@ -151,97 +121,16 @@ color:#6B7280;
 margin-top:8px;
 }
 
-/* RIGHT */
-
-.topRight{
-display:flex;
-align-items:center;
-gap:14px;
-flex-wrap:wrap;
-}
-
-.searchBox{
-width:340px;
-height:60px;
-background:#fff;
-border-radius:20px;
-display:flex;
-align-items:center;
-padding:0 18px;
-gap:12px;
-box-shadow:0 10px 30px rgba(0,0,0,0.05);
-}
-
-.searchBox input{
-flex:1;
-border:none;
-outline:none;
-font-size:14px;
-font-weight:700;
-}
-
 .citySelect{
-height:60px;
+height:58px;
 padding:0 18px;
 border:none;
 outline:none;
-border-radius:20px;
+border-radius:18px;
 background:#fff;
 font-size:14px;
 font-weight:700;
 box-shadow:0 10px 30px rgba(0,0,0,0.05);
-}
-
-.iconBtn{
-width:60px;
-height:60px;
-border-radius:20px;
-background:#fff;
-display:flex;
-align-items:center;
-justify-content:center;
-font-size:20px;
-cursor:pointer;
-position:relative;
-box-shadow:0 10px 30px rgba(0,0,0,0.05);
-}
-
-.dot{
-width:10px;
-height:10px;
-border-radius:50%;
-background:red;
-position:absolute;
-top:10px;
-right:10px;
-}
-
-.profile{
-display:flex;
-align-items:center;
-gap:12px;
-padding:8px 14px;
-background:#fff;
-border-radius:22px;
-box-shadow:0 10px 30px rgba(0,0,0,0.05);
-}
-
-.profile img{
-width:55px;
-height:55px;
-border-radius:18px;
-object-fit:cover;
-}
-
-.profile h4{
-font-size:15px;
-font-weight:900;
-}
-
-.profile p{
-font-size:12px;
-color:#6B7280;
-margin-top:4px;
 }
 
 /* =====================================================
@@ -258,25 +147,25 @@ margin-bottom:24px;
 .statCard{
 background:#fff;
 padding:24px;
-border-radius:32px;
-position:relative;
-overflow:hidden;
+border-radius:30px;
 cursor:pointer;
 transition:0.3s;
 box-shadow:0 10px 30px rgba(0,0,0,0.05);
+position:relative;
+overflow:hidden;
 }
 
 .statCard:hover{
-transform:translateY(-5px);
+transform:translateY(-4px);
 }
 
 .statCard::after{
 content:'';
 position:absolute;
-width:140px;
-height:140px;
-border-radius:50%;
+width:130px;
+height:130px;
 background:#EEF2FF;
+border-radius:50%;
 right:-40px;
 top:-40px;
 }
@@ -289,41 +178,14 @@ position:relative;
 z-index:2;
 }
 
-.statIcon{
-width:58px;
-height:58px;
-border-radius:20px;
-display:flex;
-align-items:center;
-justify-content:center;
-font-size:24px;
-color:#fff;
-}
-
-.blue{
-background:#2563EB;
-}
-
-.green{
-background:#22C55E;
-}
-
-.purple{
-background:#7C3AED;
-}
-
-.orange{
-background:#F59E0B;
-}
-
-.red{
-background:#EF4444;
+.statTop i{
+font-size:26px;
 }
 
 .statCard span{
 font-size:13px;
-color:#6B7280;
 font-weight:700;
+color:#6B7280;
 }
 
 .statCard h2{
@@ -335,22 +197,14 @@ z-index:2;
 }
 
 /* =====================================================
-GRID 2
+GRAPH
 ===================================================== */
-
-.grid2{
-display:grid;
-grid-template-columns:1.6fr 1fr;
-gap:18px;
-margin-bottom:24px;
-}
-
-/* GRAPH */
 
 .graphCard{
 background:#fff;
 padding:24px;
-border-radius:32px;
+border-radius:30px;
+margin-bottom:24px;
 box-shadow:0 10px 30px rgba(0,0,0,0.05);
 }
 
@@ -358,7 +212,7 @@ box-shadow:0 10px 30px rgba(0,0,0,0.05);
 display:flex;
 justify-content:space-between;
 align-items:center;
-margin-bottom:24px;
+margin-bottom:20px;
 }
 
 .graphHead h2{
@@ -375,41 +229,79 @@ font-size:13px;
 font-weight:900;
 }
 
-/* LIVE ORDERS */
+/* =====================================================
+LIVE ACTIVITY
+===================================================== */
 
-.liveCard{
+.activityCard{
 background:#fff;
 padding:24px;
-border-radius:32px;
+border-radius:30px;
 box-shadow:0 10px 30px rgba(0,0,0,0.05);
 }
 
-.liveCard h2{
-font-size:30px;
-font-weight:900;
-margin-bottom:20px;
-}
-
-.liveItem{
+.activityHead{
 display:flex;
 justify-content:space-between;
 align-items:center;
-padding:16px 0;
-border-bottom:1px solid #eee;
-cursor:pointer;
-transition:0.3s;
+margin-bottom:20px;
 }
 
-.liveItem:hover{
-transform:translateX(4px);
-}
-
-.liveLeft h4{
-font-size:15px;
+.activityHead h2{
+font-size:30px;
 font-weight:900;
 }
 
-.liveLeft p{
+.activityGrid{
+display:grid;
+grid-template-columns:repeat(2,1fr);
+gap:18px;
+}
+
+.activityItem{
+background:#F9FAFB;
+padding:20px;
+border-radius:24px;
+cursor:pointer;
+transition:0.3s;
+border:2px solid transparent;
+}
+
+.activityItem:hover{
+border-color:#2563EB;
+transform:translateY(-3px);
+}
+
+.activityTop{
+display:flex;
+justify-content:space-between;
+align-items:center;
+margin-bottom:16px;
+}
+
+.activityLeft{
+display:flex;
+align-items:center;
+gap:14px;
+}
+
+.activityIcon{
+width:60px;
+height:60px;
+border-radius:20px;
+background:#DBEAFE;
+display:flex;
+align-items:center;
+justify-content:center;
+font-size:24px;
+}
+
+.activityLeft h4{
+font-size:16px;
+font-weight:900;
+}
+
+.activityLeft p{
 font-size:12px;
 color:#6B7280;
 margin-top:4px;
@@ -417,7 +309,7 @@ margin-top:4px;
 
 .status{
 padding:8px 14px;
-border-radius:16px;
+border-radius:14px;
 font-size:12px;
 font-weight:900;
 }
@@ -437,135 +329,28 @@ background:#DCFCE7;
 color:#166534;
 }
 
-/* =====================================================
-CITY GRID
-===================================================== */
-
-.cityHead{
-display:flex;
-justify-content:space-between;
-align-items:center;
-margin-bottom:18px;
-}
-
-.cityHead h2{
-font-size:32px;
-font-weight:900;
-}
-
-.cityGrid{
+.summary{
 display:grid;
-grid-template-columns:repeat(4,1fr);
-gap:18px;
-margin-bottom:24px;
-}
-
-.cityCard{
-background:#fff;
-padding:24px;
-border-radius:30px;
-box-shadow:0 10px 30px rgba(0,0,0,0.05);
-}
-
-.cityCard h3{
-font-size:28px;
-font-weight:900;
-}
-
-.cityCard p{
-font-size:13px;
-color:#6B7280;
-margin-top:6px;
-}
-
-.cityCard h2{
-font-size:36px;
-font-weight:900;
-margin-top:18px;
-}
-
-/* =====================================================
-ACTIVITY
-===================================================== */
-
-.activityCard{
-background:#fff;
-padding:24px;
-border-radius:32px;
-box-shadow:0 10px 30px rgba(0,0,0,0.05);
-margin-bottom:24px;
-}
-
-.activityCard h2{
-font-size:30px;
-font-weight:900;
-margin-bottom:20px;
-}
-
-.activity{
-display:flex;
-align-items:center;
-gap:16px;
-padding:14px 0;
-border-bottom:1px solid #eee;
-}
-
-.activityIcon{
-width:58px;
-height:58px;
-border-radius:20px;
-background:#EEF2FF;
-display:flex;
-align-items:center;
-justify-content:center;
-font-size:22px;
-}
-
-.activity h4{
-font-size:15px;
-font-weight:900;
-}
-
-.activity p{
-font-size:12px;
-color:#6B7280;
-margin-top:4px;
-}
-
-/* =====================================================
-QUICK ACTIONS
-===================================================== */
-
-.actionGrid{
-display:grid;
-grid-template-columns:repeat(6,1fr);
-gap:18px;
-}
-
-.actionBtn{
-height:100px;
-border:none;
-border-radius:28px;
-background:linear-gradient(135deg,#2563EB,#1D4ED8);
-color:#fff;
-font-size:14px;
-font-weight:900;
-cursor:pointer;
-display:flex;
-flex-direction:column;
-align-items:center;
-justify-content:center;
+grid-template-columns:repeat(3,1fr);
 gap:12px;
-box-shadow:0 10px 30px rgba(37,99,235,0.3);
-transition:0.3s;
+margin-top:16px;
 }
 
-.actionBtn:hover{
-transform:translateY(-5px);
+.summaryBox{
+background:#fff;
+padding:12px;
+border-radius:16px;
 }
 
-.actionBtn i{
-font-size:28px;
+.summaryBox span{
+font-size:11px;
+color:#6B7280;
+}
+
+.summaryBox h5{
+font-size:16px;
+font-weight:900;
+margin-top:6px;
 }
 
 /* =====================================================
@@ -578,12 +363,8 @@ RESPONSIVE
 grid-template-columns:repeat(3,1fr);
 }
 
-.cityGrid{
-grid-template-columns:repeat(2,1fr);
-}
-
-.actionGrid{
-grid-template-columns:repeat(3,1fr);
+.activityGrid{
+grid-template-columns:1fr;
 }
 
 }
@@ -601,23 +382,7 @@ SIDEBAR
 <div class="sidebar">
 
 <div class="logo">
-
-<div class="logoBox">
-⚡
-</div>
-
-<div class="logoText">
-
-<h1>
 QuickPress
-</h1>
-
-<p>
-Enterprise Admin
-</p>
-
-</div>
-
 </div>
 
 <div class="menu">
@@ -662,26 +427,6 @@ Payments
 Settlements
 </a>
 
-<a href="support.html">
-<i class="fa-solid fa-headset"></i>
-Support
-</a>
-
-<a href="notifications.html">
-<i class="fa-solid fa-bell"></i>
-Notifications
-</a>
-
-<a href="analytics.html">
-<i class="fa-solid fa-chart-pie"></i>
-Analytics
-</a>
-
-<a href="settings.html">
-<i class="fa-solid fa-gear"></i>
-Settings
-</a>
-
 </div>
 
 </div>
@@ -692,7 +437,7 @@ MAIN
 
 <div class="main">
 
-<!-- TOPBAR -->
+<!-- TOP -->
 
 <div class="topBar">
 
@@ -703,22 +448,8 @@ Enterprise Dashboard
 </h1>
 
 <p>
-QuickPress Real-Time Multi-City Control Center
+QuickPress Real-Time Management System
 </p>
-
-</div>
-
-<div class="topRight">
-
-<div class="searchBox">
-
-<i class="fa-solid fa-magnifying-glass"></i>
-
-<input
-type="text"
-placeholder="Search anything..."
-id="globalSearch"
-/>
 
 </div>
 
@@ -748,44 +479,6 @@ Mumbai
 
 </select>
 
-<div class="iconBtn">
-
-<i class="fa-solid fa-bell"></i>
-
-<div class="dot"></div>
-
-</div>
-
-<div class="iconBtn">
-
-<i class="fa-solid fa-message"></i>
-
-<div class="dot"></div>
-
-</div>
-
-<div class="profile">
-
-<img
-src="https://i.pravatar.cc/100"
-/>
-
-<div>
-
-<h4>
-QuickPress Admin
-</h4>
-
-<p>
-Super Admin
-</p>
-
-</div>
-
-</div>
-
-</div>
-
 </div>
 
 <!-- =====================================================
@@ -804,9 +497,7 @@ onclick="window.location='orders.html'">
 Total Orders
 </span>
 
-<div class="statIcon blue">
 <i class="fa-solid fa-basket-shopping"></i>
-</div>
 
 </div>
 
@@ -826,13 +517,31 @@ onclick="window.location='payments.html'">
 Today Revenue
 </span>
 
-<div class="statIcon green">
 <i class="fa-solid fa-wallet"></i>
-</div>
 
 </div>
 
 <h2 id="todayRevenue">
+₹0
+</h2>
+
+</div>
+
+<div
+class="statCard"
+onclick="window.location='payments.html'">
+
+<div class="statTop">
+
+<span>
+Admin Profit
+</span>
+
+<i class="fa-solid fa-money-bill-trend-up"></i>
+
+</div>
+
+<h2 id="adminProfit">
 ₹0
 </h2>
 
@@ -848,9 +557,7 @@ onclick="window.location='users.html'">
 Total Users
 </span>
 
-<div class="statIcon purple">
 <i class="fa-solid fa-users"></i>
-</div>
 
 </div>
 
@@ -870,9 +577,7 @@ onclick="window.location='partners.html'">
 Partners
 </span>
 
-<div class="statIcon orange">
 <i class="fa-solid fa-store"></i>
-</div>
 
 </div>
 
@@ -882,35 +587,11 @@ Partners
 
 </div>
 
-<div
-class="statCard"
-onclick="window.location='riders.html'">
-
-<div class="statTop">
-
-<span>
-Online Riders
-</span>
-
-<div class="statIcon red">
-<i class="fa-solid fa-motorcycle"></i>
 </div>
 
-</div>
-
-<h2 id="onlineRiders">
-0
-</h2>
-
-</div>
-
-</div>
-
-<!-- GRAPH + LIVE -->
-
-<div class="grid2">
-
-<!-- GRAPH -->
+<!-- =====================================================
+GRAPH
+===================================================== -->
 
 <div class="graphCard">
 
@@ -922,7 +603,7 @@ Revenue Growth
 
 <div class="liveBadge">
 
-🟢 Live Data
+🟢 Real Time
 
 </div>
 
@@ -932,113 +613,23 @@ Revenue Growth
 
 </div>
 
-<!-- LIVE -->
-
-<div class="liveCard">
-
-<h2>
-Live Orders
-</h2>
-
-<div id="liveOrders">
-
-</div>
-
-</div>
-
-</div>
-
-<!-- CITY -->
-
-<div class="cityHead">
-
-<h2>
-City Performance
-</h2>
-
-</div>
-
-<div class="cityGrid">
-
-<div class="cityCard">
-<h3>Kasganj</h3>
-<p>Total Revenue</p>
-<h2 id="kasganjRevenue">₹0</h2>
-</div>
-
-<div class="cityCard">
-<h3>Noida</h3>
-<p>Total Revenue</p>
-<h2 id="noidaRevenue">₹0</h2>
-</div>
-
-<div class="cityCard">
-<h3>Delhi</h3>
-<p>Total Revenue</p>
-<h2 id="delhiRevenue">₹0</h2>
-</div>
-
-<div class="cityCard">
-<h3>Mumbai</h3>
-<p>Total Revenue</p>
-<h2 id="mumbaiRevenue">₹0</h2>
-</div>
-
-</div>
-
-<!-- ACTIVITY -->
+<!-- =====================================================
+LIVE ACTIVITY
+===================================================== -->
 
 <div class="activityCard">
+
+<div class="activityHead">
 
 <h2>
 Live Activity
 </h2>
 
-<div id="activityFeed">
-
 </div>
 
-</div>
-
-<!-- ACTIONS -->
-
-<div class="activityCard">
-
-<h2>
-Quick Actions
-</h2>
-
-<div class="actionGrid">
-
-<button class="actionBtn">
-<i class="fa-solid fa-plus"></i>
-Add Service
-</button>
-
-<button class="actionBtn">
-<i class="fa-solid fa-user-plus"></i>
-Add Partner
-</button>
-
-<button class="actionBtn">
-<i class="fa-solid fa-motorcycle"></i>
-Add Rider
-</button>
-
-<button class="actionBtn">
-<i class="fa-solid fa-bell"></i>
-Send Notice
-</button>
-
-<button class="actionBtn">
-<i class="fa-solid fa-money-bill"></i>
-Settlement
-</button>
-
-<button class="actionBtn">
-<i class="fa-solid fa-ticket"></i>
-Support
-</button>
+<div
+class="activityGrid"
+id="activityFeed">
 
 </div>
 
