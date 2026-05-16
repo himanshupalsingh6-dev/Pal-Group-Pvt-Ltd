@@ -1,6 +1,6 @@
 /* =========================================================
 FILE : admin/js/dashboard.js
-QUICKPRESS ENTERPRISE DASHBOARD V3
+QUICKPRESS MINIMAL ENTERPRISE DASHBOARD
 ========================================================= */
 
 import { db }
@@ -24,7 +24,7 @@ from
 "https://www.gstatic.com/firebasejs/12.11.0/firebase-firestore.js";
 
 /* =========================================================
-AUTH
+AUTH CHECK
 ========================================================= */
 
 const adminSession =
@@ -36,6 +36,85 @@ if(adminSession !== "true"){
 
 window.location.href =
 "login.html";
+
+}
+
+/* =========================================================
+DESKTOP ONLY
+========================================================= */
+
+const isTouch =
+'ontouchstart'
+in window;
+
+const isMobileUA =
+/Android|iPhone|iPad|iPod/i
+.test(
+navigator.userAgent
+);
+
+if(
+window.innerWidth < 1024
+||
+isTouch
+||
+isMobileUA
+){
+
+document.body.innerHTML = `
+
+<div
+style="
+height:100vh;
+display:flex;
+align-items:center;
+justify-content:center;
+background:#081028;
+color:white;
+font-family:Poppins,sans-serif;
+padding:30px;
+text-align:center;
+">
+
+<div>
+
+<div
+style="
+font-size:90px;
+margin-bottom:25px;
+color:#FFD400;
+">
+
+🖥️
+
+</div>
+
+<h1
+style="
+font-size:42px;
+font-weight:900;
+">
+
+Desktop Only
+
+</h1>
+
+<p
+style="
+margin-top:18px;
+line-height:1.8;
+color:#9CA3AF;
+">
+
+QuickPress Admin Panel only works on Laptop/Desktop.
+
+</p>
+
+</div>
+
+</div>
+
+`;
 
 }
 
@@ -53,6 +132,11 @@ document.getElementById(
 "todayRevenue"
 );
 
+const adminProfit =
+document.getElementById(
+"adminProfit"
+);
+
 const totalUsers =
 document.getElementById(
 "totalUsers"
@@ -63,106 +147,21 @@ document.getElementById(
 "totalPartners"
 );
 
-const onlineRiders =
-document.getElementById(
-"onlineRiders"
-);
-
-const liveOrders =
-document.getElementById(
-"liveOrders"
-);
-
 const activityFeed =
 document.getElementById(
 "activityFeed"
 );
-
-const kasganjRevenue =
-document.getElementById(
-"kasganjRevenue"
-);
-
-const noidaRevenue =
-document.getElementById(
-"noidaRevenue"
-);
-
-const delhiRevenue =
-document.getElementById(
-"delhiRevenue"
-);
-
-const mumbaiRevenue =
-document.getElementById(
-"mumbaiRevenue"
-);
-
-/* =========================================================
-CARD REDIRECTS
-========================================================= */
-
-document.getElementById(
-"totalOrders"
-).onclick = ()=>{
-
-window.location.href =
-"orders.html";
-
-};
-
-document.getElementById(
-"todayRevenue"
-).onclick = ()=>{
-
-window.location.href =
-"payments.html";
-
-};
-
-document.getElementById(
-"totalUsers"
-).onclick = ()=>{
-
-window.location.href =
-"users.html";
-
-};
-
-document.getElementById(
-"totalPartners"
-).onclick = ()=>{
-
-window.location.href =
-"partners.html";
-
-};
-
-document.getElementById(
-"onlineRiders"
-).onclick = ()=>{
-
-window.location.href =
-"riders.html";
-
-};
-
-/* =========================================================
-CITY SELECTOR
-========================================================= */
 
 const citySelector =
 document.getElementById(
 "citySelector"
 );
 
-let selectedCity = "All";
-
 /* =========================================================
-CITY CHANGE
+CITY FILTER
 ========================================================= */
 
-if(citySelector){
+let selectedCity = "All";
 
 citySelector.addEventListener(
 "change",
@@ -176,7 +175,11 @@ loadDashboard();
 }
 );
 
-}
+/* =========================================================
+GRAPH
+========================================================= */
+
+let revenueChart;
 
 /* =========================================================
 LOAD DASHBOARD
@@ -184,9 +187,9 @@ LOAD DASHBOARD
 
 function loadDashboard(){
 
-/* =====================================
+/* =========================================
 LIVE ORDERS
-===================================== */
+========================================= */
 
 onSnapshot(
 
@@ -198,18 +201,15 @@ limit(20)
 
 (snapshot)=>{
 
-let ordersHTML = "";
-
 let total = 0;
-
-let kasganj = 0;
-let noida = 0;
-let delhi = 0;
-let mumbai = 0;
 
 let orderCount = 0;
 
+let profit = 0;
+
 let chartData = [];
+
+let activityHTML = "";
 
 /* =====================================
 LOOP
@@ -247,44 +247,22 @@ TOTALS
 
 orderCount++;
 
-total +=
+const orderTotal =
 Number(order.total || 0);
 
-chartData.push(
-Number(order.total || 0)
-);
+total += orderTotal;
 
 /* =====================================
-CITY REVENUE
+ADMIN PROFIT
+20%
 ===================================== */
 
-if(order.city === "Kasganj"){
+const adminCommission =
+(orderTotal * 20) / 100;
 
-kasganj +=
-Number(order.total || 0);
+profit += adminCommission;
 
-}
-
-if(order.city === "Noida"){
-
-noida +=
-Number(order.total || 0);
-
-}
-
-if(order.city === "Delhi"){
-
-delhi +=
-Number(order.total || 0);
-
-}
-
-if(order.city === "Mumbai"){
-
-mumbai +=
-Number(order.total || 0);
-
-}
+chartData.push(orderTotal);
 
 /* =====================================
 STATUS
@@ -301,7 +279,8 @@ statusClass =
 }
 
 if(
-order.status === "Out For Delivery"
+order.status ===
+"Out For Delivery"
 ){
 
 statusClass =
@@ -310,17 +289,26 @@ statusClass =
 }
 
 /* =====================================
-LIVE ORDERS HTML
+LIVE ACTIVITY
 ===================================== */
 
-ordersHTML += `
+activityHTML += `
 
 <div
-class="liveItem"
-onclick="openOrder('${orderId}')"
-style="cursor:pointer;">
+class="activityItem"
+onclick="openOrder('${orderId}')">
 
-<div class="liveLeft">
+<div class="activityTop">
+
+<div class="activityLeft">
+
+<div class="activityIcon">
+
+📦
+
+</div>
+
+<div>
 
 <h4>
 
@@ -330,19 +318,65 @@ ${order.name || "Customer"}
 
 <p>
 
-${order.city || ""}
-•
-₹${order.total || 0}
-•
-${order.items?.length || 0} Items
+${order.city || "City"}
 
 </p>
+
+</div>
 
 </div>
 
 <div class="status ${statusClass}">
 
 ${order.status || "Pending"}
+
+</div>
+
+</div>
+
+<div class="summary">
+
+<div class="summaryBox">
+
+<span>
+Amount
+</span>
+
+<h5>
+
+₹${orderTotal}
+
+</h5>
+
+</div>
+
+<div class="summaryBox">
+
+<span>
+Items
+</span>
+
+<h5>
+
+${order.items?.length || 0}
+
+</h5>
+
+</div>
+
+<div class="summaryBox">
+
+<span>
+Payment
+</span>
+
+<h5>
+
+${order.paymentMethod || "COD"}
+
+</h5>
+
+</div>
 
 </div>
 
@@ -356,29 +390,20 @@ ${order.status || "Pending"}
 UPDATE UI
 ===================================== */
 
-liveOrders.innerHTML =
-ordersHTML;
-
 totalOrders.innerHTML =
 orderCount;
 
 todayRevenue.innerHTML =
 `₹${total}`;
 
-kasganjRevenue.innerHTML =
-`₹${kasganj}`;
+adminProfit.innerHTML =
+`₹${Math.floor(profit)}`;
 
-noidaRevenue.innerHTML =
-`₹${noida}`;
-
-delhiRevenue.innerHTML =
-`₹${delhi}`;
-
-mumbaiRevenue.innerHTML =
-`₹${mumbai}`;
+activityFeed.innerHTML =
+activityHTML;
 
 /* =====================================
-REAL GRAPH
+GRAPH
 ===================================== */
 
 loadRevenueChart(
@@ -428,90 +453,7 @@ snapshot.size;
 );
 
 /* =========================================================
-RIDERS
-========================================================= */
-
-onSnapshot(
-
-collection(db,"riders"),
-
-(snapshot)=>{
-
-onlineRiders.innerHTML =
-snapshot.size;
-
-}
-
-);
-
-/* =========================================================
-LIVE ACTIVITY
-========================================================= */
-
-onSnapshot(
-
-query(
-collection(db,"orders"),
-orderBy("createdAt","desc"),
-limit(8)
-),
-
-(snapshot)=>{
-
-let activityHTML = "";
-
-snapshot.forEach((doc)=>{
-
-const order =
-doc.data();
-
-activityHTML += `
-
-<div class="activity">
-
-<div class="activityIcon">
-
-🟢
-
-</div>
-
-<div>
-
-<h4>
-
-${order.name || "Customer"}
-
-Placed New Order
-
-</h4>
-
-<p>
-
-${order.city || ""}
-•
-₹${order.total || 0}
-•
-${order.status || "Pending"}
-
-</p>
-
-</div>
-
-</div>
-
-`;
-
-});
-
-activityFeed.innerHTML =
-activityHTML;
-
-}
-
-);
-
-/* =========================================================
-ORDER OPEN
+OPEN ORDER
 ========================================================= */
 
 window.openOrder =
@@ -523,10 +465,8 @@ window.location.href =
 };
 
 /* =========================================================
-REAL REVENUE GRAPH
+REVENUE GRAPH
 ========================================================= */
-
-let revenueChart;
 
 function loadRevenueChart(data){
 
@@ -535,11 +475,19 @@ document.getElementById(
 "revenueChart"
 );
 
+/* =====================================
+DESTROY OLD
+===================================== */
+
 if(revenueChart){
 
 revenueChart.destroy();
 
 }
+
+/* =====================================
+NEW CHART
+===================================== */
 
 revenueChart =
 new Chart(ctx, {
@@ -549,7 +497,9 @@ type:"line",
 data:{
 
 labels:data.map((_,i)=>
+
 `Order ${i+1}`
+
 ),
 
 datasets:[{
@@ -583,7 +533,9 @@ display:false
 scales:{
 
 y:{
+
 beginAtZero:true
+
 }
 
 }
@@ -593,6 +545,16 @@ beginAtZero:true
 });
 
 }
+
+/* =========================================================
+AUTO REFRESH
+========================================================= */
+
+setInterval(()=>{
+
+loadDashboard();
+
+},10000);
 
 /* =========================================================
 START
