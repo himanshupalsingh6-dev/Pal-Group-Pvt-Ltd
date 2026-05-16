@@ -1,0 +1,902 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+
+<meta charset="UTF-8"/>
+
+<meta name="viewport"
+content="width=device-width, initial-scale=1.0"/>
+
+<title>
+QuickPress Finance
+</title>
+
+<link rel="stylesheet"
+href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css"/>
+
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+<style>
+
+*{
+margin:0;
+padding:0;
+box-sizing:border-box;
+font-family:Poppins,sans-serif;
+-webkit-tap-highlight-color:transparent;
+}
+
+body{
+background:#F5F5F5;
+padding-bottom:110px;
+}
+
+/* TOP */
+
+.topBar{
+background:#fff;
+padding:18px;
+position:sticky;
+top:0;
+z-index:999;
+}
+
+.topFlex{
+display:flex;
+justify-content:space-between;
+align-items:center;
+}
+
+.shopInfo h2{
+font-size:28px;
+font-weight:900;
+}
+
+.shopInfo p{
+font-size:14px;
+color:#666;
+margin-top:4px;
+}
+
+.icons{
+display:flex;
+gap:18px;
+font-size:24px;
+}
+
+/* TABS */
+
+.tabs{
+display:flex;
+gap:12px;
+overflow:auto;
+padding:18px;
+}
+
+.tabs::-webkit-scrollbar{
+display:none;
+}
+
+.tab{
+min-width:max-content;
+padding:15px 22px;
+border-radius:24px;
+background:#fff;
+font-weight:800;
+font-size:14px;
+}
+
+.activeTab{
+background:#000;
+color:#fff;
+}
+
+/* SECTION */
+
+.section{
+padding:0 16px 16px;
+}
+
+.section h1{
+font-size:34px;
+font-weight:900;
+margin-bottom:18px;
+}
+
+/* PAYOUT CARD */
+
+.payoutCard{
+background:#fff;
+padding:24px;
+border-radius:30px;
+margin-bottom:18px;
+}
+
+.payoutCard p{
+font-size:14px;
+color:#666;
+}
+
+.payoutCard h1{
+font-size:42px;
+margin-top:12px;
+font-weight:900;
+}
+
+.divider{
+height:1px;
+background:#eee;
+margin:22px 0;
+}
+
+.payGrid{
+display:grid;
+grid-template-columns:1fr 1fr;
+gap:16px;
+}
+
+.payMini{
+background:#F9FAFB;
+padding:16px;
+border-radius:18px;
+}
+
+.payMini span{
+font-size:13px;
+color:#666;
+}
+
+.payMini h3{
+margin-top:8px;
+font-size:22px;
+font-weight:900;
+}
+
+/* STATS */
+
+.statsGrid{
+display:grid;
+grid-template-columns:repeat(2,1fr);
+gap:14px;
+margin-bottom:18px;
+}
+
+.statCard{
+background:#fff;
+padding:18px;
+border-radius:24px;
+}
+
+.statCard h4{
+font-size:14px;
+color:#666;
+}
+
+.statCard h1{
+font-size:30px;
+margin-top:10px;
+font-weight:900;
+}
+
+/* HISTORY */
+
+.historyCard{
+background:#fff;
+padding:20px;
+border-radius:28px;
+margin-bottom:18px;
+}
+
+.historyTop{
+display:flex;
+justify-content:space-between;
+align-items:center;
+margin-bottom:18px;
+}
+
+.historyTop h2{
+font-size:24px;
+font-weight:900;
+}
+
+.paid{
+padding:8px 14px;
+border-radius:14px;
+background:#DCFCE7;
+color:#166534;
+font-size:13px;
+font-weight:900;
+}
+
+.pending{
+padding:8px 14px;
+border-radius:14px;
+background:#FEF3C7;
+color:#92400E;
+font-size:13px;
+font-weight:900;
+}
+
+.historyGrid{
+display:grid;
+grid-template-columns:1fr 1fr;
+gap:14px;
+margin-top:16px;
+}
+
+.historyMini{
+background:#F9FAFB;
+padding:16px;
+border-radius:18px;
+}
+
+.historyMini span{
+font-size:13px;
+color:#666;
+}
+
+.historyMini h3{
+font-size:18px;
+margin-top:8px;
+}
+
+/* GRAPH */
+
+.graphCard{
+background:#fff;
+padding:24px;
+border-radius:30px;
+margin-bottom:20px;
+}
+
+.graphCard h2{
+font-size:26px;
+font-weight:900;
+margin-bottom:20px;
+}
+
+/* BUTTON */
+
+.reportBtn{
+width:100%;
+height:56px;
+border:none;
+border-radius:18px;
+background:#000;
+color:#fff;
+font-size:15px;
+font-weight:900;
+margin-top:18px;
+}
+
+/* NAV */
+
+.bottomNav{
+position:fixed;
+bottom:0;
+left:0;
+width:100%;
+background:#000;
+padding:14px 10px;
+display:grid;
+grid-template-columns:repeat(5,1fr);
+border-top-left-radius:28px;
+border-top-right-radius:28px;
+z-index:999;
+}
+
+.nav{
+text-align:center;
+font-size:12px;
+font-weight:700;
+color:#fff;
+text-decoration:none;
+}
+
+.nav i{
+display:block;
+font-size:22px;
+margin-bottom:6px;
+}
+
+.activeNav{
+background:#2B2B2B;
+padding:10px;
+border-radius:18px;
+}
+
+/* MOBILE */
+
+@media(max-width:500px){
+
+.section h1{
+font-size:28px;
+}
+
+.payoutCard h1{
+font-size:34px;
+}
+
+.statCard h1{
+font-size:26px;
+}
+
+}
+
+</style>
+</head>
+
+<body>
+
+<!-- TOP -->
+
+<div class="topBar">
+
+<div class="topFlex">
+
+<div class="shopInfo">
+
+<h2>
+QuickPress Finance
+</h2>
+
+<p>
+Kasganj Locality
+</p>
+
+</div>
+
+<div class="icons">
+
+<i class="fa-regular fa-bell"></i>
+
+<i class="fa-solid fa-bars"></i>
+
+</div>
+
+</div>
+
+</div>
+
+<!-- TABS -->
+
+<div class="tabs">
+
+<div class="tab activeTab">
+Payouts
+</div>
+
+<div class="tab">
+Invoices & Taxes
+</div>
+
+<div class="tab">
+Wallet
+</div>
+
+</div>
+
+<!-- CURRENT PAYOUT -->
+
+<div class="section">
+
+<h1>
+Current Cycle
+</h1>
+
+<div class="payoutCard">
+
+<p>
+Estimated payout (11 - 17 May)
+</p>
+
+<h1 id="partnerPayout">
+₹0
+</h1>
+
+<p id="totalOrdersText">
+0 orders
+</p>
+
+<div class="divider"></div>
+
+<div class="payGrid">
+
+<div class="payMini">
+
+<span>
+Partner Share (60%)
+</span>
+
+<h3 id="partnerShare">
+₹0
+</h3>
+
+</div>
+
+<div class="payMini">
+
+<span>
+Admin Share (40%)
+</span>
+
+<h3 id="adminShare">
+₹0
+</h3>
+
+</div>
+
+<div class="payMini">
+
+<span>
+Payout Date
+</span>
+
+<h3>
+20 May
+</h3>
+
+</div>
+
+<div class="payMini">
+
+<span>
+Payment Status
+</span>
+
+<h3>
+Pending
+</h3>
+
+</div>
+
+</div>
+
+<button class="reportBtn">
+
+Download Report
+
+</button>
+
+</div>
+
+</div>
+
+<!-- STATS -->
+
+<div class="section">
+
+<div class="statsGrid">
+
+<div class="statCard">
+
+<h4>
+Total Revenue
+</h4>
+
+<h1 id="totalRevenue">
+₹0
+</h1>
+
+</div>
+
+<div class="statCard">
+
+<h4>
+Completed Orders
+</h4>
+
+<h1 id="completedOrders">
+0
+</h1>
+
+</div>
+
+<div class="statCard">
+
+<h4>
+Wallet Balance
+</h4>
+
+<h1 id="wallet">
+₹0
+</h1>
+
+</div>
+
+<div class="statCard">
+
+<h4>
+Pending Amount
+</h4>
+
+<h1 id="pendingAmount">
+₹0
+</h1>
+
+</div>
+
+</div>
+
+</div>
+
+<!-- GRAPH -->
+
+<div class="section">
+
+<div class="graphCard">
+
+<h2>
+Revenue Growth
+</h2>
+
+<canvas id="financeChart">
+
+</canvas>
+
+</div>
+
+</div>
+
+<!-- HISTORY -->
+
+<div class="section">
+
+<h1>
+Past Cycles
+</h1>
+
+<div id="historyBox">
+
+</div>
+
+</div>
+
+<!-- NAV -->
+
+<div class="bottomNav">
+
+<a href="orders.html"
+class="nav">
+
+<i class="fa-solid fa-arrow-right-arrow-left"></i>
+
+Orders
+
+</a>
+
+<a href="index.html"
+class="nav">
+
+<i class="fa-solid fa-chart-simple"></i>
+
+Hub
+
+</a>
+
+<a href="growth.html"
+class="nav">
+
+<i class="fa-regular fa-image"></i>
+
+Growth
+
+</a>
+
+<a href="menu.html"
+class="nav">
+
+<i class="fa-solid fa-shirt"></i>
+
+Menu
+
+</a>
+
+<a href="finance.html"
+class="nav activeNav">
+
+<i class="fa-solid fa-indian-rupee-sign"></i>
+
+Finance
+
+</a>
+
+</div>
+
+<!-- FIREBASE -->
+
+<script type="module">
+
+import { db }
+
+from
+
+"/Pal-Group-Pvt-Ltd/firebase.js";
+
+import {
+
+collection,
+getDocs
+
+}
+
+from
+
+"https://www.gstatic.com/firebasejs/12.11.0/firebase-firestore.js";
+
+/* GLOBAL */
+
+const historyBox =
+document.getElementById(
+"historyBox"
+);
+
+/* LOAD */
+
+async function loadFinance(){
+
+const snap =
+await getDocs(
+collection(db,"orders")
+);
+
+let totalRevenue = 0;
+let completedOrders = 0;
+let partnerShare = 0;
+let adminShare = 0;
+let pendingAmount = 0;
+
+let html = "";
+
+snap.forEach((doc)=>{
+
+const order =
+doc.data();
+
+const amount =
+Number(order.total || 0);
+
+totalRevenue += amount;
+
+if(order.status === "Delivered"){
+
+completedOrders++;
+
+partnerShare +=
+amount * 0.60;
+
+adminShare +=
+amount * 0.40;
+
+}else{
+
+pendingAmount += amount;
+
+}
+
+html += `
+
+<div class="historyCard">
+
+<div class="historyTop">
+
+<h2>
+#${doc.id.slice(0,6)}
+</h2>
+
+<div class="${
+order.status === 'Delivered'
+? 'paid'
+: 'pending'
+}">
+
+${order.status || 'Pending'}
+
+</div>
+
+</div>
+
+<div class="historyGrid">
+
+<div class="historyMini">
+
+<span>
+Customer
+</span>
+
+<h3>
+${order.name || ''}
+</h3>
+
+</div>
+
+<div class="historyMini">
+
+<span>
+Amount
+</span>
+
+<h3>
+₹${amount}
+</h3>
+
+</div>
+
+<div class="historyMini">
+
+<span>
+Partner (60%)
+</span>
+
+<h3>
+₹${Math.floor(amount*0.60)}
+</h3>
+
+</div>
+
+<div class="historyMini">
+
+<span>
+Admin (40%)
+</span>
+
+<h3>
+₹${Math.floor(amount*0.40)}
+</h3>
+
+</div>
+
+<div class="historyMini">
+
+<span>
+Payment
+</span>
+
+<h3>
+${order.payment || 'COD'}
+</h3>
+
+</div>
+
+<div class="historyMini">
+
+<span>
+Date
+</span>
+
+<h3>
+${order.time || 'Today'}
+</h3>
+
+</div>
+
+</div>
+
+</div>
+
+`;
+
+});
+
+/* STATS */
+
+document.getElementById(
+"partnerPayout"
+).innerHTML =
+`₹${Math.floor(partnerShare)}`;
+
+document.getElementById(
+"partnerShare"
+).innerHTML =
+`₹${Math.floor(partnerShare)}`;
+
+document.getElementById(
+"adminShare"
+).innerHTML =
+`₹${Math.floor(adminShare)}`;
+
+document.getElementById(
+"totalRevenue"
+).innerHTML =
+`₹${Math.floor(totalRevenue)}`;
+
+document.getElementById(
+"completedOrders"
+).innerHTML =
+completedOrders;
+
+document.getElementById(
+"pendingAmount"
+).innerHTML =
+`₹${Math.floor(pendingAmount)}`;
+
+document.getElementById(
+"wallet"
+).innerHTML =
+`₹${Math.floor(partnerShare/2)}`;
+
+document.getElementById(
+"totalOrdersText"
+).innerHTML =
+`${completedOrders} orders`;
+
+historyBox.innerHTML =
+html;
+
+/* GRAPH */
+
+const ctx =
+document.getElementById(
+'financeChart'
+);
+
+new Chart(ctx, {
+
+type:'line',
+
+data:{
+
+labels:[
+'Mon',
+'Tue',
+'Wed',
+'Thu',
+'Fri',
+'Sat',
+'Sun'
+],
+
+datasets:[{
+
+label:'Revenue',
+
+data:[
+1200,
+2500,
+3200,
+4800,
+6500,
+7800,
+9800
+],
+
+borderWidth:4,
+tension:0.4
+
+}]
+
+},
+
+options:{
+
+responsive:true,
+
+plugins:{
+legend:{
+display:false
+}
+},
+
+scales:{
+y:{
+display:false
+},
+x:{
+grid:{
+display:false
+}
+}
+}
+
+}
+
+});
+
+}
+
+loadFinance();
+
+</script>
+
+</body>
+</html>
