@@ -1,6 +1,5 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
 
 <meta charset="UTF-8"/>
@@ -9,7 +8,7 @@
 content="width=device-width, initial-scale=1.0"/>
 
 <title>
-QuickPress Admin Settlement Dashboard
+QuickPress Settlement Dashboard
 </title>
 
 <link rel="stylesheet"
@@ -27,7 +26,7 @@ font-family:Poppins,sans-serif;
 }
 
 body{
-background:#F4F7FC;
+background:#F3F6FB;
 display:flex;
 }
 
@@ -89,7 +88,7 @@ display:flex;
 justify-content:space-between;
 align-items:center;
 margin-bottom:24px;
-gap:16px;
+gap:14px;
 flex-wrap:wrap;
 }
 
@@ -98,7 +97,7 @@ font-size:40px;
 font-weight:900;
 }
 
-/* FILTERS */
+/* FILTER */
 
 .filters{
 display:flex;
@@ -141,31 +140,41 @@ font-weight:700;
 }
 
 .statCard h2{
-font-size:30px;
+font-size:28px;
 font-weight:900;
 margin-top:10px;
 }
 
-/* GRAPH */
+/* TODAY PAYOUT */
 
-.graphGrid{
-display:grid;
-grid-template-columns:1fr 1fr;
-gap:18px;
+.todayBox{
+background:#fff;
+padding:24px;
+border-radius:30px;
 margin-bottom:24px;
+box-shadow:0 10px 30px rgba(0,0,0,0.05);
 }
+
+.todayBox h2{
+font-size:30px;
+font-weight:900;
+margin-bottom:20px;
+}
+
+/* GRAPH */
 
 .graphCard{
 background:#fff;
 padding:24px;
 border-radius:30px;
+margin-bottom:24px;
 box-shadow:0 10px 30px rgba(0,0,0,0.05);
 }
 
 .graphCard h2{
-font-size:24px;
+font-size:28px;
 font-weight:900;
-margin-bottom:18px;
+margin-bottom:20px;
 }
 
 /* SETTLEMENT */
@@ -176,7 +185,7 @@ grid-template-columns:repeat(2,1fr);
 gap:18px;
 }
 
-.settlementCard{
+.card{
 background:#fff;
 padding:22px;
 border-radius:30px;
@@ -190,15 +199,15 @@ align-items:center;
 margin-bottom:18px;
 }
 
-.partnerInfo{
+.profile{
 display:flex;
 align-items:center;
 gap:12px;
 }
 
-.logoBox{
-width:60px;
-height:60px;
+.avatar{
+width:62px;
+height:62px;
 border-radius:20px;
 background:#FFD400;
 display:flex;
@@ -208,12 +217,12 @@ font-size:24px;
 font-weight:900;
 }
 
-.partnerInfo h3{
+.profile h3{
 font-size:22px;
 font-weight:900;
 }
 
-.partnerInfo p{
+.profile p{
 font-size:12px;
 color:#6B7280;
 margin-top:4px;
@@ -236,11 +245,6 @@ background:#DCFCE7;
 color:#166534;
 }
 
-.hold{
-background:#FEE2E2;
-color:#B91C1C;
-}
-
 /* MINI */
 
 .miniGrid{
@@ -250,44 +254,44 @@ gap:12px;
 margin-bottom:18px;
 }
 
-.miniCard{
+.mini{
 background:#F9FAFB;
 padding:14px;
 border-radius:18px;
 }
 
-.miniCard span{
+.mini span{
 font-size:11px;
 color:#6B7280;
 }
 
-.miniCard h4{
+.mini h4{
 font-size:18px;
 font-weight:900;
 margin-top:8px;
 }
 
-/* DETAIL */
+/* DETAILS */
 
-.detailBox{
+.detail{
 background:#F9FAFB;
 padding:16px;
 border-radius:18px;
 margin-bottom:16px;
 }
 
-.detailBox h4{
+.detail h4{
 font-size:15px;
 margin-bottom:12px;
 }
 
-.detailBox p{
+.detail p{
 font-size:14px;
 margin-top:6px;
 color:#444;
 }
 
-/* BUTTONS */
+/* BUTTON */
 
 .btnGrid{
 display:grid;
@@ -355,10 +359,6 @@ padding:16px;
 grid-template-columns:repeat(2,1fr);
 }
 
-.graphGrid{
-grid-template-columns:1fr;
-}
-
 .btnGrid{
 grid-template-columns:repeat(2,1fr);
 }
@@ -366,7 +366,6 @@ grid-template-columns:repeat(2,1fr);
 }
 
 </style>
-
 </head>
 
 <body>
@@ -430,32 +429,10 @@ Settlement Dashboard
 
 <input
 type="text"
-placeholder="Search Partner..."
+placeholder="Search..."
 class="filterBox"
 id="searchInput"
 />
-
-<select
-class="filterBox"
-id="statusFilter">
-
-<option value="All">
-All Status
-</option>
-
-<option value="Pending">
-Pending
-</option>
-
-<option value="Paid">
-Paid
-</option>
-
-<option value="Hold">
-Hold
-</option>
-
-</select>
 
 <select
 class="filterBox"
@@ -518,10 +495,10 @@ Admin Earnings
 <div class="statCard">
 
 <span>
-Partner Payout
+Partner Pending
 </span>
 
-<h2 id="partnerPayout">
+<h2 id="partnerPending">
 ₹0
 </h2>
 
@@ -530,10 +507,10 @@ Partner Payout
 <div class="statCard">
 
 <span>
-Rider Payout
+Rider Pending
 </span>
 
-<h2 id="riderPayout">
+<h2 id="riderPending">
 ₹0
 </h2>
 
@@ -542,19 +519,7 @@ Rider Payout
 <div class="statCard">
 
 <span>
-Pending Settlement
-</span>
-
-<h2 id="pendingSettlement">
-₹0
-</h2>
-
-</div>
-
-<div class="statCard">
-
-<span>
-Paid Settlement
+Paid Settlements
 </span>
 
 <h2 id="paidSettlement">
@@ -563,11 +528,35 @@ Paid Settlement
 
 </div>
 
+<div class="statCard">
+
+<span>
+Today's Payout
+</span>
+
+<h2 id="todayPayout">
+₹0
+</h2>
+
 </div>
 
-<!-- GRAPHS -->
+</div>
 
-<div class="graphGrid">
+<!-- TODAY -->
+
+<div class="todayBox">
+
+<h2>
+Today's Settlement Cycle
+</h2>
+
+<div id="todaySettlement">
+
+</div>
+
+</div>
+
+<!-- GRAPH -->
 
 <div class="graphCard">
 
@@ -581,21 +570,7 @@ Revenue Growth
 
 </div>
 
-<div class="graphCard">
-
-<h2>
-City Revenue
-</h2>
-
-<canvas id="cityChart">
-
-</canvas>
-
-</div>
-
-</div>
-
-<!-- SETTLEMENTS -->
+<!-- SETTLEMENT -->
 
 <div class="settlementGrid"
 id="settlementGrid">
@@ -627,25 +602,21 @@ from
 
 "https://www.gstatic.com/firebasejs/12.11.0/firebase-firestore.js";
 
-/* GLOBAL */
-
 let settlements = [];
-
-/* ELEMENTS */
 
 const settlementGrid =
 document.getElementById(
 "settlementGrid"
 );
 
+const todaySettlement =
+document.getElementById(
+"todaySettlement"
+);
+
 const searchInput =
 document.getElementById(
 "searchInput"
-);
-
-const statusFilter =
-document.getElementById(
-"statusFilter"
 );
 
 const cityFilter =
@@ -655,7 +626,7 @@ document.getElementById(
 
 /* LOAD */
 
-async function loadSettlements(){
+async function loadData(){
 
 const snap =
 await getDocs(
@@ -676,26 +647,26 @@ id:docSnap.id,
 
 });
 
-renderSettlements();
-
-createCharts();
+renderData();
+createGraph();
 
 }
 
-loadSettlements();
+loadData();
 
 /* RENDER */
 
-function renderSettlements(){
+function renderData(){
 
 let html = "";
+let todayHtml = "";
 
 let totalRevenue = 0;
 let adminRevenue = 0;
-let partnerRevenue = 0;
-let riderRevenue = 0;
-let pendingRevenue = 0;
-let paidRevenue = 0;
+let partnerPending = 0;
+let riderPending = 0;
+let paidSettlement = 0;
+let todayPayout = 0;
 
 const search =
 searchInput.value
@@ -708,21 +679,6 @@ if(
 !(item.partnerName || "")
 .toLowerCase()
 .includes(search)
-
-){
-
-return;
-
-}
-
-if(
-
-statusFilter.value !== "All"
-
-&&
-
-(item.status || "Pending")
-!== statusFilter.value
 
 ){
 
@@ -768,32 +724,96 @@ Math.floor(serviceAmount * 0.20);
 const adminFinal =
 adminShare + gst + handling;
 
+const finalPartner =
+partnerShare
++
+Number(item.incentives || 0)
+-
+Number(item.penalties || 0);
+
+const finalRider =
+riderShare;
+
 totalRevenue += total;
 adminRevenue += adminFinal;
-partnerRevenue += partnerShare;
-riderRevenue += riderShare;
 
 if((item.status || "Pending") === "Pending"){
 
-pendingRevenue += partnerShare;
+partnerPending += finalPartner;
+riderPending += finalRider;
 
 }
 
 if((item.status || "") === "Paid"){
 
-paidRevenue += partnerShare;
+paidSettlement += finalPartner;
+
+}
+
+/* 7 DAY PAYOUT */
+
+const created =
+new Date(
+item.createdAt || Date.now()
+);
+
+const now =
+new Date();
+
+const diff =
+Math.floor(
+
+(now - created)
+/
+
+(1000*60*60*24)
+
+);
+
+if(diff >= 7){
+
+todayPayout += finalPartner;
+
+todayHtml += `
+
+<div class="detail"
+style="margin-bottom:16px;">
+
+<h4>
+${item.partnerName || 'Partner'}
+</h4>
+
+<p>
+📍 ${item.city || ''}
+</p>
+
+<p>
+💰 Payout : ₹${finalPartner}
+</p>
+
+<p>
+🏦 Rider : ₹${finalRider}
+</p>
+
+<p>
+📦 Orders : ${item.totalOrders || 0}
+</p>
+
+</div>
+
+`;
 
 }
 
 html += `
 
-<div class="settlementCard">
+<div class="card">
 
 <div class="cardTop">
 
-<div class="partnerInfo">
+<div class="profile">
 
-<div class="logoBox">
+<div class="avatar">
 
 ${(item.partnerName || "P")
 .charAt(0)}
@@ -818,9 +838,7 @@ ${item.city || 'Kasganj'}
 (item.status || 'Pending')
 === 'Paid'
 ? 'paid'
-: (item.status === 'Hold'
-? 'hold'
-: 'pending')
+: 'pending'
 }">
 
 ${item.status || 'Pending'}
@@ -831,7 +849,7 @@ ${item.status || 'Pending'}
 
 <div class="miniGrid">
 
-<div class="miniCard">
+<div class="mini">
 
 <span>
 Customer Pay
@@ -843,31 +861,31 @@ Customer Pay
 
 </div>
 
-<div class="miniCard">
+<div class="mini">
 
 <span>
-Partner Share
+Partner Payout
 </span>
 
 <h4>
-₹${partnerShare}
+₹${finalPartner}
 </h4>
 
 </div>
 
-<div class="miniCard">
+<div class="mini">
 
 <span>
-Rider Share
+Rider Payout
 </span>
 
 <h4>
-₹${riderShare}
+₹${finalRider}
 </h4>
 
 </div>
 
-<div class="miniCard">
+<div class="mini">
 
 <span>
 Admin Revenue
@@ -879,60 +897,84 @@ Admin Revenue
 
 </div>
 
-<div class="miniCard">
+<div class="mini">
 
 <span>
-GST
+Paid Till Now
 </span>
 
 <h4>
-₹${gst}
+₹${item.paidAmount || 0}
 </h4>
 
 </div>
 
-<div class="miniCard">
+<div class="mini">
 
 <span>
-Handling
+Pending
 </span>
 
 <h4>
-₹${handling}
+₹${finalPartner - Number(item.paidAmount || 0)}
 </h4>
 
 </div>
 
 </div>
 
-<div class="detailBox">
+<div class="detail">
 
 <h4>
-Customer Details
+Partner Details
 </h4>
 
 <p>
-👤 ${item.customerName || ''}
+👤 ${item.partnerName || ''}
 </p>
 
 <p>
-📞 ${item.mobile || ''}
+📞 ${item.partnerMobile || ''}
 </p>
 
 <p>
-📍 ${item.address || ''}
+🏦 ${item.bank || 'SBI'}
 </p>
 
 <p>
-🕒 ${item.createdAt || 'Today'}
+🆔 ${item.partnerId || ''}
 </p>
 
 </div>
 
-<div class="detailBox">
+<div class="detail">
 
 <h4>
-Settlement Details
+Rider Details
+</h4>
+
+<p>
+👤 ${item.riderName || ''}
+</p>
+
+<p>
+📞 ${item.riderMobile || ''}
+</p>
+
+<p>
+🚴 Trips : ${item.totalTrips || 0}
+</p>
+
+<p>
+⭐ Rating : ${item.rating || 5}
+</p>
+
+</div>
+
+<div class="detail">
+
+<h4>
+Settlement Summary
 </h4>
 
 <p>
@@ -944,11 +986,15 @@ Settlement Details
 </p>
 
 <p>
-⚠ Penalty : ₹${item.penalties || 0}
+⚠ Penalties : ₹${item.penalties || 0}
 </p>
 
 <p>
-🏦 Final Partner Payout : ₹${partnerShare + Number(item.incentives || 0) - Number(item.penalties || 0)}
+🧾 GST : ₹${gst}
+</p>
+
+<p>
+📦 Handling : ₹${handling}
 </p>
 
 </div>
@@ -964,8 +1010,7 @@ Mark Paid
 </button>
 
 <button
-class="holdBtn"
-onclick="markHold('${item.id}')">
+class="holdBtn">
 
 Hold
 
@@ -996,6 +1041,9 @@ Export
 settlementGrid.innerHTML =
 html;
 
+todaySettlement.innerHTML =
+todayHtml;
+
 /* STATS */
 
 document.getElementById(
@@ -1009,24 +1057,24 @@ document.getElementById(
 `₹${adminRevenue}`;
 
 document.getElementById(
-"partnerPayout"
+"partnerPending"
 ).innerHTML =
-`₹${partnerRevenue}`;
+`₹${partnerPending}`;
 
 document.getElementById(
-"riderPayout"
+"riderPending"
 ).innerHTML =
-`₹${riderRevenue}`;
-
-document.getElementById(
-"pendingSettlement"
-).innerHTML =
-`₹${pendingRevenue}`;
+`₹${riderPending}`;
 
 document.getElementById(
 "paidSettlement"
 ).innerHTML =
-`₹${paidRevenue}`;
+`₹${paidSettlement}`;
+
+document.getElementById(
+"todayPayout"
+).innerHTML =
+`₹${todayPayout}`;
 
 }
 
@@ -1034,17 +1082,12 @@ document.getElementById(
 
 searchInput.addEventListener(
 "keyup",
-renderSettlements
-);
-
-statusFilter.addEventListener(
-"change",
-renderSettlements
+renderData
 );
 
 cityFilter.addEventListener(
 "change",
-renderSettlements
+renderData
 );
 
 /* UPDATE */
@@ -1064,39 +1107,20 @@ status:"Paid"
 
 );
 
-loadSettlements();
+loadData();
 
 };
 
-window.markHold =
-async(id)=>{
+/* CHART */
 
-await updateDoc(
+function createGraph(){
 
-doc(db,"settlements",id),
-
-{
-
-status:"Hold"
-
-}
-
-);
-
-loadSettlements();
-
-};
-
-/* CHARTS */
-
-function createCharts(){
-
-const ctx1 =
+const ctx =
 document.getElementById(
 'revenueChart'
 );
 
-new Chart(ctx1, {
+new Chart(ctx, {
 
 type:'line',
 
@@ -1114,16 +1138,14 @@ labels:[
 
 datasets:[{
 
-label:'Revenue',
-
 data:[
 1200,
-2500,
-4200,
-5800,
-7600,
-9200,
-12000
+3200,
+4800,
+6200,
+8900,
+11000,
+15000
 ],
 
 borderWidth:4,
@@ -1142,45 +1164,6 @@ legend:{
 display:false
 }
 }
-
-}
-
-});
-
-const ctx2 =
-document.getElementById(
-'cityChart'
-);
-
-new Chart(ctx2, {
-
-type:'doughnut',
-
-data:{
-
-labels:[
-'Kasganj',
-'Noida',
-'Delhi',
-'Mumbai'
-],
-
-datasets:[{
-
-data:[
-45,
-25,
-20,
-10
-]
-
-}]
-
-},
-
-options:{
-
-responsive:true
 
 }
 
