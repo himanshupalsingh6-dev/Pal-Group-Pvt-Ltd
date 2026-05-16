@@ -1,14 +1,15 @@
-=<!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="en">
+
 <head>
 
-<meta charset="UTF-8">
+<meta charset="UTF-8"/>
 
 <meta name="viewport"
-content="width=device-width, initial-scale=1.0">
+content="width=device-width, initial-scale=1.0"/>
 
 <title>
-QuickPress Payments
+QuickPress Admin Settlement Dashboard
 </title>
 
 <link rel="stylesheet"
@@ -33,7 +34,7 @@ display:flex;
 /* SIDEBAR */
 
 .sidebar{
-width:240px;
+width:250px;
 height:100vh;
 background:#081028;
 position:fixed;
@@ -44,7 +45,7 @@ overflow:auto;
 }
 
 .logo{
-font-size:26px;
+font-size:28px;
 font-weight:900;
 color:#FFD400;
 margin-bottom:30px;
@@ -57,7 +58,7 @@ gap:10px;
 }
 
 .menu a{
-height:54px;
+height:56px;
 display:flex;
 align-items:center;
 gap:14px;
@@ -76,8 +77,8 @@ background:#111C44;
 /* MAIN */
 
 .main{
-margin-left:240px;
-width:calc(100% - 240px);
+margin-left:250px;
+width:calc(100% - 250px);
 padding:24px;
 }
 
@@ -88,7 +89,7 @@ display:flex;
 justify-content:space-between;
 align-items:center;
 margin-bottom:24px;
-gap:14px;
+gap:16px;
 flex-wrap:wrap;
 }
 
@@ -106,7 +107,7 @@ flex-wrap:wrap;
 }
 
 .filterBox{
-height:52px;
+height:54px;
 padding:0 18px;
 border:none;
 outline:none;
@@ -121,14 +122,14 @@ min-width:180px;
 
 .statsGrid{
 display:grid;
-grid-template-columns:repeat(5,1fr);
+grid-template-columns:repeat(6,1fr);
 gap:18px;
 margin-bottom:24px;
 }
 
 .statCard{
 background:#fff;
-padding:24px;
+padding:22px;
 border-radius:28px;
 box-shadow:0 10px 30px rgba(0,0,0,0.05);
 }
@@ -145,37 +146,57 @@ font-weight:900;
 margin-top:10px;
 }
 
-/* PAYMENTS */
+/* GRAPH */
 
-.paymentsGrid{
+.graphGrid{
 display:grid;
-grid-template-columns:repeat(3,1fr);
+grid-template-columns:1fr 1fr;
 gap:18px;
+margin-bottom:24px;
 }
 
-/* CARD */
-
-.paymentCard{
+.graphCard{
 background:#fff;
-padding:20px;
+padding:24px;
 border-radius:30px;
 box-shadow:0 10px 30px rgba(0,0,0,0.05);
 }
 
-.paymentTop{
+.graphCard h2{
+font-size:24px;
+font-weight:900;
+margin-bottom:18px;
+}
+
+/* SETTLEMENT */
+
+.settlementGrid{
+display:grid;
+grid-template-columns:repeat(2,1fr);
+gap:18px;
+}
+
+.settlementCard{
+background:#fff;
+padding:22px;
+border-radius:30px;
+box-shadow:0 10px 30px rgba(0,0,0,0.05);
+}
+
+.cardTop{
 display:flex;
 justify-content:space-between;
 align-items:center;
 margin-bottom:18px;
 }
 
-.userInfo{
+.partnerInfo{
 display:flex;
 align-items:center;
 gap:12px;
 }
 
-.userLogo{
+.logoBox{
 width:60px;
 height:60px;
 border-radius:20px;
@@ -187,27 +208,22 @@ font-size:24px;
 font-weight:900;
 }
 
-.userInfo h3{
+.partnerInfo h3{
 font-size:22px;
 font-weight:900;
 }
 
-.userInfo p{
+.partnerInfo p{
 font-size:12px;
 color:#6B7280;
 margin-top:4px;
 }
 
-.statusTag{
+.status{
 padding:8px 14px;
-border-radius:20px;
+border-radius:18px;
 font-size:12px;
-font-weight:800;
-}
-
-.success{
-background:#DCFCE7;
-color:#166534;
+font-weight:900;
 }
 
 .pending{
@@ -215,7 +231,12 @@ background:#FEF3C7;
 color:#92400E;
 }
 
-.failed{
+.paid{
+background:#DCFCE7;
+color:#166534;
+}
+
+.hold{
 background:#FEE2E2;
 color:#B91C1C;
 }
@@ -225,14 +246,14 @@ color:#B91C1C;
 .miniGrid{
 display:grid;
 grid-template-columns:repeat(3,1fr);
-gap:10px;
-margin-bottom:16px;
+gap:12px;
+margin-bottom:18px;
 }
 
 .miniCard{
 background:#F9FAFB;
-padding:12px;
-border-radius:16px;
+padding:14px;
+border-radius:18px;
 }
 
 .miniCard span{
@@ -241,135 +262,79 @@ color:#6B7280;
 }
 
 .miniCard h4{
-font-size:16px;
+font-size:18px;
 font-weight:900;
-margin-top:6px;
+margin-top:8px;
 }
 
-/* DETAILS */
+/* DETAIL */
 
-.detailGrid{
-display:grid;
-grid-template-columns:repeat(2,1fr);
-gap:10px;
+.detailBox{
+background:#F9FAFB;
+padding:16px;
+border-radius:18px;
 margin-bottom:16px;
 }
 
-.detailCard{
-background:#F9FAFB;
-padding:12px;
-border-radius:14px;
+.detailBox h4{
+font-size:15px;
+margin-bottom:12px;
 }
 
-.detailCard span{
-font-size:11px;
-color:#6B7280;
-}
-
-.detailCard h4{
+.detailBox p{
 font-size:14px;
-font-weight:800;
 margin-top:6px;
+color:#444;
 }
 
 /* BUTTONS */
 
-.actionGrid{
+.btnGrid{
 display:grid;
-grid-template-columns:1fr 1fr;
+grid-template-columns:repeat(4,1fr);
 gap:12px;
+margin-top:16px;
 }
 
-.actionBtn{
+.btnGrid button{
 height:52px;
 border:none;
 border-radius:16px;
-background:#081028;
-color:#fff;
-font-size:14px;
-font-weight:800;
+font-size:13px;
+font-weight:900;
 cursor:pointer;
 }
 
-.viewBtn{
-background:#FFD400;
-color:#000;
-}
-
-/* GRAPH */
-
-.graphCard{
-background:#fff;
-padding:24px;
-border-radius:30px;
-margin-top:28px;
-box-shadow:0 10px 30px rgba(0,0,0,0.05);
-}
-
-.graphCard h2{
-font-size:28px;
-font-weight:900;
-margin-bottom:20px;
-}
-
-/* POPUP */
-
-.popup{
-position:fixed;
-inset:0;
-background:rgba(0,0,0,0.5);
-display:none;
-align-items:center;
-justify-content:center;
-padding:20px;
-z-index:9999;
-}
-
-.popupContent{
-background:#fff;
-width:100%;
-max-width:900px;
-border-radius:30px;
-padding:24px;
-max-height:90vh;
-overflow:auto;
-}
-
-.popupHeader{
-display:flex;
-justify-content:space-between;
-align-items:center;
-margin-bottom:24px;
-}
-
-.popupHeader h2{
-font-size:32px;
-font-weight:900;
-}
-
-.closeBtn{
-width:44px;
-height:44px;
-border-radius:14px;
-background:#081028;
+.payBtn{
+background:#22C55E;
 color:#fff;
-display:flex;
-align-items:center;
-justify-content:center;
-font-size:20px;
-cursor:pointer;
+}
+
+.holdBtn{
+background:#EF4444;
+color:#fff;
+}
+
+.invoiceBtn{
+background:#2563EB;
+color:#fff;
+}
+
+.exportBtn{
+background:#000;
+color:#fff;
 }
 
 /* MOBILE */
 
-@media(max-width:1200px){
-
-.paymentsGrid{
-grid-template-columns:repeat(2,1fr);
-}
+@media(max-width:1300px){
 
 .statsGrid{
-grid-template-columns:repeat(2,1fr);
+grid-template-columns:repeat(3,1fr);
+}
+
+.settlementGrid{
+grid-template-columns:1fr;
 }
 
 }
@@ -386,14 +351,24 @@ width:100%;
 padding:16px;
 }
 
-.paymentsGrid{
+.statsGrid{
+grid-template-columns:repeat(2,1fr);
+}
+
+.graphGrid{
 grid-template-columns:1fr;
+}
+
+.btnGrid{
+grid-template-columns:repeat(2,1fr);
 }
 
 }
 
 </style>
+
 </head>
+
 <body>
 
 <!-- SIDEBAR -->
@@ -416,20 +391,23 @@ Dashboard
 Orders
 </a>
 
-<a href="users.html">
-<i class="fa-solid fa-users"></i>
-Users
-</a>
-
-<a href="payments.html"
-class="active">
-<i class="fa-solid fa-wallet"></i>
-Payments
-</a>
-
 <a href="partners.html">
 <i class="fa-solid fa-store"></i>
 Partners
+</a>
+
+<a href="riders.html">
+<i class="fa-solid fa-motorcycle"></i>
+Riders
+</a>
+
+<a href="settlements.html"
+class="active">
+
+<i class="fa-solid fa-money-bill-transfer"></i>
+
+Settlements
+
 </a>
 
 </div>
@@ -445,36 +423,62 @@ Partners
 <div class="topBar">
 
 <h1>
-Payments
+Settlement Dashboard
 </h1>
 
 <div class="filters">
 
 <input
 type="text"
-placeholder="Search User..."
+placeholder="Search Partner..."
 class="filterBox"
 id="searchInput"
 />
 
 <select
-id="paymentFilter"
-class="filterBox">
+class="filterBox"
+id="statusFilter">
 
 <option value="All">
-All Payments
+All Status
 </option>
 
-<option value="COD">
-COD
+<option value="Pending">
+Pending
 </option>
 
-<option value="Online">
-Online
+<option value="Paid">
+Paid
 </option>
 
-<option value="Wallet">
-Wallet
+<option value="Hold">
+Hold
+</option>
+
+</select>
+
+<select
+class="filterBox"
+id="cityFilter">
+
+<option value="All">
+All Cities
+</option>
+
+<option value="Kasganj">
+Kasganj
+</option>
+
+<option value="Noida">
+Noida
+</option>
+
+<option value="Delhi">
+Delhi
+</option>
+
+<option value="Mumbai">
+Mumbai
 </option>
 
 </select>
@@ -502,22 +506,10 @@ Total Revenue
 <div class="statCard">
 
 <span>
-COD Orders
+Admin Earnings
 </span>
 
-<h2 id="codOrders">
-0
-</h2>
-
-</div>
-
-<div class="statCard">
-
-<span>
-Online Payments
-</span>
-
-<h2 id="onlinePayments">
+<h2 id="adminRevenue">
 ₹0
 </h2>
 
@@ -526,10 +518,10 @@ Online Payments
 <div class="statCard">
 
 <span>
-Wallet Funds
+Partner Payout
 </span>
 
-<h2 id="walletFunds">
+<h2 id="partnerPayout">
 ₹0
 </h2>
 
@@ -538,10 +530,34 @@ Wallet Funds
 <div class="statCard">
 
 <span>
-Total Deposits
+Rider Payout
 </span>
 
-<h2 id="totalDeposits">
+<h2 id="riderPayout">
+₹0
+</h2>
+
+</div>
+
+<div class="statCard">
+
+<span>
+Pending Settlement
+</span>
+
+<h2 id="pendingSettlement">
+₹0
+</h2>
+
+</div>
+
+<div class="statCard">
+
+<span>
+Paid Settlement
+</span>
+
+<h2 id="paidSettlement">
 ₹0
 </h2>
 
@@ -549,22 +565,29 @@ Total Deposits
 
 </div>
 
-<!-- PAYMENTS -->
+<!-- GRAPHS -->
 
-<div class="paymentsGrid"
-id="paymentsGrid">
-
-</div>
-
-<!-- GRAPH -->
+<div class="graphGrid">
 
 <div class="graphCard">
 
 <h2>
-📈 Revenue Growth Graph
+Revenue Growth
 </h2>
 
-<canvas id="growthChart">
+<canvas id="revenueChart">
+
+</canvas>
+
+</div>
+
+<div class="graphCard">
+
+<h2>
+City Revenue
+</h2>
+
+<canvas id="cityChart">
 
 </canvas>
 
@@ -572,31 +595,10 @@ id="paymentsGrid">
 
 </div>
 
-<!-- POPUP -->
+<!-- SETTLEMENTS -->
 
-<div class="popup"
-id="popup">
-
-<div class="popupContent">
-
-<div class="popupHeader">
-
-<h2>
-Payment Full Details
-</h2>
-
-<div class="closeBtn"
-onclick="closePopup()">
-
-✕
-
-</div>
-
-</div>
-
-<div id="popupData">
-
-</div>
+<div class="settlementGrid"
+id="settlementGrid">
 
 </div>
 
@@ -615,7 +617,9 @@ from
 import {
 
 collection,
-getDocs
+getDocs,
+doc,
+updateDoc
 
 }
 
@@ -625,18 +629,13 @@ from
 
 /* GLOBAL */
 
-let payments = [];
+let settlements = [];
 
 /* ELEMENTS */
 
-const paymentsGrid =
+const settlementGrid =
 document.getElementById(
-"paymentsGrid"
-);
-
-const paymentFilter =
-document.getElementById(
-"paymentFilter"
+"settlementGrid"
 );
 
 const searchInput =
@@ -644,76 +643,69 @@ document.getElementById(
 "searchInput"
 );
 
+const statusFilter =
+document.getElementById(
+"statusFilter"
+);
+
+const cityFilter =
+document.getElementById(
+"cityFilter"
+);
+
 /* LOAD */
 
-async function loadPayments(){
+async function loadSettlements(){
 
 const snap =
 await getDocs(
-collection(db,"payments")
+collection(db,"settlements")
 );
 
-payments = [];
+settlements = [];
 
-snap.forEach((doc)=>{
+snap.forEach((docSnap)=>{
 
-payments.push({
+settlements.push({
 
-id:doc.id,
+id:docSnap.id,
 
-...doc.data()
-
-});
+...docSnap.data()
 
 });
 
-renderPayments();
+});
 
-createGraph();
+renderSettlements();
+
+createCharts();
 
 }
 
-loadPayments();
+loadSettlements();
 
 /* RENDER */
 
-function renderPayments(){
+function renderSettlements(){
 
 let html = "";
 
 let totalRevenue = 0;
-
-let cod = 0;
-
-let online = 0;
-
-let wallet = 0;
-
-let deposits = 0;
+let adminRevenue = 0;
+let partnerRevenue = 0;
+let riderRevenue = 0;
+let pendingRevenue = 0;
+let paidRevenue = 0;
 
 const search =
 searchInput.value
 .toLowerCase();
 
-payments.forEach((pay)=>{
+settlements.forEach((item)=>{
 
 if(
 
-paymentFilter.value !== "All"
-
-&&
-
-pay.type !== paymentFilter.value
-
-){
-
-return;
-
-}
-
-if(
-
-!(pay.name || "")
+!(item.partnerName || "")
 .toLowerCase()
 .includes(search)
 
@@ -723,55 +715,115 @@ return;
 
 }
 
-totalRevenue +=
-Number(pay.amount || 0);
+if(
 
-if(pay.type === "COD"){
-cod++;
+statusFilter.value !== "All"
+
+&&
+
+(item.status || "Pending")
+!== statusFilter.value
+
+){
+
+return;
+
 }
 
-if(pay.type === "Online"){
-online += Number(pay.amount || 0);
+if(
+
+cityFilter.value !== "All"
+
+&&
+
+item.city !== cityFilter.value
+
+){
+
+return;
+
 }
 
-if(pay.type === "Wallet"){
-wallet += Number(pay.amount || 0);
+const total =
+Number(item.customerPay || 0);
+
+const gst =
+Number(item.gst || 0);
+
+const handling =
+Number(item.handling || 0);
+
+const serviceAmount =
+total - gst - handling;
+
+const partnerShare =
+Math.floor(serviceAmount * 0.60);
+
+const riderShare =
+Math.floor(serviceAmount * 0.20);
+
+const adminShare =
+Math.floor(serviceAmount * 0.20);
+
+const adminFinal =
+adminShare + gst + handling;
+
+totalRevenue += total;
+adminRevenue += adminFinal;
+partnerRevenue += partnerShare;
+riderRevenue += riderShare;
+
+if((item.status || "Pending") === "Pending"){
+
+pendingRevenue += partnerShare;
+
 }
 
-deposits +=
-Number(pay.deposit || 0);
+if((item.status || "") === "Paid"){
+
+paidRevenue += partnerShare;
+
+}
 
 html += `
 
-<div class="paymentCard">
+<div class="settlementCard">
 
-<div class="paymentTop">
+<div class="cardTop">
 
-<div class="userInfo">
+<div class="partnerInfo">
 
-<div class="userLogo">
+<div class="logoBox">
 
-${pay.name?.charAt(0) || "P"}
+${(item.partnerName || "P")
+.charAt(0)}
 
 </div>
 
 <div>
 
 <h3>
-${pay.name || "User"}
+${item.partnerName || 'Partner'}
 </h3>
 
 <p>
-#${pay.transactionId || "TXN"}
+${item.city || 'Kasganj'}
 </p>
 
 </div>
 
 </div>
 
-<div class="statusTag ${pay.status || 'success'}">
+<div class="status ${
+(item.status || 'Pending')
+=== 'Paid'
+? 'paid'
+: (item.status === 'Hold'
+? 'hold'
+: 'pending')
+}">
 
-${pay.status || 'Success'}
+${item.status || 'Pending'}
 
 </div>
 
@@ -782,11 +834,11 @@ ${pay.status || 'Success'}
 <div class="miniCard">
 
 <span>
-Amount
+Customer Pay
 </span>
 
 <h4>
-₹${pay.amount || 0}
+₹${total}
 </h4>
 
 </div>
@@ -794,11 +846,11 @@ Amount
 <div class="miniCard">
 
 <span>
-Deposit
+Partner Share
 </span>
 
 <h4>
-₹${pay.deposit || 0}
+₹${partnerShare}
 </h4>
 
 </div>
@@ -806,83 +858,130 @@ Deposit
 <div class="miniCard">
 
 <span>
-Deduction
+Rider Share
 </span>
 
 <h4>
-₹${pay.deduction || 0}
+₹${riderShare}
 </h4>
 
 </div>
 
-</div>
-
-<div class="detailGrid">
-
-<div class="detailCard">
+<div class="miniCard">
 
 <span>
-Payment Type
+Admin Revenue
 </span>
 
 <h4>
-${pay.type || 'N/A'}
+₹${adminFinal}
 </h4>
 
 </div>
 
-<div class="detailCard">
+<div class="miniCard">
 
 <span>
-Wallet
+GST
 </span>
 
 <h4>
-₹${pay.wallet || 0}
+₹${gst}
 </h4>
 
 </div>
 
-<div class="detailCard">
+<div class="miniCard">
 
 <span>
-Date
+Handling
 </span>
 
 <h4>
-${pay.date || 'N/A'}
-</h4>
-
-</div>
-
-<div class="detailCard">
-
-<span>
-Mobile
-</span>
-
-<h4>
-${pay.mobile || 'N/A'}
+₹${handling}
 </h4>
 
 </div>
 
 </div>
 
-<div class="actionGrid">
+<div class="detailBox">
+
+<h4>
+Customer Details
+</h4>
+
+<p>
+👤 ${item.customerName || ''}
+</p>
+
+<p>
+📞 ${item.mobile || ''}
+</p>
+
+<p>
+📍 ${item.address || ''}
+</p>
+
+<p>
+🕒 ${item.createdAt || 'Today'}
+</p>
+
+</div>
+
+<div class="detailBox">
+
+<h4>
+Settlement Details
+</h4>
+
+<p>
+💰 Service Amount : ₹${serviceAmount}
+</p>
+
+<p>
+🎁 Incentives : ₹${item.incentives || 0}
+</p>
+
+<p>
+⚠ Penalty : ₹${item.penalties || 0}
+</p>
+
+<p>
+🏦 Final Partner Payout : ₹${partnerShare + Number(item.incentives || 0) - Number(item.penalties || 0)}
+</p>
+
+</div>
+
+<div class="btnGrid">
 
 <button
-class="actionBtn">
+class="payBtn"
+onclick="markPaid('${item.id}')">
 
-📞 Call
+Mark Paid
 
 </button>
 
 <button
-class="actionBtn viewBtn"
-onclick='openPopup(${JSON.stringify(pay)})'>
+class="holdBtn"
+onclick="markHold('${item.id}')">
 
-View
+Hold
+
+</button>
+
+<button
+class="invoiceBtn">
+
+Invoice
+
+</button>
+
+<button
+class="exportBtn">
+
+Export
 
 </button>
 
@@ -894,7 +993,7 @@ View
 
 });
 
-paymentsGrid.innerHTML =
+settlementGrid.innerHTML =
 html;
 
 /* STATS */
@@ -905,175 +1004,175 @@ document.getElementById(
 `₹${totalRevenue}`;
 
 document.getElementById(
-"codOrders"
+"adminRevenue"
 ).innerHTML =
-cod;
+`₹${adminRevenue}`;
 
 document.getElementById(
-"onlinePayments"
+"partnerPayout"
 ).innerHTML =
-`₹${online}`;
+`₹${partnerRevenue}`;
 
 document.getElementById(
-"walletFunds"
+"riderPayout"
 ).innerHTML =
-`₹${wallet}`;
+`₹${riderRevenue}`;
 
 document.getElementById(
-"totalDeposits"
+"pendingSettlement"
 ).innerHTML =
-`₹${deposits}`;
+`₹${pendingRevenue}`;
+
+document.getElementById(
+"paidSettlement"
+).innerHTML =
+`₹${paidRevenue}`;
 
 }
 
 /* FILTER */
 
-paymentFilter.addEventListener(
-"change",
-renderPayments
-);
-
 searchInput.addEventListener(
 "keyup",
-renderPayments
+renderSettlements
 );
 
-/* POPUP */
+statusFilter.addEventListener(
+"change",
+renderSettlements
+);
 
-window.openPopup =
-function(pay){
+cityFilter.addEventListener(
+"change",
+renderSettlements
+);
 
-document.getElementById(
-"popup"
-).style.display =
-"flex";
+/* UPDATE */
 
-document.getElementById(
-"popupData"
-).innerHTML =
+window.markPaid =
+async(id)=>{
 
-`
+await updateDoc(
 
-<div class="detailGrid">
+doc(db,"settlements",id),
 
-<div class="detailCard">
-<span>Name</span>
-<h4>${pay.name || 'N/A'}</h4>
-</div>
+{
 
-<div class="detailCard">
-<span>Mobile</span>
-<h4>${pay.mobile || 'N/A'}</h4>
-</div>
+status:"Paid"
 
-<div class="detailCard">
-<span>Transaction ID</span>
-<h4>${pay.transactionId || 'N/A'}</h4>
-</div>
+}
 
-<div class="detailCard">
-<span>Payment Type</span>
-<h4>${pay.type || 'N/A'}</h4>
-</div>
+);
 
-<div class="detailCard">
-<span>Total Amount</span>
-<h4>₹${pay.amount || 0}</h4>
-</div>
-
-<div class="detailCard">
-<span>Total Deposit</span>
-<h4>₹${pay.deposit || 0}</h4>
-</div>
-
-<div class="detailCard">
-<span>Deduction</span>
-<h4>₹${pay.deduction || 0}</h4>
-</div>
-
-<div class="detailCard">
-<span>Wallet Balance</span>
-<h4>₹${pay.wallet || 0}</h4>
-</div>
-
-<div class="detailCard">
-<span>Order ID</span>
-<h4>${pay.orderId || 'N/A'}</h4>
-</div>
-
-<div class="detailCard">
-<span>Payment Status</span>
-<h4>${pay.status || 'Success'}</h4>
-</div>
-
-<div class="detailCard">
-<span>Bank</span>
-<h4>${pay.bank || 'N/A'}</h4>
-</div>
-
-<div class="detailCard">
-<span>Date</span>
-<h4>${pay.date || 'N/A'}</h4>
-</div>
-
-</div>
-
-`;
+loadSettlements();
 
 };
 
-window.closePopup =
-function(){
+window.markHold =
+async(id)=>{
 
-document.getElementById(
-"popup"
-).style.display =
-"none";
+await updateDoc(
+
+doc(db,"settlements",id),
+
+{
+
+status:"Hold"
+
+}
+
+);
+
+loadSettlements();
 
 };
 
-/* GRAPH */
+/* CHARTS */
 
-function createGraph(){
+function createCharts(){
 
-const ctx =
+const ctx1 =
 document.getElementById(
-'growthChart'
+'revenueChart'
 );
 
-new Chart(ctx, {
+new Chart(ctx1, {
 
 type:'line',
 
 data:{
 
 labels:[
-'Jan',
-'Feb',
-'Mar',
-'Apr',
-'May',
-'Jun',
-'Jul'
+'Mon',
+'Tue',
+'Wed',
+'Thu',
+'Fri',
+'Sat',
+'Sun'
 ],
 
 datasets:[{
 
-label:'Revenue Growth',
+label:'Revenue',
 
 data:[
 1200,
 2500,
 4200,
-7000,
-9800,
-14000,
-22000
+5800,
+7600,
+9200,
+12000
 ],
 
 borderWidth:4,
-
 tension:0.4
+
+}]
+
+},
+
+options:{
+
+responsive:true,
+
+plugins:{
+legend:{
+display:false
+}
+}
+
+}
+
+});
+
+const ctx2 =
+document.getElementById(
+'cityChart'
+);
+
+new Chart(ctx2, {
+
+type:'doughnut',
+
+data:{
+
+labels:[
+'Kasganj',
+'Noida',
+'Delhi',
+'Mumbai'
+],
+
+datasets:[{
+
+data:[
+45,
+25,
+20,
+10
+]
 
 }]
 
