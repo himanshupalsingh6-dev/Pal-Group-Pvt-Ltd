@@ -1,5 +1,6 @@
 <!-- =========================================================
 FILE : admin/orders.html
+QUICKPRESS ENTERPRISE ORDER MANAGEMENT
 ========================================================= -->
 
 <!DOCTYPE html>
@@ -13,7 +14,7 @@ FILE : admin/orders.html
 content="width=device-width, initial-scale=1.0"/>
 
 <title>
-QuickPress Orders Management
+QuickPress Orders
 </title>
 
 <link rel="stylesheet"
@@ -29,13 +30,14 @@ font-family:Poppins,sans-serif;
 }
 
 body{
-background:#F3F6FB;
+background:#EEF2FF;
 display:flex;
+overflow-x:hidden;
 }
 
-/* ======================================================
+/* =====================================================
 SIDEBAR
-====================================================== */
+===================================================== */
 
 .sidebar{
 width:260px;
@@ -49,43 +51,20 @@ overflow:auto;
 }
 
 .logo{
-display:flex;
-align-items:center;
-gap:14px;
-margin-bottom:30px;
-}
-
-.logoBox{
-width:60px;
-height:60px;
-border-radius:20px;
-background:#FFD400;
-display:flex;
-align-items:center;
-justify-content:center;
-font-size:28px;
-}
-
-.logoText h1{
-font-size:28px;
+font-size:34px;
 font-weight:900;
 color:#fff;
-}
-
-.logoText p{
-font-size:12px;
-color:#9CA3AF;
-margin-top:4px;
+margin-bottom:35px;
 }
 
 .menu{
 display:flex;
 flex-direction:column;
-gap:10px;
+gap:12px;
 }
 
 .menu a{
-height:56px;
+height:58px;
 display:flex;
 align-items:center;
 gap:14px;
@@ -95,15 +74,20 @@ text-decoration:none;
 font-size:15px;
 font-weight:700;
 color:#fff;
+transition:0.3s;
 }
 
 .menu a.active{
 background:#1D4ED8;
 }
 
-/* ======================================================
+.menu a:hover{
+background:#111C44;
+}
+
+/* =====================================================
 MAIN
-====================================================== */
+===================================================== */
 
 .main{
 margin-left:260px;
@@ -111,90 +95,104 @@ width:calc(100% - 260px);
 padding:24px;
 }
 
-/* TOPBAR */
+/* =====================================================
+TOPBAR
+===================================================== */
 
 .topBar{
 display:flex;
 justify-content:space-between;
 align-items:center;
 margin-bottom:24px;
-gap:16px;
+gap:18px;
 flex-wrap:wrap;
 }
 
 .topBar h1{
-font-size:40px;
+font-size:42px;
 font-weight:900;
 }
 
+/* FILTERS */
+
 .filters{
 display:flex;
-gap:12px;
+gap:14px;
 flex-wrap:wrap;
 }
 
 .filterBox{
-height:54px;
+height:56px;
 padding:0 18px;
 border:none;
 outline:none;
-border-radius:16px;
+border-radius:18px;
 background:#fff;
 font-size:14px;
 font-weight:700;
-min-width:180px;
+min-width:190px;
+box-shadow:0 10px 30px rgba(0,0,0,0.05);
 }
 
-/* STATS */
+/* =====================================================
+STATS
+===================================================== */
 
 .statsGrid{
 display:grid;
-grid-template-columns:repeat(4,1fr);
+grid-template-columns:repeat(5,1fr);
 gap:18px;
 margin-bottom:24px;
 }
 
 .statCard{
 background:#fff;
-padding:24px;
-border-radius:28px;
+padding:22px;
+border-radius:26px;
 box-shadow:0 10px 30px rgba(0,0,0,0.05);
 }
 
 .statCard span{
-font-size:13px;
+font-size:12px;
 color:#6B7280;
 font-weight:700;
 }
 
 .statCard h2{
-font-size:34px;
+font-size:32px;
 font-weight:900;
 margin-top:12px;
 }
 
-/* ORDERS */
+/* =====================================================
+ORDER GRID
+===================================================== */
 
 .orderGrid{
 display:grid;
-grid-template-columns:repeat(2,1fr);
-gap:18px;
+grid-template-columns:repeat(3,1fr);
+gap:16px;
 }
+
+/* =====================================================
+ORDER CARD
+===================================================== */
 
 .orderCard{
 background:#fff;
-padding:22px;
-border-radius:30px;
+padding:18px;
+border-radius:26px;
 box-shadow:0 10px 30px rgba(0,0,0,0.05);
 }
 
 /* TOP */
 
-.cardTop{
+.orderTop{
 display:flex;
 justify-content:space-between;
 align-items:center;
-margin-bottom:18px;
+margin-bottom:16px;
+gap:10px;
 }
 
 .userInfo{
@@ -204,24 +202,23 @@ gap:12px;
 }
 
 .avatar{
-width:60px;
-height:60px;
-border-radius:20px;
-background:#FFD400;
+width:58px;
+height:58px;
+border-radius:18px;
+background:#DBEAFE;
 display:flex;
 align-items:center;
 justify-content:center;
-font-size:24px;
-font-weight:900;
+font-size:22px;
 }
 
 .userInfo h3{
-font-size:22px;
+font-size:17px;
 font-weight:900;
 }
 
 .userInfo p{
-font-size:12px;
+font-size:11px;
 color:#6B7280;
 margin-top:4px;
 }
@@ -230,8 +227,8 @@ margin-top:4px;
 
 .status{
 padding:8px 14px;
-border-radius:18px;
-font-size:12px;
+border-radius:14px;
+font-size:11px;
 font-weight:900;
 }
 
@@ -247,7 +244,7 @@ color:#1D4ED8;
 
 .ironing{
 background:#EDE9FE;
-color:#6D28D9;
+color:#7C3AED;
 }
 
 .delivery{
@@ -260,60 +257,70 @@ background:#DCFCE7;
 color:#166534;
 }
 
-/* MINI */
+/* SUMMARY */
 
-.miniGrid{
+.summaryGrid{
 display:grid;
-grid-template-columns:repeat(3,1fr);
-gap:12px;
-margin-bottom:18px;
-}
-
-.mini{
-background:#F9FAFB;
-padding:14px;
-border-radius:18px;
-}
-
-.mini span{
-font-size:11px;
-color:#6B7280;
-}
-
-.mini h4{
-font-size:18px;
-font-weight:900;
-margin-top:8px;
-}
-
-/* DETAILS */
-
-.detail{
-background:#F9FAFB;
-padding:16px;
-border-radius:18px;
+grid-template-columns:repeat(2,1fr);
+gap:10px;
 margin-bottom:16px;
 }
 
-.detail h4{
+.summaryBox{
+background:#F9FAFB;
+padding:12px;
+border-radius:16px;
+}
+
+.summaryBox span{
+font-size:10px;
+color:#6B7280;
+}
+
+.summaryBox h4{
 font-size:15px;
+font-weight:900;
+margin-top:5px;
+}
+
+/* SECTION */
+
+.section{
+background:#F9FAFB;
+padding:14px;
+border-radius:18px;
+margin-bottom:14px;
+}
+
+.sectionTitle{
+font-size:14px;
+font-weight:900;
 margin-bottom:12px;
 }
 
-.detail p{
-font-size:14px;
-margin-top:6px;
-color:#444;
+/* TRACK */
+
+.track{
+display:grid;
+grid-template-columns:1fr 1fr;
+gap:10px;
 }
 
-/* ITEMS */
+.trackBox{
+background:#fff;
+padding:12px;
+border-radius:14px;
+}
 
-.item{
-display:flex;
-justify-content:space-between;
-padding:10px 0;
-border-bottom:1px solid #eee;
-font-size:14px;
+.trackBox span{
+font-size:10px;
+color:#6B7280;
+}
+
+.trackBox h5{
+font-size:13px;
+font-weight:900;
+margin-top:5px;
 }
 
 /* BUTTONS */
@@ -321,16 +328,22 @@ font-size:14px;
 .btnGrid{
 display:grid;
 grid-template-columns:repeat(2,1fr);
-gap:12px;
+gap:10px;
+margin-top:14px;
 }
 
-.btnGrid button{
-height:54px;
+.btn{
+height:46px;
 border:none;
-border-radius:18px;
-font-size:14px;
+border-radius:16px;
+font-size:12px;
 font-weight:900;
 cursor:pointer;
+}
+
+.callBtn{
+background:#22C55E;
+color:#fff;
 }
 
 .viewBtn{
@@ -338,12 +351,20 @@ background:#2563EB;
 color:#fff;
 }
 
-.updateBtn{
-background:#22C55E;
+.assignBtn{
+background:#7C3AED;
 color:#fff;
 }
 
-/* MODAL */
+.lockedBtn{
+background:#9CA3AF;
+color:#fff;
+cursor:not-allowed;
+}
+
+/* =====================================================
+MODAL
+===================================================== */
 
 .modal{
 position:fixed;
@@ -353,16 +374,16 @@ display:none;
 align-items:center;
 justify-content:center;
 padding:20px;
-z-index:99999;
+z-index:999999;
 }
 
 .modalBox{
-width:650px;
+width:900px;
 max-height:90vh;
 overflow:auto;
 background:#fff;
-border-radius:30px;
-padding:26px;
+padding:28px;
+border-radius:34px;
 }
 
 .modalHead{
@@ -373,43 +394,38 @@ margin-bottom:24px;
 }
 
 .modalHead h2{
-font-size:30px;
+font-size:34px;
 font-weight:900;
 }
 
 .closeBtn{
-width:50px;
-height:50px;
+width:52px;
+height:52px;
 border:none;
 border-radius:16px;
 background:#EF4444;
 color:#fff;
-font-size:20px;
+font-size:18px;
 cursor:pointer;
 }
 
-.selectBox{
-width:100%;
-height:56px;
-border:none;
-outline:none;
-background:#F3F4F6;
-border-radius:18px;
-padding:0 18px;
+/* ITEMS */
+
+.item{
+display:flex;
+justify-content:space-between;
+padding:12px 0;
+border-bottom:1px solid #eee;
 font-size:14px;
-font-weight:700;
-margin-top:14px;
 }
 
-/* MOBILE */
+/* =====================================================
+RESPONSIVE
+===================================================== */
 
-@media(max-width:1300px){
+@media(max-width:1700px){
 
 .orderGrid{
-grid-template-columns:1fr;
-}
-
-.statsGrid{
 grid-template-columns:repeat(2,1fr);
 }
 
@@ -421,104 +437,65 @@ grid-template-columns:repeat(2,1fr);
 
 <body>
 
-<!-- SIDEBAR -->
+<!-- =====================================================
+SIDEBAR
+===================================================== -->
 
 <div class="sidebar">
 
 <div class="logo">
-
-<div class="logoBox">
-
-⚡
-
-</div>
-
-<div class="logoText">
-
-<h1>
 QuickPress
-</h1>
-
-<p>
-Enterprise Admin
-</p>
-
-</div>
-
 </div>
 
 <div class="menu">
 
 <a href="index.html">
-
 <i class="fa-solid fa-chart-line"></i>
-
 Dashboard
-
 </a>
 
-<a href="orders.html"
-class="active">
-
+<a href="orders.html" class="active">
 <i class="fa-solid fa-basket-shopping"></i>
-
 Orders
-
 </a>
 
 <a href="services.html">
-
 <i class="fa-solid fa-shirt"></i>
-
 Services
-
 </a>
 
 <a href="users.html">
-
 <i class="fa-solid fa-users"></i>
-
 Users
-
 </a>
 
 <a href="partners.html">
-
 <i class="fa-solid fa-store"></i>
-
 Partners
-
 </a>
 
 <a href="riders.html">
-
 <i class="fa-solid fa-motorcycle"></i>
-
 Riders
-
 </a>
 
 <a href="payments.html">
-
 <i class="fa-solid fa-wallet"></i>
-
 Payments
-
 </a>
 
 <a href="settlements.html">
-
 <i class="fa-solid fa-money-bill-transfer"></i>
-
 Settlements
-
 </a>
 
 </div>
 
 </div>
 
-<!-- MAIN -->
+<!-- =====================================================
+MAIN
+===================================================== -->
 
 <div class="main">
 
@@ -534,10 +511,20 @@ Orders Management
 
 <input
 type="text"
-placeholder="Search Orders..."
+placeholder="Search Customer..."
 class="filterBox"
 id="searchInput"
 />
+
+<select
+class="filterBox"
+id="stateFilter">
+
+<option value="All">
+All States
+</option>
+
+</select>
 
 <select
 class="filterBox"
@@ -545,18 +532,6 @@ id="cityFilter">
 
 <option value="All">
 All Cities
-</option>
-
-<option value="Kasganj">
-Kasganj
-</option>
-
-<option value="Noida">
-Noida
-</option>
-
-<option value="Delhi">
-Delhi
 </option>
 
 </select>
@@ -589,13 +564,19 @@ Out For Delivery
 Delivered
 </option>
 
+<option value="Cancelled">
+Cancelled
+</option>
+
 </select>
 
 </div>
 
 </div>
 
-<!-- STATS -->
+<!-- =====================================================
+STATS
+===================================================== -->
 
 <div class="statsGrid">
 
@@ -626,10 +607,10 @@ Pending Orders
 <div class="statCard">
 
 <span>
-Active Orders
+Running Orders
 </span>
 
-<h2 id="activeOrders">
+<h2 id="runningOrders">
 0
 </h2>
 
@@ -647,33 +628,51 @@ Delivered Orders
 
 </div>
 
+<div class="statCard">
+
+<span>
+Total Revenue
+</span>
+
+<h2 id="totalRevenue">
+₹0
+</h2>
+
 </div>
 
-<!-- ORDERS -->
+</div>
 
-<div class="orderGrid"
+<!-- =====================================================
+ORDER GRID
+===================================================== -->
+
+<div
+class="orderGrid"
 id="orderGrid">
 
 </div>
 
 </div>
 
-<!-- MODAL -->
+<!-- =====================================================
+FULL SUMMARY MODAL
+===================================================== -->
 
-<div class="modal"
-id="viewModal">
+<div
+class="modal"
+id="summaryModal">
 
 <div class="modalBox">
 
 <div class="modalHead">
 
 <h2>
-Order Details
+Full Order Summary
 </h2>
 
 <button
 class="closeBtn"
-onclick="closeModal()">
+onclick="closeSummary()">
 
 ✕
 
@@ -681,15 +680,13 @@ onclick="closeModal()">
 
 </div>
 
-<div id="modalContent">
+<div id="summaryContent">
 
 </div>
 
 </div>
 
 </div>
-
-<!-- JS -->
 
 <script type="module"
 src="./js/orders.js">
