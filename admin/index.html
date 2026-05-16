@@ -1,11 +1,16 @@
+<!-- =========================================================
+FILE : admin/index.html
+========================================================= -->
+
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
 
-<meta charset="UTF-8">
+<meta charset="UTF-8"/>
 
 <meta name="viewport"
-content="width=device-width, initial-scale=1.0">
+content="width=device-width, initial-scale=1.0"/>
 
 <title>
 QuickPress Admin Dashboard
@@ -26,30 +31,57 @@ font-family:Poppins,sans-serif;
 }
 
 body{
-background:#F4F7FB;
-overflow-x:hidden;
+background:#F3F6FB;
+display:flex;
 }
 
-/* SIDEBAR */
+/* ======================================================
+SIDEBAR
+====================================================== */
 
 .sidebar{
 width:260px;
-background:#0F172A;
+height:100vh;
+background:#081028;
 position:fixed;
 left:0;
 top:0;
-height:100%;
-padding:24px 18px;
+padding:20px;
 overflow:auto;
-z-index:999;
 }
 
 .logo{
-font-size:32px;
-font-weight:900;
-color:#FFD400;
-margin-bottom:40px;
+display:flex;
+align-items:center;
+gap:14px;
+margin-bottom:30px;
 }
+
+.logoBox{
+width:60px;
+height:60px;
+border-radius:20px;
+background:#FFD400;
+display:flex;
+align-items:center;
+justify-content:center;
+font-size:28px;
+font-weight:900;
+}
+
+.logoText h1{
+font-size:28px;
+font-weight:900;
+color:#fff;
+}
+
+.logoText p{
+font-size:12px;
+color:#9CA3AF;
+margin-top:4px;
+}
+
+/* MENU */
 
 .menu{
 display:flex;
@@ -58,190 +90,265 @@ gap:10px;
 }
 
 .menu a{
-text-decoration:none;
-color:#CBD5E1;
-padding:16px;
-border-radius:18px;
+height:56px;
 display:flex;
 align-items:center;
 gap:14px;
+padding:0 18px;
+border-radius:18px;
+text-decoration:none;
 font-size:15px;
 font-weight:700;
+color:#fff;
 transition:0.3s;
 }
 
-.menu a:hover,
-.menu a.active{
-background:linear-gradient(
-135deg,
-#FFD400,
-#FFB800
-);
-color:#111827;
+.menu a:hover{
+background:#111C44;
 }
 
-/* MAIN */
+.menu a.active{
+background:#1D4ED8;
+}
+
+/* ======================================================
+MAIN
+====================================================== */
 
 .main{
 margin-left:260px;
+width:calc(100% - 260px);
 padding:24px;
 }
 
-/* TOP */
+/* TOPBAR */
 
-.topbar{
+.topBar{
 display:flex;
 justify-content:space-between;
 align-items:center;
-margin-bottom:26px;
-gap:18px;
+margin-bottom:24px;
+gap:20px;
+flex-wrap:wrap;
 }
 
-.topbar h1{
-font-size:36px;
+.topLeft h1{
+font-size:40px;
 font-weight:900;
 }
 
-.searchBox{
-flex:1;
-height:58px;
-border:none;
-outline:none;
-background:#fff;
-border-radius:20px;
-padding:0 20px;
+.topLeft p{
 font-size:15px;
-box-shadow:0 10px 30px rgba(0,0,0,0.06);
+color:#6B7280;
+margin-top:8px;
 }
 
-/* STATS */
+/* RIGHT */
+
+.topRight{
+display:flex;
+align-items:center;
+gap:16px;
+}
+
+.iconBtn{
+width:56px;
+height:56px;
+border-radius:18px;
+background:#fff;
+display:flex;
+align-items:center;
+justify-content:center;
+font-size:20px;
+cursor:pointer;
+position:relative;
+box-shadow:0 10px 30px rgba(0,0,0,0.05);
+}
+
+.badge{
+position:absolute;
+top:10px;
+right:10px;
+width:10px;
+height:10px;
+background:red;
+border-radius:50%;
+}
+
+.adminProfile{
+display:flex;
+align-items:center;
+gap:12px;
+background:#fff;
+padding:8px 16px;
+border-radius:18px;
+box-shadow:0 10px 30px rgba(0,0,0,0.05);
+}
+
+.adminProfile img{
+width:48px;
+height:48px;
+border-radius:16px;
+object-fit:cover;
+}
+
+.adminProfile h4{
+font-size:15px;
+font-weight:900;
+}
+
+.adminProfile p{
+font-size:12px;
+color:#6B7280;
+margin-top:4px;
+}
+
+/* ======================================================
+STATS
+====================================================== */
 
 .statsGrid{
 display:grid;
 grid-template-columns:repeat(4,1fr);
 gap:18px;
-margin-bottom:26px;
+margin-bottom:24px;
 }
 
 .statCard{
-position:relative;
-overflow:hidden;
+background:#fff;
 padding:24px;
 border-radius:30px;
-color:#fff;
-cursor:pointer;
-transition:0.3s;
-min-height:150px;
+box-shadow:0 10px 30px rgba(0,0,0,0.05);
+position:relative;
+overflow:hidden;
 }
 
-.statCard:hover{
-transform:translateY(-5px);
-}
-
-.statCard::before{
-content:"";
+.statCard::after{
+content:'';
 position:absolute;
-width:200px;
-height:200px;
-background:rgba(255,255,255,0.12);
+width:120px;
+height:120px;
+background:#EFF6FF;
 border-radius:50%;
-top:-80px;
-right:-80px;
+right:-40px;
+top:-40px;
 }
 
-.statIcon{
+.statTop{
+display:flex;
+justify-content:space-between;
+align-items:center;
+position:relative;
+z-index:2;
+}
+
+.statTop i{
 font-size:28px;
-margin-bottom:16px;
 }
 
-.statTitle{
-font-size:15px;
-margin-bottom:10px;
-font-weight:600;
+.statCard span{
+font-size:13px;
+color:#6B7280;
+font-weight:700;
 }
 
-.statValue{
-font-size:38px;
+.statCard h2{
+font-size:34px;
 font-weight:900;
+margin-top:14px;
+position:relative;
+z-index:2;
 }
 
-.orders{
-background:linear-gradient(
-135deg,
-#4F46E5,
-#7C3AED
-);
+/* ======================================================
+GRID
+====================================================== */
+
+.grid2{
+display:grid;
+grid-template-columns:1.5fr 1fr;
+gap:18px;
+margin-bottom:24px;
 }
 
-.users{
-background:linear-gradient(
-135deg,
-#0EA5E9,
-#06B6D4
-);
+/* ======================================================
+GRAPH
+====================================================== */
+
+.graphCard{
+background:#fff;
+padding:24px;
+border-radius:30px;
+box-shadow:0 10px 30px rgba(0,0,0,0.05);
 }
 
-.revenue{
-background:linear-gradient(
-135deg,
-#16A34A,
-#22C55E
-);
-}
-
-.delivery{
-background:linear-gradient(
-135deg,
-#EA580C,
-#F97316
-);
-}
-
-.partner{
-background:linear-gradient(
-135deg,
-#E11D48,
-#F43F5E
-);
-}
-
-.rider{
-background:linear-gradient(
-135deg,
-#7C3AED,
-#A855F7
-);
-}
-
-.withdraw{
-background:linear-gradient(
-135deg,
-#0891B2,
-#06B6D4
-);
-}
-
-.support{
-background:linear-gradient(
-135deg,
-#DC2626,
-#EF4444
-);
-}
-
-/* AREA SECTION */
-
-.section{
-margin-bottom:28px;
-}
-
-.sectionTitle{
+.graphCard h2{
 font-size:26px;
 font-weight:900;
 margin-bottom:18px;
 }
 
-/* AREA CARDS */
+/* ======================================================
+LIVE ORDERS
+====================================================== */
+
+.liveOrders{
+background:#fff;
+padding:24px;
+border-radius:30px;
+box-shadow:0 10px 30px rgba(0,0,0,0.05);
+}
+
+.liveOrders h2{
+font-size:26px;
+font-weight:900;
+margin-bottom:18px;
+}
+
+.orderItem{
+display:flex;
+justify-content:space-between;
+align-items:center;
+padding:16px 0;
+border-bottom:1px solid #eee;
+}
+
+.orderLeft h4{
+font-size:15px;
+font-weight:900;
+}
+
+.orderLeft p{
+font-size:12px;
+color:#6B7280;
+margin-top:4px;
+}
+
+.orderStatus{
+padding:8px 14px;
+border-radius:16px;
+font-size:12px;
+font-weight:900;
+}
+
+.pending{
+background:#FEF3C7;
+color:#92400E;
+}
+
+.delivery{
+background:#DBEAFE;
+color:#1D4ED8;
+}
+
+.delivered{
+background:#DCFCE7;
+color:#166534;
+}
+
+/* ======================================================
+AREA REVENUE
+====================================================== */
 
 .areaGrid{
 display:grid;
@@ -251,217 +358,138 @@ gap:18px;
 
 .areaCard{
 background:#fff;
-padding:24px;
-border-radius:28px;
+padding:22px;
+border-radius:26px;
 box-shadow:0 10px 30px rgba(0,0,0,0.05);
 }
 
-.areaTop{
-display:flex;
-justify-content:space-between;
-align-items:center;
-margin-bottom:18px;
-}
-
-.areaName{
-font-size:18px;
-font-weight:800;
-}
-
-.areaRevenue{
-font-size:28px;
-font-weight:900;
-color:#111827;
-}
-
-.progressBar{
-width:100%;
-height:14px;
-background:#E5E7EB;
-border-radius:50px;
-overflow:hidden;
-margin-top:12px;
-}
-
-.progress{
-height:100%;
-border-radius:50px;
-background:linear-gradient(
-90deg,
-#FFD400,
-#F59E0B
-);
-}
-
-/* GRAPH */
-
-.chartCard{
-background:#fff;
-padding:24px;
-border-radius:30px;
-box-shadow:0 10px 30px rgba(0,0,0,0.05);
-}
-
-/* POPUP */
-
-.popup{
-position:fixed;
-top:0;
-right:-450px;
-width:420px;
-height:100%;
-background:#fff;
-z-index:9999;
-padding:24px;
-overflow:auto;
-transition:0.4s;
-box-shadow:-10px 0 30px rgba(0,0,0,0.08);
-}
-
-.popup.active{
-right:0;
-}
-
-.popupTop{
-display:flex;
-justify-content:space-between;
-align-items:center;
-margin-bottom:24px;
-}
-
-.popupTop h2{
-font-size:28px;
+.areaCard h3{
+font-size:24px;
 font-weight:900;
 }
 
-.closeBtn{
-width:46px;
-height:46px;
-border:none;
-border-radius:14px;
-background:#F3F4F6;
-font-size:18px;
-cursor:pointer;
-}
-
-.popupList{
-display:flex;
-flex-direction:column;
-gap:16px;
-}
-
-.popupCard{
-background:#F9FAFB;
-padding:18px;
-border-radius:22px;
-}
-
-.popupCard h3{
-font-size:18px;
-margin-bottom:6px;
-}
-
-.popupCard p{
+.areaCard p{
 font-size:13px;
 color:#6B7280;
-margin-bottom:5px;
+margin-top:6px;
 }
 
-/* MOBILE */
+.areaCard h2{
+font-size:34px;
+font-weight:900;
+margin-top:18px;
+}
 
-.mobileMenuBtn{
+/* ======================================================
+MOBILE BLOCK
+====================================================== */
+
+.mobileBlock{
 display:none;
-}
-
-@media(max-width:1200px){
-
-.statsGrid{
-grid-template-columns:1fr 1fr;
-}
-
-.areaGrid{
-grid-template-columns:1fr 1fr;
-}
-
-}
-
-@media(max-width:768px){
-
-.sidebar{
-left:-100%;
-transition:0.3s;
-}
-
-.sidebar.active{
-left:0;
-}
-
-.main{
-margin-left:0;
-padding:16px;
-padding-top:80px;
-}
-
-.mobileMenuBtn{
-display:flex;
 position:fixed;
-top:18px;
-left:18px;
-width:52px;
-height:52px;
-border:none;
-border-radius:18px;
-background:#111827;
+inset:0;
+background:#081028;
+z-index:999999;
 color:#fff;
-font-size:22px;
 align-items:center;
 justify-content:center;
-z-index:9999;
+text-align:center;
+padding:30px;
 }
 
+.mobileBlock i{
+font-size:90px;
+color:#FFD400;
+margin-bottom:25px;
+}
+
+.mobileBlock h1{
+font-size:42px;
+font-weight:900;
+}
+
+.mobileBlock p{
+margin-top:18px;
+line-height:1.8;
+color:#9CA3AF;
+}
+
+/* ======================================================
+RESPONSIVE
+====================================================== */
+
+@media(max-width:1300px){
+
 .statsGrid{
-grid-template-columns:1fr;
+grid-template-columns:repeat(2,1fr);
 }
 
 .areaGrid{
 grid-template-columns:1fr;
 }
 
-.topbar{
-flex-direction:column;
-align-items:flex-start;
-}
-
-.searchBox{
-width:100%;
-}
-
-.popup{
-width:100%;
+.grid2{
+grid-template-columns:1fr;
 }
 
 }
 
 </style>
+
 </head>
+
 <body>
 
-<!-- MOBILE -->
+<!-- MOBILE BLOCK -->
 
-<button class="mobileMenuBtn"
-onclick="toggleSidebar()">
+<div class="mobileBlock"
+id="mobileBlock">
 
-<i class="fa-solid fa-bars"></i>
+<div>
 
-</button>
+<i class="fa-solid fa-desktop"></i>
 
-<!-- SIDEBAR -->
+<h1>
+Desktop Only
+</h1>
+
+<p>
+QuickPress Admin Panel only works on Laptop/Desktop.
+</p>
+
+</div>
+
+</div>
+
+<!-- ======================================================
+SIDEBAR
+====================================================== -->
 
 <div class="sidebar">
 
 <div class="logo">
-QuickPress
+
+<div class="logoBox">
+
+<i class="fa-solid fa-bolt"></i>
+
 </div>
+
+<div class="logoText">
+
+<h1>
+QuickPress
+</h1>
+
+<p>
+Enterprise Admin
+</p>
+
+</div>
+
+</div>
+
+<!-- MENU -->
 
 <div class="menu">
 
@@ -469,6 +497,7 @@ QuickPress
 class="active">
 
 <i class="fa-solid fa-chart-line"></i>
+
 Dashboard
 
 </a>
@@ -476,6 +505,7 @@ Dashboard
 <a href="orders.html">
 
 <i class="fa-solid fa-basket-shopping"></i>
+
 Orders
 
 </a>
@@ -483,6 +513,7 @@ Orders
 <a href="services.html">
 
 <i class="fa-solid fa-shirt"></i>
+
 Services
 
 </a>
@@ -490,20 +521,15 @@ Services
 <a href="users.html">
 
 <i class="fa-solid fa-users"></i>
+
 Users
-
-</a>
-
-<a href="delivery.html">
-
-<i class="fa-solid fa-truck"></i>
-Delivery
 
 </a>
 
 <a href="partners.html">
 
-<i class="fa-solid fa-handshake"></i>
+<i class="fa-solid fa-store"></i>
+
 Partners
 
 </a>
@@ -511,6 +537,7 @@ Partners
 <a href="riders.html">
 
 <i class="fa-solid fa-motorcycle"></i>
+
 Riders
 
 </a>
@@ -518,7 +545,48 @@ Riders
 <a href="payments.html">
 
 <i class="fa-solid fa-wallet"></i>
+
 Payments
+
+</a>
+
+<a href="settlements.html">
+
+<i class="fa-solid fa-money-bill-transfer"></i>
+
+Settlements
+
+</a>
+
+<a href="support.html">
+
+<i class="fa-solid fa-headset"></i>
+
+Support
+
+</a>
+
+<a href="notifications.html">
+
+<i class="fa-solid fa-bell"></i>
+
+Notifications
+
+</a>
+
+<a href="analytics.html">
+
+<i class="fa-solid fa-chart-pie"></i>
+
+Analytics
+
+</a>
+
+<a href="settings.html">
+
+<i class="fa-solid fa-gear"></i>
+
+Settings
 
 </a>
 
@@ -526,600 +594,248 @@ Payments
 
 </div>
 
-<!-- MAIN -->
+<!-- ======================================================
+MAIN
+====================================================== -->
 
 <div class="main">
 
-<!-- TOP -->
+<!-- TOPBAR -->
 
-<div class="topbar">
+<div class="topBar">
+
+<div class="topLeft">
 
 <h1>
-Dashboard
+Admin Dashboard
 </h1>
 
-<input
-type="text"
-placeholder="Search..."
-class="searchBox"
-/>
+<p>
+Real-time QuickPress control center
+</p>
 
 </div>
 
-<!-- STATS -->
+<div class="topRight">
+
+<div class="iconBtn">
+
+<i class="fa-solid fa-bell"></i>
+
+<div class="badge"></div>
+
+</div>
+
+<div class="iconBtn">
+
+<i class="fa-solid fa-message"></i>
+
+<div class="badge"></div>
+
+</div>
+
+<div class="adminProfile">
+
+<img
+src="https://i.pravatar.cc/100"
+/>
+
+<div>
+
+<h4>
+QuickPress Admin
+</h4>
+
+<p>
+Super Admin
+</p>
+
+</div>
+
+</div>
+
+</div>
+
+</div>
+
+<!-- ======================================================
+STATS
+====================================================== -->
 
 <div class="statsGrid">
 
-<div class="statCard orders"
-onclick="openPopup('orders')">
+<div class="statCard">
 
-<div class="statIcon">
-<i class="fa-solid fa-basket-shopping"></i>
-</div>
+<div class="statTop">
 
-<div class="statTitle">
+<span>
 Total Orders
+</span>
+
+<i class="fa-solid fa-basket-shopping"></i>
+
 </div>
 
-<div class="statValue"
-id="totalOrders">
+<h2 id="totalOrders">
 0
-</div>
+</h2>
 
 </div>
 
-<div class="statCard users"
-onclick="openPopup('users')">
+<div class="statCard">
 
-<div class="statIcon">
-<i class="fa-solid fa-users"></i>
-</div>
+<div class="statTop">
 
-<div class="statTitle">
-Users
-</div>
+<span>
+Total Revenue
+</span>
 
-<div class="statValue"
-id="totalUsers">
-0
-</div>
-
-</div>
-
-<div class="statCard revenue">
-
-<div class="statIcon">
 <i class="fa-solid fa-wallet"></i>
+
 </div>
 
-<div class="statTitle">
-Revenue
-</div>
-
-<div class="statValue"
-id="totalRevenue">
+<h2 id="totalRevenue">
 ₹0
-</div>
+</h2>
 
 </div>
 
-<div class="statCard delivery">
+<div class="statCard">
 
-<div class="statIcon">
-<i class="fa-solid fa-truck"></i>
-</div>
+<div class="statTop">
 
-<div class="statTitle">
-Active Deliveries
-</div>
-
-<div class="statValue"
-id="activeDeliveries">
-0
-</div>
-
-</div>
-
-<div class="statCard partner"
-onclick="location.href='partners.html'">
-
-<div class="statIcon">
-<i class="fa-solid fa-handshake"></i>
-</div>
-
-<div class="statTitle">
+<span>
 Partners
+</span>
+
+<i class="fa-solid fa-store"></i>
+
 </div>
 
-<div class="statValue"
-id="totalPartners">
+<h2 id="totalPartners">
 0
-</div>
+</h2>
 
 </div>
 
-<div class="statCard rider"
-onclick="location.href='riders.html'">
+<div class="statCard">
 
-<div class="statIcon">
-<i class="fa-solid fa-motorcycle"></i>
-</div>
+<div class="statTop">
 
-<div class="statTitle">
+<span>
 Riders
+</span>
+
+<i class="fa-solid fa-motorcycle"></i>
+
 </div>
 
-<div class="statValue"
-id="totalRiders">
+<h2 id="totalRiders">
 0
-</div>
-
-</div>
-
-<div class="statCard withdraw">
-
-<div class="statIcon">
-<i class="fa-solid fa-money-bill-transfer"></i>
-</div>
-
-<div class="statTitle">
-Withdrawals
-</div>
-
-<div class="statValue">
-₹0
-</div>
-
-</div>
-
-<div class="statCard support">
-
-<div class="statIcon">
-<i class="fa-solid fa-headset"></i>
-</div>
-
-<div class="statTitle">
-Support Tickets
-</div>
-
-<div class="statValue">
-0
-</div>
+</h2>
 
 </div>
 
 </div>
 
-<!-- AREA REVENUE -->
+<!-- ======================================================
+GRAPH + LIVE
+====================================================== -->
 
-<div class="section">
-
-<div class="sectionTitle">
-Area Wise Revenue
-</div>
-
-<div class="areaGrid"
-id="areaGrid">
-
-</div>
-
-</div>
+<div class="grid2">
 
 <!-- GRAPH -->
 
-<div class="section">
+<div class="graphCard">
 
-<div class="sectionTitle">
-Revenue Progress
-</div>
-
-<div class="chartCard">
+<h2>
+Revenue Growth
+</h2>
 
 <canvas id="revenueChart"></canvas>
 
 </div>
 
-</div>
+<!-- LIVE -->
 
-</div>
+<div class="liveOrders">
 
-<!-- POPUP -->
-
-<div class="popup"
-id="popup">
-
-<div class="popupTop">
-
-<h2 id="popupTitle">
-Data
+<h2>
+Live Orders
 </h2>
 
-<button
-class="closeBtn"
-onclick="closePopup()">
-
-<i class="fa-solid fa-xmark"></i>
-
-</button>
-
-</div>
-
-<div class="popupList"
-id="popupList">
+<div id="liveOrdersList">
 
 </div>
 
 </div>
 
-<!-- FIREBASE -->
+</div>
 
-<script type="module">
+<!-- ======================================================
+AREA REVENUE
+====================================================== -->
 
-import { db }
-
-from
-
-"/Pal-Group-Pvt-Ltd/firebase.js";
-
-import {
-
-collection,
-getDocs
-
-}
-
-from
-
-"https://www.gstatic.com/firebasejs/12.11.0/firebase-firestore.js";
-
-/* LOAD */
-
-async function loadDashboard(){
-
-/* COLLECTIONS */
-
-const ordersSnap =
-await getDocs(
-collection(db,"orders")
-);
-
-const usersSnap =
-await getDocs(
-collection(db,"users")
-);
-
-const partnersSnap =
-await getDocs(
-collection(db,"partners")
-);
-
-const ridersSnap =
-await getDocs(
-collection(db,"riders")
-);
-
-/* COUNTS */
-
-document.getElementById(
-"totalOrders"
-).innerHTML =
-ordersSnap.size;
-
-document.getElementById(
-"totalUsers"
-).innerHTML =
-usersSnap.size;
-
-document.getElementById(
-"totalPartners"
-).innerHTML =
-partnersSnap.size;
-
-document.getElementById(
-"totalRiders"
-).innerHTML =
-ridersSnap.size;
-
-/* REVENUE */
-
-let revenue = 0;
-let active = 0;
-
-const areaRevenue = {};
-
-ordersSnap.forEach((doc)=>{
-
-const order =
-doc.data();
-
-revenue +=
-order.total || 0;
-
-if(
-order.status !== "Delivered"
-){
-
-active++;
-
-}
-
-const city =
-order.city || "Unknown";
-
-if(
-!areaRevenue[city]
-){
-
-areaRevenue[city] = 0;
-
-}
-
-areaRevenue[city] +=
-order.total || 0;
-
-});
-
-/* SET */
-
-document.getElementById(
-"totalRevenue"
-).innerHTML =
-"₹"+revenue;
-
-document.getElementById(
-"activeDeliveries"
-).innerHTML =
-active;
-
-/* AREA CARDS */
-
-const areaGrid =
-document.getElementById(
-"areaGrid"
-);
-
-let areaHTML = "";
-
-Object.keys(areaRevenue)
-.forEach((city)=>{
-
-const amount =
-areaRevenue[city];
-
-const percent =
-Math.min(
-100,
-amount / 1000
-);
-
-areaHTML += `
+<div class="areaGrid">
 
 <div class="areaCard">
 
-<div class="areaTop">
-
-<div class="areaName">
-${city}
-</div>
-
-<div class="areaRevenue">
-₹${amount}
-</div>
-
-</div>
-
-<div class="progressBar">
-
-<div class="progress"
-style="
-width:${percent}%;
-">
-</div>
-
-</div>
-
-</div>
-
-`;
-
-});
-
-areaGrid.innerHTML =
-areaHTML;
-
-/* GRAPH */
-
-const ctx =
-document.getElementById(
-"revenueChart"
-);
-
-new Chart(ctx,{
-
-type:"line",
-
-data:{
-
-labels:Object.keys(areaRevenue),
-
-datasets:[{
-
-label:"Revenue",
-
-data:Object.values(
-areaRevenue
-),
-
-borderWidth:4,
-tension:0.4,
-fill:true
-
-}]
-
-},
-
-options:{
-
-responsive:true
-
-}
-
-});
-
-/* POPUP DATA */
-
-window.ordersData = [];
-window.usersData = [];
-
-ordersSnap.forEach((doc)=>{
-
-window.ordersData.push(
-doc.data()
-);
-
-});
-
-usersSnap.forEach((doc)=>{
-
-window.usersData.push(
-doc.data()
-);
-
-});
-
-}
-
-loadDashboard();
-
-/* POPUP */
-
-window.openPopup =
-function(type){
-
-const popup =
-document.getElementById(
-"popup"
-);
-
-const popupTitle =
-document.getElementById(
-"popupTitle"
-);
-
-const popupList =
-document.getElementById(
-"popupList"
-);
-
-popup.classList.add(
-"active"
-);
-
-let html = "";
-
-/* ORDERS */
-
-if(type==="orders"){
-
-popupTitle.innerHTML =
-"Orders";
-
-window.ordersData
-.forEach((order)=>{
-
-html += `
-
-<div class="popupCard">
-
 <h3>
-${order.name || ""}
+Kasganj
 </h3>
 
 <p>
-${order.phone || ""}
+Total Revenue
 </p>
 
-<p>
-${order.city || ""}
-</p>
-
-<p>
-₹${order.total || 0}
-</p>
+<h2 id="kasganjRevenue">
+₹0
+</h2>
 
 </div>
 
-`;
-
-});
-
-}
-
-/* USERS */
-
-if(type==="users"){
-
-popupTitle.innerHTML =
-"Users";
-
-window.usersData
-.forEach((user)=>{
-
-html += `
-
-<div class="popupCard">
+<div class="areaCard">
 
 <h3>
-${user.name || ""}
+Noida
 </h3>
 
 <p>
-${user.phone || ""}
+Total Revenue
 </p>
 
-<p>
-${user.city || ""}
-</p>
+<h2 id="noidaRevenue">
+₹0
+</h2>
 
 </div>
 
-`;
+<div class="areaCard">
 
-});
+<h3>
+Delhi
+</h3>
 
-}
+<p>
+Total Revenue
+</p>
 
-popupList.innerHTML =
-html;
+<h2 id="delhiRevenue">
+₹0
+</h2>
 
-};
+</div>
 
-/* CLOSE */
+</div>
 
-window.closePopup =
-function(){
+</div>
 
-document
-.getElementById(
-"popup"
-)
-.classList.remove(
-"active"
-);
+<!-- ======================================================
+JS
+====================================================== -->
 
-};
-
-/* SIDEBAR */
-
-window.toggleSidebar =
-function(){
-
-document
-.querySelector(".sidebar")
-.classList.toggle("active");
-
-};
-
+<script type="module"
+src="./js/dashboard.js">
 </script>
 
 </body>
