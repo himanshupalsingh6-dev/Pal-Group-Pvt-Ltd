@@ -48,23 +48,18 @@ FIREBASE CONFIG
 
 const firebaseConfig = {
 
-apiKey:
-"YOUR_API_KEY",
+apiKey: "AIzaSyBBaslH5QsahoyESYpo1nVtlYIUYfVJ2d4",
 
-authDomain:
-"YOUR_PROJECT.firebaseapp.com",
+authDomain: "quickpress-offical.firebaseapp.com",
 
-projectId:
-"YOUR_PROJECT_ID",
+projectId: "quickpress-offical",
 
-storageBucket:
-"YOUR_PROJECT.appspot.com",
+storageBucket: "quickpress-offical.firebasestorage.app",
 
-messagingSenderId:
-"YOUR_SENDER_ID",
+messagingSenderId: "939286557961",
 
-appId:
-"YOUR_APP_ID"
+appId: "1:939286557961:web:ddac64f197e14877718fd8"
+
 
 };
 
