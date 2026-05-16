@@ -1,6 +1,6 @@
 /* =========================================================
 FILE : admin/js/orders.js
-QUICKPRESS ADVANCED ORDER SYSTEM
+QUICKPRESS ENTERPRISE ORDER SYSTEM
 ========================================================= */
 
 import { db }
@@ -16,7 +16,8 @@ onSnapshot,
 doc,
 updateDoc,
 query,
-orderBy
+orderBy,
+getDoc
 
 }
 
@@ -62,6 +63,35 @@ document.getElementById(
 const searchInput =
 document.getElementById(
 "searchInput"
+);
+
+/* =========================================================
+STATS
+========================================================= */
+
+const totalOrders =
+document.getElementById(
+"totalOrders"
+);
+
+const pendingOrders =
+document.getElementById(
+"pendingOrders"
+);
+
+const runningOrders =
+document.getElementById(
+"runningOrders"
+);
+
+const deliveredOrders =
+document.getElementById(
+"deliveredOrders"
+);
+
+const totalRevenue =
+document.getElementById(
+"totalRevenue"
 );
 
 /* =========================================================
@@ -201,6 +231,15 @@ orderBy("createdAt","desc")
 
 let html = "";
 
+let total = 0;
+let pending = 0;
+let running = 0;
+let delivered = 0;
+
+/* =====================================
+LOOP
+===================================== */
+
 snapshot.forEach((docSnap)=>{
 
 const order =
@@ -214,13 +253,9 @@ FILTERS
 ===================================== */
 
 if(
-
 selectedState !== "All"
-
 &&
-
 order.state !== selectedState
-
 ){
 
 return;
@@ -228,13 +263,9 @@ return;
 }
 
 if(
-
 selectedCity !== "All"
-
 &&
-
 order.city !== selectedCity
-
 ){
 
 return;
@@ -242,13 +273,9 @@ return;
 }
 
 if(
-
 selectedStatus !== "All"
-
 &&
-
 order.status !== selectedStatus
-
 ){
 
 return;
@@ -256,15 +283,11 @@ return;
 }
 
 if(
-
 searchValue
-
 &&
-
 !order.name
 ?.toLowerCase()
 .includes(searchValue)
-
 ){
 
 return;
@@ -272,7 +295,38 @@ return;
 }
 
 /* =====================================
-STATUS
+STATS
+===================================== */
+
+total +=
+Number(order.total || 0);
+
+if(order.status === "Pending"){
+
+pending++;
+
+}
+
+if(
+order.status === "Pickup"
+||
+order.status === "Ironing"
+||
+order.status === "Out For Delivery"
+){
+
+running++;
+
+}
+
+if(order.status === "Delivered"){
+
+delivered++;
+
+}
+
+/* =====================================
+STATUS CLASS
 ===================================== */
 
 let statusClass =
@@ -307,7 +361,14 @@ statusClass =
 }
 
 /* =====================================
-ORDER TIMER
+LOCK SYSTEM
+===================================== */
+
+const locked =
+order.locked === true;
+
+/* =====================================
+PLACED TIME
 ===================================== */
 
 let placedTime = "";
@@ -323,13 +384,6 @@ placedTime =
 date.toLocaleString();
 
 }
-
-/* =====================================
-LOCK SYSTEM
-===================================== */
-
-const locked =
-order.locked === true;
 
 /* =====================================
 CARD
@@ -428,12 +482,12 @@ ${order.paymentMethod || "COD"}
 <div class="summaryBox">
 
 <span>
-Timer
+Placed
 </span>
 
 <h4>
 
-${order.deliveryTime || "0h"}
+${placedTime}
 
 </h4>
 
@@ -484,12 +538,12 @@ ${order.riderName || "Not Assigned"}
 <div class="trackBox">
 
 <span>
-Placed Time
+Locked
 </span>
 
 <h5>
 
-${placedTime}
+${locked ? "YES" : "NO"}
 
 </h5>
 
@@ -498,12 +552,12 @@ ${placedTime}
 <div class="trackBox">
 
 <span>
-Locked
+Order ID
 </span>
 
 <h5>
 
-${locked ? "YES" : "NO"}
+${orderId}
 
 </h5>
 
@@ -549,13 +603,37 @@ View
 
 </button>
 
+${
+locked
+
+?
+
+`
+
 <button
-class="btn updateBtn"
+class="btn lockedBtn">
+
+Locked
+
+</button>
+
+`
+
+:
+
+`
+
+<button
+class="btn assignBtn"
 onclick="assignOrder('${orderId}')">
 
 Assign
 
 </button>
+
+`
+
+}
 
 </div>
 
@@ -564,6 +642,29 @@ Assign
 `;
 
 });
+
+/* =====================================
+UPDATE STATS
+===================================== */
+
+totalOrders.innerHTML =
+snapshot.size;
+
+pendingOrders.innerHTML =
+pending;
+
+runningOrders.innerHTML =
+running;
+
+deliveredOrders.innerHTML =
+delivered;
+
+totalRevenue.innerHTML =
+`₹${total}`;
+
+/* =====================================
+UPDATE GRID
+===================================== */
 
 orderGrid.innerHTML =
 html;
@@ -575,31 +676,29 @@ html;
 }
 
 /* =========================================================
-VIEW ORDER
-========================================================= */
-
-window.viewOrder =
-(id)=>{
-
-window.location.href =
-`orders.html?id=${id}`;
-
-};
-
-/* =========================================================
-ASSIGN SYSTEM
+ASSIGN ORDER
 ========================================================= */
 
 window.assignOrder =
 async(id)=>{
 
-const partnerId =
-prompt("Enter Partner ID");
+const partnerName =
+prompt("Enter Partner Name");
 
-const riderId =
-prompt("Enter Rider ID");
+const partnerMobile =
+prompt("Enter Partner Mobile");
 
-if(!partnerId || !riderId){
+const riderName =
+prompt("Enter Rider Name");
+
+const riderMobile =
+prompt("Enter Rider Mobile");
+
+if(
+!partnerName
+||
+!riderName
+){
 
 return;
 
@@ -614,21 +713,416 @@ LOCK ORDER
 
 await updateDoc(orderRef,{
 
-partnerId:partnerId,
+partnerName,
+partnerMobile,
 
-riderId:riderId,
+riderName,
+riderMobile,
 
 assigned:true,
-
 locked:true,
 
-assignedAt:new Date()
+assignedAt:
+new Date()
+.toLocaleString()
 
 });
 
 alert(
 "Order Assigned Successfully"
 );
+
+};
+
+/* =========================================================
+VIEW ORDER
+========================================================= */
+
+window.viewOrder =
+async(id)=>{
+
+const modal =
+document.getElementById(
+"summaryModal"
+);
+
+const content =
+document.getElementById(
+"summaryContent"
+);
+
+const orderRef =
+doc(db,"orders",id);
+
+const orderSnap =
+await getDoc(orderRef);
+
+const order =
+orderSnap.data();
+
+/* =====================================
+ITEMS
+===================================== */
+
+let itemsHTML = "";
+
+(order.items || [])
+.forEach((item)=>{
+
+itemsHTML += `
+
+<div class="item">
+
+<div>
+
+${item.name}
+
+</div>
+
+<div>
+
+${item.qty || 1}
+x ₹${item.price || 0}
+
+</div>
+
+</div>
+
+`;
+
+});
+
+/* =====================================
+SUMMARY
+===================================== */
+
+content.innerHTML = `
+
+<div class="section">
+
+<div class="sectionTitle">
+
+Customer Details
+
+</div>
+
+<div class="track">
+
+<div class="trackBox">
+
+<span>
+Customer Name
+</span>
+
+<h5>
+
+${order.name || ""}
+
+</h5>
+
+</div>
+
+<div class="trackBox">
+
+<span>
+Mobile
+</span>
+
+<h5>
+
+${order.mobile || ""}
+
+</h5>
+
+</div>
+
+<div class="trackBox">
+
+<span>
+State
+</span>
+
+<h5>
+
+${order.state || ""}
+
+</h5>
+
+</div>
+
+<div class="trackBox">
+
+<span>
+City
+</span>
+
+<h5>
+
+${order.city || ""}
+
+</h5>
+
+</div>
+
+</div>
+
+</div>
+
+<div class="section">
+
+<div class="sectionTitle">
+
+Address
+
+</div>
+
+<p>
+
+${order.address || ""}
+
+</p>
+
+</div>
+
+<div class="section">
+
+<div class="sectionTitle">
+
+Order Items
+
+</div>
+
+${itemsHTML}
+
+</div>
+
+<div class="section">
+
+<div class="sectionTitle">
+
+Assignment Details
+
+</div>
+
+<div class="track">
+
+<div class="trackBox">
+
+<span>
+Partner
+</span>
+
+<h5>
+
+${order.partnerName || ""}
+
+</h5>
+
+</div>
+
+<div class="trackBox">
+
+<span>
+Partner Mobile
+</span>
+
+<h5>
+
+${order.partnerMobile || ""}
+
+</h5>
+
+</div>
+
+<div class="trackBox">
+
+<span>
+Rider
+</span>
+
+<h5>
+
+${order.riderName || ""}
+
+</h5>
+
+</div>
+
+<div class="trackBox">
+
+<span>
+Rider Mobile
+</span>
+
+<h5>
+
+${order.riderMobile || ""}
+
+</h5>
+
+</div>
+
+</div>
+
+</div>
+
+<div class="section">
+
+<div class="sectionTitle">
+
+Payment Summary
+
+</div>
+
+<div class="summaryGrid">
+
+<div class="summaryBox">
+
+<span>
+Subtotal
+</span>
+
+<h4>
+
+₹${order.subtotal || 0}
+
+</h4>
+
+</div>
+
+<div class="summaryBox">
+
+<span>
+Delivery Charge
+</span>
+
+<h4>
+
+₹${order.deliveryCharge || 0}
+
+</h4>
+
+</div>
+
+<div class="summaryBox">
+
+<span>
+GST
+</span>
+
+<h4>
+
+₹${order.gst || 0}
+
+</h4>
+
+</div>
+
+<div class="summaryBox">
+
+<span>
+Total
+</span>
+
+<h4>
+
+₹${order.total || 0}
+
+</h4>
+
+</div>
+
+</div>
+
+</div>
+
+<div class="section">
+
+<div class="sectionTitle">
+
+Timeline
+
+</div>
+
+<div class="track">
+
+<div class="trackBox">
+
+<span>
+Placed At
+</span>
+
+<h5>
+
+${order.placedAt || ""}
+
+</h5>
+
+</div>
+
+<div class="trackBox">
+
+<span>
+Assigned At
+</span>
+
+<h5>
+
+${order.assignedAt || ""}
+
+</h5>
+
+</div>
+
+<div class="trackBox">
+
+<span>
+Pickup Time
+</span>
+
+<h5>
+
+${order.pickupTime || ""}
+
+</h5>
+
+</div>
+
+<div class="trackBox">
+
+<span>
+Delivered Time
+</span>
+
+<h5>
+
+${order.deliveredTime || ""}
+
+</h5>
+
+</div>
+
+</div>
+
+</div>
+
+`;
+
+modal.style.display =
+"flex";
+
+};
+
+/* =========================================================
+CLOSE MODAL
+========================================================= */
+
+window.closeSummary =
+()=>{
+
+document.getElementById(
+"summaryModal"
+).style.display = "none";
 
 };
 
