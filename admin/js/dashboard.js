@@ -1,10 +1,6 @@
 /* =========================================================
 FILE : admin/js/dashboard.js
-QUICKPRESS ENTERPRISE DASHBOARD V2
-========================================================= */
-
-/* =========================================================
-IMPORT FIREBASE
+QUICKPRESS ENTERPRISE DASHBOARD V3
 ========================================================= */
 
 import { db }
@@ -28,7 +24,7 @@ from
 "https://www.gstatic.com/firebasejs/12.11.0/firebase-firestore.js";
 
 /* =========================================================
-AUTH CHECK
+AUTH
 ========================================================= */
 
 const adminSession =
@@ -40,85 +36,6 @@ if(adminSession !== "true"){
 
 window.location.href =
 "login.html";
-
-}
-
-/* =========================================================
-DESKTOP ONLY
-========================================================= */
-
-const isTouch =
-'ontouchstart'
-in window;
-
-const isMobileUA =
-/Android|iPhone|iPad|iPod/i
-.test(
-navigator.userAgent
-);
-
-if(
-window.innerWidth < 1024
-||
-isTouch
-||
-isMobileUA
-){
-
-document.body.innerHTML = `
-
-<div
-style="
-height:100vh;
-display:flex;
-align-items:center;
-justify-content:center;
-background:#081028;
-color:white;
-font-family:Poppins,sans-serif;
-padding:30px;
-text-align:center;
-">
-
-<div>
-
-<div
-style="
-font-size:90px;
-margin-bottom:25px;
-color:#FFD400;
-">
-
-🖥️
-
-</div>
-
-<h1
-style="
-font-size:42px;
-font-weight:900;
-">
-
-Desktop Only
-
-</h1>
-
-<p
-style="
-margin-top:18px;
-line-height:1.8;
-color:#9CA3AF;
-">
-
-QuickPress Admin Panel only works on Laptop/Desktop.
-
-</p>
-
-</div>
-
-</div>
-
-`;
 
 }
 
@@ -182,15 +99,101 @@ document.getElementById(
 );
 
 /* =========================================================
-LIVE ORDERS
+CARD REDIRECTS
 ========================================================= */
+
+document.getElementById(
+"totalOrders"
+).onclick = ()=>{
+
+window.location.href =
+"orders.html";
+
+};
+
+document.getElementById(
+"todayRevenue"
+).onclick = ()=>{
+
+window.location.href =
+"payments.html";
+
+};
+
+document.getElementById(
+"totalUsers"
+).onclick = ()=>{
+
+window.location.href =
+"users.html";
+
+};
+
+document.getElementById(
+"totalPartners"
+).onclick = ()=>{
+
+window.location.href =
+"partners.html";
+
+};
+
+document.getElementById(
+"onlineRiders"
+).onclick = ()=>{
+
+window.location.href =
+"riders.html";
+
+};
+
+/* =========================================================
+CITY SELECTOR
+========================================================= */
+
+const citySelector =
+document.getElementById(
+"citySelector"
+);
+
+let selectedCity = "All";
+
+/* =========================================================
+CITY CHANGE
+========================================================= */
+
+if(citySelector){
+
+citySelector.addEventListener(
+"change",
+()=>{
+
+selectedCity =
+citySelector.value;
+
+loadDashboard();
+
+}
+);
+
+}
+
+/* =========================================================
+LOAD DASHBOARD
+========================================================= */
+
+function loadDashboard(){
+
+/* =====================================
+LIVE ORDERS
+===================================== */
 
 onSnapshot(
 
 query(
 collection(db,"orders"),
 orderBy("createdAt","desc"),
-limit(8)
+limit(20)
 ),
 
 (snapshot)=>{
@@ -204,13 +207,52 @@ let noida = 0;
 let delhi = 0;
 let mumbai = 0;
 
+let orderCount = 0;
+
+let chartData = [];
+
+/* =====================================
+LOOP
+===================================== */
+
 snapshot.forEach((doc)=>{
 
 const order =
 doc.data();
 
+const orderId =
+doc.id;
+
+/* =====================================
+CITY FILTER
+===================================== */
+
+if(
+
+selectedCity !== "All"
+
+&&
+
+order.city !== selectedCity
+
+){
+
+return;
+
+}
+
+/* =====================================
+TOTALS
+===================================== */
+
+orderCount++;
+
 total +=
 Number(order.total || 0);
+
+chartData.push(
+Number(order.total || 0)
+);
 
 /* =====================================
 CITY REVENUE
@@ -245,7 +287,7 @@ Number(order.total || 0);
 }
 
 /* =====================================
-STATUS CLASS
+STATUS
 ===================================== */
 
 let statusClass =
@@ -268,22 +310,32 @@ statusClass =
 }
 
 /* =====================================
-ORDER HTML
+LIVE ORDERS HTML
 ===================================== */
 
 ordersHTML += `
 
-<div class="liveItem">
+<div
+class="liveItem"
+onclick="openOrder('${orderId}')"
+style="cursor:pointer;">
 
 <div class="liveLeft">
 
 <h4>
+
 ${order.name || "Customer"}
+
 </h4>
 
 <p>
+
 ${order.city || ""}
-• ₹${order.total || 0}
+•
+₹${order.total || 0}
+•
+${order.items?.length || 0} Items
+
 </p>
 
 </div>
@@ -308,7 +360,7 @@ liveOrders.innerHTML =
 ordersHTML;
 
 totalOrders.innerHTML =
-snapshot.size;
+orderCount;
 
 todayRevenue.innerHTML =
 `₹${total}`;
@@ -325,13 +377,21 @@ delhiRevenue.innerHTML =
 mumbaiRevenue.innerHTML =
 `₹${mumbai}`;
 
-loadRevenueChart(total);
+/* =====================================
+REAL GRAPH
+===================================== */
+
+loadRevenueChart(
+chartData
+);
 
 }
 
 /* END SNAPSHOT */
 
 );
+
+}
 
 /* =========================================================
 USERS
@@ -385,7 +445,7 @@ snapshot.size;
 );
 
 /* =========================================================
-ACTIVITY FEED
+LIVE ACTIVITY
 ========================================================= */
 
 onSnapshot(
@@ -393,7 +453,7 @@ onSnapshot(
 query(
 collection(db,"orders"),
 orderBy("createdAt","desc"),
-limit(5)
+limit(8)
 ),
 
 (snapshot)=>{
@@ -418,15 +478,20 @@ activityHTML += `
 <div>
 
 <h4>
-New Order From
+
 ${order.name || "Customer"}
+
+Placed New Order
+
 </h4>
 
 <p>
 
 ${order.city || ""}
-• ₹${order.total || 0}
-• ${order.status || "Pending"}
+•
+₹${order.total || 0}
+•
+${order.status || "Pending"}
 
 </p>
 
@@ -443,53 +508,61 @@ activityHTML;
 
 }
 
-/* END */
-
 );
 
 /* =========================================================
-REVENUE GRAPH
+ORDER OPEN
 ========================================================= */
 
-function loadRevenueChart(total){
+window.openOrder =
+(id)=>{
+
+window.location.href =
+`orders.html?id=${id}`;
+
+};
+
+/* =========================================================
+REAL REVENUE GRAPH
+========================================================= */
+
+let revenueChart;
+
+function loadRevenueChart(data){
 
 const ctx =
 document.getElementById(
 "revenueChart"
 );
 
+if(revenueChart){
+
+revenueChart.destroy();
+
+}
+
+revenueChart =
 new Chart(ctx, {
 
 type:"line",
 
 data:{
 
-labels:[
-"Mon",
-"Tue",
-"Wed",
-"Thu",
-"Fri",
-"Sat",
-"Sun"
-],
+labels:data.map((_,i)=>
+`Order ${i+1}`
+),
 
 datasets:[{
 
 label:"Revenue",
 
-data:[
-1200,
-2800,
-4200,
-5900,
-7600,
-10400,
-total || 15000
-],
+data:data,
 
 borderWidth:4,
-tension:0.4
+
+tension:0.4,
+
+fill:true
 
 }]
 
@@ -510,9 +583,7 @@ display:false
 scales:{
 
 y:{
-
 beginAtZero:true
-
 }
 
 }
@@ -524,14 +595,7 @@ beginAtZero:true
 }
 
 /* =========================================================
-LIVE CLOCK
+START
 ========================================================= */
 
-setInterval(()=>{
-
-const now =
-new Date();
-
-console.log(now);
-
-},1000);
+loadDashboard();
