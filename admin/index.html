@@ -1,5 +1,6 @@
 <!-- =========================================================
 FILE : admin/index.html
+QUICKPRESS ENTERPRISE DASHBOARD V2
 ========================================================= -->
 
 <!DOCTYPE html>
@@ -13,7 +14,7 @@ FILE : admin/index.html
 content="width=device-width, initial-scale=1.0"/>
 
 <title>
-QuickPress Admin Dashboard
+QuickPress Enterprise Dashboard
 </title>
 
 <link rel="stylesheet"
@@ -31,16 +32,17 @@ font-family:Poppins,sans-serif;
 }
 
 body{
-background:#F3F6FB;
+background:#EEF2FF;
 display:flex;
+overflow-x:hidden;
 }
 
-/* ======================================================
+/* =====================================================
 SIDEBAR
-====================================================== */
+===================================================== */
 
 .sidebar{
-width:260px;
+width:270px;
 height:100vh;
 background:#081028;
 position:fixed;
@@ -54,14 +56,14 @@ overflow:auto;
 display:flex;
 align-items:center;
 gap:14px;
-margin-bottom:30px;
+margin-bottom:35px;
 }
 
 .logoBox{
-width:60px;
-height:60px;
-border-radius:20px;
+width:65px;
+height:65px;
 background:#FFD400;
+border-radius:22px;
 display:flex;
 align-items:center;
 justify-content:center;
@@ -70,13 +72,13 @@ font-weight:900;
 }
 
 .logoText h1{
-font-size:28px;
+font-size:34px;
 font-weight:900;
 color:#fff;
 }
 
 .logoText p{
-font-size:12px;
+font-size:13px;
 color:#9CA3AF;
 margin-top:4px;
 }
@@ -86,20 +88,20 @@ margin-top:4px;
 .menu{
 display:flex;
 flex-direction:column;
-gap:10px;
+gap:12px;
 }
 
 .menu a{
-height:56px;
+height:58px;
+padding:0 20px;
 display:flex;
 align-items:center;
 gap:14px;
-padding:0 18px;
 border-radius:18px;
 text-decoration:none;
+color:#fff;
 font-size:15px;
 font-weight:700;
-color:#fff;
 transition:0.3s;
 }
 
@@ -111,17 +113,19 @@ background:#111C44;
 background:#1D4ED8;
 }
 
-/* ======================================================
+/* =====================================================
 MAIN
-====================================================== */
+===================================================== */
 
 .main{
-margin-left:260px;
-width:calc(100% - 260px);
+margin-left:270px;
+width:calc(100% - 270px);
 padding:24px;
 }
 
-/* TOPBAR */
+/* =====================================================
+TOPBAR
+===================================================== */
 
 .topBar{
 display:flex;
@@ -133,7 +137,7 @@ flex-wrap:wrap;
 }
 
 .topLeft h1{
-font-size:40px;
+font-size:42px;
 font-weight:900;
 }
 
@@ -148,73 +152,105 @@ margin-top:8px;
 .topRight{
 display:flex;
 align-items:center;
-gap:16px;
+gap:14px;
+}
+
+.searchBox{
+width:320px;
+height:58px;
+background:#fff;
+border-radius:18px;
+display:flex;
+align-items:center;
+padding:0 18px;
+gap:12px;
+box-shadow:0 10px 30px rgba(0,0,0,0.05);
+}
+
+.searchBox input{
+flex:1;
+border:none;
+outline:none;
+font-size:14px;
+font-weight:600;
+}
+
+.citySelect{
+height:58px;
+padding:0 18px;
+border:none;
+outline:none;
+border-radius:18px;
+font-size:14px;
+font-weight:700;
+background:#fff;
+box-shadow:0 10px 30px rgba(0,0,0,0.05);
 }
 
 .iconBtn{
-width:56px;
-height:56px;
+width:58px;
+height:58px;
 border-radius:18px;
 background:#fff;
 display:flex;
 align-items:center;
 justify-content:center;
 font-size:20px;
-cursor:pointer;
 position:relative;
+cursor:pointer;
 box-shadow:0 10px 30px rgba(0,0,0,0.05);
 }
 
-.badge{
-position:absolute;
-top:10px;
-right:10px;
+.dot{
 width:10px;
 height:10px;
 background:red;
 border-radius:50%;
+position:absolute;
+top:10px;
+right:10px;
 }
 
-.adminProfile{
+.profile{
 display:flex;
 align-items:center;
 gap:12px;
+padding:8px 14px;
 background:#fff;
-padding:8px 16px;
-border-radius:18px;
+border-radius:20px;
 box-shadow:0 10px 30px rgba(0,0,0,0.05);
 }
 
-.adminProfile img{
-width:48px;
-height:48px;
-border-radius:16px;
+.profile img{
+width:52px;
+height:52px;
+border-radius:18px;
 object-fit:cover;
 }
 
-.adminProfile h4{
+.profile h4{
 font-size:15px;
 font-weight:900;
 }
 
-.adminProfile p{
+.profile p{
 font-size:12px;
 color:#6B7280;
 margin-top:4px;
 }
 
-/* ======================================================
-STATS
-====================================================== */
+/* =====================================================
+STATS GRID
+===================================================== */
 
 .statsGrid{
 display:grid;
-grid-template-columns:repeat(4,1fr);
+grid-template-columns:repeat(5,1fr);
 gap:18px;
 margin-bottom:24px;
 }
 
-.statCard{
+.card{
 background:#fff;
 padding:24px;
 border-radius:30px;
@@ -223,18 +259,18 @@ position:relative;
 overflow:hidden;
 }
 
-.statCard::after{
+.card::after{
 content:'';
 position:absolute;
 width:120px;
 height:120px;
-background:#EFF6FF;
+background:#EEF2FF;
 border-radius:50%;
 right:-40px;
 top:-40px;
 }
 
-.statTop{
+.cardTop{
 display:flex;
 justify-content:space-between;
 align-items:center;
@@ -242,17 +278,17 @@ position:relative;
 z-index:2;
 }
 
-.statTop i{
-font-size:28px;
+.cardTop i{
+font-size:26px;
 }
 
-.statCard span{
+.card span{
 font-size:13px;
 color:#6B7280;
 font-weight:700;
 }
 
-.statCard h2{
+.card h2{
 font-size:34px;
 font-weight:900;
 margin-top:14px;
@@ -260,20 +296,18 @@ position:relative;
 z-index:2;
 }
 
-/* ======================================================
-GRID
-====================================================== */
+/* =====================================================
+GRID 2
+===================================================== */
 
 .grid2{
 display:grid;
-grid-template-columns:1.5fr 1fr;
+grid-template-columns:1.6fr 1fr;
 gap:18px;
 margin-bottom:24px;
 }
 
-/* ======================================================
-GRAPH
-====================================================== */
+/* GRAPH */
 
 .graphCard{
 background:#fff;
@@ -283,29 +317,27 @@ box-shadow:0 10px 30px rgba(0,0,0,0.05);
 }
 
 .graphCard h2{
-font-size:26px;
+font-size:30px;
 font-weight:900;
 margin-bottom:18px;
 }
 
-/* ======================================================
-LIVE ORDERS
-====================================================== */
+/* LIVE ORDERS */
 
-.liveOrders{
+.liveCard{
 background:#fff;
 padding:24px;
 border-radius:30px;
 box-shadow:0 10px 30px rgba(0,0,0,0.05);
 }
 
-.liveOrders h2{
-font-size:26px;
+.liveCard h2{
+font-size:30px;
 font-weight:900;
 margin-bottom:18px;
 }
 
-.orderItem{
+.liveItem{
 display:flex;
 justify-content:space-between;
 align-items:center;
@@ -313,18 +345,18 @@ padding:16px 0;
 border-bottom:1px solid #eee;
 }
 
-.orderLeft h4{
-font-size:15px;
+.liveLeft h4{
+font-size:16px;
 font-weight:900;
 }
 
-.orderLeft p{
+.liveLeft p{
 font-size:12px;
 color:#6B7280;
 margin-top:4px;
 }
 
-.orderStatus{
+.status{
 padding:8px 14px;
 border-radius:16px;
 font-size:12px;
@@ -346,90 +378,136 @@ background:#DCFCE7;
 color:#166534;
 }
 
-/* ======================================================
-AREA REVENUE
-====================================================== */
+/* =====================================================
+CITY GRID
+===================================================== */
 
-.areaGrid{
+.cityGrid{
 display:grid;
-grid-template-columns:repeat(3,1fr);
+grid-template-columns:repeat(4,1fr);
 gap:18px;
+margin-bottom:24px;
 }
 
-.areaCard{
+.cityCard{
 background:#fff;
-padding:22px;
-border-radius:26px;
+padding:24px;
+border-radius:30px;
 box-shadow:0 10px 30px rgba(0,0,0,0.05);
 }
 
-.areaCard h3{
-font-size:24px;
+.cityCard h3{
+font-size:28px;
 font-weight:900;
 }
 
-.areaCard p{
+.cityCard p{
 font-size:13px;
 color:#6B7280;
 margin-top:6px;
 }
 
-.areaCard h2{
-font-size:34px;
+.cityCard h2{
+font-size:36px;
 font-weight:900;
 margin-top:18px;
 }
 
-/* ======================================================
-MOBILE BLOCK
-====================================================== */
+/* =====================================================
+ACTIVITY
+===================================================== */
 
-.mobileBlock{
-display:none;
-position:fixed;
-inset:0;
-background:#081028;
-z-index:999999;
-color:#fff;
+.activityCard{
+background:#fff;
+padding:24px;
+border-radius:30px;
+box-shadow:0 10px 30px rgba(0,0,0,0.05);
+margin-bottom:24px;
+}
+
+.activityCard h2{
+font-size:30px;
+font-weight:900;
+margin-bottom:20px;
+}
+
+.activity{
+display:flex;
+align-items:center;
+gap:16px;
+padding:14px 0;
+border-bottom:1px solid #eee;
+}
+
+.activityIcon{
+width:54px;
+height:54px;
+border-radius:18px;
+background:#EEF2FF;
+display:flex;
 align-items:center;
 justify-content:center;
-text-align:center;
-padding:30px;
+font-size:20px;
 }
 
-.mobileBlock i{
-font-size:90px;
-color:#FFD400;
-margin-bottom:25px;
-}
-
-.mobileBlock h1{
-font-size:42px;
+.activity h4{
+font-size:15px;
 font-weight:900;
 }
 
-.mobileBlock p{
-margin-top:18px;
-line-height:1.8;
-color:#9CA3AF;
+.activity p{
+font-size:12px;
+color:#6B7280;
+margin-top:4px;
 }
 
-/* ======================================================
-RESPONSIVE
-====================================================== */
+/* =====================================================
+QUICK ACTIONS
+===================================================== */
 
-@media(max-width:1300px){
+.actionGrid{
+display:grid;
+grid-template-columns:repeat(6,1fr);
+gap:18px;
+}
+
+.actionBtn{
+height:90px;
+border:none;
+border-radius:26px;
+background:#1D4ED8;
+color:#fff;
+font-size:14px;
+font-weight:900;
+cursor:pointer;
+display:flex;
+flex-direction:column;
+align-items:center;
+justify-content:center;
+gap:10px;
+box-shadow:0 10px 30px rgba(29,78,216,0.3);
+}
+
+.actionBtn i{
+font-size:24px;
+}
+
+/* =====================================================
+RESPONSIVE
+===================================================== */
+
+@media(max-width:1500px){
 
 .statsGrid{
+grid-template-columns:repeat(3,1fr);
+}
+
+.cityGrid{
 grid-template-columns:repeat(2,1fr);
 }
 
-.areaGrid{
-grid-template-columns:1fr;
-}
-
-.grid2{
-grid-template-columns:1fr;
+.actionGrid{
+grid-template-columns:repeat(3,1fr);
 }
 
 }
@@ -440,39 +518,16 @@ grid-template-columns:1fr;
 
 <body>
 
-<!-- MOBILE BLOCK -->
-
-<div class="mobileBlock"
-id="mobileBlock">
-
-<div>
-
-<i class="fa-solid fa-desktop"></i>
-
-<h1>
-Desktop Only
-</h1>
-
-<p>
-QuickPress Admin Panel only works on Laptop/Desktop.
-</p>
-
-</div>
-
-</div>
-
-<!-- ======================================================
+<!-- =====================================================
 SIDEBAR
-====================================================== -->
+===================================================== -->
 
 <div class="sidebar">
 
 <div class="logo">
 
 <div class="logoBox">
-
-<i class="fa-solid fa-bolt"></i>
-
+⚡
 </div>
 
 <div class="logoText">
@@ -489,114 +544,75 @@ Enterprise Admin
 
 </div>
 
-<!-- MENU -->
-
 <div class="menu">
 
-<a href="index.html"
-class="active">
-
+<a href="index.html" class="active">
 <i class="fa-solid fa-chart-line"></i>
-
 Dashboard
-
 </a>
 
 <a href="orders.html">
-
 <i class="fa-solid fa-basket-shopping"></i>
-
 Orders
-
 </a>
 
 <a href="services.html">
-
 <i class="fa-solid fa-shirt"></i>
-
 Services
-
 </a>
 
 <a href="users.html">
-
 <i class="fa-solid fa-users"></i>
-
 Users
-
 </a>
 
 <a href="partners.html">
-
 <i class="fa-solid fa-store"></i>
-
 Partners
-
 </a>
 
 <a href="riders.html">
-
 <i class="fa-solid fa-motorcycle"></i>
-
 Riders
-
 </a>
 
 <a href="payments.html">
-
 <i class="fa-solid fa-wallet"></i>
-
 Payments
-
 </a>
 
 <a href="settlements.html">
-
 <i class="fa-solid fa-money-bill-transfer"></i>
-
 Settlements
-
 </a>
 
 <a href="support.html">
-
 <i class="fa-solid fa-headset"></i>
-
 Support
-
 </a>
 
 <a href="notifications.html">
-
 <i class="fa-solid fa-bell"></i>
-
 Notifications
-
 </a>
 
 <a href="analytics.html">
-
 <i class="fa-solid fa-chart-pie"></i>
-
 Analytics
-
 </a>
 
 <a href="settings.html">
-
 <i class="fa-solid fa-gear"></i>
-
 Settings
-
 </a>
 
 </div>
 
 </div>
 
-<!-- ======================================================
+<!-- =====================================================
 MAIN
-====================================================== -->
+===================================================== -->
 
 <div class="main">
 
@@ -607,22 +623,58 @@ MAIN
 <div class="topLeft">
 
 <h1>
-Admin Dashboard
+Enterprise Dashboard
 </h1>
 
 <p>
-Real-time QuickPress control center
+QuickPress Real-Time Multi-City Control Center
 </p>
 
 </div>
 
 <div class="topRight">
 
+<div class="searchBox">
+
+<i class="fa-solid fa-magnifying-glass"></i>
+
+<input
+type="text"
+placeholder="Search anything..."
+id="globalSearch"
+/>
+
+</div>
+
+<select class="citySelect">
+
+<option>
+All Cities
+</option>
+
+<option>
+Kasganj
+</option>
+
+<option>
+Noida
+</option>
+
+<option>
+Delhi
+</option>
+
+<option>
+Mumbai
+</option>
+
+</select>
+
 <div class="iconBtn">
 
 <i class="fa-solid fa-bell"></i>
 
-<div class="badge"></div>
+<div class="dot"></div>
 
 </div>
 
@@ -630,11 +682,11 @@ Real-time QuickPress control center
 
 <i class="fa-solid fa-message"></i>
 
-<div class="badge"></div>
+<div class="dot"></div>
 
 </div>
 
-<div class="adminProfile">
+<div class="profile">
 
 <img
 src="https://i.pravatar.cc/100"
@@ -658,89 +710,53 @@ Super Admin
 
 </div>
 
-<!-- ======================================================
-STATS
-====================================================== -->
+<!-- STATS -->
 
 <div class="statsGrid">
 
-<div class="statCard">
-
-<div class="statTop">
-
-<span>
-Total Orders
-</span>
-
+<div class="card">
+<div class="cardTop">
+<span>Total Orders</span>
 <i class="fa-solid fa-basket-shopping"></i>
-
+</div>
+<h2 id="totalOrders">0</h2>
 </div>
 
-<h2 id="totalOrders">
-0
-</h2>
-
-</div>
-
-<div class="statCard">
-
-<div class="statTop">
-
-<span>
-Total Revenue
-</span>
-
+<div class="card">
+<div class="cardTop">
+<span>Today Revenue</span>
 <i class="fa-solid fa-wallet"></i>
-
+</div>
+<h2 id="todayRevenue">₹0</h2>
 </div>
 
-<h2 id="totalRevenue">
-₹0
-</h2>
-
+<div class="card">
+<div class="cardTop">
+<span>Total Users</span>
+<i class="fa-solid fa-users"></i>
+</div>
+<h2 id="totalUsers">0</h2>
 </div>
 
-<div class="statCard">
-
-<div class="statTop">
-
-<span>
-Partners
-</span>
-
+<div class="card">
+<div class="cardTop">
+<span>Partners</span>
 <i class="fa-solid fa-store"></i>
-
+</div>
+<h2 id="totalPartners">0</h2>
 </div>
 
-<h2 id="totalPartners">
-0
-</h2>
-
-</div>
-
-<div class="statCard">
-
-<div class="statTop">
-
-<span>
-Riders
-</span>
-
+<div class="card">
+<div class="cardTop">
+<span>Online Riders</span>
 <i class="fa-solid fa-motorcycle"></i>
-
 </div>
-
-<h2 id="totalRiders">
-0
-</h2>
-
+<h2 id="onlineRiders">0</h2>
 </div>
 
 </div>
 
-<!-- ======================================================
-GRAPH + LIVE
-====================================================== -->
+<!-- GRID -->
 
 <div class="grid2">
 
@@ -758,13 +774,13 @@ Revenue Growth
 
 <!-- LIVE -->
 
-<div class="liveOrders">
+<div class="liveCard">
 
 <h2>
 Live Orders
 </h2>
 
-<div id="liveOrdersList">
+<div id="liveOrders">
 
 </div>
 
@@ -772,67 +788,95 @@ Live Orders
 
 </div>
 
-<!-- ======================================================
-AREA REVENUE
-====================================================== -->
+<!-- CITY -->
 
-<div class="areaGrid">
+<div class="cityGrid">
 
-<div class="areaCard">
+<div class="cityCard">
+<h3>Kasganj</h3>
+<p>Total Revenue</p>
+<h2 id="kasganjRevenue">₹0</h2>
+</div>
 
-<h3>
-Kasganj
-</h3>
+<div class="cityCard">
+<h3>Noida</h3>
+<p>Total Revenue</p>
+<h2 id="noidaRevenue">₹0</h2>
+</div>
 
-<p>
-Total Revenue
-</p>
+<div class="cityCard">
+<h3>Delhi</h3>
+<p>Total Revenue</p>
+<h2 id="delhiRevenue">₹0</h2>
+</div>
 
-<h2 id="kasganjRevenue">
-₹0
+<div class="cityCard">
+<h3>Mumbai</h3>
+<p>Total Revenue</p>
+<h2 id="mumbaiRevenue">₹0</h2>
+</div>
+
+</div>
+
+<!-- ACTIVITY -->
+
+<div class="activityCard">
+
+<h2>
+Live Activity
 </h2>
 
+<div id="activityFeed">
+
 </div>
 
-<div class="areaCard">
+</div>
 
-<h3>
-Noida
-</h3>
+<!-- ACTIONS -->
 
-<p>
-Total Revenue
-</p>
+<div class="activityCard">
 
-<h2 id="noidaRevenue">
-₹0
+<h2>
+Quick Actions
 </h2>
 
+<div class="actionGrid">
+
+<button class="actionBtn">
+<i class="fa-solid fa-plus"></i>
+Add Service
+</button>
+
+<button class="actionBtn">
+<i class="fa-solid fa-user-plus"></i>
+Add Partner
+</button>
+
+<button class="actionBtn">
+<i class="fa-solid fa-motorcycle"></i>
+Add Rider
+</button>
+
+<button class="actionBtn">
+<i class="fa-solid fa-bell"></i>
+Send Notice
+</button>
+
+<button class="actionBtn">
+<i class="fa-solid fa-money-bill"></i>
+Settlement
+</button>
+
+<button class="actionBtn">
+<i class="fa-solid fa-ticket"></i>
+Support
+</button>
+
 </div>
 
-<div class="areaCard">
-
-<h3>
-Delhi
-</h3>
-
-<p>
-Total Revenue
-</p>
-
-<h2 id="delhiRevenue">
-₹0
-</h2>
-
 </div>
 
 </div>
-
-</div>
-
-<!-- ======================================================
-JS
-====================================================== -->
 
 <script type="module"
 src="./js/dashboard.js">
