@@ -1,0 +1,480 @@
+<!-- =========================================================
+FILE : admin/auditlogs.html
+QUICKPRESS AUDIT LOGS SYSTEM
+========================================================= -->
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+<meta charset="UTF-8"/>
+
+<meta name="viewport"
+content="width=device-width, initial-scale=1.0"/>
+
+<title>
+QuickPress Audit Logs
+</title>
+
+<link rel="stylesheet"
+href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css"/>
+
+<style>
+
+/* =====================================================
+GLOBAL
+===================================================== */
+
+*{
+margin:0;
+padding:0;
+box-sizing:border-box;
+font-family:Inter,sans-serif;
+}
+
+body{
+background:#F5F7FB;
+overflow:hidden;
+color:#111827;
+}
+
+/* =====================================================
+TOPBAR
+===================================================== */
+
+.topbar{
+position:fixed;
+top:0;
+left:0;
+right:0;
+height:82px;
+background:#fff;
+border-bottom:1px solid #E5E7EB;
+display:flex;
+align-items:center;
+justify-content:space-between;
+padding:0 24px;
+z-index:999;
+}
+
+.logo{
+font-size:32px;
+font-weight:900;
+}
+
+/* =====================================================
+SIDEBAR
+===================================================== */
+
+.sidebar{
+position:fixed;
+top:82px;
+left:0;
+bottom:0;
+width:240px;
+background:#fff;
+border-right:1px solid #E5E7EB;
+padding:18px 10px;
+overflow:auto;
+}
+
+.sidebarMenu{
+display:flex;
+flex-direction:column;
+gap:6px;
+}
+
+.sidebarMenu a{
+height:52px;
+padding:0 16px;
+display:flex;
+align-items:center;
+gap:14px;
+border-radius:14px;
+text-decoration:none;
+font-size:15px;
+font-weight:700;
+color:#374151;
+}
+
+.sidebarMenu a.active{
+background:#111827;
+color:#fff;
+}
+
+/* =====================================================
+MAIN
+===================================================== */
+
+.main{
+margin-left:240px;
+margin-top:82px;
+padding:24px;
+height:calc(100vh - 82px);
+overflow:auto;
+}
+
+/* =====================================================
+HEADER
+===================================================== */
+
+.pageHeader{
+display:flex;
+justify-content:space-between;
+align-items:center;
+margin-bottom:24px;
+}
+
+.pageHeader h1{
+font-size:42px;
+font-weight:900;
+}
+
+/* =====================================================
+STATS
+===================================================== */
+
+.statsGrid{
+display:grid;
+grid-template-columns:repeat(4,1fr);
+gap:18px;
+margin-bottom:24px;
+}
+
+.statCard{
+background:#fff;
+border-radius:24px;
+padding:24px;
+border:1px solid #E5E7EB;
+}
+
+.statCard span{
+font-size:13px;
+font-weight:700;
+color:#6B7280;
+}
+
+.statCard h2{
+font-size:34px;
+font-weight:900;
+margin-top:10px;
+}
+
+/* =====================================================
+FILTER
+===================================================== */
+
+.filterBar{
+background:#fff;
+border-radius:24px;
+padding:18px;
+border:1px solid #E5E7EB;
+display:flex;
+gap:14px;
+margin-bottom:24px;
+}
+
+.searchBox{
+width:320px;
+height:54px;
+border-radius:14px;
+border:1px solid #E5E7EB;
+padding:0 18px;
+font-size:14px;
+outline:none;
+}
+
+.selectBox{
+height:54px;
+border-radius:14px;
+border:1px solid #E5E7EB;
+padding:0 18px;
+font-size:14px;
+font-weight:700;
+background:#fff;
+}
+
+/* =====================================================
+TABLE
+===================================================== */
+
+.tableWrap{
+background:#fff;
+border-radius:24px;
+border:1px solid #E5E7EB;
+overflow:hidden;
+}
+
+.tableHead{
+height:64px;
+display:grid;
+grid-template-columns:
+180px
+180px
+1fr
+180px
+160px;
+align-items:center;
+padding:0 20px;
+font-size:14px;
+font-weight:900;
+border-bottom:1px solid #E5E7EB;
+}
+
+.logRow{
+min-height:74px;
+display:grid;
+grid-template-columns:
+180px
+180px
+1fr
+180px
+160px;
+align-items:center;
+padding:0 20px;
+border-bottom:1px solid #F3F4F6;
+font-size:14px;
+}
+
+/* =====================================================
+BADGE
+===================================================== */
+
+.badge{
+padding:10px 14px;
+border-radius:999px;
+font-size:12px;
+font-weight:900;
+width:max-content;
+}
+
+.success{
+background:#DCFCE7;
+color:#166534;
+}
+
+.warning{
+background:#FEF3C7;
+color:#92400E;
+}
+
+.danger{
+background:#FEE2E2;
+color:#991B1B;
+}
+
+.info{
+background:#DBEAFE;
+color:#1E40AF;
+}
+
+</style>
+
+</head>
+
+<body>
+
+<!-- =====================================================
+TOPBAR
+===================================================== -->
+
+<div class="topbar">
+
+<div class="logo">
+QuickPress
+</div>
+
+</div>
+
+<!-- =====================================================
+SIDEBAR
+===================================================== -->
+
+<div class="sidebar">
+
+<div class="sidebarMenu">
+
+<a href="index.html">
+<i class="fa-solid fa-chart-line"></i>
+Dashboard
+</a>
+
+<a href="roles.html">
+<i class="fa-solid fa-user-shield"></i>
+Admin Roles
+</a>
+
+<a href="auditlogs.html" class="active">
+<i class="fa-solid fa-clock-rotate-left"></i>
+Audit Logs
+</a>
+
+<a href="settings.html">
+<i class="fa-solid fa-gear"></i>
+Settings
+</a>
+
+</div>
+
+</div>
+
+<!-- =====================================================
+MAIN
+===================================================== -->
+
+<div class="main">
+
+<!-- =====================================================
+HEADER
+===================================================== -->
+
+<div class="pageHeader">
+
+<h1>
+Audit Logs
+</h1>
+
+</div>
+
+<!-- =====================================================
+STATS
+===================================================== -->
+
+<div class="statsGrid">
+
+<div class="statCard">
+
+<span>
+Total Logs
+</span>
+
+<h2 id="totalLogs">
+0
+</h2>
+
+</div>
+
+<div class="statCard">
+
+<span>
+Today Activity
+</span>
+
+<h2 id="todayLogs">
+0
+</h2>
+
+</div>
+
+<div class="statCard">
+
+<span>
+Failed Logins
+</span>
+
+<h2 id="failedLogs">
+0
+</h2>
+
+</div>
+
+<div class="statCard">
+
+<span>
+Admin Actions
+</span>
+
+<h2 id="adminLogs">
+0
+</h2>
+
+</div>
+
+</div>
+
+<!-- =====================================================
+FILTER
+===================================================== -->
+
+<div class="filterBar">
+
+<input
+type="text"
+placeholder="Search logs..."
+class="searchBox"
+id="searchInput"
+/>
+
+<select
+class="selectBox"
+id="typeFilter">
+
+<option value="All">
+All Types
+</option>
+
+<option value="Login">
+Login
+</option>
+
+<option value="Order">
+Order
+</option>
+
+<option value="Finance">
+Finance
+</option>
+
+<option value="Settings">
+Settings
+</option>
+
+</select>
+
+</div>
+
+<!-- =====================================================
+TABLE
+===================================================== -->
+
+<div class="tableWrap">
+
+<div class="tableHead">
+
+<div>
+Action
+</div>
+
+<div>
+Admin
+</div>
+
+<div>
+Description
+</div>
+
+<div>
+Time
+</div>
+
+<div>
+Status
+</div>
+
+</div>
+
+<div id="logsContainer">
+
+</div>
+
+</div>
+
+</div>
+
+<script type="module"
+src="./js/auditlogs.js">
+</script>
+
+</body>
+</html>
