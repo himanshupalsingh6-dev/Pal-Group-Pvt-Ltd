@@ -1,6 +1,6 @@
 /* =========================================================
 FILE : admin/js/orders.js
-FIXED FULL WORKING VERSION
+QUICKPRESS ENTERPRISE ORDERS PANEL
 ========================================================= */
 
 import { db }
@@ -13,11 +13,11 @@ import {
 
 collection,
 onSnapshot,
-doc,
-updateDoc,
 query,
 orderBy,
-getDoc
+doc,
+updateDoc,
+getDocs
 
 }
 
@@ -25,29 +25,29 @@ from
 
 "https://www.gstatic.com/firebasejs/12.11.0/firebase-firestore.js";
 
-import {
+/* =========================================================
+AUTH CHECK
+========================================================= */
 
-getAllStates,
-getCitiesByState
+const adminLogin =
+localStorage.getItem(
+"quickpress_admin"
+);
+
+if(adminLogin !== "true"){
+
+window.location.href =
+"login.html";
 
 }
-
-from
-
-"./all-india-cities.js";
 
 /* =========================================================
 ELEMENTS
 ========================================================= */
 
-const orderGrid =
+const ordersGrid =
 document.getElementById(
-"orderGrid"
-);
-
-const stateFilter =
-document.getElementById(
-"stateFilter"
+"ordersGrid"
 );
 
 const cityFilter =
@@ -65,165 +65,13 @@ document.getElementById(
 "searchInput"
 );
 
-/* =========================================================
-STATS
-========================================================= */
-
-const totalOrders =
+const notificationCount =
 document.getElementById(
-"totalOrders"
-);
-
-const pendingOrders =
-document.getElementById(
-"pendingOrders"
-);
-
-const runningOrders =
-document.getElementById(
-"runningOrders"
-);
-
-const deliveredOrders =
-document.getElementById(
-"deliveredOrders"
-);
-
-const totalRevenue =
-document.getElementById(
-"totalRevenue"
+"notificationCount"
 );
 
 /* =========================================================
-FILTERS
-========================================================= */
-
-let selectedState = "All";
-let selectedCity = "All";
-let selectedStatus = "All";
-let searchValue = "";
-
-/* =========================================================
-LOAD STATES
-========================================================= */
-
-function loadStates(){
-
-const states =
-getAllStates();
-
-states.forEach((state)=>{
-
-const option =
-document.createElement(
-"option"
-);
-
-option.value = state;
-option.innerText = state;
-
-stateFilter.appendChild(
-option
-);
-
-});
-
-}
-
-/* =========================================================
-LOAD CITIES
-========================================================= */
-
-function loadCities(state){
-
-cityFilter.innerHTML = `
-
-<option value="All">
-All Cities
-</option>
-
-`;
-
-if(state === "All") return;
-
-const cities =
-getCitiesByState(state);
-
-cities.forEach((city)=>{
-
-const option =
-document.createElement(
-"option"
-);
-
-option.value = city;
-option.innerText = city;
-
-cityFilter.appendChild(
-option
-);
-
-});
-
-}
-
-/* =========================================================
-FILTER EVENTS
-========================================================= */
-
-stateFilter.addEventListener(
-"change",
-()=>{
-
-selectedState =
-stateFilter.value;
-
-loadCities(selectedState);
-
-renderOrders();
-
-}
-);
-
-cityFilter.addEventListener(
-"change",
-()=>{
-
-selectedCity =
-cityFilter.value;
-
-renderOrders();
-
-}
-);
-
-statusFilter.addEventListener(
-"change",
-()=>{
-
-selectedStatus =
-statusFilter.value;
-
-renderOrders();
-
-}
-);
-
-searchInput.addEventListener(
-"input",
-()=>{
-
-searchValue =
-searchInput.value
-.toLowerCase();
-
-renderOrders();
-
-}
-);
-
-/* =========================================================
-GLOBAL DATA
+DATA
 ========================================================= */
 
 let allOrders = [];
@@ -243,16 +91,51 @@ orderBy("createdAt","desc")
 
 allOrders = [];
 
+let pending = 0;
+
+let cities = new Set();
+
+/* ========================================= */
+
 snapshot.forEach((docSnap)=>{
 
-allOrders.push({
+const order = {
 
 id:docSnap.id,
 ...docSnap.data()
 
-});
+};
+
+allOrders.push(order);
+
+/* ========================================= */
+
+if(order.city){
+
+cities.add(order.city);
+
+}
+
+/* ========================================= */
+
+if(order.status === "Pending"){
+
+pending++;
+
+}
 
 });
+
+/* ========================================= */
+
+notificationCount.innerHTML =
+pending;
+
+/* ========================================= */
+
+loadCities([...cities]);
+
+/* ========================================= */
 
 renderOrders();
 
@@ -263,37 +146,83 @@ renderOrders();
 );
 
 /* =========================================================
+LOAD CITIES
+========================================================= */
+
+function loadCities(cities){
+
+const current =
+cityFilter.value;
+
+cityFilter.innerHTML = `
+
+<option value="All">
+All Cities
+</option>
+
+`;
+
+cities.forEach((city)=>{
+
+cityFilter.innerHTML += `
+
+<option value="${city}">
+${city}
+</option>
+
+`;
+
+});
+
+cityFilter.value =
+current;
+
+}
+
+/* =========================================================
 RENDER ORDERS
 ========================================================= */
 
 function renderOrders(){
 
-let html = "";
+ordersGrid.innerHTML = "";
 
-let total = 0;
-let pending = 0;
-let running = 0;
-let delivered = 0;
+/* ========================================= */
 
-/* =====================================
-LOOP
-===================================== */
+const search =
+searchInput.value
+.toLowerCase();
+
+const selectedCity =
+cityFilter.value;
+
+const selectedStatus =
+statusFilter.value;
+
+/* ========================================= */
 
 allOrders.forEach((order)=>{
 
 /* =====================================
-FILTERS
+SEARCH
 ===================================== */
 
 if(
-selectedState !== "All"
-&&
-order.state !== selectedState
+search &&
+!(
+order.name || ""
+)
+toLowerCase()
+.includes(search)
 ){
 
 return;
 
 }
+
+/* =====================================
+CITY
+===================================== */
 
 if(
 selectedCity !== "All"
@@ -305,6 +234,10 @@ return;
 
 }
 
+/* =====================================
+STATUS
+===================================== */
+
 if(
 selectedStatus !== "All"
 &&
@@ -315,49 +248,6 @@ return;
 
 }
 
-if(
-searchValue
-&&
-!order.name
-?.toLowerCase()
-.includes(searchValue)
-){
-
-return;
-
-}
-
-/* =====================================
-STATS
-===================================== */
-
-total +=
-Number(order.total || 0);
-
-if(order.status === "Pending"){
-
-pending++;
-
-}
-
-if(
-order.status === "Pickup"
-||
-order.status === "Ironing"
-||
-order.status === "Out For Delivery"
-){
-
-running++;
-
-}
-
-if(order.status === "Delivered"){
-
-delivered++;
-
-}
-
 /* =====================================
 STATUS CLASS
 ===================================== */
@@ -365,17 +255,10 @@ STATUS CLASS
 let statusClass =
 "pending";
 
-if(order.status === "Pickup"){
+if(order.status === "Preparing"){
 
 statusClass =
-"pickup";
-
-}
-
-if(order.status === "Ironing"){
-
-statusClass =
-"ironing";
+"preparing";
 
 }
 
@@ -394,20 +277,54 @@ statusClass =
 }
 
 /* =====================================
-PLACED TIME
+ITEMS
 ===================================== */
 
-let placedTime = "";
+let itemsHTML = "";
+
+let totalItems = 0;
+
+(order.items || [])
+.forEach((item)=>{
+
+totalItems +=
+Number(item.qty || 1);
+
+itemsHTML += `
+
+<div class="item">
+
+<div>
+
+${item.name}
+
+</div>
+
+<div>
+
+${item.qty || 1}
+x ₹${item.price || 0}
+
+</div>
+
+</div>
+
+`;
+
+});
+
+/* =====================================
+TIME
+===================================== */
+
+let orderTime = "--";
 
 if(order.createdAt?.seconds){
 
-const date =
+orderTime =
 new Date(
 order.createdAt.seconds * 1000
-);
-
-placedTime =
-date.toLocaleString();
+).toLocaleString();
 
 }
 
@@ -415,17 +332,21 @@ date.toLocaleString();
 CARD
 ===================================== */
 
-html += `
+const card = `
 
 <div class="orderCard">
 
-<div class="orderTop">
+<!-- TOP -->
 
-<div class="userInfo">
+<div class="cardTop">
+
+<div class="customer">
 
 <div class="avatar">
 
-📦
+${order.name
+?.charAt(0)
+|| "U"}
 
 </div>
 
@@ -440,8 +361,6 @@ ${order.name || "Customer"}
 <p>
 
 ${order.city || ""}
-•
-${order.state || ""}
 
 </p>
 
@@ -457,14 +376,14 @@ ${order.status || "Pending"}
 
 </div>
 
-<!-- SUMMARY -->
+<!-- INFO -->
 
-<div class="summaryGrid">
+<div class="infoGrid">
 
-<div class="summaryBox">
+<div class="infoBox">
 
 <span>
-Amount
+Order Amount
 </span>
 
 <h4>
@@ -475,7 +394,7 @@ Amount
 
 </div>
 
-<div class="summaryBox">
+<div class="infoBox">
 
 <span>
 Items
@@ -483,13 +402,13 @@ Items
 
 <h4>
 
-${order.items?.length || 0}
+${totalItems}
 
 </h4>
 
 </div>
 
-<div class="summaryBox">
+<div class="infoBox">
 
 <span>
 Payment
@@ -503,15 +422,15 @@ ${order.paymentMethod || "COD"}
 
 </div>
 
-<div class="summaryBox">
+<div class="infoBox">
 
 <span>
-Placed
+Order Time
 </span>
 
 <h4>
 
-${placedTime || "--"}
+${orderTime}
 
 </h4>
 
@@ -519,19 +438,29 @@ ${placedTime || "--"}
 
 </div>
 
-<!-- ASSIGN -->
+<!-- ITEMS -->
 
-<div class="section">
+<div class="itemsBox">
 
-<div class="sectionTitle">
+<h4>
+Order Items
+</h4>
 
-Assignment
+${itemsHTML}
 
 </div>
 
-<div class="track">
+<!-- ASSIGN -->
 
-<div class="trackBox">
+<div class="assignBox">
+
+<h4>
+Assignment
+</h4>
+
+<div class="assignGrid">
+
+<div class="assignCard">
 
 <span>
 Partner
@@ -545,7 +474,7 @@ ${order.partnerName || "Not Assigned"}
 
 </div>
 
-<div class="trackBox">
+<div class="assignCard">
 
 <span>
 Rider
@@ -571,7 +500,7 @@ ${order.riderName || "Not Assigned"}
 class="btn viewBtn"
 onclick="viewOrder('${order.id}')">
 
-Summary
+View
 
 </button>
 
@@ -584,11 +513,8 @@ Assign
 </button>
 
 <button
-class="btn updateBtn"
-onclick="updateStatus(
-'${order.id}',
-'${order.status || "Pending"}'
-)">
+class="btn statusBtn"
+onclick="updateStatus('${order.id}')">
 
 Status
 
@@ -600,38 +526,126 @@ Status
 
 `;
 
+ordersGrid.innerHTML += card;
+
 });
-
-/* =====================================
-UPDATE STATS
-===================================== */
-
-totalOrders.innerHTML =
-allOrders.length;
-
-pendingOrders.innerHTML =
-pending;
-
-runningOrders.innerHTML =
-running;
-
-deliveredOrders.innerHTML =
-delivered;
-
-totalRevenue.innerHTML =
-`₹${total}`;
-
-/* =====================================
-SHOW
-===================================== */
-
-orderGrid.innerHTML =
-html;
 
 }
 
 /* =========================================================
-LOAD STATES
+SEARCH EVENTS
 ========================================================= */
 
-loadStates();
+searchInput.addEventListener(
+"input",
+renderOrders
+);
+
+cityFilter.addEventListener(
+"change",
+renderOrders
+);
+
+statusFilter.addEventListener(
+"change",
+renderOrders
+);
+
+/* =========================================================
+VIEW ORDER
+========================================================= */
+
+window.viewOrder =
+(id)=>{
+
+window.location.href =
+`order-view.html?id=${id}`;
+
+};
+
+/* =========================================================
+ASSIGN ORDER
+========================================================= */
+
+window.assignOrder =
+async(id)=>{
+
+const partner =
+prompt(
+"Enter Partner Name"
+);
+
+const rider =
+prompt(
+"Enter Rider Name"
+);
+
+if(!partner || !rider){
+
+return;
+
+}
+
+await updateDoc(
+
+doc(db,"orders",id),
+
+{
+
+partnerName:partner,
+riderName:rider,
+
+assigned:true
+
+}
+
+);
+
+alert(
+"Order Assigned"
+);
+
+};
+
+/* =========================================================
+UPDATE STATUS
+========================================================= */
+
+window.updateStatus =
+async(id)=>{
+
+const status =
+prompt(
+
+`Enter Status:
+
+Pending
+Preparing
+Out For Delivery
+Delivered`
+
+);
+
+if(!status){
+
+return;
+
+}
+
+await updateDoc(
+
+doc(db,"orders",id),
+
+{
+
+status:status
+
+}
+
+);
+
+alert(
+"Status Updated"
+);
+
+};
