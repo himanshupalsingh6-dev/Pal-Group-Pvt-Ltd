@@ -1,3 +1,8 @@
+/* =========================================================
+FILE : admin/components/sidebar.js
+QUICKPRESS ENTERPRISE SIDEBAR
+========================================================= */
+
 const sidebar =
 document.getElementById(
 "sidebar"
@@ -8,13 +13,37 @@ window.location.pathname
 .split("/")
 .pop();
 
-/* ===================================================== */
+/* =========================================================
+SIDEBAR HTML
+========================================================= */
 
 sidebar.innerHTML = `
 
 <div class="sidebar">
 
+<!-- =====================================================
+LOGO
+===================================================== -->
+
+<div class="sidebarLogo">
+
+<h2>
+QuickPress
+</h2>
+
+<p>
+Enterprise Panel
+</p>
+
+</div>
+
+<!-- =====================================================
+MENU
+===================================================== -->
+
 <div class="sidebarMenu">
+
+<!-- DASHBOARD -->
 
 <a
 href="index.html"
@@ -23,6 +52,8 @@ class="${currentPage === 'index.html' ? 'active' : ''}">
 Dashboard
 
 </a>
+
+<!-- OPERATIONS -->
 
 <a
 href="orders.html"
@@ -41,12 +72,56 @@ Services
 </a>
 
 <a
+href="delivery.html"
+class="${currentPage === 'delivery.html' ? 'active' : ''}">
+
+Delivery
+
+</a>
+
+<a
+href="tracking.html"
+class="${currentPage === 'tracking.html' ? 'active' : ''}">
+
+Live Tracking
+
+</a>
+
+<!-- USERS -->
+
+<a
 href="users.html"
 class="${currentPage === 'users.html' ? 'active' : ''}">
 
 Users
 
 </a>
+
+<a
+href="crm.html"
+class="${currentPage === 'crm.html' ? 'active' : ''}">
+
+CRM System
+
+</a>
+
+<a
+href="complaints.html"
+class="${currentPage === 'complaints.html' ? 'active' : ''}">
+
+Complaints
+
+</a>
+
+<a
+href="live-support.html"
+class="${currentPage === 'live-support.html' ? 'active' : ''}">
+
+Live Support
+
+</a>
+
+<!-- PARTNERS -->
 
 <a
 href="partners.html"
@@ -57,6 +132,16 @@ Partners
 </a>
 
 <a
+href="franchise.html"
+class="${currentPage === 'franchise.html' ? 'active' : ''}">
+
+Franchise
+
+</a>
+
+<!-- RIDERS -->
+
+<a
 href="riders.html"
 class="${currentPage === 'riders.html' ? 'active' : ''}">
 
@@ -65,12 +150,14 @@ Riders
 </a>
 
 <a
-href="delivery.html"
-class="${currentPage === 'delivery.html' ? 'active' : ''}">
+href="ai-assignment.html"
+class="${currentPage === 'ai-assignment.html' ? 'active' : ''}">
 
-Delivery
+AI Assignment
 
 </a>
+
+<!-- PAYMENTS -->
 
 <a
 href="payments.html"
@@ -97,10 +184,28 @@ Settlements
 </a>
 
 <a
-href="expenses.html"
-class="${currentPage === 'expenses.html' ? 'active' : ''}">
+href="subscriptions.html"
+class="${currentPage === 'subscriptions.html' ? 'active' : ''}">
 
-Expenses
+Subscriptions
+
+</a>
+
+<!-- ANALYTICS -->
+
+<a
+href="analytics.html"
+class="${currentPage === 'analytics.html' ? 'active' : ''}">
+
+Analytics
+
+</a>
+
+<a
+href="heatmap.html"
+class="${currentPage === 'heatmap.html' ? 'active' : ''}">
+
+Heatmap
 
 </a>
 
@@ -113,12 +218,14 @@ Reports
 </a>
 
 <a
-href="analytics.html"
-class="${currentPage === 'analytics.html' ? 'active' : ''}">
+href="expenses.html"
+class="${currentPage === 'expenses.html' ? 'active' : ''}">
 
-Analytics
+Expenses
 
 </a>
+
+<!-- MARKETING -->
 
 <a
 href="offers.html"
@@ -129,34 +236,20 @@ Offers
 </a>
 
 <a
-href="support.html"
-class="${currentPage === 'support.html' ? 'active' : ''}">
+href="pushnotifications.html"
+class="${currentPage === 'pushnotifications.html' ? 'active' : ''}">
 
-Support
-
-</a>
-
-<a
-href="chat.html"
-class="${currentPage === 'chat.html' ? 'active' : ''}">
-
-Live Chat
+Push Notifications
 
 </a>
 
-<a
-href="tracking.html"
-class="${currentPage === 'tracking.html' ? 'active' : ''}">
-
-Live Tracking
-
-</a>
+<!-- GST -->
 
 <a
-href="notifications.html"
-class="${currentPage === 'notifications.html' ? 'active' : ''}">
+href="gst-invoice.html"
+class="${currentPage === 'gst-invoice.html' ? 'active' : ''}">
 
-Notifications
+GST Invoice
 
 </a>
 
@@ -168,11 +261,13 @@ Invoices
 
 </a>
 
-<a
-href="export.html"
-class="${currentPage === 'export.html' ? 'active' : ''}">
+<!-- ADMIN -->
 
-Export Center
+<a
+href="superadmin.html"
+class="${currentPage === 'superadmin.html' ? 'active' : ''}">
+
+Super Admin
 
 </a>
 
@@ -200,11 +295,29 @@ Audit Logs
 
 </a>
 
-<a
-href="staff.html"
-class="${currentPage === 'staff.html' ? 'active' : ''}">
+<!-- SYSTEM -->
 
-Staff
+<a
+href="notifications.html"
+class="${currentPage === 'notifications.html' ? 'active' : ''}">
+
+Notifications
+
+</a>
+
+<a
+href="export.html"
+class="${currentPage === 'export.html' ? 'active' : ''}">
+
+Export Center
+
+</a>
+
+<a
+href="support.html"
+class="${currentPage === 'support.html' ? 'active' : ''}">
+
+Support
 
 </a>
 
@@ -229,3 +342,11 @@ Settings
 </div>
 
 `;
+
+/* =========================================================
+READY
+========================================================= */
+
+console.log(
+"QuickPress Sidebar Active"
+);
