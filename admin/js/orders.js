@@ -206,20 +206,18 @@ allOrders.forEach((order)=>{
 /* =====================================
 SEARCH
 ===================================== */
-
 if(
 search &&
 !(
-order.name || ""
-)
-toLowerCase()
+(order.name || "")
+.toLowerCase()
 .includes(search)
+)
 ){
 
 return;
 
 }
-
 /* =====================================
 CITY
 ===================================== */
