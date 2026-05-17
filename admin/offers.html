@@ -19,6 +19,7 @@ QuickPress Offers
 <link rel="stylesheet"
 href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css"/>
 
+<link rel="stylesheet" href="./css/global.css"/>
 <style>
 
 *{
@@ -32,61 +33,7 @@ body{
 background:#F5F7FB;
 overflow:hidden;
 }
-
-.topbar{
-position:fixed;
-top:0;
-left:0;
-right:0;
-height:82px;
-background:#fff;
-border-bottom:1px solid #E5E7EB;
-display:flex;
-align-items:center;
-padding:0 24px;
-z-index:999;
-}
-
-.logo{
-font-size:32px;
-font-weight:900;
-}
-
-.sidebar{
-position:fixed;
-top:82px;
-left:0;
-bottom:0;
-width:240px;
-background:#fff;
-border-right:1px solid #E5E7EB;
-padding:18px 10px;
-}
-
-.sidebarMenu{
-display:flex;
-flex-direction:column;
-gap:6px;
-}
-
-.sidebarMenu a{
-height:52px;
-padding:0 16px;
-display:flex;
-align-items:center;
-gap:14px;
-border-radius:14px;
-text-decoration:none;
-font-size:15px;
-font-weight:600;
-color:#374151;
-}
-
-.sidebarMenu a.active{
-background:#111827;
-color:#fff;
-}
-
+  
 .main{
 margin-left:240px;
 margin-top:82px;
@@ -171,41 +118,9 @@ cursor:pointer;
 
 <body>
 
-<div class="topbar">
+<div id="topbar"></div>
 
-<div class="logo">
-QuickPress
-</div>
-
-</div>
-
-<div class="sidebar">
-
-<div class="sidebarMenu">
-
-<a href="index.html">
-<i class="fa-solid fa-chart-line"></i>
-Dashboard
-</a>
-
-<a href="support.html">
-<i class="fa-solid fa-headset"></i>
-Support
-</a>
-
-<a href="reports.html">
-<i class="fa-solid fa-file-lines"></i>
-Reports
-</a>
-
-<a href="offers.html" class="active">
-<i class="fa-solid fa-tags"></i>
-Offers
-</a>
-
-</div>
-
-</div>
+<div id="sidebar"></div>
 
 <div class="main">
 
@@ -235,6 +150,14 @@ id="offerGrid">
 
 <script type="module"
 src="./js/offers.js">
+</script>
+
+<script type="module"
+src="./components/topbar.js">
+</script>
+
+<script type="module"
+src="./components/sidebar.js">
 </script>
 
 </body>
