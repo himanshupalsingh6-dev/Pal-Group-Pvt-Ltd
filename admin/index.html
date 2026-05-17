@@ -19,15 +19,16 @@ QuickPress Enterprise Dashboard
 
 <link rel="stylesheet"
 href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css"/>
- 
-<link
+
+ <link
 rel="stylesheet"
 href="./css/global.css"/>
 
-  
 <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
- 
- <style> /* =====================================================
+
+<style>
+
+/* =====================================================
 GLOBAL
 ===================================================== */
 
@@ -370,15 +371,148 @@ border-radius:20px;
 }
 
 </style>
- 
+
 </head>
- 
-  <body>
-    <div id="topbar"></div>
+
+<body>
+
+<div id="topbar"></div>
 
 <div id="sidebar"></div>
+<!-- =====================================================
+TOPBAR
+===================================================== -->
 
+<div class="topbar">
 
+<div class="logo">
+QuickPress
+</div>
+
+<div class="topRight">
+
+<a href="notifications.html" class="topBtn">
+
+<i class="fa-regular fa-bell"></i>
+
+<div
+class="badge"
+id="notificationCount">
+
+0
+
+</div>
+
+</a>
+
+<a href="settings.html" class="topBtn">
+
+<i class="fa-solid fa-gear"></i>
+
+</a>
+
+<div class="liveStatus">
+
+<div class="dot"></div>
+
+LIVE
+
+</div>
+
+<div class="profile">
+
+<img src="https://i.pravatar.cc/150?img=12">
+
+<div>
+
+<b>
+Admin
+</b>
+
+</div>
+
+</div>
+
+</div>
+
+</div>
+
+<!-- =====================================================
+SIDEBAR
+===================================================== -->
+
+<div class="sidebar">
+
+<div class="sidebarMenu">
+
+<a href="index.html" class="active">
+<i class="fa-solid fa-bag-shopping"></i>
+Dashboard
+</a>
+
+<a href="orders.html">
+<i class="fa-solid fa-box"></i>
+Orders
+</a>
+
+<a href="services.html">
+<i class="fa-solid fa-shirt"></i>
+Services
+</a>
+
+<a href="users.html">
+<i class="fa-solid fa-users"></i>
+Users
+</a>
+
+<a href="partners.html">
+<i class="fa-solid fa-store"></i>
+Partners
+</a>
+
+<a href="riders.html">
+<i class="fa-solid fa-motorcycle"></i>
+Riders
+</a>
+
+<a href="payments.html">
+<i class="fa-solid fa-wallet"></i>
+Finance
+</a>
+
+<a href="settlements.html">
+<i class="fa-solid fa-money-bill-transfer"></i>
+Payouts
+</a>
+
+<a href="reports.html">
+<i class="fa-solid fa-chart-line"></i>
+Reports
+</a>
+
+<a href="offers.html">
+<i class="fa-solid fa-tags"></i>
+Offers
+</a>
+
+<a href="analytics.html">
+<i class="fa-solid fa-chart-column"></i>
+Analytics
+</a>
+
+<a href="support.html">
+<i class="fa-solid fa-headset"></i>
+Support
+</a>
+
+<a href="settings.html">
+<i class="fa-solid fa-gear"></i>
+Settings
+</a>
+
+</div>
+
+</div>
 
 <!-- =====================================================
 MAIN
@@ -661,7 +795,6 @@ Revenue Growth
 <script type="module"
 src="./js/dashboard.js">
 </script>
-
 <script type="module"
 src="./components/topbar.js">
 </script>
