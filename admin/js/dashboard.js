@@ -120,6 +120,13 @@ document.getElementById(
 "ordersContainer"
 );
 
+if(!ordersContainer){
+
+console.error(
+"ordersContainer missing"
+);
+}
+
 const totalOrders =
 document.getElementById(
 "totalOrders"
