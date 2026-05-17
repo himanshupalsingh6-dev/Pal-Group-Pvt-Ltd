@@ -1,6 +1,7 @@
 /* =========================================================
 FILE : admin/js/dashboard.js
-QUICKPRESS MINIMAL ENTERPRISE DASHBOARD
+QUICKPRESS ENTERPRISE DASHBOARD
+REALTIME FIREBASE SYSTEM
 ========================================================= */
 
 import { db }
@@ -14,8 +15,7 @@ import {
 collection,
 onSnapshot,
 query,
-orderBy,
-limit
+orderBy
 
 }
 
@@ -24,249 +24,218 @@ from
 "https://www.gstatic.com/firebasejs/12.11.0/firebase-firestore.js";
 
 /* =========================================================
-AUTH CHECK
-========================================================= */
-
-const adminSession =
-localStorage.getItem(
-"quickpress_admin"
-);
-
-if(adminSession !== "true"){
-
-window.location.href =
-"login.html";
-
-}
-
-/* =========================================================
-DESKTOP ONLY
-========================================================= */
-
-const isTouch =
-'ontouchstart'
-in window;
-
-const isMobileUA =
-/Android|iPhone|iPad|iPod/i
-.test(
-navigator.userAgent
-);
-
-if(
-window.innerWidth < 1024
-||
-isTouch
-||
-isMobileUA
-){
-
-document.body.innerHTML = `
-
-<div
-style="
-height:100vh;
-display:flex;
-align-items:center;
-justify-content:center;
-background:#081028;
-color:white;
-font-family:Poppins,sans-serif;
-padding:30px;
-text-align:center;
-">
-
-<div>
-
-<div
-style="
-font-size:90px;
-margin-bottom:25px;
-color:#FFD400;
-">
-
-🖥️
-
-</div>
-
-<h1
-style="
-font-size:42px;
-font-weight:900;
-">
-
-Desktop Only
-
-</h1>
-
-<p
-style="
-margin-top:18px;
-line-height:1.8;
-color:#9CA3AF;
-">
-
-QuickPress Admin Panel only works on Laptop/Desktop.
-
-</p>
-
-</div>
-
-</div>
-
-`;
-
-}
-
-/* =========================================================
 ELEMENTS
 ========================================================= */
+
+const ordersContainer =
+document.getElementById(
+"ordersContainer"
+);
 
 const totalOrders =
 document.getElementById(
 "totalOrders"
 );
 
-const todayRevenue =
+const pendingOrders =
 document.getElementById(
-"todayRevenue"
+"pendingOrders"
 );
 
-const adminProfit =
+const preparingOrders =
 document.getElementById(
-"adminProfit"
+"preparingOrders"
 );
 
-const totalUsers =
+const deliveryOrders =
 document.getElementById(
-"totalUsers"
+"deliveryOrders"
 );
 
-const totalPartners =
+const deliveredOrders =
 document.getElementById(
-"totalPartners"
+"deliveredOrders"
 );
 
-const activityFeed =
+const revenue =
 document.getElementById(
-"activityFeed"
+"revenue"
 );
 
-const citySelector =
+const notificationCount =
 document.getElementById(
-"citySelector"
+"notificationCount"
+);
+
+const searchInput =
+document.getElementById(
+"searchInput"
+);
+
+const cityFilter =
+document.getElementById(
+"cityFilter"
+);
+
+const statusFilter =
+document.getElementById(
+"statusFilter"
 );
 
 /* =========================================================
-CITY FILTER
+DATA STORAGE
 ========================================================= */
 
-let selectedCity = "All";
+let allOrders = [];
 
-citySelector.addEventListener(
-"change",
-()=>{
-
-selectedCity =
-citySelector.value;
-
-loadDashboard();
-
-}
-);
+let revenueChart = null;
 
 /* =========================================================
-GRAPH
+LOAD ORDERS
 ========================================================= */
-
-let revenueChart;
-
-/* =========================================================
-LOAD DASHBOARD
-========================================================= */
-
-function loadDashboard(){
-
-/* =========================================
-LIVE ORDERS
-========================================= */
 
 onSnapshot(
 
 query(
 collection(db,"orders"),
-orderBy("createdAt","desc"),
-limit(20)
+orderBy("createdAt","desc")
 ),
 
 (snapshot)=>{
 
-let total = 0;
+allOrders = [];
 
-let orderCount = 0;
+let totalRevenue = 0;
 
-let profit = 0;
+let pending = 0;
+let preparing = 0;
+let delivery = 0;
+let delivered = 0;
 
-let chartData = [];
+let citySet =
+new Set();
 
-let activityHTML = "";
+/* =========================================
+CLEAR
+========================================= */
 
-/* =====================================
+ordersContainer.innerHTML = "";
+
+/* =========================================
 LOOP
-===================================== */
+========================================= */
 
-snapshot.forEach((doc)=>{
+snapshot.forEach((docSnap)=>{
 
-const order =
-doc.data();
+const order = {
 
-const orderId =
-doc.id;
+id:docSnap.id,
+...docSnap.data()
 
-/* =====================================
-CITY FILTER
-===================================== */
+};
+
+allOrders.push(order);
+
+/* =========================================
+CITYS
+========================================= */
+
+if(order.city){
+
+citySet.add(order.city);
+
+}
+
+/* =========================================
+STATS
+========================================= */
+
+totalRevenue +=
+Number(order.total || 0);
+
+if(order.status === "Pending"){
+
+pending++;
+
+}
 
 if(
+order.status === "Preparing"
+||
+order.status === "Ironing"
+){
 
-selectedCity !== "All"
+preparing++;
 
+}
+
+if(order.status === "Out For Delivery"){
+
+delivery++;
+
+}
+
+if(order.status === "Delivered"){
+
+delivered++;
+
+}
+
+/* =========================================
+SEARCH FILTER
+========================================= */
+
+const search =
+searchInput.value
+.toLowerCase();
+
+const selectedCity =
+cityFilter.value;
+
+const selectedStatus =
+statusFilter.value;
+
+if(
+search &&
+!(
+order.name || ""
+)
+.toLowerCase()
+.includes(search)
 &&
-
-order.city !== selectedCity
-
+!(
+order.mobile || ""
+)
+.includes(search)
 ){
 
 return;
 
 }
 
-/* =====================================
-TOTALS
-===================================== */
+if(
+selectedCity !== "All"
+&&
+order.city !== selectedCity
+){
 
-orderCount++;
+return;
 
-const orderTotal =
-Number(order.total || 0);
+}
 
-total += orderTotal;
+if(
+selectedStatus !== "All"
+&&
+order.status !== selectedStatus
+){
 
-/* =====================================
-ADMIN PROFIT
-20%
-===================================== */
+return;
 
-const adminCommission =
-(orderTotal * 20) / 100;
+}
 
-profit += adminCommission;
-
-chartData.push(orderTotal);
-
-/* =====================================
-STATUS
-===================================== */
+/* =========================================
+STATUS CLASS
+========================================= */
 
 let statusClass =
 "pending";
@@ -278,53 +247,92 @@ statusClass =
 
 }
 
-if(
-order.status ===
-"Out For Delivery"
-){
+if(order.status === "Out For Delivery"){
 
 statusClass =
 "delivery";
 
 }
 
-/* =====================================
-LIVE ACTIVITY
-===================================== */
+/* =========================================
+TIME
+========================================= */
 
-activityHTML += `
+let orderTime = "--";
 
-<div
-class="activityItem"
-onclick="openOrder('${orderId}')">
+if(order.createdAt?.seconds){
 
-<div class="activityTop">
+orderTime =
+new Date(
+order.createdAt.seconds * 1000
+).toLocaleTimeString();
 
-<div class="activityLeft">
+}
 
-<div class="activityIcon">
+/* =========================================
+ROW
+========================================= */
 
-📦
+const row = `
+
+<div class="orderRow">
+
+<div>
+
+#${order.id.slice(0,6)}
+
+</div>
+
+<div class="customer">
+
+<div class="customerAvatar">
+
+${order.name
+?.charAt(0)
+|| "U"}
 
 </div>
 
 <div>
 
-<h4>
+<b>
 
 ${order.name || "Customer"}
 
-</h4>
+</b>
 
-<p>
+<br>
 
-${order.city || "City"}
+<small>
 
-</p>
+${order.city || ""}
+
+</small>
 
 </div>
 
 </div>
+
+<div>
+
+${order.items?.length || 0}
+Items
+
+</div>
+
+<div>
+
+₹${order.total || 0}
+
+</div>
+
+<div>
+
+${order.paymentMethod || "COD"}
+
+</div>
+
+<div>
 
 <div class="status ${statusClass}">
 
@@ -334,49 +342,21 @@ ${order.status || "Pending"}
 
 </div>
 
-<div class="summary">
+<div>
 
-<div class="summaryBox">
-
-<span>
-Amount
-</span>
-
-<h5>
-
-₹${orderTotal}
-
-</h5>
+${orderTime}
 
 </div>
 
-<div class="summaryBox">
+<div>
 
-<span>
-Items
-</span>
+<button
+class="actionBtn"
+onclick="window.location.href='orders.html?id=${order.id}'">
 
-<h5>
+View
 
-${order.items?.length || 0}
-
-</h5>
-
-</div>
-
-<div class="summaryBox">
-
-<span>
-Payment
-</span>
-
-<h5>
-
-${order.paymentMethod || "COD"}
-
-</h5>
-
-</div>
+</button>
 
 </div>
 
@@ -384,100 +364,326 @@ ${order.paymentMethod || "COD"}
 
 `;
 
+ordersContainer.innerHTML += row;
+
 });
 
-/* =====================================
-UPDATE UI
-===================================== */
+/* =========================================
+UPDATE STATS
+========================================= */
 
 totalOrders.innerHTML =
-orderCount;
+snapshot.size;
 
-todayRevenue.innerHTML =
-`₹${total}`;
+pendingOrders.innerHTML =
+pending;
 
-adminProfit.innerHTML =
-`₹${Math.floor(profit)}`;
+preparingOrders.innerHTML =
+preparing;
 
-activityFeed.innerHTML =
-activityHTML;
+deliveryOrders.innerHTML =
+delivery;
 
-/* =====================================
+deliveredOrders.innerHTML =
+delivered;
+
+revenue.innerHTML =
+`₹${totalRevenue}`;
+
+/* =========================================
+NOTIFICATION COUNT
+========================================= */
+
+notificationCount.innerHTML =
+pending;
+
+/* =========================================
+LOAD CITIES
+========================================= */
+
+loadCities([...citySet]);
+
+/* =========================================
 GRAPH
-===================================== */
+========================================= */
 
-loadRevenueChart(
-chartData
-);
+loadRevenueChart();
 
 }
 
-/* END SNAPSHOT */
-
-);
-
-}
-
-/* =========================================================
-USERS
-========================================================= */
-
-onSnapshot(
-
-collection(db,"users"),
-
-(snapshot)=>{
-
-totalUsers.innerHTML =
-snapshot.size;
-
-}
+/* END */
 
 );
 
 /* =========================================================
-PARTNERS
+LOAD CITY FILTER
 ========================================================= */
 
-onSnapshot(
+function loadCities(cities){
 
-collection(db,"partners"),
+const current =
+cityFilter.value;
 
-(snapshot)=>{
+cityFilter.innerHTML = `
 
-totalPartners.innerHTML =
-snapshot.size;
+<option value="All">
+All Cities
+</option>
+
+`;
+
+cities.forEach((city)=>{
+
+cityFilter.innerHTML += `
+
+<option value="${city}">
+${city}
+</option>
+
+`;
+
+});
+
+cityFilter.value = current;
 
 }
 
+/* =========================================================
+SEARCH
+========================================================= */
+
+searchInput.addEventListener(
+"input",
+()=>{
+
+reloadOrders();
+
+}
+);
+
+cityFilter.addEventListener(
+"change",
+()=>{
+
+reloadOrders();
+
+}
+);
+
+statusFilter.addEventListener(
+"change",
+()=>{
+
+reloadOrders();
+
+}
 );
 
 /* =========================================================
-OPEN ORDER
+RELOAD
 ========================================================= */
 
-window.openOrder =
-(id)=>{
+function reloadOrders(){
 
-window.location.href =
-`orders.html?id=${id}`;
+ordersContainer.innerHTML = "";
 
-};
+allOrders.forEach((order)=>{
+
+const search =
+searchInput.value
+.toLowerCase();
+
+const selectedCity =
+cityFilter.value;
+
+const selectedStatus =
+statusFilter.value;
+
+/* ========================================= */
+
+if(
+search &&
+!(
+order.name || ""
+)
+.toLowerCase()
+.includes(search)
+&&
+!(
+order.mobile || ""
+)
+.includes(search)
+){
+
+return;
+
+}
+
+if(
+selectedCity !== "All"
+&&
+order.city !== selectedCity
+){
+
+return;
+
+}
+
+if(
+selectedStatus !== "All"
+&&
+order.status !== selectedStatus
+){
+
+return;
+
+}
+
+/* ========================================= */
+
+let statusClass =
+"pending";
+
+if(order.status === "Delivered"){
+
+statusClass =
+"delivered";
+
+}
+
+if(order.status === "Out For Delivery"){
+
+statusClass =
+"delivery";
+
+}
+
+/* ========================================= */
+
+let orderTime = "--";
+
+if(order.createdAt?.seconds){
+
+orderTime =
+new Date(
+order.createdAt.seconds * 1000
+).toLocaleTimeString();
+
+}
+
+/* ========================================= */
+
+const row = `
+
+<div class="orderRow">
+
+<div>
+
+#${order.id.slice(0,6)}
+
+</div>
+
+<div class="customer">
+
+<div class="customerAvatar">
+
+${order.name
+?.charAt(0)
+|| "U"}
+
+</div>
+
+<div>
+
+<b>
+
+${order.name || "Customer"}
+
+</b>
+
+<br>
+
+<small>
+
+${order.city || ""}
+
+</small>
+
+</div>
+
+</div>
+
+<div>
+
+${order.items?.length || 0}
+Items
+
+</div>
+
+<div>
+
+₹${order.total || 0}
+
+</div>
+
+<div>
+
+${order.paymentMethod || "COD"}
+
+</div>
+
+<div>
+
+<div class="status ${statusClass}">
+
+${order.status || "Pending"}
+
+</div>
+
+</div>
+
+<div>
+
+${orderTime}
+
+</div>
+
+<div>
+
+<button
+class="actionBtn"
+onclick="window.location.href='orders.html?id=${order.id}'">
+
+View
+
+</button>
+
+</div>
+
+</div>
+
+`;
+
+ordersContainer.innerHTML += row;
+
+});
+
+}
 
 /* =========================================================
 REVENUE GRAPH
 ========================================================= */
 
-function loadRevenueChart(data){
+function loadRevenueChart(){
 
 const ctx =
 document.getElementById(
 "revenueChart"
 );
 
-/* =====================================
+/* =========================================
 DESTROY OLD
-===================================== */
+========================================= */
 
 if(revenueChart){
 
@@ -485,34 +691,121 @@ revenueChart.destroy();
 
 }
 
-/* =====================================
-NEW CHART
-===================================== */
+/* =========================================
+WEEK DATA
+========================================= */
+
+let monday = 0;
+let tuesday = 0;
+let wednesday = 0;
+let thursday = 0;
+let friday = 0;
+let saturday = 0;
+let sunday = 0;
+
+/* ========================================= */
+
+allOrders.forEach((order)=>{
+
+const amount =
+Number(order.total || 0);
+
+if(!order.createdAt?.seconds) return;
+
+const date =
+new Date(
+order.createdAt.seconds * 1000
+);
+
+const day =
+date.getDay();
+
+/* ========================================= */
+
+if(day === 1){
+
+monday += amount;
+
+}
+
+if(day === 2){
+
+tuesday += amount;
+
+}
+
+if(day === 3){
+
+wednesday += amount;
+
+}
+
+if(day === 4){
+
+thursday += amount;
+
+}
+
+if(day === 5){
+
+friday += amount;
+
+}
+
+if(day === 6){
+
+saturday += amount;
+
+}
+
+if(day === 0){
+
+sunday += amount;
+
+}
+
+});
+
+/* =========================================
+GRAPH
+========================================= */
 
 revenueChart =
 new Chart(ctx, {
 
-type:"line",
+type:'line',
 
 data:{
 
-labels:data.map((_,i)=>
-
-`Order ${i+1}`
-
-),
+labels:[
+'Mon',
+'Tue',
+'Wed',
+'Thu',
+'Fri',
+'Sat',
+'Sun'
+],
 
 datasets:[{
 
-label:"Revenue",
+label:'Revenue',
 
-data:data,
+data:[
+
+monday,
+tuesday,
+wednesday,
+thursday,
+friday,
+saturday,
+sunday
+
+],
 
 borderWidth:4,
-
-tension:0.4,
-
-fill:true
+fill:true,
+tension:0.4
 
 }]
 
@@ -528,16 +821,6 @@ legend:{
 display:false
 }
 
-},
-
-scales:{
-
-y:{
-
-beginAtZero:true
-
-}
-
 }
 
 }
@@ -547,17 +830,46 @@ beginAtZero:true
 }
 
 /* =========================================================
-AUTO REFRESH
+EXPORT CSV
 ========================================================= */
 
-setInterval(()=>{
+window.exportOrders =
+()=>{
 
-loadDashboard();
+let csv =
+"OrderID,Customer,City,Amount,Status\n";
 
-},10000);
+allOrders.forEach((order)=>{
 
-/* =========================================================
-START
-========================================================= */
+csv += `
 
-loadDashboard();
+${order.id},
+${order.name},
+${order.city},
+${order.total},
+${order.status}
+
+`;
+
+});
+
+const blob =
+new Blob(
+[csv],
+{
+type:"text/csv"
+}
+);
+
+const link =
+document.createElement("a");
+
+link.href =
+URL.createObjectURL(blob);
+
+link.download =
+"quickpress-orders.csv";
+
+link.click();
+
+};
