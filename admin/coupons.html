@@ -1,0 +1,353 @@
+<!-- =========================================================
+FILE : admin/coupons.html
+QUICKPRESS COUPON MANAGEMENT SYSTEM
+========================================================= -->
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+<meta charset="UTF-8"/>
+
+<meta name="viewport"
+content="width=device-width, initial-scale=1.0"/>
+
+<title>
+Coupon Management
+</title>
+
+<link rel="stylesheet"
+href="./css/global.css"/>
+
+<link rel="stylesheet"
+href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css"/>
+
+<style>
+
+/* =====================================================
+HEADER
+===================================================== */
+
+.pageHeader{
+display:flex;
+justify-content:space-between;
+align-items:center;
+margin-bottom:24px;
+}
+
+.pageHeader h1{
+font-size:52px;
+font-weight:900;
+}
+
+/* =====================================================
+LAYOUT
+===================================================== */
+
+.layoutGrid{
+display:grid;
+grid-template-columns:420px 1fr;
+gap:24px;
+}
+
+/* =====================================================
+FORM
+===================================================== */
+
+.couponForm{
+background:#fff;
+border-radius:28px;
+border:1px solid #E5E7EB;
+padding:28px;
+}
+
+.couponForm h2{
+font-size:32px;
+font-weight:900;
+margin-bottom:24px;
+}
+
+.inputGroup{
+margin-bottom:18px;
+}
+
+.inputGroup label{
+display:block;
+font-size:13px;
+font-weight:800;
+margin-bottom:10px;
+}
+
+.inputField{
+width:100%;
+height:54px;
+border-radius:16px;
+border:1px solid #E5E7EB;
+padding:0 18px;
+font-size:14px;
+outline:none;
+}
+
+.createBtn{
+width:100%;
+height:56px;
+border:none;
+border-radius:18px;
+background:#111827;
+color:#fff;
+font-size:15px;
+font-weight:800;
+cursor:pointer;
+margin-top:10px;
+}
+
+/* =====================================================
+TABLE
+===================================================== */
+
+.tableWrap{
+background:#fff;
+border-radius:28px;
+border:1px solid #E5E7EB;
+overflow:hidden;
+}
+
+.tableHead{
+height:62px;
+display:grid;
+grid-template-columns:
+180px
+160px
+160px
+160px
+160px
+160px;
+align-items:center;
+padding:0 20px;
+font-size:14px;
+font-weight:900;
+border-bottom:1px solid #E5E7EB;
+}
+
+.couponRow{
+min-height:84px;
+display:grid;
+grid-template-columns:
+180px
+160px
+160px
+160px
+160px
+160px;
+align-items:center;
+padding:0 20px;
+border-bottom:1px solid #F3F4F6;
+font-size:14px;
+}
+
+/* =====================================================
+BADGES
+===================================================== */
+
+.badge{
+padding:10px 14px;
+border-radius:999px;
+font-size:12px;
+font-weight:900;
+width:max-content;
+}
+
+.active{
+background:#DCFCE7;
+color:#166534;
+}
+
+.expired{
+background:#FEE2E2;
+color:#991B1B;
+}
+
+/* =====================================================
+BUTTONS
+===================================================== */
+
+.actionBtn{
+height:42px;
+padding:0 16px;
+border:none;
+border-radius:12px;
+background:#111827;
+color:#fff;
+font-size:12px;
+font-weight:800;
+cursor:pointer;
+}
+
+</style>
+
+</head>
+
+<body>
+
+<div id="topbar"></div>
+
+<div id="sidebar"></div>
+
+<div class="main">
+
+<!-- =====================================================
+HEADER
+===================================================== -->
+
+<div class="pageHeader">
+
+<h1>
+Coupon Management
+</h1>
+
+</div>
+
+<!-- =====================================================
+GRID
+===================================================== -->
+
+<div class="layoutGrid">
+
+<!-- =====================================================
+FORM
+===================================================== -->
+
+<div class="couponForm">
+
+<h2>
+Create Coupon
+</h2>
+
+<div class="inputGroup">
+
+<label>
+Coupon Code
+</label>
+
+<input
+type="text"
+class="inputField"
+id="couponCode"
+placeholder="SAVE50"
+/>
+
+</div>
+
+<div class="inputGroup">
+
+<label>
+Discount %
+</label>
+
+<input
+type="number"
+class="inputField"
+id="discount"
+placeholder="50"
+/>
+
+</div>
+
+<div class="inputGroup">
+
+<label>
+Usage Limit
+</label>
+
+<input
+type="number"
+class="inputField"
+id="usageLimit"
+placeholder="100"
+/>
+
+</div>
+
+<div class="inputGroup">
+
+<label>
+Expiry Date
+</label>
+
+<input
+type="date"
+class="inputField"
+id="expiryDate"
+/>
+
+</div>
+
+<button
+class="createBtn"
+onclick="createCoupon()">
+
+Create Coupon
+
+</button>
+
+</div>
+
+<!-- =====================================================
+TABLE
+===================================================== -->
+
+<div class="tableWrap">
+
+<div class="tableHead">
+
+<div>
+Coupon
+</div>
+
+<div>
+Discount
+</div>
+
+<div>
+Used
+</div>
+
+<div>
+Limit
+</div>
+
+<div>
+Status
+</div>
+
+<div>
+Action
+</div>
+
+</div>
+
+<div id="couponContainer">
+
+</div>
+
+</div>
+
+</div>
+
+</div>
+
+<script type="module"
+src="./components/topbar.js">
+</script>
+
+<script type="module"
+src="./components/sidebar.js">
+</script>
+
+<script type="module"
+src="./js/coupons.js">
+</script>
+
+</body>
+</html>
