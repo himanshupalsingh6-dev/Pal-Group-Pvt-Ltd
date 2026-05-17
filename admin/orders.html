@@ -327,7 +327,7 @@ margin-top:5px;
 
 .btnGrid{
 display:grid;
-grid-template-columns:repeat(2,1fr);
+grid-template-columns:repeat(3,1fr);
 gap:10px;
 margin-top:14px;
 }
@@ -353,6 +353,11 @@ color:#fff;
 
 .assignBtn{
 background:#7C3AED;
+color:#fff;
+}
+
+.updateBtn{
+background:#F59E0B;
 color:#fff;
 }
 
@@ -417,6 +422,30 @@ justify-content:space-between;
 padding:12px 0;
 border-bottom:1px solid #eee;
 font-size:14px;
+}
+
+/* =====================================================
+FORM GRID
+===================================================== */
+
+.formGrid{
+display:grid;
+grid-template-columns:1fr 1fr;
+gap:16px;
+margin-top:20px;
+}
+
+.assignSaveBtn{
+width:100%;
+height:58px;
+border:none;
+border-radius:18px;
+background:#2563EB;
+color:#fff;
+font-size:15px;
+font-weight:900;
+cursor:pointer;
+margin-top:20px;
 }
 
 /* =====================================================
@@ -683,6 +712,86 @@ onclick="closeSummary()">
 <div id="summaryContent">
 
 </div>
+
+</div>
+
+</div>
+
+<!-- =====================================================
+ASSIGN MODAL
+===================================================== -->
+
+<div
+class="modal"
+id="assignModal">
+
+<div class="modalBox">
+
+<div class="modalHead">
+
+<h2>
+Assign Order
+</h2>
+
+<button
+class="closeBtn"
+onclick="closeAssignModal()">
+
+✕
+
+</button>
+
+</div>
+
+<div class="formGrid">
+
+<select
+class="filterBox"
+id="partnerSelect">
+
+<option value="">
+Select Partner
+</option>
+
+</select>
+
+<select
+class="filterBox"
+id="riderSelect">
+
+<option value="">
+Select Rider
+</option>
+
+</select>
+
+<select
+class="filterBox"
+id="statusSelect">
+
+<option value="Pickup">
+Pickup
+</option>
+
+<option value="Ironing">
+Ironing
+</option>
+
+<option value="Out For Delivery">
+Out For Delivery
+</option>
+
+</select>
+
+</div>
+
+<button
+class="assignSaveBtn"
+onclick="saveAssignment()">
+
+Assign Order
+
+</button>
 
 </div>
 
