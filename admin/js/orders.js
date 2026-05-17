@@ -239,15 +239,69 @@ let delivered = 0;
 /* =====================================
 LOOP
 ===================================== */
+/* =========================================================
+REPLACE ITEMS LOOP
+FILE : admin/js/orders.js
+INSIDE viewOrder()
+========================================================= */
 
-snapshot.forEach((docSnap)=>{
+let itemsHTML = "";
 
-const order =
-docSnap.data();
+let itemsTotal = 0;
 
-const orderId =
-docSnap.id;
+(order.items || [])
+.forEach((item)=>{
 
+const qty =
+Number(item.qty || 1);
+
+const price =
+Number(item.price || 0);
+
+const total =
+qty * price;
+
+itemsTotal += total;
+
+itemsHTML += `
+
+<div class="item">
+
+<div>
+
+${item.name}
+
+<br>
+
+<small>
+
+Qty :
+${qty}
+
+</small>
+
+</div>
+
+<div>
+
+₹${price}
+x ${qty}
+
+<br>
+
+<b>
+
+₹${total}
+
+</b>
+
+</div>
+
+</div>
+
+`;
+
+});
 /* =====================================
 FILTERS
 ===================================== */
@@ -646,22 +700,106 @@ Assign
 /* =====================================
 UPDATE STATS
 ===================================== */
+/* =========================================================
+REPLACE THIS FUNCTION
+FILE : admin/js/orders.js
+========================================================= */
 
-totalOrders.innerHTML =
-snapshot.size;
+/* =========================================================
+ASSIGN ORDER ADVANCE SYSTEM
+========================================================= */
 
-pendingOrders.innerHTML =
-pending;
+window.assignOrder =
+async(id)=>{
 
-runningOrders.innerHTML =
-running;
+/* =====================================
+FETCH PARTNERS
+===================================== */
 
-deliveredOrders.innerHTML =
-delivered;
+let partnerOptions = "";
 
-totalRevenue.innerHTML =
-`₹${total}`;
+const partnerSelect =
+prompt(
+"Enter Partner Name"
+);
 
+if(!partnerSelect){
+
+return;
+
+}
+
+/* =====================================
+FETCH RIDERS
+===================================== */
+
+const riderSelect =
+prompt(
+"Enter Rider Name"
+);
+
+if(!riderSelect){
+
+return;
+
+}
+
+/* =====================================
+PARTNER MOBILE
+===================================== */
+
+const partnerMobile =
+prompt(
+"Enter Partner Mobile"
+);
+
+/* =====================================
+RIDER MOBILE
+===================================== */
+
+const riderMobile =
+prompt(
+"Enter Rider Mobile"
+);
+
+/* =====================================
+UPDATE
+===================================== */
+
+const orderRef =
+doc(db,"orders",id);
+
+await updateDoc(orderRef,{
+
+partnerName:
+partnerSelect,
+
+partnerMobile:
+partnerMobile || "",
+
+riderName:
+riderSelect,
+
+riderMobile:
+riderMobile || "",
+
+assigned:true,
+
+locked:true,
+
+status:"Pickup",
+
+assignedAt:
+new Date()
+.toLocaleString()
+
+});
+
+alert(
+"Order Assigned Successfully"
+);
+
+};
 /* =====================================
 UPDATE GRID
 ===================================== */
@@ -679,34 +817,106 @@ html;
 ASSIGN ORDER
 ========================================================= */
 
+/* =========================================================
+REPLACE THIS FUNCTION
+FILE : admin/js/orders.js
+========================================================= */
+
+/* =========================================================
+ASSIGN ORDER ADVANCE SYSTEM
+========================================================= */
+
 window.assignOrder =
 async(id)=>{
 
-const partnerName =
-prompt("Enter Partner Name");
+/* =====================================
+FETCH PARTNERS
+===================================== */
 
-const partnerMobile =
-prompt("Enter Partner Mobile");
+let partnerOptions = "";
 
-const riderName =
-prompt("Enter Rider Name");
+const partnerSelect =
+prompt(
+"Enter Partner Name"
+);
 
-const riderMobile =
-prompt("Enter Rider Mobile");
-
-if(
-!partnerName
-||
-!riderName
-){
+if(!partnerSelect){
 
 return;
 
 }
 
+/* =====================================
+FETCH RIDERS
+===================================== */
+
+const riderSelect =
+prompt(
+"Enter Rider Name"
+);
+
+if(!riderSelect){
+
+return;
+
+}
+
+/* =====================================
+PARTNER MOBILE
+===================================== */
+
+const partnerMobile =
+prompt(
+"Enter Partner Mobile"
+);
+
+/* =====================================
+RIDER MOBILE
+===================================== */
+
+const riderMobile =
+prompt(
+"Enter Rider Mobile"
+);
+
+/* =====================================
+UPDATE
+===================================== */
+
 const orderRef =
 doc(db,"orders",id);
 
+await updateDoc(orderRef,{
+
+partnerName:
+partnerSelect,
+
+partnerMobile:
+partnerMobile || "",
+
+riderName:
+riderSelect,
+
+riderMobile:
+riderMobile || "",
+
+assigned:true,
+
+locked:true,
+
+status:"Pickup",
+
+assignedAt:
+new Date()
+.toLocaleString()
+
+});
+
+alert(
+"Order Assigned Successfully"
+);
+
+};
 /* =====================================
 LOCK ORDER
 ===================================== */
