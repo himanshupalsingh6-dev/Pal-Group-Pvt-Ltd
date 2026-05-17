@@ -1,0 +1,431 @@
+<!-- =========================================================
+FILE : admin/crm.html
+QUICKPRESS CRM SYSTEM
+========================================================= -->
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+<meta charset="UTF-8"/>
+
+<meta name="viewport"
+content="width=device-width, initial-scale=1.0"/>
+
+<title>
+QuickPress CRM
+</title>
+
+<link rel="stylesheet"
+href="./css/global.css"/>
+
+<link rel="stylesheet"
+href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css"/>
+
+<style>
+
+/* =====================================================
+PAGE HEADER
+===================================================== */
+
+.pageHeader{
+display:flex;
+justify-content:space-between;
+align-items:center;
+margin-bottom:24px;
+}
+
+.pageHeader h1{
+font-size:52px;
+font-weight:900;
+}
+
+/* =====================================================
+BUTTON
+===================================================== */
+
+.addBtn{
+height:54px;
+padding:0 24px;
+border:none;
+border-radius:16px;
+background:#111827;
+color:#fff;
+font-size:14px;
+font-weight:800;
+cursor:pointer;
+}
+
+/* =====================================================
+STATS
+===================================================== */
+
+.statsGrid{
+display:grid;
+grid-template-columns:repeat(4,1fr);
+gap:18px;
+margin-bottom:24px;
+}
+
+.statCard{
+background:#fff;
+border-radius:28px;
+border:1px solid #E5E7EB;
+padding:24px;
+}
+
+.statCard span{
+font-size:14px;
+font-weight:700;
+color:#6B7280;
+}
+
+.statCard h2{
+font-size:38px;
+font-weight:900;
+margin-top:10px;
+}
+
+/* =====================================================
+FILTER BAR
+===================================================== */
+
+.filterBar{
+background:#fff;
+border-radius:28px;
+border:1px solid #E5E7EB;
+padding:16px;
+display:flex;
+gap:14px;
+margin-bottom:24px;
+}
+
+.searchInput{
+flex:1;
+height:52px;
+border-radius:16px;
+border:1px solid #E5E7EB;
+padding:0 18px;
+font-size:14px;
+outline:none;
+}
+
+.filterSelect{
+height:52px;
+padding:0 18px;
+border-radius:16px;
+border:1px solid #E5E7EB;
+background:#fff;
+font-size:14px;
+font-weight:700;
+outline:none;
+}
+
+/* =====================================================
+CUSTOMER GRID
+===================================================== */
+
+.customerGrid{
+display:grid;
+grid-template-columns:repeat(3,1fr);
+gap:18px;
+}
+
+/* =====================================================
+CARD
+===================================================== */
+
+.customerCard{
+background:#fff;
+border-radius:28px;
+border:1px solid #E5E7EB;
+padding:24px;
+}
+
+.customerTop{
+display:flex;
+align-items:center;
+justify-content:space-between;
+margin-bottom:20px;
+}
+
+.customerInfo{
+display:flex;
+align-items:center;
+gap:14px;
+}
+
+.avatar{
+width:64px;
+height:64px;
+border-radius:20px;
+background:#DBEAFE;
+display:flex;
+align-items:center;
+justify-content:center;
+font-size:22px;
+font-weight:900;
+}
+
+.customerInfo h3{
+font-size:22px;
+font-weight:900;
+margin-bottom:4px;
+}
+
+.customerInfo p{
+font-size:13px;
+color:#6B7280;
+}
+
+/* =====================================================
+STATUS
+===================================================== */
+
+.badge{
+padding:10px 14px;
+border-radius:999px;
+font-size:12px;
+font-weight:900;
+}
+
+.active{
+background:#DCFCE7;
+color:#166534;
+}
+
+.blocked{
+background:#FEE2E2;
+color:#991B1B;
+}
+
+.vip{
+background:#FEF3C7;
+color:#92400E;
+}
+
+/* =====================================================
+DETAILS
+===================================================== */
+
+.detailsGrid{
+display:grid;
+grid-template-columns:repeat(2,1fr);
+gap:14px;
+margin-bottom:20px;
+}
+
+.detailBox{
+background:#F9FAFB;
+border-radius:18px;
+padding:16px;
+}
+
+.detailBox span{
+font-size:12px;
+font-weight:700;
+color:#6B7280;
+display:block;
+margin-bottom:8px;
+}
+
+.detailBox h4{
+font-size:18px;
+font-weight:900;
+}
+
+/* =====================================================
+BUTTONS
+===================================================== */
+
+.buttonGrid{
+display:grid;
+grid-template-columns:repeat(4,1fr);
+gap:12px;
+}
+
+.actionBtn{
+height:46px;
+border:none;
+border-radius:14px;
+font-size:13px;
+font-weight:800;
+cursor:pointer;
+}
+
+.viewBtn{
+background:#111827;
+color:#fff;
+}
+
+.callBtn{
+background:#16A34A;
+color:#fff;
+}
+
+.whatsappBtn{
+background:#22C55E;
+color:#fff;
+}
+
+.blockBtn{
+background:#DC2626;
+color:#fff;
+}
+
+</style>
+
+</head>
+
+<body>
+
+<div id="topbar"></div>
+
+<div id="sidebar"></div>
+
+<!-- =====================================================
+MAIN
+===================================================== -->
+
+<div class="main">
+
+<!-- =====================================================
+HEADER
+===================================================== -->
+
+<div class="pageHeader">
+
+<h1>
+CRM System
+</h1>
+
+<button
+class="addBtn"
+onclick="exportCustomers()">
+
+Export Customers
+
+</button>
+
+</div>
+
+<!-- =====================================================
+STATS
+===================================================== -->
+
+<div class="statsGrid">
+
+<div class="statCard">
+
+<span>
+Total Customers
+</span>
+
+<h2 id="totalCustomers">
+0
+</h2>
+
+</div>
+
+<div class="statCard">
+
+<span>
+VIP Customers
+</span>
+
+<h2 id="vipCustomers">
+0
+</h2>
+
+</div>
+
+<div class="statCard">
+
+<span>
+Blocked Customers
+</span>
+
+<h2 id="blockedCustomers">
+0
+</h2>
+
+</div>
+
+<div class="statCard">
+
+<span>
+Active Customers
+</span>
+
+<h2 id="activeCustomers">
+0
+</h2>
+
+</div>
+
+</div>
+
+<!-- =====================================================
+FILTER BAR
+===================================================== -->
+
+<div class="filterBar">
+
+<input
+type="text"
+placeholder="Search customer..."
+class="searchInput"
+id="searchInput"
+/>
+
+<select
+class="filterSelect"
+id="statusFilter">
+
+<option value="All">
+All Status
+</option>
+
+<option value="Active">
+Active
+</option>
+
+<option value="VIP">
+VIP
+</option>
+
+<option value="Blocked">
+Blocked
+</option>
+
+</select>
+
+</div>
+
+<!-- =====================================================
+CUSTOMERS
+===================================================== -->
+
+<div
+class="customerGrid"
+id="customerContainer">
+
+</div>
+
+</div>
+
+<script type="module"
+src="./components/topbar.js">
+</script>
+
+<script type="module"
+src="./components/sidebar.js">
+</script>
+
+<script type="module"
+src="./js/crm.js">
+</script>
+
+</body>
+</html>
