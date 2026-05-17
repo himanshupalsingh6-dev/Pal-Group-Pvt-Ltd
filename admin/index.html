@@ -26,7 +26,353 @@ href="./css/global.css"/>
 
   
 <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+ 
+ <style> /* =====================================================
+GLOBAL
+===================================================== */
+
+*{
+margin:0;
+padding:0;
+box-sizing:border-box;
+font-family:Inter,sans-serif;
+}
+
+body{
+background:#F5F7FB;
+overflow:hidden;
+color:#111827;
+}
+
+/* =====================================================
+MAIN
+===================================================== */
+
+.main{
+margin-left:240px;
+margin-top:82px;
+height:calc(100vh - 82px);
+overflow:auto;
+padding:24px;
+}
+
+/* =====================================================
+HEADER
+===================================================== */
+
+.pageHeader{
+display:flex;
+justify-content:space-between;
+align-items:center;
+margin-bottom:24px;
+}
+
+.pageHeader h1{
+font-size:42px;
+font-weight:900;
+}
+
+/* =====================================================
+STATS
+===================================================== */
+
+.statsGrid{
+display:grid;
+grid-template-columns:repeat(6,1fr);
+gap:18px;
+margin-bottom:24px;
+}
+
+.statCard{
+background:#fff;
+border:1px solid #E5E7EB;
+border-radius:24px;
+padding:22px;
+}
+
+.statTop{
+display:flex;
+align-items:center;
+gap:16px;
+margin-bottom:16px;
+}
+
+.statIcon{
+width:58px;
+height:58px;
+border-radius:18px;
+display:flex;
+align-items:center;
+justify-content:center;
+font-size:22px;
+}
+
+.blue{
+background:#DBEAFE;
+color:#2563EB;
+}
+
+.yellow{
+background:#FEF3C7;
+color:#D97706;
+}
+
+.purple{
+background:#EDE9FE;
+color:#7C3AED;
+}
+
+.orange{
+background:#FFEDD5;
+color:#EA580C;
+}
+
+.green{
+background:#DCFCE7;
+color:#16A34A;
+}
+
+.red{
+background:#FEE2E2;
+color:#DC2626;
+}
+
+.statCard span{
+font-size:13px;
+font-weight:600;
+color:#6B7280;
+}
+
+.statCard h2{
+font-size:36px;
+font-weight:900;
+margin-top:8px;
+}
+
+/* =====================================================
+FILTER BAR
+===================================================== */
+
+.filterBar{
+background:#fff;
+border:1px solid #E5E7EB;
+border-radius:24px;
+padding:18px;
+display:flex;
+justify-content:space-between;
+align-items:center;
+gap:16px;
+margin-bottom:24px;
+flex-wrap:wrap;
+}
+
+.leftFilters{
+display:flex;
+gap:14px;
+flex-wrap:wrap;
+}
+
+.searchBox{
+width:340px;
+height:52px;
+border-radius:14px;
+border:1px solid #E5E7EB;
+padding:0 18px;
+font-size:14px;
+outline:none;
+}
+
+.selectBox{
+height:52px;
+padding:0 16px;
+border-radius:14px;
+border:1px solid #E5E7EB;
+background:#fff;
+font-size:14px;
+font-weight:600;
+outline:none;
+min-width:170px;
+}
+
+.exportBtn{
+height:52px;
+padding:0 22px;
+border:none;
+border-radius:14px;
+background:#111827;
+color:#fff;
+font-size:14px;
+font-weight:700;
+cursor:pointer;
+}
+
+/* =====================================================
+ORDERS TABLE
+===================================================== */
+
+.ordersWrap{
+background:#fff;
+border:1px solid #E5E7EB;
+border-radius:24px;
+overflow:hidden;
+}
+
+.tableHead{
+height:60px;
+display:grid;
+grid-template-columns:
+100px
+1.2fr
+140px
+140px
+160px
+160px
+160px
+140px;
+align-items:center;
+padding:0 20px;
+font-size:14px;
+font-weight:800;
+border-bottom:1px solid #E5E7EB;
+}
+
+.orderRow{
+min-height:84px;
+display:grid;
+grid-template-columns:
+100px
+1.2fr
+140px
+140px
+160px
+160px
+160px
+140px;
+align-items:center;
+padding:0 20px;
+border-bottom:1px solid #F3F4F6;
+font-size:14px;
+}
+
+.customer{
+display:flex;
+align-items:center;
+gap:12px;
+}
+
+.customerAvatar{
+width:44px;
+height:44px;
+border-radius:14px;
+background:#DBEAFE;
+display:flex;
+align-items:center;
+justify-content:center;
+font-weight:800;
+}
+
+/* =====================================================
+STATUS
+===================================================== */
+
+.status{
+padding:8px 14px;
+border-radius:999px;
+font-size:12px;
+font-weight:800;
+width:max-content;
+}
+
+.pending{
+background:#FEF3C7;
+color:#92400E;
+}
+
+.delivery{
+background:#DBEAFE;
+color:#1D4ED8;
+}
+
+.delivered{
+background:#DCFCE7;
+color:#166534;
+}
+
+.preparing{
+background:#EDE9FE;
+color:#7C3AED;
+}
+
+/* =====================================================
+BUTTON
+===================================================== */
+
+.actionBtn{
+height:42px;
+padding:0 18px;
+border:none;
+border-radius:12px;
+background:#111827;
+color:#fff;
+font-size:13px;
+font-weight:700;
+cursor:pointer;
+}
+
+/* =====================================================
+GRAPH
+===================================================== */
+
+.graphWrap{
+margin-top:24px;
+background:#fff;
+border:1px solid #E5E7EB;
+border-radius:24px;
+padding:24px;
+}
+
+.graphTop{
+display:flex;
+justify-content:space-between;
+align-items:center;
+margin-bottom:24px;
+}
+
+.graphTop h2{
+font-size:28px;
+font-weight:900;
+}
+
+/* =====================================================
+RESPONSIVE
+===================================================== */
+
+@media(max-width:1700px){
+
+.statsGrid{
+grid-template-columns:repeat(3,1fr);
+}
+
+}
+
+/* =====================================================
+SCROLLBAR
+===================================================== */
+
+::-webkit-scrollbar{
+width:8px;
+height:8px;
+}
+
+::-webkit-scrollbar-thumb{
+background:#D1D5DB;
+border-radius:20px;
+}
+
+</style>
+ 
 </head>
+ 
   <body>
     <div id="topbar"></div>
 
