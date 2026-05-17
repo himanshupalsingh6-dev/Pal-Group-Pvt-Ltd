@@ -1,6 +1,6 @@
 <!-- =========================================================
 FILE : admin/index.html
-QUICKPRESS REAL-TIME ENTERPRISE PANEL
+QUICKPRESS ENTERPRISE DASHBOARD
 ========================================================= -->
 
 <!DOCTYPE html>
@@ -14,7 +14,7 @@ QUICKPRESS REAL-TIME ENTERPRISE PANEL
 content="width=device-width, initial-scale=1.0"/>
 
 <title>
-QuickPress Admin
+QuickPress Enterprise Dashboard
 </title>
 
 <link rel="stylesheet"
@@ -24,6 +24,10 @@ href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css"
 
 <style>
 
+/* =====================================================
+GLOBAL
+===================================================== */
+
 *{
 margin:0;
 padding:0;
@@ -32,8 +36,9 @@ font-family:Inter,sans-serif;
 }
 
 body{
-background:#F8F8F8;
+background:#F5F7FB;
 overflow:hidden;
+color:#111827;
 }
 
 /* =====================================================
@@ -41,44 +46,44 @@ TOPBAR
 ===================================================== */
 
 .topbar{
-height:86px;
+position:fixed;
+top:0;
+left:0;
+right:0;
+height:82px;
 background:#fff;
 border-bottom:1px solid #E5E7EB;
 display:flex;
 align-items:center;
 justify-content:space-between;
 padding:0 24px;
-position:fixed;
-top:0;
-left:0;
-right:0;
 z-index:999;
 }
 
 .logo{
 font-size:32px;
 font-weight:900;
-color:#111827;
+letter-spacing:-1px;
 }
 
 .topRight{
 display:flex;
 align-items:center;
-gap:18px;
+gap:16px;
 }
 
-.iconBtn{
-width:46px;
-height:46px;
+.topBtn{
+width:48px;
+height:48px;
 border-radius:14px;
-background:#fff;
 border:1px solid #E5E7EB;
 display:flex;
 align-items:center;
 justify-content:center;
+background:#fff;
 cursor:pointer;
-font-size:18px;
 position:relative;
+font-size:18px;
 text-decoration:none;
 color:#111827;
 }
@@ -100,7 +105,7 @@ justify-content:center;
 }
 
 .liveStatus{
-height:46px;
+height:48px;
 padding:0 18px;
 border-radius:14px;
 border:1px solid #E5E7EB;
@@ -110,7 +115,6 @@ gap:10px;
 font-size:14px;
 font-weight:700;
 background:#fff;
-cursor:pointer;
 }
 
 .dot{
@@ -121,8 +125,8 @@ background:#22C55E;
 }
 
 .profile{
-height:46px;
-padding:0 16px;
+height:48px;
+padding:0 14px;
 border-radius:14px;
 border:1px solid #E5E7EB;
 display:flex;
@@ -143,13 +147,13 @@ SIDEBAR
 
 .sidebar{
 position:fixed;
-top:86px;
+top:82px;
 left:0;
 bottom:0;
 width:240px;
 background:#fff;
 border-right:1px solid #E5E7EB;
-padding:16px 10px;
+padding:18px 10px;
 overflow:auto;
 }
 
@@ -178,8 +182,8 @@ background:#F3F4F6;
 }
 
 .sidebarMenu a.active{
-background:#F3F4F6;
-font-weight:800;
+background:#111827;
+color:#fff;
 }
 
 /* =====================================================
@@ -188,8 +192,8 @@ MAIN
 
 .main{
 margin-left:240px;
-margin-top:86px;
-height:calc(100vh - 86px);
+margin-top:82px;
+height:calc(100vh - 82px);
 overflow:auto;
 padding:24px;
 }
@@ -224,7 +228,7 @@ margin-bottom:24px;
 .statCard{
 background:#fff;
 border:1px solid #E5E7EB;
-border-radius:22px;
+border-radius:24px;
 padding:22px;
 }
 
@@ -232,12 +236,12 @@ padding:22px;
 display:flex;
 align-items:center;
 gap:16px;
-margin-bottom:18px;
+margin-bottom:16px;
 }
 
 .statIcon{
-width:56px;
-height:56px;
+width:58px;
+height:58px;
 border-radius:18px;
 display:flex;
 align-items:center;
@@ -277,14 +281,14 @@ color:#DC2626;
 
 .statCard span{
 font-size:13px;
-color:#6B7280;
 font-weight:600;
+color:#6B7280;
 }
 
 .statCard h2{
 font-size:36px;
 font-weight:900;
-margin-top:10px;
+margin-top:8px;
 }
 
 /* =====================================================
@@ -294,7 +298,7 @@ FILTER BAR
 .filterBar{
 background:#fff;
 border:1px solid #E5E7EB;
-border-radius:22px;
+border-radius:24px;
 padding:18px;
 display:flex;
 justify-content:space-between;
@@ -311,7 +315,7 @@ flex-wrap:wrap;
 }
 
 .searchBox{
-width:320px;
+width:340px;
 height:52px;
 border-radius:14px;
 border:1px solid #E5E7EB;
@@ -325,14 +329,16 @@ height:52px;
 padding:0 16px;
 border-radius:14px;
 border:1px solid #E5E7EB;
+background:#fff;
 font-size:14px;
 font-weight:600;
-background:#fff;
+outline:none;
+min-width:170px;
 }
 
-.actionBtn{
+.exportBtn{
 height:52px;
-padding:0 18px;
+padding:0 22px;
 border:none;
 border-radius:14px;
 background:#111827;
@@ -343,7 +349,7 @@ cursor:pointer;
 }
 
 /* =====================================================
-TABLE
+ORDERS TABLE
 ===================================================== */
 
 .ordersWrap{
@@ -358,18 +364,18 @@ height:60px;
 display:grid;
 grid-template-columns:
 100px
-1fr
+1.2fr
 140px
 140px
-140px
+160px
 160px
 160px
 140px;
 align-items:center;
 padding:0 20px;
-border-bottom:1px solid #E5E7EB;
 font-size:14px;
 font-weight:800;
+border-bottom:1px solid #E5E7EB;
 }
 
 .orderRow{
@@ -377,10 +383,10 @@ min-height:84px;
 display:grid;
 grid-template-columns:
 100px
-1fr
+1.2fr
 140px
 140px
-140px
+160px
 160px
 160px
 140px;
@@ -407,6 +413,10 @@ justify-content:center;
 font-weight:800;
 }
 
+/* =====================================================
+STATUS
+===================================================== */
+
 .status{
 padding:8px 14px;
 border-radius:999px;
@@ -428,6 +438,27 @@ color:#1D4ED8;
 .delivered{
 background:#DCFCE7;
 color:#166534;
+}
+
+.preparing{
+background:#EDE9FE;
+color:#7C3AED;
+}
+
+/* =====================================================
+BUTTON
+===================================================== */
+
+.actionBtn{
+height:42px;
+padding:0 18px;
+border:none;
+border-radius:12px;
+background:#111827;
+color:#fff;
+font-size:13px;
+font-weight:700;
+cursor:pointer;
 }
 
 /* =====================================================
@@ -466,6 +497,20 @@ grid-template-columns:repeat(3,1fr);
 
 }
 
+/* =====================================================
+SCROLLBAR
+===================================================== */
+
+::-webkit-scrollbar{
+width:8px;
+height:8px;
+}
+
+::-webkit-scrollbar-thumb{
+background:#D1D5DB;
+border-radius:20px;
+}
+
 </style>
 
 </head>
@@ -484,17 +529,21 @@ QuickPress
 
 <div class="topRight">
 
-<a href="notifications.html" class="iconBtn">
+<a href="notifications.html" class="topBtn">
 
 <i class="fa-regular fa-bell"></i>
 
-<div class="badge" id="notificationCount">
+<div
+class="badge"
+id="notificationCount">
+
 0
+
 </div>
 
 </a>
 
-<a href="settings.html" class="iconBtn">
+<a href="settings.html" class="topBtn">
 
 <i class="fa-solid fa-gear"></i>
 
@@ -504,7 +553,7 @@ QuickPress
 
 <div class="dot"></div>
 
-ONLINE
+LIVE
 
 </div>
 
@@ -512,9 +561,13 @@ ONLINE
 
 <img src="https://i.pravatar.cc/150?img=12">
 
-<h4>
-QuickPress Admin
-</h4>
+<div>
+
+<b>
+Admin
+</b>
+
+</div>
 
 </div>
 
@@ -532,6 +585,11 @@ SIDEBAR
 
 <a href="index.html" class="active">
 <i class="fa-solid fa-bag-shopping"></i>
+Dashboard
+</a>
+
+<a href="orders.html">
+<i class="fa-solid fa-box"></i>
 Orders
 </a>
 
@@ -575,14 +633,14 @@ Reports
 Offers
 </a>
 
-<a href="support.html">
-<i class="fa-solid fa-headset"></i>
-Support
-</a>
-
 <a href="analytics.html">
 <i class="fa-solid fa-chart-column"></i>
 Analytics
+</a>
+
+<a href="support.html">
+<i class="fa-solid fa-headset"></i>
+Support
 </a>
 
 <a href="settings.html">
@@ -603,7 +661,7 @@ MAIN
 <div class="pageHeader">
 
 <h1>
-Orders
+Dashboard
 </h1>
 
 </div>
@@ -626,9 +684,7 @@ STATS
 
 <div>
 
-<span>
-Total Orders
-</span>
+<span>Total Orders</span>
 
 <h2 id="totalOrders">
 0
@@ -652,9 +708,7 @@ Total Orders
 
 <div>
 
-<span>
-Pending
-</span>
+<span>Pending</span>
 
 <h2 id="pendingOrders">
 0
@@ -678,9 +732,7 @@ Pending
 
 <div>
 
-<span>
-Preparing
-</span>
+<span>Preparing</span>
 
 <h2 id="preparingOrders">
 0
@@ -704,9 +756,7 @@ Preparing
 
 <div>
 
-<span>
-On The Way
-</span>
+<span>On The Way</span>
 
 <h2 id="deliveryOrders">
 0
@@ -730,9 +780,7 @@ On The Way
 
 <div>
 
-<span>
-Delivered
-</span>
+<span>Delivered</span>
 
 <h2 id="deliveredOrders">
 0
@@ -756,9 +804,7 @@ Delivered
 
 <div>
 
-<span>
-Revenue
-</span>
+<span>Revenue</span>
 
 <h2 id="revenue">
 ₹0
@@ -773,7 +819,7 @@ Revenue
 </div>
 
 <!-- =====================================================
-FILTERS
+FILTER BAR
 ===================================================== -->
 
 <div class="filterBar">
@@ -787,7 +833,19 @@ class="searchBox"
 id="searchInput"
 />
 
-<select class="selectBox" id="statusFilter">
+<select
+class="selectBox"
+id="cityFilter">
+
+<option value="All">
+All Cities
+</option>
+
+</select>
+
+<select
+class="selectBox"
+id="statusFilter">
 
 <option value="All">
 All Status
@@ -811,24 +869,15 @@ Delivered
 
 </select>
 
-<select class="selectBox" id="cityFilter">
-
-<option value="All">
-All Cities
-</option>
-
-</select>
-
 </div>
 
 <div class="leftFilters">
 
 <button
-class="actionBtn"
+class="exportBtn"
 onclick="exportOrders()">
 
-<i class="fa-solid fa-download"></i>
-Export
+Export CSV
 
 </button>
 
@@ -837,7 +886,7 @@ Export
 </div>
 
 <!-- =====================================================
-ORDERS
+LIVE ORDERS
 ===================================================== -->
 
 <div class="ordersWrap">
@@ -881,407 +930,8 @@ Revenue Growth
 
 </div>
 
-<script type="module">
-
-import { db }
-
-from
-
-"/Pal-Group-Pvt-Ltd/firebase.js";
-
-import {
-
-collection,
-onSnapshot,
-query,
-orderBy
-
-}
-
-from
-
-"https://www.gstatic.com/firebasejs/12.11.0/firebase-firestore.js";
-
-/* =====================================================
-ELEMENTS
-===================================================== */
-
-const ordersContainer =
-document.getElementById(
-"ordersContainer"
-);
-
-const totalOrders =
-document.getElementById(
-"totalOrders"
-);
-
-const pendingOrders =
-document.getElementById(
-"pendingOrders"
-);
-
-const preparingOrders =
-document.getElementById(
-"preparingOrders"
-);
-
-const deliveryOrders =
-document.getElementById(
-"deliveryOrders"
-);
-
-const deliveredOrders =
-document.getElementById(
-"deliveredOrders"
-);
-
-const revenue =
-document.getElementById(
-"revenue"
-);
-
-const cityFilter =
-document.getElementById(
-"cityFilter"
-);
-
-const searchInput =
-document.getElementById(
-"searchInput"
-);
-
-const statusFilter =
-document.getElementById(
-"statusFilter"
-);
-
-/* =====================================================
-DATA
-===================================================== */
-
-let allOrders = [];
-
-/* =====================================================
-REALTIME
-===================================================== */
-
-onSnapshot(
-
-query(
-collection(db,"orders"),
-orderBy("createdAt","desc")
-),
-
-(snapshot)=>{
-
-allOrders = [];
-
-let totalRevenue = 0;
-
-let pending = 0;
-let preparing = 0;
-let delivery = 0;
-let delivered = 0;
-
-/* ========================================= */
-
-ordersContainer.innerHTML = "";
-
-snapshot.forEach((doc)=>{
-
-const order = doc.data();
-
-allOrders.push(order);
-
-/* ========================================= */
-
-totalRevenue +=
-Number(order.total || 0);
-
-/* ========================================= */
-
-if(order.status === "Pending"){
-
-pending++;
-
-}
-
-if(order.status === "Preparing"){
-
-preparing++;
-
-}
-
-if(order.status === "Out For Delivery"){
-
-delivery++;
-
-}
-
-if(order.status === "Delivered"){
-
-delivered++;
-
-}
-
-/* ========================================= */
-
-const row = `
-
-<div class="orderRow">
-
-<div>
-
-#${doc.id.slice(0,6)}
-
-</div>
-
-<div class="customer">
-
-<div class="customerAvatar">
-
-${order.name?.charAt(0) || "U"}
-
-</div>
-
-<div>
-
-<b>
-
-${order.name || "Customer"}
-
-</b>
-
-<br>
-
-<small>
-
-${order.city || ""}
-
-</small>
-
-</div>
-
-</div>
-
-<div>
-
-${order.items?.length || 0}
-Items
-
-</div>
-
-<div>
-
-₹${order.total || 0}
-
-</div>
-
-<div>
-
-${order.paymentMethod || "COD"}
-
-</div>
-
-<div>
-
-<div class="status ${
-
-order.status === "Delivered"
-
-?
-
-"delivered"
-
-:
-
-order.status ===
-"Out For Delivery"
-
-?
-
-"delivery"
-
-:
-
-"pending"
-
-}">
-
-${order.status || "Pending"}
-
-</div>
-
-</div>
-
-<div>
-
-${order.createdAt?.seconds
-
-?
-
-new Date(
-order.createdAt.seconds * 1000
-).toLocaleTimeString()
-
-:
-
-"--"
-
-}
-
-</div>
-
-<div>
-
-<button
-class="actionBtn">
-
-View
-
-</button>
-
-</div>
-
-</div>
-
-`;
-
-ordersContainer.innerHTML += row;
-
-});
-
-/* ========================================= */
-
-totalOrders.innerHTML =
-snapshot.size;
-
-pendingOrders.innerHTML =
-pending;
-
-preparingOrders.innerHTML =
-preparing;
-
-deliveryOrders.innerHTML =
-delivery;
-
-deliveredOrders.innerHTML =
-delivered;
-
-revenue.innerHTML =
-`₹${totalRevenue}`;
-
-/* =========================================
-GRAPH
-========================================= */
-
-loadChart();
-
-}
-
-/* END */
-
-);
-
-/* =====================================================
-GRAPH
-===================================================== */
-
-function loadChart(){
-
-const ctx =
-document.getElementById(
-"revenueChart"
-);
-
-new Chart(ctx, {
-
-type:'line',
-
-data:{
-
-labels:[
-'Mon',
-'Tue',
-'Wed',
-'Thu',
-'Fri',
-'Sat',
-'Sun'
-],
-
-datasets:[{
-
-label:'Revenue',
-
-data:[
-1200,
-2500,
-1800,
-4200,
-5100,
-6600,
-8200
-],
-
-borderWidth:4,
-fill:true,
-tension:0.4
-
-}]
-
-},
-
-options:{
-responsive:true
-}
-
-});
-
-}
-
-/* =====================================================
-EXPORT
-===================================================== */
-
-window.exportOrders =
-()=>{
-
-let csv =
-"Customer,Amount,City,Status\n";
-
-allOrders.forEach((order)=>{
-
-csv += `
-
-${order.name},
-${order.total},
-${order.city},
-${order.status}
-
-`;
-
-});
-
-const blob =
-new Blob([csv],{
-type:"text/csv"
-});
-
-const a =
-document.createElement("a");
-
-a.href =
-URL.createObjectURL(blob);
-
-a.download =
-"orders.csv";
-
-a.click();
-
-};
-
+<script type="module"
+src="./js/dashboard.js">
 </script>
 
 </body>
