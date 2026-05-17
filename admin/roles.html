@@ -1,0 +1,517 @@
+<!-- =========================================================
+FILE : admin/roles.html
+QUICKPRESS MULTI ADMIN ROLE SYSTEM
+========================================================= -->
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+<meta charset="UTF-8"/>
+
+<meta name="viewport"
+content="width=device-width, initial-scale=1.0"/>
+
+<title>
+QuickPress Admin Roles
+</title>
+
+<link rel="stylesheet"
+href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css"/>
+
+<style>
+
+/* =====================================================
+GLOBAL
+===================================================== */
+
+*{
+margin:0;
+padding:0;
+box-sizing:border-box;
+font-family:Inter,sans-serif;
+}
+
+body{
+background:#F5F7FB;
+overflow:hidden;
+color:#111827;
+}
+
+/* =====================================================
+TOPBAR
+===================================================== */
+
+.topbar{
+position:fixed;
+top:0;
+left:0;
+right:0;
+height:82px;
+background:#fff;
+border-bottom:1px solid #E5E7EB;
+display:flex;
+align-items:center;
+justify-content:space-between;
+padding:0 24px;
+z-index:999;
+}
+
+.logo{
+font-size:32px;
+font-weight:900;
+}
+
+.profile{
+height:48px;
+padding:0 14px;
+border-radius:14px;
+border:1px solid #E5E7EB;
+display:flex;
+align-items:center;
+gap:12px;
+background:#fff;
+}
+
+.profile img{
+width:34px;
+height:34px;
+border-radius:50%;
+}
+
+/* =====================================================
+SIDEBAR
+===================================================== */
+
+.sidebar{
+position:fixed;
+top:82px;
+left:0;
+bottom:0;
+width:240px;
+background:#fff;
+border-right:1px solid #E5E7EB;
+padding:18px 10px;
+overflow:auto;
+}
+
+.sidebarMenu{
+display:flex;
+flex-direction:column;
+gap:6px;
+}
+
+.sidebarMenu a{
+height:52px;
+padding:0 16px;
+display:flex;
+align-items:center;
+gap:14px;
+border-radius:14px;
+text-decoration:none;
+font-size:15px;
+font-weight:700;
+color:#374151;
+}
+
+.sidebarMenu a.active{
+background:#111827;
+color:#fff;
+}
+
+/* =====================================================
+MAIN
+===================================================== */
+
+.main{
+margin-left:240px;
+margin-top:82px;
+padding:24px;
+height:calc(100vh - 82px);
+overflow:auto;
+}
+
+/* =====================================================
+HEADER
+===================================================== */
+
+.pageHeader{
+display:flex;
+justify-content:space-between;
+align-items:center;
+margin-bottom:24px;
+}
+
+.pageHeader h1{
+font-size:42px;
+font-weight:900;
+}
+
+.addBtn{
+height:54px;
+padding:0 24px;
+border:none;
+border-radius:14px;
+background:#111827;
+color:#fff;
+font-size:14px;
+font-weight:800;
+cursor:pointer;
+}
+
+/* =====================================================
+STATS
+===================================================== */
+
+.statsGrid{
+display:grid;
+grid-template-columns:repeat(4,1fr);
+gap:18px;
+margin-bottom:24px;
+}
+
+.statCard{
+background:#fff;
+border-radius:24px;
+padding:24px;
+border:1px solid #E5E7EB;
+}
+
+.statCard span{
+font-size:13px;
+font-weight:700;
+color:#6B7280;
+}
+
+.statCard h2{
+font-size:34px;
+font-weight:900;
+margin-top:10px;
+}
+
+/* =====================================================
+GRID
+===================================================== */
+
+.rolesGrid{
+display:grid;
+grid-template-columns:repeat(3,1fr);
+gap:20px;
+}
+
+/* =====================================================
+CARD
+===================================================== */
+
+.roleCard{
+background:#fff;
+border-radius:24px;
+padding:24px;
+border:1px solid #E5E7EB;
+}
+
+.roleTop{
+display:flex;
+justify-content:space-between;
+align-items:center;
+margin-bottom:20px;
+}
+
+.roleUser{
+display:flex;
+align-items:center;
+gap:14px;
+}
+
+.avatar{
+width:60px;
+height:60px;
+border-radius:18px;
+background:#DBEAFE;
+display:flex;
+align-items:center;
+justify-content:center;
+font-size:22px;
+font-weight:900;
+}
+
+.roleUser h3{
+font-size:18px;
+font-weight:900;
+margin-bottom:5px;
+}
+
+.roleUser p{
+font-size:13px;
+color:#6B7280;
+}
+
+.roleBadge{
+padding:10px 14px;
+border-radius:999px;
+font-size:12px;
+font-weight:900;
+}
+
+.super{
+background:#FEE2E2;
+color:#991B1B;
+}
+
+.finance{
+background:#DBEAFE;
+color:#1E40AF;
+}
+
+.support{
+background:#DCFCE7;
+color:#166534;
+}
+
+.city{
+background:#FEF3C7;
+color:#92400E;
+}
+
+/* =====================================================
+PERMISSIONS
+===================================================== */
+
+.permissionList{
+display:flex;
+flex-direction:column;
+gap:12px;
+margin-bottom:20px;
+}
+
+.permission{
+display:flex;
+justify-content:space-between;
+align-items:center;
+background:#F9FAFB;
+padding:14px;
+border-radius:14px;
+}
+
+.permission span{
+font-size:14px;
+font-weight:700;
+}
+
+/* =====================================================
+SWITCH
+===================================================== */
+
+.switch{
+width:48px;
+height:28px;
+background:#111827;
+border-radius:999px;
+position:relative;
+}
+
+.switch::before{
+content:"";
+position:absolute;
+width:20px;
+height:20px;
+border-radius:50%;
+background:#fff;
+top:4px;
+right:4px;
+}
+
+/* =====================================================
+BUTTONS
+===================================================== */
+
+.btnGrid{
+display:grid;
+grid-template-columns:1fr 1fr;
+gap:12px;
+}
+
+.btn{
+height:48px;
+border:none;
+border-radius:14px;
+font-size:14px;
+font-weight:800;
+cursor:pointer;
+}
+
+.editBtn{
+background:#111827;
+color:#fff;
+}
+
+.deleteBtn{
+background:#FEE2E2;
+color:#991B1B;
+}
+
+</style>
+
+</head>
+
+<body>
+
+<!-- =====================================================
+TOPBAR
+===================================================== -->
+
+<div class="topbar">
+
+<div class="logo">
+QuickPress
+</div>
+
+<div class="profile">
+
+<img src="https://i.pravatar.cc/150?img=12">
+
+<div>
+
+<b>
+Super Admin
+</b>
+
+</div>
+
+</div>
+
+</div>
+
+<!-- =====================================================
+SIDEBAR
+===================================================== -->
+
+<div class="sidebar">
+
+<div class="sidebarMenu">
+
+<a href="index.html">
+<i class="fa-solid fa-chart-line"></i>
+Dashboard
+</a>
+
+<a href="users.html">
+<i class="fa-solid fa-users"></i>
+Users
+</a>
+
+<a href="roles.html" class="active">
+<i class="fa-solid fa-user-shield"></i>
+Admin Roles
+</a>
+
+<a href="settings.html">
+<i class="fa-solid fa-gear"></i>
+Settings
+</a>
+
+</div>
+
+</div>
+
+<!-- =====================================================
+MAIN
+===================================================== -->
+
+<div class="main">
+
+<!-- =====================================================
+HEADER
+===================================================== -->
+
+<div class="pageHeader">
+
+<h1>
+Multi Admin Roles
+</h1>
+
+<button
+class="addBtn"
+onclick="addAdmin()">
+
++ Add Admin
+
+</button>
+
+</div>
+
+<!-- =====================================================
+STATS
+===================================================== -->
+
+<div class="statsGrid">
+
+<div class="statCard">
+
+<span>
+Total Admins
+</span>
+
+<h2 id="totalAdmins">
+0
+</h2>
+
+</div>
+
+<div class="statCard">
+
+<span>
+Super Admin
+</span>
+
+<h2 id="superAdmins">
+0
+</h2>
+
+</div>
+
+<div class="statCard">
+
+<span>
+City Managers
+</span>
+
+<h2 id="cityAdmins">
+0
+</h2>
+
+</div>
+
+<div class="statCard">
+
+<span>
+Support Team
+</span>
+
+<h2 id="supportAdmins">
+0
+</h2>
+
+</div>
+
+</div>
+
+<!-- =====================================================
+GRID
+===================================================== -->
+
+<div
+class="rolesGrid"
+id="rolesGrid">
+
+</div>
+
+</div>
+
+<script type="module"
+src="./js/roles.js">
+</script>
+
+</body>
+</html>
