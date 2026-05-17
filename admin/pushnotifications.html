@@ -1,0 +1,355 @@
+<!-- =========================================================
+FILE : admin/pushnotifications.html
+QUICKPRESS PUSH NOTIFICATION CENTER
+========================================================= -->
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+<meta charset="UTF-8"/>
+
+<meta name="viewport"
+content="width=device-width, initial-scale=1.0"/>
+
+<title>
+Push Notification Center
+</title>
+
+<link rel="stylesheet"
+href="./css/global.css"/>
+
+<link rel="stylesheet"
+href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css"/>
+
+<style>
+
+/* =====================================================
+HEADER
+===================================================== */
+
+.pageHeader{
+display:flex;
+justify-content:space-between;
+align-items:center;
+margin-bottom:24px;
+}
+
+.pageHeader h1{
+font-size:52px;
+font-weight:900;
+}
+
+/* =====================================================
+GRID
+===================================================== */
+
+.layoutGrid{
+display:grid;
+grid-template-columns:420px 1fr;
+gap:24px;
+}
+
+/* =====================================================
+SEND PANEL
+===================================================== */
+
+.sendPanel{
+background:#fff;
+border-radius:28px;
+border:1px solid #E5E7EB;
+padding:28px;
+}
+
+.sendPanel h2{
+font-size:32px;
+font-weight:900;
+margin-bottom:22px;
+}
+
+/* =====================================================
+FORM
+===================================================== */
+
+.inputGroup{
+margin-bottom:18px;
+}
+
+.inputGroup label{
+display:block;
+font-size:13px;
+font-weight:800;
+margin-bottom:10px;
+}
+
+.inputField{
+width:100%;
+height:54px;
+border-radius:16px;
+border:1px solid #E5E7EB;
+padding:0 18px;
+font-size:14px;
+outline:none;
+}
+
+.textareaField{
+width:100%;
+height:140px;
+border-radius:16px;
+border:1px solid #E5E7EB;
+padding:18px;
+font-size:14px;
+outline:none;
+resize:none;
+}
+
+.sendBtn{
+width:100%;
+height:56px;
+border:none;
+border-radius:18px;
+background:#111827;
+color:#fff;
+font-size:15px;
+font-weight:800;
+cursor:pointer;
+margin-top:10px;
+}
+
+/* =====================================================
+HISTORY
+===================================================== */
+
+.historyWrap{
+background:#fff;
+border-radius:28px;
+border:1px solid #E5E7EB;
+overflow:hidden;
+}
+
+.tableHead{
+height:62px;
+display:grid;
+grid-template-columns:
+1fr
+180px
+180px
+180px
+160px;
+align-items:center;
+padding:0 20px;
+font-size:14px;
+font-weight:900;
+border-bottom:1px solid #E5E7EB;
+}
+
+.notificationRow{
+min-height:84px;
+display:grid;
+grid-template-columns:
+1fr
+180px
+180px
+180px
+160px;
+align-items:center;
+padding:0 20px;
+border-bottom:1px solid #F3F4F6;
+font-size:14px;
+}
+
+/* =====================================================
+BADGE
+===================================================== */
+
+.badge{
+padding:10px 14px;
+border-radius:999px;
+font-size:12px;
+font-weight:900;
+width:max-content;
+}
+
+.sent{
+background:#DCFCE7;
+color:#166534;
+}
+
+.failed{
+background:#FEE2E2;
+color:#991B1B;
+}
+
+.pending{
+background:#FEF3C7;
+color:#92400E;
+}
+
+</style>
+
+</head>
+
+<body>
+
+<div id="topbar"></div>
+
+<div id="sidebar"></div>
+
+<!-- =====================================================
+MAIN
+===================================================== -->
+
+<div class="main">
+
+<!-- =====================================================
+HEADER
+===================================================== -->
+
+<div class="pageHeader">
+
+<h1>
+Push Notification Center
+</h1>
+
+</div>
+
+<!-- =====================================================
+GRID
+===================================================== -->
+
+<div class="layoutGrid">
+
+<!-- =====================================================
+SEND PANEL
+===================================================== -->
+
+<div class="sendPanel">
+
+<h2>
+Send Notification
+</h2>
+
+<div class="inputGroup">
+
+<label>
+Notification Title
+</label>
+
+<input
+type="text"
+class="inputField"
+id="titleInput"
+placeholder="Enter title"
+/>
+
+</div>
+
+<div class="inputGroup">
+
+<label>
+Target Users
+</label>
+
+<select
+class="inputField"
+id="targetInput">
+
+<option value="All Users">
+All Users
+</option>
+
+<option value="VIP Users">
+VIP Users
+</option>
+
+<option value="Partners">
+Partners
+</option>
+
+<option value="Riders">
+Riders
+</option>
+
+</select>
+
+</div>
+
+<div class="inputGroup">
+
+<label>
+Message
+</label>
+
+<textarea
+class="textareaField"
+id="messageInput"
+placeholder="Write notification message">
+</textarea>
+
+</div>
+
+<button
+class="sendBtn"
+onclick="sendNotification()">
+
+Send Push Notification
+
+</button>
+
+</div>
+
+<!-- =====================================================
+HISTORY
+===================================================== -->
+
+<div class="historyWrap">
+
+<div class="tableHead">
+
+<div>
+Notification
+</div>
+
+<div>
+Target
+</div>
+
+<div>
+Date
+</div>
+
+<div>
+Status
+</div>
+
+<div>
+Sent By
+</div>
+
+</div>
+
+<div id="notificationContainer">
+
+</div>
+
+</div>
+
+</div>
+
+</div>
+
+<script type="module"
+src="./components/topbar.js">
+</script>
+
+<script type="module"
+src="./components/sidebar.js">
+</script>
+
+<script type="module"
+src="./js/pushnotifications.js">
+</script>
+
+</body>
+</html>
