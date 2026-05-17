@@ -1,0 +1,486 @@
+<!-- =========================================================
+FILE : admin/customer-view.html
+QUICKPRESS CUSTOMER FULL PROFILE
+========================================================= -->
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+<meta charset="UTF-8"/>
+
+<meta name="viewport"
+content="width=device-width, initial-scale=1.0"/>
+
+<title>
+Customer Profile
+</title>
+
+<link rel="stylesheet"
+href="./css/global.css"/>
+
+<link rel="stylesheet"
+href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css"/>
+
+<style>
+
+/* =====================================================
+HEADER
+===================================================== */
+
+.pageHeader{
+display:flex;
+justify-content:space-between;
+align-items:center;
+margin-bottom:24px;
+}
+
+.pageHeader h1{
+font-size:52px;
+font-weight:900;
+}
+
+/* =====================================================
+LAYOUT
+===================================================== */
+
+.profileLayout{
+display:grid;
+grid-template-columns:420px 1fr;
+gap:24px;
+}
+
+/* =====================================================
+PROFILE CARD
+===================================================== */
+
+.profileCard{
+background:#fff;
+border-radius:28px;
+border:1px solid #E5E7EB;
+padding:28px;
+}
+
+.profileTop{
+display:flex;
+flex-direction:column;
+align-items:center;
+text-align:center;
+margin-bottom:28px;
+}
+
+.avatar{
+width:120px;
+height:120px;
+border-radius:30px;
+background:#DBEAFE;
+display:flex;
+align-items:center;
+justify-content:center;
+font-size:42px;
+font-weight:900;
+margin-bottom:18px;
+}
+
+.profileTop h2{
+font-size:32px;
+font-weight:900;
+margin-bottom:8px;
+}
+
+.profileTop p{
+font-size:14px;
+color:#6B7280;
+}
+
+.badge{
+margin-top:16px;
+padding:10px 16px;
+border-radius:999px;
+font-size:13px;
+font-weight:900;
+}
+
+.active{
+background:#DCFCE7;
+color:#166534;
+}
+
+.vip{
+background:#FEF3C7;
+color:#92400E;
+}
+
+.blocked{
+background:#FEE2E2;
+color:#991B1B;
+}
+
+/* =====================================================
+DETAILS
+===================================================== */
+
+.detailGrid{
+display:grid;
+grid-template-columns:1fr 1fr;
+gap:14px;
+}
+
+.detailBox{
+background:#F9FAFB;
+border-radius:18px;
+padding:18px;
+}
+
+.detailBox span{
+font-size:12px;
+font-weight:700;
+color:#6B7280;
+display:block;
+margin-bottom:8px;
+}
+
+.detailBox h3{
+font-size:18px;
+font-weight:900;
+}
+
+/* =====================================================
+RIGHT
+===================================================== */
+
+.rightPanel{
+display:flex;
+flex-direction:column;
+gap:24px;
+}
+
+/* =====================================================
+ORDER CARD
+===================================================== */
+
+.orderCard{
+background:#fff;
+border-radius:28px;
+border:1px solid #E5E7EB;
+padding:24px;
+}
+
+.orderCard h2{
+font-size:28px;
+font-weight:900;
+margin-bottom:22px;
+}
+
+/* =====================================================
+TABLE
+===================================================== */
+
+.tableHead{
+height:60px;
+display:grid;
+grid-template-columns:
+120px
+1fr
+140px
+140px
+140px;
+align-items:center;
+font-size:14px;
+font-weight:900;
+border-bottom:1px solid #E5E7EB;
+}
+
+.orderRow{
+min-height:74px;
+display:grid;
+grid-template-columns:
+120px
+1fr
+140px
+140px
+140px;
+align-items:center;
+border-bottom:1px solid #F3F4F6;
+font-size:14px;
+}
+
+/* =====================================================
+STATUS
+===================================================== */
+
+.status{
+padding:10px 14px;
+border-radius:999px;
+font-size:12px;
+font-weight:900;
+width:max-content;
+}
+
+.pending{
+background:#FEF3C7;
+color:#92400E;
+}
+
+.delivery{
+background:#DBEAFE;
+color:#1E40AF;
+}
+
+.delivered{
+background:#DCFCE7;
+color:#166534;
+}
+
+/* =====================================================
+NOTES
+===================================================== */
+
+.notesBox{
+background:#fff;
+border-radius:28px;
+border:1px solid #E5E7EB;
+padding:24px;
+}
+
+.notesBox textarea{
+width:100%;
+height:140px;
+border-radius:18px;
+border:1px solid #E5E7EB;
+padding:18px;
+font-size:14px;
+outline:none;
+resize:none;
+margin-top:16px;
+}
+
+.saveBtn{
+margin-top:18px;
+height:52px;
+padding:0 24px;
+border:none;
+border-radius:16px;
+background:#111827;
+color:#fff;
+font-size:14px;
+font-weight:800;
+cursor:pointer;
+}
+
+</style>
+
+</head>
+
+<body>
+
+<div id="topbar"></div>
+
+<div id="sidebar"></div>
+
+<!-- =====================================================
+MAIN
+===================================================== -->
+
+<div class="main">
+
+<!-- =====================================================
+HEADER
+===================================================== -->
+
+<div class="pageHeader">
+
+<h1>
+Customer Profile
+</h1>
+
+</div>
+
+<!-- =====================================================
+LAYOUT
+===================================================== -->
+
+<div class="profileLayout">
+
+<!-- =====================================================
+LEFT PROFILE
+===================================================== -->
+
+<div class="profileCard">
+
+<div class="profileTop">
+
+<div
+class="avatar"
+id="customerAvatar">
+
+U
+
+</div>
+
+<h2 id="customerName">
+Customer
+</h2>
+
+<p id="customerMobile">
+--
+</p>
+
+<div
+class="badge active"
+id="customerStatus">
+
+Active
+
+</div>
+
+</div>
+
+<!-- DETAILS -->
+
+<div class="detailGrid">
+
+<div class="detailBox">
+
+<span>
+Wallet
+</span>
+
+<h3 id="customerWallet">
+₹0
+</h3>
+
+</div>
+
+<div class="detailBox">
+
+<span>
+Orders
+</span>
+
+<h3 id="customerOrders">
+0
+</h3>
+
+</div>
+
+<div class="detailBox">
+
+<span>
+City
+</span>
+
+<h3 id="customerCity">
+--
+</h3>
+
+</div>
+
+<div class="detailBox">
+
+<span>
+Address
+</span>
+
+<h3 id="customerAddress">
+--
+</h3>
+
+</div>
+
+</div>
+
+</div>
+
+<!-- =====================================================
+RIGHT
+===================================================== -->
+
+<div class="rightPanel">
+
+<!-- =====================================================
+ORDERS
+===================================================== -->
+
+<div class="orderCard">
+
+<h2>
+Customer Orders
+</h2>
+
+<div class="tableHead">
+
+<div>
+Order ID
+</div>
+
+<div>
+Items
+</div>
+
+<div>
+Amount
+</div>
+
+<div>
+Status
+</div>
+
+<div>
+Time
+</div>
+
+</div>
+
+<div id="ordersContainer">
+
+</div>
+
+</div>
+
+<!-- =====================================================
+NOTES
+===================================================== -->
+
+<div class="notesBox">
+
+<h2>
+Admin Notes
+</h2>
+
+<textarea
+id="adminNotes"
+placeholder="Write customer notes...">
+</textarea>
+
+<button
+class="saveBtn"
+onclick="saveNotes()">
+
+Save Notes
+
+</button>
+
+</div>
+
+</div>
+
+</div>
+
+</div>
+
+<script type="module"
+src="./components/topbar.js">
+</script>
+
+<script type="module"
+src="./components/sidebar.js">
+</script>
+
+<script type="module"
+src="./js/customer-view.js">
+</script>
+
+</body>
+</html>
