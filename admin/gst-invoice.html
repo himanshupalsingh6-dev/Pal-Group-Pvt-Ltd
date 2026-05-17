@@ -1,0 +1,504 @@
+<!-- =========================================================
+FILE : admin/gst-invoice.html
+QUICKPRESS GST & TAX SYSTEM
+========================================================= -->
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+<meta charset="UTF-8"/>
+
+<meta name="viewport"
+content="width=device-width, initial-scale=1.0"/>
+
+<title>
+GST Invoice System
+</title>
+
+<link rel="stylesheet"
+href="./css/global.css"/>
+
+<link rel="stylesheet"
+href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css"/>
+
+<style>
+
+/* =====================================================
+HEADER
+===================================================== */
+
+.pageHeader{
+display:flex;
+justify-content:space-between;
+align-items:center;
+margin-bottom:24px;
+}
+
+.pageHeader h1{
+font-size:52px;
+font-weight:900;
+}
+
+/* =====================================================
+LAYOUT
+===================================================== */
+
+.layoutGrid{
+display:grid;
+grid-template-columns:420px 1fr;
+gap:24px;
+}
+
+/* =====================================================
+FORM
+===================================================== */
+
+.invoiceForm{
+background:#fff;
+border-radius:28px;
+border:1px solid #E5E7EB;
+padding:28px;
+}
+
+.invoiceForm h2{
+font-size:32px;
+font-weight:900;
+margin-bottom:22px;
+}
+
+.inputGroup{
+margin-bottom:18px;
+}
+
+.inputGroup label{
+display:block;
+font-size:13px;
+font-weight:800;
+margin-bottom:10px;
+}
+
+.inputField{
+width:100%;
+height:54px;
+border-radius:16px;
+border:1px solid #E5E7EB;
+padding:0 18px;
+font-size:14px;
+outline:none;
+}
+
+.generateBtn{
+width:100%;
+height:56px;
+border:none;
+border-radius:18px;
+background:#111827;
+color:#fff;
+font-size:15px;
+font-weight:800;
+cursor:pointer;
+margin-top:10px;
+}
+
+/* =====================================================
+INVOICE
+===================================================== */
+
+.invoicePreview{
+background:#fff;
+border-radius:28px;
+border:1px solid #E5E7EB;
+padding:34px;
+}
+
+.invoiceTop{
+display:flex;
+justify-content:space-between;
+align-items:flex-start;
+margin-bottom:34px;
+}
+
+.company h2{
+font-size:38px;
+font-weight:900;
+margin-bottom:10px;
+}
+
+.company p{
+font-size:14px;
+line-height:1.7;
+color:#6B7280;
+}
+
+.invoiceInfo{
+text-align:right;
+}
+
+.invoiceInfo h3{
+font-size:28px;
+font-weight:900;
+margin-bottom:10px;
+}
+
+/* =====================================================
+TABLE
+===================================================== */
+
+.tableWrap{
+margin-top:28px;
+border:1px solid #E5E7EB;
+border-radius:18px;
+overflow:hidden;
+}
+
+.tableHead{
+height:58px;
+display:grid;
+grid-template-columns:
+1fr
+160px
+160px
+160px;
+align-items:center;
+padding:0 20px;
+font-size:14px;
+font-weight:900;
+background:#F9FAFB;
+border-bottom:1px solid #E5E7EB;
+}
+
+.itemRow{
+min-height:64px;
+display:grid;
+grid-template-columns:
+1fr
+160px
+160px
+160px;
+align-items:center;
+padding:0 20px;
+font-size:14px;
+border-bottom:1px solid #F3F4F6;
+}
+
+/* =====================================================
+TOTALS
+===================================================== */
+
+.totalBox{
+margin-top:24px;
+margin-left:auto;
+width:320px;
+}
+
+.totalRow{
+display:flex;
+justify-content:space-between;
+padding:12px 0;
+font-size:15px;
+font-weight:700;
+border-bottom:1px solid #F3F4F6;
+}
+
+.grandTotal{
+font-size:22px;
+font-weight:900;
+}
+
+/* =====================================================
+DOWNLOAD
+===================================================== */
+
+.downloadBtn{
+margin-top:28px;
+height:56px;
+padding:0 24px;
+border:none;
+border-radius:18px;
+background:#111827;
+color:#fff;
+font-size:15px;
+font-weight:800;
+cursor:pointer;
+}
+
+</style>
+
+</head>
+
+<body>
+
+<div id="topbar"></div>
+
+<div id="sidebar"></div>
+
+<!-- =====================================================
+MAIN
+===================================================== -->
+
+<div class="main">
+
+<div class="pageHeader">
+
+<h1>
+GST Invoice System
+</h1>
+
+</div>
+
+<!-- =====================================================
+GRID
+===================================================== -->
+
+<div class="layoutGrid">
+
+<!-- =====================================================
+FORM
+===================================================== -->
+
+<div class="invoiceForm">
+
+<h2>
+Generate Invoice
+</h2>
+
+<div class="inputGroup">
+
+<label>
+Customer Name
+</label>
+
+<input
+type="text"
+class="inputField"
+id="customerName"
+placeholder="Enter customer name"
+/>
+
+</div>
+
+<div class="inputGroup">
+
+<label>
+Service Name
+</label>
+
+<input
+type="text"
+class="inputField"
+id="serviceName"
+placeholder="Service"
+/>
+
+</div>
+
+<div class="inputGroup">
+
+<label>
+Amount
+</label>
+
+<input
+type="number"
+class="inputField"
+id="amount"
+placeholder="Amount"
+/>
+
+</div>
+
+<div class="inputGroup">
+
+<label>
+GST %
+</label>
+
+<input
+type="number"
+class="inputField"
+id="gst"
+value="18"
+/>
+
+</div>
+
+<button
+class="generateBtn"
+onclick="generateInvoice()">
+
+Generate GST Invoice
+
+</button>
+
+</div>
+
+<!-- =====================================================
+PREVIEW
+===================================================== -->
+
+<div class="invoicePreview">
+
+<div class="invoiceTop">
+
+<div class="company">
+
+<h2>
+QuickPress
+</h2>
+
+<p>
+
+PAL GROUP PRIVATE LIMITED
+
+<br>
+
+Kasganj, Uttar Pradesh
+
+<br>
+
+GSTIN : 09ABCDE1234F1Z5
+
+</p>
+
+</div>
+
+<div class="invoiceInfo">
+
+<h3>
+TAX INVOICE
+</h3>
+
+<p id="invoiceDate">
+--
+</p>
+
+<p id="invoiceNumber">
+INV-0001
+</p>
+
+</div>
+
+</div>
+
+<!-- =====================================================
+CUSTOMER
+===================================================== -->
+
+<div>
+
+<b>
+Bill To :
+</b>
+
+<p id="previewCustomer">
+--
+</p>
+
+</div>
+
+<!-- =====================================================
+TABLE
+===================================================== -->
+
+<div class="tableWrap">
+
+<div class="tableHead">
+
+<div>
+Service
+</div>
+
+<div>
+Amount
+</div>
+
+<div>
+GST
+</div>
+
+<div>
+Total
+</div>
+
+</div>
+
+<div id="invoiceItems">
+
+</div>
+
+</div>
+
+<!-- =====================================================
+TOTALS
+===================================================== -->
+
+<div class="totalBox">
+
+<div class="totalRow">
+
+<div>
+Subtotal
+</div>
+
+<div id="subtotal">
+₹0
+</div>
+
+</div>
+
+<div class="totalRow">
+
+<div>
+GST
+</div>
+
+<div id="gstAmount">
+₹0
+</div>
+
+</div>
+
+<div class="totalRow grandTotal">
+
+<div>
+Grand Total
+</div>
+
+<div id="grandTotal">
+₹0
+</div>
+
+</div>
+
+</div>
+
+<button
+class="downloadBtn"
+onclick="downloadInvoice()">
+
+Download Invoice
+
+</button>
+
+</div>
+
+</div>
+
+</div>
+
+<script type="module"
+src="./components/topbar.js">
+</script>
+
+<script type="module"
+src="./components/sidebar.js">
+</script>
+
+<script type="module"
+src="./js/gst-invoice.js">
+</script>
+
+</body>
+</html>
