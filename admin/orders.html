@@ -1,6 +1,6 @@
 <!-- =========================================================
 FILE : admin/orders.html
-QUICKPRESS ENTERPRISE ORDER MANAGEMENT
+QUICKPRESS ENTERPRISE ORDERS PANEL
 ========================================================= -->
 
 <!DOCTYPE html>
@@ -22,17 +22,100 @@ href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css"
 
 <style>
 
+/* =====================================================
+GLOBAL
+===================================================== */
+
 *{
 margin:0;
 padding:0;
 box-sizing:border-box;
-font-family:Poppins,sans-serif;
+font-family:Inter,sans-serif;
 }
 
 body{
-background:#EEF2FF;
+background:#F5F7FB;
+overflow:hidden;
+color:#111827;
+}
+
+/* =====================================================
+TOPBAR
+===================================================== */
+
+.topbar{
+position:fixed;
+top:0;
+left:0;
+right:0;
+height:82px;
+background:#fff;
+border-bottom:1px solid #E5E7EB;
 display:flex;
-overflow-x:hidden;
+align-items:center;
+justify-content:space-between;
+padding:0 24px;
+z-index:999;
+}
+
+.logo{
+font-size:32px;
+font-weight:900;
+}
+
+.topRight{
+display:flex;
+align-items:center;
+gap:16px;
+}
+
+.topBtn{
+width:48px;
+height:48px;
+border-radius:14px;
+border:1px solid #E5E7EB;
+display:flex;
+align-items:center;
+justify-content:center;
+background:#fff;
+cursor:pointer;
+position:relative;
+font-size:18px;
+text-decoration:none;
+color:#111827;
+}
+
+.badge{
+position:absolute;
+top:-5px;
+right:-5px;
+width:20px;
+height:20px;
+border-radius:50%;
+background:#EF4444;
+color:#fff;
+font-size:11px;
+font-weight:700;
+display:flex;
+align-items:center;
+justify-content:center;
+}
+
+.profile{
+height:48px;
+padding:0 14px;
+border-radius:14px;
+border:1px solid #E5E7EB;
+display:flex;
+align-items:center;
+gap:12px;
+background:#fff;
+}
+
+.profile img{
+width:34px;
+height:34px;
+border-radius:50%;
 }
 
 /* =====================================================
@@ -40,49 +123,39 @@ SIDEBAR
 ===================================================== */
 
 .sidebar{
-width:260px;
-height:100vh;
-background:#081028;
 position:fixed;
+top:82px;
 left:0;
-top:0;
-padding:20px;
+bottom:0;
+width:240px;
+background:#fff;
+border-right:1px solid #E5E7EB;
+padding:18px 10px;
 overflow:auto;
 }
 
-.logo{
-font-size:34px;
-font-weight:900;
-color:#fff;
-margin-bottom:35px;
-}
-
-.menu{
+.sidebarMenu{
 display:flex;
 flex-direction:column;
-gap:12px;
+gap:6px;
 }
 
-.menu a{
-height:58px;
+.sidebarMenu a{
+height:52px;
+padding:0 16px;
 display:flex;
 align-items:center;
 gap:14px;
-padding:0 18px;
-border-radius:18px;
+border-radius:14px;
 text-decoration:none;
 font-size:15px;
-font-weight:700;
+font-weight:600;
+color:#374151;
+}
+
+.sidebarMenu a.active{
+background:#111827;
 color:#fff;
-transition:0.3s;
-}
-
-.menu a.active{
-background:#1D4ED8;
-}
-
-.menu a:hover{
-background:#111C44;
 }
 
 /* =====================================================
@@ -90,146 +163,144 @@ MAIN
 ===================================================== */
 
 .main{
-margin-left:260px;
-width:calc(100% - 260px);
+margin-left:240px;
+margin-top:82px;
+height:calc(100vh - 82px);
+overflow:auto;
 padding:24px;
 }
 
 /* =====================================================
-TOPBAR
+HEADER
 ===================================================== */
 
-.topBar{
+.pageHeader{
 display:flex;
 justify-content:space-between;
 align-items:center;
 margin-bottom:24px;
-gap:18px;
-flex-wrap:wrap;
 }
 
-.topBar h1{
+.pageHeader h1{
 font-size:42px;
 font-weight:900;
 }
 
-/* FILTERS */
+/* =====================================================
+FILTERS
+===================================================== */
 
-.filters{
+.filterBar{
+background:#fff;
+border:1px solid #E5E7EB;
+border-radius:24px;
+padding:18px;
+display:flex;
+justify-content:space-between;
+align-items:center;
+gap:16px;
+margin-bottom:24px;
+flex-wrap:wrap;
+}
+
+.leftFilters{
 display:flex;
 gap:14px;
 flex-wrap:wrap;
 }
 
-.filterBox{
-height:56px;
+.searchBox{
+width:340px;
+height:52px;
+border-radius:14px;
+border:1px solid #E5E7EB;
 padding:0 18px;
-border:none;
+font-size:14px;
 outline:none;
-border-radius:18px;
+}
+
+.selectBox{
+height:52px;
+padding:0 16px;
+border-radius:14px;
+border:1px solid #E5E7EB;
 background:#fff;
 font-size:14px;
-font-weight:700;
-min-width:190px;
-box-shadow:0 10px 30px rgba(0,0,0,0.05);
-}
-
-/* =====================================================
-STATS
-===================================================== */
-
-.statsGrid{
-display:grid;
-grid-template-columns:repeat(5,1fr);
-gap:18px;
-margin-bottom:24px;
-}
-
-.statCard{
-background:#fff;
-padding:22px;
-border-radius:26px;
-box-shadow:0 10px 30px rgba(0,0,0,0.05);
-}
-
-.statCard span{
-font-size:12px;
-color:#6B7280;
-font-weight:700;
-}
-
-.statCard h2{
-font-size:32px;
-font-weight:900;
-margin-top:12px;
+font-weight:600;
+outline:none;
+min-width:170px;
 }
 
 /* =====================================================
 ORDER GRID
 ===================================================== */
 
-.orderGrid{
+.ordersGrid{
 display:grid;
 grid-template-columns:repeat(3,1fr);
-gap:16px;
+gap:20px;
 }
 
 /* =====================================================
-ORDER CARD
+CARD
 ===================================================== */
 
 .orderCard{
 background:#fff;
-padding:18px;
-border-radius:26px;
-box-shadow:0 10px 30px rgba(0,0,0,0.05);
+border:1px solid #E5E7EB;
+border-radius:24px;
+padding:20px;
 }
 
-/* TOP */
+/* =====================================================
+TOP
+===================================================== */
 
-.orderTop{
+.cardTop{
 display:flex;
 justify-content:space-between;
 align-items:center;
-margin-bottom:16px;
-gap:10px;
+margin-bottom:20px;
 }
 
-.userInfo{
+.customer{
 display:flex;
 align-items:center;
 gap:12px;
 }
 
 .avatar{
-width:58px;
-height:58px;
-border-radius:18px;
+width:52px;
+height:52px;
+border-radius:16px;
 background:#DBEAFE;
 display:flex;
 align-items:center;
 justify-content:center;
-font-size:22px;
+font-weight:800;
+font-size:18px;
 }
 
-.userInfo h3{
-font-size:17px;
-font-weight:900;
+.customer h3{
+font-size:16px;
+font-weight:800;
 }
 
-.userInfo p{
-font-size:11px;
+.customer p{
+font-size:12px;
 color:#6B7280;
 margin-top:4px;
 }
 
-/* STATUS */
+/* =====================================================
+STATUS
+===================================================== */
 
 .status{
 padding:8px 14px;
-border-radius:14px;
-font-size:11px;
-font-weight:900;
+border-radius:999px;
+font-size:12px;
+font-weight:800;
 }
 
 .pending{
@@ -237,19 +308,14 @@ background:#FEF3C7;
 color:#92400E;
 }
 
-.pickup{
-background:#DBEAFE;
-color:#1D4ED8;
-}
-
-.ironing{
+.preparing{
 background:#EDE9FE;
 color:#7C3AED;
 }
 
 .delivery{
-background:#FCE7F3;
-color:#BE185D;
+background:#DBEAFE;
+color:#1D4ED8;
 }
 
 .delivered{
@@ -257,195 +323,135 @@ background:#DCFCE7;
 color:#166534;
 }
 
-/* SUMMARY */
+/* =====================================================
+INFO
+===================================================== */
 
-.summaryGrid{
+.infoGrid{
 display:grid;
-grid-template-columns:repeat(2,1fr);
-gap:10px;
-margin-bottom:16px;
+grid-template-columns:1fr 1fr;
+gap:12px;
+margin-bottom:18px;
 }
 
-.summaryBox{
+.infoBox{
 background:#F9FAFB;
-padding:12px;
+padding:14px;
 border-radius:16px;
 }
 
-.summaryBox span{
-font-size:10px;
+.infoBox span{
+font-size:11px;
 color:#6B7280;
 }
 
-.summaryBox h4{
-font-size:15px;
+.infoBox h4{
+font-size:16px;
 font-weight:900;
-margin-top:5px;
+margin-top:6px;
 }
 
-/* SECTION */
+/* =====================================================
+ITEMS
+===================================================== */
 
-.section{
+.itemsBox{
 background:#F9FAFB;
-padding:14px;
+padding:16px;
 border-radius:18px;
-margin-bottom:14px;
+margin-bottom:18px;
 }
 
-.sectionTitle{
+.itemsBox h4{
 font-size:14px;
 font-weight:900;
 margin-bottom:12px;
 }
 
-/* TRACK */
-
-.track{
-display:grid;
-grid-template-columns:1fr 1fr;
-gap:10px;
+.item{
+display:flex;
+justify-content:space-between;
+font-size:13px;
+padding:8px 0;
+border-bottom:1px solid #E5E7EB;
 }
 
-.trackBox{
+.item:last-child{
+border:none;
+}
+
+/* =====================================================
+ASSIGN
+===================================================== */
+
+.assignBox{
+background:#F9FAFB;
+padding:16px;
+border-radius:18px;
+margin-bottom:18px;
+}
+
+.assignBox h4{
+font-size:14px;
+font-weight:900;
+margin-bottom:14px;
+}
+
+.assignGrid{
+display:grid;
+grid-template-columns:1fr 1fr;
+gap:12px;
+}
+
+.assignCard{
 background:#fff;
-padding:12px;
+padding:14px;
 border-radius:14px;
 }
 
-.trackBox span{
-font-size:10px;
+.assignCard span{
+font-size:11px;
 color:#6B7280;
 }
 
-.trackBox h5{
-font-size:13px;
-font-weight:900;
+.assignCard h5{
+font-size:14px;
+font-weight:800;
 margin-top:5px;
 }
 
-/* BUTTONS */
+/* =====================================================
+BUTTONS
+===================================================== */
 
 .btnGrid{
 display:grid;
 grid-template-columns:repeat(3,1fr);
-gap:10px;
-margin-top:14px;
+gap:12px;
 }
 
 .btn{
 height:46px;
 border:none;
-border-radius:16px;
-font-size:12px;
-font-weight:900;
+border-radius:14px;
+font-size:13px;
+font-weight:800;
 cursor:pointer;
 }
 
-.callBtn{
-background:#22C55E;
-color:#fff;
-}
-
 .viewBtn{
-background:#2563EB;
+background:#111827;
 color:#fff;
 }
 
 .assignBtn{
-background:#7C3AED;
-color:#fff;
-}
-
-.updateBtn{
-background:#F59E0B;
-color:#fff;
-}
-
-.lockedBtn{
-background:#9CA3AF;
-color:#fff;
-cursor:not-allowed;
-}
-
-/* =====================================================
-MODAL
-===================================================== */
-
-.modal{
-position:fixed;
-inset:0;
-background:rgba(0,0,0,0.6);
-display:none;
-align-items:center;
-justify-content:center;
-padding:20px;
-z-index:999999;
-}
-
-.modalBox{
-width:900px;
-max-height:90vh;
-overflow:auto;
-background:#fff;
-padding:28px;
-border-radius:34px;
-}
-
-.modalHead{
-display:flex;
-justify-content:space-between;
-align-items:center;
-margin-bottom:24px;
-}
-
-.modalHead h2{
-font-size:34px;
-font-weight:900;
-}
-
-.closeBtn{
-width:52px;
-height:52px;
-border:none;
-border-radius:16px;
-background:#EF4444;
-color:#fff;
-font-size:18px;
-cursor:pointer;
-}
-
-/* ITEMS */
-
-.item{
-display:flex;
-justify-content:space-between;
-padding:12px 0;
-border-bottom:1px solid #eee;
-font-size:14px;
-}
-
-/* =====================================================
-FORM GRID
-===================================================== */
-
-.formGrid{
-display:grid;
-grid-template-columns:1fr 1fr;
-gap:16px;
-margin-top:20px;
-}
-
-.assignSaveBtn{
-width:100%;
-height:58px;
-border:none;
-border-radius:18px;
 background:#2563EB;
 color:#fff;
-font-size:15px;
-font-weight:900;
-cursor:pointer;
-margin-top:20px;
+}
+
+.statusBtn{
+background:#7C3AED;
+color:#fff;
 }
 
 /* =====================================================
@@ -454,7 +460,7 @@ RESPONSIVE
 
 @media(max-width:1700px){
 
-.orderGrid{
+.ordersGrid{
 grid-template-columns:repeat(2,1fr);
 }
 
@@ -467,16 +473,58 @@ grid-template-columns:repeat(2,1fr);
 <body>
 
 <!-- =====================================================
-SIDEBAR
+TOPBAR
 ===================================================== -->
 
-<div class="sidebar">
+<div class="topbar">
 
 <div class="logo">
 QuickPress
 </div>
 
-<div class="menu">
+<div class="topRight">
+
+<a href="notifications.html" class="topBtn">
+
+<i class="fa-regular fa-bell"></i>
+
+<div class="badge" id="notificationCount">
+0
+</div>
+
+</a>
+
+<a href="settings.html" class="topBtn">
+
+<i class="fa-solid fa-gear"></i>
+
+</a>
+
+<div class="profile">
+
+<img src="https://i.pravatar.cc/150?img=12">
+
+<div>
+
+<b>
+Admin
+</b>
+
+</div>
+
+</div>
+
+</div>
+
+</div>
+
+<!-- =====================================================
+SIDEBAR
+===================================================== -->
+
+<div class="sidebar">
+
+<div class="sidebarMenu">
 
 <a href="index.html">
 <i class="fa-solid fa-chart-line"></i>
@@ -484,7 +532,7 @@ Dashboard
 </a>
 
 <a href="orders.html" class="active">
-<i class="fa-solid fa-basket-shopping"></i>
+<i class="fa-solid fa-box"></i>
 Orders
 </a>
 
@@ -510,12 +558,32 @@ Riders
 
 <a href="payments.html">
 <i class="fa-solid fa-wallet"></i>
-Payments
+Finance
 </a>
 
 <a href="settlements.html">
 <i class="fa-solid fa-money-bill-transfer"></i>
-Settlements
+Payouts
+</a>
+
+<a href="reports.html">
+<i class="fa-solid fa-chart-line"></i>
+Reports
+</a>
+
+<a href="offers.html">
+<i class="fa-solid fa-tags"></i>
+Offers
+</a>
+
+<a href="analytics.html">
+<i class="fa-solid fa-chart-column"></i>
+Analytics
+</a>
+
+<a href="support.html">
+<i class="fa-solid fa-headset"></i>
+Support
 </a>
 
 </div>
@@ -528,35 +596,31 @@ MAIN
 
 <div class="main">
 
-<!-- TOP -->
-
-<div class="topBar">
+<div class="pageHeader">
 
 <h1>
-Orders Management
+Orders
 </h1>
 
-<div class="filters">
+</div>
+
+<!-- =====================================================
+FILTERS
+===================================================== -->
+
+<div class="filterBar">
+
+<div class="leftFilters">
 
 <input
 type="text"
-placeholder="Search Customer..."
-class="filterBox"
+placeholder="Search Customer / Order"
+class="searchBox"
 id="searchInput"
 />
 
 <select
-class="filterBox"
-id="stateFilter">
-
-<option value="All">
-All States
-</option>
-
-</select>
-
-<select
-class="filterBox"
+class="selectBox"
 id="cityFilter">
 
 <option value="All">
@@ -566,7 +630,7 @@ All Cities
 </select>
 
 <select
-class="filterBox"
+class="selectBox"
 id="statusFilter">
 
 <option value="All">
@@ -577,12 +641,8 @@ All Status
 Pending
 </option>
 
-<option value="Pickup">
-Pickup
-</option>
-
-<option value="Ironing">
-Ironing
+<option value="Preparing">
+Preparing
 </option>
 
 <option value="Out For Delivery">
@@ -593,10 +653,6 @@ Out For Delivery
 Delivered
 </option>
 
-<option value="Cancelled">
-Cancelled
-</option>
-
 </select>
 
 </div>
@@ -604,194 +660,12 @@ Cancelled
 </div>
 
 <!-- =====================================================
-STATS
-===================================================== -->
-
-<div class="statsGrid">
-
-<div class="statCard">
-
-<span>
-Total Orders
-</span>
-
-<h2 id="totalOrders">
-0
-</h2>
-
-</div>
-
-<div class="statCard">
-
-<span>
-Pending Orders
-</span>
-
-<h2 id="pendingOrders">
-0
-</h2>
-
-</div>
-
-<div class="statCard">
-
-<span>
-Running Orders
-</span>
-
-<h2 id="runningOrders">
-0
-</h2>
-
-</div>
-
-<div class="statCard">
-
-<span>
-Delivered Orders
-</span>
-
-<h2 id="deliveredOrders">
-0
-</h2>
-
-</div>
-
-<div class="statCard">
-
-<span>
-Total Revenue
-</span>
-
-<h2 id="totalRevenue">
-₹0
-</h2>
-
-</div>
-
-</div>
-
-<!-- =====================================================
-ORDER GRID
+ORDERS GRID
 ===================================================== -->
 
 <div
-class="orderGrid"
-id="orderGrid">
-
-</div>
-
-</div>
-
-<!-- =====================================================
-FULL SUMMARY MODAL
-===================================================== -->
-
-<div
-class="modal"
-id="summaryModal">
-
-<div class="modalBox">
-
-<div class="modalHead">
-
-<h2>
-Full Order Summary
-</h2>
-
-<button
-class="closeBtn"
-onclick="closeSummary()">
-
-✕
-
-</button>
-
-</div>
-
-<div id="summaryContent">
-
-</div>
-
-</div>
-
-</div>
-
-<!-- =====================================================
-ASSIGN MODAL
-===================================================== -->
-
-<div
-class="modal"
-id="assignModal">
-
-<div class="modalBox">
-
-<div class="modalHead">
-
-<h2>
-Assign Order
-</h2>
-
-<button
-class="closeBtn"
-onclick="closeAssignModal()">
-
-✕
-
-</button>
-
-</div>
-
-<div class="formGrid">
-
-<select
-class="filterBox"
-id="partnerSelect">
-
-<option value="">
-Select Partner
-</option>
-
-</select>
-
-<select
-class="filterBox"
-id="riderSelect">
-
-<option value="">
-Select Rider
-</option>
-
-</select>
-
-<select
-class="filterBox"
-id="statusSelect">
-
-<option value="Pickup">
-Pickup
-</option>
-
-<option value="Ironing">
-Ironing
-</option>
-
-<option value="Out For Delivery">
-Out For Delivery
-</option>
-
-</select>
-
-</div>
-
-<button
-class="assignSaveBtn"
-onclick="saveAssignment()">
-
-Assign Order
-
-</button>
+class="ordersGrid"
+id="ordersGrid">
 
 </div>
 
