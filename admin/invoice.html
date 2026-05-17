@@ -1,0 +1,558 @@
+<!-- =========================================================
+FILE : admin/invoice.html
+QUICKPRESS GST INVOICE SYSTEM
+========================================================= -->
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+<meta charset="UTF-8"/>
+
+<meta name="viewport"
+content="width=device-width, initial-scale=1.0"/>
+
+<title>
+QuickPress Invoice
+</title>
+
+<link rel="stylesheet"
+href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css"/>
+
+<style>
+
+/* =====================================================
+GLOBAL
+===================================================== */
+
+*{
+margin:0;
+padding:0;
+box-sizing:border-box;
+font-family:Inter,sans-serif;
+}
+
+body{
+background:#F3F4F6;
+padding:30px;
+color:#111827;
+}
+
+/* =====================================================
+TOP ACTIONS
+===================================================== */
+
+.topActions{
+display:flex;
+justify-content:space-between;
+align-items:center;
+margin-bottom:24px;
+}
+
+.pageTitle{
+font-size:42px;
+font-weight:900;
+}
+
+.actionBtns{
+display:flex;
+gap:14px;
+}
+
+.btn{
+height:54px;
+padding:0 24px;
+border:none;
+border-radius:16px;
+font-size:14px;
+font-weight:800;
+cursor:pointer;
+}
+
+.printBtn{
+background:#111827;
+color:#fff;
+}
+
+.downloadBtn{
+background:#2563EB;
+color:#fff;
+}
+
+/* =====================================================
+INVOICE
+===================================================== */
+
+.invoice{
+max-width:1100px;
+margin:auto;
+background:#fff;
+border-radius:28px;
+padding:40px;
+box-shadow:0 10px 40px rgba(0,0,0,0.08);
+}
+
+/* =====================================================
+HEADER
+===================================================== */
+
+.invoiceHeader{
+display:flex;
+justify-content:space-between;
+align-items:flex-start;
+margin-bottom:40px;
+}
+
+.logoArea h1{
+font-size:42px;
+font-weight:900;
+margin-bottom:10px;
+}
+
+.logoArea p{
+font-size:14px;
+color:#6B7280;
+line-height:1.8;
+}
+
+.invoiceMeta{
+text-align:right;
+}
+
+.invoiceMeta h2{
+font-size:32px;
+font-weight:900;
+margin-bottom:14px;
+}
+
+.metaItem{
+margin-bottom:10px;
+font-size:14px;
+}
+
+/* =====================================================
+CUSTOMER
+===================================================== */
+
+.customerSection{
+display:grid;
+grid-template-columns:1fr 1fr;
+gap:24px;
+margin-bottom:36px;
+}
+
+.card{
+background:#F9FAFB;
+border-radius:22px;
+padding:24px;
+}
+
+.card h3{
+font-size:20px;
+font-weight:900;
+margin-bottom:16px;
+}
+
+.card p{
+font-size:14px;
+line-height:1.9;
+color:#374151;
+}
+
+/* =====================================================
+TABLE
+===================================================== */
+
+.tableWrap{
+border:1px solid #E5E7EB;
+border-radius:22px;
+overflow:hidden;
+margin-bottom:30px;
+}
+
+.tableHead{
+height:60px;
+background:#111827;
+color:#fff;
+display:grid;
+grid-template-columns:
+2fr
+1fr
+1fr
+1fr;
+align-items:center;
+padding:0 24px;
+font-size:14px;
+font-weight:800;
+}
+
+.tableRow{
+min-height:64px;
+display:grid;
+grid-template-columns:
+2fr
+1fr
+1fr
+1fr;
+align-items:center;
+padding:0 24px;
+border-bottom:1px solid #F3F4F6;
+font-size:14px;
+}
+
+/* =====================================================
+TOTALS
+===================================================== */
+
+.totalSection{
+display:flex;
+justify-content:flex-end;
+}
+
+.totalBox{
+width:380px;
+background:#F9FAFB;
+border-radius:22px;
+padding:24px;
+}
+
+.totalRow{
+display:flex;
+justify-content:space-between;
+margin-bottom:16px;
+font-size:15px;
+}
+
+.totalRow.final{
+font-size:24px;
+font-weight:900;
+padding-top:18px;
+border-top:2px dashed #D1D5DB;
+}
+
+/* =====================================================
+FOOTER
+===================================================== */
+
+.footer{
+margin-top:40px;
+padding-top:30px;
+border-top:1px dashed #D1D5DB;
+text-align:center;
+}
+
+.footer h3{
+font-size:22px;
+font-weight:900;
+margin-bottom:10px;
+}
+
+.footer p{
+font-size:14px;
+color:#6B7280;
+line-height:1.8;
+}
+
+</style>
+
+</head>
+
+<body>
+
+<!-- =====================================================
+TOP
+===================================================== -->
+
+<div class="topActions">
+
+<div class="pageTitle">
+GST Invoice
+</div>
+
+<div class="actionBtns">
+
+<button
+class="btn printBtn"
+onclick="window.print()">
+
+🖨 Print
+
+</button>
+
+<button
+class="btn downloadBtn"
+id="downloadBtn">
+
+⬇ Download PDF
+
+</button>
+
+</div>
+
+</div>
+
+<!-- =====================================================
+INVOICE
+===================================================== -->
+
+<div
+class="invoice"
+id="invoice">
+
+<!-- =====================================================
+HEADER
+===================================================== -->
+
+<div class="invoiceHeader">
+
+<div class="logoArea">
+
+<h1>
+QuickPress
+</h1>
+
+<p>
+
+PAL GROUP PRIVATE LIMITED
+<br>
+
+Kasganj, Uttar Pradesh, India
+<br>
+
+GSTIN : 09ABCDE1234F1Z5
+<br>
+
+support@quickpress.in
+
+</p>
+
+</div>
+
+<div class="invoiceMeta">
+
+<h2>
+INVOICE
+</h2>
+
+<div class="metaItem">
+
+<b>
+Invoice ID :
+</b>
+
+<span id="invoiceId">
+--
+</span>
+
+</div>
+
+<div class="metaItem">
+
+<b>
+Order ID :
+</b>
+
+<span id="orderId">
+--
+</span>
+
+</div>
+
+<div class="metaItem">
+
+<b>
+Date :
+</b>
+
+<span id="invoiceDate">
+--
+</span>
+
+</div>
+
+<div class="metaItem">
+
+<b>
+Payment :
+</b>
+
+<span id="paymentMethod">
+--
+</span>
+
+</div>
+
+</div>
+
+</div>
+
+<!-- =====================================================
+CUSTOMER
+===================================================== -->
+
+<div class="customerSection">
+
+<div class="card">
+
+<h3>
+Customer Details
+</h3>
+
+<p id="customerDetails">
+
+Loading...
+
+</p>
+
+</div>
+
+<div class="card">
+
+<h3>
+Delivery Details
+</h3>
+
+<p id="deliveryDetails">
+
+Loading...
+
+</p>
+
+</div>
+
+</div>
+
+<!-- =====================================================
+TABLE
+===================================================== -->
+
+<div class="tableWrap">
+
+<div class="tableHead">
+
+<div>
+Service
+</div>
+
+<div>
+Qty
+</div>
+
+<div>
+Price
+</div>
+
+<div>
+Total
+</div>
+
+</div>
+
+<div id="invoiceItems">
+
+</div>
+
+</div>
+
+<!-- =====================================================
+TOTALS
+===================================================== -->
+
+<div class="totalSection">
+
+<div class="totalBox">
+
+<div class="totalRow">
+
+<span>
+Subtotal
+</span>
+
+<span id="subTotal">
+₹0
+</span>
+
+</div>
+
+<div class="totalRow">
+
+<span>
+CGST (9%)
+</span>
+
+<span id="cgst">
+₹0
+</span>
+
+</div>
+
+<div class="totalRow">
+
+<span>
+SGST (9%)
+</span>
+
+<span id="sgst">
+₹0
+</span>
+
+</div>
+
+<div class="totalRow">
+
+<span>
+Delivery Charges
+</span>
+
+<span id="deliveryCharge">
+₹0
+</span>
+
+</div>
+
+<div class="totalRow final">
+
+<span>
+Grand Total
+</span>
+
+<span id="grandTotal">
+₹0
+</span>
+
+</div>
+
+</div>
+
+</div>
+
+<!-- =====================================================
+FOOTER
+===================================================== -->
+
+<div class="footer">
+
+<h3>
+Thank You For Using QuickPress
+</h3>
+
+<p>
+
+This is a computer generated invoice.
+<br>
+
+Powered by QuickPress Enterprise System
+
+</p>
+
+</div>
+
+</div>
+
+<script type="module"
+src="./js/invoice.js">
+</script>
+
+</body>
+</html>
