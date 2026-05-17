@@ -1,6 +1,7 @@
 <!-- =========================================================
 FILE : partner/index.html
-QUICKPRESS PARTNER HOME PAGE
+QUICKPRESS PARTNER PANEL
+ZOMATO STYLE UI
 ========================================================= -->
 
 <!DOCTYPE html>
@@ -8,13 +9,13 @@ QUICKPRESS PARTNER HOME PAGE
 
 <head>
 
-<meta charset="UTF-8"/>
+<meta charset="UTF-8">
 
 <meta name="viewport"
-content="width=device-width, initial-scale=1.0"/>
+content="width=device-width, initial-scale=1.0">
 
 <title>
-Partner Dashboard
+QuickPress Partner
 </title>
 
 <link rel="stylesheet"
@@ -38,289 +39,269 @@ BODY
 ===================================================== */
 
 body{
-background:#F5F7FB;
+background:#F5F5F5;
+color:#111;
+padding-bottom:110px;
 overflow-x:hidden;
 }
 
 /* =====================================================
-TOPBAR
+TOP HEADER
 ===================================================== */
 
-.topbar{
-height:82px;
+.topHeader{
+padding:22px 20px 10px;
 background:#fff;
-border-bottom:1px solid #E5E7EB;
-display:flex;
-align-items:center;
-justify-content:space-between;
-padding:0 28px;
-position:sticky;
-top:0;
-z-index:999;
 }
 
-.logo h1{
-font-size:34px;
-font-weight:900;
-color:#111827;
-}
-
-.logo p{
-font-size:13px;
-font-weight:600;
-color:#6B7280;
-margin-top:4px;
-}
-
-/* =====================================================
-PROFILE
-===================================================== */
-
-.profile{
-display:flex;
-align-items:center;
-gap:14px;
-}
-
-.avatar{
-width:52px;
-height:52px;
-border-radius:18px;
-background:#111827;
-color:#fff;
-display:flex;
-align-items:center;
-justify-content:center;
-font-size:20px;
-font-weight:900;
-}
-
-.profile h3{
-font-size:15px;
-font-weight:900;
-}
-
-.profile p{
+.topLabel{
 font-size:12px;
-font-weight:600;
-color:#6B7280;
-margin-top:4px;
+font-weight:700;
+color:#666;
+margin-bottom:6px;
+letter-spacing:1px;
 }
 
-.logoutBtn{
-height:48px;
-padding:0 18px;
-border:none;
-border-radius:16px;
-background:#DC2626;
+.shopRow{
+display:flex;
+justify-content:space-between;
+align-items:center;
+}
+
+.shopName{
+font-size:22px;
+font-weight:900;
+}
+
+.topIcons{
+display:flex;
+gap:18px;
+font-size:24px;
+}
+
+/* =====================================================
+TABS
+===================================================== */
+
+.tabs{
+display:flex;
+gap:14px;
+overflow:auto;
+padding:18px 18px 12px;
+background:#F5F5F5;
+}
+
+.tabs::-webkit-scrollbar{
+display:none;
+}
+
+.tab{
+padding:16px 24px;
+border-radius:22px;
+background:#fff;
+font-size:16px;
+font-weight:700;
+white-space:nowrap;
+}
+
+.activeTab{
+background:#000;
 color:#fff;
-font-size:13px;
-font-weight:800;
-cursor:pointer;
 }
 
 /* =====================================================
-MAIN
+BANNER
 ===================================================== */
 
-.main{
-padding:28px;
-}
-
-/* =====================================================
-WELCOME
-===================================================== */
-
-.welcomeCard{
+.banner{
+margin:0 18px;
+border-radius:28px;
+overflow:hidden;
 background:linear-gradient(
 135deg,
-#111827,
-#1E3A8A
+#002E88,
+#0A1F5C
 );
 
-border-radius:32px;
-padding:34px;
+padding:24px;
 color:#fff;
-margin-bottom:24px;
+position:relative;
 }
 
-.welcomeCard h2{
-font-size:42px;
-font-weight:900;
-margin-bottom:14px;
+.banner h2{
+font-size:32px;
+line-height:1.2;
+margin-bottom:12px;
 }
 
-.welcomeCard p{
-font-size:15px;
-line-height:1.8;
-opacity:0.9;
+.banner p{
+font-size:18px;
+line-height:1.5;
+opacity:0.95;
+margin-bottom:18px;
+}
+
+.bannerBtn{
+display:inline-block;
+padding:14px 22px;
+border-radius:16px;
+border:2px solid rgba(255,255,255,0.4);
+font-size:17px;
+font-weight:800;
 }
 
 /* =====================================================
-STATS
+SECTION TITLE
 ===================================================== */
 
-.statsGrid{
-display:grid;
-grid-template-columns:repeat(4,1fr);
-gap:18px;
-margin-bottom:24px;
+.sectionTitle{
+font-size:36px;
+font-weight:900;
+padding:28px 20px 18px;
 }
 
-.statCard{
+/* =====================================================
+LIVE CARD
+===================================================== */
+
+.liveCard{
 background:#fff;
+margin:0 18px;
 border-radius:28px;
 padding:24px;
-border:1px solid #E5E7EB;
 }
 
-.statCard span{
-font-size:13px;
+.liveTop{
+display:flex;
+justify-content:space-between;
+margin-bottom:40px;
+}
+
+.liveBox span{
+font-size:15px;
 font-weight:700;
-color:#6B7280;
+color:#666;
 display:block;
 margin-bottom:10px;
 }
 
-.statCard h2{
-font-size:38px;
+.liveBox h2{
+font-size:42px;
 font-weight:900;
 }
 
-/* =====================================================
-GRID
-===================================================== */
-
-.contentGrid{
-display:grid;
-grid-template-columns:1fr 420px;
-gap:24px;
-}
-
-/* =====================================================
-ORDERS
-===================================================== */
-
-.ordersCard{
-background:#fff;
-border-radius:28px;
-border:1px solid #E5E7EB;
-overflow:hidden;
-}
-
-.cardHeader{
-padding:24px;
-border-bottom:1px solid #E5E7EB;
-}
-
-.cardHeader h2{
-font-size:28px;
-font-weight:900;
-}
-
-/* =====================================================
-TABLE
-===================================================== */
-
-.tableHead{
-height:58px;
-display:grid;
-grid-template-columns:
-140px
-1fr
-160px
-160px;
-align-items:center;
-padding:0 20px;
-font-size:14px;
-font-weight:900;
-border-bottom:1px solid #E5E7EB;
-}
-
-.orderRow{
-min-height:74px;
-display:grid;
-grid-template-columns:
-140px
-1fr
-160px
-160px;
-align-items:center;
-padding:0 20px;
-font-size:14px;
-border-bottom:1px solid #F3F4F6;
-}
-
-/* =====================================================
-BADGE
-===================================================== */
-
-.badge{
-padding:10px 14px;
-border-radius:999px;
-font-size:12px;
-font-weight:900;
-width:max-content;
-}
-
-.pending{
-background:#FEF3C7;
-color:#92400E;
-}
-
-.completed{
-background:#DCFCE7;
+.liveBadge{
+padding:12px 18px;
+background:#DDF7E4;
+border-radius:18px;
+height:max-content;
+font-size:18px;
+font-weight:800;
 color:#166534;
 }
 
+.emptyText{
+text-align:center;
+font-size:22px;
+font-weight:600;
+color:#666;
+padding:80px 0;
+}
+
 /* =====================================================
-SIDE PANEL
+QUICK LINKS
 ===================================================== */
 
-.sidePanel{
-display:flex;
-flex-direction:column;
-gap:24px;
+.quickLinks{
+display:grid;
+grid-template-columns:repeat(4,1fr);
+gap:16px;
+padding:0 18px;
 }
 
 .quickCard{
 background:#fff;
-border-radius:28px;
-border:1px solid #E5E7EB;
-padding:24px;
+border-radius:26px;
+padding:22px 12px;
+text-align:center;
 }
 
-.quickCard h3{
-font-size:24px;
-font-weight:900;
-margin-bottom:18px;
+.quickIcon{
+width:72px;
+height:72px;
+border-radius:22px;
+background:#F5F5F5;
+display:flex;
+align-items:center;
+justify-content:center;
+margin:auto;
+font-size:30px;
+margin-bottom:16px;
 }
 
-.quickBtn{
-width:100%;
-height:54px;
-border:none;
-border-radius:16px;
-background:#111827;
+.quickCard p{
+font-size:16px;
+font-weight:700;
+line-height:1.4;
+}
+
+/* =====================================================
+BOTTOM NAVBAR
+===================================================== */
+
+.bottomNav{
+position:fixed;
+left:14px;
+right:14px;
+bottom:14px;
+height:86px;
+background:#000;
+border-radius:34px;
+display:flex;
+justify-content:space-around;
+align-items:center;
+z-index:999;
+box-shadow:
+0 10px 40px rgba(0,0,0,0.25);
+}
+
+.navItem{
+display:flex;
+flex-direction:column;
+align-items:center;
+justify-content:center;
 color:#fff;
 font-size:14px;
-font-weight:800;
-cursor:pointer;
-margin-bottom:14px;
+font-weight:700;
+text-decoration:none;
+gap:8px;
+opacity:0.7;
+}
+
+.navItem i{
+font-size:24px;
+}
+
+.activeNav{
+opacity:1;
 }
 
 /* =====================================================
 RESPONSIVE
 ===================================================== */
 
-@media(max-width:1000px){
+@media(max-width:700px){
 
-.statsGrid{
-grid-template-columns:1fr 1fr;
+.quickLinks{
+grid-template-columns:repeat(2,1fr);
 }
 
-.contentGrid{
-grid-template-columns:1fr;
+.banner h2{
+font-size:26px;
+}
+
+.sectionTitle{
+font-size:28px;
 }
 
 }
@@ -332,239 +313,220 @@ grid-template-columns:1fr;
 <body>
 
 <!-- =====================================================
-TOPBAR
+HEADER
 ===================================================== -->
 
-<div class="topbar">
+<div class="topHeader">
 
-<div class="logo">
+<div class="topLabel">
 
-<h1>
-QuickPress
-</h1>
-
-<p>
-Partner Dashboard
-</p>
+SHOWING DATA FOR
 
 </div>
 
-<div class="profile">
+<div class="shopRow">
 
-<div class="avatar"
-id="avatar">
-P
-</div>
+<div class="shopName">
 
-<div>
-
-<h3 id="partnerName">
-Partner
-</h3>
-
-<p id="partnerCity">
-City
-</p>
+QuickPress Laundry
 
 </div>
 
-<button
-class="logoutBtn"
-onclick="logoutPartner()">
+<div class="topIcons">
 
-Logout
+<i class="fa-regular fa-bell"></i>
 
-</button>
+<i class="fa-solid fa-bars"></i>
+
+</div>
 
 </div>
 
 </div>
 
 <!-- =====================================================
-MAIN
+TABS
 ===================================================== -->
 
-<div class="main">
+<div class="tabs">
+
+<div class="tab activeTab">
+My Feed
+</div>
+
+<div class="tab">
+Sales
+</div>
+
+<div class="tab">
+Orders
+</div>
+
+<div class="tab">
+Services
+</div>
+
+<div class="tab">
+Riders
+</div>
+
+</div>
 
 <!-- =====================================================
-WELCOME
+BANNER
 ===================================================== -->
 
-<div class="welcomeCard">
+<div class="banner">
 
 <h2>
 
-Welcome Back,
-<span id="welcomeName">
-
-Partner
-
-</span>
+Professional laundry service in seconds
 
 </h2>
 
 <p>
 
-Manage orders, track earnings, monitor riders
-and grow your QuickPress business.
+Manage orders, riders and customers with QuickPress Partner Panel
 
 </p>
 
-</div>
+<div class="bannerBtn">
 
-<!-- =====================================================
-STATS
-===================================================== -->
-
-<div class="statsGrid">
-
-<div class="statCard">
-
-<span>
-Today's Orders
-</span>
-
-<h2 id="todayOrders">
-0
-</h2>
-
-</div>
-
-<div class="statCard">
-
-<span>
-Completed Orders
-</span>
-
-<h2 id="completedOrders">
-0
-</h2>
-
-</div>
-
-<div class="statCard">
-
-<span>
-Revenue
-</span>
-
-<h2 id="revenue">
-₹0
-</h2>
-
-</div>
-
-<div class="statCard">
-
-<span>
-Active Riders
-</span>
-
-<h2 id="activeRiders">
-0
-</h2>
+Learn more
 
 </div>
 
 </div>
 
 <!-- =====================================================
-CONTENT
+TODAY
 ===================================================== -->
 
-<div class="contentGrid">
+<div class="sectionTitle">
+
+Today so far
+
+</div>
 
 <!-- =====================================================
-ORDERS
+LIVE CARD
 ===================================================== -->
 
-<div class="ordersCard">
+<div class="liveCard">
 
-<div class="cardHeader">
+<div class="liveTop">
+
+<div class="liveBox">
+
+<span>
+Total sales
+</span>
 
 <h2>
-Recent Orders
+₹12,540
 </h2>
 
 </div>
 
-<div class="tableHead">
+<div class="liveBox">
 
-<div>
-Order ID
-</div>
+<span>
+Total orders
+</span>
 
-<div>
-Customer
-</div>
-
-<div>
-Amount
-</div>
-
-<div>
-Status
-</div>
+<h2>
+28
+</h2>
 
 </div>
 
-<div id="ordersContainer">
+<div class="liveBadge">
+
+● Live
+
+</div>
+
+</div>
+
+<div class="emptyText">
+
+Orders are running smoothly 🚀
 
 </div>
 
 </div>
 
 <!-- =====================================================
-SIDE
+QUICK LINKS
 ===================================================== -->
 
-<div class="sidePanel">
+<div class="sectionTitle">
+
+Quick links
+
+</div>
+
+<div class="quickLinks">
 
 <div class="quickCard">
 
-<h3>
-Quick Actions
-</h3>
+<div class="quickIcon">
 
-<button
-class="quickBtn"
-onclick="window.location.href='orders.html'">
+<i class="fa-solid fa-box"></i>
+
+</div>
+
+<p>
 
 Manage Orders
 
-</button>
-
-<button
-class="quickBtn"
-onclick="window.location.href='riders.html'">
-
-Manage Riders
-
-</button>
-
-<button
-class="quickBtn"
-onclick="window.location.href='earnings.html'">
-
-View Earnings
-
-</button>
+</p>
 
 </div>
 
 <div class="quickCard">
 
-<h3>
-Partner Status
-</h3>
+<div class="quickIcon">
 
-<p style="
-font-size:14px;
-line-height:1.8;
-color:#6B7280;
-">
+<i class="fa-solid fa-motorcycle"></i>
 
-Your partner account is active and running normally.
+</div>
+
+<p>
+
+Rider Panel
+
+</p>
+
+</div>
+
+<div class="quickCard">
+
+<div class="quickIcon">
+
+<i class="fa-solid fa-wallet"></i>
+
+</div>
+
+<p>
+
+Earnings
+
+</p>
+
+</div>
+
+<div class="quickCard">
+
+<div class="quickIcon">
+
+<i class="fa-solid fa-headset"></i>
+
+</div>
+
+<p>
+
+Support
 
 </p>
 
@@ -572,13 +534,68 @@ Your partner account is active and running normally.
 
 </div>
 
-</div>
+<!-- =====================================================
+BOTTOM NAVBAR
+===================================================== -->
+
+<div class="bottomNav">
+
+<a href="#"
+class="navItem activeNav">
+
+<i class="fa-solid fa-house"></i>
+
+<span>
+Home
+</span>
+
+</a>
+
+<a href="orders.html"
+class="navItem">
+
+<i class="fa-solid fa-box"></i>
+
+<span>
+Orders
+</span>
+
+</a>
+
+<a href="#"
+class="navItem">
+
+<i class="fa-solid fa-chart-line"></i>
+
+<span>
+Growth
+</span>
+
+</a>
+
+<a href="#"
+class="navItem">
+
+<i class="fa-solid fa-utensils"></i>
+
+<span>
+Services
+</span>
+
+</a>
+
+<a href="#"
+class="navItem">
+
+<i class="fa-solid fa-wallet"></i>
+
+<span>
+Finance
+</span>
+
+</a>
 
 </div>
-
-<script type="module"
-src="./index.js">
-</script>
 
 </body>
 </html>
