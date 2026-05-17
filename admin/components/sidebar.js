@@ -31,10 +31,6 @@ LOGO
 QuickPress
 </h2>
 
-<p>
-Enterprise Panel
-</p>
-
 </div>
 
 <!-- =====================================================
@@ -113,13 +109,6 @@ Complaints
 
 </a>
 
-<a
-href="live-support.html"
-class="${currentPage === 'live-support.html' ? 'active' : ''}">
-
-Live Support
-
-</a>
 
 <!-- PARTNERS -->
 
@@ -321,13 +310,6 @@ Support
 
 </a>
 
-<a
-href="help.html"
-class="${currentPage === 'help.html' ? 'active' : ''}">
-
-Help Center
-
-</a>
 
 <a
 href="settings.html"
