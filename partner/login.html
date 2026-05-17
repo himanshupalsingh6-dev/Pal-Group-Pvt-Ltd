@@ -1,64 +1,151 @@
+<!-- =========================================================
+FILE : partner/login.html
+QUICKPRESS PARTNER LOGIN
+========================================================= -->
+
 <!DOCTYPE html>
 <html lang="en">
 
 <head>
 
-<meta charset="UTF-8">
+<meta charset="UTF-8"/>
 
 <meta name="viewport"
-content="width=device-width, initial-scale=1.0">
+content="width=device-width, initial-scale=1.0"/>
 
-<title>Partner Login</title>
+<title>
+Partner Login
+</title>
+
+<link rel="stylesheet"
+href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css"/>
 
 <style>
 
-body{
+/* =====================================================
+RESET
+===================================================== */
+
+*{
 margin:0;
-font-family:Arial,sans-serif;
-background:#07142b;
-display:flex;
-justify-content:center;
-align-items:center;
-height:100vh;
+padding:0;
+box-sizing:border-box;
+font-family:Inter,sans-serif;
 }
+
+/* =====================================================
+BODY
+===================================================== */
+
+body{
+height:100vh;
+display:flex;
+align-items:center;
+justify-content:center;
+background:#F5F7FB;
+overflow:hidden;
+}
+
+/* =====================================================
+CARD
+===================================================== */
 
 .loginCard{
+width:420px;
 background:#fff;
-padding:40px;
-border-radius:25px;
-width:350px;
-box-shadow:0 5px 20px rgba(0,0,0,0.3);
+border-radius:32px;
+padding:36px;
+border:1px solid #E5E7EB;
+box-shadow:
+0 20px 50px rgba(0,0,0,0.08);
 }
 
-h1{
-margin-top:0;
+/* =====================================================
+LOGO
+===================================================== */
+
+.logo{
 text-align:center;
-margin-bottom:25px;
+margin-bottom:30px;
 }
 
-input{
-width:100%;
-padding:14px;
-margin-bottom:15px;
-border-radius:12px;
-border:1px solid #ddd;
-font-size:15px;
-box-sizing:border-box;
+.logo h1{
+font-size:42px;
+font-weight:900;
+color:#111827;
+margin-bottom:8px;
 }
 
-button{
+.logo p{
+font-size:14px;
+font-weight:600;
+color:#6B7280;
+}
+
+/* =====================================================
+INPUTS
+===================================================== */
+
+.inputGroup{
+margin-bottom:18px;
+}
+
+.inputGroup label{
+display:block;
+font-size:13px;
+font-weight:800;
+margin-bottom:10px;
+}
+
+.inputField{
 width:100%;
-padding:14px;
+height:56px;
+border-radius:18px;
+border:1px solid #E5E7EB;
+padding:0 18px;
+font-size:14px;
+outline:none;
+}
+
+/* =====================================================
+BUTTON
+===================================================== */
+
+.loginBtn{
+width:100%;
+height:58px;
 border:none;
-border-radius:12px;
-background:#FFD400;
-font-size:16px;
-font-weight:bold;
+border-radius:18px;
+background:#111827;
+color:#fff;
+font-size:15px;
+font-weight:800;
 cursor:pointer;
+margin-top:12px;
 }
 
-button:hover{
-opacity:0.9;
+/* =====================================================
+ERROR
+===================================================== */
+
+.errorText{
+margin-top:18px;
+font-size:13px;
+font-weight:700;
+color:#DC2626;
+text-align:center;
+}
+
+/* =====================================================
+FOOTER
+===================================================== */
+
+.footer{
+margin-top:24px;
+text-align:center;
+font-size:13px;
+font-weight:600;
+color:#6B7280;
 }
 
 </style>
@@ -67,174 +154,90 @@ opacity:0.9;
 
 <body>
 
+<!-- =====================================================
+LOGIN CARD
+===================================================== -->
+
 <div class="loginCard">
 
+<!-- LOGO -->
+
+<div class="logo">
+
 <h1>
-👨‍🏭 Partner Login
+QuickPress
 </h1>
 
-<input
-type="email"
-id="email"
-placeholder="Email"
->
-
-<input
-type="password"
-id="password"
-placeholder="Password"
->
-
-<button onclick="login()">
-Login
-</button>
+<p>
+Partner Panel Login
+</p>
 
 </div>
 
-<script type="module">
+<!-- EMAIL -->
 
-import {
+<div class="inputGroup">
 
-initializeApp
+<label>
+Partner Email
+</label>
 
-}
+<input
+type="email"
+class="inputField"
+id="email"
+placeholder="Enter partner email"
+/>
 
-from "https://www.gstatic.com/firebasejs/12.11.0/firebase-app.js";
+</div>
 
-import {
+<!-- PASSWORD -->
 
-getAuth,
-signInWithEmailAndPassword
+<div class="inputGroup">
 
-}
+<label>
+Password
+</label>
 
-from "https://www.gstatic.com/firebasejs/12.11.0/firebase-auth.js";
+<input
+type="password"
+class="inputField"
+id="password"
+placeholder="Enter password"
+/>
 
-import {
+</div>
 
-getFirestore,
-doc,
-getDoc
+<!-- BUTTON -->
 
-}
+<button
+class="loginBtn"
+onclick="partnerLogin()">
 
-from "https://www.gstatic.com/firebasejs/12.11.0/firebase-firestore.js";
+Login Partner Panel
 
-/* FIREBASE CONFIG */
+</button>
 
-const firebaseConfig = {
+<!-- ERROR -->
 
-apiKey: "AIzaSyBBaslH5QsahoyESYpo1nVtlYIUYfVJ2d4",
+<div
+class="errorText"
+id="errorText">
 
-authDomain:
-"quickpress-offical.firebaseapp.com",
+</div>
 
-projectId:
-"quickpress-offical",
+<!-- FOOTER -->
 
-storageBucket:
-"quickpress-offical.firebasestorage.app",
+<div class="footer">
 
-messagingSenderId:
-"939286557961",
+PAL GROUP PRIVATE LIMITED
 
-appId:
-"1:939286557961:web:ddac64f197e14877718fd8"
+</div>
 
-};
+</div>
 
-const app =
-initializeApp(firebaseConfig);
-
-const auth =
-getAuth(app);
-
-const db =
-getFirestore(app);
-
-/* LOGIN */
-
-window.login =
-async function(){
-
-const email =
-document.getElementById("email").value;
-
-const password =
-document.getElementById("password").value;
-
-if(!email || !password){
-
-alert("Fill all fields");
-
-return;
-
-}
-
-try{
-
-const result =
-await signInWithEmailAndPassword(
-auth,
-email,
-password
-);
-
-const uid =
-result.user.uid;
-
-/* CHECK PARTNER */
-
-const docRef =
-doc(db,"partners",uid);
-
-const docSnap =
-await getDoc(docRef);
-
-if(!docSnap.exists()){
-
-alert("Partner not found");
-
-return;
-
-}
-
-const partner =
-docSnap.data();
-
-/* BLOCK CHECK */
-
-if(partner.status === "blocked"){
-
-alert("Account Blocked");
-
-return;
-
-}
-
-/* SAVE SESSION */
-
-localStorage.setItem(
-"partnerId",
-uid
-);
-
-localStorage.setItem(
-"partnerName",
-partner.name || ""
-);
-
-window.location.href =
-"./index.html";
-
-}catch(error){
-
-alert(error.message);
-
-}
-
-}
-
+<script type="module"
+src="./login.js">
 </script>
 
 </body>
