@@ -1,0 +1,538 @@
+<!-- =========================================================
+FILE : admin/export.html
+QUICKPRESS EXPORT CENTER
+========================================================= -->
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+<meta charset="UTF-8"/>
+
+<meta name="viewport"
+content="width=device-width, initial-scale=1.0"/>
+
+<title>
+QuickPress Export Center
+</title>
+
+<link rel="stylesheet"
+href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css"/>
+
+<style>
+
+/* =====================================================
+GLOBAL
+===================================================== */
+
+*{
+margin:0;
+padding:0;
+box-sizing:border-box;
+font-family:Inter,sans-serif;
+}
+
+body{
+background:#F5F7FB;
+overflow:hidden;
+color:#111827;
+}
+
+/* =====================================================
+TOPBAR
+===================================================== */
+
+.topbar{
+position:fixed;
+top:0;
+left:0;
+right:0;
+height:82px;
+background:#fff;
+border-bottom:1px solid #E5E7EB;
+display:flex;
+align-items:center;
+justify-content:space-between;
+padding:0 24px;
+z-index:999;
+}
+
+.logo{
+font-size:32px;
+font-weight:900;
+}
+
+/* =====================================================
+SIDEBAR
+===================================================== */
+
+.sidebar{
+position:fixed;
+top:82px;
+left:0;
+bottom:0;
+width:240px;
+background:#fff;
+border-right:1px solid #E5E7EB;
+padding:18px 10px;
+overflow:auto;
+}
+
+.sidebarMenu{
+display:flex;
+flex-direction:column;
+gap:6px;
+}
+
+.sidebarMenu a{
+height:52px;
+padding:0 16px;
+display:flex;
+align-items:center;
+gap:14px;
+border-radius:14px;
+text-decoration:none;
+font-size:15px;
+font-weight:700;
+color:#374151;
+}
+
+.sidebarMenu a.active{
+background:#111827;
+color:#fff;
+}
+
+/* =====================================================
+MAIN
+===================================================== */
+
+.main{
+margin-left:240px;
+margin-top:82px;
+padding:24px;
+height:calc(100vh - 82px);
+overflow:auto;
+}
+
+/* =====================================================
+HEADER
+===================================================== */
+
+.pageHeader{
+margin-bottom:28px;
+}
+
+.pageHeader h1{
+font-size:42px;
+font-weight:900;
+margin-bottom:10px;
+}
+
+.pageHeader p{
+font-size:15px;
+color:#6B7280;
+}
+
+/* =====================================================
+GRID
+===================================================== */
+
+.exportGrid{
+display:grid;
+grid-template-columns:repeat(3,1fr);
+gap:22px;
+}
+
+/* =====================================================
+CARD
+===================================================== */
+
+.exportCard{
+background:#fff;
+border-radius:28px;
+padding:28px;
+border:1px solid #E5E7EB;
+transition:0.2s;
+}
+
+.exportCard:hover{
+transform:translateY(-4px);
+box-shadow:0 10px 30px rgba(0,0,0,0.05);
+}
+
+.exportIcon{
+width:74px;
+height:74px;
+border-radius:22px;
+background:#DBEAFE;
+display:flex;
+align-items:center;
+justify-content:center;
+font-size:34px;
+margin-bottom:22px;
+}
+
+.exportCard h2{
+font-size:24px;
+font-weight:900;
+margin-bottom:14px;
+}
+
+.exportCard p{
+font-size:14px;
+line-height:1.8;
+color:#6B7280;
+margin-bottom:24px;
+}
+
+/* =====================================================
+BUTTONS
+===================================================== */
+
+.btnGroup{
+display:flex;
+gap:12px;
+}
+
+.exportBtn{
+flex:1;
+height:52px;
+border:none;
+border-radius:16px;
+font-size:14px;
+font-weight:800;
+cursor:pointer;
+}
+
+.csvBtn{
+background:#111827;
+color:#fff;
+}
+
+.excelBtn{
+background:#2563EB;
+color:#fff;
+}
+
+</style>
+
+</head>
+
+<body>
+
+<!-- =====================================================
+TOPBAR
+===================================================== -->
+
+<div class="topbar">
+
+<div class="logo">
+QuickPress
+</div>
+
+</div>
+
+<!-- =====================================================
+SIDEBAR
+===================================================== -->
+
+<div class="sidebar">
+
+<div class="sidebarMenu">
+
+<a href="index.html">
+<i class="fa-solid fa-chart-line"></i>
+Dashboard
+</a>
+
+<a href="orders.html">
+<i class="fa-solid fa-box"></i>
+Orders
+</a>
+
+<a href="payments.html">
+<i class="fa-solid fa-wallet"></i>
+Finance
+</a>
+
+<a href="reports.html">
+<i class="fa-solid fa-chart-column"></i>
+Reports
+</a>
+
+<a href="export.html" class="active">
+<i class="fa-solid fa-file-export"></i>
+Export Center
+</a>
+
+</div>
+
+</div>
+
+<!-- =====================================================
+MAIN
+===================================================== -->
+
+<div class="main">
+
+<!-- =====================================================
+HEADER
+===================================================== -->
+
+<div class="pageHeader">
+
+<h1>
+Export Center
+</h1>
+
+<p>
+Export QuickPress live data into CSV and Excel files
+</p>
+
+</div>
+
+<!-- =====================================================
+GRID
+===================================================== -->
+
+<div class="exportGrid">
+
+<!-- ORDERS -->
+
+<div class="exportCard">
+
+<div class="exportIcon">
+📦
+</div>
+
+<h2>
+Orders Export
+</h2>
+
+<p>
+Export all orders including customer details, payment, partner assignment, rider assignment and delivery status.
+</p>
+
+<div class="btnGroup">
+
+<button
+class="exportBtn csvBtn"
+onclick="exportOrdersCSV()">
+
+CSV
+
+</button>
+
+<button
+class="exportBtn excelBtn"
+onclick="exportOrdersExcel()">
+
+Excel
+
+</button>
+
+</div>
+
+</div>
+
+<!-- USERS -->
+
+<div class="exportCard">
+
+<div class="exportIcon">
+👤
+</div>
+
+<h2>
+Users Export
+</h2>
+
+<p>
+Export customer database with wallet, order count, city and activity history.
+</p>
+
+<div class="btnGroup">
+
+<button
+class="exportBtn csvBtn"
+onclick="exportUsersCSV()">
+
+CSV
+
+</button>
+
+<button
+class="exportBtn excelBtn"
+onclick="exportUsersExcel()">
+
+Excel
+
+</button>
+
+</div>
+
+</div>
+
+<!-- FINANCE -->
+
+<div class="exportCard">
+
+<div class="exportIcon">
+💰
+</div>
+
+<h2>
+Finance Export
+</h2>
+
+<p>
+Export revenue reports, settlements, commissions, payouts and admin profit data.
+</p>
+
+<div class="btnGroup">
+
+<button
+class="exportBtn csvBtn"
+onclick="exportFinanceCSV()">
+
+CSV
+
+</button>
+
+<button
+class="exportBtn excelBtn"
+onclick="exportFinanceExcel()">
+
+Excel
+
+</button>
+
+</div>
+
+</div>
+
+<!-- PARTNERS -->
+
+<div class="exportCard">
+
+<div class="exportIcon">
+🏪
+</div>
+
+<h2>
+Partners Export
+</h2>
+
+<p>
+Export all partner information with earnings, commissions and operational cities.
+</p>
+
+<div class="btnGroup">
+
+<button
+class="exportBtn csvBtn"
+onclick="exportPartnersCSV()">
+
+CSV
+
+</button>
+
+<button
+class="exportBtn excelBtn"
+onclick="exportPartnersExcel()">
+
+Excel
+
+</button>
+
+</div>
+
+</div>
+
+<!-- RIDERS -->
+
+<div class="exportCard">
+
+<div class="exportIcon">
+🛵
+</div>
+
+<h2>
+Riders Export
+</h2>
+
+<p>
+Export rider earnings, delivery trips, online hours and live tracking information.
+</p>
+
+<div class="btnGroup">
+
+<button
+class="exportBtn csvBtn"
+onclick="exportRidersCSV()">
+
+CSV
+
+</button>
+
+<button
+class="exportBtn excelBtn"
+onclick="exportRidersExcel()">
+
+Excel
+
+</button>
+
+</div>
+
+</div>
+
+<!-- WALLET -->
+
+<div class="exportCard">
+
+<div class="exportIcon">
+🏦
+</div>
+
+<h2>
+Wallet Export
+</h2>
+
+<p>
+Export wallet transactions, credits, debits and settlement history.
+</p>
+
+<div class="btnGroup">
+
+<button
+class="exportBtn csvBtn"
+onclick="exportWalletCSV()">
+
+CSV
+
+</button>
+
+<button
+class="exportBtn excelBtn"
+onclick="exportWalletExcel()">
+
+Excel
+
+</button>
+
+</div>
+
+</div>
+
+</div>
+
+</div>
+
+<script type="module"
+src="./js/export.js">
+</script>
+
+</body>
+</html>
