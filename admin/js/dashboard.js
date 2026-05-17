@@ -1,7 +1,6 @@
 /* =========================================================
 FILE : admin/js/dashboard.js
-QUICKPRESS ENTERPRISE DASHBOARD
-REALTIME FIREBASE SYSTEM
+QUICKPRESS ENTERPRISE REALTIME DASHBOARD
 ========================================================= */
 
 import { db }
@@ -22,6 +21,95 @@ orderBy
 from
 
 "https://www.gstatic.com/firebasejs/12.11.0/firebase-firestore.js";
+
+/* =========================================================
+AUTH CHECK
+========================================================= */
+
+const adminLogin =
+localStorage.getItem(
+"quickpress_admin"
+);
+
+if(adminLogin !== "true"){
+
+window.location.href =
+"login.html";
+
+}
+
+/* =========================================================
+DESKTOP ONLY
+========================================================= */
+
+const isMobile =
+/Android|iPhone|iPad|iPod/i
+.test(
+navigator.userAgent
+);
+
+if(
+window.innerWidth < 1024
+||
+isMobile
+){
+
+document.body.innerHTML = `
+
+<div
+style="
+height:100vh;
+display:flex;
+align-items:center;
+justify-content:center;
+background:#111827;
+color:white;
+font-family:Inter,sans-serif;
+text-align:center;
+padding:30px;
+">
+
+<div>
+
+<div
+style="
+font-size:80px;
+margin-bottom:20px;
+">
+
+🖥️
+
+</div>
+
+<h1
+style="
+font-size:42px;
+font-weight:900;
+">
+
+Desktop Only
+
+</h1>
+
+<p
+style="
+margin-top:12px;
+font-size:16px;
+line-height:1.7;
+color:#D1D5DB;
+">
+
+QuickPress Admin Panel only works on Laptop/Desktop
+
+</p>
+
+</div>
+
+</div>
+
+`;
+
+}
 
 /* =========================================================
 ELEMENTS
@@ -67,11 +155,6 @@ document.getElementById(
 "notificationCount"
 );
 
-const searchInput =
-document.getElementById(
-"searchInput"
-);
-
 const cityFilter =
 document.getElementById(
 "cityFilter"
@@ -82,16 +165,21 @@ document.getElementById(
 "statusFilter"
 );
 
+const searchInput =
+document.getElementById(
+"searchInput"
+);
+
 /* =========================================================
-DATA STORAGE
+GLOBAL DATA
 ========================================================= */
 
 let allOrders = [];
 
-let revenueChart = null;
+let revenueChart;
 
 /* =========================================================
-LOAD ORDERS
+LOAD REALTIME ORDERS
 ========================================================= */
 
 onSnapshot(
@@ -112,18 +200,9 @@ let preparing = 0;
 let delivery = 0;
 let delivered = 0;
 
-let citySet =
-new Set();
+let cities = new Set();
 
-/* =========================================
-CLEAR
-========================================= */
-
-ordersContainer.innerHTML = "";
-
-/* =========================================
-LOOP
-========================================= */
+/* ========================================= */
 
 snapshot.forEach((docSnap)=>{
 
@@ -136,22 +215,20 @@ id:docSnap.id,
 
 allOrders.push(order);
 
-/* =========================================
-CITYS
-========================================= */
-
-if(order.city){
-
-citySet.add(order.city);
-
-}
-
-/* =========================================
-STATS
-========================================= */
+/* ========================================= */
 
 totalRevenue +=
 Number(order.total || 0);
+
+/* ========================================= */
+
+if(order.city){
+
+cities.add(order.city);
+
+}
+
+/* ========================================= */
 
 if(order.status === "Pending"){
 
@@ -181,191 +258,6 @@ delivered++;
 
 }
 
-/* =========================================
-SEARCH FILTER
-========================================= */
-
-const search =
-searchInput.value
-.toLowerCase();
-
-const selectedCity =
-cityFilter.value;
-
-const selectedStatus =
-statusFilter.value;
-
-if(
-search &&
-!(
-order.name || ""
-)
-.toLowerCase()
-.includes(search)
-&&
-!(
-order.mobile || ""
-)
-.includes(search)
-){
-
-return;
-
-}
-
-if(
-selectedCity !== "All"
-&&
-order.city !== selectedCity
-){
-
-return;
-
-}
-
-if(
-selectedStatus !== "All"
-&&
-order.status !== selectedStatus
-){
-
-return;
-
-}
-
-/* =========================================
-STATUS CLASS
-========================================= */
-
-let statusClass =
-"pending";
-
-if(order.status === "Delivered"){
-
-statusClass =
-"delivered";
-
-}
-
-if(order.status === "Out For Delivery"){
-
-statusClass =
-"delivery";
-
-}
-
-/* =========================================
-TIME
-========================================= */
-
-let orderTime = "--";
-
-if(order.createdAt?.seconds){
-
-orderTime =
-new Date(
-order.createdAt.seconds * 1000
-).toLocaleTimeString();
-
-}
-
-/* =========================================
-ROW
-========================================= */
-
-const row = `
-
-<div class="orderRow">
-
-<div>
-
-#${order.id.slice(0,6)}
-
-</div>
-
-<div class="customer">
-
-<div class="customerAvatar">
-
-${order.name
-?.charAt(0)
-|| "U"}
-
-</div>
-
-<div>
-
-<b>
-
-${order.name || "Customer"}
-
-</b>
-
-<br>
-
-<small>
-
-${order.city || ""}
-
-</small>
-
-</div>
-
-</div>
-
-<div>
-
-${order.items?.length || 0}
-Items
-
-</div>
-
-<div>
-
-₹${order.total || 0}
-
-</div>
-
-<div>
-
-${order.paymentMethod || "COD"}
-
-</div>
-
-<div>
-
-<div class="status ${statusClass}">
-
-${order.status || "Pending"}
-
-</div>
-
-</div>
-
-<div>
-
-${orderTime}
-
-</div>
-
-<div>
-
-<button
-class="actionBtn"
-onclick="window.location.href='orders.html?id=${order.id}'">
-
-View
-
-</button>
-
-</div>
-
-</div>
-
-`;
-
-ordersContainer.innerHTML += row;
-
 });
 
 /* =========================================
@@ -373,7 +265,7 @@ UPDATE STATS
 ========================================= */
 
 totalOrders.innerHTML =
-snapshot.size;
+allOrders.length;
 
 pendingOrders.innerHTML =
 pending;
@@ -390,18 +282,20 @@ delivered;
 revenue.innerHTML =
 `₹${totalRevenue}`;
 
-/* =========================================
-NOTIFICATION COUNT
-========================================= */
-
 notificationCount.innerHTML =
 pending;
 
 /* =========================================
-LOAD CITIES
+LOAD FILTERS
 ========================================= */
 
-loadCities([...citySet]);
+loadCities([...cities]);
+
+/* =========================================
+SHOW ORDERS
+========================================= */
+
+renderOrders();
 
 /* =========================================
 GRAPH
@@ -411,7 +305,7 @@ loadRevenueChart();
 
 }
 
-/* END */
+/* END SNAPSHOT */
 
 );
 
@@ -444,50 +338,20 @@ ${city}
 
 });
 
-cityFilter.value = current;
+cityFilter.value =
+current;
 
 }
 
 /* =========================================================
-SEARCH
+RENDER ORDERS
 ========================================================= */
 
-searchInput.addEventListener(
-"input",
-()=>{
-
-reloadOrders();
-
-}
-);
-
-cityFilter.addEventListener(
-"change",
-()=>{
-
-reloadOrders();
-
-}
-);
-
-statusFilter.addEventListener(
-"change",
-()=>{
-
-reloadOrders();
-
-}
-);
-
-/* =========================================================
-RELOAD
-========================================================= */
-
-function reloadOrders(){
+function renderOrders(){
 
 ordersContainer.innerHTML = "";
 
-allOrders.forEach((order)=>{
+/* ========================================= */
 
 const search =
 searchInput.value
@@ -500,6 +364,12 @@ const selectedStatus =
 statusFilter.value;
 
 /* ========================================= */
+
+allOrders.forEach((order)=>{
+
+/* =====================================
+SEARCH FILTER
+===================================== */
 
 if(
 search &&
@@ -519,6 +389,10 @@ return;
 
 }
 
+/* =====================================
+CITY FILTER
+===================================== */
+
 if(
 selectedCity !== "All"
 &&
@@ -528,6 +402,10 @@ order.city !== selectedCity
 return;
 
 }
+
+/* =====================================
+STATUS FILTER
+===================================== */
 
 if(
 selectedStatus !== "All"
@@ -539,7 +417,9 @@ return;
 
 }
 
-/* ========================================= */
+/* =====================================
+STATUS CLASS
+===================================== */
 
 let statusClass =
 "pending";
@@ -558,7 +438,20 @@ statusClass =
 
 }
 
-/* ========================================= */
+if(
+order.status === "Preparing"
+||
+order.status === "Ironing"
+){
+
+statusClass =
+"preparing";
+
+}
+
+/* =====================================
+TIME
+===================================== */
 
 let orderTime = "--";
 
@@ -571,7 +464,9 @@ order.createdAt.seconds * 1000
 
 }
 
-/* ========================================= */
+/* =====================================
+ROW
+===================================== */
 
 const row = `
 
@@ -652,7 +547,7 @@ ${orderTime}
 
 <button
 class="actionBtn"
-onclick="window.location.href='orders.html?id=${order.id}'">
+onclick="openOrder('${order.id}')">
 
 View
 
@@ -671,6 +566,37 @@ ordersContainer.innerHTML += row;
 }
 
 /* =========================================================
+OPEN ORDER
+========================================================= */
+
+window.openOrder =
+(id)=>{
+
+window.location.href =
+`orders.html?id=${id}`;
+
+};
+
+/* =========================================================
+SEARCH EVENTS
+========================================================= */
+
+searchInput.addEventListener(
+"input",
+renderOrders
+);
+
+cityFilter.addEventListener(
+"change",
+renderOrders
+);
+
+statusFilter.addEventListener(
+"change",
+renderOrders
+);
+
+/* =========================================================
 REVENUE GRAPH
 ========================================================= */
 
@@ -681,9 +607,7 @@ document.getElementById(
 "revenueChart"
 );
 
-/* =========================================
-DESTROY OLD
-========================================= */
+/* ========================================= */
 
 if(revenueChart){
 
@@ -691,9 +615,7 @@ revenueChart.destroy();
 
 }
 
-/* =========================================
-WEEK DATA
-========================================= */
+/* ========================================= */
 
 let monday = 0;
 let tuesday = 0;
@@ -707,10 +629,14 @@ let sunday = 0;
 
 allOrders.forEach((order)=>{
 
+if(!order.createdAt?.seconds){
+
+return;
+
+}
+
 const amount =
 Number(order.total || 0);
-
-if(!order.createdAt?.seconds) return;
 
 const date =
 new Date(
@@ -766,9 +692,7 @@ sunday += amount;
 
 });
 
-/* =========================================
-GRAPH
-========================================= */
+/* ========================================= */
 
 revenueChart =
 new Chart(ctx, {
@@ -837,21 +761,26 @@ window.exportOrders =
 ()=>{
 
 let csv =
-"OrderID,Customer,City,Amount,Status\n";
+"OrderID,Customer,City,Amount,Status,Payment\n";
+
+/* ========================================= */
 
 allOrders.forEach((order)=>{
 
-csv += `
+csv +=
 
-${order.id},
+`${order.id},
 ${order.name},
 ${order.city},
 ${order.total},
-${order.status}
+${order.status},
+${order.paymentMethod}
 
 `;
 
 });
+
+/* ========================================= */
 
 const blob =
 new Blob(
