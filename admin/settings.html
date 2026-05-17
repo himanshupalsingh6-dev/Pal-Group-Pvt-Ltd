@@ -1,261 +1,272 @@
+<!-- =========================================================
+FILE : admin/settings.html
+QUICKPRESS ENTERPRISE SETTINGS PANEL
+========================================================= -->
+
 <!DOCTYPE html>
 <html lang="en">
-<head>
-<meta charset="UTF-8">
-<meta name="viewport"
-content="width=device-width, initial-scale=1.0">
 
-<title>QuickPress Settings</title>
+<head>
+
+<meta charset="UTF-8"/>
+
+<meta name="viewport"
+content="width=device-width, initial-scale=1.0"/>
+
+<title>
+QuickPress Settings
+</title>
 
 <link rel="stylesheet"
 href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css"/>
 
 <style>
 
+/* =====================================================
+GLOBAL
+===================================================== */
+
 *{
 margin:0;
 padding:0;
 box-sizing:border-box;
-font-family:Poppins,sans-serif;
+font-family:Inter,sans-serif;
 }
 
 body{
 background:#F5F7FB;
+overflow:hidden;
+color:#111827;
 }
 
-/* SIDEBAR */
+/* =====================================================
+TOPBAR
+===================================================== */
 
-.sidebar{
-width:270px;
-background:#111827;
-color:#fff;
-padding:24px 18px;
+.topbar{
 position:fixed;
-left:0;
 top:0;
-height:100%;
-overflow:auto;
+left:0;
+right:0;
+height:82px;
+background:#fff;
+border-bottom:1px solid #E5E7EB;
+display:flex;
+align-items:center;
+justify-content:space-between;
+padding:0 24px;
 z-index:999;
 }
 
 .logo{
-font-size:30px;
+font-size:32px;
 font-weight:900;
-margin-bottom:40px;
-color:#FFD400;
 }
 
-.menu{
+/* =====================================================
+SIDEBAR
+===================================================== */
+
+.sidebar{
+position:fixed;
+top:82px;
+left:0;
+bottom:0;
+width:240px;
+background:#fff;
+border-right:1px solid #E5E7EB;
+padding:18px 10px;
+overflow:auto;
+}
+
+.sidebarMenu{
 display:flex;
 flex-direction:column;
-gap:10px;
+gap:6px;
 }
 
-.menu a{
-text-decoration:none;
-color:#D1D5DB;
-padding:16px;
-border-radius:18px;
+.sidebarMenu a{
+height:52px;
+padding:0 16px;
 display:flex;
 align-items:center;
 gap:14px;
+border-radius:14px;
+text-decoration:none;
 font-size:15px;
 font-weight:600;
-transition:0.3s;
+color:#374151;
 }
 
-.menu a:hover,
-.menu a.active{
-background:#1F2937;
+.sidebarMenu a.active{
+background:#111827;
 color:#fff;
 }
 
-/* MAIN */
+/* =====================================================
+MAIN
+===================================================== */
 
 .main{
-margin-left:270px;
+margin-left:240px;
+margin-top:82px;
+height:calc(100vh - 82px);
+overflow:auto;
 padding:24px;
 }
 
-/* TOPBAR */
-
-.topbar{
+.pageHeader{
 margin-bottom:24px;
 }
 
-.topbar h1{
-font-size:34px;
+.pageHeader h1{
+font-size:42px;
 font-weight:900;
 }
 
-/* SETTINGS */
+/* =====================================================
+SETTINGS GRID
+===================================================== */
 
 .settingsGrid{
 display:grid;
 grid-template-columns:1fr 1fr;
-gap:20px;
+gap:24px;
 }
+
+/* =====================================================
+CARD
+===================================================== */
 
 .settingCard{
 background:#fff;
+border:1px solid #E5E7EB;
+border-radius:24px;
 padding:24px;
-border-radius:28px;
-box-shadow:0 10px 30px rgba(0,0,0,0.05);
 }
 
-.settingTitle{
-font-size:22px;
+.settingCard h2{
+font-size:24px;
 font-weight:900;
 margin-bottom:20px;
 }
 
-.input{
-width:100%;
-height:56px;
-border:none;
-outline:none;
-background:#F3F4F6;
-border-radius:18px;
-padding:0 18px;
-font-size:15px;
-margin-bottom:16px;
+/* =====================================================
+INPUT
+===================================================== */
+
+.inputGroup{
+margin-bottom:18px;
 }
+
+.inputGroup label{
+display:block;
+font-size:13px;
+font-weight:700;
+margin-bottom:8px;
+color:#6B7280;
+}
+
+.inputBox{
+width:100%;
+height:54px;
+border-radius:14px;
+border:1px solid #E5E7EB;
+padding:0 18px;
+font-size:14px;
+outline:none;
+}
+
+textarea.inputBox{
+height:120px;
+padding:18px;
+resize:none;
+}
+
+/* =====================================================
+BUTTON
+===================================================== */
 
 .saveBtn{
-width:100%;
-height:56px;
+height:52px;
+padding:0 24px;
 border:none;
-border-radius:18px;
-background:#FFD400;
-font-size:16px;
-font-weight:900;
+border-radius:14px;
+background:#111827;
+color:#fff;
+font-size:14px;
+font-weight:800;
 cursor:pointer;
 }
-
-/* SWITCH */
 
 .switchRow{
 display:flex;
 justify-content:space-between;
 align-items:center;
-padding:14px 0;
+padding:16px 0;
 border-bottom:1px solid #F3F4F6;
 }
 
-.switchRow:last-child{
-border-bottom:none;
-}
-
-.switchLabel{
+.switchRow h3{
 font-size:15px;
-font-weight:600;
+font-weight:800;
 }
 
-.toggle{
+.switchRow p{
+font-size:13px;
+color:#6B7280;
+margin-top:4px;
+}
+
+/* =====================================================
+SWITCH
+===================================================== */
+
+.switch{
 width:54px;
 height:30px;
-background:#E5E7EB;
-border-radius:50px;
+background:#111827;
+border-radius:999px;
 position:relative;
 cursor:pointer;
-transition:0.3s;
 }
 
-.toggle.active{
-background:#FFD400;
-}
-
-.toggleCircle{
-width:24px;
-height:24px;
-background:#fff;
-border-radius:50%;
+.switch::before{
+content:"";
 position:absolute;
-top:3px;
-left:3px;
-transition:0.3s;
-}
-
-.toggle.active .toggleCircle{
-left:27px;
-}
-
-/* MOBILE */
-
-.mobileMenuBtn{
-display:none;
-}
-
-@media(max-width:900px){
-
-.settingsGrid{
-grid-template-columns:1fr;
-}
-
-}
-
-@media(max-width:768px){
-
-.sidebar{
-left:-100%;
-transition:0.3s;
-}
-
-.sidebar.active{
-left:0;
-}
-
-.main{
-margin-left:0;
-padding:16px;
-padding-top:80px;
-}
-
-.mobileMenuBtn{
-display:flex;
-position:fixed;
-top:18px;
-left:18px;
-width:52px;
-height:52px;
-border:none;
-border-radius:18px;
-background:#111827;
-color:#fff;
-font-size:22px;
-align-items:center;
-justify-content:center;
-z-index:1000;
-}
-
-.topbar h1{
-font-size:26px;
-}
-
+width:22px;
+height:22px;
+border-radius:50%;
+background:#fff;
+top:4px;
+right:4px;
 }
 
 </style>
+
 </head>
+
 <body>
 
-<!-- MOBILE BUTTON -->
+<!-- =====================================================
+TOPBAR
+===================================================== -->
 
-<button class="mobileMenuBtn"
-onclick="toggleSidebar()">
-
-<i class="fa-solid fa-bars"></i>
-
-</button>
-
-<!-- SIDEBAR -->
-
-<div class="sidebar">
+<div class="topbar">
 
 <div class="logo">
 QuickPress
 </div>
 
-<div class="menu">
+</div>
+
+<!-- =====================================================
+SIDEBAR
+===================================================== -->
+
+<div class="sidebar">
+
+<div class="sidebarMenu">
 
 <a href="index.html">
 <i class="fa-solid fa-chart-line"></i>
@@ -263,7 +274,7 @@ Dashboard
 </a>
 
 <a href="orders.html">
-<i class="fa-solid fa-basket-shopping"></i>
+<i class="fa-solid fa-box"></i>
 Orders
 </a>
 
@@ -277,13 +288,8 @@ Services
 Users
 </a>
 
-<a href="delivery.html">
-<i class="fa-solid fa-truck"></i>
-Delivery
-</a>
-
 <a href="partners.html">
-<i class="fa-solid fa-handshake"></i>
+<i class="fa-solid fa-store"></i>
 Partners
 </a>
 
@@ -294,17 +300,12 @@ Riders
 
 <a href="payments.html">
 <i class="fa-solid fa-wallet"></i>
-Payments
+Finance
 </a>
 
 <a href="analytics.html">
-<i class="fa-solid fa-chart-pie"></i>
+<i class="fa-solid fa-chart-column"></i>
 Analytics
-</a>
-
-<a href="offers.html">
-<i class="fa-solid fa-tags"></i>
-Offers
 </a>
 
 <a href="notifications.html">
@@ -321,13 +322,13 @@ Settings
 
 </div>
 
-<!-- MAIN -->
+<!-- =====================================================
+MAIN
+===================================================== -->
 
 <div class="main">
 
-<!-- TOPBAR -->
-
-<div class="topbar">
+<div class="pageHeader">
 
 <h1>
 Settings
@@ -335,42 +336,84 @@ Settings
 
 </div>
 
-<!-- GRID -->
+<!-- =====================================================
+GRID
+===================================================== -->
 
 <div class="settingsGrid">
 
-<!-- APP SETTINGS -->
+<!-- =====================================================
+BUSINESS SETTINGS
+===================================================== -->
 
 <div class="settingCard">
 
-<div class="settingTitle">
-App Settings
+<h2>
+Business Settings
+</h2>
+
+<div class="inputGroup">
+
+<label>
+Business Name
+</label>
+
+<input
+type="text"
+class="inputBox"
+id="businessName"
+placeholder="QuickPress"
+/>
+
 </div>
 
+<div class="inputGroup">
+
+<label>
+Support Email
+</label>
+
 <input
-type="text"
-placeholder="App Name"
-class="input"
-id="appName"
+type="email"
+class="inputBox"
+id="supportEmail"
+placeholder="support@quickpress.com"
 />
+
+</div>
+
+<div class="inputGroup">
+
+<label>
+Support Number
+</label>
 
 <input
 type="text"
-placeholder="Delivery Charge"
-class="input"
-id="deliveryCharge"
-/>
-
-<input
-type="text"
-placeholder="Support Number"
-class="input"
+class="inputBox"
 id="supportNumber"
+placeholder="+91"
 />
+
+</div>
+
+<div class="inputGroup">
+
+<label>
+Business Address
+</label>
+
+<textarea
+class="inputBox"
+id="businessAddress"
+placeholder="Business Address">
+</textarea>
+
+</div>
 
 <button
 class="saveBtn"
-onclick="saveSettings()">
+onclick="saveBusinessSettings()">
 
 Save Settings
 
@@ -378,191 +421,114 @@ Save Settings
 
 </div>
 
-<!-- TOGGLES -->
+<!-- =====================================================
+SYSTEM SETTINGS
+===================================================== -->
 
 <div class="settingCard">
 
-<div class="settingTitle">
-System Controls
-</div>
+<h2>
+System Settings
+</h2>
 
 <div class="switchRow">
 
-<div class="switchLabel">
-Enable Orders
+<div>
+
+<h3>
+Order Notification
+</h3>
+
+<p>
+Receive real-time order alerts
+</p>
+
 </div>
 
-<div class="toggle active"
-onclick="toggleSwitch(this)">
-<div class="toggleCircle"></div>
-</div>
-
-</div>
-
-<div class="switchRow">
-
-<div class="switchLabel">
-Enable Payments
-</div>
-
-<div class="toggle active"
-onclick="toggleSwitch(this)">
-<div class="toggleCircle"></div>
-</div>
+<div class="switch"></div>
 
 </div>
 
 <div class="switchRow">
 
-<div class="switchLabel">
-Enable Notifications
+<div>
+
+<h3>
+Auto Assignment
+</h3>
+
+<p>
+Automatically assign riders
+</p>
+
 </div>
 
-<div class="toggle active"
-onclick="toggleSwitch(this)">
-<div class="toggleCircle"></div>
-</div>
+<div class="switch"></div>
 
 </div>
 
 <div class="switchRow">
 
-<div class="switchLabel">
-Enable Riders
-</div>
+<div>
 
-<div class="toggle active"
-onclick="toggleSwitch(this)">
-<div class="toggleCircle"></div>
-</div>
+<h3>
+Live Tracking
+</h3>
 
-</div>
-
-</div>
+<p>
+Enable live order tracking
+</p>
 
 </div>
 
+<div class="switch"></div>
+
 </div>
 
-<!-- FIREBASE -->
+<div class="switchRow">
 
-<script type="module">
+<div>
 
-import { db }
+<h3>
+Settlement System
+</h3>
 
-from
+<p>
+Enable weekly settlements
+</p>
 
-"/Pal-Group-Pvt-Ltd/firebase.js";
+</div>
 
-import {
+<div class="switch"></div>
 
-doc,
-setDoc,
-getDoc
+</div>
 
-}
+<div class="switchRow">
 
-from
+<div>
 
-"https://www.gstatic.com/firebasejs/12.11.0/firebase-firestore.js";
+<h3>
+Multi City System
+</h3>
 
-/* LOAD */
+<p>
+Enable all india operations
+</p>
 
-async function loadSettings(){
+</div>
 
-const settingsRef =
+<div class="switch"></div>
 
-doc(db,"settings","main");
+</div>
 
-const snap =
-await getDoc(settingsRef);
+</div>
 
-if(snap.exists()){
+</div>
 
-const settings =
-snap.data();
+</div>
 
-document.getElementById(
-"appName"
-).value =
-settings.appName || "";
-
-document.getElementById(
-"deliveryCharge"
-).value =
-settings.deliveryCharge || "";
-
-document.getElementById(
-"supportNumber"
-).value =
-settings.supportNumber || "";
-
-}
-
-}
-
-loadSettings();
-
-/* SAVE */
-
-window.saveSettings =
-async function(){
-
-const appName =
-document.getElementById(
-"appName"
-).value;
-
-const deliveryCharge =
-document.getElementById(
-"deliveryCharge"
-).value;
-
-const supportNumber =
-document.getElementById(
-"supportNumber"
-).value;
-
-await setDoc(
-
-doc(db,"settings","main"),
-
-{
-
-appName:appName,
-deliveryCharge:deliveryCharge,
-supportNumber:supportNumber
-
-}
-
-);
-
-alert(
-"Settings Saved"
-);
-
-};
-
-/* SWITCH */
-
-window.toggleSwitch =
-function(el){
-
-el.classList.toggle("active");
-
-};
-
-/* SIDEBAR */
-
-window.toggleSidebar =
-function(){
-
-document
-.querySelector(".sidebar")
-.classList.toggle("active");
-
-};
-
+<script type="module"
+src="./js/settings.js">
 </script>
 
 </body>
