@@ -1,7 +1,6 @@
 <!-- =========================================================
 FILE : admin/index.html
-QUICKPRESS ENTERPRISE PANEL
-ZOMATO STYLE UI
+QUICKPRESS REAL-TIME ENTERPRISE PANEL
 ========================================================= -->
 
 <!DOCTYPE html>
@@ -56,16 +55,11 @@ right:0;
 z-index:999;
 }
 
-/* LOGO */
-
 .logo{
 font-size:32px;
 font-weight:900;
 color:#111827;
-letter-spacing:-1px;
 }
-
-/* RIGHT */
 
 .topRight{
 display:flex;
@@ -85,6 +79,8 @@ justify-content:center;
 cursor:pointer;
 font-size:18px;
 position:relative;
+text-decoration:none;
+color:#111827;
 }
 
 .badge{
@@ -102,8 +98,6 @@ display:flex;
 align-items:center;
 justify-content:center;
 }
-
-/* STATUS */
 
 .liveStatus{
 height:46px;
@@ -126,8 +120,6 @@ border-radius:50%;
 background:#22C55E;
 }
 
-/* PROFILE */
-
 .profile{
 height:46px;
 padding:0 16px;
@@ -136,7 +128,6 @@ border:1px solid #E5E7EB;
 display:flex;
 align-items:center;
 gap:12px;
-cursor:pointer;
 background:#fff;
 }
 
@@ -144,12 +135,6 @@ background:#fff;
 width:34px;
 height:34px;
 border-radius:50%;
-object-fit:cover;
-}
-
-.profile h4{
-font-size:14px;
-font-weight:800;
 }
 
 /* =====================================================
@@ -182,7 +167,7 @@ align-items:center;
 gap:14px;
 border-radius:14px;
 text-decoration:none;
-font-size:16px;
+font-size:15px;
 font-weight:600;
 color:#374151;
 transition:0.3s;
@@ -194,7 +179,6 @@ background:#F3F4F6;
 
 .sidebarMenu a.active{
 background:#F3F4F6;
-color:#111827;
 font-weight:800;
 }
 
@@ -224,7 +208,6 @@ margin-bottom:24px;
 .pageHeader h1{
 font-size:42px;
 font-weight:900;
-color:#111827;
 }
 
 /* =====================================================
@@ -277,6 +260,11 @@ background:#EDE9FE;
 color:#7C3AED;
 }
 
+.orange{
+background:#FFEDD5;
+color:#EA580C;
+}
+
 .green{
 background:#DCFCE7;
 color:#16A34A;
@@ -287,19 +275,14 @@ background:#FEE2E2;
 color:#DC2626;
 }
 
-.orange{
-background:#FFEDD5;
-color:#EA580C;
-}
-
 .statCard span{
-font-size:14px;
+font-size:13px;
 color:#6B7280;
 font-weight:600;
 }
 
 .statCard h2{
-font-size:38px;
+font-size:36px;
 font-weight:900;
 margin-top:10px;
 }
@@ -328,7 +311,7 @@ flex-wrap:wrap;
 }
 
 .searchBox{
-width:340px;
+width:320px;
 height:52px;
 border-radius:14px;
 border:1px solid #E5E7EB;
@@ -344,13 +327,23 @@ border-radius:14px;
 border:1px solid #E5E7EB;
 font-size:14px;
 font-weight:600;
-outline:none;
 background:#fff;
-min-width:170px;
+}
+
+.actionBtn{
+height:52px;
+padding:0 18px;
+border:none;
+border-radius:14px;
+background:#111827;
+color:#fff;
+font-size:14px;
+font-weight:700;
+cursor:pointer;
 }
 
 /* =====================================================
-LIVE ORDERS
+TABLE
 ===================================================== */
 
 .ordersWrap{
@@ -360,52 +353,42 @@ border-radius:24px;
 overflow:hidden;
 }
 
-/* TABLE */
-
 .tableHead{
 height:60px;
 display:grid;
 grid-template-columns:
-80px
+100px
 1fr
-1fr
-1fr
-1fr
-1fr
-1fr
-160px;
+140px
+140px
+140px
+160px
+160px
+140px;
 align-items:center;
 padding:0 20px;
 border-bottom:1px solid #E5E7EB;
 font-size:14px;
 font-weight:800;
-color:#374151;
 }
 
 .orderRow{
-min-height:88px;
+min-height:84px;
 display:grid;
 grid-template-columns:
-80px
+100px
 1fr
-1fr
-1fr
-1fr
-1fr
-1fr
-160px;
+140px
+140px
+140px
+160px
+160px
+140px;
 align-items:center;
 padding:0 20px;
 border-bottom:1px solid #F3F4F6;
 font-size:14px;
-transition:0.3s;
 }
-
-.orderRow:hover{
-background:#FAFAFA;
-}
-
-/* CUSTOMER */
 
 .customer{
 display:flex;
@@ -414,8 +397,8 @@ gap:12px;
 }
 
 .customerAvatar{
-width:46px;
-height:46px;
+width:44px;
+height:44px;
 border-radius:14px;
 background:#DBEAFE;
 display:flex;
@@ -424,16 +407,11 @@ justify-content:center;
 font-weight:800;
 }
 
-/* STATUS */
-
 .status{
 padding:8px 14px;
 border-radius:999px;
 font-size:12px;
 font-weight:800;
-display:inline-flex;
-align-items:center;
-justify-content:center;
 width:max-content;
 }
 
@@ -450,20 +428,6 @@ color:#1D4ED8;
 .delivered{
 background:#DCFCE7;
 color:#166534;
-}
-
-/* BUTTON */
-
-.actionBtn{
-height:42px;
-padding:0 18px;
-border:none;
-border-radius:12px;
-background:#111827;
-color:#fff;
-font-size:13px;
-font-weight:700;
-cursor:pointer;
 }
 
 /* =====================================================
@@ -488,20 +452,6 @@ margin-bottom:24px;
 .graphTop h2{
 font-size:28px;
 font-weight:900;
-}
-
-/* =====================================================
-SCROLLBAR
-===================================================== */
-
-::-webkit-scrollbar{
-width:8px;
-height:8px;
-}
-
-::-webkit-scrollbar-thumb{
-background:#D1D5DB;
-border-radius:20px;
 }
 
 /* =====================================================
@@ -534,21 +484,21 @@ QuickPress
 
 <div class="topRight">
 
-<div class="iconBtn">
+<a href="notifications.html" class="iconBtn">
 
 <i class="fa-regular fa-bell"></i>
 
-<div class="badge">
-3
+<div class="badge" id="notificationCount">
+0
 </div>
 
-</div>
+</a>
 
-<div class="iconBtn">
+<a href="settings.html" class="iconBtn">
 
 <i class="fa-solid fa-gear"></i>
 
-</div>
+</a>
 
 <div class="liveStatus">
 
@@ -580,116 +530,64 @@ SIDEBAR
 
 <div class="sidebarMenu">
 
-<a href="#" class="active">
-
+<a href="index.html" class="active">
 <i class="fa-solid fa-bag-shopping"></i>
 Orders
-
 </a>
 
-<a href="#">
-
+<a href="services.html">
 <i class="fa-solid fa-shirt"></i>
-Menu
-
+Services
 </a>
 
-<a href="#">
-
-<i class="fa-regular fa-clock"></i>
-Order History
-
+<a href="users.html">
+<i class="fa-solid fa-users"></i>
+Users
 </a>
 
-<a href="#">
-
-<i class="fa-solid fa-chart-column"></i>
-Reporting
-
+<a href="partners.html">
+<i class="fa-solid fa-store"></i>
+Partners
 </a>
 
-<a href="#">
-
-<i class="fa-solid fa-tags"></i>
-Offers
-
+<a href="riders.html">
+<i class="fa-solid fa-motorcycle"></i>
+Riders
 </a>
 
-<a href="#">
-
-<i class="fa-solid fa-bullhorn"></i>
-Ads
-
-</a>
-
-<a href="#">
-
+<a href="payments.html">
 <i class="fa-solid fa-wallet"></i>
 Finance
-
 </a>
 
-<a href="#">
-
+<a href="settlements.html">
 <i class="fa-solid fa-money-bill-transfer"></i>
 Payouts
-
 </a>
 
-<a href="#">
-
-<i class="fa-solid fa-file-invoice"></i>
-Invoices & Taxes
-
-</a>
-
-<a href="#">
-
-<i class="fa-solid fa-receipt"></i>
-UTR Reports
-
-</a>
-
-<a href="#">
-
-<i class="fa-solid fa-store"></i>
-Outlet Info
-
-</a>
-
-<a href="#">
-
-<i class="fa-solid fa-triangle-exclamation"></i>
-Complaints
-
-</a>
-
-<a href="#">
-
-<i class="fa-solid fa-star"></i>
-Reviews
-
-</a>
-
-<a href="#">
-
-<i class="fa-solid fa-headset"></i>
-Help Centre
-
-</a>
-
-<a href="#">
-
-<i class="fa-solid fa-book-open"></i>
-Learning Centre
-
-</a>
-
-<a href="#">
-
+<a href="reports.html">
 <i class="fa-solid fa-chart-line"></i>
-Analytics
+Reports
+</a>
 
+<a href="offers.html">
+<i class="fa-solid fa-tags"></i>
+Offers
+</a>
+
+<a href="support.html">
+<i class="fa-solid fa-headset"></i>
+Support
+</a>
+
+<a href="analytics.html">
+<i class="fa-solid fa-chart-column"></i>
+Analytics
+</a>
+
+<a href="settings.html">
+<i class="fa-solid fa-gear"></i>
+Settings
 </a>
 
 </div>
@@ -701,8 +599,6 @@ MAIN
 ===================================================== -->
 
 <div class="main">
-
-<!-- HEADER -->
 
 <div class="pageHeader">
 
@@ -888,28 +784,37 @@ FILTERS
 type="text"
 placeholder="Search Order / Customer / Mobile"
 class="searchBox"
+id="searchInput"
 />
 
-<select class="selectBox">
+<select class="selectBox" id="statusFilter">
 
-<option>
+<option value="All">
 All Status
 </option>
 
-</select>
+<option value="Pending">
+Pending
+</option>
 
-<select class="selectBox">
+<option value="Preparing">
+Preparing
+</option>
 
-<option>
-All Cities
+<option value="Out For Delivery">
+Out For Delivery
+</option>
+
+<option value="Delivered">
+Delivered
 </option>
 
 </select>
 
-<select class="selectBox">
+<select class="selectBox" id="cityFilter">
 
-<option>
-Today
+<option value="All">
+All Cities
 </option>
 
 </select>
@@ -918,14 +823,9 @@ Today
 
 <div class="leftFilters">
 
-<button class="actionBtn">
-
-<i class="fa-solid fa-filter"></i>
-Filters
-
-</button>
-
-<button class="actionBtn">
+<button
+class="actionBtn"
+onclick="exportOrders()">
 
 <i class="fa-solid fa-download"></i>
 Export
@@ -937,7 +837,7 @@ Export
 </div>
 
 <!-- =====================================================
-LIVE ORDERS
+ORDERS
 ===================================================== -->
 
 <div class="ordersWrap">
@@ -955,195 +855,7 @@ LIVE ORDERS
 
 </div>
 
-<!-- ORDER -->
-
-<div class="orderRow">
-
-<div>
-#QP101
-</div>
-
-<div class="customer">
-
-<div class="customerAvatar">
-H
-</div>
-
-<div>
-
-<b>
-Himanshu
-</b>
-
-<br>
-
-<small>
-Kasganj
-</small>
-
-</div>
-
-</div>
-
-<div>
-5 Items
-</div>
-
-<div>
-₹420
-</div>
-
-<div>
-Online
-</div>
-
-<div>
-
-<div class="status pending">
-Pending
-</div>
-
-</div>
-
-<div>
-2 Min Ago
-</div>
-
-<div>
-
-<button class="actionBtn">
-View
-</button>
-
-</div>
-
-</div>
-
-<!-- ORDER -->
-
-<div class="orderRow">
-
-<div>
-#QP102
-</div>
-
-<div class="customer">
-
-<div class="customerAvatar">
-A
-</div>
-
-<div>
-
-<b>
-Aman
-</b>
-
-<br>
-
-<small>
-Delhi
-</small>
-
-</div>
-
-</div>
-
-<div>
-2 Items
-</div>
-
-<div>
-₹250
-</div>
-
-<div>
-COD
-</div>
-
-<div>
-
-<div class="status delivery">
-Out For Delivery
-</div>
-
-</div>
-
-<div>
-5 Min Ago
-</div>
-
-<div>
-
-<button class="actionBtn">
-View
-</button>
-
-</div>
-
-</div>
-
-<!-- ORDER -->
-
-<div class="orderRow">
-
-<div>
-#QP103
-</div>
-
-<div class="customer">
-
-<div class="customerAvatar">
-R
-</div>
-
-<div>
-
-<b>
-Rohit
-</b>
-
-<br>
-
-<small>
-Noida
-</small>
-
-</div>
-
-</div>
-
-<div>
-7 Items
-</div>
-
-<div>
-₹880
-</div>
-
-<div>
-Wallet
-</div>
-
-<div>
-
-<div class="status delivered">
-Delivered
-</div>
-
-</div>
-
-<div>
-12 Min Ago
-</div>
-
-<div>
-
-<button class="actionBtn">
-View
-</button>
-
-</div>
+<div id="ordersContainer">
 
 </div>
 
@@ -1169,11 +881,318 @@ Revenue Growth
 
 </div>
 
-<script>
+<script type="module">
+
+import { db }
+
+from
+
+"/Pal-Group-Pvt-Ltd/firebase.js";
+
+import {
+
+collection,
+onSnapshot,
+query,
+orderBy
+
+}
+
+from
+
+"https://www.gstatic.com/firebasejs/12.11.0/firebase-firestore.js";
+
+/* =====================================================
+ELEMENTS
+===================================================== */
+
+const ordersContainer =
+document.getElementById(
+"ordersContainer"
+);
+
+const totalOrders =
+document.getElementById(
+"totalOrders"
+);
+
+const pendingOrders =
+document.getElementById(
+"pendingOrders"
+);
+
+const preparingOrders =
+document.getElementById(
+"preparingOrders"
+);
+
+const deliveryOrders =
+document.getElementById(
+"deliveryOrders"
+);
+
+const deliveredOrders =
+document.getElementById(
+"deliveredOrders"
+);
+
+const revenue =
+document.getElementById(
+"revenue"
+);
+
+const cityFilter =
+document.getElementById(
+"cityFilter"
+);
+
+const searchInput =
+document.getElementById(
+"searchInput"
+);
+
+const statusFilter =
+document.getElementById(
+"statusFilter"
+);
+
+/* =====================================================
+DATA
+===================================================== */
+
+let allOrders = [];
+
+/* =====================================================
+REALTIME
+===================================================== */
+
+onSnapshot(
+
+query(
+collection(db,"orders"),
+orderBy("createdAt","desc")
+),
+
+(snapshot)=>{
+
+allOrders = [];
+
+let totalRevenue = 0;
+
+let pending = 0;
+let preparing = 0;
+let delivery = 0;
+let delivered = 0;
+
+/* ========================================= */
+
+ordersContainer.innerHTML = "";
+
+snapshot.forEach((doc)=>{
+
+const order = doc.data();
+
+allOrders.push(order);
+
+/* ========================================= */
+
+totalRevenue +=
+Number(order.total || 0);
+
+/* ========================================= */
+
+if(order.status === "Pending"){
+
+pending++;
+
+}
+
+if(order.status === "Preparing"){
+
+preparing++;
+
+}
+
+if(order.status === "Out For Delivery"){
+
+delivery++;
+
+}
+
+if(order.status === "Delivered"){
+
+delivered++;
+
+}
+
+/* ========================================= */
+
+const row = `
+
+<div class="orderRow">
+
+<div>
+
+#${doc.id.slice(0,6)}
+
+</div>
+
+<div class="customer">
+
+<div class="customerAvatar">
+
+${order.name?.charAt(0) || "U"}
+
+</div>
+
+<div>
+
+<b>
+
+${order.name || "Customer"}
+
+</b>
+
+<br>
+
+<small>
+
+${order.city || ""}
+
+</small>
+
+</div>
+
+</div>
+
+<div>
+
+${order.items?.length || 0}
+Items
+
+</div>
+
+<div>
+
+₹${order.total || 0}
+
+</div>
+
+<div>
+
+${order.paymentMethod || "COD"}
+
+</div>
+
+<div>
+
+<div class="status ${
+
+order.status === "Delivered"
+
+?
+
+"delivered"
+
+:
+
+order.status ===
+"Out For Delivery"
+
+?
+
+"delivery"
+
+:
+
+"pending"
+
+}">
+
+${order.status || "Pending"}
+
+</div>
+
+</div>
+
+<div>
+
+${order.createdAt?.seconds
+
+?
+
+new Date(
+order.createdAt.seconds * 1000
+).toLocaleTimeString()
+
+:
+
+"--"
+
+}
+
+</div>
+
+<div>
+
+<button
+class="actionBtn">
+
+View
+
+</button>
+
+</div>
+
+</div>
+
+`;
+
+ordersContainer.innerHTML += row;
+
+});
+
+/* ========================================= */
+
+totalOrders.innerHTML =
+snapshot.size;
+
+pendingOrders.innerHTML =
+pending;
+
+preparingOrders.innerHTML =
+preparing;
+
+deliveryOrders.innerHTML =
+delivery;
+
+deliveredOrders.innerHTML =
+delivered;
+
+revenue.innerHTML =
+`₹${totalRevenue}`;
+
+/* =========================================
+GRAPH
+========================================= */
+
+loadChart();
+
+}
+
+/* END */
+
+);
+
+/* =====================================================
+GRAPH
+===================================================== */
+
+function loadChart(){
 
 const ctx =
 document.getElementById(
-'revenueChart'
+"revenueChart"
 );
 
 new Chart(ctx, {
@@ -1198,12 +1217,12 @@ label:'Revenue',
 
 data:[
 1200,
-2200,
+2500,
 1800,
-3900,
-4800,
-5200,
-6800
+4200,
+5100,
+6600,
+8200
 ],
 
 borderWidth:4,
@@ -1219,6 +1238,49 @@ responsive:true
 }
 
 });
+
+}
+
+/* =====================================================
+EXPORT
+===================================================== */
+
+window.exportOrders =
+()=>{
+
+let csv =
+"Customer,Amount,City,Status\n";
+
+allOrders.forEach((order)=>{
+
+csv += `
+
+${order.name},
+${order.total},
+${order.city},
+${order.status}
+
+`;
+
+});
+
+const blob =
+new Blob([csv],{
+type:"text/csv"
+});
+
+const a =
+document.createElement("a");
+
+a.href =
+URL.createObjectURL(blob);
+
+a.download =
+"orders.csv";
+
+a.click();
+
+};
 
 </script>
 
