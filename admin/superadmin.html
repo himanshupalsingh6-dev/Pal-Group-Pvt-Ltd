@@ -1,0 +1,370 @@
+<!-- =========================================================
+FILE : admin/superadmin.html
+QUICKPRESS SUPER ADMIN PANEL
+========================================================= -->
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+<meta charset="UTF-8"/>
+
+<meta name="viewport"
+content="width=device-width, initial-scale=1.0"/>
+
+<title>
+Super Admin Panel
+</title>
+
+<link rel="stylesheet"
+href="./css/global.css"/>
+
+<link rel="stylesheet"
+href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css"/>
+
+<style>
+
+/* =====================================================
+HEADER
+===================================================== */
+
+.pageHeader{
+display:flex;
+justify-content:space-between;
+align-items:center;
+margin-bottom:24px;
+}
+
+.pageHeader h1{
+font-size:52px;
+font-weight:900;
+}
+
+/* =====================================================
+BUTTON
+===================================================== */
+
+.addBtn{
+height:54px;
+padding:0 24px;
+border:none;
+border-radius:16px;
+background:#111827;
+color:#fff;
+font-size:14px;
+font-weight:800;
+cursor:pointer;
+}
+
+/* =====================================================
+STATS
+===================================================== */
+
+.statsGrid{
+display:grid;
+grid-template-columns:repeat(4,1fr);
+gap:18px;
+margin-bottom:24px;
+}
+
+.statCard{
+background:#fff;
+border-radius:28px;
+border:1px solid #E5E7EB;
+padding:24px;
+}
+
+.statCard span{
+font-size:13px;
+font-weight:700;
+color:#6B7280;
+display:block;
+margin-bottom:8px;
+}
+
+.statCard h2{
+font-size:38px;
+font-weight:900;
+}
+
+/* =====================================================
+TABLE
+===================================================== */
+
+.tableWrap{
+background:#fff;
+border-radius:28px;
+border:1px solid #E5E7EB;
+overflow:hidden;
+}
+
+.tableHead{
+height:62px;
+display:grid;
+grid-template-columns:
+1fr
+180px
+180px
+180px
+180px
+160px;
+align-items:center;
+padding:0 20px;
+font-size:14px;
+font-weight:900;
+border-bottom:1px solid #E5E7EB;
+}
+
+.adminRow{
+min-height:84px;
+display:grid;
+grid-template-columns:
+1fr
+180px
+180px
+180px
+180px
+160px;
+align-items:center;
+padding:0 20px;
+border-bottom:1px solid #F3F4F6;
+font-size:14px;
+}
+
+/* =====================================================
+PROFILE
+===================================================== */
+
+.adminInfo{
+display:flex;
+align-items:center;
+gap:14px;
+}
+
+.avatar{
+width:54px;
+height:54px;
+border-radius:18px;
+background:#DBEAFE;
+display:flex;
+align-items:center;
+justify-content:center;
+font-size:20px;
+font-weight:900;
+}
+
+/* =====================================================
+BADGES
+===================================================== */
+
+.badge{
+padding:10px 14px;
+border-radius:999px;
+font-size:12px;
+font-weight:900;
+width:max-content;
+}
+
+.super{
+background:#FEE2E2;
+color:#991B1B;
+}
+
+.manager{
+background:#DBEAFE;
+color:#1E40AF;
+}
+
+.support{
+background:#DCFCE7;
+color:#166534;
+}
+
+.active{
+background:#DCFCE7;
+color:#166534;
+}
+
+.disabled{
+background:#FEE2E2;
+color:#991B1B;
+}
+
+/* =====================================================
+ACTION
+===================================================== */
+
+.actionBtns{
+display:flex;
+gap:10px;
+}
+
+.actionBtn{
+height:42px;
+padding:0 16px;
+border:none;
+border-radius:12px;
+font-size:12px;
+font-weight:800;
+cursor:pointer;
+}
+
+.editBtn{
+background:#111827;
+color:#fff;
+}
+
+.deleteBtn{
+background:#DC2626;
+color:#fff;
+}
+
+</style>
+
+</head>
+
+<body>
+
+<div id="topbar"></div>
+
+<div id="sidebar"></div>
+
+<!-- =====================================================
+MAIN
+===================================================== -->
+
+<div class="main">
+
+<!-- =====================================================
+HEADER
+===================================================== -->
+
+<div class="pageHeader">
+
+<h1>
+Super Admin Panel
+</h1>
+
+<button
+class="addBtn"
+onclick="createAdmin()">
+
++ Create Admin
+
+</button>
+
+</div>
+
+<!-- =====================================================
+STATS
+===================================================== -->
+
+<div class="statsGrid">
+
+<div class="statCard">
+
+<span>
+Total Admins
+</span>
+
+<h2 id="totalAdmins">
+0
+</h2>
+
+</div>
+
+<div class="statCard">
+
+<span>
+Super Admins
+</span>
+
+<h2 id="superAdmins">
+0
+</h2>
+
+</div>
+
+<div class="statCard">
+
+<span>
+Managers
+</span>
+
+<h2 id="managerAdmins">
+0
+</h2>
+
+</div>
+
+<div class="statCard">
+
+<span>
+Support Team
+</span>
+
+<h2 id="supportAdmins">
+0
+</h2>
+
+</div>
+
+</div>
+
+<!-- =====================================================
+TABLE
+===================================================== -->
+
+<div class="tableWrap">
+
+<div class="tableHead">
+
+<div>
+Admin
+</div>
+
+<div>
+Role
+</div>
+
+<div>
+Status
+</div>
+
+<div>
+Last Login
+</div>
+
+<div>
+Permissions
+</div>
+
+<div>
+Action
+</div>
+
+</div>
+
+<div id="adminContainer">
+
+</div>
+
+</div>
+
+</div>
+
+<script type="module"
+src="./components/topbar.js">
+</script>
+
+<script type="module"
+src="./components/sidebar.js">
+</script>
+
+<script type="module"
+src="./js/superadmin.js">
+</script>
+
+</body>
+</html>
