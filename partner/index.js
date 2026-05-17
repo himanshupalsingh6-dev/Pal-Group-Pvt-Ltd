@@ -1,65 +1,36 @@
 /* =========================================================
 FILE : partner/index.js
-QUICKPRESS PARTNER HOME SYSTEM
+TEMP SECURITY DISABLED
 ========================================================= */
 
-import { db }
-
-from
-
-"/Pal-Group-Pvt-Ltd/firebase.js";
-
-import {
-
-collection,
-query,
-where,
-onSnapshot
-
-}
-
-from
-
-"https://www.gstatic.com/firebasejs/12.11.0/firebase-firestore.js";
-
 /* =========================================================
-LOGIN CHECK
+DISABLED LOGIN CHECK
 ========================================================= */
 
-const partnerLogin =
-localStorage.getItem(
-"quickpress_partner"
-);
+// const partnerLogin =
+// localStorage.getItem(
+// "quickpress_partner"
+// );
 
-if(partnerLogin !== "true"){
+// if(partnerLogin !== "true"){
 
-window.location.href =
-"login.html";
+// window.location.href =
+// "login.html";
 
-}
+// }
 
 /* =========================================================
-PARTNER DATA
+TEMP DEMO DATA
 ========================================================= */
 
 const partnerId =
-localStorage.getItem(
-"quickpress_partner_id"
-);
+"demoPartner";
 
 const partnerName =
-localStorage.getItem(
-"quickpress_partner_name"
-)
-||
-"Partner";
+"Quick Partner";
 
 const partnerCity =
-localStorage.getItem(
-"quickpress_partner_city"
-)
-||
-"City";
+"Kasganj";
 
 /* =========================================================
 ELEMENTS
@@ -129,145 +100,58 @@ partnerCityText.innerHTML =
 partnerCity;
 
 /* =========================================================
-LIVE ORDERS
+DUMMY STATS
 ========================================================= */
-
-onSnapshot(
-
-query(
-collection(db,"orders"),
-where(
-"partnerId",
-"==",
-partnerId
-)
-),
-
-(snapshot)=>{
-
-ordersContainer.innerHTML = "";
-
-/* ========================================= */
-
-let total = 0;
-
-let completed = 0;
-
-let totalRevenue = 0;
-
-/* ========================================= */
-
-snapshot.forEach((docSnap)=>{
-
-const order = {
-
-id:docSnap.id,
-...docSnap.data()
-
-};
-
-/* ========================================= */
-
-total++;
-
-totalRevenue +=
-Number(
-order.amount || 0
-);
-
-/* ========================================= */
-
-if(
-order.status === "Completed"
-){
-
-completed++;
-
-}
-
-/* ========================================= */
-
-renderOrder(
-order
-);
-
-});
-
-/* ========================================= */
 
 todayOrders.innerHTML =
-total;
+"28";
 
 completedOrders.innerHTML =
-completed;
+"19";
 
 revenue.innerHTML =
-`₹${totalRevenue}`;
-
-}
-
-/* END */
-
-);
-
-/* =========================================================
-LIVE RIDERS
-========================================================= */
-
-onSnapshot(
-
-query(
-collection(db,"riders"),
-where(
-"partnerId",
-"==",
-partnerId
-)
-),
-
-(snapshot)=>{
-
-let active = 0;
-
-/* ========================================= */
-
-snapshot.forEach((docSnap)=>{
-
-const rider =
-docSnap.data();
-
-/* ========================================= */
-
-if(
-rider.status === "Available"
-||
-rider.status === "On Delivery"
-){
-
-active++;
-
-}
-
-});
-
-/* ========================================= */
+"₹12,540";
 
 activeRiders.innerHTML =
-active;
-
-}
-
-/* END */
-
-);
+"8";
 
 /* =========================================================
-RENDER ORDER
+DUMMY ORDERS
 ========================================================= */
 
-function renderOrder(
-order
-){
+const demoOrders = [
+
+{
+orderId:"QP1001",
+customerName:"Rahul Sharma",
+mobile:"9876543210",
+amount:320,
+status:"Pending"
+},
+
+{
+orderId:"QP1002",
+customerName:"Amit Kumar",
+mobile:"9876500000",
+amount:540,
+status:"Completed"
+},
+
+{
+orderId:"QP1003",
+customerName:"Priya Singh",
+mobile:"9876512345",
+amount:220,
+status:"Processing"
+}
+
+];
+
+/* =========================================================
+RENDER ORDERS
+========================================================= */
+
+demoOrders.forEach((order)=>{
 
 let badgeClass =
 "pending";
@@ -283,51 +167,52 @@ badgeClass =
 
 }
 
+if(
+order.status === "Processing"
+){
+
+badgeClass =
+"processing";
+
+}
+
 /* ========================================= */
 
 const row = `
 
 <div class="orderRow">
 
-<!-- ORDER -->
-
 <div>
 
-#${order.orderId || order.id}
+#${order.orderId}
 
 </div>
-
-<!-- CUSTOMER -->
 
 <div>
 
 <b>
 
-${order.customerName || "--"}
+${order.customerName}
 
 </b>
 
 <br>
 
-${order.mobile || "--"}
+${order.mobile}
 
 </div>
-
-<!-- AMOUNT -->
 
 <div>
 
-₹${order.amount || 0}
+₹${order.amount}
 
 </div>
-
-<!-- STATUS -->
 
 <div>
 
 <div class="badge ${badgeClass}">
 
-${order.status || "Pending"}
+${order.status}
 
 </div>
 
@@ -339,7 +224,7 @@ ${order.status || "Pending"}
 
 ordersContainer.innerHTML += row;
 
-}
+});
 
 /* =========================================================
 LOGOUT
@@ -348,45 +233,9 @@ LOGOUT
 window.logoutPartner =
 ()=>{
 
-const confirmLogout =
-confirm(
-"Logout Partner Panel?"
+alert(
+"Demo Mode Active"
 );
-
-/* ========================================= */
-
-if(!confirmLogout){
-
-return;
-
-}
-
-/* ========================================= */
-
-localStorage.removeItem(
-"quickpress_partner"
-);
-
-localStorage.removeItem(
-"quickpress_partner_id"
-);
-
-localStorage.removeItem(
-"quickpress_partner_name"
-);
-
-localStorage.removeItem(
-"quickpress_partner_email"
-);
-
-localStorage.removeItem(
-"quickpress_partner_city"
-);
-
-/* ========================================= */
-
-window.location.href =
-"login.html";
 
 };
 
@@ -395,5 +244,5 @@ READY
 ========================================================= */
 
 console.log(
-"QuickPress Partner Dashboard Active"
+"Partner Dashboard Demo Mode Active"
 );
