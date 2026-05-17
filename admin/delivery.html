@@ -16,6 +16,8 @@ href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css"
 
 <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 
+<link rel="stylesheet" href="./css/global.css"/>
+
 <style>
 
 *{
@@ -30,48 +32,6 @@ background:#F4F7FC;
 display:flex;
 }
 
-/* SIDEBAR */
-
-.sidebar{
-width:240px;
-height:100vh;
-background:#081028;
-position:fixed;
-left:0;
-top:0;
-padding:20px;
-overflow:auto;
-}
-
-.logo{
-font-size:26px;
-font-weight:900;
-color:#FFD400;
-margin-bottom:30px;
-}
-
-.menu{
-display:flex;
-flex-direction:column;
-gap:10px;
-}
-
-.menu a{
-height:54px;
-display:flex;
-align-items:center;
-gap:14px;
-padding:0 18px;
-border-radius:16px;
-text-decoration:none;
-font-size:15px;
-font-weight:700;
-color:#fff;
-}
-
-.menu a.active{
-background:#111C44;
-}
 
 /* MAIN */
 
@@ -431,52 +391,8 @@ grid-template-columns:1fr;
 </style>
 </head>
 <body>
-
-<!-- SIDEBAR -->
-
-<div class="sidebar">
-
-<div class="logo">
-QuickPress
-</div>
-
-<div class="menu">
-
-<a href="index.html">
-<i class="fa-solid fa-chart-line"></i>
-Dashboard
-</a>
-
-<a href="orders.html">
-<i class="fa-solid fa-basket-shopping"></i>
-Orders
-</a>
-
-<a href="users.html">
-<i class="fa-solid fa-users"></i>
-Users
-</a>
-
-<a href="riders.html"
-class="active">
-<i class="fa-solid fa-motorcycle"></i>
-Riders
-</a>
-
-<a href="partners.html">
-<i class="fa-solid fa-store"></i>
-Partners
-</a>
-
-<a href="payments.html">
-<i class="fa-solid fa-wallet"></i>
-Payments
-</a>
-
-</div>
-
-</div>
-
+  
+<div id="sidebar"></div>
 <!-- MAIN -->
 
 <div class="main">
@@ -1351,5 +1267,9 @@ responsive:true
 
 </script>
 
+<script type="module"
+src="./components/sidebar.js">
+</script>
+  
 </body>
 </html>
