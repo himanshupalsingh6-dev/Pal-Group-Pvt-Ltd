@@ -1,0 +1,384 @@
+<!-- =========================================================
+FILE : admin/ai-assignment.html
+QUICKPRESS AI RIDER ASSIGNMENT SYSTEM
+========================================================= -->
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+<meta charset="UTF-8"/>
+
+<meta name="viewport"
+content="width=device-width, initial-scale=1.0"/>
+
+<title>
+AI Rider Assignment
+</title>
+
+<link rel="stylesheet"
+href="./css/global.css"/>
+
+<link rel="stylesheet"
+href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css"/>
+
+<style>
+
+/* =====================================================
+HEADER
+===================================================== */
+
+.pageHeader{
+display:flex;
+justify-content:space-between;
+align-items:center;
+margin-bottom:24px;
+}
+
+.pageHeader h1{
+font-size:52px;
+font-weight:900;
+}
+
+/* =====================================================
+GRID
+===================================================== */
+
+.assignmentGrid{
+display:grid;
+grid-template-columns:420px 1fr;
+gap:24px;
+}
+
+/* =====================================================
+AI CARD
+===================================================== */
+
+.aiCard{
+background:#fff;
+border-radius:28px;
+border:1px solid #E5E7EB;
+padding:28px;
+}
+
+.aiCard h2{
+font-size:34px;
+font-weight:900;
+margin-bottom:18px;
+}
+
+.aiCard p{
+font-size:15px;
+line-height:1.7;
+color:#6B7280;
+margin-bottom:24px;
+}
+
+/* =====================================================
+STATS
+===================================================== */
+
+.statsWrap{
+display:grid;
+grid-template-columns:1fr 1fr;
+gap:14px;
+margin-bottom:22px;
+}
+
+.statBox{
+background:#F9FAFB;
+border-radius:20px;
+padding:20px;
+}
+
+.statBox span{
+font-size:13px;
+font-weight:700;
+color:#6B7280;
+display:block;
+margin-bottom:8px;
+}
+
+.statBox h3{
+font-size:28px;
+font-weight:900;
+}
+
+/* =====================================================
+BUTTON
+===================================================== */
+
+.runBtn{
+width:100%;
+height:56px;
+border:none;
+border-radius:18px;
+background:#111827;
+color:#fff;
+font-size:15px;
+font-weight:800;
+cursor:pointer;
+}
+
+/* =====================================================
+TABLE
+===================================================== */
+
+.tableWrap{
+background:#fff;
+border-radius:28px;
+border:1px solid #E5E7EB;
+overflow:hidden;
+}
+
+.tableHead{
+height:62px;
+display:grid;
+grid-template-columns:
+120px
+1fr
+180px
+180px
+180px
+160px;
+align-items:center;
+padding:0 20px;
+font-size:14px;
+font-weight:900;
+border-bottom:1px solid #E5E7EB;
+}
+
+.orderRow{
+min-height:84px;
+display:grid;
+grid-template-columns:
+120px
+1fr
+180px
+180px
+180px
+160px;
+align-items:center;
+padding:0 20px;
+border-bottom:1px solid #F3F4F6;
+font-size:14px;
+}
+
+/* =====================================================
+BADGE
+===================================================== */
+
+.badge{
+padding:10px 14px;
+border-radius:999px;
+font-size:12px;
+font-weight:900;
+width:max-content;
+}
+
+.pending{
+background:#FEF3C7;
+color:#92400E;
+}
+
+.assigned{
+background:#DCFCE7;
+color:#166534;
+}
+
+/* =====================================================
+ACTION
+===================================================== */
+
+.actionBtn{
+height:44px;
+padding:0 18px;
+border:none;
+border-radius:14px;
+background:#111827;
+color:#fff;
+font-size:13px;
+font-weight:800;
+cursor:pointer;
+}
+
+</style>
+
+</head>
+
+<body>
+
+<div id="topbar"></div>
+
+<div id="sidebar"></div>
+
+<!-- =====================================================
+MAIN
+===================================================== -->
+
+<div class="main">
+
+<!-- =====================================================
+HEADER
+===================================================== -->
+
+<div class="pageHeader">
+
+<h1>
+AI Rider Assignment
+</h1>
+
+</div>
+
+<!-- =====================================================
+GRID
+===================================================== -->
+
+<div class="assignmentGrid">
+
+<!-- =====================================================
+LEFT AI
+===================================================== -->
+
+<div class="aiCard">
+
+<h2>
+AI Dispatch Engine
+</h2>
+
+<p>
+
+Automatically assign nearest rider based on:
+
+<br><br>
+
+• City  
+• Live Availability  
+• Order Load  
+• Delivery Speed  
+• Rider Status  
+• Distance Optimization  
+
+</p>
+
+<div class="statsWrap">
+
+<div class="statBox">
+
+<span>
+Pending Orders
+</span>
+
+<h3 id="pendingOrders">
+0
+</h3>
+
+</div>
+
+<div class="statBox">
+
+<span>
+Available Riders
+</span>
+
+<h3 id="availableRiders">
+0
+</h3>
+
+</div>
+
+<div class="statBox">
+
+<span>
+Assigned Today
+</span>
+
+<h3 id="assignedToday">
+0
+</h3>
+
+</div>
+
+<div class="statBox">
+
+<span>
+AI Accuracy
+</span>
+
+<h3>
+98%
+</h3>
+
+</div>
+
+</div>
+
+<button
+class="runBtn"
+onclick="runAI()">
+
+Run AI Assignment
+
+</button>
+
+</div>
+
+<!-- =====================================================
+TABLE
+===================================================== -->
+
+<div class="tableWrap">
+
+<div class="tableHead">
+
+<div>
+Order ID
+</div>
+
+<div>
+Customer
+</div>
+
+<div>
+City
+</div>
+
+<div>
+Assigned Rider
+</div>
+
+<div>
+Status
+</div>
+
+<div>
+Action
+</div>
+
+</div>
+
+<div id="ordersContainer">
+
+</div>
+
+</div>
+
+</div>
+
+</div>
+
+<script type="module"
+src="./components/topbar.js">
+</script>
+
+<script type="module"
+src="./components/sidebar.js">
+</script>
+
+<script type="module"
+src="./js/ai-assignment.js">
+</script>
+
+</body>
+</html>
