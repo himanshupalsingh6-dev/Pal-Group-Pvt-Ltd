@@ -1,0 +1,309 @@
+<!-- =========================================================
+FILE : admin/support.html
+QUICKPRESS SUPPORT CENTER
+========================================================= -->
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+<meta charset="UTF-8"/>
+<meta name="viewport"
+content="width=device-width, initial-scale=1.0"/>
+
+<title>
+QuickPress Support
+</title>
+
+<link rel="stylesheet"
+href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css"/>
+
+<style>
+
+*{
+margin:0;
+padding:0;
+box-sizing:border-box;
+font-family:Inter,sans-serif;
+}
+
+body{
+background:#F5F7FB;
+overflow:hidden;
+color:#111827;
+}
+
+.topbar{
+position:fixed;
+top:0;
+left:0;
+right:0;
+height:82px;
+background:#fff;
+border-bottom:1px solid #E5E7EB;
+display:flex;
+align-items:center;
+padding:0 24px;
+z-index:999;
+}
+
+.logo{
+font-size:32px;
+font-weight:900;
+}
+
+.sidebar{
+position:fixed;
+top:82px;
+left:0;
+bottom:0;
+width:240px;
+background:#fff;
+border-right:1px solid #E5E7EB;
+padding:18px 10px;
+}
+
+.sidebarMenu{
+display:flex;
+flex-direction:column;
+gap:6px;
+}
+
+.sidebarMenu a{
+height:52px;
+padding:0 16px;
+display:flex;
+align-items:center;
+gap:14px;
+border-radius:14px;
+text-decoration:none;
+font-size:15px;
+font-weight:600;
+color:#374151;
+}
+
+.sidebarMenu a.active{
+background:#111827;
+color:#fff;
+}
+
+.main{
+margin-left:240px;
+margin-top:82px;
+padding:24px;
+height:calc(100vh - 82px);
+overflow:auto;
+}
+
+.pageHeader h1{
+font-size:42px;
+font-weight:900;
+margin-bottom:24px;
+}
+
+.statsGrid{
+display:grid;
+grid-template-columns:repeat(4,1fr);
+gap:18px;
+margin-bottom:24px;
+}
+
+.statCard{
+background:#fff;
+border-radius:24px;
+padding:24px;
+border:1px solid #E5E7EB;
+}
+
+.statCard span{
+font-size:13px;
+font-weight:700;
+color:#6B7280;
+}
+
+.statCard h2{
+font-size:34px;
+margin-top:10px;
+font-weight:900;
+}
+
+.ticketList{
+display:flex;
+flex-direction:column;
+gap:18px;
+}
+
+.ticketCard{
+background:#fff;
+border-radius:24px;
+padding:24px;
+border:1px solid #E5E7EB;
+display:flex;
+justify-content:space-between;
+align-items:center;
+}
+
+.ticketLeft{
+display:flex;
+gap:18px;
+align-items:center;
+}
+
+.ticketIcon{
+width:60px;
+height:60px;
+border-radius:18px;
+background:#DBEAFE;
+display:flex;
+align-items:center;
+justify-content:center;
+font-size:24px;
+}
+
+.ticketInfo h3{
+font-size:18px;
+font-weight:900;
+margin-bottom:6px;
+}
+
+.ticketInfo p{
+font-size:14px;
+color:#6B7280;
+}
+
+.status{
+padding:10px 16px;
+border-radius:999px;
+font-size:12px;
+font-weight:800;
+}
+
+.pending{
+background:#FEF3C7;
+color:#92400E;
+}
+
+.solved{
+background:#DCFCE7;
+color:#166534;
+}
+
+</style>
+
+</head>
+
+<body>
+
+<div class="topbar">
+
+<div class="logo">
+QuickPress
+</div>
+
+</div>
+
+<div class="sidebar">
+
+<div class="sidebarMenu">
+
+<a href="index.html">
+<i class="fa-solid fa-chart-line"></i>
+Dashboard
+</a>
+
+<a href="support.html" class="active">
+<i class="fa-solid fa-headset"></i>
+Support
+</a>
+
+<a href="reports.html">
+<i class="fa-solid fa-file-lines"></i>
+Reports
+</a>
+
+<a href="offers.html">
+<i class="fa-solid fa-tags"></i>
+Offers
+</a>
+
+</div>
+
+</div>
+
+<div class="main">
+
+<div class="pageHeader">
+
+<h1>
+Support Center
+</h1>
+
+</div>
+
+<div class="statsGrid">
+
+<div class="statCard">
+
+<span>
+Total Tickets
+</span>
+
+<h2 id="totalTickets">
+0
+</h2>
+
+</div>
+
+<div class="statCard">
+
+<span>
+Pending Tickets
+</span>
+
+<h2 id="pendingTickets">
+0
+</h2>
+
+</div>
+
+<div class="statCard">
+
+<span>
+Solved Tickets
+</span>
+
+<h2 id="solvedTickets">
+0
+</h2>
+
+</div>
+
+<div class="statCard">
+
+<span>
+Today Tickets
+</span>
+
+<h2 id="todayTickets">
+0
+</h2>
+
+</div>
+
+</div>
+
+<div
+class="ticketList"
+id="ticketList">
+
+</div>
+
+</div>
+
+<script type="module"
+src="./js/support.js">
+</script>
+
+</body>
+</html>
