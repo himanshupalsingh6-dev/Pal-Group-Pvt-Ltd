@@ -20,6 +20,8 @@ QuickPress Expense Manager
 <link rel="stylesheet"
 href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css"/>
 
+<link rel="stylesheet" href="./css/global.css"/>
+
 <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 
 <style>
@@ -39,70 +41,6 @@ body{
 background:#F5F7FB;
 overflow:hidden;
 color:#111827;
-}
-
-/* =====================================================
-TOPBAR
-===================================================== */
-
-.topbar{
-position:fixed;
-top:0;
-left:0;
-right:0;
-height:82px;
-background:#fff;
-border-bottom:1px solid #E5E7EB;
-display:flex;
-align-items:center;
-justify-content:space-between;
-padding:0 24px;
-z-index:999;
-}
-
-.logo{
-font-size:32px;
-font-weight:900;
-}
-
-/* =====================================================
-SIDEBAR
-===================================================== */
-
-.sidebar{
-position:fixed;
-top:82px;
-left:0;
-bottom:0;
-width:240px;
-background:#fff;
-border-right:1px solid #E5E7EB;
-padding:18px 10px;
-overflow:auto;
-}
-
-.sidebarMenu{
-display:flex;
-flex-direction:column;
-gap:6px;
-}
-
-.sidebarMenu a{
-height:52px;
-padding:0 16px;
-display:flex;
-align-items:center;
-gap:14px;
-border-radius:14px;
-text-decoration:none;
-font-size:15px;
-font-weight:700;
-color:#374151;
-}
-
-.sidebarMenu a.active{
-background:#111827;
-color:#fff;
 }
 
 /* =====================================================
@@ -299,49 +237,9 @@ cursor:pointer;
 
 <body>
 
-<!-- =====================================================
-TOPBAR
-===================================================== -->
+<div id="topbar"></div>
 
-<div class="topbar">
-
-<div class="logo">
-QuickPress
-</div>
-
-</div>
-
-<!-- =====================================================
-SIDEBAR
-===================================================== -->
-
-<div class="sidebar">
-
-<div class="sidebarMenu">
-
-<a href="index.html">
-<i class="fa-solid fa-chart-line"></i>
-Dashboard
-</a>
-
-<a href="payments.html">
-<i class="fa-solid fa-wallet"></i>
-Finance
-</a>
-
-<a href="expenses.html" class="active">
-<i class="fa-solid fa-money-bill-wave"></i>
-Expenses
-</a>
-
-<a href="reports.html">
-<i class="fa-solid fa-chart-column"></i>
-Reports
-</a>
-
-</div>
-
-</div>
+<div id="sidebar"></div>
 
 <!-- =====================================================
 MAIN
@@ -484,6 +382,15 @@ Action
 <script type="module"
 src="./js/expenses.js">
 </script>
+
+<script type="module"
+src="./components/topbar.js">
+</script>
+
+<script type="module"
+src="./components/sidebar.js">
+</script>
+  
 
 </body>
 </html>
