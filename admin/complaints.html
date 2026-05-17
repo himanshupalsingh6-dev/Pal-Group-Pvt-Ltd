@@ -1,0 +1,372 @@
+<!-- =========================================================
+FILE : admin/complaints.html
+QUICKPRESS CUSTOMER COMPLAINT CENTER
+========================================================= -->
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+<meta charset="UTF-8"/>
+
+<meta name="viewport"
+content="width=device-width, initial-scale=1.0"/>
+
+<title>
+QuickPress Complaints
+</title>
+
+<link rel="stylesheet"
+href="./css/global.css"/>
+
+<link rel="stylesheet"
+href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css"/>
+
+<style>
+
+/* =====================================================
+HEADER
+===================================================== */
+
+.pageHeader{
+display:flex;
+justify-content:space-between;
+align-items:center;
+margin-bottom:24px;
+}
+
+.pageHeader h1{
+font-size:52px;
+font-weight:900;
+}
+
+/* =====================================================
+STATS
+===================================================== */
+
+.statsGrid{
+display:grid;
+grid-template-columns:repeat(4,1fr);
+gap:18px;
+margin-bottom:24px;
+}
+
+.statCard{
+background:#fff;
+border-radius:28px;
+border:1px solid #E5E7EB;
+padding:24px;
+}
+
+.statCard span{
+font-size:14px;
+font-weight:700;
+color:#6B7280;
+}
+
+.statCard h2{
+font-size:38px;
+font-weight:900;
+margin-top:10px;
+}
+
+/* =====================================================
+FILTER BAR
+===================================================== */
+
+.filterBar{
+background:#fff;
+border-radius:28px;
+border:1px solid #E5E7EB;
+padding:16px;
+display:flex;
+gap:14px;
+margin-bottom:24px;
+}
+
+.searchInput{
+flex:1;
+height:52px;
+border-radius:16px;
+border:1px solid #E5E7EB;
+padding:0 18px;
+font-size:14px;
+outline:none;
+}
+
+.filterSelect{
+height:52px;
+padding:0 18px;
+border-radius:16px;
+border:1px solid #E5E7EB;
+background:#fff;
+font-size:14px;
+font-weight:700;
+outline:none;
+}
+
+/* =====================================================
+TABLE
+===================================================== */
+
+.tableWrap{
+background:#fff;
+border-radius:28px;
+border:1px solid #E5E7EB;
+overflow:hidden;
+}
+
+.tableHead{
+height:60px;
+display:grid;
+grid-template-columns:
+140px
+1.2fr
+1fr
+180px
+160px
+160px;
+align-items:center;
+padding:0 20px;
+font-size:14px;
+font-weight:900;
+border-bottom:1px solid #E5E7EB;
+}
+
+.complaintRow{
+min-height:84px;
+display:grid;
+grid-template-columns:
+140px
+1.2fr
+1fr
+180px
+160px
+160px;
+align-items:center;
+padding:0 20px;
+border-bottom:1px solid #F3F4F6;
+font-size:14px;
+}
+
+/* =====================================================
+STATUS
+===================================================== */
+
+.badge{
+padding:10px 14px;
+border-radius:999px;
+font-size:12px;
+font-weight:900;
+width:max-content;
+}
+
+.pending{
+background:#FEF3C7;
+color:#92400E;
+}
+
+.resolved{
+background:#DCFCE7;
+color:#166534;
+}
+
+.processing{
+background:#DBEAFE;
+color:#1E40AF;
+}
+
+/* =====================================================
+BUTTON
+===================================================== */
+
+.actionBtn{
+height:44px;
+padding:0 18px;
+border:none;
+border-radius:14px;
+background:#111827;
+color:#fff;
+font-size:13px;
+font-weight:800;
+cursor:pointer;
+}
+
+</style>
+
+</head>
+
+<body>
+
+<div id="topbar"></div>
+
+<div id="sidebar"></div>
+
+<!-- =====================================================
+MAIN
+===================================================== -->
+
+<div class="main">
+
+<!-- =====================================================
+HEADER
+===================================================== -->
+
+<div class="pageHeader">
+
+<h1>
+Complaint Center
+</h1>
+
+</div>
+
+<!-- =====================================================
+STATS
+===================================================== -->
+
+<div class="statsGrid">
+
+<div class="statCard">
+
+<span>
+Total Complaints
+</span>
+
+<h2 id="totalComplaints">
+0
+</h2>
+
+</div>
+
+<div class="statCard">
+
+<span>
+Pending
+</span>
+
+<h2 id="pendingComplaints">
+0
+</h2>
+
+</div>
+
+<div class="statCard">
+
+<span>
+Processing
+</span>
+
+<h2 id="processingComplaints">
+0
+</h2>
+
+</div>
+
+<div class="statCard">
+
+<span>
+Resolved
+</span>
+
+<h2 id="resolvedComplaints">
+0
+</h2>
+
+</div>
+
+</div>
+
+<!-- =====================================================
+FILTER BAR
+===================================================== -->
+
+<div class="filterBar">
+
+<input
+type="text"
+placeholder="Search complaint..."
+class="searchInput"
+id="searchInput"
+/>
+
+<select
+class="filterSelect"
+id="statusFilter">
+
+<option value="All">
+All Status
+</option>
+
+<option value="Pending">
+Pending
+</option>
+
+<option value="Processing">
+Processing
+</option>
+
+<option value="Resolved">
+Resolved
+</option>
+
+</select>
+
+</div>
+
+<!-- =====================================================
+TABLE
+===================================================== -->
+
+<div class="tableWrap">
+
+<div class="tableHead">
+
+<div>
+Complaint ID
+</div>
+
+<div>
+Customer
+</div>
+
+<div>
+Issue
+</div>
+
+<div>
+Date
+</div>
+
+<div>
+Status
+</div>
+
+<div>
+Action
+</div>
+
+</div>
+
+<div id="complaintContainer">
+
+</div>
+
+</div>
+
+</div>
+
+<script type="module"
+src="./components/topbar.js">
+</script>
+
+<script type="module"
+src="./components/sidebar.js">
+</script>
+
+<script type="module"
+src="./js/complaints.js">
+</script>
+
+</body>
+</html>
