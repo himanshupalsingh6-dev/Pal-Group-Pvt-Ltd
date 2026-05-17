@@ -1,248 +1,339 @@
 /* =========================================================
 FILE : partner/index.js
-TEMP SECURITY DISABLED
+QUICKPRESS PARTNER LIVE SYSTEM
+REAL FIREBASE DATA
 ========================================================= */
 
+import { db }
+
+from
+
+"/Pal-Group-Pvt-Ltd/firebase.js";
+
+import {
+
+collection,
+query,
+where,
+onSnapshot
+
+}
+
+from
+
+"https://www.gstatic.com/firebasejs/12.11.0/firebase-firestore.js";
+
 /* =========================================================
-DISABLED LOGIN CHECK
-========================================================= */
-
-// const partnerLogin =
-// localStorage.getItem(
-// "quickpress_partner"
-// );
-
-// if(partnerLogin !== "true"){
-
-// window.location.href =
-// "login.html";
-
-// }
-
-/* =========================================================
-TEMP DEMO DATA
+PARTNER DATA
 ========================================================= */
 
 const partnerId =
+localStorage.getItem(
+"quickpress_partner_id"
+)
+||
 "demoPartner";
-
-const partnerName =
-"Quick Partner";
-
-const partnerCity =
-"Kasganj";
 
 /* =========================================================
 ELEMENTS
 ========================================================= */
 
-const avatar =
-document.getElementById(
-"avatar"
+const shopName =
+document.querySelector(
+".shopName"
 );
 
-const welcomeName =
-document.getElementById(
-"welcomeName"
-);
+const salesElement =
+document.querySelectorAll(
+".liveBox h2"
+)[0];
 
-const partnerNameText =
-document.getElementById(
-"partnerName"
-);
+const ordersElement =
+document.querySelectorAll(
+".liveBox h2"
+)[1];
 
-const partnerCityText =
-document.getElementById(
-"partnerCity"
-);
-
-const todayOrders =
-document.getElementById(
-"todayOrders"
-);
-
-const completedOrders =
-document.getElementById(
-"completedOrders"
-);
-
-const revenue =
-document.getElementById(
-"revenue"
-);
-
-const activeRiders =
-document.getElementById(
-"activeRiders"
-);
-
-const ordersContainer =
-document.getElementById(
-"ordersContainer"
+const emptyText =
+document.querySelector(
+".emptyText"
 );
 
 /* =========================================================
-PROFILE
+LIVE PARTNER INFO
 ========================================================= */
 
-avatar.innerHTML =
-partnerName
-.charAt(0)
-.toUpperCase();
+const partnerName =
+localStorage.getItem(
+"quickpress_partner_name"
+)
+||
+"QuickPress Laundry";
 
-welcomeName.innerHTML =
+shopName.innerHTML =
 partnerName;
 
-partnerNameText.innerHTML =
-partnerName;
-
-partnerCityText.innerHTML =
-partnerCity;
-
 /* =========================================================
-DUMMY STATS
+LIVE ORDERS
 ========================================================= */
 
-todayOrders.innerHTML =
-"28";
+onSnapshot(
 
-completedOrders.innerHTML =
-"19";
+query(
+collection(db,"orders"),
+where(
+"partnerId",
+"==",
+partnerId
+)
+),
 
-revenue.innerHTML =
-"₹12,540";
+(snapshot)=>{
 
-activeRiders.innerHTML =
-"8";
+let totalOrders = 0;
 
-/* =========================================================
-DUMMY ORDERS
-========================================================= */
+let totalSales = 0;
 
-const demoOrders = [
+let preparing = 0;
 
-{
-orderId:"QP1001",
-customerName:"Rahul Sharma",
-mobile:"9876543210",
-amount:320,
-status:"Pending"
-},
+let ready = 0;
 
-{
-orderId:"QP1002",
-customerName:"Amit Kumar",
-mobile:"9876500000",
-amount:540,
-status:"Completed"
-},
+let delivered = 0;
 
-{
-orderId:"QP1003",
-customerName:"Priya Singh",
-mobile:"9876512345",
-amount:220,
-status:"Processing"
-}
+/* ========================================= */
 
-];
+snapshot.forEach((docSnap)=>{
 
-/* =========================================================
-RENDER ORDERS
-========================================================= */
+const order =
+docSnap.data();
 
-demoOrders.forEach((order)=>{
+/* ========================================= */
 
-let badgeClass =
-"pending";
+totalOrders++;
+
+totalSales +=
+Number(
+order.amount || 0
+);
 
 /* ========================================= */
 
 if(
-order.status === "Completed"
+order.status === "Preparing"
 ){
 
-badgeClass =
-"completed";
-
-}
-
-if(
-order.status === "Processing"
-){
-
-badgeClass =
-"processing";
+preparing++;
 
 }
 
 /* ========================================= */
 
-const row = `
+if(
+order.status === "Ready"
+){
 
-<div class="orderRow">
+ready++;
 
-<div>
+}
 
-#${order.orderId}
+/* ========================================= */
 
-</div>
+if(
+order.status === "Delivered"
+){
 
-<div>
+delivered++;
 
-<b>
-
-${order.customerName}
-
-</b>
-
-<br>
-
-${order.mobile}
-
-</div>
-
-<div>
-
-₹${order.amount}
-
-</div>
-
-<div>
-
-<div class="badge ${badgeClass}">
-
-${order.status}
-
-</div>
-
-</div>
-
-</div>
-
-`;
-
-ordersContainer.innerHTML += row;
+}
 
 });
 
+/* =========================================
+LIVE UPDATE
+========================================= */
+
+salesElement.innerHTML =
+`₹${totalSales}`;
+
+ordersElement.innerHTML =
+totalOrders;
+
+/* ========================================= */
+
+emptyText.innerHTML = `
+
+Preparing :
+<b>
+${preparing}
+</b>
+
+<br><br>
+
+Ready :
+<b>
+${ready}
+</b>
+
+<br><br>
+
+Delivered :
+<b>
+${delivered}
+</b>
+
+`;
+
+/* ========================================= */
+
+if(totalOrders <= 0){
+
+emptyText.innerHTML =
+
+"Orders will be coming your way soon 🚀";
+
+}
+
+}
+
+/* END */
+
+);
+
 /* =========================================================
-LOGOUT
+LIVE NAV COUNTS
 ========================================================= */
 
-window.logoutPartner =
+const navOrders =
+document.querySelectorAll(
+".navItem span"
+)[1];
+
+if(navOrders){
+
+navOrders.innerHTML =
+"Orders";
+
+}
+
+/* =========================================================
+LIVE TIME
+========================================================= */
+
+function updateTime(){
+
+const now =
+new Date();
+
+const hour =
+now.getHours();
+
+/* ========================================= */
+
+const greeting =
+document.querySelector(
+".topLabel"
+);
+
+/* ========================================= */
+
+if(hour < 12){
+
+greeting.innerHTML =
+"GOOD MORNING";
+
+}
+
+else if(hour < 18){
+
+greeting.innerHTML =
+"GOOD AFTERNOON";
+
+}
+
+else{
+
+greeting.innerHTML =
+"GOOD EVENING";
+
+}
+
+}
+
+/* ========================================= */
+
+updateTime();
+
+/* =========================================================
+LIVE QUICK ACTIONS
+========================================================= */
+
+const quickCards =
+document.querySelectorAll(
+".quickCard"
+);
+
+/* ========================================= */
+
+quickCards[0]
+.onclick =
+()=>{
+
+window.location.href =
+"orders.html";
+
+};
+
+/* ========================================= */
+
+quickCards[1]
+.onclick =
+()=>{
+
+window.location.href =
+"riders.html";
+
+};
+
+/* ========================================= */
+
+quickCards[2]
+.onclick =
+()=>{
+
+window.location.href =
+"finance.html";
+
+};
+
+/* ========================================= */
+
+quickCards[3]
+.onclick =
+()=>{
+
+window.location.href =
+"support.html";
+
+};
+
+/* =========================================================
+ONLINE STATUS
+========================================================= */
+
+window.addEventListener(
+"offline",
 ()=>{
 
 alert(
-"Demo Mode Active"
+"Internet Disconnected"
 );
 
-};
+}
+);
 
 /* =========================================================
 READY
 ========================================================= */
 
 console.log(
-"Partner Dashboard Demo Mode Active"
+"QuickPress Partner Live Dashboard Active"
 );
