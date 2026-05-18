@@ -1,21 +1,11 @@
-<!-- =========================================================
-FILE : user/index.html
-QUICKPRESS USER HOME PREMIUM UI
-========================================================= -->
-
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
 
-<meta charset="UTF-8"/>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
 
-<meta name="viewport"
-content="width=device-width, initial-scale=1.0"/>
-
-<title>
-QuickPress
-</title>
+<title>QuickPress</title>
 
 <link rel="stylesheet"
 href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css"/>
@@ -33,20 +23,11 @@ box-sizing:border-box;
 font-family:Inter,sans-serif;
 }
 
-/* =====================================================
-BODY
-===================================================== */
-
 body{
-
 background:#FFFFFF;
-
-padding-bottom:120px;
-
 color:#111827;
-
+padding-bottom:110px;
 overflow-x:hidden;
-
 }
 
 /* =====================================================
@@ -54,93 +35,55 @@ TOPBAR
 ===================================================== */
 
 .topbar{
-
-padding:20px 18px 12px;
-
+padding:16px;
 background:#fff;
-
+position:sticky;
+top:0;
+z-index:999;
 }
-
-/* =====================================================
-TOP ROW
-===================================================== */
 
 .topRow{
-
 display:flex;
-
-justify-content:space-between;
-
 align-items:flex-start;
-
+justify-content:space-between;
 gap:12px;
-
 }
 
-/* =====================================================
-LOCATION
-===================================================== */
-
 .locationWrap{
-
 display:flex;
-
 gap:12px;
-
-align-items:flex-start;
-
 flex:1;
-
 }
 
 .locationIcon{
-
-font-size:32px;
-
+width:48px;
+height:48px;
+border-radius:16px;
+background:#E8F8EC;
+display:flex;
+align-items:center;
+justify-content:center;
+font-size:22px;
 color:#16A34A;
-
-margin-top:2px;
-
 }
 
 .locationText h2{
-
-font-size:34px;
-
+font-size:28px;
 font-weight:900;
-
 display:flex;
-
 align-items:center;
-
-gap:10px;
-
-}
-
-.locationText h2 i{
-
-font-size:24px;
-
+gap:8px;
 }
 
 .locationText p{
-
-font-size:17px;
-
+font-size:14px;
 font-weight:600;
-
 color:#6B7280;
-
 margin-top:4px;
-
-white-space:nowrap;
-
+max-width:180px;
 overflow:hidden;
-
 text-overflow:ellipsis;
-
-max-width:340px;
-
+white-space:nowrap;
 }
 
 /* =====================================================
@@ -148,306 +91,163 @@ TOP ACTIONS
 ===================================================== */
 
 .topActions{
-
 display:flex;
-
+gap:10px;
 align-items:center;
-
-gap:14px;
-
 }
 
-/* =====================================================
-QUICK+ CARD
-===================================================== */
-
 .quickPlus{
-
-min-width:120px;
-
-height:66px;
-
+min-width:92px;
+height:58px;
 border-radius:999px;
-
 background:linear-gradient(
 135deg,
 #FFE58F,
 #FFD400
 );
-
+border:2px solid #C69214;
 display:flex;
-
 flex-direction:column;
-
 align-items:center;
-
 justify-content:center;
-
-border:3px solid #B88A28;
-
-box-shadow:
-0 6px 20px rgba(255,212,0,0.25);
-
+box-shadow:0 6px 20px rgba(255,212,0,0.3);
 }
 
-.quickPlus h3{
-
-font-size:16px;
-
+.quickPlus h4{
+font-size:13px;
 font-weight:900;
-
 color:#7A4A00;
-
-line-height:1;
-
 }
 
 .quickPlus span{
-
-font-size:22px;
-
+font-size:18px;
 font-weight:900;
-
 color:#7A4A00;
-
-margin-top:4px;
-
 }
 
-/* =====================================================
-TOP ICON
-===================================================== */
-
-.topBtn{
-
-width:64px;
-
-height:64px;
-
+.actionBtn{
+width:52px;
+height:52px;
 border-radius:50%;
-
 background:#fff;
-
-border:2px solid #ECECEC;
-
+border:1px solid #ECECEC;
 display:flex;
-
 align-items:center;
-
 justify-content:center;
-
-font-size:26px;
-
-color:#333;
-
+font-size:20px;
 position:relative;
-
+box-shadow:0 4px 14px rgba(0,0,0,0.04);
 }
-
-/* =====================================================
-PROFILE
-===================================================== */
 
 .profileBtn{
-
-width:64px;
-
-height:64px;
-
+width:52px;
+height:52px;
 border-radius:50%;
-
 background:#DBEAFE;
-
 display:flex;
-
 align-items:center;
-
 justify-content:center;
-
-font-size:36px;
-
+font-size:22px;
+font-weight:900;
 color:#2563EB;
+}
 
+.badge{
+position:absolute;
+right:-2px;
+top:-2px;
+width:20px;
+height:20px;
+border-radius:50%;
+background:#22C55E;
+color:#fff;
+font-size:10px;
+font-weight:900;
+display:flex;
+align-items:center;
+justify-content:center;
 }
 
 /* =====================================================
 SEARCH
 ===================================================== */
 
-.searchWrap{
-
-margin-top:22px;
-
+.searchSection{
+padding:10px 16px 0;
 display:flex;
-
-gap:16px;
-
+gap:12px;
 align-items:center;
-
 }
-
-/* =====================================================
-SEARCH BAR
-===================================================== */
 
 .searchBar{
-
 flex:1;
-
-height:94px;
-
-border-radius:34px;
-
+height:72px;
+border-radius:28px;
 border:2px solid #ECECEC;
-
 display:flex;
-
 align-items:center;
-
-padding:0 26px;
-
+padding:0 18px;
 background:#fff;
-
-box-shadow:
-0 8px 24px rgba(0,0,0,0.04);
-
+box-shadow:0 6px 18px rgba(0,0,0,0.04);
 }
 
-.searchLeft{
-
-display:flex;
-
-align-items:center;
-
-gap:18px;
-
-flex:1;
-
-}
-
-.searchLeft i{
-
-font-size:38px;
-
+.searchIcon{
+font-size:30px;
 color:#16A34A;
-
+margin-right:14px;
 }
 
-.searchLeft input{
-
+.searchBar input{
 flex:1;
-
 border:none;
-
 outline:none;
-
-font-size:32px;
-
+font-size:20px;
 font-weight:700;
-
 color:#6B7280;
-
 }
-
-/* =====================================================
-MIC
-===================================================== */
 
 .micBtn{
-
-width:84px;
-
-height:84px;
-
+width:54px;
+height:54px;
 border-left:2px solid #ECECEC;
-
 display:flex;
-
 align-items:center;
-
 justify-content:center;
-
-margin-left:20px;
-
-}
-
-.micBtn i{
-
-font-size:36px;
-
+font-size:24px;
 color:#16A34A;
-
 }
 
-/* =====================================================
-QUICK TOGGLE
-===================================================== */
-
-.quickToggle{
-
-width:120px;
-
-display:flex;
-
-flex-direction:column;
-
-align-items:center;
-
-}
-
-.quickToggle h3{
-
-font-size:22px;
-
-font-weight:900;
-
-line-height:1.1;
-
+.quickMode{
+width:74px;
 text-align:center;
-
-margin-bottom:12px;
-
 }
 
-/* =====================================================
-SWITCH
-===================================================== */
+.quickMode h3{
+font-size:14px;
+font-weight:900;
+line-height:1.1;
+margin-bottom:8px;
+}
 
 .switch{
-
-width:88px;
-
-height:44px;
-
+width:64px;
+height:34px;
 background:#16A34A;
-
 border-radius:999px;
-
+margin:auto;
 position:relative;
-
 }
 
 .switch::after{
-
-content:\"\";
-
+content:"";
 position:absolute;
-
 right:2px;
-
 top:2px;
-
-width:40px;
-
-height:40px;
-
+width:30px;
+height:30px;
 border-radius:50%;
-
 background:#fff;
-
-box-shadow:
-0 4px 10px rgba(0,0,0,0.2);
-
+box-shadow:0 4px 10px rgba(0,0,0,0.2);
 }
 
 /* =====================================================
@@ -455,236 +255,91 @@ BANNER
 ===================================================== */
 
 .banner{
-
-margin:22px 18px;
-
+margin:18px 16px;
 background:linear-gradient(
 135deg,
 #FFD400,
 #FFE96A
 );
-
-border-radius:42px;
-
-padding:34px;
-
+border-radius:34px;
+padding:24px;
 position:relative;
-
 overflow:hidden;
-
-min-height:280px;
-
 }
 
 .banner::after{
-
-content:\"\";
-
+content:"";
 position:absolute;
-
-right:-80px;
-
-top:-80px;
-
-width:260px;
-
-height:260px;
-
+right:-60px;
+top:-60px;
+width:220px;
+height:220px;
 border-radius:50%;
-
-background:rgba(255,255,255,0.25);
-
+background:rgba(255,255,255,0.22);
 }
 
 .pickupBadge{
-
 display:inline-flex;
-
 align-items:center;
-
 gap:8px;
-
-padding:14px 20px;
-
+padding:12px 16px;
 border-radius:999px;
-
 background:rgba(255,255,255,0.7);
-
-font-size:14px;
-
+font-size:13px;
 font-weight:900;
-
-margin-bottom:22px;
-
+margin-bottom:18px;
 }
 
 .banner h1{
-
-font-size:68px;
-
+font-size:44px;
 line-height:1.05;
-
 font-weight:900;
-
-margin-bottom:18px;
-
-max-width:500px;
-
+margin-bottom:14px;
 }
 
 .banner p{
-
-font-size:20px;
-
-line-height:1.8;
-
-max-width:580px;
-
-margin-bottom:28px;
-
+font-size:15px;
+line-height:1.7;
+max-width:300px;
+margin-bottom:20px;
 }
 
-/* =====================================================
-BUTTONS
-===================================================== */
-
 .bannerBtns{
-
 display:flex;
-
-gap:16px;
-
+gap:12px;
 flex-wrap:wrap;
-
 }
 
 .primaryBtn{
-
-height:62px;
-
-padding:0 30px;
-
+height:54px;
+padding:0 22px;
 border:none;
-
-border-radius:22px;
-
+border-radius:18px;
 background:#111827;
-
 color:#fff;
-
-font-size:16px;
-
+font-size:14px;
 font-weight:900;
-
 }
 
 .secondaryBtn{
-
-height:62px;
-
-padding:0 30px;
-
+height:54px;
+padding:0 22px;
 border:none;
-
-border-radius:22px;
-
+border-radius:18px;
 background:#fff;
-
 color:#111827;
-
-font-size:16px;
-
+font-size:14px;
 font-weight:900;
-
 }
 
 /* =====================================================
-SECTION
+SECTION TITLE
 ===================================================== */
 
 .sectionTitle{
-
-font-size:42px;
-
-font-weight:900;
-
-padding:10px 18px 24px;
-
-}
-
-/* =====================================================
-CATEGORY
-===================================================== */
-
-.categoryScroll{
-
-display:flex;
-
-gap:18px;
-
-overflow:auto;
-
-padding:0 18px;
-
-margin-bottom:34px;
-
-}
-
-.categoryScroll::-webkit-scrollbar{
-
-display:none;
-
-}
-
-.categoryCard{
-
-min-width:130px;
-
-background:#fff;
-
-border-radius:30px;
-
-padding:22px 16px;
-
-border:2px solid #F1F1F1;
-
-text-align:center;
-
-box-shadow:
-0 6px 20px rgba(0,0,0,0.04);
-
-}
-
-.categoryIcon{
-
-width:64px;
-
-height:64px;
-
-border-radius:22px;
-
-background:#FAFAFA;
-
-display:flex;
-
-align-items:center;
-
-justify-content:center;
-
-margin:auto;
-
 font-size:30px;
-
-margin-bottom:16px;
-
-}
-
-.categoryCard h4{
-
-font-size:18px;
-
 font-weight:900;
-
+padding:8px 16px 18px;
 }
 
 /* =====================================================
@@ -692,142 +347,81 @@ SERVICES
 ===================================================== */
 
 .serviceGrid{
-
 display:grid;
-
-grid-template-columns:repeat(4,1fr);
-
-gap:20px;
-
-padding:0 18px;
-
+grid-template-columns:repeat(2,1fr);
+gap:14px;
+padding:0 16px;
 }
 
 .serviceCard{
-
 background:#fff;
-
-border-radius:34px;
-
-padding:22px;
-
-border:2px solid #F2F2F2;
-
+border:1px solid #ECECEC;
+border-radius:28px;
+padding:16px;
 position:relative;
-
-box-shadow:
-0 10px 30px rgba(0,0,0,0.04);
-
+box-shadow:0 8px 22px rgba(0,0,0,0.04);
 }
 
 .favoriteBtn{
-
 position:absolute;
-
-right:18px;
-
-top:18px;
-
-width:42px;
-
-height:42px;
-
-border-radius:16px;
-
+right:14px;
+top:14px;
+width:34px;
+height:34px;
+border-radius:12px;
 background:#fff;
-
 border:1px solid #ECECEC;
-
 display:flex;
-
 align-items:center;
-
 justify-content:center;
-
-color:#EF4444;
-
+font-size:14px;
 }
 
 .serviceImage{
-
-width:74px;
-
-height:74px;
-
-border-radius:24px;
-
+width:62px;
+height:62px;
+border-radius:20px;
 background:#FAFAFA;
-
 display:flex;
-
 align-items:center;
-
 justify-content:center;
-
-font-size:38px;
-
-margin-bottom:20px;
-
+font-size:30px;
+margin-bottom:16px;
 }
 
 .serviceCard h3{
-
-font-size:28px;
-
+font-size:20px;
 font-weight:900;
-
-margin-bottom:10px;
-
+margin-bottom:8px;
 }
 
 .serviceCard p{
-
-font-size:15px;
-
-line-height:1.7;
-
-color:#666;
-
-margin-bottom:22px;
-
+font-size:13px;
+line-height:1.5;
+color:#6B7280;
+margin-bottom:16px;
 }
 
 .serviceBottom{
-
 display:flex;
-
 justify-content:space-between;
-
 align-items:center;
-
 }
 
 .price{
-
-font-size:34px;
-
+font-size:24px;
 font-weight:900;
-
 color:#16A34A;
-
 }
 
 .addBtn{
-
-width:90px;
-
-height:56px;
-
+width:74px;
+height:46px;
 border:none;
-
-border-radius:20px;
-
+border-radius:16px;
 background:#FFD400;
-
-font-size:15px;
-
+font-size:13px;
 font-weight:900;
-
 }
 
 /* =====================================================
@@ -835,121 +429,62 @@ BOTTOM NAV
 ===================================================== */
 
 .bottomNav{
-
 position:fixed;
-
 left:0;
-
 right:0;
-
 bottom:0;
-
-height:96px;
-
+height:86px;
 background:#fff;
-
-border-top:2px solid #ECECEC;
-
+border-top:1px solid #ECECEC;
 display:flex;
-
 justify-content:space-around;
-
 align-items:center;
-
 z-index:999;
-
 }
 
 .navItem{
-
 display:flex;
-
 flex-direction:column;
-
 align-items:center;
-
-gap:8px;
-
-font-size:14px;
-
+gap:6px;
+font-size:12px;
 font-weight:800;
-
 text-decoration:none;
-
 color:#6B7280;
-
 }
 
 .navItem i{
-
-font-size:24px;
-
+font-size:22px;
 }
 
 .activeNav{
-
 color:#FFD400;
-
 }
 
 /* =====================================================
 RESPONSIVE
 ===================================================== */
 
-@media(max-width:1200px){
+@media(max-width:420px){
 
 .serviceGrid{
-
-grid-template-columns:repeat(2,1fr);
-
+grid-template-columns:1fr;
 }
 
+.locationText h2{
+font-size:24px;
 }
 
-@media(max-width:700px){
+.searchBar input{
+font-size:16px;
+}
 
 .banner h1{
-
-font-size:42px;
-
+font-size:36px;
 }
 
-.serviceGrid{
-
-grid-template-columns:1fr;
-
-}
-
-.searchLeft input{
-
-font-size:22px;
-
-}
-
-.searchBar{
-
-height:78px;
-
-}
-
-.quickToggle{
-
+.quickMode{
 display:none;
-
-}
-
-.topActions{
-
-gap:10px;
-
-}
-
-.quickPlus{
-
-min-width:90px;
-
-height:58px;
-
 }
 
 }
@@ -968,113 +503,70 @@ TOPBAR
 
 <div class="topRow">
 
-<!-- LOCATION -->
-
 <div class="locationWrap">
 
 <div class="locationIcon">
-
 <i class="fa-solid fa-location-dot"></i>
-
 </div>
 
 <div class="locationText">
 
 <h2>
-
 Home
-
 <i class="fa-solid fa-angle-down"></i>
-
 </h2>
 
-<p>
-
-Vill Nagla Baini Kasganj Near Market
-
+<p id="realLocation">
+Finding your location...
 </p>
 
 </div>
 
 </div>
 
-<!-- ACTIONS -->
-
 <div class="topActions">
 
-<!-- QUICK+ -->
-
-<div class="quickPlus">
-
-<h3>
-
-QUICK+
-
-</h3>
-
-<span>
-
-₹1
-
-</span>
-
+<div class="quickPlus"
+onclick="openQuickPlus()">
+<h4>QUICK+</h4>
+<span>₹1</span>
 </div>
 
-<!-- WALLET -->
-
-<div class="topBtn">
-
+<div class="actionBtn"
+onclick="openWallet()">
 <i class="fa-solid fa-wallet"></i>
-
+<div class="badge">2</div>
 </div>
 
-<!-- PROFILE -->
-
-<div class="profileBtn">
-
+<div class="profileBtn"
+onclick="openProfile()"
+id="profileBtn">
 H
-
 </div>
 
 </div>
 
 </div>
 
-<!-- SEARCH -->
-
-<div class="searchWrap">
+<div class="searchSection">
 
 <div class="searchBar">
 
-<div class="searchLeft">
-
-<i class="fa-solid fa-magnifying-glass"></i>
+<i class="fa-solid fa-magnifying-glass searchIcon"></i>
 
 <input
+id="searchInput"
 placeholder='Search "shirt wash"'>
 
-</div>
-
 <div class="micBtn">
-
 <i class="fa-solid fa-microphone"></i>
-
 </div>
 
 </div>
 
-<!-- QUICK MODE -->
-
-<div class="quickToggle">
-
-<h3>
-
-QUICK
-
-</h3>
-
+<div class="quickMode">
+<h3>QUICK</h3>
 <div class="switch"></div>
-
 </div>
 
 </div>
@@ -1088,38 +580,27 @@ BANNER
 <div class="banner">
 
 <div class="pickupBadge">
-
 ⚡ Pickup in 10 mins
-
 </div>
 
 <h1>
-
 Laundry
 <br>
-
 Made Easy ✨
-
 </h1>
 
 <p>
-
 Fast washing, ironing and premium doorstep laundry experience.
-
 </p>
 
 <div class="bannerBtns">
 
 <button class="primaryBtn">
-
 ⚡ Fast Order
-
 </button>
 
 <button class="secondaryBtn">
-
 📅 Schedule Pickup
-
 </button>
 
 </div>
@@ -1127,410 +608,177 @@ Fast washing, ironing and premium doorstep laundry experience.
 </div>
 
 <!-- =====================================================
-CATEGORIES
+SERVICES
 ===================================================== -->
 
 <div class="sectionTitle">
-
-Categories
-
-</div>
-
-<div class="categoryScroll">
-
-<div class="categoryCard">
-
-<div class="categoryIcon">
-
-👔
-
-</div>
-
-<h4>
-
-Ironing
-
-</h4>
-
-</div>
-
-<div class="categoryCard">
-
-<div class="categoryIcon">
-
-🧺
-
-</div>
-
-<h4>
-
-Wash
-
-</h4>
-
-</div>
-
-<div class="categoryCard">
-
-<div class="categoryIcon">
-
-✨
-
-</div>
-
-<h4>
-
-Dry Clean
-
-</h4>
-
-</div>
-
-<div class="categoryCard">
-
-<div class="categoryIcon">
-
-💨
-
-</div>
-
-<h4>
-
-Steam
-
-</h4>
-
-</div>
-
-<div class="categoryCard">
-
-<div class="categoryIcon">
-
-👑
-
-</div>
-
-<h4>
-
-Premium
-
-</h4>
-
-</div>
-
-<div class="categoryCard">
-
-<div class="categoryIcon">
-
-🛏️
-
-</div>
-
-<h4>
-
-Blanket
-
-</h4>
-
-</div>
-
-<div class="categoryCard">
-
-<div class="categoryIcon">
-
-🚪
-
-</div>
-
-<h4>
-
-Curtain
-
-</h4>
-
-</div>
-
-<div class="categoryCard">
-
-<div class="categoryIcon">
-
-👟
-
-</div>
-
-<h4>
-
-Shoes
-
-</h4>
-
-</div>
-
-</div>
-
-<!-- =====================================================
-TRENDING SERVICES
-===================================================== -->
-
-<div class="sectionTitle">
-
 Trending Services
-
 </div>
 
-<div class="serviceGrid">
-
-<div class="serviceCard">
-
-<div class="favoriteBtn">
-
-❤️
-
-</div>
-
-<div class="serviceImage">
-
-👔
-
-</div>
-
-<h3>
-
-Formal Shirt
-
-</h3>
-
-<p>
-
-Premium laundry service
-
-</p>
-
-<div class="serviceBottom">
-
-<div class="price">
-
-₹29
-
-</div>
-
-<button class="addBtn">
-
-ADD
-
-</button>
-
-</div>
-
-</div>
-
-<div class="serviceCard">
-
-<div class="favoriteBtn">
-
-❤️
-
-</div>
-
-<div class="serviceImage">
-
-👕
-
-</div>
-
-<h3>
-
-T-Shirt
-
-</h3>
-
-<p>
-
-Premium laundry service
-
-</p>
-
-<div class="serviceBottom">
-
-<div class="price">
-
-₹19
-
-</div>
-
-<button class="addBtn">
-
-ADD
-
-</button>
-
-</div>
-
-</div>
-
-<div class="serviceCard">
-
-<div class="favoriteBtn">
-
-❤️
-
-</div>
-
-<div class="serviceImage">
-
-🧺
-
-</div>
-
-<h3>
-
-Wash & Fold
-
-</h3>
-
-<p>
-
-Premium laundry service
-
-</p>
-
-<div class="serviceBottom">
-
-<div class="price">
-
-₹49/kg
-
-</div>
-
-<button class="addBtn">
-
-ADD
-
-</button>
-
-</div>
-
-</div>
-
-<div class="serviceCard">
-
-<div class="favoriteBtn">
-
-❤️
-
-</div>
-
-<div class="serviceImage">
-
-👟
-
-</div>
-
-<h3>
-
-Sneaker Cleaning
-
-</h3>
-
-<p>
-
-Premium laundry service
-
-</p>
-
-<div class="serviceBottom">
-
-<div class="price">
-
-₹199
-
-</div>
-
-<button class="addBtn">
-
-ADD
-
-</button>
-
-</div>
-
-</div>
-
+<div class="serviceGrid" id="serviceGrid">
 </div>
 
 <!-- =====================================================
-BOTTOM NAVBAR
+BOTTOM NAV
 ===================================================== -->
 
 <div class="bottomNav">
 
-<a href="#"
-class="navItem activeNav">
-
+<a href="#" class="navItem activeNav">
 <i class="fa-solid fa-house"></i>
-
-<span>
-
-Home
-
-</span>
-
+<span>Home</span>
 </a>
 
-<a href="#"
-class="navItem">
-
+<a href="#" class="navItem">
 <i class="fa-solid fa-shirt"></i>
-
-<span>
-
-Services
-
-</span>
-
+<span>Services</span>
 </a>
 
-<a href="cart.html"
-class="navItem">
-
+<a href="cart.html" class="navItem">
 <i class="fa-solid fa-cart-shopping"></i>
-
-<span>
-
-Cart
-
-</span>
-
+<span>Cart</span>
 </a>
 
-<a href="#"
-class="navItem">
-
+<a href="#" class="navItem">
 <i class="fa-solid fa-tags"></i>
-
-<span>
-
-Offers
-
-</span>
-
+<span>Offers</span>
 </a>
 
-<a href="#"
-class="navItem">
-
+<a href="#" class="navItem">
 <i class="fa-regular fa-user"></i>
-
-<span>
-
-Profile
-
-</span>
-
+<span>Profile</span>
 </a>
 
 </div>
 
-</body>
+<script type="module">
 
+import { db }
+from "/Pal-Group-Pvt-Ltd/firebase.js";
+
+import {
+collection,
+onSnapshot
+}
+from "https://www.gstatic.com/firebasejs/12.11.0/firebase-firestore.js";
+
+/* =====================================================
+PROFILE NAME
+===================================================== */
+
+const userName =
+localStorage.getItem("quickpress_user_name") || "H";
+
+const profileBtn =
+document.getElementById("profileBtn");
+
+profileBtn.innerHTML =
+userName.charAt(0).toUpperCase();
+
+/* =====================================================
+REAL LOCATION
+===================================================== */
+
+const realLocation =
+document.getElementById("realLocation");
+
+navigator.geolocation.getCurrentPosition(
+(position)=>{
+
+const lat = position.coords.latitude;
+const lon = position.coords.longitude;
+
+realLocation.innerHTML =
+`Lat ${lat.toFixed(2)}, Lon ${lon.toFixed(2)}`;
+
+},
+()=>{
+
+realLocation.innerHTML =
+"Kasganj Uttar Pradesh";
+
+}
+);
+
+/* =====================================================
+SERVICES
+===================================================== */
+
+const serviceGrid =
+document.getElementById("serviceGrid");
+
+onSnapshot(
+collection(db,"services"),
+(snapshot)=>{
+
+serviceGrid.innerHTML = "";
+
+snapshot.forEach((docSnap)=>{
+
+const service = docSnap.data();
+
+serviceGrid.innerHTML += `
+
+<div class="serviceCard">
+
+<div class="favoriteBtn">❤️</div>
+
+<div class="serviceImage">
+${service.icon || "🧺"}
+</div>
+
+<h3>
+${service.name || "Laundry"}
+</h3>
+
+<p>
+${service.description || "Premium service"}
+</p>
+
+<div class="serviceBottom">
+
+<div class="price">
+₹${service.price || 0}
+</div>
+
+<button
+class="addBtn"
+onclick="addToCart('${service.name}')">
+ADD
+</button>
+
+</div>
+
+</div>
+
+`;
+
+});
+
+}
+);
+
+/* =====================================================
+BUTTONS
+===================================================== */
+
+window.openWallet = ()=>{
+window.location.href = "wallet.html";
+};
+
+window.openProfile = ()=>{
+window.location.href = "profile.html";
+};
+
+window.openQuickPlus = ()=>{
+alert("Quick+ Membership Coming Soon 🚀");
+};
+
+window.addToCart = (name)=>{
+alert(name + " Added To Cart");
+};
+
+</script>
+
+</body>
 </html>
