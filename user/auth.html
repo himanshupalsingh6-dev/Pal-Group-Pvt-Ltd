@@ -1,0 +1,866 @@
+<!-- =========================================================
+FILE : user/auth.html
+QUICKPRESS AUTH PAGE
+OTP + PASSWORD LOGIN
+========================================================= -->
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+<meta charset="UTF-8"/>
+
+<meta name="viewport"
+content="width=device-width, initial-scale=1.0"/>
+
+<title>
+QuickPress Auth
+</title>
+
+<link rel="stylesheet"
+href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css"/>
+
+<style>
+
+/* =====================================================
+RESET
+===================================================== */
+
+*{
+margin:0;
+padding:0;
+box-sizing:border-box;
+font-family:Inter,sans-serif;
+}
+
+/* =====================================================
+BODY
+===================================================== */
+
+body{
+
+background:#F5F5F5;
+
+min-height:100vh;
+
+display:flex;
+
+justify-content:center;
+
+align-items:center;
+
+padding:20px;
+
+}
+
+/* =====================================================
+CARD
+===================================================== */
+
+.authCard{
+
+width:100%;
+
+max-width:430px;
+
+background:#fff;
+
+border-radius:36px;
+
+overflow:hidden;
+
+box-shadow:
+0 20px 60px rgba(0,0,0,0.08);
+
+}
+
+/* =====================================================
+TOP
+===================================================== */
+
+.authTop{
+
+background:linear-gradient(
+135deg,
+#FFD400,
+#FFE96A
+);
+
+padding:40px 28px;
+
+position:relative;
+
+overflow:hidden;
+
+}
+
+.authTop::after{
+
+content:"";
+
+position:absolute;
+
+right:-60px;
+
+top:-60px;
+
+width:220px;
+
+height:220px;
+
+border-radius:50%;
+
+background:rgba(255,255,255,0.25);
+
+}
+
+.logo{
+
+position:relative;
+
+z-index:2;
+
+}
+
+.logo h1{
+
+font-size:42px;
+
+font-weight:900;
+
+color:#111;
+
+margin-bottom:10px;
+
+}
+
+.logo p{
+
+font-size:15px;
+
+font-weight:600;
+
+color:#222;
+
+line-height:1.6;
+
+}
+
+/* =====================================================
+BOTTOM
+===================================================== */
+
+.authBottom{
+
+padding:28px;
+
+}
+
+/* =====================================================
+TABS
+===================================================== */
+
+.tabs{
+
+display:flex;
+
+background:#F5F5F5;
+
+border-radius:18px;
+
+padding:6px;
+
+margin-bottom:24px;
+
+}
+
+.tab{
+
+flex:1;
+
+height:48px;
+
+border:none;
+
+border-radius:14px;
+
+font-size:14px;
+
+font-weight:800;
+
+cursor:pointer;
+
+background:none;
+
+}
+
+.activeTab{
+
+background:#111827;
+
+color:#fff;
+
+}
+
+/* =====================================================
+INPUT
+===================================================== */
+
+.inputGroup{
+
+margin-bottom:18px;
+
+}
+
+.inputLabel{
+
+font-size:13px;
+
+font-weight:800;
+
+margin-bottom:10px;
+
+display:block;
+
+color:#111;
+
+}
+
+.inputWrap{
+
+position:relative;
+
+}
+
+.inputWrap i{
+
+position:absolute;
+
+left:18px;
+
+top:50%;
+
+transform:translateY(-50%);
+
+font-size:16px;
+
+color:#666;
+
+}
+
+.inputField{
+
+width:100%;
+
+height:58px;
+
+border:none;
+
+background:#F5F5F5;
+
+border-radius:18px;
+
+padding:0 18px 0 52px;
+
+font-size:15px;
+
+font-weight:700;
+
+outline:none;
+
+}
+
+/* =====================================================
+BUTTON
+===================================================== */
+
+.mainBtn{
+
+width:100%;
+
+height:60px;
+
+border:none;
+
+border-radius:20px;
+
+background:#111827;
+
+color:#FFD400;
+
+font-size:16px;
+
+font-weight:900;
+
+cursor:pointer;
+
+margin-top:8px;
+
+}
+
+/* =====================================================
+OTP
+===================================================== */
+
+.otpBox{
+
+margin-top:18px;
+
+background:#FFF8CC;
+
+border-radius:18px;
+
+padding:16px;
+
+font-size:14px;
+
+font-weight:700;
+
+color:#111;
+
+line-height:1.7;
+
+}
+
+/* =====================================================
+STATUS
+===================================================== */
+
+.statusBox{
+
+margin-top:18px;
+
+text-align:center;
+
+font-size:14px;
+
+font-weight:800;
+
+}
+
+.success{
+color:#16A34A;
+}
+
+.error{
+color:#DC2626;
+}
+
+/* =====================================================
+BOTTOM TEXT
+===================================================== */
+
+.bottomText{
+
+text-align:center;
+
+margin-top:22px;
+
+font-size:13px;
+
+font-weight:600;
+
+color:#666;
+
+line-height:1.7;
+
+}
+
+</style>
+
+</head>
+
+<body>
+
+<!-- =====================================================
+CARD
+===================================================== -->
+
+<div class="authCard">
+
+<!-- =====================================================
+TOP
+===================================================== -->
+
+<div class="authTop">
+
+<div class="logo">
+
+<h1>
+
+QuickPress
+
+</h1>
+
+<p>
+
+Laundry pickup & delivery at your doorstep
+
+</p>
+
+</div>
+
+</div>
+
+<!-- =====================================================
+BOTTOM
+===================================================== -->
+
+<div class="authBottom">
+
+<!-- TABS -->
+
+<div class="tabs">
+
+<button
+class="tab activeTab"
+id="otpTab"
+onclick="switchTab('otp')">
+
+OTP Login
+
+</button>
+
+<button
+class="tab"
+id="passwordTab"
+onclick="switchTab('password')">
+
+Password
+
+</button>
+
+</div>
+
+<!-- FULL NAME -->
+
+<div class="inputGroup">
+
+<label class="inputLabel">
+
+Full Name
+
+</label>
+
+<div class="inputWrap">
+
+<i class="fa-solid fa-user"></i>
+
+<input
+type="text"
+id="name"
+class="inputField"
+placeholder="Enter full name">
+
+</div>
+
+</div>
+
+<!-- MOBILE -->
+
+<div class="inputGroup">
+
+<label class="inputLabel">
+
+Mobile Number
+
+</label>
+
+<div class="inputWrap">
+
+<i class="fa-solid fa-phone"></i>
+
+<input
+type="number"
+id="mobile"
+class="inputField"
+placeholder="Enter mobile number">
+
+</div>
+
+</div>
+
+<!-- OTP -->
+
+<div
+class="inputGroup"
+id="otpSection">
+
+<label class="inputLabel">
+
+Enter OTP
+
+</label>
+
+<div class="inputWrap">
+
+<i class="fa-solid fa-key"></i>
+
+<input
+type="number"
+id="otp"
+class="inputField"
+placeholder="Enter OTP">
+
+</div>
+
+</div>
+
+<!-- PASSWORD -->
+
+<div
+class="inputGroup"
+id="passwordSection"
+style="display:none;">
+
+<label class="inputLabel">
+
+Password
+
+</label>
+
+<div class="inputWrap">
+
+<i class="fa-solid fa-lock"></i>
+
+<input
+type="password"
+id="password"
+class="inputField"
+placeholder="Enter password">
+
+</div>
+
+</div>
+
+<!-- BUTTON -->
+
+<button
+class="mainBtn"
+onclick="loginUser()">
+
+Continue
+
+</button>
+
+<!-- OTP INFO -->
+
+<div class="otpBox">
+
+Demo OTP :
+
+<b>
+
+4502
+
+</b>
+
+</div>
+
+<!-- STATUS -->
+
+<div
+class="statusBox"
+id="statusBox">
+
+</div>
+
+<!-- TEXT -->
+
+<div class="bottomText">
+
+By continuing you agree to QuickPress Terms & Privacy Policy
+
+</div>
+
+</div>
+
+</div>
+
+<!-- =====================================================
+SCRIPT
+===================================================== -->
+
+<script type="module">
+
+import { db }
+
+from
+
+"/Pal-Group-Pvt-Ltd/firebase.js";
+
+import {
+
+collection,
+addDoc,
+serverTimestamp
+
+}
+
+from
+
+"https://www.gstatic.com/firebasejs/12.11.0/firebase-firestore.js";
+
+/* =====================================================
+MODE
+===================================================== */
+
+let loginMode =
+"otp";
+
+/* =====================================================
+SWITCH TAB
+===================================================== */
+
+window.switchTab =
+(mode)=>{
+
+loginMode = mode;
+
+/* ========================================= */
+
+document
+.getElementById(
+"otpTab"
+)
+.classList
+.remove(
+"activeTab"
+);
+
+document
+.getElementById(
+"passwordTab"
+)
+.classList
+.remove(
+"activeTab"
+);
+
+/* ========================================= */
+
+if(mode === "otp"){
+
+document
+.getElementById(
+"otpTab"
+)
+.classList
+.add(
+"activeTab"
+);
+
+document
+.getElementById(
+"otpSection"
+)
+.style.display =
+"block";
+
+document
+.getElementById(
+"passwordSection"
+)
+.style.display =
+"none";
+
+}
+
+/* ========================================= */
+
+else{
+
+document
+.getElementById(
+"passwordTab"
+)
+.classList
+.add(
+"activeTab"
+);
+
+document
+.getElementById(
+"otpSection"
+)
+.style.display =
+"none";
+
+document
+.getElementById(
+"passwordSection"
+)
+.style.display =
+"block";
+
+}
+
+};
+
+/* =====================================================
+LOGIN
+===================================================== */
+
+window.loginUser =
+async()=>{
+
+const name =
+document
+.getElementById(
+"name"
+)
+.value
+.trim();
+
+const mobile =
+document
+.getElementById(
+"mobile"
+)
+.value
+.trim();
+
+const otp =
+document
+.getElementById(
+"otp"
+)
+.value
+.trim();
+
+const password =
+document
+.getElementById(
+"password"
+)
+.value
+.trim();
+
+const statusBox =
+document
+.getElementById(
+"statusBox"
+);
+
+/* ========================================= */
+
+if(!name || !mobile){
+
+statusBox.innerHTML =
+"Fill all fields";
+
+statusBox.className =
+"statusBox error";
+
+return;
+
+}
+
+/* ========================================= */
+
+if(
+loginMode === "otp"
+&&
+otp !== "4502"
+){
+
+statusBox.innerHTML =
+"Invalid OTP";
+
+statusBox.className =
+"statusBox error";
+
+return;
+
+}
+
+/* ========================================= */
+
+if(
+loginMode === "password"
+&&
+password.length < 4
+){
+
+statusBox.innerHTML =
+"Invalid Password";
+
+statusBox.className =
+"statusBox error";
+
+return;
+
+}
+
+/* ========================================= */
+
+try{
+
+await addDoc(
+collection(db,"users"),
+{
+
+name,
+mobile,
+
+loginMode,
+
+createdAt:
+serverTimestamp()
+
+}
+);
+
+/* ========================================= */
+
+localStorage.setItem(
+"quickpress_user",
+"true"
+);
+
+localStorage.setItem(
+"quickpress_user_name",
+name
+);
+
+localStorage.setItem(
+"quickpress_user_mobile",
+mobile
+);
+
+/* ========================================= */
+
+statusBox.innerHTML =
+"Login Successful";
+
+statusBox.className =
+"statusBox success";
+
+/* ========================================= */
+
+setTimeout(()=>{
+
+window.location.href =
+"index.html";
+
+},1200);
+
+}
+
+catch(error){
+
+statusBox.innerHTML =
+error.message;
+
+statusBox.className =
+"statusBox error";
+
+}
+
+};
+
+</script>
+
+</body>
+</html>
