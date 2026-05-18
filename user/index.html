@@ -1,3 +1,9 @@
+<!-- =========================================================
+FILE : user/index.html
+QUICKPRESS USER HOME
+ZOMATO + BLINKIT STYLE
+========================================================= -->
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -9,7 +15,7 @@
 content="width=device-width, initial-scale=1.0">
 
 <title>
-QuickPress Signup
+QuickPress
 </title>
 
 <link rel="stylesheet"
@@ -33,143 +39,297 @@ BODY
 ===================================================== */
 
 body{
+background:#F5F5F5;
+padding-bottom:120px;
+overflow-x:hidden;
+}
+
+/* =====================================================
+TOPBAR
+===================================================== */
+
+.topbar{
+padding:18px;
 background:#FFD000;
-min-height:100vh;
+position:sticky;
+top:0;
+z-index:999;
+}
+
+.locationRow{
 display:flex;
+justify-content:space-between;
 align-items:center;
-justify-content:center;
-padding:20px;
-}
-
-/* =====================================================
-CARD
-===================================================== */
-
-.signupCard{
-width:100%;
-max-width:460px;
-background:#fff;
-border-radius:34px;
-padding:34px 28px;
-box-shadow:
-0 20px 60px rgba(0,0,0,0.15);
-}
-
-/* =====================================================
-LOGO
-===================================================== */
-
-.logo{
-text-align:center;
-margin-bottom:28px;
-}
-
-.logo h1{
-font-size:42px;
-font-weight:900;
-color:#111;
-margin-bottom:8px;
-}
-
-.logo p{
-font-size:14px;
-font-weight:600;
-color:#666;
-}
-
-/* =====================================================
-INPUTS
-===================================================== */
-
-.inputGroup{
 margin-bottom:18px;
 }
 
-.inputGroup label{
-display:block;
-font-size:13px;
-font-weight:800;
-margin-bottom:10px;
+.locationLeft h3{
+font-size:24px;
+font-weight:900;
 color:#111;
 }
 
-.inputWrap{
-position:relative;
-}
-
-.inputWrap i{
-position:absolute;
-left:18px;
-top:50%;
-transform:translateY(-50%);
-font-size:16px;
-color:#666;
-}
-
-.inputField{
-width:100%;
-height:58px;
-border:none;
-border-radius:18px;
-padding:0 18px 0 50px;
-font-size:15px;
-background:#F5F5F5;
-outline:none;
+.locationLeft p{
+font-size:13px;
 font-weight:600;
+margin-top:4px;
 }
 
-/* =====================================================
-BUTTON
-===================================================== */
-
-.signupBtn{
-width:100%;
-height:60px;
-border:none;
-border-radius:20px;
+.profileBtn{
+width:54px;
+height:54px;
+border-radius:18px;
 background:#111;
 color:#FFD000;
-font-size:16px;
-font-weight:900;
-cursor:pointer;
-margin-top:12px;
+display:flex;
+align-items:center;
+justify-content:center;
+font-size:22px;
 }
 
 /* =====================================================
-BOTTOM
+SEARCH
 ===================================================== */
 
-.bottomText{
-text-align:center;
-margin-top:22px;
-font-size:14px;
-font-weight:600;
+.searchBar{
+height:58px;
+background:#fff;
+border-radius:20px;
+display:flex;
+align-items:center;
+padding:0 18px;
+gap:14px;
+}
+
+.searchBar i{
+font-size:18px;
 color:#666;
 }
 
-.bottomText a{
-color:#111;
-font-weight:900;
-text-decoration:none;
+.searchBar input{
+flex:1;
+border:none;
+outline:none;
+font-size:15px;
+font-weight:600;
+background:none;
 }
 
 /* =====================================================
-STATUS
+BANNER
 ===================================================== */
 
-.statusBox{
-margin-top:18px;
-text-align:center;
+.banner{
+margin:18px;
+background:linear-gradient(
+135deg,
+#111,
+#333
+);
+
+border-radius:34px;
+padding:28px;
+color:#fff;
+position:relative;
+overflow:hidden;
+}
+
+.banner h2{
+font-size:34px;
+line-height:1.2;
+margin-bottom:14px;
+}
+
+.banner p{
+font-size:15px;
+line-height:1.7;
+opacity:0.9;
+margin-bottom:20px;
+}
+
+.bannerBtn{
+display:inline-block;
+padding:14px 22px;
+background:#FFD000;
+border-radius:16px;
+color:#111;
+font-size:15px;
+font-weight:900;
+}
+
+/* =====================================================
+SECTION TITLE
+===================================================== */
+
+.sectionTitle{
+font-size:28px;
+font-weight:900;
+padding:8px 18px 18px;
+}
+
+/* =====================================================
+SERVICES GRID
+===================================================== */
+
+.servicesGrid{
+display:grid;
+grid-template-columns:repeat(2,1fr);
+gap:16px;
+padding:0 18px;
+}
+
+.serviceCard{
+background:#fff;
+border-radius:28px;
+padding:20px;
+position:relative;
+overflow:hidden;
+}
+
+.serviceImage{
+width:100%;
+height:130px;
+border-radius:22px;
+background:#F5F5F5;
+display:flex;
+align-items:center;
+justify-content:center;
+font-size:58px;
+margin-bottom:18px;
+}
+
+.serviceCard h3{
+font-size:20px;
+font-weight:900;
+margin-bottom:8px;
+}
+
+.serviceCard p{
+font-size:13px;
+line-height:1.6;
+color:#666;
+margin-bottom:16px;
+}
+
+.priceRow{
+display:flex;
+justify-content:space-between;
+align-items:center;
+}
+
+.price{
+font-size:18px;
+font-weight:900;
+}
+
+.addBtn{
+width:54px;
+height:54px;
+border:none;
+border-radius:18px;
+background:#111;
+color:#FFD000;
+font-size:22px;
+font-weight:900;
+cursor:pointer;
+}
+
+/* =====================================================
+OFFERS
+===================================================== */
+
+.offerScroll{
+display:flex;
+gap:16px;
+overflow:auto;
+padding:0 18px;
+}
+
+.offerScroll::-webkit-scrollbar{
+display:none;
+}
+
+.offerCard{
+min-width:280px;
+background:#fff;
+border-radius:28px;
+padding:22px;
+}
+
+.offerCard h3{
+font-size:24px;
+font-weight:900;
+margin-bottom:10px;
+}
+
+.offerCard p{
 font-size:14px;
+line-height:1.7;
+color:#666;
+margin-bottom:14px;
+}
+
+.offerBadge{
+display:inline-block;
+padding:12px 16px;
+border-radius:16px;
+background:#FFD000;
+font-size:14px;
+font-weight:900;
+}
+
+/* =====================================================
+BOTTOM NAV
+===================================================== */
+
+.bottomNav{
+position:fixed;
+left:14px;
+right:14px;
+bottom:14px;
+height:86px;
+background:#111;
+border-radius:34px;
+display:flex;
+justify-content:space-around;
+align-items:center;
+z-index:999;
+}
+
+.navItem{
+display:flex;
+flex-direction:column;
+align-items:center;
+gap:8px;
+text-decoration:none;
+font-size:13px;
 font-weight:700;
+color:#fff;
+opacity:0.7;
 }
 
-.success{
-color:#16A34A;
+.navItem i{
+font-size:22px;
 }
 
-.error{
-color:#DC2626;
+.activeNav{
+opacity:1;
+}
+
+/* =====================================================
+RESPONSIVE
+===================================================== */
+
+@media(max-width:700px){
+
+.servicesGrid{
+grid-template-columns:1fr;
+}
+
+.banner h2{
+font-size:28px;
+}
+
 }
 
 </style>
@@ -179,357 +339,216 @@ color:#DC2626;
 <body>
 
 <!-- =====================================================
-CARD
+TOPBAR
 ===================================================== -->
 
-<div class="signupCard">
+<div class="topbar">
 
-<!-- LOGO -->
+<div class="locationRow">
 
-<div class="logo">
+<div class="locationLeft">
 
-<h1>
+<h3 id="userName">
+
 QuickPress
-</h1>
 
-<p>
-Create your account
+</h3>
+
+<p id="userCity">
+
+Kasganj
+
 </p>
 
 </div>
 
-<!-- NAME -->
-
-<div class="inputGroup">
-
-<label>
-Full Name
-</label>
-
-<div class="inputWrap">
+<div class="profileBtn">
 
 <i class="fa-solid fa-user"></i>
 
+</div>
+
+</div>
+
+<!-- SEARCH -->
+
+<div class="searchBar">
+
+<i class="fa-solid fa-magnifying-glass"></i>
+
 <input
-class="inputField"
 type="text"
-id="name"
-placeholder="Enter full name">
-
-</div>
-
-</div>
-
-<!-- MOBILE -->
-
-<div class="inputGroup">
-
-<label>
-Mobile Number
-</label>
-
-<div class="inputWrap">
-
-<i class="fa-solid fa-phone"></i>
-
-<input
-class="inputField"
-type="number"
-id="mobile"
-placeholder="Enter mobile number">
-
-</div>
-
-</div>
-
-<!-- EMAIL -->
-
-<div class="inputGroup">
-
-<label>
-Email Address
-</label>
-
-<div class="inputWrap">
-
-<i class="fa-solid fa-envelope"></i>
-
-<input
-class="inputField"
-type="email"
-id="email"
-placeholder="Enter email address">
-
-</div>
-
-</div>
-
-<!-- PASSWORD -->
-
-<div class="inputGroup">
-
-<label>
-Password
-</label>
-
-<div class="inputWrap">
-
-<i class="fa-solid fa-lock"></i>
-
-<input
-class="inputField"
-type="password"
-id="password"
-placeholder="Create password">
-
-</div>
-
-</div>
-
-<!-- CITY -->
-
-<div class="inputGroup">
-
-<label>
-City
-</label>
-
-<div class="inputWrap">
-
-<i class="fa-solid fa-location-dot"></i>
-
-<input
-class="inputField"
-type="text"
-id="city"
-placeholder="Enter city">
-
-</div>
-
-</div>
-
-<!-- ADDRESS -->
-
-<div class="inputGroup">
-
-<label>
-Address
-</label>
-
-<div class="inputWrap">
-
-<i class="fa-solid fa-house"></i>
-
-<input
-class="inputField"
-type="text"
-id="address"
-placeholder="Enter address">
-
-</div>
-
-</div>
-
-<!-- BUTTON -->
-
-<button
-class="signupBtn"
-onclick="signupUser()">
-
-Create Account
-
-</button>
-
-<!-- STATUS -->
-
-<div
-class="statusBox"
-id="statusBox">
-</div>
-
-<!-- LOGIN -->
-
-<div class="bottomText">
-
-Already have account?
-
-<a href="login.html">
-Login
-</a>
+placeholder="Search laundry services...">
 
 </div>
 
 </div>
 
 <!-- =====================================================
-FIREBASE SCRIPT
+BANNER
 ===================================================== -->
 
-<script type="module">
+<div class="banner">
 
-import { db }
-from "/Pal-Group-Pvt-Ltd/firebase.js";
+<h2>
 
-import {
-collection,
-addDoc,
-serverTimestamp
-}
-from "https://www.gstatic.com/firebasejs/12.11.0/firebase-firestore.js";
+Fast Laundry Pickup at your doorstep
 
-const name =
-document.getElementById("name");
+</h2>
 
-const mobile =
-document.getElementById("mobile");
+<p>
 
-const email =
-document.getElementById("email");
+Book premium laundry, ironing and dry cleaning in seconds.
 
-const password =
-document.getElementById("password");
+</p>
 
-const city =
-document.getElementById("city");
+<div class="bannerBtn">
 
-const address =
-document.getElementById("address");
+Book Now
 
-const statusBox =
-document.getElementById("statusBox");
+</div>
 
-window.signupUser = async()=>{
+</div>
 
-const userName =
-name.value.trim();
+<!-- =====================================================
+SERVICES
+===================================================== -->
 
-const userMobile =
-mobile.value.trim();
+<div class="sectionTitle">
 
-const userEmail =
-email.value.trim();
+Popular Services
 
-const userPassword =
-password.value.trim();
+</div>
 
-const userCity =
-city.value.trim();
+<div
+class="servicesGrid"
+id="servicesGrid">
 
-const userAddress =
-address.value.trim();
+</div>
 
-/* ========================================= */
+<!-- =====================================================
+OFFERS
+===================================================== -->
 
-if(
-!userName
-||
-!userMobile
-||
-!userEmail
-||
-!userPassword
-||
-!userCity
-||
-!userAddress
-){
+<div class="sectionTitle">
 
-statusBox.innerHTML =
-"Fill all fields";
+Live Offers
 
-statusBox.className =
-"statusBox error";
+</div>
 
-return;
+<div class="offerScroll">
 
-}
+<div class="offerCard">
 
-/* ========================================= */
+<h3>
 
-if(userPassword.length < 6){
+50% OFF
 
-statusBox.innerHTML =
-"Password must be at least 6 characters";
+</h3>
 
-statusBox.className =
-"statusBox error";
+<p>
 
-return;
+Get flat 50% off on your first laundry order.
 
-}
+</p>
 
-/* ========================================= */
+<div class="offerBadge">
 
-try{
+NEWUSER50
 
-await addDoc(
-collection(db,"users"),
-{
-name:userName,
-mobile:userMobile,
-email:userEmail,
-password:userPassword,
-city:userCity,
-address:userAddress,
-wallet:0,
-status:"Active",
-createdAt:serverTimestamp()
-}
-);
+</div>
 
-/* ========================================= */
+</div>
 
-statusBox.innerHTML =
-"Account created successfully";
+<div class="offerCard">
 
-statusBox.className =
-"statusBox success";
+<h3>
 
-/* ========================================= */
+Free Pickup
 
-localStorage.setItem(
-"quickpress_user",
-"true"
-);
+</h3>
 
-localStorage.setItem(
-"quickpress_user_name",
-userName
-);
+<p>
 
-localStorage.setItem(
-"quickpress_user_mobile",
-userMobile
-);
+Free pickup and delivery on orders above ₹299.
 
-localStorage.setItem(
-"quickpress_user_city",
-userCity
-);
+</p>
 
-/* ========================================= */
+<div class="offerBadge">
 
-setTimeout(()=>{
+FREEDEL
 
-window.location.href =
-"index.html";
+</div>
 
-},1500);
+</div>
 
-}
+</div>
 
-catch(error){
+<!-- =====================================================
+BOTTOM NAVBAR
+===================================================== -->
 
-statusBox.innerHTML =
-error.message;
+<div class="bottomNav">
 
-statusBox.className =
-"statusBox error";
+<a href="#"
+class="navItem activeNav">
 
-}
+<i class="fa-solid fa-house"></i>
 
-};
+<span>
+Home
+</span>
 
+</a>
+
+<a href="cart.html"
+class="navItem">
+
+<i class="fa-solid fa-cart-shopping"></i>
+
+<span>
+Cart
+</span>
+
+</a>
+
+<a href="tracking.html"
+class="navItem">
+
+<i class="fa-solid fa-location-dot"></i>
+
+<span>
+Track
+</span>
+
+</a>
+
+<a href="wallet.html"
+class="navItem">
+
+<i class="fa-solid fa-wallet"></i>
+
+<span>
+Wallet
+</span>
+
+</a>
+
+<a href="profile.html"
+class="navItem">
+
+<i class="fa-solid fa-user"></i>
+
+<span>
+Profile
+</span>
+
+</a>
+
+</div>
+
+<script type="module"
+src="./index.js">
 </script>
 
 </body>
