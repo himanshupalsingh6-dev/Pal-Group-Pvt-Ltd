@@ -1,6 +1,6 @@
 <!-- =========================================================
-QUICKPRESS PREMIUM UI
-BLINKIT + SWIGGY + ZOMATO INSPIRED
+QUICKPRESS PREMIUM HOME UI
+FINAL PROFESSIONAL VERSION
 MOBILE + DESKTOP RESPONSIVE
 ========================================================= -->
 
@@ -47,17 +47,13 @@ font-family:'Inter',sans-serif;
 -webkit-tap-highlight-color:transparent;
 }
 
-/* =====================================================
-BODY
-===================================================== */
-
 body{
 
 background:#F8F7F2;
 
 overflow-x:hidden;
 
-padding-bottom:120px;
+padding-bottom:110px;
 
 color:#111827;
 
@@ -69,7 +65,7 @@ CONTAINER
 
 .container{
 
-max-width:1400px;
+max-width:1500px;
 
 margin:auto;
 
@@ -83,24 +79,25 @@ HEADER
 
 background:
 linear-gradient(
-180deg,
+135deg,
 #FFD12E 0%,
-#FFE78C 100%
+#FFE98D 50%,
+#FFF4C7 100%
 );
 
-padding:20px 16px 92px;
+padding:20px 16px 85px;
 
 position:relative;
 
 overflow:hidden;
 
-border-bottom-left-radius:28px;
-border-bottom-right-radius:28px;
+border-bottom-left-radius:34px;
+border-bottom-right-radius:34px;
 
 }
 
 /* =====================================================
-BLUR CIRCLE
+HEADER EFFECT
 ===================================================== */
 
 .hero::before{
@@ -109,16 +106,35 @@ content:"";
 
 position:absolute;
 
-right:-70px;
-top:-70px;
+right:-80px;
+top:-80px;
 
-width:240px;
-height:240px;
+width:260px;
+height:260px;
 
 border-radius:50%;
 
 background:
 rgba(255,255,255,0.18);
+
+}
+
+.hero::after{
+
+content:"";
+
+position:absolute;
+
+left:-60px;
+bottom:-60px;
+
+width:180px;
+height:180px;
+
+border-radius:50%;
+
+background:
+rgba(255,255,255,0.12);
 
 }
 
@@ -134,7 +150,11 @@ justify-content:space-between;
 
 align-items:flex-start;
 
-gap:20px;
+gap:18px;
+
+position:relative;
+
+z-index:2;
 
 }
 
@@ -150,37 +170,41 @@ flex:1;
 
 .deliveryText{
 
-font-size:15px;
+font-size:14px;
 
 font-weight:800;
 
-margin-bottom:6px;
+color:#111827;
+
+margin-bottom:5px;
+
+opacity:0.8;
 
 }
 
 .deliveryTime{
 
-font-size:46px;
+font-size:42px;
 
 font-weight:900;
 
 line-height:1;
 
-margin-bottom:8px;
-
 letter-spacing:-2px;
+
+margin-bottom:8px;
 
 }
 
 .address{
 
-font-size:16px;
+font-size:15px;
 
 font-weight:600;
 
 color:#374151;
 
-max-width:260px;
+max-width:240px;
 
 overflow:hidden;
 
@@ -198,7 +222,7 @@ TOP ACTIONS
 
 display:flex;
 
-gap:12px;
+gap:10px;
 
 align-items:center;
 
@@ -210,24 +234,27 @@ WALLET
 
 .walletBtn{
 
-width:58px;
-height:58px;
+width:56px;
+height:56px;
 
 border-radius:18px;
 
-background:#fff;
+background:
+rgba(255,255,255,0.92);
+
+backdrop-filter:blur(10px);
 
 display:flex;
 
 align-items:center;
 justify-content:center;
 
-font-size:24px;
+font-size:23px;
 
 position:relative;
 
 box-shadow:
-0 6px 18px rgba(0,0,0,0.08);
+0 10px 24px rgba(0,0,0,0.08);
 
 }
 
@@ -235,7 +262,7 @@ box-shadow:
 
 position:absolute;
 
-bottom:-5px;
+bottom:-4px;
 
 background:#111827;
 
@@ -257,12 +284,15 @@ PROFILE
 
 .profileBtn{
 
-width:58px;
-height:58px;
+width:56px;
+height:56px;
 
 border-radius:50%;
 
-background:#fff;
+background:
+rgba(255,255,255,0.92);
+
+backdrop-filter:blur(10px);
 
 display:flex;
 
@@ -274,12 +304,12 @@ font-size:24px;
 font-weight:900;
 
 box-shadow:
-0 6px 18px rgba(0,0,0,0.08);
+0 10px 24px rgba(0,0,0,0.08);
 
 }
 
 /* =====================================================
-SEARCH BAR
+SEARCH
 ===================================================== */
 
 .searchWrap{
@@ -291,15 +321,20 @@ right:16px;
 
 bottom:-34px;
 
+z-index:5;
+
 }
 
 .searchBar{
 
-height:70px;
+height:72px;
 
-background:#fff;
+background:
+rgba(255,255,255,0.95);
 
-border-radius:22px;
+backdrop-filter:blur(14px);
+
+border-radius:24px;
 
 display:flex;
 
@@ -308,7 +343,7 @@ align-items:center;
 padding:0 18px;
 
 box-shadow:
-0 10px 28px rgba(0,0,0,0.10);
+0 14px 30px rgba(0,0,0,0.10);
 
 }
 
@@ -316,7 +351,9 @@ box-shadow:
 
 font-size:24px;
 
-margin-right:12px;
+margin-right:14px;
+
+color:#111827;
 
 }
 
@@ -338,10 +375,16 @@ color:#6B7280;
 
 }
 
+.searchBar input::placeholder{
+
+color:#9CA3AF;
+
+}
+
 .micBtn{
 
-width:52px;
-height:52px;
+width:54px;
+height:54px;
 
 border-left:2px solid #ECECEC;
 
@@ -351,6 +394,8 @@ align-items:center;
 justify-content:center;
 
 font-size:22px;
+
+color:#111827;
 
 }
 
@@ -366,7 +411,7 @@ overflow-x:auto;
 
 gap:22px;
 
-padding:60px 16px 18px;
+padding:60px 16px 20px;
 
 background:#fff;
 
@@ -417,51 +462,6 @@ font-weight:700;
 }
 
 /* =====================================================
-FILTERS
-===================================================== */
-
-.filters{
-
-display:flex;
-
-gap:12px;
-
-overflow-x:auto;
-
-padding:16px;
-
-}
-
-.filters::-webkit-scrollbar{
-
-display:none;
-
-}
-
-.filterBtn{
-
-height:50px;
-
-padding:0 20px;
-
-border:none;
-
-background:#fff;
-
-border-radius:18px;
-
-font-size:14px;
-
-font-weight:800;
-
-white-space:nowrap;
-
-box-shadow:
-0 6px 18px rgba(0,0,0,0.05);
-
-}
-
-/* =====================================================
 SECTION TITLE
 ===================================================== */
 
@@ -484,9 +484,9 @@ PRODUCT GRID
 display:grid;
 
 grid-template-columns:
-repeat(auto-fit,minmax(180px,1fr));
+repeat(3,1fr);
 
-gap:16px;
+gap:10px;
 
 padding:0 16px 30px;
 
@@ -500,14 +500,14 @@ PRODUCT CARD
 
 background:#fff;
 
-border-radius:22px;
+border-radius:18px;
 
-padding:12px;
+padding:8px;
 
 position:relative;
 
 box-shadow:
-0 8px 22px rgba(0,0,0,0.05);
+0 6px 18px rgba(0,0,0,0.05);
 
 transition:0.3s;
 
@@ -515,23 +515,23 @@ transition:0.3s;
 
 .productCard:hover{
 
-transform:translateY(-4px);
+transform:translateY(-3px);
 
 }
 
 /* =====================================================
-HEART
+FAVORITE
 ===================================================== */
 
 .favoriteBtn{
 
 position:absolute;
 
-right:12px;
-top:12px;
+right:8px;
+top:8px;
 
-width:30px;
-height:30px;
+width:24px;
+height:24px;
 
 border-radius:50%;
 
@@ -542,10 +542,10 @@ display:flex;
 align-items:center;
 justify-content:center;
 
-font-size:13px;
+font-size:11px;
 
 box-shadow:
-0 4px 12px rgba(0,0,0,0.08);
+0 4px 10px rgba(0,0,0,0.08);
 
 }
 
@@ -555,9 +555,9 @@ IMAGE
 
 .productImage{
 
-height:120px;
+height:82px;
 
-border-radius:18px;
+border-radius:14px;
 
 background:#F3F4F6;
 
@@ -566,54 +566,56 @@ display:flex;
 align-items:center;
 justify-content:center;
 
-font-size:62px;
+font-size:42px;
 
-margin-bottom:12px;
+margin-bottom:8px;
 
 }
 
 /* =====================================================
-PRODUCT INFO
+TEXT
 ===================================================== */
 
 .productWeight{
 
-font-size:12px;
+font-size:10px;
 
 font-weight:700;
 
 color:#6B7280;
 
-margin-bottom:6px;
+margin-bottom:4px;
 
 }
 
 .productCard h2{
 
-font-size:17px;
+font-size:13px;
 
 font-weight:800;
 
 line-height:1.3;
 
-margin-bottom:6px;
+margin-bottom:4px;
+
+min-height:34px;
 
 }
 
 .delivery{
 
-font-size:12px;
+font-size:10px;
 
 font-weight:700;
 
 color:#6B7280;
 
-margin-bottom:12px;
+margin-bottom:8px;
 
 }
 
 /* =====================================================
-PRICE
+PRICE ROW
 ===================================================== */
 
 .priceRow{
@@ -628,7 +630,7 @@ align-items:center;
 
 .price{
 
-font-size:26px;
+font-size:20px;
 
 font-weight:900;
 
@@ -640,16 +642,16 @@ ADD BTN
 
 .addBtn{
 
-width:74px;
-height:44px;
+width:58px;
+height:34px;
 
 border:2px solid #16A34A;
 
-border-radius:14px;
+border-radius:12px;
 
 background:#fff;
 
-font-size:14px;
+font-size:12px;
 
 font-weight:900;
 
@@ -751,7 +753,7 @@ WATERMARK
 
 .watermark{
 
-padding:40px 16px 120px;
+padding:30px 16px 120px;
 
 text-align:center;
 
@@ -761,17 +763,15 @@ opacity:0.08;
 
 .watermark h1{
 
-font-size:58px;
+font-size:56px;
 
 font-weight:900;
-
-line-height:1.1;
 
 }
 
 .watermark p{
 
-font-size:18px;
+font-size:16px;
 
 font-weight:700;
 
@@ -845,7 +845,7 @@ DESKTOP
 
 .hero{
 
-padding:30px 40px 110px;
+padding:28px 40px 100px;
 
 }
 
@@ -862,18 +862,45 @@ padding:70px 40px 24px;
 
 }
 
-.filters{
-
-padding:20px 40px;
-
-}
-
 .productGrid{
 
 padding:0 40px 40px;
 
 grid-template-columns:
-repeat(auto-fit,minmax(220px,1fr));
+repeat(5,1fr);
+
+gap:18px;
+
+}
+
+.productImage{
+
+height:120px;
+
+font-size:60px;
+
+}
+
+.productCard h2{
+
+font-size:16px;
+
+min-height:auto;
+
+}
+
+.price{
+
+font-size:26px;
+
+}
+
+.addBtn{
+
+width:74px;
+height:42px;
+
+font-size:14px;
 
 }
 
@@ -1019,30 +1046,6 @@ CATEGORY
 </div>
 
 <!-- =====================================================
-FILTERS
-===================================================== -->
-
-<div class="filters">
-
-<button class="filterBtn">
-⚙️ Filters
-</button>
-
-<button class="filterBtn">
-⚡ Near & Fast
-</button>
-
-<button class="filterBtn">
-🔥 Top Rated
-</button>
-
-<button class="filterBtn">
-👑 Premium
-</button>
-
-</div>
-
-<!-- =====================================================
 PRODUCTS
 ===================================================== -->
 
@@ -1053,8 +1056,6 @@ Trending Services
 </div>
 
 <div class="productGrid">
-
-<!-- CARD -->
 
 <div class="productCard">
 
@@ -1092,8 +1093,6 @@ ADD
 
 </div>
 
-<!-- CARD -->
-
 <div class="productCard">
 
 <div class="favoriteBtn">
@@ -1129,8 +1128,6 @@ ADD
 </div>
 
 </div>
-
-<!-- CARD -->
 
 <div class="productCard">
 
@@ -1168,8 +1165,6 @@ ADD
 
 </div>
 
-<!-- CARD -->
-
 <div class="productCard">
 
 <div class="favoriteBtn">
@@ -1206,10 +1201,82 @@ ADD
 
 </div>
 
+<div class="productCard">
+
+<div class="favoriteBtn">
+🤍
+</div>
+
+<div class="productImage">
+👕
+</div>
+
+<div class="productWeight">
+1 Piece
+</div>
+
+<h2>
+T-Shirt Wash
+</h2>
+
+<div class="delivery">
+🕒 10 mins
+</div>
+
+<div class="priceRow">
+
+<div class="price">
+₹19
+</div>
+
+<button class="addBtn">
+ADD
+</button>
+
+</div>
+
+</div>
+
+<div class="productCard">
+
+<div class="favoriteBtn">
+🤍
+</div>
+
+<div class="productImage">
+👖
+</div>
+
+<div class="productWeight">
+1 Piece
+</div>
+
+<h2>
+Jeans Iron
+</h2>
+
+<div class="delivery">
+🕒 13 mins
+</div>
+
+<div class="priceRow">
+
+<div class="price">
+₹39
+</div>
+
+<button class="addBtn">
+ADD
+</button>
+
+</div>
+
+</div>
+
 </div>
 
 <!-- =====================================================
-TOP PARTNER
+TOP PARTNERS
 ===================================================== -->
 
 <div class="partnerBanner">
@@ -1321,30 +1388,18 @@ Profile
 
 <script>
 
-/* =====================================================
-PROFILE
-===================================================== */
-
 const userName =
-
 localStorage.getItem(
 "quickpress_user_name"
 )
-
 ||
-
 "H";
 
 document.getElementById(
 "profileBtn"
 ).innerHTML =
-
 userName.charAt(0)
 .toUpperCase();
-
-/* =====================================================
-LOCATION
-===================================================== */
 
 const locationText =
 document.getElementById(
@@ -1373,4 +1428,4 @@ locationText.innerHTML =
 
 </body>
 
-</html> 
+</html>
