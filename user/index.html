@@ -1,8 +1,8 @@
-<!-- =========================================================
-FILE : user/index.html
-QUICKPRESS PREMIUM APP UI
-SWIGGY / ZOMATO STYLE
-========================================================= -->
+<!-- =====================================================
+QUICKPRESS PREMIUM MOBILE UI
+BLINKIT + SWIGGY + ZOMATO STYLE
+FULL RESPONSIVE
+===================================================== -->
 
 <!DOCTYPE html>
 <html lang="en">
@@ -11,12 +11,24 @@ SWIGGY / ZOMATO STYLE
 
 <meta charset="UTF-8"/>
 
-<meta name="viewport"
+<meta
+name="viewport"
 content="width=device-width, initial-scale=1.0"/>
 
 <title>
 QuickPress
 </title>
+
+<link rel="preconnect"
+href="https://fonts.googleapis.com">
+
+<link rel="preconnect"
+href="https://fonts.gstatic.com"
+crossorigin>
+
+<link
+href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap"
+rel="stylesheet">
 
 <link rel="stylesheet"
 href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css"/>
@@ -31,7 +43,7 @@ RESET
 margin:0;
 padding:0;
 box-sizing:border-box;
-font-family:Inter,sans-serif;
+font-family:'Inter',sans-serif;
 -webkit-tap-highlight-color:transparent;
 }
 
@@ -41,7 +53,7 @@ BODY
 
 body{
 
-background:#F7F7F7;
+background:#F8F7F2;
 
 overflow-x:hidden;
 
@@ -55,31 +67,27 @@ color:#111827;
 TOP HERO
 ===================================================== */
 
-.heroSection{
+.hero{
 
 background:linear-gradient(
-135deg,
-#FFD54A,
-#FFEA97
+180deg,
+#FFD12E,
+#FFE888
 );
 
-padding:18px 16px 110px;
+padding:18px 16px 120px;
 
 position:relative;
 
 overflow:hidden;
 
-border-bottom-left-radius:34px;
-
-border-bottom-right-radius:34px;
-
 }
 
 /* =====================================================
-TOPBAR
+TOP BAR
 ===================================================== */
 
-.topbar{
+.topBar{
 
 display:flex;
 
@@ -97,55 +105,47 @@ LOCATION
 
 .locationWrap{
 
-display:flex;
-
-gap:12px;
-
 flex:1;
 
 }
 
-.locationIcon{
+.deliveryText{
 
-font-size:26px;
+font-size:16px;
 
-color:#111827;
+font-weight:800;
 
-margin-top:4px;
+margin-bottom:6px;
 
 }
 
-.locationText h2{
+.deliveryTime{
 
-font-size:34px;
+font-size:52px;
 
 font-weight:900;
 
-display:flex;
+line-height:1;
 
-align-items:center;
-
-gap:8px;
+margin-bottom:8px;
 
 }
 
-.locationText p{
+.address{
 
-font-size:15px;
+font-size:18px;
 
-font-weight:700;
+font-weight:600;
 
 color:#374151;
 
-margin-top:4px;
-
-max-width:200px;
+max-width:230px;
 
 overflow:hidden;
 
-text-overflow:ellipsis;
-
 white-space:nowrap;
+
+text-overflow:ellipsis;
 
 }
 
@@ -157,74 +157,70 @@ ACTIONS
 
 display:flex;
 
-gap:10px;
+gap:12px;
 
 align-items:center;
 
 }
 
 /* =====================================================
-QUICK+
+WALLET
 ===================================================== */
 
-.quickPlus{
+.walletBtn{
 
-width:94px;
+width:60px;
 
-height:58px;
+height:60px;
 
-border-radius:999px;
+border-radius:18px;
 
-background:linear-gradient(
-135deg,
-#FFF7CC,
-#FFD54A
-);
-
-border:2px solid #C58C00;
+background:#fff;
 
 display:flex;
-
-flex-direction:column;
 
 align-items:center;
 
 justify-content:center;
 
+font-size:26px;
+
+position:relative;
+
 box-shadow:
-0 6px 18px rgba(0,0,0,0.1);
+0 6px 18px rgba(0,0,0,0.08);
 
 }
 
-.quickPlus h4{
+.walletBadge{
 
-font-size:14px;
+position:absolute;
 
-font-weight:900;
+bottom:-6px;
 
-color:#8B5A00;
+background:#111827;
 
-}
+color:#fff;
 
-.quickPlus span{
+padding:4px 10px;
 
-font-size:18px;
+border-radius:999px;
 
-font-weight:900;
+font-size:12px;
 
-color:#8B5A00;
+font-weight:800;
 
 }
 
 /* =====================================================
-TOP BUTTON
+PROFILE
 ===================================================== */
 
-.circleBtn{
+.profileBtn{
 
-width:56px;
+width:60px;
 
-height:56px;
+height:60px;
 
 border-radius:50%;
 
@@ -236,28 +232,12 @@ align-items:center;
 
 justify-content:center;
 
-font-size:22px;
+font-size:30px;
+
+font-weight:900;
 
 box-shadow:
 0 6px 18px rgba(0,0,0,0.08);
-
-position:relative;
-
-}
-
-/* =====================================================
-PROFILE
-===================================================== */
-
-.profileBtn{
-
-background:#DBEAFE;
-
-color:#2563EB;
-
-font-size:28px;
-
-font-weight:900;
 
 }
 
@@ -267,52 +247,40 @@ SEARCH
 
 .searchWrap{
 
-display:flex;
-
-gap:12px;
-
-align-items:center;
-
 position:absolute;
 
 left:16px;
 
 right:16px;
 
-bottom:-42px;
+bottom:-38px;
 
 }
 
-/* =====================================================
-SEARCH BAR
-===================================================== */
-
 .searchBar{
 
-flex:1;
-
-height:86px;
+height:76px;
 
 background:#fff;
 
-border-radius:30px;
+border-radius:24px;
 
 display:flex;
 
 align-items:center;
 
-padding:0 20px;
+padding:0 18px;
 
 box-shadow:
-0 10px 30px rgba(0,0,0,0.1);
+0 10px 28px rgba(0,0,0,0.10);
 
 }
 
 .searchIcon{
 
-font-size:34px;
+font-size:30px;
 
-color:#16A34A;
+color:#111827;
 
 margin-right:14px;
 
@@ -326,19 +294,21 @@ border:none;
 
 outline:none;
 
-font-size:24px;
+font-size:20px;
 
-font-weight:700;
+font-weight:600;
 
 color:#6B7280;
+
+background:transparent;
 
 }
 
 .micBtn{
 
-width:68px;
+width:58px;
 
-height:68px;
+height:58px;
 
 border-left:2px solid #ECECEC;
 
@@ -348,185 +318,7 @@ align-items:center;
 
 justify-content:center;
 
-font-size:28px;
-
-color:#16A34A;
-
-}
-
-/* =====================================================
-QUICK MODE
-===================================================== */
-
-.quickMode{
-
-width:90px;
-
-display:flex;
-
-flex-direction:column;
-
-align-items:center;
-
-}
-
-.quickMode h3{
-
-font-size:18px;
-
-font-weight:900;
-
-line-height:1.1;
-
-margin-bottom:10px;
-
-}
-
-.switch{
-
-width:72px;
-
-height:38px;
-
-background:#16A34A;
-
-border-radius:999px;
-
-position:relative;
-
-}
-
-.switch::after{
-
-content:"";
-
-position:absolute;
-
-right:2px;
-
-top:2px;
-
-width:34px;
-
-height:34px;
-
-border-radius:50%;
-
-background:#fff;
-
-}
-
-/* =====================================================
-SLIDER
-===================================================== */
-
-.bannerSlider{
-
-margin-top:80px;
-
-padding:0 16px;
-
-display:flex;
-
-overflow-x:auto;
-
-gap:16px;
-
-scroll-snap-type:x mandatory;
-
-}
-
-.bannerSlider::-webkit-scrollbar{
-
-display:none;
-
-}
-
-.bannerCard{
-
-min-width:100%;
-
-height:240px;
-
-border-radius:34px;
-
-padding:26px;
-
-position:relative;
-
-overflow:hidden;
-
-scroll-snap-align:center;
-
-}
-
-.yellowBanner{
-
-background:linear-gradient(
-135deg,
-#FFE082,
-#FFD400
-);
-
-}
-
-.blueBanner{
-
-background:linear-gradient(
-135deg,
-#5CC8FF,
-#1D9BF0
-);
-
-color:#fff;
-
-}
-
-.bannerCard h1{
-
-font-size:54px;
-
-line-height:1.05;
-
-font-weight:900;
-
-margin-bottom:14px;
-
-max-width:340px;
-
-}
-
-.bannerCard p{
-
-font-size:16px;
-
-font-weight:700;
-
-margin-bottom:24px;
-
-max-width:320px;
-
-line-height:1.6;
-
-}
-
-.bannerBtn{
-
-height:58px;
-
-padding:0 24px;
-
-border:none;
-
-border-radius:20px;
-
-background:#111827;
-
-color:#fff;
-
-font-size:15px;
-
-font-weight:900;
+font-size:24px;
 
 }
 
@@ -540,11 +332,11 @@ display:flex;
 
 overflow-x:auto;
 
-gap:20px;
+gap:24px;
 
-padding:24px 16px 10px;
+padding:70px 16px 18px;
 
-margin-top:10px;
+background:#fff;
 
 }
 
@@ -556,21 +348,21 @@ display:none;
 
 .categoryItem{
 
-min-width:90px;
+min-width:76px;
 
 text-align:center;
 
 }
 
-.categoryImage{
+.categoryIcon{
 
-width:82px;
+width:72px;
 
-height:82px;
+height:72px;
 
-border-radius:24px;
+border-radius:20px;
 
-background:#fff;
+background:#F3F4F6;
 
 display:flex;
 
@@ -578,14 +370,11 @@ align-items:center;
 
 justify-content:center;
 
-font-size:38px;
+font-size:34px;
 
 margin:auto;
 
 margin-bottom:10px;
-
-box-shadow:
-0 8px 20px rgba(0,0,0,0.06);
 
 }
 
@@ -593,7 +382,99 @@ box-shadow:
 
 font-size:15px;
 
-font-weight:800;
+font-weight:700;
+
+}
+
+/* =====================================================
+BANNER
+===================================================== */
+
+.banner{
+
+margin:16px;
+
+height:220px;
+
+border-radius:28px;
+
+overflow:hidden;
+
+background:linear-gradient(
+135deg,
+#1E40AF,
+#60A5FA
+);
+
+position:relative;
+
+padding:26px;
+
+color:#fff;
+
+}
+
+.banner::after{
+
+content:"";
+
+position:absolute;
+
+right:-40px;
+
+top:-40px;
+
+width:180px;
+
+height:180px;
+
+border-radius:50%;
+
+background:rgba(255,255,255,0.10);
+
+}
+
+.banner h1{
+
+font-size:42px;
+
+line-height:1.05;
+
+font-weight:900;
+
+margin-bottom:14px;
+
+max-width:250px;
+
+}
+
+.banner p{
+
+font-size:15px;
+
+line-height:1.7;
+
+max-width:250px;
+
+margin-bottom:18px;
+
+}
+
+.bannerBtn{
+
+height:54px;
+
+padding:0 22px;
+
+border:none;
+
+border-radius:18px;
+
+background:#fff;
+
+font-size:14px;
+
+font-weight:900;
 
 }
 
@@ -609,7 +490,7 @@ gap:12px;
 
 overflow-x:auto;
 
-padding:20px 16px;
+padding:0 16px 22px;
 
 }
 
@@ -623,27 +504,27 @@ display:none;
 
 height:54px;
 
-padding:0 22px;
-
-background:#fff;
+padding:0 20px;
 
 border:none;
 
+background:#fff;
+
 border-radius:18px;
 
-font-size:16px;
+font-size:15px;
 
 font-weight:800;
+
+white-space:nowrap;
 
 box-shadow:
 0 6px 18px rgba(0,0,0,0.05);
 
-white-space:nowrap;
-
 }
 
 /* =====================================================
-SECTION TITLE
+SECTION
 ===================================================== */
 
 .sectionTitle{
@@ -654,14 +535,14 @@ font-weight:800;
 
 letter-spacing:6px;
 
-padding:0 16px 18px;
-
 color:#6B7280;
+
+padding:0 16px 18px;
 
 }
 
 /* =====================================================
-EXPLORE MORE
+EXPLORE GRID
 ===================================================== */
 
 .exploreGrid{
@@ -672,9 +553,7 @@ grid-template-columns:repeat(2,1fr);
 
 gap:14px;
 
-padding:0 16px;
-
-margin-bottom:34px;
+padding:0 16px 30px;
 
 }
 
@@ -682,26 +561,26 @@ margin-bottom:34px;
 
 background:#fff;
 
-border-radius:28px;
+border-radius:24px;
 
 padding:20px;
 
 text-align:center;
 
 box-shadow:
-0 10px 24px rgba(0,0,0,0.05);
+0 8px 24px rgba(0,0,0,0.05);
 
 }
 
 .exploreIcon{
 
-width:74px;
+width:80px;
 
-height:74px;
+height:80px;
 
-border-radius:22px;
+border-radius:24px;
 
-background:#F7F7F7;
+background:#F3F4F6;
 
 display:flex;
 
@@ -709,11 +588,11 @@ align-items:center;
 
 justify-content:center;
 
-font-size:34px;
+font-size:38px;
 
 margin:auto;
 
-margin-bottom:16px;
+margin-bottom:14px;
 
 }
 
@@ -721,48 +600,56 @@ margin-bottom:16px;
 
 font-size:20px;
 
-font-weight:900;
+font-weight:800;
 
 }
 
 /* =====================================================
-SERVICE CARD
+PRODUCT GRID
 ===================================================== */
 
-.serviceList{
+.productGrid{
+
+display:grid;
+
+grid-template-columns:repeat(2,1fr);
+
+gap:14px;
 
 padding:0 16px;
 
-display:flex;
-
-flex-direction:column;
-
-gap:18px;
-
 }
 
-.serviceCard{
+.productCard{
 
 background:#fff;
 
-border-radius:30px;
+border-radius:24px;
 
-overflow:hidden;
+padding:12px;
+
+position:relative;
 
 box-shadow:
-0 10px 28px rgba(0,0,0,0.05);
+0 8px 22px rgba(0,0,0,0.05);
 
 }
 
-.serviceImage{
+.favoriteBtn{
 
-height:200px;
+position:absolute;
 
-background:linear-gradient(
-135deg,
-#FFD54A,
-#FFF3BF
-);
+right:12px;
+
+top:12px;
+
+width:32px;
+
+height:32px;
+
+border-radius:50%;
+
+background:#fff;
 
 display:flex;
 
@@ -770,63 +657,68 @@ align-items:center;
 
 justify-content:center;
 
-font-size:90px;
+font-size:15px;
+
+box-shadow:
+0 4px 12px rgba(0,0,0,0.08);
 
 }
 
-.serviceContent{
+.productImage{
 
-padding:18px;
+height:130px;
 
-}
+border-radius:20px;
 
-.serviceTop{
+background:#F3F4F6;
 
 display:flex;
 
-justify-content:space-between;
+align-items:center;
+
+justify-content:center;
+
+font-size:70px;
 
 margin-bottom:12px;
 
 }
 
-.serviceContent h2{
-
-font-size:28px;
-
-font-weight:900;
-
-}
-
-.rating{
-
-background:#16A34A;
-
-color:#fff;
-
-padding:8px 12px;
-
-border-radius:14px;
+.productWeight{
 
 font-size:13px;
 
-font-weight:900;
+font-weight:700;
+
+margin-bottom:10px;
 
 }
 
-.serviceContent p{
+.productCard h2{
 
-font-size:15px;
+font-size:19px;
 
-line-height:1.7;
+font-weight:800;
+
+line-height:1.3;
+
+margin-bottom:10px;
+
+}
+
+.delivery{
+
+font-size:13px;
+
+font-weight:700;
 
 color:#6B7280;
 
-margin-bottom:18px;
+margin-bottom:12px;
 
 }
 
-.serviceBottom{
+.priceRow{
 
 display:flex;
 
@@ -842,25 +734,25 @@ font-size:34px;
 
 font-weight:900;
 
-color:#16A34A;
-
 }
 
 .addBtn{
 
-width:100px;
+width:88px;
 
-height:56px;
+height:50px;
 
-border:none;
+border:2px solid #16A34A;
 
-border-radius:20px;
+border-radius:16px;
 
-background:#FFD400;
+background:#fff;
 
-font-size:15px;
+font-size:16px;
 
 font-weight:900;
+
+color:#16A34A;
 
 }
 
@@ -872,17 +764,15 @@ BOTTOM NAV
 
 position:fixed;
 
-left:12px;
+left:0;
 
-right:12px;
+right:0;
 
-bottom:12px;
+bottom:0;
 
-height:84px;
+height:86px;
 
 background:#fff;
-
-border-radius:999px;
 
 display:flex;
 
@@ -890,8 +780,7 @@ justify-content:space-around;
 
 align-items:center;
 
-box-shadow:
-0 10px 30px rgba(0,0,0,0.12);
+border-top:1px solid #ECECEC;
 
 z-index:999;
 
@@ -909,23 +798,23 @@ gap:6px;
 
 font-size:12px;
 
-font-weight:800;
-
-color:#6B7280;
+font-weight:700;
 
 text-decoration:none;
+
+color:#6B7280;
 
 }
 
 .navItem i{
 
-font-size:22px;
+font-size:24px;
 
 }
 
 .activeNav{
 
-color:#16A34A;
+color:#111827;
 
 }
 
@@ -933,35 +822,29 @@ color:#16A34A;
 RESPONSIVE
 ===================================================== */
 
-@media(max-width:480px){
+@media(max-width:420px){
 
-.locationText h2{
+.deliveryTime{
 
-font-size:28px;
+font-size:44px;
 
 }
 
-.searchBar{
+.address{
 
-height:76px;
+font-size:15px;
+
+}
+
+.productGrid{
+
+grid-template-columns:1fr 1fr;
 
 }
 
 .searchBar input{
 
-font-size:18px;
-
-}
-
-.bannerCard h1{
-
-font-size:42px;
-
-}
-
-.quickMode{
-
-display:none;
+font-size:17px;
 
 }
 
@@ -977,35 +860,25 @@ display:none;
 HERO
 ===================================================== -->
 
-<div class="heroSection">
+<div class="hero">
 
-<!-- TOPBAR -->
-
-<div class="topbar">
+<div class="topBar">
 
 <div class="locationWrap">
 
-<div class="locationIcon">
-
-<i class="fa-solid fa-location-dot"></i>
-
+<div class="deliveryText">
+QuickPress in
 </div>
 
-<div class="locationText">
+<div class="deliveryTime">
+11 minutes
+</div>
 
-<h2>
+<div
+class="address"
+id="locationText">
 
-Home
-
-<i class="fa-solid fa-angle-down"></i>
-
-</h2>
-
-<p id="locationText">
-
-Finding your location...
-
-</p>
+Finding location...
 
 </div>
 
@@ -1013,30 +886,18 @@ Finding your location...
 
 <div class="topActions">
 
-<div class="quickPlus">
+<div class="walletBtn">
 
-<h4>
+💸
 
-QUICK+
-
-</h4>
-
-<span>
-
-₹1
-
-</span>
-
+<div class="walletBadge">
+₹0
 </div>
-
-<div class="circleBtn">
-
-<i class="fa-solid fa-wallet"></i>
 
 </div>
 
 <div
-class="circleBtn profileBtn"
+class="profileBtn"
 id="profileBtn">
 
 H
@@ -1066,161 +927,99 @@ placeholder='Search "shirt wash"'>
 
 </div>
 
-<div class="quickMode">
-
-<h3>
-
-QUICK
-
-</h3>
-
-<div class="switch"></div>
-
-</div>
-
 </div>
 
 </div>
 
 <!-- =====================================================
-SLIDER
-===================================================== -->
-
-<div class="bannerSlider">
-
-<div class="bannerCard yellowBanner">
-
-<h1>
-
-QUICK+
-FLASH SALE
-
-</h1>
-
-<p>
-
-Premium laundry membership at just ₹1
-
-</p>
-
-<button class="bannerBtn">
-
-Join Now →
-
-</button>
-
-</div>
-
-<div class="bannerCard blueBanner">
-
-<h1>
-
-10 MIN
-PICKUP ⚡
-
-</h1>
-
-<p>
-
-Fastest doorstep pickup service in your city
-
-</p>
-
-<button class="bannerBtn">
-
-Book Pickup
-
-</button>
-
-</div>
-
-</div>
-
-<!-- =====================================================
-CATEGORY
+CATEGORY STRIP
 ===================================================== -->
 
 <div class="categoryStrip">
 
 <div class="categoryItem">
 
-<div class="categoryImage">
-
+<div class="categoryIcon">
 👔
-
 </div>
 
 <h4>
-
 Iron
-
 </h4>
 
 </div>
 
 <div class="categoryItem">
 
-<div class="categoryImage">
-
+<div class="categoryIcon">
 🧺
-
 </div>
 
 <h4>
-
 Wash
-
 </h4>
 
 </div>
 
 <div class="categoryItem">
 
-<div class="categoryImage">
-
+<div class="categoryIcon">
 ✨
-
 </div>
 
 <h4>
-
 Dry Clean
-
 </h4>
 
 </div>
 
 <div class="categoryItem">
 
-<div class="categoryImage">
-
+<div class="categoryIcon">
 👟
-
 </div>
 
 <h4>
-
 Shoes
-
 </h4>
 
 </div>
 
 <div class="categoryItem">
 
-<div class="categoryImage">
-
+<div class="categoryIcon">
 🛏️
-
 </div>
 
 <h4>
-
 Blanket
-
 </h4>
 
 </div>
+
+</div>
+
+<!-- =====================================================
+BANNER
+===================================================== -->
+
+<div class="banner">
+
+<h1>
+50% OFF
+Laundry Sale
+</h1>
+
+<p>
+Premium washing & ironing with instant pickup.
+
+</p>
+
+<button class="bannerBtn">
+
+Order Now →
+
+</button>
 
 </div>
 
@@ -1231,27 +1030,19 @@ FILTERS
 <div class="filters">
 
 <button class="filterBtn">
-
 ⚙️ Filters
-
 </button>
 
 <button class="filterBtn">
-
 ⚡ Near & Fast
-
 </button>
 
 <button class="filterBtn">
-
 🔥 Top Rated
-
 </button>
 
 <button class="filterBtn">
-
 👑 Premium
-
 </button>
 
 </div>
@@ -1271,15 +1062,11 @@ EXPLORE MORE
 <div class="exploreCard">
 
 <div class="exploreIcon">
-
 🎁
-
 </div>
 
 <h3>
-
 Offers
-
 </h3>
 
 </div>
@@ -1287,15 +1074,11 @@ Offers
 <div class="exploreCard">
 
 <div class="exploreIcon">
-
 💰
-
 </div>
 
 <h3>
-
 Cashback
-
 </h3>
 
 </div>
@@ -1303,15 +1086,11 @@ Cashback
 <div class="exploreCard">
 
 <div class="exploreIcon">
-
 🎟️
-
 </div>
 
 <h3>
-
 Coupons
-
 </h3>
 
 </div>
@@ -1319,15 +1098,11 @@ Coupons
 <div class="exploreCard">
 
 <div class="exploreIcon">
-
 👑
-
 </div>
 
 <h3>
-
 Membership
-
 </h3>
 
 </div>
@@ -1335,116 +1110,164 @@ Membership
 </div>
 
 <!-- =====================================================
-SERVICES
+PRODUCTS
 ===================================================== -->
 
 <div class="sectionTitle">
 
-TRENDING SERVICES
+BESTSELLERS
 
 </div>
 
-<div class="serviceList">
+<div class="productGrid">
 
-<div class="serviceCard">
+<!-- CARD -->
 
-<div class="serviceImage">
+<div class="productCard">
 
+<div class="favoriteBtn">
+🤍
+</div>
+
+<div class="productImage">
 👔
-
 </div>
 
-<div class="serviceContent">
-
-<div class="serviceTop">
+<div class="productWeight">
+1 Piece
+</div>
 
 <h2>
-
-Formal Shirt
-
+Formal Shirt Iron
 </h2>
 
-<div class="rating">
-
-⭐ 4.9
-
+<div class="delivery">
+🕒 11 mins
 </div>
 
-</div>
-
-<p>
-
-Premium ironing & washing service with same day delivery.
-
-</p>
-
-<div class="serviceBottom">
+<div class="priceRow">
 
 <div class="price">
-
 ₹29
-
 </div>
 
 <button class="addBtn">
-
 ADD
-
 </button>
 
 </div>
 
 </div>
 
+<!-- CARD -->
+
+<div class="productCard">
+
+<div class="favoriteBtn">
+🤍
 </div>
 
-<div class="serviceCard">
-
-<div class="serviceImage">
-
+<div class="productImage">
 👟
-
 </div>
 
-<div class="serviceContent">
-
-<div class="serviceTop">
+<div class="productWeight">
+1 Pair
+</div>
 
 <h2>
-
 Sneaker Cleaning
-
 </h2>
 
-<div class="rating">
-
-⭐ 4.8
-
+<div class="delivery">
+🕒 14 mins
 </div>
 
-</div>
-
-<p>
-
-Deep shoe cleaning and whitening treatment.
-
-</p>
-
-<div class="serviceBottom">
+<div class="priceRow">
 
 <div class="price">
-
 ₹199
-
 </div>
 
 <button class="addBtn">
-
 ADD
-
 </button>
 
 </div>
+
+</div>
+
+<!-- CARD -->
+
+<div class="productCard">
+
+<div class="favoriteBtn">
+🤍
+</div>
+
+<div class="productImage">
+🧺
+</div>
+
+<div class="productWeight">
+Per KG
+</div>
+
+<h2>
+Wash & Fold
+</h2>
+
+<div class="delivery">
+🕒 15 mins
+</div>
+
+<div class="priceRow">
+
+<div class="price">
+₹49
+</div>
+
+<button class="addBtn">
+ADD
+</button>
+
+</div>
+
+</div>
+
+<!-- CARD -->
+
+<div class="productCard">
+
+<div class="favoriteBtn">
+🤍
+</div>
+
+<div class="productImage">
+🛏️
+</div>
+
+<div class="productWeight">
+1 Piece
+</div>
+
+<h2>
+Blanket Wash
+</h2>
+
+<div class="delivery">
+🕒 18 mins
+</div>
+
+<div class="priceRow">
+
+<div class="price">
+₹149
+</div>
+
+<button class="addBtn">
+ADD
+</button>
 
 </div>
 
@@ -1464,9 +1287,7 @@ class="navItem activeNav">
 <i class="fa-solid fa-house"></i>
 
 <span>
-
 Home
-
 </span>
 
 </a>
@@ -1474,12 +1295,10 @@ Home
 <a href="#"
 class="navItem">
 
-<i class="fa-solid fa-box"></i>
+<i class="fa-solid fa-bag-shopping"></i>
 
 <span>
-
 Orders
-
 </span>
 
 </a>
@@ -1487,12 +1306,10 @@ Orders
 <a href="#"
 class="navItem">
 
-<i class="fa-solid fa-cart-shopping"></i>
+<i class="fa-solid fa-border-all"></i>
 
 <span>
-
-Cart
-
+Categories
 </span>
 
 </a>
@@ -1503,10 +1320,8 @@ class="navItem">
 <i class="fa-solid fa-wallet"></i>
 
 <span>
-
 Wallet
-
-span>
+</span>
 
 </a>
 
@@ -1516,9 +1331,7 @@ class="navItem">
 <i class="fa-regular fa-user"></i>
 
 <span>
-
 Profile
-
 </span>
 
 </a>
@@ -1551,7 +1364,7 @@ userName.charAt(0)
 .toUpperCase();
 
 /* =====================================================
-LOCATION
+REAL LOCATION
 ===================================================== */
 
 const locationText =
