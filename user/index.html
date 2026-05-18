@@ -1,7 +1,6 @@
 <!-- =========================================================
-FILE : user/index.html
 QUICKPRESS USER HOME
-ZOMATO + BLINKIT STYLE
+PREMIUM MODERN UI V2
 ========================================================= -->
 
 <!DOCTYPE html>
@@ -9,10 +8,10 @@ ZOMATO + BLINKIT STYLE
 
 <head>
 
-<meta charset="UTF-8">
+<meta charset="UTF-8"/>
 
 <meta name="viewport"
-content="width=device-width, initial-scale=1.0">
+content="width=device-width, initial-scale=1.0"/>
 
 <title>
 QuickPress
@@ -42,6 +41,7 @@ body{
 background:#F5F5F5;
 padding-bottom:120px;
 overflow-x:hidden;
+color:#111827;
 }
 
 /* =====================================================
@@ -49,42 +49,83 @@ TOPBAR
 ===================================================== */
 
 .topbar{
+background:#fff;
 padding:18px;
-background:#FFD000;
 position:sticky;
 top:0;
 z-index:999;
+border-bottom:1px solid #ECECEC;
 }
 
-.locationRow{
+.topRow{
 display:flex;
 justify-content:space-between;
 align-items:center;
 margin-bottom:18px;
 }
 
-.locationLeft h3{
-font-size:24px;
-font-weight:900;
-color:#111;
+.locationWrap{
+display:flex;
+align-items:center;
+gap:14px;
 }
 
-.locationLeft p{
-font-size:13px;
-font-weight:600;
-margin-top:4px;
-}
-
-.profileBtn{
-width:54px;
-height:54px;
+.locationIcon{
+width:52px;
+height:52px;
 border-radius:18px;
-background:#111;
-color:#FFD000;
+background:#FFD400;
 display:flex;
 align-items:center;
 justify-content:center;
-font-size:22px;
+font-size:20px;
+}
+
+.locationText span{
+font-size:13px;
+font-weight:700;
+color:#666;
+display:block;
+margin-bottom:4px;
+}
+
+.locationText h3{
+font-size:24px;
+font-weight:900;
+}
+
+.topActions{
+display:flex;
+gap:12px;
+}
+
+.topBtn{
+width:50px;
+height:50px;
+border-radius:18px;
+background:#fff;
+border:1px solid #ECECEC;
+display:flex;
+align-items:center;
+justify-content:center;
+font-size:18px;
+position:relative;
+}
+
+.badge{
+position:absolute;
+right:-2px;
+top:-2px;
+width:22px;
+height:22px;
+border-radius:50%;
+background:#22C55E;
+color:#fff;
+font-size:11px;
+font-weight:900;
+display:flex;
+align-items:center;
+justify-content:center;
 }
 
 /* =====================================================
@@ -93,7 +134,7 @@ SEARCH
 
 .searchBar{
 height:58px;
-background:#fff;
+background:#F8F8F8;
 border-radius:20px;
 display:flex;
 align-items:center;
@@ -109,10 +150,10 @@ color:#666;
 .searchBar input{
 flex:1;
 border:none;
+background:none;
 outline:none;
 font-size:15px;
-font-weight:600;
-background:none;
+font-weight:700;
 }
 
 /* =====================================================
@@ -123,36 +164,78 @@ BANNER
 margin:18px;
 background:linear-gradient(
 135deg,
-#111,
-#333
+#FFD400,
+#FFE96A
 );
-
-border-radius:34px;
-padding:28px;
-color:#fff;
+min-height:250px;
+border-radius:38px;
+padding:24px;
 position:relative;
 overflow:hidden;
 }
 
-.banner h2{
-font-size:34px;
-line-height:1.2;
-margin-bottom:14px;
+.banner::after{
+content:"";
+position:absolute;
+right:-70px;
+top:-70px;
+width:240px;
+height:240px;
+border-radius:50%;
+background:rgba(255,255,255,0.25);
 }
 
-.banner p{
-font-size:15px;
-line-height:1.7;
-opacity:0.9;
+.pickupBadge{
+display:inline-flex;
+align-items:center;
+gap:8px;
+background:rgba(255,255,255,0.7);
+padding:12px 18px;
+border-radius:999px;
+font-size:13px;
+font-weight:800;
 margin-bottom:20px;
 }
 
-.bannerBtn{
-display:inline-block;
-padding:14px 22px;
-background:#FFD000;
-border-radius:16px;
-color:#111;
+.banner h1{
+font-size:56px;
+line-height:1.05;
+font-weight:900;
+margin-bottom:18px;
+max-width:420px;
+}
+
+.banner p{
+font-size:16px;
+line-height:1.8;
+max-width:500px;
+margin-bottom:24px;
+}
+
+.bannerBtns{
+display:flex;
+gap:14px;
+flex-wrap:wrap;
+}
+
+.fastBtn{
+height:56px;
+padding:0 28px;
+border:none;
+border-radius:20px;
+background:#111827;
+color:#fff;
+font-size:15px;
+font-weight:900;
+}
+
+.secondaryBtn{
+height:56px;
+padding:0 28px;
+border:none;
+border-radius:20px;
+background:#fff;
+color:#111827;
 font-size:15px;
 font-weight:900;
 }
@@ -162,120 +245,179 @@ SECTION TITLE
 ===================================================== */
 
 .sectionTitle{
-font-size:28px;
+font-size:40px;
 font-weight:900;
-padding:8px 18px 18px;
+padding:8px 18px 20px;
 }
 
 /* =====================================================
-SERVICES GRID
+CATEGORY
 ===================================================== */
 
-.servicesGrid{
-display:grid;
-grid-template-columns:repeat(2,1fr);
+.categoryScroll{
+display:flex;
 gap:16px;
+overflow:auto;
+padding:0 18px;
+margin-bottom:28px;
+}
+
+.categoryScroll::-webkit-scrollbar{
+display:none;
+}
+
+.categoryCard{
+min-width:120px;
+background:#fff;
+border-radius:28px;
+padding:20px 16px;
+text-align:center;
+border:1px solid #ECECEC;
+}
+
+.categoryIcon{
+width:58px;
+height:58px;
+border-radius:18px;
+background:#F8F8F8;
+display:flex;
+align-items:center;
+justify-content:center;
+margin:auto;
+font-size:28px;
+margin-bottom:14px;
+}
+
+.categoryCard h4{
+font-size:16px;
+font-weight:800;
+}
+
+/* =====================================================
+TRENDING SERVICES
+===================================================== */
+
+.serviceGrid{
+display:grid;
+grid-template-columns:repeat(4,1fr);
+gap:18px;
 padding:0 18px;
 }
 
 .serviceCard{
 background:#fff;
-border-radius:28px;
-padding:20px;
+border-radius:30px;
+padding:18px;
+border:1px solid #ECECEC;
 position:relative;
-overflow:hidden;
 }
 
-.serviceImage{
-width:100%;
-height:130px;
-border-radius:22px;
-background:#F5F5F5;
+.favoriteBtn{
+position:absolute;
+right:16px;
+top:16px;
+width:38px;
+height:38px;
+border-radius:14px;
+background:#fff;
+border:1px solid #ECECEC;
 display:flex;
 align-items:center;
 justify-content:center;
-font-size:58px;
+color:#EF4444;
+}
+
+.serviceImage{
+width:68px;
+height:68px;
+border-radius:22px;
+background:#F8F8F8;
+display:flex;
+align-items:center;
+justify-content:center;
+font-size:34px;
 margin-bottom:18px;
 }
 
 .serviceCard h3{
-font-size:20px;
+font-size:28px;
 font-weight:900;
-margin-bottom:8px;
+margin-bottom:10px;
 }
 
 .serviceCard p{
-font-size:13px;
-line-height:1.6;
+font-size:14px;
+line-height:1.7;
 color:#666;
-margin-bottom:16px;
+margin-bottom:18px;
 }
 
-.priceRow{
+.serviceBottom{
 display:flex;
 justify-content:space-between;
 align-items:center;
 }
 
 .price{
-font-size:18px;
+font-size:32px;
 font-weight:900;
+color:#22C55E;
 }
 
 .addBtn{
-width:54px;
-height:54px;
+width:86px;
+height:52px;
 border:none;
 border-radius:18px;
-background:#111;
-color:#FFD000;
-font-size:22px;
+background:#FFD400;
+font-size:15px;
 font-weight:900;
-cursor:pointer;
+color:#111;
 }
 
 /* =====================================================
-OFFERS
+PARTNER SECTION
 ===================================================== */
 
-.offerScroll{
-display:flex;
-gap:16px;
-overflow:auto;
-padding:0 18px;
+.partnerSection{
+margin:30px 18px;
+background:linear-gradient(
+135deg,
+#09132B,
+#111C44
+);
+color:#fff;
+border-radius:34px;
+padding:28px;
 }
 
-.offerScroll::-webkit-scrollbar{
-display:none;
-}
-
-.offerCard{
-min-width:280px;
-background:#fff;
-border-radius:28px;
-padding:22px;
-}
-
-.offerCard h3{
-font-size:24px;
+.partnerSection h2{
+font-size:34px;
 font-weight:900;
-margin-bottom:10px;
+margin-bottom:20px;
 }
 
-.offerCard p{
-font-size:14px;
-line-height:1.7;
-color:#666;
-margin-bottom:14px;
+.partnerGrid{
+display:grid;
+grid-template-columns:repeat(3,1fr);
+gap:18px;
 }
 
-.offerBadge{
-display:inline-block;
-padding:12px 16px;
-border-radius:16px;
-background:#FFD000;
+.partnerCard{
+background:rgba(255,255,255,0.08);
+border-radius:24px;
+padding:20px;
+}
+
+.partnerCard h3{
+font-size:22px;
+margin-bottom:8px;
+}
+
+.partnerCard p{
 font-size:14px;
-font-weight:900;
+line-height:1.6;
+opacity:0.9;
 }
 
 /* =====================================================
@@ -284,12 +426,12 @@ BOTTOM NAV
 
 .bottomNav{
 position:fixed;
-left:14px;
-right:14px;
-bottom:14px;
-height:86px;
-background:#111;
-border-radius:34px;
+left:0;
+right:0;
+bottom:0;
+height:90px;
+background:#fff;
+border-top:1px solid #ECECEC;
 display:flex;
 justify-content:space-around;
 align-items:center;
@@ -301,11 +443,10 @@ display:flex;
 flex-direction:column;
 align-items:center;
 gap:8px;
-text-decoration:none;
 font-size:13px;
-font-weight:700;
-color:#fff;
-opacity:0.7;
+font-weight:800;
+text-decoration:none;
+color:#6B7280;
 }
 
 .navItem i{
@@ -313,21 +454,37 @@ font-size:22px;
 }
 
 .activeNav{
-opacity:1;
+color:#FFD400;
 }
 
 /* =====================================================
 RESPONSIVE
 ===================================================== */
 
-@media(max-width:700px){
+@media(max-width:1200px){
 
-.servicesGrid{
+.serviceGrid{
+grid-template-columns:repeat(2,1fr);
+}
+
+.partnerGrid{
 grid-template-columns:1fr;
 }
 
-.banner h2{
-font-size:28px;
+}
+
+@media(max-width:700px){
+
+.banner h1{
+font-size:42px;
+}
+
+.serviceGrid{
+grid-template-columns:1fr;
+}
+
+.sectionTitle{
+font-size:30px;
 }
 
 }
@@ -344,41 +501,51 @@ TOPBAR
 
 <div class="topbar">
 
-<div class="locationRow">
+<div class="topRow">
 
-<div class="locationLeft">
+<div class="locationWrap">
 
-<h3 id="userName">
+<div class="locationIcon">
+📍
+</div>
 
-QuickPress
+<div class="locationText">
 
+<span>
+Live Location
+</span>
+
+<h3 id="userCity">
+Kasganj
 </h3>
 
-<p id="userCity">
-
-Kasganj
-
-</p>
-
-</div>
-
-<div class="profileBtn">
-
-<i class="fa-solid fa-user"></i>
-
 </div>
 
 </div>
 
-<!-- SEARCH -->
+<div class="topActions">
+
+<div class="topBtn">
+❤️
+</div>
+
+<div class="topBtn">
+🔔
+<div class="badge">
+3
+</div>
+</div>
+
+</div>
+
+</div>
 
 <div class="searchBar">
 
 <i class="fa-solid fa-magnifying-glass"></i>
 
 <input
-type="text"
-placeholder="Search laundry services...">
+placeholder="Search services...">
 
 </div>
 
@@ -390,22 +557,82 @@ BANNER
 
 <div class="banner">
 
-<h2>
+<div class="pickupBadge">
+⚡ Pickup in 10 mins
+</div>
 
-Fast Laundry Pickup at your doorstep
-
-</h2>
+<h1>
+Laundry
+<br>
+Made Easy ✨
+</h1>
 
 <p>
-
-Book premium laundry, ironing and dry cleaning in seconds.
-
+Fast washing, ironing and premium doorstep laundry experience.
 </p>
 
-<div class="bannerBtn">
+<div class="bannerBtns">
 
-Book Now
+<button class="fastBtn">
+⚡ Fast Order
+</button>
 
+<button class="secondaryBtn">
+📅 Schedule Pickup
+</button>
+
+</div>
+
+</div>
+
+<!-- =====================================================
+CATEGORY
+===================================================== -->
+
+<div class="sectionTitle">
+Categories
+</div>
+
+<div class="categoryScroll">
+
+<div class="categoryCard">
+<div class="categoryIcon">👔</div>
+<h4>Ironing</h4>
+</div>
+
+<div class="categoryCard">
+<div class="categoryIcon">🧺</div>
+<h4>Wash</h4>
+</div>
+
+<div class="categoryCard">
+<div class="categoryIcon">✨</div>
+<h4>Dry Clean</h4>
+</div>
+
+<div class="categoryCard">
+<div class="categoryIcon">💨</div>
+<h4>Steam</h4>
+</div>
+
+<div class="categoryCard">
+<div class="categoryIcon">👑</div>
+<h4>Premium</h4>
+</div>
+
+<div class="categoryCard">
+<div class="categoryIcon">🛏️</div>
+<h4>Blanket</h4>
+</div>
+
+<div class="categoryCard">
+<div class="categoryIcon">🚪</div>
+<h4>Curtain</h4>
+</div>
+
+<div class="categoryCard">
+<div class="categoryIcon">👟</div>
+<h4>Shoes</h4>
 </div>
 
 </div>
@@ -415,69 +642,178 @@ SERVICES
 ===================================================== -->
 
 <div class="sectionTitle">
+Trending Services
+</div>
 
-Popular Services
+<div class="serviceGrid">
+
+<div class="serviceCard">
+
+<div class="favoriteBtn">
+❤️
+</div>
+
+<div class="serviceImage">
+👔
+</div>
+
+<h3>
+Formal Shirt
+</h3>
+
+<p>
+Premium laundry service
+</p>
+
+<div class="serviceBottom">
+
+<div class="price">
+₹29
+</div>
+
+<button class="addBtn">
+ADD
+</button>
 
 </div>
 
-<div
-class="servicesGrid"
-id="servicesGrid">
+</div>
+
+<div class="serviceCard">
+
+<div class="favoriteBtn">
+❤️
+</div>
+
+<div class="serviceImage">
+👕
+</div>
+
+<h3>
+T-Shirt
+</h3>
+
+<p>
+Premium laundry service
+</p>
+
+<div class="serviceBottom">
+
+<div class="price">
+₹19
+</div>
+
+<button class="addBtn">
+ADD
+</button>
+
+</div>
+
+</div>
+
+<div class="serviceCard">
+
+<div class="favoriteBtn">
+❤️
+</div>
+
+<div class="serviceImage">
+🧺
+</div>
+
+<h3>
+Wash & Fold
+</h3>
+
+<p>
+Premium laundry service
+</p>
+
+<div class="serviceBottom">
+
+<div class="price">
+₹49/kg
+</div>
+
+<button class="addBtn">
+ADD
+</button>
+
+</div>
+
+</div>
+
+<div class="serviceCard">
+
+<div class="favoriteBtn">
+❤️
+</div>
+
+<div class="serviceImage">
+👟
+</div>
+
+<h3>
+Sneaker Cleaning
+</h3>
+
+<p>
+Premium laundry service
+</p>
+
+<div class="serviceBottom">
+
+<div class="price">
+₹199
+</div>
+
+<button class="addBtn">
+ADD
+</button>
+
+</div>
+
+</div>
 
 </div>
 
 <!-- =====================================================
-OFFERS
+PARTNER SECTION
 ===================================================== -->
 
-<div class="sectionTitle">
+<div class="partnerSection">
 
-Live Offers
+<h2>
+🏆 Top Partners
+</h2>
 
-</div>
+<div class="partnerGrid">
 
-<div class="offerScroll">
-
-<div class="offerCard">
-
+<div class="partnerCard">
 <h3>
-
-50% OFF
-
+QuickPress Premium
 </h3>
-
 <p>
-
-Get flat 50% off on your first laundry order.
-
+Fast delivery and premium garment care.
 </p>
-
-<div class="offerBadge">
-
-NEWUSER50
-
 </div>
 
-</div>
-
-<div class="offerCard">
-
+<div class="partnerCard">
 <h3>
-
-Free Pickup
-
+Kasganj Laundry Hub
 </h3>
-
 <p>
-
-Free pickup and delivery on orders above ₹299.
-
+Trusted partner with same day delivery.
 </p>
+</div>
 
-<div class="offerBadge">
-
-FREEDEL
-
+<div class="partnerCard">
+<h3>
+Royal Dry Clean
+</h3>
+<p>
+Luxury fabric and shoe cleaning experts.
+</p>
 </div>
 
 </div>
@@ -485,71 +821,37 @@ FREEDEL
 </div>
 
 <!-- =====================================================
-BOTTOM NAVBAR
+BOTTOM NAV
 ===================================================== -->
 
 <div class="bottomNav">
 
-<a href="#"
-class="navItem activeNav">
-
+<a href="#" class="navItem activeNav">
 <i class="fa-solid fa-house"></i>
-
-<span>
-Home
-</span>
-
+<span>Home</span>
 </a>
 
-<a href="cart.html"
-class="navItem">
+<a href="#" class="navItem">
+<i class="fa-solid fa-shirt"></i>
+<span>Services</span>
+</a>
 
+<a href="cart.html" class="navItem">
 <i class="fa-solid fa-cart-shopping"></i>
-
-<span>
-Cart
-</span>
-
+<span>Cart</span>
 </a>
 
-<a href="tracking.html"
-class="navItem">
-
-<i class="fa-solid fa-location-dot"></i>
-
-<span>
-Track
-</span>
-
+<a href="#" class="navItem">
+<i class="fa-solid fa-tags"></i>
+<span>Offers</span>
 </a>
 
-<a href="wallet.html"
-class="navItem">
-
-<i class="fa-solid fa-wallet"></i>
-
-<span>
-Wallet
-</span>
-
-</a>
-
-<a href="profile.html"
-class="navItem">
-
-<i class="fa-solid fa-user"></i>
-
-<span>
-Profile
-</span>
-
+<a href="#" class="navItem">
+<i class="fa-regular fa-user"></i>
+<span>Profile</span>
 </a>
 
 </div>
-
-<script type="module"
-src="./index.js">
-</script>
 
 </body>
 </html>
