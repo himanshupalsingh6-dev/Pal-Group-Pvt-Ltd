@@ -1,7 +1,7 @@
 /* =========================================================
 FILE : user/index.js
-QUICKPRESS USER HOME
-REALTIME FIREBASE V2
+QUICKPRESS PREMIUM HOME
+REALTIME FIREBASE CONNECTED
 ========================================================= */
 
 import { db }
@@ -15,7 +15,8 @@ import {
 collection,
 onSnapshot,
 query,
-orderBy
+orderBy,
+limit
 
 }
 
@@ -32,44 +33,98 @@ document.querySelector(
 ".serviceGrid"
 );
 
-const userCity =
-document.getElementById(
-"userCity"
+const profileBtn =
+document.querySelector(
+".profileBtn"
+);
+
+const searchInput =
+document.querySelector(
+".searchLeft input"
 );
 
 /* =====================================================
 USER DATA
 ===================================================== */
 
-const currentCity =
+const userName =
 
 localStorage.getItem(
-"quickpress_user_city"
+"quickpress_user_name"
 )
 
 ||
 
-"Kasganj";
+"Himanshu";
 
 /* ========================================= */
 
-userCity.innerHTML =
-currentCity;
+const firstLetter =
+userName.charAt(0)
+.toUpperCase();
+
+/* ========================================= */
+
+profileBtn.innerHTML =
+firstLetter;
 
 /* =====================================================
 LIVE SERVICES
 ===================================================== */
 
-onSnapshot(
+const servicesQuery =
 
 query(
-collection(db,"services"),
-orderBy("createdAt","desc")
+
+collection(
+db,
+"services"
 ),
+
+orderBy(
+"createdAt",
+"desc"
+),
+
+limit(8)
+
+);
+
+/* ========================================= */
+
+onSnapshot(
+
+servicesQuery,
 
 (snapshot)=>{
 
 serviceGrid.innerHTML = "";
+
+/* ========================================= */
+
+if(snapshot.empty){
+
+serviceGrid.innerHTML = `
+
+<div
+style="
+grid-column:1/-1;
+padding:80px;
+text-align:center;
+font-size:22px;
+font-weight:800;
+color:#666;
+">
+
+No services available
+
+</div>
+
+`;
+
+return;
+
+}
 
 /* ========================================= */
 
@@ -108,7 +163,7 @@ const card = `
 
 <div class="serviceCard">
 
-<!-- FAV -->
+<!-- FAVORITE -->
 
 <div
 class="favoriteBtn"
@@ -242,7 +297,7 @@ JSON.stringify(cart)
 /* ========================================= */
 
 showToast(
-`${name} added`
+`${name} added to cart`
 );
 
 };
@@ -255,89 +310,14 @@ window.toggleFavorite =
 (id)=>{
 
 showToast(
-"Added to favorites"
+"Added to favorites ❤️"
 );
 
 };
 
 /* =====================================================
-TOAST
-===================================================== */
-
-function showToast(message){
-
-const toast =
-document.createElement("div");
-
-/* ========================================= */
-
-toast.innerHTML =
-message;
-
-/* ========================================= */
-
-toast.style.position =
-"fixed";
-
-toast.style.left =
-"50%";
-
-toast.style.bottom =
-"110px";
-
-toast.style.transform =
-"translateX(-50%)";
-
-toast.style.background =
-"#111827";
-
-toast.style.color =
-"#FFD400";
-
-toast.style.padding =
-"16px 24px";
-
-toast.style.borderRadius =
-"18px";
-
-toast.style.fontSize =
-"14px";
-
-toast.style.fontWeight =
-"900";
-
-toast.style.zIndex =
-"99999";
-
-toast.style.boxShadow =
-"0 10px 30px rgba(0,0,0,0.18)";
-
-/* ========================================= */
-
-document.body.appendChild(
-toast
-);
-
-/* ========================================= */
-
-setTimeout(()=>{
-
-toast.remove();
-
-},2000);
-
-}
-
-/* =====================================================
 SEARCH
 ===================================================== */
-
-const searchInput =
-document.querySelector(
-".searchBar input"
-);
-
-/* ========================================= */
 
 searchInput.addEventListener(
 "input",
@@ -386,17 +366,90 @@ card.style.display =
 );
 
 /* =====================================================
-LIVE OFFERS
+TOAST
+===================================================== */
+
+function showToast(message){
+
+const toast =
+document.createElement(
+"div"
+);
+
+/* ========================================= */
+
+toast.innerHTML =
+message;
+
+/* ========================================= */
+
+toast.style.position =
+"fixed";
+
+toast.style.bottom =
+"120px";
+
+toast.style.left =
+"50%";
+
+toast.style.transform =
+"translateX(-50%)";
+
+toast.style.background =
+"#111827";
+
+toast.style.color =
+"#FFD400";
+
+toast.style.padding =
+"16px 24px";
+
+toast.style.borderRadius =
+"18px";
+
+toast.style.fontSize =
+"14px";
+
+toast.style.fontWeight =
+"900";
+
+toast.style.zIndex =
+"99999";
+
+toast.style.boxShadow =
+"0 10px 30px rgba(0,0,0,0.18)";
+
+/* ========================================= */
+
+document.body.appendChild(
+toast
+);
+
+/* ========================================= */
+
+setTimeout(()=>{
+
+toast.remove();
+
+},2000);
+
+}
+
+/* =====================================================
+LIVE NOTIFICATIONS
 ===================================================== */
 
 onSnapshot(
 
-collection(db,"offers"),
+collection(
+db,
+"notifications"
+),
 
 (snapshot)=>{
 
 console.log(
-"Offers updated:",
+"Notifications:",
 snapshot.size
 );
 
@@ -407,33 +460,76 @@ snapshot.size
 );
 
 /* =====================================================
-LIVE NOTIFICATIONS
+LIVE OFFERS
 ===================================================== */
 
 onSnapshot(
 
-collection(db,"notifications"),
+collection(
+db,
+"offers"
+),
 
 (snapshot)=>{
 
-const badge =
-document.querySelector(
-".badge"
+console.log(
+"Offers:",
+snapshot.size
 );
-
-/* ========================================= */
-
-if(badge){
-
-badge.innerHTML =
-snapshot.size;
-
-}
 
 }
 
 /* END */
 
+);
+
+/* =====================================================
+QUICK MODE
+===================================================== */
+
+const switchBtn =
+document.querySelector(
+".switch"
+);
+
+/* ========================================= */
+
+let quickMode =
+true;
+
+/* ========================================= */
+
+switchBtn.addEventListener(
+"click",
+()=>{
+
+quickMode = !quickMode;
+
+/* ========================================= */
+
+if(quickMode){
+
+switchBtn.style.background =
+"#16A34A";
+
+showToast(
+"Quick Mode ON ⚡"
+);
+
+}
+
+else{
+
+switchBtn.style.background =
+"#D1D5DB";
+
+showToast(
+"Quick Mode OFF"
+);
+
+}
+
+}
 );
 
 /* =====================================================
@@ -456,7 +552,7 @@ WELCOME
 ===================================================== */
 
 showToast(
-"Welcome to QuickPress 🚀"
+`Welcome ${userName} 🚀`
 );
 
 /* =====================================================
@@ -464,5 +560,5 @@ READY
 ===================================================== */
 
 console.log(
-"QuickPress User Panel Active"
+"QuickPress Premium Home Ready"
 );
