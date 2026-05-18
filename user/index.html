@@ -1,4 +1,3 @@
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -100,7 +99,7 @@ margin-bottom:5px;
 }
 
 .deliveryTime{
-font-size:46px;
+font-size:42px;
 font-weight:900;
 line-height:1;
 letter-spacing:-2px;
@@ -221,39 +220,21 @@ display:flex;
 overflow-x:auto;
 gap:16px;
 padding:56px 16px 18px;
-background:#fff;
-}
-
-.categoryStrip::-webkit-scrollbar{
-display:none;
-}
-
-.categoryItem{
-min-width:74px;
-text-align:center;
-}
-
-.categoryIcon{
-width:58px;
-height:58px;
-border-radius:18px;
+scrollbar-width:none;:center;
+radius:18px;
 background:#F3F4F6;
 display:flex;
 align-items:center;
 justify-content:center;
-font-size:22px;
-margin:auto;
-margin-bottom:8px;
+font-size.categoryIcon{
+backdrop-filter:blur(10px);
+border:1px solid rgba(255,255,255,0.5);ottom:8px;
 }
 
 .categoryItem h4{
-font-size:13px;
-font-weight:700;
-}
+font-size:13pxbackground:rgba(255,255,255,0.75);}
 
-/* =====================================================
-TITLE
-===================================================== */
+/* ============================================================================================== */
 
 .sectionTitle{
 font-size:18px;
@@ -395,23 +376,22 @@ background:linear-gradient(135deg,#FFD230,#FFB800);
 position:relative;
 overflow:hidden;
 display:flex;
-align-items:flex-end;
-padding:24px;
-}
+align-items.heroBanner{
+height:250px;
 
 .heroOverlay{
 position:absolute;
-inset:0;
-background:radial-gradient(circle at top right,rgba(255,255,255,0.5),transparent 40%);
+inset:background:
+linear-gradient(
+135deg,
+#FFD230 0%,
+#FFCC00 40%,
+#FFB800 100%
+);parent 40%);
 }
 
 .heroContent{
-position:relative;
-z-index:2;
-max-width:280px;
-}
-
-.heroContent h1{
+positiotent h1{
 font-size:34px;
 line-height:1.1;
 font-weight:900;
@@ -427,9 +407,21 @@ font-weight:600;
 
 .partnerBanner{
 margin:0 16px 30px;
-background:linear-gradient(135deg,#111827,#1F2937);
-border-radius:28px;
-padding:24px;
+background:linear-gradient(135deg,#111827,.fastBadge{
+display:inline-flex;
+align-items:center;
+gap:8px;
+height:38px;
+padding:0 16px;
+border-radius:999px;
+background:#111827;
+color:#fff;
+font-size:12px;
+font-weight:800;
+margin-bottom:16px;
+}
+
+.heroContent h1{dding:24px;
 color:#fff;
 position:relative;
 overflow:hidden;
@@ -581,12 +573,8 @@ HEADER
 
 <div class="locationWrap">
 
-<div class="deliveryText">
-QuickPress in
-</div>
-
 <div class="deliveryTime">
-11 mins
+QuickPress
 </div>
 
 <div class="address" id="locationText">
@@ -601,16 +589,9 @@ QuickPress in
 <i class="fa-solid fa-wallet"></i>
 <div class="walletBadge">₹0</div>
 </div>
-
-<div class="profileBtn" id="profileBtn">
-H
-</div>
-
-</div>
-
-</div>
-
-<div class="searchWrap">
+<div class="deliveryTime">
+QuickPress
+</div>">
 
 <div class="searchBar">
 
@@ -688,14 +669,21 @@ Trending Services
 </div>
 
 <div class="reviewCard">
-⭐ 4.8 • Best laundry app experience in Kasganj.
+⭐ 4.rience in Kasganj.
 <b>- Faizan Khan</b>
 </div>
 
-</div>
+</d<div class="reviewTrack">
+
+<div class="reviewCard">
+⭐ 4.9 • Pickup boy arrived in just 12 mins.
+<b>- Deepak Singh</b>
 </div>
 
-<div class="productGrid" id="productGrid">
+<div class="reviewCard">
+⭐ 5.0 • Premium ironing and soft packaging quality.
+<b>- Muskan Ali</b>
+</div>roductGrid" id="productGrid">
 </div>
 
 <!-- =====================================================
@@ -732,10 +720,11 @@ Book Pickup
 </h2>
 
 <p>
-Trusted premium laundry partners with express pickup and same day delivery.
-</p>
+Trusted premium laundry partners with express pickup and same da<div class="heroContent">
 
-<button class="partnerBtn">
+<div class="fastBadge">
+⚡ EXPRESS DELIVERY
+</div> class="partnerBtn">
 Explore Partners
 </button>
 
@@ -743,7 +732,7 @@ Explore Partners
 
 <!-- =====================================================
 BOTTOM NAV
-===================================================== -->
+============================ -->
 
 <div class="bottomNav">
 
@@ -799,8 +788,11 @@ savedName.charAt(0).toUpperCase();
 
 }else{
 
-profileBtn.innerHTML = "H";
+profileBtn.innerHTML<!-- =====================================================
+MOVE ALL BELOW SCRIPT INTO app.js
+===================================================== -->
 
+<script>
 }
 
 /* =====================================================
@@ -832,7 +824,7 @@ window.location.href =
 }
 );
 
-/* =====================================================
+/* =============================================
 PRODUCT DATA
 ===================================================== */
 
