@@ -74,17 +74,6 @@ margin:auto;
 /* =====================================================
 HEADER
 ===================================================== */
-
-
-/* =====================================================
-PREMIUM HEADER FINAL
-BLINKIT + ZOMATO STYLE
-===================================================== */
-
-/* =====================================================
-PREMIUM HEADER FIX
-===================================================== */
-
 .hero{
 
 background:
@@ -95,19 +84,19 @@ linear-gradient(
 #FFF5C6 100%
 );
 
-padding:24px 22px 95px;
+padding:24px 20px 92px;
 
 position:relative;
 
 overflow:hidden;
 
-border-bottom-left-radius:36px;
-border-bottom-right-radius:36px;
+border-bottom-left-radius:34px;
+border-bottom-right-radius:34px;
 
 }
 
 /* =====================================================
-HEADER LIGHTS
+HEADER EFFECT
 ===================================================== */
 
 .hero::before{
@@ -149,7 +138,7 @@ rgba(255,255,255,0.10);
 }
 
 /* =====================================================
-TOP BAR
+TOPBAR
 ===================================================== */
 
 .topBar{
@@ -160,16 +149,16 @@ justify-content:space-between;
 
 align-items:flex-start;
 
-gap:18px;
+gap:16px;
 
 position:relative;
 
-z-index:3;
+z-index:2;
 
 }
 
 /* =====================================================
-LOCATION AREA
+LOCATION
 ===================================================== */
 
 .locationWrap{
@@ -192,7 +181,7 @@ margin-bottom:5px;
 
 .deliveryTime{
 
-font-size:50px;
+font-size:46px;
 
 font-weight:900;
 
@@ -206,19 +195,15 @@ color:#111827;
 
 }
 
-/* =====================================================
-LIVE LOCATION
-===================================================== */
-
 .address{
 
-font-size:15px;
+font-size:14px;
 
 font-weight:600;
 
 color:#374151;
 
-max-width:320px;
+max-width:230px;
 
 overflow:hidden;
 
@@ -226,16 +211,10 @@ white-space:nowrap;
 
 text-overflow:ellipsis;
 
-display:flex;
-
-align-items:center;
-
-gap:6px;
-
 }
 
 /* =====================================================
-RIGHT ACTIONS
+RIGHT SIDE
 ===================================================== */
 
 .topActions{
@@ -244,20 +223,20 @@ display:flex;
 
 align-items:center;
 
-gap:12px;
+gap:10px;
 
 }
 
 /* =====================================================
-WALLET BUTTON
+WALLET
 ===================================================== */
 
 .walletBtn{
 
-width:62px;
-height:62px;
+width:58px;
+height:58px;
 
-border-radius:20px;
+border-radius:18px;
 
 background:#fff;
 
@@ -266,18 +245,16 @@ display:flex;
 align-items:center;
 justify-content:center;
 
-font-size:24px;
+font-size:22px;
 
 position:relative;
 
 box-shadow:
 0 10px 24px rgba(0,0,0,0.08);
 
-}
+color:#111827;
 
-/* =====================================================
-WALLET BADGE
-===================================================== */
+}
 
 .walletBadge{
 
@@ -300,13 +277,13 @@ font-weight:900;
 }
 
 /* =====================================================
-PROFILE BUTTON
+PROFILE
 ===================================================== */
 
 .profileBtn{
 
-width:62px;
-height:62px;
+width:58px;
+height:58px;
 
 border-radius:50%;
 
@@ -329,17 +306,17 @@ box-shadow:
 }
 
 /* =====================================================
-SEARCH BAR
+SEARCH
 ===================================================== */
 
 .searchWrap{
 
 position:absolute;
 
-left:22px;
-right:22px;
+left:20px;
+right:20px;
 
-bottom:-34px;
+bottom:-32px;
 
 z-index:5;
 
@@ -347,11 +324,11 @@ z-index:5;
 
 .searchBar{
 
-height:72px;
+height:68px;
 
 background:#fff;
 
-border-radius:26px;
+border-radius:24px;
 
 display:flex;
 
@@ -364,23 +341,15 @@ box-shadow:
 
 }
 
-/* =====================================================
-SEARCH ICON
-===================================================== */
-
 .searchIcon{
 
-font-size:22px;
+font-size:20px;
 
-margin-right:14px;
+margin-right:12px;
 
 color:#6B7280;
 
 }
-
-/* =====================================================
-INPUT
-===================================================== */
 
 .searchBar input{
 
@@ -392,7 +361,7 @@ outline:none;
 
 background:transparent;
 
-font-size:18px;
+font-size:17px;
 
 font-weight:600;
 
@@ -406,14 +375,10 @@ color:#9CA3AF;
 
 }
 
-/* =====================================================
-MIC BUTTON
-===================================================== */
-
 .micBtn{
 
-width:54px;
-height:54px;
+width:50px;
+height:50px;
 
 border-left:2px solid #ECECEC;
 
@@ -422,12 +387,12 @@ display:flex;
 align-items:center;
 justify-content:center;
 
-font-size:22px;
+font-size:20px;
 
 color:#6B7280;
 
 }
-
+  
 /* =====================================================
 CATEGORY SECTION FIX
 ===================================================== */
@@ -544,7 +509,7 @@ DESKTOP FIX
 
 .hero{
 
-padding:28px 40px 105px;
+padding:30px 40px 110px;
 
 }
 
@@ -580,13 +545,28 @@ font-size:30px;
 
 .deliveryTime{
 
-font-size:58px;
+font-size:60px;
 
 }
 
 .address{
-
 font-size:16px;
+
+max-width:400px;
+
+walletBtn,
+.profileBtn{
+
+width:64px;
+height:64px;
+
+font-size:24px;
+
+}
+
+.searchBar{
+
+height:74px;
 
 }
 
@@ -600,7 +580,7 @@ MOBILE FIX
 
 .hero{
 
-padding:20px 16px 92px;
+padding:20px 16px 90px;
 
 }
 
@@ -614,6 +594,10 @@ right:16px;
 .deliveryTime{
 
 font-size:40px;
+
+address{
+
+font-size:13px;
 
 }
 
