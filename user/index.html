@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -264,9 +265,42 @@ padding:18px 16px 14px;
 PRODUCT GRID
 ===================================================== */
 
+.reviewSlider{
+padding:0 16px 18px;
+overflow:hidden;
+}
+
+.reviewTrack{
+display:flex;
+gap:12px;
+overflow-x:auto;
+scrollbar-width:none;
+}
+
+.reviewTrack::-webkit-scrollbar{
+display:none;
+}
+
+.reviewCard{
+min-width:260px;
+background:#fff;
+padding:16px;
+border-radius:18px;
+font-size:14px;
+font-weight:600;
+line-height:1.7;
+box-shadow:0 4px 14px rgba(0,0,0,0.05);
+}
+
+.reviewCard b{
+display:block;
+margin-top:10px;
+color:#16A34A;
+}
+
 .productGrid{
 display:grid;
-grid-template-columns:repeat(3,1fr);
+grid-template-columns:repeat(2,1fr);
 gap:10px;
 padding:0 16px 30px;
 }
@@ -352,6 +386,44 @@ color:#16A34A;
 /* =====================================================
 PARTNER BANNER
 ===================================================== */
+
+.heroBanner{
+height:220px;
+margin:0 16px 20px;
+border-radius:28px;
+background:linear-gradient(135deg,#FFD230,#FFB800);
+position:relative;
+overflow:hidden;
+display:flex;
+align-items:flex-end;
+padding:24px;
+}
+
+.heroOverlay{
+position:absolute;
+inset:0;
+background:radial-gradient(circle at top right,rgba(255,255,255,0.5),transparent 40%);
+}
+
+.heroContent{
+position:relative;
+z-index:2;
+max-width:280px;
+}
+
+.heroContent h1{
+font-size:34px;
+line-height:1.1;
+font-weight:900;
+margin-bottom:12px;
+}
+
+.heroContent p{
+font-size:14px;
+line-height:1.7;
+margin-bottom:18px;
+font-weight:600;
+}
 
 .partnerBanner{
 margin:0 16px 30px;
@@ -602,12 +674,56 @@ PRODUCTS
 Trending Services
 </div>
 
+<div class="reviewSlider">
+<div class="reviewTrack">
+
+<div class="reviewCard">
+⭐ 4.9 • Amazing ironing quality and fast pickup.
+<b>- Rohit Sharma</b>
+</div>
+
+<div class="reviewCard">
+⭐ 5.0 • Premium service with professional packaging.
+<b>- Anjali Verma</b>
+</div>
+
+<div class="reviewCard">
+⭐ 4.8 • Best laundry app experience in Kasganj.
+<b>- Faizan Khan</b>
+</div>
+
+</div>
+</div>
+
 <div class="productGrid" id="productGrid">
 </div>
 
 <!-- =====================================================
 PARTNER BANNER
 ===================================================== -->
+
+<div class="heroBanner">
+
+<div class="heroOverlay"></div>
+
+<div class="heroContent">
+
+<h1>
+Premium Laundry<br>
+Delivered Fast ⚡
+</h1>
+
+<p>
+Wash, steam, iron and sneaker cleaning with express pickup.
+</p>
+
+<button class="partnerBtn">
+Book Pickup
+</button>
+
+</div>
+
+</div>
 
 <div class="partnerBanner">
 
@@ -890,6 +1006,10 @@ locationText.innerHTML =
 updateLocation();
 
 </script>
+
+<div style="padding:10px 20px 120px;text-align:center;color:#6B7280;font-size:13px;font-weight:700;">
+Made in Uttar Pradesh • Crafted by Himanshu Baghel
+</div>
 
 </body>
 </html>
