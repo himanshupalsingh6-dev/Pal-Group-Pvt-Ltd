@@ -1,19 +1,19 @@
-<!-- =====================================================
-QUICKPRESS PREMIUM MOBILE UI
-BLINKIT + SWIGGY + ZOMATO STYLE
-FULL RESPONSIVE
-===================================================== -->
+<!-- =========================================================
+QUICKPRESS PREMIUM UI
+BLINKIT + SWIGGY + ZOMATO INSPIRED
+MOBILE + DESKTOP RESPONSIVE
+========================================================= -->
 
 <!DOCTYPE html>
 <html lang="en">
 
 <head>
 
-<meta charset="UTF-8"/>
+<meta charset="UTF-8">
 
 <meta
 name="viewport"
-content="width=device-width, initial-scale=1.0"/>
+content="width=device-width, initial-scale=1.0">
 
 <title>
 QuickPress
@@ -36,7 +36,47 @@ href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css"
 <style>
 
 /* =====================================================
-PREMIUM HEADER
+RESET
+===================================================== */
+
+*{
+margin:0;
+padding:0;
+box-sizing:border-box;
+font-family:'Inter',sans-serif;
+-webkit-tap-highlight-color:transparent;
+}
+
+/* =====================================================
+BODY
+===================================================== */
+
+body{
+
+background:#F8F7F2;
+
+overflow-x:hidden;
+
+padding-bottom:120px;
+
+color:#111827;
+
+}
+
+/* =====================================================
+CONTAINER
+===================================================== */
+
+.container{
+
+max-width:1400px;
+
+margin:auto;
+
+}
+
+/* =====================================================
+HEADER
 ===================================================== */
 
 .hero{
@@ -45,21 +85,23 @@ background:
 linear-gradient(
 180deg,
 #FFD12E 0%,
-#FFE680 100%
+#FFE78C 100%
 );
 
-padding:18px 16px 95px;
-
-border-bottom-left-radius:28px;
-border-bottom-right-radius:28px;
+padding:20px 16px 92px;
 
 position:relative;
 
 overflow:hidden;
 
+border-bottom-left-radius:28px;
+border-bottom-right-radius:28px;
+
 }
 
-/* PREMIUM BLUR CIRCLE */
+/* =====================================================
+BLUR CIRCLE
+===================================================== */
 
 .hero::before{
 
@@ -67,20 +109,21 @@ content:"";
 
 position:absolute;
 
-right:-50px;
-top:-50px;
+right:-70px;
+top:-70px;
 
-width:220px;
-height:220px;
-
-background:rgba(255,255,255,0.18);
+width:240px;
+height:240px;
 
 border-radius:50%;
+
+background:
+rgba(255,255,255,0.18);
 
 }
 
 /* =====================================================
-TOP BAR
+TOPBAR
 ===================================================== */
 
 .topBar{
@@ -91,33 +134,39 @@ justify-content:space-between;
 
 align-items:flex-start;
 
+gap:20px;
+
 }
 
 /* =====================================================
 LOCATION
 ===================================================== */
 
+.locationWrap{
+
+flex:1;
+
+}
+
 .deliveryText{
 
-font-size:14px;
+font-size:15px;
 
 font-weight:800;
 
-margin-bottom:4px;
-
-color:#111827;
+margin-bottom:6px;
 
 }
 
 .deliveryTime{
 
-font-size:40px;
+font-size:46px;
 
 font-weight:900;
 
 line-height:1;
 
-margin-bottom:6px;
+margin-bottom:8px;
 
 letter-spacing:-2px;
 
@@ -125,13 +174,13 @@ letter-spacing:-2px;
 
 .address{
 
-font-size:15px;
+font-size:16px;
 
 font-weight:600;
 
 color:#374151;
 
-max-width:210px;
+max-width:260px;
 
 overflow:hidden;
 
@@ -149,7 +198,7 @@ TOP ACTIONS
 
 display:flex;
 
-gap:10px;
+gap:12px;
 
 align-items:center;
 
@@ -161,8 +210,8 @@ WALLET
 
 .walletBtn{
 
-width:54px;
-height:54px;
+width:58px;
+height:58px;
 
 border-radius:18px;
 
@@ -173,12 +222,12 @@ display:flex;
 align-items:center;
 justify-content:center;
 
-font-size:22px;
-
-box-shadow:
-0 6px 16px rgba(0,0,0,0.08);
+font-size:24px;
 
 position:relative;
+
+box-shadow:
+0 6px 18px rgba(0,0,0,0.08);
 
 }
 
@@ -192,7 +241,7 @@ background:#111827;
 
 color:#fff;
 
-padding:3px 9px;
+padding:4px 10px;
 
 border-radius:999px;
 
@@ -208,8 +257,8 @@ PROFILE
 
 .profileBtn{
 
-width:54px;
-height:54px;
+width:58px;
+height:58px;
 
 border-radius:50%;
 
@@ -225,7 +274,7 @@ font-size:24px;
 font-weight:900;
 
 box-shadow:
-0 6px 16px rgba(0,0,0,0.08);
+0 6px 18px rgba(0,0,0,0.08);
 
 }
 
@@ -246,7 +295,7 @@ bottom:-34px;
 
 .searchBar{
 
-height:68px;
+height:70px;
 
 background:#fff;
 
@@ -256,10 +305,10 @@ display:flex;
 
 align-items:center;
 
-padding:0 16px;
+padding:0 18px;
 
 box-shadow:
-0 10px 26px rgba(0,0,0,0.10);
+0 10px 28px rgba(0,0,0,0.10);
 
 }
 
@@ -268,8 +317,6 @@ box-shadow:
 font-size:24px;
 
 margin-right:12px;
-
-color:#111827;
 
 }
 
@@ -281,7 +328,7 @@ border:none;
 
 outline:none;
 
-font-size:17px;
+font-size:18px;
 
 font-weight:600;
 
@@ -293,8 +340,8 @@ color:#6B7280;
 
 .micBtn{
 
-width:50px;
-height:50px;
+width:52px;
+height:52px;
 
 border-left:2px solid #ECECEC;
 
@@ -303,12 +350,12 @@ display:flex;
 align-items:center;
 justify-content:center;
 
-font-size:20px;
+font-size:22px;
 
 }
 
 /* =====================================================
-CATEGORY STRIP
+CATEGORY
 ===================================================== */
 
 .categoryStrip{
@@ -317,17 +364,23 @@ display:flex;
 
 overflow-x:auto;
 
-gap:18px;
+gap:22px;
 
-padding:56px 16px 16px;
+padding:60px 16px 18px;
 
 background:#fff;
 
 }
 
+.categoryStrip::-webkit-scrollbar{
+
+display:none;
+
+}
+
 .categoryItem{
 
-min-width:72px;
+min-width:76px;
 
 text-align:center;
 
@@ -335,219 +388,10 @@ text-align:center;
 
 .categoryIcon{
 
-width:64px;
-height:64px;
-
-border-radius:18px;
-
-background:#F3F4F6;
-
-display:flex;
-
-align-items:center;
-justify-content:center;
-
-font-size:28px;
-
-margin:auto;
-
-margin-bottom:8px;
-
-}
-
-.categoryItem h4{
-
-font-size:13px;
-
-font-weight:700;
-
-}
-
-/* =====================================================
-BANNER
-===================================================== */
-
-.banner{
-
-margin:14px 16px;
-
-height:180px;
-
-border-radius:24px;
-
-padding:22px;
-
-background:
-linear-gradient(
-135deg,
-#2563EB,
-#60A5FA
-);
-
-color:#fff;
-
-position:relative;
-
-overflow:hidden;
-
-}
-
-.banner::after{
-
-content:"";
-
-position:absolute;
-
-right:-40px;
-top:-40px;
-
-width:140px;
-height:140px;
-
-background:rgba(255,255,255,0.10);
-
-border-radius:50%;
-
-}
-
-.banner h1{
-
-font-size:34px;
-
-line-height:1.05;
-
-font-weight:900;
-
-margin-bottom:10px;
-
-max-width:200px;
-
-}
-
-.banner p{
-
-font-size:14px;
-
-line-height:1.6;
-
-margin-bottom:18px;
-
-max-width:220px;
-
-}
-
-.bannerBtn{
-
-height:48px;
-
-padding:0 18px;
-
-border:none;
-
-border-radius:16px;
-
-background:#fff;
-
-font-size:13px;
-
-font-weight:900;
-
-}
-
-/* =====================================================
-FILTERS
-===================================================== */
-
-.filters{
-
-display:flex;
-
-gap:10px;
-
-overflow-x:auto;
-
-padding:0 16px 18px;
-
-}
-
-.filterBtn{
-
-height:46px;
-
-padding:0 18px;
-
-border:none;
-
-background:#fff;
-
-border-radius:16px;
-
-font-size:14px;
-
-font-weight:800;
-
-white-space:nowrap;
-
-box-shadow:
-0 6px 16px rgba(0,0,0,0.05);
-
-}
-
-/* =====================================================
-SECTION TITLE
-===================================================== */
-
-.sectionTitle{
-
-font-size:15px;
-
-font-weight:800;
-
-letter-spacing:5px;
-
-color:#6B7280;
-
-padding:0 16px 16px;
-
-}
-
-/* =====================================================
-EXPLORE GRID
-===================================================== */
-
-.exploreGrid{
-
-display:grid;
-
-grid-template-columns:repeat(2,1fr);
-
-gap:12px;
-
-padding:0 16px 24px;
-
-}
-
-.exploreCard{
-
-background:#fff;
+width:68px;
+height:68px;
 
 border-radius:20px;
-
-padding:16px;
-
-text-align:center;
-
-box-shadow:
-0 6px 18px rgba(0,0,0,0.05);
-
-}
-
-.exploreIcon{
-
-width:64px;
-height:64px;
-
-border-radius:18px;
 
 background:#F3F4F6;
 
@@ -560,15 +404,74 @@ font-size:30px;
 
 margin:auto;
 
-margin-bottom:12px;
+margin-bottom:10px;
 
 }
 
-.exploreCard h3{
+.categoryItem h4{
 
-font-size:17px;
+font-size:14px;
+
+font-weight:700;
+
+}
+
+/* =====================================================
+FILTERS
+===================================================== */
+
+.filters{
+
+display:flex;
+
+gap:12px;
+
+overflow-x:auto;
+
+padding:16px;
+
+}
+
+.filters::-webkit-scrollbar{
+
+display:none;
+
+}
+
+.filterBtn{
+
+height:50px;
+
+padding:0 20px;
+
+border:none;
+
+background:#fff;
+
+border-radius:18px;
+
+font-size:14px;
 
 font-weight:800;
+
+white-space:nowrap;
+
+box-shadow:
+0 6px 18px rgba(0,0,0,0.05);
+
+}
+
+/* =====================================================
+SECTION TITLE
+===================================================== */
+
+.sectionTitle{
+
+font-size:18px;
+
+font-weight:900;
+
+padding:0 16px 16px;
 
 }
 
@@ -580,11 +483,12 @@ PRODUCT GRID
 
 display:grid;
 
-grid-template-columns:repeat(2,1fr);
+grid-template-columns:
+repeat(auto-fit,minmax(180px,1fr));
 
-gap:12px;
+gap:16px;
 
-padding:0 16px;
+padding:0 16px 30px;
 
 }
 
@@ -596,30 +500,38 @@ PRODUCT CARD
 
 background:#fff;
 
-border-radius:20px;
+border-radius:22px;
 
-padding:10px;
+padding:12px;
 
 position:relative;
 
 box-shadow:
-0 6px 18px rgba(0,0,0,0.05);
+0 8px 22px rgba(0,0,0,0.05);
+
+transition:0.3s;
+
+}
+
+.productCard:hover{
+
+transform:translateY(-4px);
 
 }
 
 /* =====================================================
-FAVORITE
+HEART
 ===================================================== */
 
 .favoriteBtn{
 
 position:absolute;
 
-right:10px;
-top:10px;
+right:12px;
+top:12px;
 
-width:28px;
-height:28px;
+width:30px;
+height:30px;
 
 border-radius:50%;
 
@@ -638,14 +550,14 @@ box-shadow:
 }
 
 /* =====================================================
-PRODUCT IMAGE
+IMAGE
 ===================================================== */
 
 .productImage{
 
-height:100px;
+height:120px;
 
-border-radius:16px;
+border-radius:18px;
 
 background:#F3F4F6;
 
@@ -654,9 +566,9 @@ display:flex;
 align-items:center;
 justify-content:center;
 
-font-size:56px;
+font-size:62px;
 
-margin-bottom:10px;
+margin-bottom:12px;
 
 }
 
@@ -666,19 +578,19 @@ PRODUCT INFO
 
 .productWeight{
 
-font-size:11px;
+font-size:12px;
 
 font-weight:700;
 
-margin-bottom:6px;
-
 color:#6B7280;
+
+margin-bottom:6px;
 
 }
 
 .productCard h2{
 
-font-size:16px;
+font-size:17px;
 
 font-weight:800;
 
@@ -690,18 +602,18 @@ margin-bottom:6px;
 
 .delivery{
 
-font-size:11px;
+font-size:12px;
 
 font-weight:700;
 
 color:#6B7280;
 
-margin-bottom:10px;
+margin-bottom:12px;
 
 }
 
 /* =====================================================
-PRICE ROW
+PRICE
 ===================================================== */
 
 .priceRow{
@@ -716,20 +628,20 @@ align-items:center;
 
 .price{
 
-font-size:24px;
+font-size:26px;
 
 font-weight:900;
 
 }
 
 /* =====================================================
-ADD BUTTON
+ADD BTN
 ===================================================== */
 
 .addBtn{
 
-width:72px;
-height:42px;
+width:74px;
+height:44px;
 
 border:2px solid #16A34A;
 
@@ -746,6 +658,126 @@ color:#16A34A;
 }
 
 /* =====================================================
+PARTNER BANNER
+===================================================== */
+
+.partnerBanner{
+
+margin:0 16px 30px;
+
+background:
+linear-gradient(
+135deg,
+#111827,
+#1F2937
+);
+
+border-radius:28px;
+
+padding:24px;
+
+color:#fff;
+
+position:relative;
+
+overflow:hidden;
+
+}
+
+.partnerBanner::after{
+
+content:"";
+
+position:absolute;
+
+right:-40px;
+bottom:-40px;
+
+width:160px;
+height:160px;
+
+border-radius:50%;
+
+background:
+rgba(255,255,255,0.08);
+
+}
+
+.partnerBanner h2{
+
+font-size:30px;
+
+font-weight:900;
+
+margin-bottom:10px;
+
+}
+
+.partnerBanner p{
+
+font-size:15px;
+
+line-height:1.7;
+
+max-width:320px;
+
+margin-bottom:18px;
+
+color:#D1D5DB;
+
+}
+
+.partnerBtn{
+
+height:52px;
+
+padding:0 20px;
+
+border:none;
+
+border-radius:16px;
+
+background:#FFD12E;
+
+font-size:14px;
+
+font-weight:900;
+
+}
+
+/* =====================================================
+WATERMARK
+===================================================== */
+
+.watermark{
+
+padding:40px 16px 120px;
+
+text-align:center;
+
+opacity:0.08;
+
+}
+
+.watermark h1{
+
+font-size:58px;
+
+font-weight:900;
+
+line-height:1.1;
+
+}
+
+.watermark p{
+
+font-size:18px;
+
+font-weight:700;
+
+}
+
+/* =====================================================
 BOTTOM NAV
 ===================================================== */
 
@@ -757,7 +789,7 @@ left:0;
 right:0;
 bottom:0;
 
-height:78px;
+height:82px;
 
 background:#fff;
 
@@ -781,7 +813,7 @@ flex-direction:column;
 
 align-items:center;
 
-gap:4px;
+gap:5px;
 
 font-size:11px;
 
@@ -804,33 +836,62 @@ font-size:22px;
 color:#111827;
 
 }
+
 /* =====================================================
-RESPONSIVE
+DESKTOP
 ===================================================== */
 
-@media(max-width:420px){
+@media(min-width:768px){
 
-.deliveryTime{
+.hero{
 
-font-size:44px;
+padding:30px 40px 110px;
 
 }
 
-.address{
+.searchWrap{
 
-font-size:15px;
+left:40px;
+right:40px;
+
+}
+
+.categoryStrip{
+
+padding:70px 40px 24px;
+
+}
+
+.filters{
+
+padding:20px 40px;
 
 }
 
 .productGrid{
 
-grid-template-columns:1fr 1fr;
+padding:0 40px 40px;
+
+grid-template-columns:
+repeat(auto-fit,minmax(220px,1fr));
 
 }
 
-.searchBar input{
+.sectionTitle{
 
-font-size:17px;
+padding:0 40px 20px;
+
+}
+
+.partnerBanner{
+
+margin:0 40px 40px;
+
+}
+
+.watermark{
+
+padding:60px 40px 140px;
 
 }
 
@@ -842,8 +903,10 @@ font-size:17px;
 
 <body>
 
+<div class="container">
+
 <!-- =====================================================
-HERO
+HEADER
 ===================================================== -->
 
 <div class="hero">
@@ -857,7 +920,7 @@ QuickPress in
 </div>
 
 <div class="deliveryTime">
-11 minutes
+11 mins
 </div>
 
 <div
@@ -918,94 +981,40 @@ placeholder='Search "shirt wash"'>
 </div>
 
 <!-- =====================================================
-CATEGORY STRIP
+CATEGORY
 ===================================================== -->
 
 <div class="categoryStrip">
 
 <div class="categoryItem">
-
-<div class="categoryIcon">
-👔
-</div>
-
-<h4>
-Iron
-</h4>
-
+<div class="categoryIcon">👔</div>
+<h4>Iron</h4>
 </div>
 
 <div class="categoryItem">
-
-<div class="categoryIcon">
-🧺
-</div>
-
-<h4>
-Wash
-</h4>
-
+<div class="categoryIcon">🧺</div>
+<h4>Wash</h4>
 </div>
 
 <div class="categoryItem">
-
-<div class="categoryIcon">
-✨
-</div>
-
-<h4>
-Dry Clean
-</h4>
-
+<div class="categoryIcon">✨</div>
+<h4>Steam</h4>
 </div>
 
 <div class="categoryItem">
-
-<div class="categoryIcon">
-👟
-</div>
-
-<h4>
-Shoes
-</h4>
-
+<div class="categoryIcon">👟</div>
+<h4>Shoes</h4>
 </div>
 
 <div class="categoryItem">
-
-<div class="categoryIcon">
-🛏️
+<div class="categoryIcon">🛏️</div>
+<h4>Blanket</h4>
 </div>
 
-<h4>
-Blanket
-</h4>
-
+<div class="categoryItem">
+<div class="categoryIcon">👑</div>
+<h4>Premium</h4>
 </div>
-
-</div>
-
-<!-- =====================================================
-BANNER
-===================================================== -->
-
-<div class="banner">
-
-<h1>
-50% OFF
-Laundry Sale
-</h1>
-
-<p>
-Premium washing & ironing with instant pickup.
-
-</p>
-
-<button class="bannerBtn">
-
-Order Now →
-
-</button>
 
 </div>
 
@@ -1034,74 +1043,12 @@ FILTERS
 </div>
 
 <!-- =====================================================
-EXPLORE
-===================================================== -->
-
-<div class="sectionTitle">
-
-EXPLORE MORE
-
-</div>
-
-<div class="exploreGrid">
-
-<div class="exploreCard">
-
-<div class="exploreIcon">
-🎁
-</div>
-
-<h3>
-Offers
-</h3>
-
-</div>
-
-<div class="exploreCard">
-
-<div class="exploreIcon">
-💰
-</div>
-
-<h3>
-Cashback
-</h3>
-
-</div>
-
-<div class="exploreCard">
-
-<div class="exploreIcon">
-🎟️
-</div>
-
-<h3>
-Coupons
-</h3>
-
-</div>
-
-<div class="exploreCard">
-
-<div class="exploreIcon">
-👑
-</div>
-
-<h3>
-Membership
-</h3>
-
-</div>
-
-</div>
-
-<!-- =====================================================
 PRODUCTS
 ===================================================== -->
 
 <div class="sectionTitle">
 
-BESTSELLERS
+Trending Services
 
 </div>
 
@@ -1262,6 +1209,52 @@ ADD
 </div>
 
 <!-- =====================================================
+TOP PARTNER
+===================================================== -->
+
+<div class="partnerBanner">
+
+<h2>
+
+🏆 Top Rated Partners
+
+</h2>
+
+<p>
+
+Trusted premium laundry partners with express pickup and same day delivery.
+
+</p>
+
+<button class="partnerBtn">
+
+Explore Partners
+
+</button>
+
+</div>
+
+<!-- =====================================================
+WATERMARK
+===================================================== -->
+
+<div class="watermark">
+
+<h1>
+
+QuickPress
+
+</h1>
+
+<p>
+
+India's premium laundry app
+
+</p>
+
+</div>
+
+<!-- =====================================================
 BOTTOM NAV
 ===================================================== -->
 
@@ -1324,10 +1317,12 @@ Profile
 
 </div>
 
+</div>
+
 <script>
 
 /* =====================================================
-PROFILE LETTER
+PROFILE
 ===================================================== */
 
 const userName =
@@ -1340,8 +1335,6 @@ localStorage.getItem(
 
 "H";
 
-/* ========================================= */
-
 document.getElementById(
 "profileBtn"
 ).innerHTML =
@@ -1350,15 +1343,13 @@ userName.charAt(0)
 .toUpperCase();
 
 /* =====================================================
-REAL LOCATION
+LOCATION
 ===================================================== */
 
 const locationText =
 document.getElementById(
 "locationText"
 );
-
-/* ========================================= */
 
 navigator.geolocation.getCurrentPosition(
 
@@ -1382,4 +1373,4 @@ locationText.innerHTML =
 
 </body>
 
-</html>
+</html> 
