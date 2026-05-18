@@ -1,0 +1,544 @@
+<!-- =====================================================
+QUICKPRESS PREMIUM HEADER
+===================================================== -->
+
+<header class="hero">
+
+<div class="topBar">
+
+<!-- LOCATION -->
+
+<div class="locationWrap">
+
+<div class="deliveryText">
+QuickPress in
+</div>
+
+<div class="deliveryTime">
+11 mins
+</div>
+
+<div
+class="address"
+id="locationText">
+
+📍 Finding live location...
+
+</div>
+
+</div>
+
+<!-- RIGHT BUTTONS -->
+
+<div class="topActions">
+
+<!-- WALLET -->
+
+<div class="walletBtn">
+
+💸
+
+<div class="walletBadge">
+₹0
+</div>
+
+</div>
+
+<!-- PROFILE -->
+
+<div
+class="profileBtn"
+id="profileBtn">
+
+H
+
+</div>
+
+</div>
+
+</div>
+
+<!-- SEARCH -->
+
+<div class="searchWrap">
+
+<div class="searchBar">
+
+<i class="fa-solid fa-magnifying-glass searchIcon"></i>
+
+<input
+type="text"
+placeholder='Search "shirt wash"'>
+
+<div class="micBtn">
+
+<i class="fa-solid fa-microphone"></i>
+
+</div>
+
+</div>
+
+</div>
+
+</header>
+
+<style>
+
+/* =====================================================
+HEADER
+===================================================== */
+
+.hero{
+
+background:
+linear-gradient(
+135deg,
+#FFD230 0%,
+#FFE36F 45%,
+#FFF5C6 100%
+);
+
+padding:24px 22px 95px;
+
+position:relative;
+
+overflow:hidden;
+
+border-bottom-left-radius:36px;
+border-bottom-right-radius:36px;
+
+}
+
+/* =====================================================
+HEADER LIGHTS
+===================================================== */
+
+.hero::before{
+
+content:"";
+
+position:absolute;
+
+right:-90px;
+top:-90px;
+
+width:260px;
+height:260px;
+
+border-radius:50%;
+
+background:
+rgba(255,255,255,0.18);
+
+}
+
+.hero::after{
+
+content:"";
+
+position:absolute;
+
+left:-70px;
+bottom:-80px;
+
+width:180px;
+height:180px;
+
+border-radius:50%;
+
+background:
+rgba(255,255,255,0.10);
+
+}
+
+/* =====================================================
+TOP BAR
+===================================================== */
+
+.topBar{
+
+display:flex;
+
+justify-content:space-between;
+
+align-items:flex-start;
+
+gap:18px;
+
+position:relative;
+
+z-index:3;
+
+}
+
+/* =====================================================
+LOCATION
+===================================================== */
+
+.locationWrap{
+
+flex:1;
+
+}
+
+.deliveryText{
+
+font-size:14px;
+
+font-weight:800;
+
+color:#111827;
+
+margin-bottom:5px;
+
+}
+
+.deliveryTime{
+
+font-size:50px;
+
+font-weight:900;
+
+line-height:1;
+
+letter-spacing:-2px;
+
+margin-bottom:8px;
+
+color:#111827;
+
+}
+
+.address{
+
+font-size:15px;
+
+font-weight:600;
+
+color:#374151;
+
+max-width:320px;
+
+overflow:hidden;
+
+white-space:nowrap;
+
+text-overflow:ellipsis;
+
+display:flex;
+
+align-items:center;
+
+gap:6px;
+
+}
+
+/* =====================================================
+RIGHT SIDE
+===================================================== */
+
+.topActions{
+
+display:flex;
+
+align-items:center;
+
+gap:12px;
+
+}
+
+/* =====================================================
+WALLET
+===================================================== */
+
+.walletBtn{
+
+width:62px;
+height:62px;
+
+border-radius:20px;
+
+background:#fff;
+
+display:flex;
+
+align-items:center;
+justify-content:center;
+
+font-size:24px;
+
+position:relative;
+
+box-shadow:
+0 10px 24px rgba(0,0,0,0.08);
+
+}
+
+.walletBadge{
+
+position:absolute;
+
+bottom:-4px;
+
+background:#111827;
+
+color:#fff;
+
+padding:4px 10px;
+
+border-radius:999px;
+
+font-size:11px;
+
+font-weight:900;
+
+}
+
+/* =====================================================
+PROFILE
+===================================================== */
+
+.profileBtn{
+
+width:62px;
+height:62px;
+
+border-radius:50%;
+
+background:#fff;
+
+display:flex;
+
+align-items:center;
+justify-content:center;
+
+font-size:24px;
+
+font-weight:900;
+
+color:#111827;
+
+box-shadow:
+0 10px 24px rgba(0,0,0,0.08);
+
+}
+
+/* =====================================================
+SEARCH
+===================================================== */
+
+.searchWrap{
+
+position:absolute;
+
+left:22px;
+right:22px;
+
+bottom:-34px;
+
+z-index:5;
+
+}
+
+.searchBar{
+
+height:72px;
+
+background:#fff;
+
+border-radius:26px;
+
+display:flex;
+
+align-items:center;
+
+padding:0 18px;
+
+box-shadow:
+0 12px 30px rgba(0,0,0,0.10);
+
+}
+
+.searchIcon{
+
+font-size:22px;
+
+margin-right:14px;
+
+color:#6B7280;
+
+}
+
+.searchBar input{
+
+flex:1;
+
+border:none;
+
+outline:none;
+
+background:transparent;
+
+font-size:18px;
+
+font-weight:600;
+
+color:#111827;
+
+}
+
+.searchBar input::placeholder{
+
+color:#9CA3AF;
+
+}
+
+.micBtn{
+
+width:54px;
+height:54px;
+
+border-left:2px solid #ECECEC;
+
+display:flex;
+
+align-items:center;
+justify-content:center;
+
+font-size:22px;
+
+color:#6B7280;
+
+}
+
+/* =====================================================
+DESKTOP
+===================================================== */
+
+@media(min-width:768px){
+
+.hero{
+
+padding:28px 40px 105px;
+
+}
+
+.searchWrap{
+
+left:40px;
+right:40px;
+
+}
+
+.deliveryTime{
+
+font-size:58px;
+
+}
+
+.address{
+
+font-size:16px;
+
+}
+
+}
+
+/* =====================================================
+MOBILE
+===================================================== */
+
+@media(max-width:768px){
+
+.hero{
+
+padding:20px 16px 92px;
+
+}
+
+.searchWrap{
+
+left:16px;
+right:16px;
+
+}
+
+.deliveryTime{
+
+font-size:40px;
+
+}
+
+.walletBtn,
+.profileBtn{
+
+width:54px;
+height:54px;
+
+font-size:20px;
+
+}
+
+.searchBar{
+
+height:68px;
+
+}
+
+}
+
+</style>
+
+<script>
+
+/* =====================================================
+PROFILE
+===================================================== */
+
+const userName =
+localStorage.getItem(
+"quickpress_user_name"
+)
+||
+"H";
+
+document.getElementById(
+"profileBtn"
+).innerHTML =
+userName.charAt(0)
+.toUpperCase();
+
+/* =====================================================
+LIVE LOCATION
+===================================================== */
+
+const locationText =
+document.getElementById(
+"locationText"
+);
+
+navigator.geolocation.getCurrentPosition(
+
+(position)=>{
+
+const latitude =
+position.coords.latitude;
+
+const longitude =
+position.coords.longitude;
+
+locationText.innerHTML =
+`📍 Live Location Enabled`;
+
+},
+
+()=>{
+
+locationText.innerHTML =
+"📍 Kasganj Uttar Pradesh";
+
+}
+
+);
+
+</script>
