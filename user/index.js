@@ -1,7 +1,7 @@
 /* =========================================================
 FILE : user/index.js
 QUICKPRESS USER HOME
-REALTIME FIREBASE SYSTEM
+REALTIME FIREBASE V2
 ========================================================= */
 
 import { db }
@@ -13,7 +13,9 @@ from
 import {
 
 collection,
-onSnapshot
+onSnapshot,
+query,
+orderBy
 
 }
 
@@ -21,64 +23,53 @@ from
 
 "https://www.gstatic.com/firebasejs/12.11.0/firebase-firestore.js";
 
-/* =========================================================
-USER DATA
-========================================================= */
-
-const userName =
-localStorage.getItem(
-"quickpress_user_name"
-)
-||
-"QuickPress User";
-
-const userCity =
-localStorage.getItem(
-"quickpress_user_city"
-)
-||
-"Kasganj";
-
-/* =========================================================
+/* =====================================================
 ELEMENTS
-========================================================= */
+===================================================== */
 
-const userNameElement =
-document.getElementById(
-"userName"
+const serviceGrid =
+document.querySelector(
+".serviceGrid"
 );
 
-const userCityElement =
+const userCity =
 document.getElementById(
 "userCity"
 );
 
-const servicesGrid =
-document.getElementById(
-"servicesGrid"
-);
+/* =====================================================
+USER DATA
+===================================================== */
 
-/* =========================================================
-PROFILE DATA
-========================================================= */
+const currentCity =
 
-userNameElement.innerHTML =
-userName;
+localStorage.getItem(
+"quickpress_user_city"
+)
 
-userCityElement.innerHTML =
-userCity;
+||
 
-/* =========================================================
+"Kasganj";
+
+/* ========================================= */
+
+userCity.innerHTML =
+currentCity;
+
+/* =====================================================
 LIVE SERVICES
-========================================================= */
+===================================================== */
 
 onSnapshot(
 
+query(
 collection(db,"services"),
+orderBy("createdAt","desc")
+),
 
 (snapshot)=>{
 
-servicesGrid.innerHTML = "";
+serviceGrid.innerHTML = "";
 
 /* ========================================= */
 
@@ -105,9 +96,9 @@ service
 
 );
 
-/* =========================================================
+/* =====================================================
 RENDER SERVICE
-========================================================= */
+===================================================== */
 
 function renderService(
 service
@@ -117,6 +108,18 @@ const card = `
 
 <div class="serviceCard">
 
+<!-- FAV -->
+
+<div
+class="favoriteBtn"
+onclick="toggleFavorite(
+'${service.id}'
+)">
+
+❤️
+
+</div>
+
 <!-- IMAGE -->
 
 <div class="serviceImage">
@@ -125,7 +128,7 @@ ${service.icon || "🧺"}
 
 </div>
 
-<!-- TITLE -->
+<!-- NAME -->
 
 <h3>
 
@@ -141,9 +144,9 @@ ${service.description || "Premium laundry service"}
 
 </p>
 
-<!-- PRICE -->
+<!-- BOTTOM -->
 
-<div class="priceRow">
+<div class="serviceBottom">
 
 <div class="price">
 
@@ -160,7 +163,7 @@ onclick="addToCart(
 '${service.icon}'
 )">
 
-+
+ADD
 
 </button>
 
@@ -170,13 +173,15 @@ onclick="addToCart(
 
 `;
 
-servicesGrid.innerHTML += card;
+/* ========================================= */
+
+serviceGrid.innerHTML += card;
 
 }
 
-/* =========================================================
+/* =====================================================
 ADD TO CART
-========================================================= */
+===================================================== */
 
 window.addToCart =
 (
@@ -237,14 +242,27 @@ JSON.stringify(cart)
 /* ========================================= */
 
 showToast(
-`${name} added to cart`
+`${name} added`
 );
 
 };
 
-/* =========================================================
+/* =====================================================
+FAVORITES
+===================================================== */
+
+window.toggleFavorite =
+(id)=>{
+
+showToast(
+"Added to favorites"
+);
+
+};
+
+/* =====================================================
 TOAST
-========================================================= */
+===================================================== */
 
 function showToast(message){
 
@@ -261,20 +279,20 @@ message;
 toast.style.position =
 "fixed";
 
-toast.style.bottom =
-"110px";
-
 toast.style.left =
 "50%";
+
+toast.style.bottom =
+"110px";
 
 toast.style.transform =
 "translateX(-50%)";
 
 toast.style.background =
-"#111";
+"#111827";
 
 toast.style.color =
-"#FFD000";
+"#FFD400";
 
 toast.style.padding =
 "16px 24px";
@@ -286,10 +304,13 @@ toast.style.fontSize =
 "14px";
 
 toast.style.fontWeight =
-"800";
+"900";
 
 toast.style.zIndex =
-"9999";
+"99999";
+
+toast.style.boxShadow =
+"0 10px 30px rgba(0,0,0,0.18)";
 
 /* ========================================= */
 
@@ -307,9 +328,9 @@ toast.remove();
 
 }
 
-/* =========================================================
-LIVE SEARCH
-========================================================= */
+/* =====================================================
+SEARCH
+===================================================== */
 
 const searchInput =
 document.querySelector(
@@ -364,25 +385,84 @@ card.style.display =
 }
 );
 
-/* =========================================================
-ONLINE / OFFLINE
-========================================================= */
+/* =====================================================
+LIVE OFFERS
+===================================================== */
+
+onSnapshot(
+
+collection(db,"offers"),
+
+(snapshot)=>{
+
+console.log(
+"Offers updated:",
+snapshot.size
+);
+
+}
+
+/* END */
+
+);
+
+/* =====================================================
+LIVE NOTIFICATIONS
+===================================================== */
+
+onSnapshot(
+
+collection(db,"notifications"),
+
+(snapshot)=>{
+
+const badge =
+document.querySelector(
+".badge"
+);
+
+/* ========================================= */
+
+if(badge){
+
+badge.innerHTML =
+snapshot.size;
+
+}
+
+}
+
+/* END */
+
+);
+
+/* =====================================================
+ONLINE STATUS
+===================================================== */
 
 window.addEventListener(
 "offline",
 ()=>{
 
-alert(
+showToast(
 "Internet disconnected"
 );
 
 }
 );
 
-/* =========================================================
+/* =====================================================
+WELCOME
+===================================================== */
+
+showToast(
+"Welcome to QuickPress 🚀"
+);
+
+/* =====================================================
 READY
-========================================================= */
+===================================================== */
 
 console.log(
-"QuickPress User Home Active"
+"QuickPress User Panel Active"
 );
