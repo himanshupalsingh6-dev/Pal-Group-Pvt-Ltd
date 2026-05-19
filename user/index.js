@@ -1,369 +1,723 @@
-/* =========================================================
-FILE : user/index.js
-QUICKPRESS PREMIUM HOME
-REALTIME FIREBASE CONNECTED
-========================================================= */
+/* =====================================================
+QUICKPRESS FINAL INDEX JS
+FILE NAME : index.js
+===================================================== */
 
-import { db }
+/* =====================================================
+LIVE LOCATION
+===================================================== */
 
-from
+const locationText =
+document.getElementById(
+"locationText"
+);
 
-"/Pal-Group-Pvt-Ltd/firebase.js";
+function success(position){
 
-import {
+const latitude =
+position.coords.latitude;
 
-collection,
-onSnapshot,
-query,
-orderBy,
-limit
+const longitude =
+position.coords.longitude;
+
+fetch(
+`https://nominatim.openstreetmap.org/reverse?format=jsonv2&lat=${latitude}&lon=${longitude}`
+)
+
+.then(response => response.json())
+
+.then(data => {
+
+const area =
+
+data.address.suburb ||
+
+data.address.neighbourhood ||
+
+data.address.city ||
+
+data.address.town ||
+
+data.address.village ||
+
+"Kasganj";
+
+/* ========================================= */
+
+locationText.innerHTML =
+
+`📍 ${area}`;
+
+/* ========================================= */
+
+})
+
+.catch(()=>{
+
+locationText.innerHTML =
+"📍 Kasganj";
+
+});
 
 }
 
-from
+function error(){
 
-"https://www.gstatic.com/firebasejs/12.11.0/firebase-firestore.js";
+locationText.innerHTML =
+"📍 Kasganj";
+
+}
+
+if(navigator.geolocation){
+
+navigator.geolocation.getCurrentPosition(
+success,
+error
+);
+
+}else{
+
+locationText.innerHTML =
+"📍 Kasganj";
+
+}
 
 /* =====================================================
-ELEMENTS
+PROFILE BUTTON
 ===================================================== */
-
-const serviceGrid =
-document.querySelector(
-".serviceGrid"
-);
 
 const profileBtn =
 document.querySelector(
 ".profileBtn"
 );
 
-const searchInput =
-document.querySelector(
-".searchLeft input"
+if(profileBtn){
+
+profileBtn.addEventListener(
+"click",
+()=>{
+
+window.location.href =
+"profile.html";
+
+}
 );
-
-/* =====================================================
-USER DATA
-===================================================== */
-
-const userName =
-
-localStorage.getItem(
-"quickpress_user_name"
-)
-
-||
-
-"Himanshu";
-
-/* ========================================= */
-
-const firstLetter =
-userName.charAt(0)
-.toUpperCase();
-
-/* ========================================= */
-
-profileBtn.innerHTML =
-firstLetter;
-
-/* =====================================================
-LIVE SERVICES
-===================================================== */
-
-const servicesQuery =
-
-query(
-
-collection(
-db,
-"services"
-),
-
-orderBy(
-"createdAt",
-"desc"
-),
-
-limit(8)
-
-);
-
-/* ========================================= */
-
-onSnapshot(
-
-servicesQuery,
-
-(snapshot)=>{
-
-serviceGrid.innerHTML = "";
-
-/* ========================================= */
-
-if(snapshot.empty){
-
-serviceGrid.innerHTML = `
-
-<div
-style="
-grid-column:1/-1;
-padding:80px;
-text-align:center;
-font-size:22px;
-font-weight:800;
-color:#666;
-">
-
-No services available
-
-</div>
-
-`;
-
-return;
 
 }
 
-/* ========================================= */
+/* =====================================================
+SEARCH BAR EFFECT
+===================================================== */
 
-snapshot.forEach((docSnap)=>{
+const searchBar =
+document.querySelector(
+".searchBar"
+);
 
-const service = {
+const searchInput =
+document.querySelector(
+".searchBar input"
+);
 
-id:docSnap.id,
-...docSnap.data()
+searchInput.addEventListener(
+"focus",
+()=>{
 
-};
+searchBar.style.transform =
+"scale(1.01)";
 
-/* ========================================= */
+searchBar.style.boxShadow =
+"0 12px 28px rgba(0,0,0,0.12)";
 
-renderService(
-service
+}
+);
+
+searchInput.addEventListener(
+"blur",
+()=>{
+
+searchBar.style.transform =
+"scale(1)";
+
+searchBar.style.boxShadow =
+"0 8px 22px rgba(0,0,0,0.08)";
+
+}
+);
+
+/* =====================================================
+MIC BUTTON
+===================================================== */
+
+const micBtn =
+document.querySelector(
+".micBtn"
+);
+
+micBtn.addEventListener(
+"click",
+()=>{
+
+showToast(
+"Voice Search Coming Soon 🎤"
+);
+
+}
+);
+
+/* =====================================================
+CATEGORY ACTIVE
+===================================================== */
+
+const categoryCards =
+document.querySelectorAll(
+".categoryCard"
+);
+
+categoryCards.forEach(card=>{
+
+card.addEventListener(
+"click",
+()=>{
+
+categoryCards.forEach(item=>{
+
+item.classList.remove(
+"activeCategory"
 );
 
 });
 
-}
-
-/* END */
-
+card.classList.add(
+"activeCategory"
 );
 
+showToast(
+`${card.innerText} selected`
+);
+
+}
+);
+
+});
+
 /* =====================================================
-RENDER SERVICE
+REAL PRODUCT DATA
 ===================================================== */
 
-function renderService(
-service
-){
+const products = [
 
-const card = `
+{
+emoji:"👔",
+name:"Shirt Iron",
+desc:"Premium steam ironing",
+price:29
+},
 
-<div class="serviceCard">
+{
+emoji:"👕",
+name:"T-Shirt Wash",
+desc:"Soft wash and fold",
+price:49
+},
 
-<!-- FAVORITE -->
+{
+emoji:"👖",
+name:"Jeans Cleaning",
+desc:"Deep denim cleaning",
+price:79
+},
 
-<div
-class="favoriteBtn"
-onclick="toggleFavorite(
-'${service.id}'
-)">
+{
+emoji:"👟",
+name:"Sneaker Clean",
+desc:"Premium sneaker wash",
+price:199
+},
 
-❤️
+{
+emoji:"🛏️",
+name:"Blanket Wash",
+desc:"Heavy blanket cleaning",
+price:149
+},
 
+{
+emoji:"🧺",
+name:"Wash & Fold",
+desc:"Per KG premium wash",
+price:59
+}
+
+];
+
+/* =====================================================
+PRODUCT RENDER
+===================================================== */
+
+const productGrid =
+document.querySelector(
+".productGrid"
+);
+
+if(productGrid){
+
+productGrid.innerHTML = "";
+
+products.forEach(product=>{
+
+productGrid.innerHTML += `
+
+<div class="productCard">
+
+<div class="favoriteBtn">
+🤍
 </div>
 
-<!-- IMAGE -->
-
-<div class="serviceImage">
-
-${service.icon || "🧺"}
-
+<div class="productImage">
+${product.emoji}
 </div>
 
-<!-- NAME -->
+<div class="productInfo">
 
 <h3>
-
-${service.name || "Laundry"}
-
+${product.name}
 </h3>
 
-<!-- DESC -->
-
 <p>
-
-${service.description || "Premium laundry service"}
-
+${product.desc}
 </p>
 
-<!-- BOTTOM -->
-
-<div class="serviceBottom">
+<div class="productBottom">
 
 <div class="price">
-
-₹${service.price || 0}
-
+₹${product.price}
 </div>
 
-<button
-class="addBtn"
-onclick="addToCart(
-'${service.id}',
-'${service.name}',
-'${service.price}',
-'${service.icon}'
-)">
-
+<button class="addBtn">
 ADD
-
 </button>
 
 </div>
 
 </div>
 
+</div>
+
 `;
 
-/* ========================================= */
-
-serviceGrid.innerHTML += card;
+});
 
 }
+
+/* =====================================================
+POPUP CART
+===================================================== */
+
+let cart = [];
+
+const popupCart =
+document.getElementById(
+"popupCart"
+);
+
+const cartItems =
+document.getElementById(
+"cartItems"
+);
+
+const cartTotal =
+document.getElementById(
+"cartTotal"
+);
+
+const walletAmount =
+document.getElementById(
+"walletAmount"
+);
+
+/* =====================================================
+WALLET BUTTON
+===================================================== */
+
+const walletBtn =
+document.getElementById(
+"walletBtn"
+);
+
+walletBtn.addEventListener(
+"click",
+()=>{
+
+popupCart.style.display =
+"block";
+
+renderCart();
+
+}
+);
+
+/* =====================================================
+CLOSE CART
+===================================================== */
+
+const closeCart =
+document.getElementById(
+"closeCart"
+);
+
+closeCart.addEventListener(
+"click",
+()=>{
+
+popupCart.style.display =
+"none";
+
+}
+);
 
 /* =====================================================
 ADD TO CART
 ===================================================== */
 
-window.addToCart =
-(
-id,
-name,
-price,
-icon
-)=>{
+document.addEventListener(
+"click",
+(event)=>{
 
-let cart =
+if(event.target.classList.contains(
+"addBtn"
+)){
 
-JSON.parse(
-localStorage.getItem(
-"quickpress_cart"
-)
-)
-
-||
-
-[];
-
-/* ========================================= */
-
-const existing =
-cart.find(
-(item)=> item.id === id
+const card =
+event.target.closest(
+".productCard"
 );
 
-/* ========================================= */
+const name =
+card.querySelector("h3")
+.innerText;
 
-if(existing){
+const price =
+card.querySelector(".price")
+.innerText;
 
-existing.quantity += 1;
-
-}
-
-else{
+const emoji =
+card.querySelector(".productImage")
+.innerText;
 
 cart.push({
 
-id,
 name,
-price:Number(price),
-icon,
-quantity:1
+price,
+emoji
 
 });
 
-}
+event.target.innerHTML =
+"Added ✓";
 
-/* ========================================= */
+event.target.style.background =
+"#111827";
 
-localStorage.setItem(
-"quickpress_cart",
-JSON.stringify(cart)
-);
-
-/* ========================================= */
+renderCart();
 
 showToast(
 `${name} added to cart`
 );
 
-};
+}
+
+}
+);
 
 /* =====================================================
-FAVORITES
+RENDER CART
 ===================================================== */
 
-window.toggleFavorite =
-(id)=>{
+function renderCart(){
+
+cartItems.innerHTML = "";
+
+let total = 0;
+
+if(cart.length === 0){
+
+cartItems.innerHTML = `
+
+<div style="
+padding:25px;
+text-align:center;
+font-weight:700;
+color:#6B7280;
+">
+
+Cart is empty 🛒
+
+</div>
+
+`;
+
+}
+
+/* ========================================= */
+
+cart.forEach(item=>{
+
+const numericPrice =
+parseInt(
+item.price.replace("₹","")
+);
+
+total += numericPrice;
+
+cartItems.innerHTML += `
+
+<div class="cartItem">
+
+<div style="
+display:flex;
+align-items:center;
+gap:12px;
+">
+
+<div style="
+font-size:32px;
+">
+
+${item.emoji}
+
+</div>
+
+<div>
+
+<div style="
+font-size:15px;
+font-weight:800;
+">
+
+${item.name}
+
+</div>
+
+<div style="
+font-size:14px;
+color:#16A34A;
+font-weight:700;
+margin-top:3px;
+">
+
+${item.price}
+
+</div>
+
+</div>
+
+</div>
+
+</div>
+
+`;
+
+});
+
+/* ========================================= */
+
+cartTotal.innerText =
+`₹${total}`;
+
+walletAmount.innerText =
+`₹${total}`;
+
+}
+
+/* =====================================================
+CHECKOUT BUTTON
+===================================================== */
+
+const checkoutBtn =
+document.querySelector(
+".checkoutBtn"
+);
+
+checkoutBtn.addEventListener(
+"click",
+()=>{
+
+if(cart.length === 0){
 
 showToast(
-"Added to favorites ❤️"
+"Cart is empty"
 );
 
-};
+return;
+
+}
+
+showToast(
+"Opening checkout 🚀"
+);
+
+setTimeout(()=>{
+
+window.location.href =
+"checkout.html";
+
+},1200);
+
+}
+);
 
 /* =====================================================
-SEARCH
+BOOK PICKUP BUTTON
 ===================================================== */
 
-searchInput.addEventListener(
-"input",
-(e)=>{
-
-const value =
-e.target.value
-.toLowerCase();
-
-/* ========================================= */
-
-const cards =
-document.querySelectorAll(
-".serviceCard"
+const bookBtn =
+document.querySelector(
+".bookBtn"
 );
 
-/* ========================================= */
+bookBtn.addEventListener(
+"click",
+()=>{
 
-cards.forEach((card)=>{
+showToast(
+"Pickup booked successfully 🚀"
+);
 
-const text =
-card.innerText
-.toLowerCase();
+}
+);
 
-/* ========================================= */
+/* =====================================================
+PARTNER BUTTON
+===================================================== */
+
+const partnerBtn =
+document.querySelector(
+".partnerBtn"
+);
+
+partnerBtn.addEventListener(
+"click",
+()=>{
+
+showToast(
+"Opening partners..."
+);
+
+}
+);
+
+/* =====================================================
+FAVORITE BUTTON
+===================================================== */
+
+document.addEventListener(
+"click",
+(event)=>{
+
+if(event.target.classList.contains(
+"favoriteBtn"
+)){
+
+if(event.target.innerHTML === "🤍"){
+
+event.target.innerHTML =
+"❤️";
+
+showToast(
+"Added to wishlist"
+);
+
+}else{
+
+event.target.innerHTML =
+"🤍";
+
+showToast(
+"Removed from wishlist"
+);
+
+}
+
+}
+
+}
+);
+
+/* =====================================================
+BOTTOM NAV
+===================================================== */
+
+const navItems =
+document.querySelectorAll(
+".navItem"
+);
+
+navItems.forEach(item=>{
+
+item.addEventListener(
+"click",
+()=>{
+
+navItems.forEach(nav=>{
+
+nav.classList.remove(
+"activeNav"
+);
+
+});
+
+item.classList.add(
+"activeNav"
+);
+
+}
+);
+
+});
+
+/* =====================================================
+AUTO REVIEW SLIDER
+===================================================== */
+
+const reviewTrack =
+document.querySelector(
+".reviewTrack"
+);
+
+let reviewScroll = 0;
+
+setInterval(()=>{
+
+if(reviewTrack){
+
+reviewScroll += 300;
 
 if(
-text.includes(value)
+
+reviewScroll >=
+
+reviewTrack.scrollWidth -
+
+reviewTrack.clientWidth
+
 ){
 
-card.style.display =
-"block";
+reviewScroll = 0;
 
 }
 
-else{
+reviewTrack.scrollTo({
 
-card.style.display =
-"none";
+left:reviewScroll,
 
-}
+behavior:"smooth"
 
 });
 
 }
-);
+
+},3200);
 
 /* =====================================================
 TOAST
@@ -372,22 +726,15 @@ TOAST
 function showToast(message){
 
 const toast =
-document.createElement(
-"div"
-);
+document.createElement("div");
 
-/* ========================================= */
-
-toast.innerHTML =
-message;
-
-/* ========================================= */
+toast.innerHTML = message;
 
 toast.style.position =
 "fixed";
 
 toast.style.bottom =
-"120px";
+"100px";
 
 toast.style.left =
 "50%";
@@ -399,166 +746,74 @@ toast.style.background =
 "#111827";
 
 toast.style.color =
-"#FFD400";
+"#fff";
 
 toast.style.padding =
-"16px 24px";
+"14px 22px";
 
 toast.style.borderRadius =
 "18px";
 
+toast.style.fontWeight =
+"700";
+
 toast.style.fontSize =
 "14px";
-
-toast.style.fontWeight =
-"900";
 
 toast.style.zIndex =
 "99999";
 
 toast.style.boxShadow =
-"0 10px 30px rgba(0,0,0,0.18)";
-
-/* ========================================= */
+"0 8px 24px rgba(0,0,0,0.18)";
 
 document.body.appendChild(
 toast
 );
 
-/* ========================================= */
-
 setTimeout(()=>{
 
 toast.remove();
 
-},2000);
+},2500);
 
 }
 
 /* =====================================================
-LIVE NOTIFICATIONS
-===================================================== */
-
-onSnapshot(
-
-collection(
-db,
-"notifications"
-),
-
-(snapshot)=>{
-
-console.log(
-"Notifications:",
-snapshot.size
-);
-
-}
-
-/* END */
-
-);
-
-/* =====================================================
-LIVE OFFERS
-===================================================== */
-
-onSnapshot(
-
-collection(
-db,
-"offers"
-),
-
-(snapshot)=>{
-
-console.log(
-"Offers:",
-snapshot.size
-);
-
-}
-
-/* END */
-
-);
-
-/* =====================================================
-QUICK MODE
-===================================================== */
-
-const switchBtn =
-document.querySelector(
-".switch"
-);
-
-/* ========================================= */
-
-let quickMode =
-true;
-
-/* ========================================= */
-
-switchBtn.addEventListener(
-"click",
-()=>{
-
-quickMode = !quickMode;
-
-/* ========================================= */
-
-if(quickMode){
-
-switchBtn.style.background =
-"#16A34A";
-
-showToast(
-"Quick Mode ON ⚡"
-);
-
-}
-
-else{
-
-switchBtn.style.background =
-"#D1D5DB";
-
-showToast(
-"Quick Mode OFF"
-);
-
-}
-
-}
-);
-
-/* =====================================================
-ONLINE STATUS
+HEADER SCROLL EFFECT
 ===================================================== */
 
 window.addEventListener(
-"offline",
+"scroll",
 ()=>{
 
-showToast(
-"Internet disconnected"
+const hero =
+document.querySelector(
+".hero"
 );
+
+if(window.scrollY > 10){
+
+hero.style.boxShadow =
+"0 8px 22px rgba(0,0,0,0.08)";
+
+}else{
+
+hero.style.boxShadow =
+"none";
 
 }
-);
+
+});
 
 /* =====================================================
-WELCOME
+PAGE LOAD
 ===================================================== */
 
-showToast(
-`Welcome ${userName} 🚀`
-);
+window.addEventListener(
+"load",
+()=>{
 
-/* =====================================================
-READY
-===================================================== */
+document.body.style.opacity =
+"1";
 
-console.log(
-"QuickPress Premium Home Ready"
-);
+});
