@@ -3,1015 +3,39 @@
 
 <head>
 
-<meta charset="UTF-8">
+<meta charset="UTF-8" />
 
 <meta
 name="viewport"
-content="width=device-width, initial-scale=1.0">
+content="width=device-width, initial-scale=1.0"
+/>
 
 <title>
 QuickPress
 </title>
 
 <!-- =====================================================
-FONTS
+FONT AWESOME
 ===================================================== -->
-
-<link rel="preconnect"
-href="https://fonts.googleapis.com">
-
-<link rel="preconnect"
-href="https://fonts.gstatic.com"
-crossorigin>
 
 <link
-href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap"
-rel="stylesheet">
+rel="stylesheet"
+href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css"
+/>
 
 <!-- =====================================================
-ICONS
+GOOGLE FONT
 ===================================================== -->
 
-<link rel="stylesheet"
-href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css"/>
-
-<style>
-
-/* =====================================================
-RESET
-===================================================== */
-
-*{
-margin:0;
-padding:0;
-box-sizing:border-box;
-font-family:'Inter',sans-serif;
--webkit-tap-highlight-color:transparent;
-}
-
-body{
-background:#F6F7FB;
-overflow-x:hidden;
-color:#111827;
-padding-bottom:110px;
-}
-
-/* =====================================================
-HEADER
-===================================================== */
-
-.hero{
-
-background:
-linear-gradient(
-135deg,
-#FFD633 0%,
-#FFE98A 100%
-);
-
-padding:14px 14px 22px;
-
-border-bottom-left-radius:28px;
-border-bottom-right-radius:28px;
-
-position:sticky;
-
-top:0;
-
-z-index:999;
-
-overflow:hidden;
-
-}
-
-/* =====================================================
-TOPBAR
-===================================================== */
-
-.topBar{
-
-display:flex;
-
-justify-content:space-between;
-
-align-items:center;
-
-gap:10px;
-
-}
-
-/* =====================================================
-LEFT HEADER
-===================================================== */
-
-.leftHeader{
-
-flex:1;
-
-min-width:0;
-
-}
-
-.logoText{
-
-font-size:28px;
-
-font-weight:900;
-
-line-height:1;
-
-letter-spacing:-1px;
-
-}
-
-.address{
-
-margin-top:6px;
-
-font-size:13px;
-
-font-weight:700;
-
-color:#4B5563;
-
-overflow:hidden;
-
-white-space:nowrap;
-
-text-overflow:ellipsis;
-
-}
-
-/* =====================================================
-TOP ACTIONS
-===================================================== */
-
-.topActions{
-
-display:flex;
-
-align-items:center;
-
-gap:8px;
-
-}
-
-/* =====================================================
-CART BUTTON
-===================================================== */
-
-.cartBtn{
-
-width:42px;
-height:42px;
-
-border:none;
-
-border-radius:14px;
-
-background:#fff;
-
-display:flex;
-
-align-items:center;
-justify-content:center;
-
-font-size:16px;
-
-position:relative;
-
-box-shadow:
-0 5px 14px rgba(0,0,0,0.06);
-
-cursor:pointer;
-
-color:#111827;
-
-}
-
-.cartBtn span{
-
-position:absolute;
-
-top:-5px;
-right:-5px;
-
-width:18px;
-height:18px;
-
-border-radius:50%;
-
-background:#16A34A;
-
-color:#fff;
-
-font-size:10px;
-
-font-weight:800;
-
-display:flex;
-
-align-items:center;
-justify-content:center;
-
-}
-
-/* =====================================================
-PROFILE
-===================================================== */
-
-.profileBtn{
-
-width:42px;
-height:42px;
-
-border:none;
-
-border-radius:14px;
-
-overflow:hidden;
-
-background:#fff;
-
-box-shadow:
-0 5px 14px rgba(0,0,0,0.06);
-
-cursor:pointer;
-
-}
-
-.profileImg{
-
-width:100%;
-height:100%;
-
-object-fit:cover;
-
-}
-
-/* =====================================================
-SEARCH
-===================================================== */
-
-.searchWrap{
-
-margin-top:16px;
-
-}
-
-.searchBar{
-
-height:54px;
-
-background:#fff;
-
-border-radius:18px;
-
-display:flex;
-
-align-items:center;
-
-padding:0 16px;
-
-box-shadow:
-0 8px 20px rgba(0,0,0,0.06);
-
-}
-
-.searchIcon{
-
-font-size:18px;
-
-color:#16A34A;
-
-}
-
-.searchBar input{
-
-flex:1;
-
-border:none;
-
-outline:none;
-
-padding:0 12px;
-
-font-size:15px;
-
-font-weight:600;
-
-background:none;
-
-}
-
-.micBtn{
-
-width:42px;
-height:42px;
-
-display:flex;
-
-align-items:center;
-justify-content:center;
-
-border-left:1px solid #F3F4F6;
-
-font-size:18px;
-
-color:#16A34A;
-
-}
-
-/* =====================================================
-CATEGORY
-===================================================== */
-
-.categoryStrip{
-
-display:flex;
-
-overflow-x:auto;
-
-gap:10px;
-
-padding:18px 14px;
-
-scrollbar-width:none;
-
-}
-
-.categoryStrip::-webkit-scrollbar{
-
-display:none;
-
-}
-
-.categoryCard{
-
-min-width:max-content;
-
-height:40px;
-
-padding:0 18px;
-
-border-radius:999px;
-
-background:#fff;
-
-display:flex;
-
-align-items:center;
-justify-content:center;
-
-font-size:13px;
-
-font-weight:700;
-
-box-shadow:
-0 4px 12px rgba(0,0,0,0.05);
-
-cursor:pointer;
-
-white-space:nowrap;
-
-transition:0.3s;
-
-}
-
-.activeCategory{
-
-background:#111827;
-
-color:#fff;
-
-}
-
-/* =====================================================
-BANNER
-===================================================== */
-
-.deliveryBanner{
-
-margin:0 14px;
-
-background:
-linear-gradient(
-135deg,
-#111827,
-#1F2937
-);
-
-border-radius:24px;
-
-padding:22px;
-
-color:#fff;
-
-}
-
-.fastBadge{
-
-display:inline-flex;
-
-align-items:center;
-
-gap:8px;
-
-height:34px;
-
-padding:0 14px;
-
-border-radius:999px;
-
-background:#FFD633;
-
-color:#111827;
-
-font-size:11px;
-
-font-weight:900;
-
-margin-bottom:14px;
-
-}
-
-.deliveryBanner h2{
-
-font-size:28px;
-
-line-height:1.1;
-
-font-weight:900;
-
-}
-
-.deliveryBanner p{
-
-margin-top:10px;
-
-font-size:14px;
-
-line-height:1.7;
-
-opacity:0.92;
-
-max-width:240px;
-
-}
-
-.bookBtn{
-
-margin-top:18px;
-
-height:48px;
-
-padding:0 20px;
-
-border:none;
-
-border-radius:16px;
-
-background:#16A34A;
-
-color:#fff;
-
-font-size:14px;
-
-font-weight:900;
-
-cursor:pointer;
-
-}
-
-/* =====================================================
-TITLE
-===================================================== */
-
-.sectionTitle{
-
-padding:24px 14px 14px;
-
-font-size:22px;
-
-font-weight:900;
-
-}
-
-/* =====================================================
-PRODUCT GRID
-===================================================== */
-
-.productGrid{
-
-display:grid;
-
-grid-template-columns:repeat(2,1fr);
-
-gap:12px;
-
-padding:0 14px;
-
-}
-
-/* =====================================================
-PRODUCT CARD
-===================================================== */
-
-.productCard{
-
-background:#fff;
-
-border-radius:22px;
-
-overflow:hidden;
-
-box-shadow:
-0 4px 14px rgba(0,0,0,0.05);
-
-position:relative;
-
-}
-
-.favoriteBtn{
-
-position:absolute;
-
-right:10px;
-top:10px;
-
-width:32px;
-height:32px;
-
-border-radius:50%;
-
-background:#fff;
-
-display:flex;
-
-align-items:center;
-justify-content:center;
-
-font-size:14px;
-
-box-shadow:
-0 5px 12px rgba(0,0,0,0.06);
-
-z-index:2;
-
-cursor:pointer;
-
-}
-
-.productImage{
-
-height:120px;
-
-background:#F3F4F6;
-
-overflow:hidden;
-
-}
-
-.productImage img{
-
-width:100%;
-height:100%;
-
-object-fit:cover;
-
-}
-
-.productInfo{
-
-padding:14px;
-
-}
-
-.productInfo h3{
-
-font-size:15px;
-
-font-weight:800;
-
-margin-bottom:4px;
-
-}
-
-.productInfo p{
-
-font-size:12px;
-
-line-height:1.6;
-
-color:#6B7280;
-
-}
-
-.productBottom{
-
-margin-top:12px;
-
-display:flex;
-
-justify-content:space-between;
-
-align-items:center;
-
-}
-
-.price{
-
-font-size:20px;
-
-font-weight:900;
-
-}
-
-.addBtn{
-
-height:38px;
-
-padding:0 16px;
-
-border:none;
-
-border-radius:12px;
-
-background:#16A34A;
-
-color:#fff;
-
-font-size:12px;
-
-font-weight:900;
-
-cursor:pointer;
-
-}
-
-/* =====================================================
-REVIEWS
-===================================================== */
-
-.reviewSection{
-
-padding:8px 14px 20px;
-
-}
-
-.reviewTrack{
-
-display:flex;
-
-overflow-x:auto;
-
-gap:12px;
-
-scrollbar-width:none;
-
-}
-
-.reviewTrack::-webkit-scrollbar{
-
-display:none;
-
-}
-
-.reviewCard{
-
-min-width:240px;
-
-background:#fff;
-
-padding:18px;
-
-border-radius:20px;
-
-box-shadow:
-0 5px 14px rgba(0,0,0,0.05);
-
-font-size:14px;
-
-line-height:1.7;
-
-}
-
-.reviewCard b{
-
-display:block;
-
-margin-top:10px;
-
-}
-
-/* =====================================================
-PARTNER
-===================================================== */
-
-.partnerSection{
-
-padding:8px 14px 24px;
-
-}
-
-.partnerBanner{
-
-background:
-linear-gradient(
-135deg,
-#111827,
-#1F2937
-);
-
-padding:24px;
-
-border-radius:24px;
-
-color:#fff;
-
-}
-
-.partnerBanner h2{
-
-font-size:26px;
-
-font-weight:900;
-
-}
-
-.partnerBanner p{
-
-margin-top:10px;
-
-line-height:1.7;
-
-opacity:0.9;
-
-font-size:14px;
-
-}
-
-.partnerBtn{
-
-margin-top:18px;
-
-height:48px;
-
-padding:0 20px;
-
-border:none;
-
-border-radius:16px;
-
-background:#FFD633;
-
-font-size:14px;
-
-font-weight:900;
-
-}
-
-/* =====================================================
-POPUP CART
-===================================================== */
-
-.popupCart{
-
-position:fixed;
-
-left:14px;
-right:14px;
-bottom:92px;
-
-background:#fff;
-
-border-radius:26px;
-
-padding:20px;
-
-box-shadow:
-0 16px 40px rgba(0,0,0,0.18);
-
-z-index:9999;
-
-display:none;
-
-max-height:70vh;
-
-overflow:auto;
-
-}
-
-.popupCartTop{
-
-display:flex;
-
-justify-content:space-between;
-
-align-items:center;
-
-margin-bottom:16px;
-
-}
-
-.popupCartTitle{
-
-font-size:20px;
-
-font-weight:900;
-
-}
-
-.closeCart{
-
-width:38px;
-height:38px;
-
-border:none;
-
-border-radius:12px;
-
-background:#F3F4F6;
-
-font-size:18px;
-
-cursor:pointer;
-
-}
-
-.cartItem{
-
-display:flex;
-
-justify-content:space-between;
-
-padding:14px 0;
-
-border-bottom:1px solid #F3F4F6;
-
-}
-
-.cartTotal{
-
-display:flex;
-
-justify-content:space-between;
-
-margin-top:20px;
-
-font-size:20px;
-
-font-weight:900;
-
-}
-
-.checkoutBtn{
-
-width:100%;
-
-height:52px;
-
-margin-top:18px;
-
-border:none;
-
-border-radius:16px;
-
-background:#16A34A;
-
-color:#fff;
-
-font-size:15px;
-
-font-weight:900;
-
-}
-
-/* =====================================================
-BOTTOM NAV
-===================================================== */
-
-.bottomNav{
-
-position:fixed;
-
-left:0;
-right:0;
-bottom:0;
-
-height:74px;
-
-background:#fff;
-
-display:flex;
-
-justify-content:space-around;
-
-align-items:center;
-
-box-shadow:
-0 -4px 16px rgba(0,0,0,0.08);
-
-z-index:999;
-
-}
-
-.navItem{
-
-text-align:center;
-
-font-size:11px;
-
-font-weight:700;
-
-color:#6B7280;
-
-cursor:pointer;
-
-}
-
-.navItem i{
-
-display:block;
-
-font-size:20px;
-
-margin-bottom:5px;
-
-}
-
-.activeNav{
-
-color:#16A34A;
-
-}
-
-/* =====================================================
-FOOTER
-===================================================== */
-
-.footer{
-
-padding:10px 20px 120px;
-
-text-align:center;
-
-font-size:13px;
-
-font-weight:700;
-
-color:#6B7280;
-
-}
-
-/* =====================================================
-DESKTOP
-===================================================== */
-
-@media(min-width:900px){
-
-.hero{
-
-padding:18px 40px 28px;
-
-}
-
-.searchWrap,
-.categoryStrip,
-.productGrid,
-.reviewSection,
-.partnerSection{
-
-padding-left:40px;
-padding-right:40px;
-
-}
-
-.productGrid{
-
-grid-template-columns:repeat(4,1fr);
-
-}
-
-.sectionTitle{
-
-padding-left:40px;
-
-}
-
-.popupCart{
-
-width:380px;
-
-left:auto;
-
-right:30px;
-
-}
-
-}
-
-</style>
+<link
+href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700;800;900&display=swap"
+rel="stylesheet"
+/>
+
+<link
+rel="stylesheet"
+href="style.css"
+/>
 
 </head>
 
@@ -1021,35 +45,33 @@ right:30px;
 HEADER
 ===================================================== -->
 
-<div class="hero">
+<header class="hero">
 
-<div class="topBar">
+<div class="heroTop">
 
-<div class="leftHeader">
+<div class="logoSection">
 
-<div class="logoText">
+<h1 class="logo">
 QuickPress
-</div>
+</h1>
 
 <div
-class="address"
+class="liveLocation"
 id="locationText">
 
-📍 Detecting location...
+📍 Detecting live location...
 
 </div>
 
 </div>
 
-<div class="topActions">
-
-<!-- CART -->
+<div class="heroActions">
 
 <button
-class="cartBtn"
+class="walletBtn"
 id="walletBtn">
 
-<i class="fa-solid fa-bag-shopping"></i>
+<i class="fa-solid fa-cart-shopping"></i>
 
 <span id="cartCount">
 0
@@ -1057,13 +79,10 @@ id="walletBtn">
 
 </button>
 
-<!-- PROFILE -->
+<button
+class="profileBtn">
 
-<button class="profileBtn">
-
-<img
-src="https://ui-avatars.com/api/?name=Himanshu&background=111827&color=fff"
-class="profileImg">
+H
 
 </button>
 
@@ -1071,7 +90,9 @@ class="profileImg">
 
 </div>
 
-<!-- SEARCH -->
+<!-- =====================================================
+SEARCH
+===================================================== -->
 
 <div class="searchWrap">
 
@@ -1081,31 +102,30 @@ class="profileImg">
 
 <input
 type="text"
-placeholder='Search "shirt wash"'>
+placeholder='Search "shirt wash"'
+/>
 
-<div class="micBtn">
+<button class="micBtn">
 
 <i class="fa-solid fa-microphone"></i>
 
-</div>
+</button>
 
 </div>
 
 </div>
 
-</div>
+</header>
 
 <!-- =====================================================
-CATEGORY
+CATEGORY SECTION
 ===================================================== -->
 
-<div class="categoryStrip">
+<section class="categorySection">
+
+<div class="categoryScroll">
 
 <div class="categoryCard activeCategory">
-All
-</div>
-
-<div class="categoryCard">
 Iron
 </div>
 
@@ -1118,32 +138,44 @@ Steam
 </div>
 
 <div class="categoryCard">
-Sneakers
+Shoes
 </div>
 
 <div class="categoryCard">
-Blankets
+Blanket
 </div>
 
 <div class="categoryCard">
 Premium
 </div>
 
+<div class="categoryCard">
+Dry Clean
 </div>
+
+<div class="categoryCard">
+Curtain
+</div>
+
+<div class="categoryCard">
+Bedsheet
+</div>
+
+</div>
+
+</section>
 
 <!-- =====================================================
-BANNER
+FAST DELIVERY BANNER
 ===================================================== -->
 
-<div class="deliveryBanner">
+<section class="deliveryBanner">
 
-<div class="fastBadge">
-⚡ EXPRESS DELIVERY
-</div>
+<div class="bannerContent">
 
 <h2>
-Premium Laundry <br>
-Delivered Fast
+Premium Laundry
+Delivered Fast ⚡
 </h2>
 
 <p>
@@ -1156,60 +188,149 @@ Book Pickup
 
 </div>
 
+</section>
+
 <!-- =====================================================
-PRODUCTS
+CUSTOMER REVIEWS
 ===================================================== -->
+
+<section class="reviewSection">
+
+<div class="reviewHeader">
+
+<h2>
+Customer Reviews
+</h2>
+
+</div>
+
+<div class="reviewTrack">
+
+<div class="reviewCard">
+
+<div class="reviewTop">
+
+<img
+src="https://i.pravatar.cc/100?img=1"
+/>
+
+<div>
+
+<h4>
+Rohit Sharma
+</h4>
+
+<span>
+Kasganj
+</span>
+
+</div>
+
+</div>
+
+<p>
+Amazing ironing quality and very fast pickup service.
+</p>
+
+<div class="stars">
+★★★★★
+</div>
+
+</div>
+
+<div class="reviewCard">
+
+<div class="reviewTop">
+
+<img
+src="https://i.pravatar.cc/100?img=2"
+/>
+
+<div>
+
+<h4>
+Muskan Ali
+</h4>
+
+<span>
+Aligarh
+</span>
+
+</div>
+
+</div>
+
+<p>
+Packaging and steam press quality is premium level.
+</p>
+
+<div class="stars">
+★★★★★
+</div>
+
+</div>
+
+<div class="reviewCard">
+
+<div class="reviewTop">
+
+<img
+src="https://i.pravatar.cc/100?img=3"
+/>
+
+<div>
+
+<h4>
+Deepak Singh
+</h4>
+
+<span>
+Etah
+</span>
+
+</div>
+
+</div>
+
+<p>
+Pickup arrived within 12 minutes. Very professional.
+</p>
+
+<div class="stars">
+★★★★★
+</div>
+
+</div>
+
+</div>
+
+</section>
+
+<!-- =====================================================
+TRENDING SERVICES
+===================================================== -->
+
+<section class="trendingSection">
 
 <h2 class="sectionTitle">
 Trending Services
 </h2>
 
 <div class="productGrid">
+
+<!-- FIREBASE PRODUCTS -->
+
 </div>
+
+</section>
 
 <!-- =====================================================
-REVIEWS
+TOP PARTNERS
 ===================================================== -->
 
-<h2 class="sectionTitle">
-Customer Reviews
-</h2>
+<section class="partnerBanner">
 
-<div class="reviewSection">
-
-<div class="reviewTrack">
-
-<div class="reviewCard">
-⭐ 4.9 • Amazing ironing quality and fast pickup.
-<b>- Rohit Sharma</b>
-</div>
-
-<div class="reviewCard">
-⭐ 5.0 • Premium service with professional packaging.
-<b>- Anjali Verma</b>
-</div>
-
-<div class="reviewCard">
-⭐ 4.8 • Best laundry app experience in Kasganj.
-<b>- Faizan Khan</b>
-</div>
-
-<div class="reviewCard">
-⭐ 5.0 • Delivery boy arrived in 10 mins only.
-<b>- Armaan Malik</b>
-</div>
-
-</div>
-
-</div>
-
-<!-- =====================================================
-PARTNERS
-===================================================== -->
-
-<div class="partnerSection">
-
-<div class="partnerBanner">
+<div class="partnerContent">
 
 <h2>
 🏆 Top Rated Partners
@@ -1225,7 +346,7 @@ Explore Partners
 
 </div>
 
-</div>
+</section>
 
 <!-- =====================================================
 POPUP CART
@@ -1235,69 +356,100 @@ POPUP CART
 class="popupCart"
 id="popupCart">
 
-<div class="popupCartTop">
+<div class="cartHeader">
 
-<div class="popupCartTitle">
+<h3>
 Your Cart
-</div>
+</h3>
 
-<button
-class="closeCart"
-id="closeCart">
-
-×
-
+<button id="closeCart">
+✕
 </button>
 
 </div>
 
-<div id="cartItems"></div>
+<div
+class="cartItems"
+id="cartItems">
 
-<div class="cartTotal">
+</div>
 
-<span>Total</span>
+<div class="cartFooter">
 
-<span id="cartTotal">
-₹0
+<div class="totalRow">
+
+<span>
+Total
 </span>
+
+<h2 id="cartTotal">
+₹0
+</h2>
 
 </div>
 
 <button class="checkoutBtn">
-Proceed Checkout
+Proceed To Checkout
 </button>
 
 </div>
 
+</div>
+
 <!-- =====================================================
-BOTTOM NAV
+BOTTOM NAVBAR
 ===================================================== -->
 
 <div class="bottomNav">
 
-<div class="navItem activeNav">
+<div class="navItem activeNav homeNav">
+
 <i class="fa-solid fa-house"></i>
+
+<span>
 Home
+</span>
+
 </div>
 
-<div class="navItem">
-<i class="fa-solid fa-box"></i>
+<div class="navItem ordersNav">
+
+<i class="fa-solid fa-bag-shopping"></i>
+
+<span>
 Orders
+</span>
+
 </div>
 
-<div class="navItem">
-<i class="fa-solid fa-table-cells"></i>
+<div class="navItem servicesNav">
+
+<i class="fa-solid fa-table-cells-large"></i>
+
+<span>
 Services
+</span>
+
 </div>
 
-<div class="navItem">
+<div class="navItem walletNav">
+
 <i class="fa-solid fa-wallet"></i>
+
+<span>
 Wallet
+</span>
+
 </div>
 
-<div class="navItem">
+<div class="navItem profileNav">
+
 <i class="fa-regular fa-user"></i>
+
+<span>
 Profile
+</span>
+
 </div>
 
 </div>
@@ -1306,11 +458,22 @@ Profile
 FOOTER
 ===================================================== -->
 
-<div class="footer">
-Made in Uttar Pradesh • Crafted by Himanshu Baghel
-</div>
+<footer class="footer">
 
-<script type="module" src="index.js"></script>
+Made in Uttar Pradesh • Crafted by Himanshu Baghel
+
+</footer>
+
+<!-- =====================================================
+JS
+===================================================== -->
+
+<script
+type="module"
+src="index.js">
+
+</script>
 
 </body>
+
 </html>
