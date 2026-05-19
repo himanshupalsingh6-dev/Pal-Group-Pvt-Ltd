@@ -1,315 +1,227 @@
-<!-- =========================================================
-FILE : services.html
-QUICKPRESS PREMIUM SERVICES PAGE
-========================================================= -->
-
 <!DOCTYPE html>
-
 <html lang="en">
-
 <head>
-
 <meta charset="UTF-8">
+<title>Services - QuickPress</title>
+<meta name="viewport" content="width=device-width, initial-scale=1">
 
-<meta
-name="viewport"
-content="width=device-width, initial-scale=1.0">
+<style>
+:root{--yellow:#FFD400;--bg:#f6f7f9}
+body{margin:0;font-family:Segoe UI;background:var(--bg)}
 
-<title>
-QuickPress Services
-</title>
+/* HEADER */
+.header{
+  display:flex;
+  justify-content:space-between;
+  padding:12px;
+  background:#fff;
+  box-shadow:0 2px 10px rgba(0,0,0,.1);
+}
+.cart{background:var(--yellow);padding:6px 12px;border-radius:20px}
 
-<!-- =========================================================
-GOOGLE FONT
-========================================================= -->
+/* TABS */
+.tabs{
+  display:flex;
+  overflow:auto;
+  gap:10px;
+  padding:10px;
+}
+.tab{
+  padding:8px 14px;
+  background:#fff;
+  border-radius:20px;
+  cursor:pointer;
+}
+.active{background:var(--yellow);font-weight:bold}
 
-<link
-href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800;900&display=swap"
-rel="stylesheet">
+/* ITEMS */
+.list{padding:12px}
+.item{
+  display:flex;
+  justify-content:space-between;
+  background:#fff;
+  padding:14px;
+  border-radius:12px;
+  margin-bottom:10px;
+}
+.qty{
+  display:flex;
+  align-items:center;
+  gap:6px;
+}
+.btn{
+  width:28px;
+  height:28px;
+  border:none;
+  background:var(--yellow);
+  border-radius:6px;
+}
 
-<!-- =========================================================
-FONT AWESOME
-========================================================= -->
-
-<link
-rel="stylesheet"
-href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css"/>
-
-<!-- =========================================================
-CSS
-========================================================= -->
-
-<link
-rel="stylesheet"
-href="services.css">
-
+/* BOTTOM */
+.bottom{
+  position:fixed;
+  bottom:0;
+  left:0;
+  right:0;
+  background:#fff;
+  padding:12px;
+  display:flex;
+  justify-content:space-between;
+  box-shadow:0 -2px 10px rgba(0,0,0,.1);
+}
+.checkout{
+  background:var(--yellow);
+  padding:10px 18px;
+  border:none;
+  border-radius:8px;
+  font-weight:bold;
+}
+</style>
 </head>
 
 <body>
 
-<!-- =========================================================
-HEADER
-========================================================= -->
-
-<header class="servicesHeader">
-
-<div class="headerTop">
-
-<div>
-
-<h1 class="pageTitle">
-Services
-</h1>
-
-<div
-class="locationText"
-id="locationText">
-
-📍 Detecting live location...
-
+<!-- HEADER -->
+<div class="header">
+  <div onclick="goBack()">← Back</div>
+  <div class="cart">🛒 <span id="count">0</span></div>
 </div>
 
+<!-- TABS -->
+<div class="tabs" id="tabs"></div>
+
+<!-- ITEMS -->
+<div class="list" id="list"></div>
+
+<!-- BOTTOM -->
+<div class="bottom">
+  <div>
+    <b id="items">0 items</b><br>
+    ₹<span id="total">0</span>
+  </div>
+  <button class="checkout" onclick="goCheckout()">Checkout</button>
 </div>
 
-<div class="headerButtons">
-
-<button class="cartBtn">
-
-<i class="fa-solid fa-cart-shopping"></i>
-
-<span id="cartCount">
-0
-</span>
-
-</button>
-
-<button
-class="profileBtn"
-onclick="window.location.href='profile.html'">
-
-H
-
-</button>
-
-</div>
-
-</div>
-
-<!-- SEARCH -->
-
-<div class="searchBox">
-
-<i class="fa-solid fa-magnifying-glass"></i>
-
-<input
-type="text"
-id="searchInput"
-placeholder='Search "shirt wash"'>
-
-</div>
-
-</header>
-
-<!-- =========================================================
-CATEGORY FILTER
-========================================================= -->
-
-<section class="categorySection">
-
-<div class="categoryScroll">
-
-<button
-class="categoryBtn active"
-data-category="all">
-
-All
-
-</button>
-
-<button
-class="categoryBtn"
-data-category="iron">
-
-Iron
-
-</button>
-
-<button
-class="categoryBtn"
-data-category="wash">
-
-Wash
-
-</button>
-
-<button
-class="categoryBtn"
-data-category="steam">
-
-Steam
-
-</button>
-
-<button
-class="categoryBtn"
-data-category="shoes">
-
-Shoes
-
-</button>
-
-<button
-class="categoryBtn"
-data-category="blanket">
-
-Blanket
-
-</button>
-
-<button
-class="categoryBtn"
-data-category="premium">
-
-Premium
-
-</button>
-
-</div>
-
-</section>
-
-<!-- =========================================================
-SERVICES GRID
-========================================================= -->
-
-<section class="servicesSection">
-
-<div
-class="servicesGrid"
-id="servicesGrid">
-
-<!-- FIREBASE DATA -->
-
-</div>
-
-</section>
-
-<!-- =========================================================
-POPUP CART
-========================================================= -->
-
-<div
-class="popupCart"
-id="popupCart">
-
-<div class="popupContent">
-
-<div class="popupTop">
-
-<h3>
-Your Cart
-</h3>
-
-<button
-class="closePopup"
-id="closePopup">
-
-×
-
-</button>
-
-</div>
-
-<div
-class="cartItems"
-id="cartItems">
-
-No items added
-
-</div>
-
-<button class="checkoutBtn">
-Proceed To Checkout
-</button>
-
-</div>
-
-</div>
-
-<!-- =========================================================
-TOAST
-========================================================= -->
-
-<div
-class="toast"
-id="toast">
-
-Added To Cart
-
-</div>
-
-<!-- =========================================================
-BOTTOM NAVBAR
-========================================================= -->
-
-<nav class="bottomNav">
-
-<button
-class="navItem"
-onclick="window.location.href='index.html'">
-
-<i class="fa-solid fa-house"></i>
-<span>Home</span>
-
-</button>
-
-<button
-class="navItem"
-onclick="window.location.href='orders.html'">
-
-<i class="fa-solid fa-bag-shopping"></i>
-<span>Orders</span>
-
-</button>
-
-<button
-class="navItem active">
-
-<i class="fa-solid fa-table-cells-large"></i>
-<span>Services</span>
-
-</button>
-
-<button
-class="navItem"
-onclick="window.location.href='wallet.html'">
-
-<i class="fa-solid fa-wallet"></i>
-<span>Wallet</span>
-
-</button>
-
-<button
-class="navItem"
-onclick="window.location.href='profile.html'">
-
-<i class="fa-regular fa-user"></i>
-<span>Profile</span>
-
-</button>
-
-</nav>
-
-<!-- =========================================================
-JS
-========================================================= -->
-
-<script
-type="module"
-src="services.js">
+<script>
+
+/* 🔥 SERVICES DATA */
+const services = {
+  ironing:[
+    {name:"Shirt",price:10},
+    {name:"Pant",price:15},
+    {name:"Saree",price:20}
+  ],
+  dry:[
+    {name:"Coat",price:80},
+    {name:"Blazer",price:100},
+    {name:"Blanket",price:120}
+  ],
+  washing:[
+    {name:"Clothes (1kg)",price:50},
+    {name:"Bedsheet",price:40}
+  ],
+  steam:[
+    {name:"Silk Dress",price:60},
+    {name:"Party Wear",price:70}
+  ],
+  express:[
+    {name:"Same Day Service",price:50}
+  ]
+};
+
+let current = localStorage.getItem("service") || "ironing";
+let cart = JSON.parse(localStorage.getItem("cart")||"[]");
+
+/* LOAD TABS */
+function loadTabs(){
+  let html="";
+  for(let key in services){
+    html+=`<div class="tab ${key==current?'active':''}" onclick="changeTab('${key}')">${key}</div>`;
+  }
+  tabs.innerHTML=html;
+}
+
+/* CHANGE TAB */
+function changeTab(tab){
+  current=tab;
+  loadTabs();
+  loadItems();
+}
+
+/* LOAD ITEMS */
+function loadItems(){
+  let data=services[current];
+  let html="";
+
+  data.forEach(item=>{
+    let found = cart.find(c=>c.name==item.name);
+    let qty = found ? found.qty : 0;
+
+    html+=`
+    <div class="item">
+      <div>${item.name}<br>₹${item.price}</div>
+      <div class="qty">
+        <button class="btn" onclick="update('${item.name}',${item.price},-1)">-</button>
+        <span>${qty}</span>
+        <button class="btn" onclick="update('${item.name}',${item.price},1)">+</button>
+      </div>
+    </div>
+    `;
+  });
+
+  list.innerHTML=html;
+}
+
+/* UPDATE CART */
+function update(name,price,delta){
+
+  let item = cart.find(c=>c.name==name);
+
+  if(item){
+    item.qty+=delta;
+    if(item.qty<=0){
+      cart = cart.filter(c=>c.name!=name);
+    }
+  }else if(delta>0){
+    cart.push({name,price,qty:1});
+  }
+
+  localStorage.setItem("cart",JSON.stringify(cart));
+
+  loadItems();
+  updateTotal();
+}
+
+/* TOTAL */
+function updateTotal(){
+  let total=0,items=0;
+
+  cart.forEach(i=>{
+    total+=i.price*i.qty;
+    items+=i.qty;
+  });
+
+  document.getElementById("total").innerText=total;
+  document.getElementById("items").innerText=items+" items";
+  document.getElementById("count").innerText=items;
+}
+
+/* NAV */
+function goBack(){location.href="index.html"}
+function goCheckout(){
+  if(cart.length==0){
+    alert("Add items first");
+    return;
+  }
+  location.href="checkout.html";
+}
+
+/* INIT */
+loadTabs();
+loadItems();
+updateTotal();
 
 </script>
 
 </body>
-
 </html>
