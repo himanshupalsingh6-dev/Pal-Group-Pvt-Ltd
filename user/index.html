@@ -543,22 +543,19 @@ font-weight:900;
 PRODUCT GRID
 ===================================================== */
 
-<!-- =====================================================
-TRENDING SERVICES
-REPLACE OLD PRODUCT GRID WITH THIS
-===================================================== -->
+.productGrid{
 
-<h2 class="sectionTitle">
-Trending Services
-</h2>
+display:grid;
 
-<div
-class="productGrid"
-id="productGrid">
+grid-template-columns:repeat(2,1fr);
 
-<!-- Firebase Products Auto Load -->
+gap:12px;
 
-</div> =====================================================
+padding:0 14px;
+
+}
+
+/* =====================================================
 PRODUCT CARD
 ===================================================== */
 
@@ -1333,72 +1330,33 @@ Proceed Checkout
 <!-- =====================================================
 BOTTOM NAV
 ===================================================== -->
-<!-- =====================================================
-WORKING PREMIUM BOTTOM NAVBAR
-REPLACE OLD NAVBAR WITH THIS
-===================================================== -->
 
 <div class="bottomNav">
 
-<button
-class="navItem activeNav"
-data-page="home">
-
+<div class="navItem activeNav">
 <i class="fa-solid fa-house"></i>
-
-<span>
 Home
-</span>
+</div>
 
-</button>
-
-<button
-class="navItem"
-data-page="orders">
-
+<div class="navItem">
 <i class="fa-solid fa-box"></i>
-
-<span>
 Orders
-</span>
+</div>
 
-</button>
-
-<button
-class="navItem"
-data-page="services">
-
-<i class="fa-solid fa-table-cells-large"></i>
-
-<span>
+<div class="navItem">
+<i class="fa-solid fa-table-cells"></i>
 Services
-</span>
+</div>
 
-</button>
-
-<button
-class="navItem"
-data-page="wallet">
-
+<div class="navItem">
 <i class="fa-solid fa-wallet"></i>
-
-<span>
 Wallet
-</span>
+</div>
 
-</button>
-
-<button
-class="navItem"
-data-page="profile">
-
+<div class="navItem">
 <i class="fa-regular fa-user"></i>
-
-<span>
 Profile
-</span>
-
-</button>
+</div>
 
 </div>
 
