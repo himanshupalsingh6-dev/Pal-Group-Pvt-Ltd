@@ -1,57 +1,32 @@
 /* =====================================================
 QUICKPRESS FINAL INDEX JS
-FILE NAME : index.js
+FILE : index.js
 ===================================================== */
 
 /* =====================================================
 FIREBASE IMPORT
 ===================================================== */
 
-import { initializeApp }
+import {
 
-from "https://www.gstatic.com/firebasejs/10.12.2/firebase-app.js";
+db
+
+}
+
+from
+
+"./firebase.js";
 
 import {
 
-getFirestore,
 collection,
-query,
-limit,
 getDocs
 
 }
 
-from "https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore.js";
+from
 
-/* =====================================================
-FIREBASE CONFIG
-===================================================== */
-
-const firebaseConfig = {
-
-apiKey: "YOUR_API_KEY",
-
-authDomain: "YOUR_PROJECT.firebaseapp.com",
-
-projectId: "YOUR_PROJECT_ID",
-
-storageBucket: "YOUR_PROJECT.appspot.com",
-
-messagingSenderId: "YOUR_SENDER_ID",
-
-appId: "YOUR_APP_ID"
-
-};
-
-/* =====================================================
-INITIALIZE
-===================================================== */
-
-const app =
-initializeApp(firebaseConfig);
-
-const db =
-getFirestore(app);
+"https://www.gstatic.com/firebasejs/12.11.0/firebase-firestore.js";
 
 /* =====================================================
 LIVE LOCATION
@@ -71,9 +46,7 @@ const longitude =
 position.coords.longitude;
 
 fetch(
-
 `https://nominatim.openstreetmap.org/reverse?format=jsonv2&lat=${latitude}&lon=${longitude}`
-
 )
 
 .then(response => response.json())
@@ -94,13 +67,8 @@ data.address.village ||
 
 "Kasganj";
 
-/* ========================================= */
-
 locationText.innerHTML =
-
 `📍 ${area}`;
-
-/* ========================================= */
 
 })
 
@@ -143,8 +111,6 @@ document.querySelector(
 ".profileBtn"
 );
 
-if(profileBtn){
-
 profileBtn.addEventListener(
 "click",
 ()=>{
@@ -155,10 +121,8 @@ window.location.href =
 }
 );
 
-}
-
 /* =====================================================
-SEARCH EFFECT
+SEARCH BAR EFFECT
 ===================================================== */
 
 const searchBar =
@@ -192,7 +156,7 @@ searchBar.style.transform =
 "scale(1)";
 
 searchBar.style.boxShadow =
-"0 8px 22px rgba(0,0,0,0.08)";
+"0 8px 20px rgba(0,0,0,0.06)";
 
 }
 );
@@ -254,27 +218,31 @@ showToast(
 });
 
 /* =====================================================
-FIREBASE PRODUCTS
+PRODUCT GRID
 ===================================================== */
 
 const productGrid =
-document.getElementById(
-"productGrid"
+document.querySelector(
+".productGrid"
 );
 
-async function loadTrendingServices(){
+/* =====================================================
+LOAD REAL PRODUCTS
+===================================================== */
+
+async function loadProducts(){
 
 productGrid.innerHTML = `
 
 <div style="
-grid-column:1/3;
+padding:40px;
+grid-column:1/-1;
 text-align:center;
-padding:40px 0;
-font-weight:700;
+font-weight:800;
 color:#6B7280;
 ">
 
-Loading Services...
+Loading services...
 
 </div>
 
@@ -282,21 +250,9 @@ Loading Services...
 
 try{
 
-const servicesQuery =
-query(
-
-collection(
-db,
-"services"
-),
-
-limit(6)
-
-);
-
 const querySnapshot =
 await getDocs(
-servicesQuery
+collection(db,"services")
 );
 
 productGrid.innerHTML = "";
@@ -305,8 +261,7 @@ productGrid.innerHTML = "";
 
 querySnapshot.forEach(doc=>{
 
-const product =
-doc.data();
+const product = doc.data();
 
 /* ========================================= */
 
@@ -320,24 +275,30 @@ productGrid.innerHTML += `
 
 <div class="productImage">
 
-${product.icon || "🧺"}
+<img
+src="${product.image}"
+style="
+width:100%;
+height:100%;
+object-fit:cover;
+">
 
 </div>
 
 <div class="productInfo">
 
 <h3>
-${product.name || "Service"}
+${product.name}
 </h3>
 
 <p>
-${product.description || "Premium laundry service"}
+${product.description}
 </p>
 
 <div class="productBottom">
 
 <div class="price">
-₹${product.price || 0}
+₹${product.price}
 </div>
 
 <button class="addBtn">
@@ -356,30 +317,11 @@ ADD
 
 /* ========================================= */
 
-if(querySnapshot.empty){
+setupCartButtons();
 
-productGrid.innerHTML = `
-
-<div style="
-grid-column:1/3;
-text-align:center;
-padding:40px 0;
-font-weight:700;
-color:#6B7280;
-">
-
-No services found
-
-</div>
-
-`;
-
-}
+setupWishlist();
 
 /* ========================================= */
-
-activateCartButtons();
-activateFavoriteButtons();
 
 }catch(error){
 
@@ -388,14 +330,14 @@ console.log(error);
 productGrid.innerHTML = `
 
 <div style="
-grid-column:1/3;
+padding:40px;
+grid-column:1/-1;
 text-align:center;
-padding:40px 0;
-font-weight:700;
+font-weight:800;
 color:red;
 ">
 
-Failed to load services
+Unable to load services
 
 </div>
 
@@ -405,10 +347,14 @@ Failed to load services
 
 }
 
-loadTrendingServices();
+/* =====================================================
+START PRODUCT LOAD
+===================================================== */
+
+loadProducts();
 
 /* =====================================================
-POPUP CART
+REAL CART SYSTEM
 ===================================================== */
 
 let cart = [];
@@ -428,21 +374,20 @@ document.getElementById(
 "cartTotal"
 );
 
-const walletAmount =
+const cartCount =
 document.getElementById(
-"walletAmount"
+"cartCount"
 );
 
 /* =====================================================
 OPEN CART
 ===================================================== */
 
-const walletBtn =
 document.getElementById(
 "walletBtn"
-);
+)
 
-walletBtn.addEventListener(
+.addEventListener(
 "click",
 ()=>{
 
@@ -458,12 +403,11 @@ renderCart();
 CLOSE CART
 ===================================================== */
 
-const closeCart =
 document.getElementById(
 "closeCart"
-);
+)
 
-closeCart.addEventListener(
+.addEventListener(
 "click",
 ()=>{
 
@@ -474,23 +418,23 @@ popupCart.style.display =
 );
 
 /* =====================================================
-ADD TO CART
+SETUP CART BUTTONS
 ===================================================== */
 
-function activateCartButtons(){
+function setupCartButtons(){
 
 document.querySelectorAll(
 ".addBtn"
 )
 
-.forEach(button=>{
+.forEach(btn=>{
 
-button.addEventListener(
+btn.addEventListener(
 "click",
 ()=>{
 
 const card =
-button.closest(
+btn.closest(
 ".productCard"
 );
 
@@ -502,9 +446,9 @@ const price =
 card.querySelector(".price")
 .innerText;
 
-const emoji =
-card.querySelector(".productImage")
-.innerText;
+const image =
+card.querySelector("img")
+.src;
 
 /* ========================================= */
 
@@ -512,21 +456,28 @@ cart.push({
 
 name,
 price,
-emoji
+image
 
 });
 
 /* ========================================= */
 
-button.innerHTML =
-"Added ✓";
+cartCount.innerText =
+cart.length;
 
-button.style.background =
+/* ========================================= */
+
+btn.innerHTML =
+"Added";
+
+btn.style.background =
 "#111827";
 
 /* ========================================= */
 
 renderCart();
+
+/* ========================================= */
 
 showToast(
 `${name} added to cart`
@@ -574,12 +525,12 @@ Cart is empty 🛒
 
 cart.forEach(item=>{
 
-const numericPrice =
+const amount =
 parseInt(
 item.price.replace("₹","")
 );
 
-total += numericPrice;
+total += amount;
 
 /* ========================================= */
 
@@ -593,18 +544,19 @@ align-items:center;
 gap:12px;
 ">
 
-<div style="
-font-size:32px;
+<img
+src="${item.image}"
+style="
+width:52px;
+height:52px;
+border-radius:14px;
+object-fit:cover;
 ">
-
-${item.emoji}
-
-</div>
 
 <div>
 
 <div style="
-font-size:15px;
+font-size:14px;
 font-weight:800;
 ">
 
@@ -613,10 +565,10 @@ ${item.name}
 </div>
 
 <div style="
-font-size:14px;
-color:#16A34A;
+font-size:13px;
 font-weight:700;
-margin-top:3px;
+color:#16A34A;
+margin-top:4px;
 ">
 
 ${item.price}
@@ -636,9 +588,6 @@ ${item.price}
 /* ========================================= */
 
 cartTotal.innerText =
-`₹${total}`;
-
-walletAmount.innerText =
 `₹${total}`;
 
 }
@@ -681,7 +630,7 @@ window.location.href =
 );
 
 /* =====================================================
-BOOK PICKUP BUTTON
+BOOK PICKUP
 ===================================================== */
 
 const bookBtn =
@@ -721,25 +670,24 @@ showToast(
 );
 
 /* =====================================================
-FAVORITE BUTTON
+WISHLIST
 ===================================================== */
 
-function activateFavoriteButtons(){
+function setupWishlist(){
 
 document.querySelectorAll(
 ".favoriteBtn"
 )
 
-.forEach(button=>{
+.forEach(btn=>{
 
-button.addEventListener(
+btn.addEventListener(
 "click",
 ()=>{
 
-if(button.innerHTML === "🤍"){
+if(btn.innerHTML === "🤍"){
 
-button.innerHTML =
-"❤️";
+btn.innerHTML = "❤️";
 
 showToast(
 "Added to wishlist"
@@ -747,8 +695,7 @@ showToast(
 
 }else{
 
-button.innerHTML =
-"🤍";
+btn.innerHTML = "🤍";
 
 showToast(
 "Removed from wishlist"
@@ -810,7 +757,7 @@ setInterval(()=>{
 
 if(reviewTrack){
 
-reviewScroll += 300;
+reviewScroll += 260;
 
 if(
 
