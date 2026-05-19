@@ -7,11 +7,15 @@
 
 <meta
 name="viewport"
-content="width=device-width, initial-scale=1.0">
+content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
 
 <title>
 QuickPress
 </title>
+
+<!-- =====================================================
+FONTS
+===================================================== -->
 
 <link rel="preconnect"
 href="https://fonts.googleapis.com">
@@ -23,6 +27,10 @@ crossorigin>
 <link
 href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap"
 rel="stylesheet">
+
+<!-- =====================================================
+ICONS
+===================================================== -->
 
 <link rel="stylesheet"
 href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css"/>
@@ -45,7 +53,8 @@ body{
 background:#F6F7FB;
 overflow-x:hidden;
 color:#111827;
-padding-bottom:120px;
+padding-bottom:110px;
+max-width:100vw;
 }
 
 /* =====================================================
@@ -61,33 +70,18 @@ linear-gradient(
 #FFE98A 100%
 );
 
-padding:22px 18px 32px;
+padding:14px 14px 22px;
 
-border-bottom-left-radius:34px;
-border-bottom-right-radius:34px;
+border-bottom-left-radius:28px;
+border-bottom-right-radius:28px;
 
-position:relative;
+position:sticky;
+
+top:0;
+
+z-index:999;
 
 overflow:hidden;
-
-}
-
-.hero::before{
-
-content:"";
-
-position:absolute;
-
-right:-70px;
-top:-70px;
-
-width:220px;
-height:220px;
-
-background:
-rgba(255,255,255,0.18);
-
-border-radius:50%;
 
 }
 
@@ -101,43 +95,43 @@ display:flex;
 
 justify-content:space-between;
 
-align-items:flex-start;
+align-items:center;
 
-gap:16px;
-
-position:relative;
-
-z-index:2;
+gap:12px;
 
 }
 
 /* =====================================================
-LOGO
+LEFT
 ===================================================== */
+
+.leftHeader{
+
+flex:1;
+
+min-width:0;
+
+}
 
 .logoText{
 
-font-size:42px;
+font-size:28px;
 
 font-weight:900;
 
 line-height:1;
 
-letter-spacing:-2px;
+letter-spacing:-1px;
 
 color:#111827;
 
 }
 
-/* =====================================================
-LOCATION
-===================================================== */
-
 .address{
 
-margin-top:10px;
+margin-top:6px;
 
-font-size:14px;
+font-size:13px;
 
 font-weight:700;
 
@@ -148,6 +142,12 @@ display:flex;
 align-items:center;
 
 gap:6px;
+
+overflow:hidden;
+
+white-space:nowrap;
+
+text-overflow:ellipsis;
 
 }
 
@@ -161,45 +161,45 @@ display:flex;
 
 align-items:center;
 
-gap:12px;
+gap:10px;
 
 }
 
 /* =====================================================
-WALLET
+ZOMATO STYLE WALLET
 ===================================================== */
 
 .walletBtn{
 
+height:46px;
+
+padding:0 14px;
+
 border:none;
 
+border-radius:16px;
+
 background:#fff;
-
-height:62px;
-
-padding:0 16px;
-
-border-radius:22px;
 
 display:flex;
 
 align-items:center;
 
-gap:12px;
+gap:10px;
 
 box-shadow:
-0 10px 25px rgba(0,0,0,0.08);
+0 6px 18px rgba(0,0,0,0.06);
 
 cursor:pointer;
 
 }
 
-.walletIconWrap{
+.walletIcon{
 
-width:42px;
-height:42px;
+width:32px;
+height:32px;
 
-border-radius:14px;
+border-radius:12px;
 
 background:
 linear-gradient(
@@ -213,13 +213,11 @@ display:flex;
 align-items:center;
 justify-content:center;
 
-font-size:18px;
-
-color:#111827;
+font-size:15px;
 
 }
 
-.walletInfo{
+.walletContent{
 
 display:flex;
 
@@ -231,7 +229,7 @@ align-items:flex-start;
 
 .walletTitle{
 
-font-size:12px;
+font-size:10px;
 
 font-weight:700;
 
@@ -241,7 +239,7 @@ color:#6B7280;
 
 .walletMoney{
 
-font-size:18px;
+font-size:14px;
 
 font-weight:900;
 
@@ -255,19 +253,19 @@ PROFILE
 
 .profileBtn{
 
-width:62px;
-height:62px;
+width:46px;
+height:46px;
 
 border:none;
 
-border-radius:22px;
+border-radius:16px;
 
 overflow:hidden;
 
 background:#fff;
 
 box-shadow:
-0 10px 25px rgba(0,0,0,0.08);
+0 6px 18px rgba(0,0,0,0.06);
 
 cursor:pointer;
 
@@ -288,36 +286,32 @@ SEARCH
 
 .searchWrap{
 
-margin-top:24px;
-
-position:relative;
-
-z-index:2;
+margin-top:16px;
 
 }
 
 .searchBar{
 
-height:64px;
+height:56px;
 
 background:#fff;
 
-border-radius:22px;
+border-radius:18px;
 
 display:flex;
 
 align-items:center;
 
-padding:0 18px;
+padding:0 16px;
 
 box-shadow:
-0 10px 25px rgba(0,0,0,0.08);
+0 8px 20px rgba(0,0,0,0.06);
 
 }
 
 .searchIcon{
 
-font-size:22px;
+font-size:18px;
 
 color:#16A34A;
 
@@ -331,9 +325,9 @@ border:none;
 
 outline:none;
 
-padding:0 14px;
+padding:0 12px;
 
-font-size:17px;
+font-size:15px;
 
 font-weight:600;
 
@@ -343,17 +337,17 @@ background:none;
 
 .micBtn{
 
-width:48px;
-height:48px;
+width:42px;
+height:42px;
 
 display:flex;
 
 align-items:center;
 justify-content:center;
 
-border-left:1px solid #E5E7EB;
+border-left:1px solid #F3F4F6;
 
-font-size:20px;
+font-size:18px;
 
 color:#16A34A;
 
@@ -369,9 +363,9 @@ display:flex;
 
 overflow-x:auto;
 
-gap:16px;
+gap:14px;
 
-padding:20px 16px;
+padding:18px 14px;
 
 scrollbar-width:none;
 
@@ -385,40 +379,48 @@ display:none;
 
 .categoryCard{
 
-min-width:86px;
+min-width:74px;
 
 text-align:center;
+
+transition:0.3s;
+
+}
+
+.activeCategory{
+
+transform:scale(1.05);
 
 }
 
 .categoryIcon{
 
-width:72px;
-height:72px;
+width:62px;
+height:62px;
 
 background:#fff;
 
-border-radius:22px;
+border-radius:18px;
 
 display:flex;
 
 align-items:center;
 justify-content:center;
 
-font-size:30px;
+font-size:26px;
 
 margin:auto;
 
 box-shadow:
-0 5px 15px rgba(0,0,0,0.06);
+0 5px 15px rgba(0,0,0,0.05);
 
 }
 
 .categoryCard p{
 
-margin-top:10px;
+margin-top:8px;
 
-font-size:14px;
+font-size:12px;
 
 font-weight:700;
 
@@ -430,7 +432,7 @@ BANNER
 
 .deliveryBanner{
 
-margin:0 16px;
+margin:0 14px;
 
 background:
 linear-gradient(
@@ -439,15 +441,15 @@ linear-gradient(
 #1F2937
 );
 
-border-radius:26px;
+border-radius:24px;
 
-padding:24px;
+padding:22px;
 
 color:#fff;
 
-position:relative;
-
 overflow:hidden;
+
+position:relative;
 
 }
 
@@ -459,9 +461,9 @@ align-items:center;
 
 gap:8px;
 
-height:36px;
+height:34px;
 
-padding:0 16px;
+padding:0 14px;
 
 border-radius:999px;
 
@@ -469,17 +471,17 @@ background:#FFD633;
 
 color:#111827;
 
-font-size:12px;
+font-size:11px;
 
 font-weight:900;
 
-margin-bottom:16px;
+margin-bottom:14px;
 
 }
 
 .deliveryBanner h2{
 
-font-size:34px;
+font-size:28px;
 
 line-height:1.1;
 
@@ -489,39 +491,37 @@ font-weight:900;
 
 .deliveryBanner p{
 
-margin-top:12px;
+margin-top:10px;
 
-font-size:15px;
+font-size:14px;
 
 line-height:1.7;
 
-opacity:0.9;
+opacity:0.92;
 
-max-width:280px;
+max-width:240px;
 
 }
 
 .bookBtn{
 
-margin-top:20px;
+margin-top:18px;
 
-height:54px;
+height:48px;
 
-padding:0 26px;
+padding:0 20px;
 
 border:none;
 
-border-radius:18px;
+border-radius:16px;
 
 background:#16A34A;
 
 color:#fff;
 
-font-size:16px;
+font-size:14px;
 
 font-weight:900;
-
-cursor:pointer;
 
 }
 
@@ -531,9 +531,9 @@ TITLE
 
 .sectionTitle{
 
-padding:28px 16px 14px;
+padding:24px 14px 14px;
 
-font-size:28px;
+font-size:22px;
 
 font-weight:900;
 
@@ -549,9 +549,9 @@ display:grid;
 
 grid-template-columns:repeat(2,1fr);
 
-gap:14px;
+gap:12px;
 
-padding:0 16px;
+padding:0 14px;
 
 }
 
@@ -563,7 +563,7 @@ PRODUCT CARD
 
 background:#fff;
 
-border-radius:24px;
+border-radius:22px;
 
 overflow:hidden;
 
@@ -578,11 +578,11 @@ position:relative;
 
 position:absolute;
 
-right:12px;
-top:12px;
+right:10px;
+top:10px;
 
-width:34px;
-height:34px;
+width:32px;
+height:32px;
 
 border-radius:50%;
 
@@ -593,18 +593,20 @@ display:flex;
 align-items:center;
 justify-content:center;
 
-box-shadow:
-0 5px 12px rgba(0,0,0,0.08);
+font-size:14px;
 
-font-size:15px;
+box-shadow:
+0 5px 12px rgba(0,0,0,0.06);
 
 z-index:2;
+
+cursor:pointer;
 
 }
 
 .productImage{
 
-height:150px;
+height:120px;
 
 background:#F3F4F6;
 
@@ -613,39 +615,39 @@ display:flex;
 align-items:center;
 justify-content:center;
 
-font-size:62px;
+font-size:52px;
 
 }
 
 .productInfo{
 
-padding:16px;
+padding:14px;
 
 }
 
 .productInfo h3{
 
-font-size:18px;
+font-size:15px;
 
 font-weight:800;
 
-margin-bottom:6px;
+margin-bottom:4px;
 
 }
 
 .productInfo p{
 
-font-size:13px;
-
-color:#6B7280;
+font-size:12px;
 
 line-height:1.6;
+
+color:#6B7280;
 
 }
 
 .productBottom{
 
-margin-top:14px;
+margin-top:12px;
 
 display:flex;
 
@@ -657,7 +659,7 @@ align-items:center;
 
 .price{
 
-font-size:24px;
+font-size:20px;
 
 font-weight:900;
 
@@ -665,19 +667,21 @@ font-weight:900;
 
 .addBtn{
 
-height:42px;
+height:38px;
 
-padding:0 20px;
+padding:0 16px;
 
 border:none;
 
-border-radius:14px;
+border-radius:12px;
 
 background:#16A34A;
 
 color:#fff;
 
-font-weight:800;
+font-size:12px;
+
+font-weight:900;
 
 cursor:pointer;
 
@@ -689,7 +693,7 @@ REVIEWS
 
 .reviewSection{
 
-padding:10px 16px 20px;
+padding:8px 14px 20px;
 
 }
 
@@ -699,7 +703,7 @@ display:flex;
 
 overflow-x:auto;
 
-gap:14px;
+gap:12px;
 
 scrollbar-width:none;
 
@@ -713,18 +717,18 @@ display:none;
 
 .reviewCard{
 
-min-width:280px;
+min-width:240px;
 
 background:#fff;
 
-padding:20px;
+padding:18px;
 
-border-radius:22px;
+border-radius:20px;
 
 box-shadow:
-0 5px 15px rgba(0,0,0,0.05);
+0 5px 14px rgba(0,0,0,0.05);
 
-font-size:15px;
+font-size:14px;
 
 line-height:1.7;
 
@@ -744,7 +748,7 @@ PARTNER
 
 .partnerSection{
 
-padding:10px 16px 30px;
+padding:8px 14px 24px;
 
 }
 
@@ -757,17 +761,17 @@ linear-gradient(
 #1F2937
 );
 
-color:#fff;
-
 padding:24px;
 
-border-radius:26px;
+border-radius:24px;
+
+color:#fff;
 
 }
 
 .partnerBanner h2{
 
-font-size:30px;
+font-size:26px;
 
 font-weight:900;
 
@@ -781,102 +785,27 @@ line-height:1.7;
 
 opacity:0.9;
 
+font-size:14px;
+
 }
 
 .partnerBtn{
 
-margin-top:20px;
+margin-top:18px;
 
-height:52px;
+height:48px;
 
-padding:0 24px;
+padding:0 20px;
 
 border:none;
 
-border-radius:18px;
+border-radius:16px;
 
 background:#FFD633;
 
-font-weight:900;
-
-cursor:pointer;
-
-}
-
-/* =====================================================
-FOOTER
-===================================================== */
-
-.footer{
-
-padding:10px 20px 120px;
-
-text-align:center;
-
 font-size:14px;
 
-font-weight:700;
-
-color:#6B7280;
-
-}
-
-/* =====================================================
-BOTTOM NAV
-===================================================== */
-
-.bottomNav{
-
-position:fixed;
-
-left:0;
-right:0;
-bottom:0;
-
-height:78px;
-
-background:#fff;
-
-display:flex;
-
-justify-content:space-around;
-
-align-items:center;
-
-box-shadow:
-0 -4px 15px rgba(0,0,0,0.08);
-
-z-index:999;
-
-}
-
-.navItem{
-
-text-align:center;
-
-font-size:12px;
-
-font-weight:700;
-
-color:#6B7280;
-
-cursor:pointer;
-
-}
-
-.navItem i{
-
-display:block;
-
-font-size:22px;
-
-margin-bottom:6px;
-
-}
-
-.activeNav{
-
-color:#16A34A;
+font-weight:900;
 
 }
 
@@ -888,10 +817,9 @@ POPUP CART
 
 position:fixed;
 
-right:18px;
-bottom:95px;
-
-width:320px;
+left:14px;
+right:14px;
+bottom:92px;
 
 background:#fff;
 
@@ -900,11 +828,15 @@ border-radius:26px;
 padding:20px;
 
 box-shadow:
-0 15px 40px rgba(0,0,0,0.16);
+0 16px 40px rgba(0,0,0,0.18);
 
 z-index:9999;
 
 display:none;
+
+max-height:70vh;
+
+overflow:auto;
 
 }
 
@@ -916,7 +848,7 @@ justify-content:space-between;
 
 align-items:center;
 
-margin-bottom:18px;
+margin-bottom:16px;
 
 }
 
@@ -933,11 +865,11 @@ font-weight:900;
 width:38px;
 height:38px;
 
+border:none;
+
 border-radius:12px;
 
 background:#F3F4F6;
-
-border:none;
 
 font-size:18px;
 
@@ -963,11 +895,11 @@ display:flex;
 
 justify-content:space-between;
 
+margin-top:20px;
+
 font-size:20px;
 
 font-weight:900;
-
-margin-top:20px;
 
 }
 
@@ -975,21 +907,98 @@ margin-top:20px;
 
 width:100%;
 
-height:54px;
+height:52px;
 
 margin-top:18px;
 
 border:none;
 
-border-radius:18px;
+border-radius:16px;
 
 background:#16A34A;
 
 color:#fff;
 
-font-size:16px;
+font-size:15px;
 
 font-weight:900;
+
+}
+
+/* =====================================================
+BOTTOM NAV
+===================================================== */
+
+.bottomNav{
+
+position:fixed;
+
+left:0;
+right:0;
+bottom:0;
+
+height:74px;
+
+background:#fff;
+
+display:flex;
+
+justify-content:space-around;
+
+align-items:center;
+
+box-shadow:
+0 -4px 16px rgba(0,0,0,0.08);
+
+z-index:999;
+
+}
+
+.navItem{
+
+text-align:center;
+
+font-size:11px;
+
+font-weight:700;
+
+color:#6B7280;
+
+cursor:pointer;
+
+}
+
+.navItem i{
+
+display:block;
+
+font-size:20px;
+
+margin-bottom:5px;
+
+}
+
+.activeNav{
+
+color:#16A34A;
+
+}
+
+/* =====================================================
+FOOTER
+===================================================== */
+
+.footer{
+
+padding:10px 20px 120px;
+
+text-align:center;
+
+font-size:13px;
+
+font-weight:700;
+
+color:#6B7280;
 
 }
 
@@ -1001,17 +1010,24 @@ DESKTOP
 
 .hero{
 
-padding:30px 50px 40px;
+padding:18px 40px 28px;
 
 }
 
+.logoText{
+
+font-size:36px;
+
+}
+
+.searchWrap,
 .categoryStrip,
 .productGrid,
 .reviewSection,
 .partnerSection{
 
-padding-left:50px;
-padding-right:50px;
+padding-left:40px;
+padding-right:40px;
 
 }
 
@@ -1023,7 +1039,17 @@ grid-template-columns:repeat(4,1fr);
 
 .sectionTitle{
 
-padding-left:50px;
+padding-left:40px;
+
+}
+
+.popupCart{
+
+width:380px;
+
+left:auto;
+
+right:30px;
 
 }
 
@@ -1043,37 +1069,47 @@ HEADER
 
 <div class="topBar">
 
-<div>
+<div class="leftHeader">
 
 <div class="logoText">
 QuickPress
 </div>
 
-<div class="address" id="locationText">
+<div
+class="address"
+id="locationText">
+
 📍 Detecting location...
+
 </div>
 
 </div>
 
 <div class="topActions">
 
-<button class="walletBtn" id="walletBtn">
+<button
+class="walletBtn"
+id="walletBtn">
 
-<div class="walletIconWrap">
+<div class="walletIcon">
 
 <i class="fa-solid fa-wallet"></i>
 
 </div>
 
-<div class="walletInfo">
+<div class="walletContent">
 
-<span class="walletTitle">
-Quick Wallet
-</span>
+<div class="walletTitle">
+Wallet
+</div>
 
-<span class="walletMoney" id="walletAmount">
+<div
+class="walletMoney"
+id="walletAmount">
+
 ₹0
-</span>
+
+</div>
 
 </div>
 
@@ -1100,6 +1136,7 @@ class="profileImg">
 <i class="fa-solid fa-magnifying-glass searchIcon"></i>
 
 <input
+type="text"
 placeholder='Search "shirt wash"'>
 
 <div class="micBtn">
@@ -1186,151 +1223,6 @@ Trending Services
 </h2>
 
 <div class="productGrid">
-
-<div class="productCard">
-
-<div class="favoriteBtn">
-🤍
-</div>
-
-<div class="productImage">
-👔
-</div>
-
-<div class="productInfo">
-
-<h3>
-Shirt Iron
-</h3>
-
-<p>
-Premium steam ironing service
-</p>
-
-<div class="productBottom">
-
-<div class="price">
-₹29
-</div>
-
-<button class="addBtn">
-ADD
-</button>
-
-</div>
-
-</div>
-
-</div>
-
-<div class="productCard">
-
-<div class="favoriteBtn">
-🤍
-</div>
-
-<div class="productImage">
-👖
-</div>
-
-<div class="productInfo">
-
-<h3>
-Jeans Wash
-</h3>
-
-<p>
-Deep wash and premium fold
-</p>
-
-<div class="productBottom">
-
-<div class="price">
-₹79
-</div>
-
-<button class="addBtn">
-ADD
-</button>
-
-</div>
-
-</div>
-
-</div>
-
-<div class="productCard">
-
-<div class="favoriteBtn">
-🤍
-</div>
-
-<div class="productImage">
-👟
-</div>
-
-<div class="productInfo">
-
-<h3>
-Sneaker Clean
-</h3>
-
-<p>
-Premium sneaker cleaning
-</p>
-
-<div class="productBottom">
-
-<div class="price">
-₹199
-</div>
-
-<button class="addBtn">
-ADD
-</button>
-
-</div>
-
-</div>
-
-</div>
-
-<div class="productCard">
-
-<div class="favoriteBtn">
-🤍
-</div>
-
-<div class="productImage">
-🛏️
-</div>
-
-<div class="productInfo">
-
-<h3>
-Blanket Wash
-</h3>
-
-<p>
-Soft premium cleaning
-</p>
-
-<div class="productBottom">
-
-<div class="price">
-₹149
-</div>
-
-<button class="addBtn">
-ADD
-</button>
-
-</div>
-
-</div>
-
-</div>
-
 </div>
 
 <!-- =====================================================
@@ -1394,11 +1286,45 @@ Explore Partners
 </div>
 
 <!-- =====================================================
-FOOTER
+POPUP CART
 ===================================================== -->
 
-<div class="footer">
-Made in Uttar Pradesh • Crafted by Himanshu Baghel
+<div
+class="popupCart"
+id="popupCart">
+
+<div class="popupCartTop">
+
+<div class="popupCartTitle">
+Your Cart
+</div>
+
+<button
+class="closeCart"
+id="closeCart">
+
+×
+
+</button>
+
+</div>
+
+<div id="cartItems"></div>
+
+<div class="cartTotal">
+
+<span>Total</span>
+
+<span id="cartTotal">
+₹0
+</span>
+
+</div>
+
+<button class="checkoutBtn">
+Proceed Checkout
+</button>
+
 </div>
 
 <!-- =====================================================
@@ -1435,43 +1361,14 @@ Profile
 </div>
 
 <!-- =====================================================
-POPUP CART
+FOOTER
 ===================================================== -->
 
-<div class="popupCart" id="popupCart">
-
-<div class="popupCartTop">
-
-<div class="popupCartTitle">
-Your Cart
+<div class="footer">
+Made in Uttar Pradesh • Crafted by Himanshu Baghel
 </div>
 
-<button class="closeCart" id="closeCart">
-×
-</button>
-
-</div>
-
-<div id="cartItems"></div>
-
-<div class="cartTotal">
-
-<span>Total</span>
-
-<span id="cartTotal">
-₹0
-</span>
-
-</div>
-
-<button class="checkoutBtn">
-Proceed Checkout
-</button>
-
-</div>
-
-<script src="app.js"></script>
+<script src="index.js"></script>
 
 </body>
-
 </html>
