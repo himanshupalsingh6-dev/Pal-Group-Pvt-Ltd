@@ -1,396 +1,95 @@
+<!-- =========================================================
+FILE : services.html
+QUICKPRESS PREMIUM SERVICES PAGE
+========================================================= -->
+
 <!DOCTYPE html>
+
 <html lang="en">
+
 <head>
 
 <meta charset="UTF-8">
 
-<meta name="viewport"
+<meta
+name="viewport"
 content="width=device-width, initial-scale=1.0">
 
 <title>
 QuickPress Services
 </title>
 
-<link rel="stylesheet"
+<!-- =========================================================
+GOOGLE FONT
+========================================================= -->
+
+<link
+href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800;900&display=swap"
+rel="stylesheet">
+
+<!-- =========================================================
+FONT AWESOME
+========================================================= -->
+
+<link
+rel="stylesheet"
 href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css"/>
 
-<style>
+<!-- =========================================================
+CSS
+========================================================= -->
 
-*{
-margin:0;
-padding:0;
-box-sizing:border-box;
-font-family:Poppins,sans-serif;
-}
+<link
+rel="stylesheet"
+href="services.css">
 
-body{
-background:#F7F8FC;
-padding-bottom:100px;
-}
-
-/* TOP */
-
-.topHeader{
-padding:16px;
-background:#fff;
-display:flex;
-justify-content:space-between;
-align-items:center;
-box-shadow:0 4px 20px rgba(0,0,0,0.04);
-position:sticky;
-top:0;
-z-index:999;
-}
-
-.leftTop{
-display:flex;
-align-items:center;
-gap:12px;
-}
-
-.backBtn{
-width:40px;
-height:40px;
-border-radius:14px;
-background:#FFD400;
-display:flex;
-align-items:center;
-justify-content:center;
-font-size:18px;
-font-weight:900;
-cursor:pointer;
-}
-
-.titleBox h2{
-font-size:26px;
-font-weight:900;
-}
-
-.titleBox p{
-font-size:12px;
-color:#6B7280;
-}
-
-.rightTop{
-display:flex;
-align-items:center;
-gap:10px;
-}
-
-.iconBtn{
-width:42px;
-height:42px;
-border-radius:14px;
-background:#fff;
-display:flex;
-align-items:center;
-justify-content:center;
-box-shadow:0 5px 20px rgba(0,0,0,0.06);
-position:relative;
-cursor:pointer;
-}
-
-.cartCount{
-position:absolute;
-top:-4px;
-right:-4px;
-width:18px;
-height:18px;
-border-radius:50%;
-background:#22C55E;
-color:#fff;
-font-size:10px;
-font-weight:700;
-display:flex;
-align-items:center;
-justify-content:center;
-}
-
-/* SEARCH */
-
-.searchBox{
-padding:14px;
-}
-
-.searchInput{
-width:100%;
-height:54px;
-border:none;
-outline:none;
-padding:0 18px;
-border-radius:18px;
-background:#fff;
-font-size:14px;
-box-shadow:0 6px 25px rgba(0,0,0,0.05);
-}
-
-/* CITY */
-
-.cityWrap{
-padding:0 14px 14px;
-}
-
-.citySelector{
-width:100%;
-height:54px;
-border:none;
-outline:none;
-background:#fff;
-border-radius:18px;
-padding:0 18px;
-font-size:14px;
-font-weight:700;
-box-shadow:0 5px 20px rgba(0,0,0,0.05);
-}
-
-/* CATEGORY */
-
-.categoryBar{
-padding:0 14px 14px;
-display:flex;
-gap:10px;
-overflow:auto;
-}
-
-.categoryBtn{
-padding:12px 18px;
-background:#fff;
-border-radius:14px;
-font-size:13px;
-font-weight:700;
-white-space:nowrap;
-cursor:pointer;
-box-shadow:0 5px 20px rgba(0,0,0,0.04);
-}
-
-.categoryBtn.active{
-background:#111827;
-color:#fff;
-}
-
-/* SERVICES */
-
-.servicesGrid{
-padding:0 14px;
-display:grid;
-grid-template-columns:repeat(2,1fr);
-gap:14px;
-}
-
-.serviceCard{
-background:#fff;
-border-radius:22px;
-padding:14px;
-position:relative;
-overflow:hidden;
-box-shadow:0 8px 24px rgba(0,0,0,0.05);
-}
-
-.serviceCard::before{
-content:"";
-position:absolute;
-width:120px;
-height:120px;
-background:rgba(255,212,0,0.14);
-border-radius:50%;
-top:-50px;
-right:-50px;
-}
-
-.topRow{
-display:flex;
-justify-content:space-between;
-align-items:center;
-margin-bottom:14px;
-}
-
-.serviceImage{
-width:46px;
-height:46px;
-border-radius:14px;
-background:#F3F4F6;
-display:flex;
-align-items:center;
-justify-content:center;
-font-size:18px;
-font-weight:900;
-}
-
-.favBtn{
-width:34px;
-height:34px;
-border:none;
-border-radius:12px;
-background:#fff;
-box-shadow:0 5px 20px rgba(0,0,0,0.05);
-cursor:pointer;
-font-size:12px;
-}
-
-.serviceName{
-font-size:17px;
-font-weight:800;
-margin-bottom:5px;
-}
-
-.serviceDesc{
-font-size:11px;
-color:#6B7280;
-line-height:1.4;
-margin-bottom:12px;
-min-height:30px;
-}
-
-.locationTag{
-display:inline-block;
-padding:7px 10px;
-border-radius:12px;
-background:#F3F4F6;
-font-size:11px;
-font-weight:700;
-margin-bottom:14px;
-}
-
-.bottomRow{
-display:flex;
-justify-content:space-between;
-align-items:center;
-gap:10px;
-}
-
-.servicePrice{
-font-size:22px;
-font-weight:900;
-color:#22C55E;
-}
-
-.addBtn{
-height:40px;
-padding:0 16px;
-border:none;
-border-radius:12px;
-background:#FFD400;
-font-size:12px;
-font-weight:900;
-cursor:pointer;
-}
-
-/* BOTTOM NAV */
-
-.bottomNav{
-position:fixed;
-left:0;
-bottom:0;
-width:100%;
-height:74px;
-background:#fff;
-display:flex;
-justify-content:space-around;
-align-items:center;
-box-shadow:0 -5px 20px rgba(0,0,0,0.05);
-z-index:999;
-}
-
-.navItem{
-display:flex;
-flex-direction:column;
-align-items:center;
-gap:5px;
-font-size:11px;
-font-weight:700;
-color:#6B7280;
-text-decoration:none;
-}
-
-.navItem.active{
-color:#FFD400;
-}
-
-.navItem i{
-font-size:18px;
-}
-
-/* CART POPUP */
-
-#cartPopup{
-position:fixed;
-left:50%;
-bottom:-100px;
-transform:translateX(-50%);
-background:#111827;
-color:#fff;
-padding:14px 24px;
-border-radius:18px;
-font-size:14px;
-font-weight:700;
-z-index:9999;
-transition:0.3s;
-}
-
-/* MOBILE */
-
-@media(max-width:500px){
-
-.servicesGrid{
-grid-template-columns:1fr 1fr;
-gap:12px;
-padding:0 12px;
-}
-
-}
-
-</style>
 </head>
+
 <body>
 
-<!-- TOP -->
+<!-- =========================================================
+HEADER
+========================================================= -->
 
-<div class="topHeader">
+<header class="servicesHeader">
 
-<div class="leftTop">
+<div class="headerTop">
 
-<div class="backBtn"
-onclick="history.back()">
+<div>
 
-←
-
-</div>
-
-<div class="titleBox">
-
-<h2>
+<h1 class="pageTitle">
 Services
-</h2>
+</h1>
 
-<p>
-Premium laundry collection
-</p>
+<div
+class="locationText"
+id="locationText">
 
-</div>
-
-</div>
-
-<div class="rightTop">
-
-<div class="iconBtn">
-
-❤️
+📍 Detecting live location...
 
 </div>
 
-<div class="iconBtn"
-onclick="location.href='cart.html'">
+</div>
 
-🛒
+<div class="headerButtons">
 
-<div class="cartCount"
-id="cartCount">
+<button class="cartBtn">
 
+<i class="fa-solid fa-cart-shopping"></i>
+
+<span id="cartCount">
 0
+</span>
 
-</div>
+</button>
 
-</div>
+<button
+class="profileBtn"
+onclick="window.location.href='profile.html'">
+
+H
+
+</button>
 
 </div>
 
@@ -400,670 +99,217 @@ id="cartCount">
 
 <div class="searchBox">
 
+<i class="fa-solid fa-magnifying-glass"></i>
+
 <input
 type="text"
-placeholder="Search services..."
-class="searchInput"
 id="searchInput"
-/>
+placeholder='Search "shirt wash"'>
 
 </div>
 
-<!-- CITY -->
+</header>
 
-<div class="cityWrap">
+<!-- =========================================================
+CATEGORY FILTER
+========================================================= -->
 
-<select
-id="citySelector"
-class="citySelector">
+<section class="categorySection">
 
-<option value="Kasganj">
-Kasganj
-</option>
+<div class="categoryScroll">
 
-<option value="Noida">
-Noida
-</option>
-
-<option value="Aligarh">
-Aligarh
-</option>
-
-<option value="Badaun">
-Badaun
-</option>
-
-<option value="Delhi">
-Delhi
-</option>
-
-<option value="Mumbai">
-Mumbai
-</option>
-
-</select>
-
-</div>
-
-<!-- CATEGORY -->
-
-<div class="categoryBar">
-
-<div
+<button
 class="categoryBtn active"
-data-category="All">
+data-category="all">
 
 All
 
-</div>
+</button>
 
-<div
+<button
 class="categoryBtn"
-data-category="Ironing">
+data-category="iron">
 
-Ironing
+Iron
 
-</div>
+</button>
 
-<div
+<button
 class="categoryBtn"
-data-category="Washing">
+data-category="wash">
 
-Washing
+Wash
 
-</div>
+</button>
 
-<div
+<button
 class="categoryBtn"
-data-category="Dry Cleaning">
+data-category="steam">
 
-Dry Cleaning
+Steam
 
-</div>
+</button>
 
-<div
+<button
 class="categoryBtn"
-data-category="Premium">
+data-category="shoes">
+
+Shoes
+
+</button>
+
+<button
+class="categoryBtn"
+data-category="blanket">
+
+Blanket
+
+</button>
+
+<button
+class="categoryBtn"
+data-category="premium">
 
 Premium
 
-</div>
-
-<div
-class="categoryBtn"
-data-category="Shoe & Bag">
-
-Shoe & Bag
+</button>
 
 </div>
 
-<div
-class="categoryBtn"
-data-category="Home Cleaning">
+</section>
 
-Home Cleaning
+<!-- =========================================================
+SERVICES GRID
+========================================================= -->
 
-</div>
-
-</div>
-
-<!-- SERVICES -->
+<section class="servicesSection">
 
 <div
 class="servicesGrid"
 id="servicesGrid">
 
-</div>
-
-<!-- BOTTOM NAV -->
-
-<div class="bottomNav">
-
-<a href="index.html"
-class="navItem">
-
-<i class="fa-solid fa-house"></i>
-
-Home
-
-</a>
-
-<a href="services.html"
-class="navItem active">
-
-<i class="fa-solid fa-shirt"></i>
-
-Services
-
-</a>
-
-<a href="cart.html"
-class="navItem">
-
-<i class="fa-solid fa-cart-shopping"></i>
-
-Cart
-
-</a>
-
-<a href="offers.html"
-class="navItem">
-
-<i class="fa-solid fa-tags"></i>
-
-Offers
-
-</a>
-
-<a href="profile.html"
-class="navItem">
-
-<i class="fa-regular fa-user"></i>
-
-Profile
-
-</a>
+<!-- FIREBASE DATA -->
 
 </div>
 
-<!-- CART POPUP -->
+</section>
 
-<div id="cartPopup">
+<!-- =========================================================
+POPUP CART
+========================================================= -->
 
-Added To Cart ✅
+<div
+class="popupCart"
+id="popupCart">
 
-</div>
+<div class="popupContent">
 
-<!-- FIREBASE -->
+<div class="popupTop">
 
-<script type="module">
-
-import { db }
-
-from
-
-"/Pal-Group-Pvt-Ltd/firebase.js";
-
-import {
-
-collection,
-getDocs
-
-}
-
-from
-
-"https://www.gstatic.com/firebasejs/12.11.0/firebase-firestore.js";
-
-/* GLOBAL */
-
-let allServices = [];
-
-let currentCategory =
-"All";
-
-let userCity =
-localStorage.getItem(
-"userCity"
-) || "Kasganj";
-
-/* ELEMENTS */
-
-const servicesGrid =
-document.getElementById(
-"servicesGrid"
-);
-
-const searchInput =
-document.getElementById(
-"searchInput"
-);
-
-const citySelector =
-document.getElementById(
-"citySelector"
-);
-
-/* DEFAULT CITY */
-
-citySelector.value =
-userCity;
-
-/* LOAD */
-
-async function loadServices(){
-
-servicesGrid.innerHTML =
-
-`
-
-<div style="
-padding:30px;
-font-size:18px;
-font-weight:700;
-">
-
-Loading Services...
-
-</div>
-
-`;
-
-try{
-
-const snap =
-await getDocs(
-collection(db,"services")
-);
-
-allServices = [];
-
-snap.forEach((doc)=>{
-
-allServices.push({
-
-id:doc.id,
-
-...doc.data()
-
-});
-
-});
-
-renderServices();
-
-}catch(error){
-
-console.log(error);
-
-servicesGrid.innerHTML =
-
-`
-
-<div style="
-padding:30px;
-font-size:18px;
-font-weight:700;
-color:red;
-">
-
-Failed To Load Services
-
-</div>
-
-`;
-
-}
-
-}
-
-loadServices();
-
-/* RENDER */
-
-function renderServices(){
-
-let html = "";
-
-const search =
-searchInput.value
-.toLowerCase();
-
-allServices.forEach((service)=>{
-
-/* CATEGORY */
-
-if(
-
-currentCategory !== "All"
-
-&&
-
-service.category !== currentCategory
-
-){
-
-return;
-
-}
-
-/* SEARCH */
-
-if(
-
-!service.name
-.toLowerCase()
-.includes(search)
-
-){
-
-return;
-
-}
-
-/* PRICE */
-
-let finalPrice = 0;
-
-/* LOCATION PRICE */
-
-if(service.prices){
-
-finalPrice =
-
-service.prices[userCity]
-
-?? 0;
-
-}
-
-/* OLD SUPPORT */
-
-if(finalPrice === 0){
-
-finalPrice =
-service.price || 0;
-
-}
-
-/* HIDE */
-
-if(finalPrice <= 0){
-
-return;
-
-}
-
-/* CARD */
-
-html += `
-
-<div class="serviceCard">
-
-<div class="topRow">
-
-<div class="serviceImage">
-
-${service.name.charAt(0)}
-
-</div>
-
-<button class="favBtn">
-
-❤️
-
-</button>
-
-</div>
-
-<h3 class="serviceName">
-
-${service.name}
-
+<h3>
+Your Cart
 </h3>
 
-<p class="serviceDesc">
-
-${service.description
-|| "Premium laundry care"}
-
-</p>
-
-<div class="locationTag">
-
-📍 ${userCity}
-
-</div>
-
-<div class="bottomRow">
-
-<div class="servicePrice">
-
-₹${finalPrice}
-
-</div>
-
 <button
-class="addBtn"
-onclick="addToCart(
-'${service.id}'
-)">
+class="closePopup"
+id="closePopup">
 
-ADD
+×
 
+</button>
+
+</div>
+
+<div
+class="cartItems"
+id="cartItems">
+
+No items added
+
+</div>
+
+<button class="checkoutBtn">
+Proceed To Checkout
 </button>
 
 </div>
 
 </div>
 
-`;
+<!-- =========================================================
+TOAST
+========================================================= -->
 
-});
+<div
+class="toast"
+id="toast">
 
-/* EMPTY */
-
-if(html === ""){
-
-html =
-
-`
-
-<div style="
-padding:30px;
-font-size:18px;
-font-weight:700;
-">
-
-No Services Found
+Added To Cart
 
 </div>
 
-`;
+<!-- =========================================================
+BOTTOM NAVBAR
+========================================================= -->
 
-}
+<nav class="bottomNav">
 
-servicesGrid.innerHTML =
-html;
+<button
+class="navItem"
+onclick="window.location.href='index.html'">
 
-}
+<i class="fa-solid fa-house"></i>
+<span>Home</span>
 
-/* SEARCH */
+</button>
 
-searchInput.addEventListener(
+<button
+class="navItem"
+onclick="window.location.href='orders.html'">
 
-"keyup",
+<i class="fa-solid fa-bag-shopping"></i>
+<span>Orders</span>
 
-()=>{
+</button>
 
-renderServices();
+<button
+class="navItem active">
 
-}
+<i class="fa-solid fa-table-cells-large"></i>
+<span>Services</span>
 
-);
+</button>
 
-/* CATEGORY */
+<button
+class="navItem"
+onclick="window.location.href='wallet.html'">
 
-document
-.querySelectorAll(
-".categoryBtn"
-)
-.forEach((btn)=>{
+<i class="fa-solid fa-wallet"></i>
+<span>Wallet</span>
 
-btn.addEventListener(
+</button>
 
-"click",
+<button
+class="navItem"
+onclick="window.location.href='profile.html'">
 
-()=>{
+<i class="fa-regular fa-user"></i>
+<span>Profile</span>
 
-document
-.querySelectorAll(
-".categoryBtn"
-)
-.forEach((b)=>{
+</button>
 
-b.classList.remove(
-"active"
-);
+</nav>
 
-});
+<!-- =========================================================
+JS
+========================================================= -->
 
-btn.classList.add(
-"active"
-);
-
-currentCategory =
-btn.dataset.category;
-
-renderServices();
-
-}
-
-);
-
-});
-
-/* CITY */
-
-citySelector.addEventListener(
-
-"change",
-
-()=>{
-
-userCity =
-citySelector.value;
-
-localStorage.setItem(
-"userCity",
-userCity
-);
-
-renderServices();
-
-}
-
-);
-
-/* ADD TO CART */
-
-window.addToCart =
-function(id){
-
-const service =
-allServices.find(
-item=>item.id===id
-);
-
-if(!service)return;
-
-/* PRICE */
-
-let finalPrice = 0;
-
-if(service.prices){
-
-finalPrice =
-
-service.prices[userCity]
-
-?? 0;
-
-}
-
-if(finalPrice === 0){
-
-finalPrice =
-service.price || 0;
-
-}
-
-/* CART */
-
-let cart =
-JSON.parse(
-localStorage.getItem(
-"cart"
-)
-) || [];
-
-/* PUSH */
-
-cart.push({
-
-id:service.id,
-
-name:service.name,
-
-description:service.description,
-
-price:finalPrice,
-
-city:userCity,
-
-qty:1
-
-});
-
-/* SAVE */
-
-localStorage.setItem(
-
-"cart",
-
-JSON.stringify(cart)
-
-);
-
-/* COUNT */
-
-document.getElementById(
-"cartCount"
-).innerHTML =
-cart.length;
-
-/* POPUP */
-
-showCartPopup();
-
-};
-
-/* POPUP */
-
-function showCartPopup(){
-
-const popup =
-document.getElementById(
-"cartPopup"
-);
-
-popup.style.bottom =
-"90px";
-
-setTimeout(()=>{
-
-popup.style.bottom =
-"-100px";
-
-},2000);
-
-}
-
-/* CART COUNT */
-
-const cart =
-JSON.parse(
-localStorage.getItem(
-"cart"
-)
-) || [];
-
-document.getElementById(
-"cartCount"
-).innerHTML =
-cart.length;
+<script
+type="module"
+src="services.js">
 
 </script>
 
 </body>
+
 </html>
