@@ -1,814 +1,983 @@
-// =====================================================
-// QUICKPRESS FULL WORKING INDEX.JS
-// =====================================================
+/* =====================================================
+QUICKPRESS FINAL INDEX JS
+FILE NAME : index.js
+===================================================== */
 
-// =====================================================
-// FIREBASE IMPORT
-// =====================================================
+/* =====================================================
+FIREBASE IMPORT
+===================================================== */
 
-import {
+import { initializeApp }
 
-  db,
-  auth,
-  storage
-
-} from "./firebase.js";
+from "https://www.gstatic.com/firebasejs/10.12.2/firebase-app.js";
 
 import {
 
-  collection,
-  getDocs
+getFirestore,
+collection,
+query,
+limit,
+getDocs
 
-} from "https://www.gstatic.com/firebasejs/12.11.0/firebase-firestore.js";
+}
 
-// =====================================================
-// DOM ELEMENTS
-// =====================================================
+from "https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore.js";
 
-const productGrid =
-document.querySelector(".productGrid");
+/* =====================================================
+FIREBASE CONFIG
+===================================================== */
 
-const cartItems =
-document.getElementById("cartItems");
+const firebaseConfig = {
 
-const cartTotal =
-document.getElementById("cartTotal");
+apiKey: "YOUR_API_KEY",
 
-const cartCount =
-document.getElementById("cartCount");
+authDomain: "YOUR_PROJECT.firebaseapp.com",
 
-const popupCart =
-document.getElementById("popupCart");
+projectId: "YOUR_PROJECT_ID",
 
-const walletBtn =
-document.getElementById("walletBtn");
+storageBucket: "YOUR_PROJECT.appspot.com",
 
-const closeCart =
-document.getElementById("closeCart");
+messagingSenderId: "YOUR_SENDER_ID",
+
+appId: "YOUR_APP_ID"
+
+};
+
+/* =====================================================
+INITIALIZE FIREBASE
+===================================================== */
+
+const app =
+initializeApp(firebaseConfig);
+
+const db =
+getFirestore(app);
+
+/* =====================================================
+LIVE LOCATION
+===================================================== */
 
 const locationText =
-document.getElementById("locationText");
+document.getElementById(
+"locationText"
+);
+
+function success(position){
+
+const latitude =
+position.coords.latitude;
+
+const longitude =
+position.coords.longitude;
+
+fetch(
+
+`https://nominatim.openstreetmap.org/reverse?format=jsonv2&lat=${latitude}&lon=${longitude}`
+
+)
+
+.then(response => response.json())
+
+.then(data => {
+
+const area =
+
+data.address.suburb ||
+
+data.address.neighbourhood ||
+
+data.address.city ||
+
+data.address.town ||
+
+data.address.village ||
+
+"Kasganj";
+
+/* ========================================= */
+
+locationText.innerHTML =
+
+`📍 ${area}`;
+
+/* ========================================= */
+
+})
+
+.catch(()=>{
+
+locationText.innerHTML =
+"📍 Kasganj";
+
+});
+
+}
+
+function error(){
+
+locationText.innerHTML =
+"📍 Kasganj";
+
+}
+
+if(navigator.geolocation){
+
+navigator.geolocation.getCurrentPosition(
+success,
+error
+);
+
+}else{
+
+locationText.innerHTML =
+"📍 Kasganj";
+
+}
+
+/* =====================================================
+PROFILE BUTTON
+===================================================== */
+
+const profileBtn =
+document.querySelector(
+".profileBtn"
+);
+
+if(profileBtn){
+
+profileBtn.addEventListener(
+"click",
+()=>{
+
+window.location.href =
+"profile.html";
+
+}
+);
+
+}
+
+/* =====================================================
+MIC BUTTON
+===================================================== */
+
+const micBtn =
+document.querySelector(
+".micBtn"
+);
+
+micBtn.addEventListener(
+"click",
+()=>{
+
+showToast(
+"Voice Search Coming Soon 🎤"
+);
+
+}
+);
+
+/* =====================================================
+SEARCH EFFECT
+===================================================== */
+
+const searchBar =
+document.querySelector(
+".searchBar"
+);
 
 const searchInput =
-document.querySelector(".searchBar input");
+document.querySelector(
+".searchBar input"
+);
 
-// =====================================================
-// CART DATA
-// =====================================================
+searchInput.addEventListener(
+"focus",
+()=>{
+
+searchBar.style.transform =
+"scale(1.01)";
+
+searchBar.style.boxShadow =
+"0 12px 28px rgba(0,0,0,0.12)";
+
+}
+);
+
+searchInput.addEventListener(
+"blur",
+()=>{
+
+searchBar.style.transform =
+"scale(1)";
+
+searchBar.style.boxShadow =
+"0 8px 22px rgba(0,0,0,0.08)";
+
+}
+);
+
+/* =====================================================
+CATEGORY ACTIVE
+===================================================== */
+
+const categoryCards =
+document.querySelectorAll(
+".categoryCard"
+);
+
+categoryCards.forEach(card=>{
+
+card.addEventListener(
+"click",
+()=>{
+
+categoryCards.forEach(item=>{
+
+item.classList.remove(
+"activeCategory"
+);
+
+});
+
+card.classList.add(
+"activeCategory"
+);
+
+showToast(
+`${card.innerText} selected`
+);
+
+}
+);
+
+});
+
+/* =====================================================
+FIREBASE PRODUCTS
+===================================================== */
+
+const productGrid =
+document.getElementById(
+"productGrid"
+);
+
+async function loadTrendingServices(){
+
+productGrid.innerHTML = `
+
+<div style="
+grid-column:1/3;
+text-align:center;
+padding:40px 0;
+font-weight:700;
+color:#6B7280;
+">
+
+Loading Services...
+
+</div>
+
+`;
+
+try{
+
+const servicesQuery =
+query(
+
+collection(
+db,
+"services"
+),
+
+limit(6)
+
+);
+
+const querySnapshot =
+await getDocs(
+servicesQuery
+);
+
+productGrid.innerHTML = "";
+
+/* ========================================= */
+
+querySnapshot.forEach(doc=>{
+
+const product =
+doc.data();
+
+/* ========================================= */
+
+productGrid.innerHTML += `
+
+<div class="productCard">
+
+<div class="favoriteBtn">
+🤍
+</div>
+
+<div class="productImage">
+
+${product.icon || "🧺"}
+
+</div>
+
+<div class="productInfo">
+
+<h3>
+${product.name || "Service"}
+</h3>
+
+<p>
+${product.description || "Premium laundry service"}
+</p>
+
+<div class="productBottom">
+
+<div class="price">
+₹${product.price || 0}
+</div>
+
+<button class="addBtn">
+ADD
+</button>
+
+</div>
+
+</div>
+
+</div>
+
+`;
+
+});
+
+/* ========================================= */
+
+if(querySnapshot.empty){
+
+productGrid.innerHTML = `
+
+<div style="
+grid-column:1/3;
+text-align:center;
+padding:40px 0;
+font-weight:700;
+color:#6B7280;
+">
+
+No services found
+
+</div>
+
+`;
+
+}
+
+/* ========================================= */
+
+activateCartButtons();
+
+activateFavoriteButtons();
+
+}catch(error){
+
+console.log(error);
+
+productGrid.innerHTML = `
+
+<div style="
+grid-column:1/3;
+text-align:center;
+padding:40px 0;
+font-weight:700;
+color:red;
+">
+
+Failed to load services
+
+</div>
+
+`;
+
+}
+
+}
+
+loadTrendingServices();
+
+/* =====================================================
+POPUP CART
+===================================================== */
 
 let cart = [];
 
-// =====================================================
-// GET LIVE LOCATION
-// =====================================================
-
-function getLiveLocation() {
-
-  if (navigator.geolocation) {
-
-    navigator.geolocation.getCurrentPosition(
-
-      async (position) => {
-
-        const lat =
-        position.coords.latitude;
-
-        const lon =
-        position.coords.longitude;
-
-        try {
-
-          const response =
-          await fetch(
-
-            `https://nominatim.openstreetmap.org/reverse?lat=${lat}&lon=${lon}&format=json`
-
-          );
-
-          const data =
-          await response.json();
-
-          const city =
-
-            data.address.city ||
-
-            data.address.town ||
-
-            data.address.village ||
-
-            "QuickPress User";
-
-          locationText.innerHTML =
-          `📍 ${city}`;
-
-        }
-
-        catch (error) {
-
-          locationText.innerHTML =
-          "📍 Uttar Pradesh";
-
-        }
-
-      },
-
-      () => {
-
-        locationText.innerHTML =
-        "📍 Uttar Pradesh";
-
-      }
-
-    );
-
-  }
-
-}
-
-getLiveLocation();
-
-// =====================================================
-// LOAD SERVICES FROM FIREBASE
-// =====================================================
-
-async function loadServices() {
-
-  productGrid.innerHTML =
-
-  `
-  
-  <h2 class="loadingText">
-  Loading Services...
-  </h2>
-  
-  `;
-
-  try {
-
-    const querySnapshot =
-
-    await getDocs(
-
-      collection(db, "services")
-
-    );
-
-    productGrid.innerHTML = "";
-
-    querySnapshot.forEach((doc) => {
-
-      const product = doc.data();
-
-      const card =
-      document.createElement("div");
-
-      card.classList.add("productCard");
-
-      card.innerHTML =
-
-      `
-
-      <div class="productImageWrap">
-
-        <img
-        src="${product.image}"
-        class="productImage"
-        />
-
-        <div class="productBadge">
-        Express
-        </div>
-
-      </div>
-
-      <div class="productInfo">
-
-        <h3>
-        ${product.name}
-        </h3>
-
-        <p>
-        ${product.description}
-        </p>
-
-        <div class="priceRow">
-
-          <h2>
-          ₹${product.price}
-          </h2>
-
-          <button class="addBtn">
-          Add
-          </button>
-
-        </div>
-
-      </div>
-
-      `;
-
-      const addBtn =
-      card.querySelector(".addBtn");
-
-      addBtn.addEventListener(
-
-        "click",
-
-        () => {
-
-          addToCart(product);
-
-          buttonAnimation(addBtn);
-
-        }
-
-      );
-
-      productGrid.appendChild(card);
-
-    });
-
-  }
-
-  catch (error) {
-
-    console.log(error);
-
-    productGrid.innerHTML =
-
-    `
-    
-    <h2 style="color:white">
-    Failed To Load Services
-    </h2>
-    
-    `;
-
-  }
-
-}
-
-loadServices();
-
-// =====================================================
-// ADD TO CART
-// =====================================================
-
-function addToCart(product) {
-
-  const existingItem =
-
-  cart.find(
-
-    (item) => item.name === product.name
-
-  );
-
-  if (existingItem) {
-
-    existingItem.qty += 1;
-
-  }
-
-  else {
-
-    cart.push({
-
-      ...product,
-
-      qty: 1
-
-    });
-
-  }
-
-  updateCart();
-
-  showToast(`${product.name} Added`);
-
-}
-
-// =====================================================
-// UPDATE CART
-// =====================================================
-
-function updateCart() {
-
-  cartItems.innerHTML = "";
-
-  let total = 0;
-
-  let count = 0;
-
-  cart.forEach((item, index) => {
-
-    total += item.price * item.qty;
-
-    count += item.qty;
-
-    const cartCard =
-    document.createElement("div");
-
-    cartCard.classList.add("cartItem");
-
-    cartCard.innerHTML =
-
-    `
-
-    <img
-    src="${item.image}"
-    class="cartImage"
-    />
-
-    <div class="cartInfo">
-
-      <h4>
-      ${item.name}
-      </h4>
-
-      <p>
-      ₹${item.price}
-      </p>
-
-      <div class="qtyRow">
-
-        <button class="minusBtn">
-        -
-        </button>
-
-        <span>
-        ${item.qty}
-        </span>
-
-        <button class="plusBtn">
-        +
-        </button>
-
-      </div>
-
-    </div>
-
-    `;
-
-    const plusBtn =
-    cartCard.querySelector(".plusBtn");
-
-    const minusBtn =
-    cartCard.querySelector(".minusBtn");
-
-    plusBtn.addEventListener(
-
-      "click",
-
-      () => {
-
-        item.qty++;
-
-        updateCart();
-
-      }
-
-    );
-
-    minusBtn.addEventListener(
-
-      "click",
-
-      () => {
-
-        item.qty--;
-
-        if (item.qty <= 0) {
-
-          cart.splice(index, 1);
-
-        }
-
-        updateCart();
-
-      }
-
-    );
-
-    cartItems.appendChild(cartCard);
-
-  });
-
-  cartTotal.innerHTML =
-  `₹${total}`;
-
-  cartCount.innerHTML =
-  count;
-
-  localStorage.setItem(
-
-    "quickpress_cart",
-
-    JSON.stringify(cart)
-
-  );
-
-}
-
-// =====================================================
-// LOAD SAVED CART
-// =====================================================
-
-function loadSavedCart() {
-
-  const savedCart =
-
-  localStorage.getItem(
-
-    "quickpress_cart"
-
-  );
-
-  if (savedCart) {
-
-    cart = JSON.parse(savedCart);
-
-    updateCart();
-
-  }
-
-}
-
-loadSavedCart();
-
-// =====================================================
-// OPEN CART
-// =====================================================
+const popupCart =
+document.getElementById(
+"popupCart"
+);
+
+const cartItems =
+document.getElementById(
+"cartItems"
+);
+
+const cartTotal =
+document.getElementById(
+"cartTotal"
+);
+
+const walletAmount =
+document.getElementById(
+"walletAmount"
+);
+
+/* =====================================================
+OPEN CART
+===================================================== */
+
+const walletBtn =
+document.getElementById(
+"walletBtn"
+);
 
 walletBtn.addEventListener(
+"click",
+()=>{
 
-  "click",
+popupCart.style.display =
+"block";
 
-  () => {
+renderCart();
 
-    popupCart.classList.add("showCart");
-
-  }
-
+}
 );
 
-// =====================================================
-// CLOSE CART
-// =====================================================
+/* =====================================================
+CLOSE CART
+===================================================== */
+
+const closeCart =
+document.getElementById(
+"closeCart"
+);
 
 closeCart.addEventListener(
+"click",
+()=>{
 
-  "click",
+popupCart.style.display =
+"none";
 
-  () => {
-
-    popupCart.classList.remove("showCart");
-
-  }
-
+}
 );
 
-// =====================================================
-// CATEGORY ACTIVE
-// =====================================================
+/* =====================================================
+ADD TO CART
+===================================================== */
 
-const categories =
-document.querySelectorAll(".categoryCard");
+function activateCartButtons(){
 
-categories.forEach((category) => {
+document.querySelectorAll(
+".addBtn"
+)
 
-  category.addEventListener(
+.forEach(button=>{
 
-    "click",
+button.addEventListener(
+"click",
+()=>{
 
-    () => {
+const card =
+button.closest(
+".productCard"
+);
 
-      categories.forEach((item) => {
+const name =
+card.querySelector("h3")
+.innerText;
 
-        item.classList.remove(
+const price =
+card.querySelector(".price")
+.innerText;
 
-          "activeCategory"
+const emoji =
+card.querySelector(".productImage")
+.innerText;
 
-        );
+/* ========================================= */
 
-      });
+cart.push({
 
-      category.classList.add(
-
-        "activeCategory"
-
-      );
-
-    }
-
-  );
+name,
+price,
+emoji
 
 });
 
-// =====================================================
-// SEARCH FILTER
-// =====================================================
+/* ========================================= */
 
-searchInput.addEventListener(
+button.innerHTML =
+"Added ✓";
 
-  "input",
+button.style.background =
+"#111827";
 
-  () => {
+/* ========================================= */
 
-    const value =
+renderCart();
 
-    searchInput.value.toLowerCase();
-
-    const cards =
-
-    document.querySelectorAll(".productCard");
-
-    cards.forEach((card) => {
-
-      const title =
-
-      card.querySelector("h3")
-
-      .innerText
-
-      .toLowerCase();
-
-      if (title.includes(value)) {
-
-        card.style.display = "block";
-
-      }
-
-      else {
-
-        card.style.display = "none";
-
-      }
-
-    });
-
-  }
-
+showToast(
+`${name} added to cart`
 );
 
-// =====================================================
-// BUTTON ANIMATION
-// =====================================================
+}
+);
 
-function buttonAnimation(button) {
-
-  button.innerHTML = "Added";
-
-  button.style.background =
-  "#00c853";
-
-  button.style.transform =
-  "scale(0.95)";
-
-  setTimeout(() => {
-
-    button.innerHTML = "Add";
-
-    button.style.transform =
-    "scale(1)";
-
-  }, 1000);
+});
 
 }
 
-// =====================================================
-// TOAST MESSAGE
-// =====================================================
+/* =====================================================
+RENDER CART
+===================================================== */
 
-function showToast(message) {
+function renderCart(){
 
-  const toast =
-  document.createElement("div");
+cartItems.innerHTML = "";
 
-  toast.classList.add("toast");
+let total = 0;
 
-  toast.innerHTML =
+/* ========================================= */
 
-  `
-  
-  <i class="fa-solid fa-circle-check"></i>
-  ${message}
-  
-  `;
+if(cart.length === 0){
 
-  document.body.appendChild(toast);
+cartItems.innerHTML = `
 
-  setTimeout(() => {
+<div style="
+padding:25px;
+text-align:center;
+font-weight:700;
+color:#6B7280;
+">
 
-    toast.classList.add("showToast");
+Cart is empty 🛒
 
-  }, 100);
+</div>
 
-  setTimeout(() => {
-
-    toast.classList.remove("showToast");
-
-    setTimeout(() => {
-
-      toast.remove();
-
-    }, 500);
-
-  }, 2500);
+`;
 
 }
 
-// =====================================================
-// NAVBAR ACTIVE
-// =====================================================
+/* ========================================= */
+
+cart.forEach(item=>{
+
+const numericPrice =
+parseInt(
+item.price.replace("₹","")
+);
+
+total += numericPrice;
+
+/* ========================================= */
+
+cartItems.innerHTML += `
+
+<div class="cartItem">
+
+<div style="
+display:flex;
+align-items:center;
+gap:12px;
+">
+
+<div style="
+font-size:32px;
+">
+
+${item.emoji}
+
+</div>
+
+<div>
+
+<div style="
+font-size:15px;
+font-weight:800;
+">
+
+${item.name}
+
+</div>
+
+<div style="
+font-size:14px;
+color:#16A34A;
+font-weight:700;
+margin-top:3px;
+">
+
+${item.price}
+
+</div>
+
+</div>
+
+</div>
+
+</div>
+
+`;
+
+});
+
+/* ========================================= */
+
+cartTotal.innerText =
+`₹${total}`;
+
+walletAmount.innerText =
+`₹${total}`;
+
+}
+
+/* =====================================================
+CHECKOUT BUTTON
+===================================================== */
+
+const checkoutBtn =
+document.querySelector(
+".checkoutBtn"
+);
+
+checkoutBtn.addEventListener(
+"click",
+()=>{
+
+if(cart.length === 0){
+
+showToast(
+"Cart is empty"
+);
+
+return;
+
+}
+
+showToast(
+"Opening checkout 🚀"
+);
+
+setTimeout(()=>{
+
+window.location.href =
+"checkout.html";
+
+},1200);
+
+}
+);
+
+/* =====================================================
+BOOK PICKUP BUTTON
+===================================================== */
+
+const bookBtn =
+document.querySelector(
+".bookBtn"
+);
+
+bookBtn.addEventListener(
+"click",
+()=>{
+
+showToast(
+"Pickup booked successfully 🚀"
+);
+
+}
+);
+
+/* =====================================================
+PARTNER BUTTON
+===================================================== */
+
+const partnerBtn =
+document.querySelector(
+".partnerBtn"
+);
+
+partnerBtn.addEventListener(
+"click",
+()=>{
+
+showToast(
+"Opening partners..."
+);
+
+}
+);
+
+/* =====================================================
+FAVORITE BUTTON
+===================================================== */
+
+function activateFavoriteButtons(){
+
+document.querySelectorAll(
+".favoriteBtn"
+)
+
+.forEach(button=>{
+
+button.addEventListener(
+"click",
+()=>{
+
+if(button.innerHTML === "🤍"){
+
+button.innerHTML =
+"❤️";
+
+showToast(
+"Added to wishlist"
+);
+
+}else{
+
+button.innerHTML =
+"🤍";
+
+showToast(
+"Removed from wishlist"
+);
+
+}
+
+}
+);
+
+});
+
+}
+
+/* =====================================================
+BOTTOM NAV
+===================================================== */
 
 const navItems =
-document.querySelectorAll(".navItem");
+document.querySelectorAll(
+".navItem"
+);
 
-navItems.forEach((item) => {
+navItems.forEach(item=>{
 
-  item.addEventListener(
+item.addEventListener(
+"click",
+()=>{
 
-    "click",
+navItems.forEach(nav=>{
 
-    () => {
-
-      navItems.forEach((nav) => {
-
-        nav.classList.remove("activeNav");
-
-      });
-
-      item.classList.add("activeNav");
-
-    }
-
-  );
+nav.classList.remove(
+"activeNav"
+);
 
 });
 
-// =====================================================
-// PAGE LINKS
-// =====================================================
+item.classList.add(
+"activeNav"
+);
 
-document.querySelector(".homeNav")
-.addEventListener("click", () => {
+/* =========================================
+PAGE REDIRECT
+========================================= */
 
-  window.location.href =
-  "index.html";
+const pageText =
+item.innerText.trim();
 
-});
+/* ========================================= */
 
-document.querySelector(".ordersNav")
-.addEventListener("click", () => {
+if(pageText.includes("Home")){
 
-  window.location.href =
-  "orders.html";
+window.location.href =
+"index.html";
 
-});
+}
 
-document.querySelector(".servicesNav")
-.addEventListener("click", () => {
+if(pageText.includes("Orders")){
 
-  window.location.href =
-  "services.html";
+window.location.href =
+"orders.html";
 
-});
+}
 
-document.querySelector(".walletNav")
-.addEventListener("click", () => {
+if(pageText.includes("Services")){
 
-  window.location.href =
-  "wallet.html";
+window.location.href =
+"services.html";
 
-});
+}
 
-document.querySelector(".profileNav")
-.addEventListener("click", () => {
+if(pageText.includes("Wallet")){
 
-  window.location.href =
-  "profile.html";
+window.location.href =
+"wallet.html";
 
-});
+}
 
-// =====================================================
-// BOOK PICKUP BUTTON
-// =====================================================
+if(pageText.includes("Profile")){
 
-document.querySelector(".bookBtn")
-.addEventListener("click", () => {
+window.location.href =
+"profile.html";
 
-  popupCart.classList.add("showCart");
+}
+
+}
+);
 
 });
 
-// =====================================================
-// PARTNER BUTTON
-// =====================================================
-
-document.querySelector(".partnerBtn")
-.addEventListener("click", () => {
-
-  showToast("Partners Page Coming Soon");
-
-});
-
-// =====================================================
-// CHECKOUT
-// =====================================================
-
-document.querySelector(".checkoutBtn")
-.addEventListener("click", () => {
-
-  if (cart.length === 0) {
-
-    showToast("Cart Empty");
-
-    return;
-
-  }
-
-  showToast("Opening Checkout");
-
-  setTimeout(() => {
-
-    window.location.href =
-    "checkout.html";
-
-  }, 1200);
-
-});
-
-// =====================================================
-// AUTO REVIEW SLIDER
-// =====================================================
+/* =====================================================
+AUTO REVIEW SLIDER
+===================================================== */
 
 const reviewTrack =
-document.querySelector(".reviewTrack");
+document.querySelector(
+".reviewTrack"
+);
 
-let scrollAmount = 0;
+let reviewScroll = 0;
 
-setInterval(() => {
+setInterval(()=>{
 
-  scrollAmount += 320;
+if(reviewTrack){
 
-  if (
+reviewScroll += 300;
 
-    scrollAmount >
+if(
 
-    reviewTrack.scrollWidth - 350
+reviewScroll >=
 
-  ) {
+reviewTrack.scrollWidth -
 
-    scrollAmount = 0;
+reviewTrack.clientWidth
 
-  }
+){
 
-  reviewTrack.scrollTo({
+reviewScroll = 0;
 
-    left: scrollAmount,
+}
 
-    behavior: "smooth"
+reviewTrack.scrollTo({
 
-  });
+left:reviewScroll,
 
-}, 3000);
-
-// =====================================================
-// MIC BUTTON
-// =====================================================
-
-document.querySelector(".micBtn")
-.addEventListener("click", () => {
-
-  showToast("Voice Search Soon");
+behavior:"smooth"
 
 });
 
-// =====================================================
-// PROFILE BUTTON
-// =====================================================
+}
 
-document.querySelector(".profileBtn")
-.addEventListener("click", () => {
+},3200);
 
-  window.location.href =
-  "profile.html";
+/* =====================================================
+TOAST
+===================================================== */
+
+function showToast(message){
+
+const toast =
+document.createElement("div");
+
+toast.innerHTML = message;
+
+toast.style.position =
+"fixed";
+
+toast.style.bottom =
+"100px";
+
+toast.style.left =
+"50%";
+
+toast.style.transform =
+"translateX(-50%)";
+
+toast.style.background =
+"#111827";
+
+toast.style.color =
+"#fff";
+
+toast.style.padding =
+"14px 22px";
+
+toast.style.borderRadius =
+"18px";
+
+toast.style.fontWeight =
+"700";
+
+toast.style.fontSize =
+"14px";
+
+toast.style.zIndex =
+"99999";
+
+toast.style.boxShadow =
+"0 8px 24px rgba(0,0,0,0.18)";
+
+document.body.appendChild(
+toast
+);
+
+setTimeout(()=>{
+
+toast.remove();
+
+},2500);
+
+}
+
+/* =====================================================
+HEADER SCROLL EFFECT
+===================================================== */
+
+window.addEventListener(
+"scroll",
+()=>{
+
+const hero =
+document.querySelector(
+".hero"
+);
+
+if(window.scrollY > 10){
+
+hero.style.boxShadow =
+"0 8px 22px rgba(0,0,0,0.08)";
+
+}else{
+
+hero.style.boxShadow =
+"none";
+
+}
 
 });
 
-// =====================================================
-// PAGE ANIMATION
-// =====================================================
+/* =====================================================
+PAGE LOAD
+===================================================== */
 
-window.addEventListener("load", () => {
+window.addEventListener(
+"load",
+()=>{
 
-  document.body.style.opacity = "1";
+document.body.style.opacity =
+"1";
 
 });
-
-// =====================================================
-// CONSOLE
-// =====================================================
-
-console.log("QuickPress Ready 🚀");
