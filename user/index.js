@@ -4,6 +4,56 @@ FILE NAME : index.js
 ===================================================== */
 
 /* =====================================================
+FIREBASE IMPORT
+===================================================== */
+
+import { initializeApp }
+
+from "https://www.gstatic.com/firebasejs/10.12.2/firebase-app.js";
+
+import {
+
+getFirestore,
+collection,
+query,
+limit,
+getDocs
+
+}
+
+from "https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore.js";
+
+/* =====================================================
+FIREBASE CONFIG
+===================================================== */
+
+const firebaseConfig = {
+
+apiKey: "YOUR_API_KEY",
+
+authDomain: "YOUR_PROJECT.firebaseapp.com",
+
+projectId: "YOUR_PROJECT_ID",
+
+storageBucket: "YOUR_PROJECT.appspot.com",
+
+messagingSenderId: "YOUR_SENDER_ID",
+
+appId: "YOUR_APP_ID"
+
+};
+
+/* =====================================================
+INITIALIZE
+===================================================== */
+
+const app =
+initializeApp(firebaseConfig);
+
+const db =
+getFirestore(app);
+
+/* =====================================================
 LIVE LOCATION
 ===================================================== */
 
@@ -21,7 +71,9 @@ const longitude =
 position.coords.longitude;
 
 fetch(
+
 `https://nominatim.openstreetmap.org/reverse?format=jsonv2&lat=${latitude}&lon=${longitude}`
+
 )
 
 .then(response => response.json())
@@ -106,7 +158,7 @@ window.location.href =
 }
 
 /* =====================================================
-SEARCH BAR EFFECT
+SEARCH EFFECT
 ===================================================== */
 
 const searchBar =
@@ -202,69 +254,61 @@ showToast(
 });
 
 /* =====================================================
-REAL PRODUCT DATA
-===================================================== */
-
-const products = [
-
-{
-emoji:"👔",
-name:"Shirt Iron",
-desc:"Premium steam ironing",
-price:29
-},
-
-{
-emoji:"👕",
-name:"T-Shirt Wash",
-desc:"Soft wash and fold",
-price:49
-},
-
-{
-emoji:"👖",
-name:"Jeans Cleaning",
-desc:"Deep denim cleaning",
-price:79
-},
-
-{
-emoji:"👟",
-name:"Sneaker Clean",
-desc:"Premium sneaker wash",
-price:199
-},
-
-{
-emoji:"🛏️",
-name:"Blanket Wash",
-desc:"Heavy blanket cleaning",
-price:149
-},
-
-{
-emoji:"🧺",
-name:"Wash & Fold",
-desc:"Per KG premium wash",
-price:59
-}
-
-];
-
-/* =====================================================
-PRODUCT RENDER
+FIREBASE PRODUCTS
 ===================================================== */
 
 const productGrid =
-document.querySelector(
-".productGrid"
+document.getElementById(
+"productGrid"
 );
 
-if(productGrid){
+async function loadTrendingServices(){
+
+productGrid.innerHTML = `
+
+<div style="
+grid-column:1/3;
+text-align:center;
+padding:40px 0;
+font-weight:700;
+color:#6B7280;
+">
+
+Loading Services...
+
+</div>
+
+`;
+
+try{
+
+const servicesQuery =
+query(
+
+collection(
+db,
+"services"
+),
+
+limit(6)
+
+);
+
+const querySnapshot =
+await getDocs(
+servicesQuery
+);
 
 productGrid.innerHTML = "";
 
-products.forEach(product=>{
+/* ========================================= */
+
+querySnapshot.forEach(doc=>{
+
+const product =
+doc.data();
+
+/* ========================================= */
 
 productGrid.innerHTML += `
 
@@ -275,23 +319,25 @@ productGrid.innerHTML += `
 </div>
 
 <div class="productImage">
-${product.emoji}
+
+${product.icon || "🧺"}
+
 </div>
 
 <div class="productInfo">
 
 <h3>
-${product.name}
+${product.name || "Service"}
 </h3>
 
 <p>
-${product.desc}
+${product.description || "Premium laundry service"}
 </p>
 
 <div class="productBottom">
 
 <div class="price">
-₹${product.price}
+₹${product.price || 0}
 </div>
 
 <button class="addBtn">
@@ -308,7 +354,58 @@ ADD
 
 });
 
+/* ========================================= */
+
+if(querySnapshot.empty){
+
+productGrid.innerHTML = `
+
+<div style="
+grid-column:1/3;
+text-align:center;
+padding:40px 0;
+font-weight:700;
+color:#6B7280;
+">
+
+No services found
+
+</div>
+
+`;
+
 }
+
+/* ========================================= */
+
+activateCartButtons();
+activateFavoriteButtons();
+
+}catch(error){
+
+console.log(error);
+
+productGrid.innerHTML = `
+
+<div style="
+grid-column:1/3;
+text-align:center;
+padding:40px 0;
+font-weight:700;
+color:red;
+">
+
+Failed to load services
+
+</div>
+
+`;
+
+}
+
+}
+
+loadTrendingServices();
 
 /* =====================================================
 POPUP CART
@@ -337,7 +434,7 @@ document.getElementById(
 );
 
 /* =====================================================
-WALLET BUTTON
+OPEN CART
 ===================================================== */
 
 const walletBtn =
@@ -380,16 +477,20 @@ popupCart.style.display =
 ADD TO CART
 ===================================================== */
 
-document.addEventListener(
-"click",
-(event)=>{
+function activateCartButtons(){
 
-if(event.target.classList.contains(
-"addBtn"
-)){
+document.querySelectorAll(
+".addBtn"
+)
+
+.forEach(button=>{
+
+button.addEventListener(
+"click",
+()=>{
 
 const card =
-event.target.closest(
+button.closest(
 ".productCard"
 );
 
@@ -405,6 +506,8 @@ const emoji =
 card.querySelector(".productImage")
 .innerText;
 
+/* ========================================= */
+
 cart.push({
 
 name,
@@ -413,11 +516,15 @@ emoji
 
 });
 
-event.target.innerHTML =
+/* ========================================= */
+
+button.innerHTML =
 "Added ✓";
 
-event.target.style.background =
+button.style.background =
 "#111827";
+
+/* ========================================= */
 
 renderCart();
 
@@ -426,9 +533,11 @@ showToast(
 );
 
 }
+);
+
+});
 
 }
-);
 
 /* =====================================================
 RENDER CART
@@ -439,6 +548,8 @@ function renderCart(){
 cartItems.innerHTML = "";
 
 let total = 0;
+
+/* ========================================= */
 
 if(cart.length === 0){
 
@@ -469,6 +580,8 @@ item.price.replace("₹","")
 );
 
 total += numericPrice;
+
+/* ========================================= */
 
 cartItems.innerHTML += `
 
@@ -611,17 +724,21 @@ showToast(
 FAVORITE BUTTON
 ===================================================== */
 
-document.addEventListener(
+function activateFavoriteButtons(){
+
+document.querySelectorAll(
+".favoriteBtn"
+)
+
+.forEach(button=>{
+
+button.addEventListener(
 "click",
-(event)=>{
+()=>{
 
-if(event.target.classList.contains(
-"favoriteBtn"
-)){
+if(button.innerHTML === "🤍"){
 
-if(event.target.innerHTML === "🤍"){
-
-event.target.innerHTML =
+button.innerHTML =
 "❤️";
 
 showToast(
@@ -630,7 +747,7 @@ showToast(
 
 }else{
 
-event.target.innerHTML =
+button.innerHTML =
 "🤍";
 
 showToast(
@@ -640,9 +757,11 @@ showToast(
 }
 
 }
+);
+
+});
 
 }
-);
 
 /* =====================================================
 BOTTOM NAV
