@@ -1,55 +1,59 @@
+<!-- =========================================================
+FILE : index.html
+QUICKPRESS PREMIUM HOME PAGE
+========================================================= -->
+
 <!DOCTYPE html>
+
 <html lang="en">
 
 <head>
 
-<meta charset="UTF-8" />
+<meta charset="UTF-8">
 
 <meta
 name="viewport"
-content="width=device-width, initial-scale=1.0"
-/>
+content="width=device-width, initial-scale=1.0">
 
 <title>
 QuickPress
 </title>
 
-<!-- =====================================================
-FONT AWESOME
-===================================================== -->
-
-<link
-rel="stylesheet"
-href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css"
-/>
-
-<!-- =====================================================
+<!-- =========================================================
 GOOGLE FONT
-===================================================== -->
+========================================================= -->
 
 <link
-href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700;800;900&display=swap"
-rel="stylesheet"
-/>
+href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800;900&display=swap"
+rel="stylesheet">
+
+<!-- =========================================================
+FONT AWESOME
+========================================================= -->
 
 <link
 rel="stylesheet"
-href="style.css"
-/>
+href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css"/>
 
-<link rel="stylesheet" href="style.css">
+<!-- =========================================================
+CSS
+========================================================= -->
+
+<link
+rel="stylesheet"
+href="style.css">
 
 </head>
 
 <body>
 
-<!-- =====================================================
+<!-- =========================================================
 HEADER
-===================================================== -->
+========================================================= -->
 
 <header class="hero">
 
-<div class="heroTop">
+<div class="headerTop">
 
 <div class="logoSection">
 
@@ -67,11 +71,9 @@ id="locationText">
 
 </div>
 
-<div class="heroActions">
+<div class="headerActions">
 
-<button
-class="walletBtn"
-id="walletBtn">
+<button class="cartBtn">
 
 <i class="fa-solid fa-cart-shopping"></i>
 
@@ -82,7 +84,8 @@ id="walletBtn">
 </button>
 
 <button
-class="profileBtn">
+class="profileBtn"
+onclick="window.location.href='profile.html'">
 
 H
 
@@ -92,20 +95,17 @@ H
 
 </div>
 
-<!-- =====================================================
-SEARCH
-===================================================== -->
+<!-- SEARCH -->
 
 <div class="searchWrap">
 
 <div class="searchBar">
 
-<i class="fa-solid fa-magnifying-glass searchIcon"></i>
+<i class="fa-solid fa-magnifying-glass"></i>
 
 <input
 type="text"
-placeholder='Search "shirt wash"'
-/>
+placeholder='Search "shirt wash"'>
 
 <button class="micBtn">
 
@@ -119,64 +119,78 @@ placeholder='Search "shirt wash"'
 
 </header>
 
-<!-- =====================================================
-CATEGORY SECTION
-===================================================== -->
+<!-- =========================================================
+CATEGORY
+========================================================= -->
 
 <section class="categorySection">
 
 <div class="categoryScroll">
 
-<div class="categoryCard activeCategory">
+<div
+class="categoryCard"
+data-category="Iron">
+
 Iron
+
 </div>
 
-<div class="categoryCard">
+<div
+class="categoryCard"
+data-category="Wash">
+
 Wash
+
 </div>
 
-<div class="categoryCard">
+<div
+class="categoryCard"
+data-category="Steam">
+
 Steam
+
 </div>
 
-<div class="categoryCard">
+<div
+class="categoryCard"
+data-category="Shoes">
+
 Shoes
+
 </div>
 
-<div class="categoryCard">
+<div
+class="categoryCard"
+data-category="Blanket">
+
 Blanket
+
 </div>
 
-<div class="categoryCard">
+<div
+class="categoryCard"
+data-category="Premium">
+
 Premium
-</div>
 
-<div class="categoryCard">
-Dry Clean
-</div>
-
-<div class="categoryCard">
-Curtain
-</div>
-
-<div class="categoryCard">
-Bedsheet
 </div>
 
 </div>
 
 </section>
 
-<!-- =====================================================
-FAST DELIVERY BANNER
-===================================================== -->
+<!-- =========================================================
+DELIVERY BANNER
+========================================================= -->
 
-<section class="deliveryBanner">
+<section class="bannerSection">
 
-<div class="bannerContent">
+<div class="bannerBox">
+
+<div class="bannerText">
 
 <h2>
-Premium Laundry
+Premium Laundry<br>
 Delivered Fast ⚡
 </h2>
 
@@ -184,162 +198,51 @@ Delivered Fast ⚡
 Wash, steam, iron and sneaker cleaning with express pickup.
 </p>
 
-<button class="bookBtn">
+<button>
 Book Pickup
 </button>
 
 </div>
 
-</section>
-
-<!-- =====================================================
-CUSTOMER REVIEWS
-===================================================== -->
-
-<section class="reviewSection">
-
-<div class="reviewHeader">
-
-<h2>
-Customer Reviews
-</h2>
-
-</div>
-
-<div class="reviewTrack">
-
-<div class="reviewCard">
-
-<div class="reviewTop">
-
-<img
-src="https://i.pravatar.cc/100?img=1"
-/>
-
-<div>
-
-<h4>
-Rohit Sharma
-</h4>
-
-<span>
-Kasganj
-</span>
-
-</div>
-
-</div>
-
-<p>
-Amazing ironing quality and very fast pickup service.
-</p>
-
-<div class="stars">
-★★★★★
-</div>
-
-</div>
-
-<div class="reviewCard">
-
-<div class="reviewTop">
-
-<img
-src="https://i.pravatar.cc/100?img=2"
-/>
-
-<div>
-
-<h4>
-Muskan Ali
-</h4>
-
-<span>
-Aligarh
-</span>
-
-</div>
-
-</div>
-
-<p>
-Packaging and steam press quality is premium level.
-</p>
-
-<div class="stars">
-★★★★★
-</div>
-
-</div>
-
-<div class="reviewCard">
-
-<div class="reviewTop">
-
-<img
-src="https://i.pravatar.cc/100?img=3"
-/>
-
-<div>
-
-<h4>
-Deepak Singh
-</h4>
-
-<span>
-Etah
-</span>
-
-</div>
-
-</div>
-
-<p>
-Pickup arrived within 12 minutes. Very professional.
-</p>
-
-<div class="stars">
-★★★★★
-</div>
-
-</div>
-
 </div>
 
 </section>
 
-<!-- =====================================================
+<!-- =========================================================
 TRENDING SERVICES
-===================================================== -->
+========================================================= -->
 
-<section class="trendingSection">
+<section class="productSection">
 
-<h2 class="sectionTitle">
+<div class="sectionTitle">
 Trending Services
-</h2>
+</div>
 
-<div class="productGrid">
+<div
+class="productGrid"
+id="productGrid">
 
-<!-- FIREBASE PRODUCTS -->
+<!-- PRODUCTS LOAD FROM FIREBASE -->
 
 </div>
 
 </section>
 
-<!-- =====================================================
-TOP PARTNERS
-===================================================== -->
+<!-- =========================================================
+TOP RATED PARTNER
+========================================================= -->
 
-<section class="partnerBanner">
+<section class="partnerSection">
 
-<div class="partnerContent">
+<div class="partnerBox">
 
-<h2>
+<h2 class="partnerTitle">
 🏆 Top Rated Partners
 </h2>
 
-<p>
-Trusted premium laundry partners with express pickup and same day delivery.
+<p class="partnerText">
+Trusted premium laundry partners with fast pickup,
+steam ironing and same day delivery service.
 </p>
 
 <button class="partnerBtn">
@@ -350,22 +253,217 @@ Explore Partners
 
 </section>
 
-<!-- =====================================================
+<!-- =========================================================
+CUSTOMER REVIEWS
+========================================================= -->
+
+<section class="reviewSection">
+
+<h2 class="reviewHeading">
+Customer Reviews
+</h2>
+
+<div class="reviewSlider">
+
+<div class="reviewCard">
+
+<div class="reviewTop">
+
+<div class="reviewAvatar">
+R
+</div>
+
+<div>
+
+<div class="reviewName">
+Rohit Sharma
+</div>
+
+<div class="reviewCity">
+Kasganj
+</div>
+
+</div>
+
+</div>
+
+<div class="reviewText">
+Amazing ironing quality and fast pickup.
+Packaging and delivery were premium.
+</div>
+
+<div class="reviewStars">
+★★★★★
+</div>
+
+</div>
+
+<div class="reviewCard">
+
+<div class="reviewTop">
+
+<div class="reviewAvatar">
+A
+</div>
+
+<div>
+
+<div class="reviewName">
+Anjali Verma
+</div>
+
+<div class="reviewCity">
+Aligarh
+</div>
+
+</div>
+
+</div>
+
+<div class="reviewText">
+Best laundry app experience.
+Professional service and smooth delivery.
+</div>
+
+<div class="reviewStars">
+★★★★★
+</div>
+
+</div>
+
+<div class="reviewCard">
+
+<div class="reviewTop">
+
+<div class="reviewAvatar">
+F
+</div>
+
+<div>
+
+<div class="reviewName">
+Faizan Khan
+</div>
+
+<div class="reviewCity">
+Bareilly
+</div>
+
+</div>
+
+</div>
+
+<div class="reviewText">
+Pickup arrived within 10 minutes.
+Steam ironing quality was excellent.
+</div>
+
+<div class="reviewStars">
+★★★★★
+</div>
+
+</div>
+
+</div>
+
+</section>
+
+<!-- =========================================================
+WATERMARK
+========================================================= -->
+
+<section class="watermarkSection">
+
+<div class="watermarkText">
+India’s last<br>
+minute app
+</div>
+
+<div class="watermarkHeart">
+❤
+</div>
+
+<div class="watermarkLogo">
+QuickPress
+</div>
+
+</section>
+
+<!-- =========================================================
+BOTTOM NAVBAR
+========================================================= -->
+
+<nav class="bottomNav">
+
+<button
+class="navItem active"
+onclick="window.location.href='index.html'">
+
+<i class="fa-solid fa-house"></i>
+<span>Home</span>
+
+</button>
+
+<button
+class="navItem"
+onclick="window.location.href='orders.html'">
+
+<i class="fa-solid fa-bag-shopping"></i>
+<span>Orders</span>
+
+</button>
+
+<button
+class="navItem"
+onclick="window.location.href='services.html'">
+
+<i class="fa-solid fa-table-cells-large"></i>
+<span>Services</span>
+
+</button>
+
+<button
+class="navItem"
+onclick="window.location.href='wallet.html'">
+
+<i class="fa-solid fa-wallet"></i>
+<span>Wallet</span>
+
+</button>
+
+<button
+class="navItem"
+onclick="window.location.href='profile.html'">
+
+<i class="fa-regular fa-user"></i>
+<span>Profile</span>
+
+</button>
+
+</nav>
+
+<!-- =========================================================
 POPUP CART
-===================================================== -->
+========================================================= -->
 
 <div
 class="popupCart"
 id="popupCart">
 
-<div class="cartHeader">
+<div class="popupContent">
+
+<div class="popupTop">
 
 <h3>
-Your Cart
+Cart
 </h3>
 
-<button id="closeCart">
-✕
+<button
+class="closePopup"
+id="closePopup">
+
+×
+
 </button>
 
 </div>
@@ -374,110 +472,35 @@ Your Cart
 class="cartItems"
 id="cartItems">
 
-</div>
-
-<div class="cartFooter">
-
-<div class="totalRow">
-
-<span>
-Total
-</span>
-
-<h2 id="cartTotal">
-₹0
-</h2>
-
-</div>
-
-<button class="checkoutBtn">
-Proceed To Checkout
-</button>
+No items added
 
 </div>
 
 </div>
 
-<!-- =====================================================
-BOTTOM NAVBAR
-===================================================== -->
+</div>
 
-<div class="bottomNav">
+<!-- =========================================================
+TOAST
+========================================================= -->
 
-<div class="navItem activeNav homeNav">
+<div
+class="toast"
+id="toast">
 
-<i class="fa-solid fa-house"></i>
-
-<span>
-Home
-</span>
+Added To Cart
 
 </div>
 
-<div class="navItem ordersNav">
-
-<i class="fa-solid fa-bag-shopping"></i>
-
-<span>
-Orders
-</span>
-
-</div>
-
-<div class="navItem servicesNav">
-
-<i class="fa-solid fa-table-cells-large"></i>
-
-<span>
-Services
-</span>
-
-</div>
-
-<div class="navItem walletNav">
-
-<i class="fa-solid fa-wallet"></i>
-
-<span>
-Wallet
-</span>
-
-</div>
-
-<div class="navItem profileNav">
-
-<i class="fa-regular fa-user"></i>
-
-<span>
-Profile
-</span>
-
-</div>
-
-</div>
-
-<!-- =====================================================
-FOOTER
-===================================================== -->
-
-<footer class="footer">
-
-Made in Uttar Pradesh • Crafted by Himanshu Baghel
-
-</footer>
-
-<!-- =====================================================
+<!-- =========================================================
 JS
-===================================================== -->
+========================================================= -->
 
 <script
 type="module"
 src="index.js">
-  
 
 </script>
-
-  <script type="module" src="index.js"></script>
 
 </body>
 
