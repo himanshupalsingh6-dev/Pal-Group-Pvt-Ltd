@@ -1,5 +1,6 @@
 /* =========================================================
-FILE : index.js
+FILE : services.js
+QUICKPRESS SERVICES PAGE
 ========================================================= */
 
 import {
@@ -22,11 +23,42 @@ from
 "https://www.gstatic.com/firebasejs/12.11.0/firebase-firestore.js";
 
 /* =========================================================
-LIVE LOCATION
+ELEMENTS
 ========================================================= */
+
+const servicesGrid =
+document.getElementById("servicesGrid");
+
+const searchInput =
+document.getElementById("searchInput");
+
+const categoryBtns =
+document.querySelectorAll(".categoryBtn");
+
+const cartBtn =
+document.querySelector(".cartBtn");
+
+const popupCart =
+document.getElementById("popupCart");
+
+const closePopup =
+document.getElementById("closePopup");
+
+const cartItems =
+document.getElementById("cartItems");
+
+const toast =
+document.getElementById("toast");
+
+const cartCount =
+document.getElementById("cartCount");
 
 const locationText =
 document.getElementById("locationText");
+
+/* =========================================================
+LIVE LOCATION
+========================================================= */
 
 navigator.geolocation.getCurrentPosition(
 
@@ -70,16 +102,23 @@ locationText.innerHTML =
 );
 
 /* =========================================================
-LOAD PRODUCTS
+GLOBAL VARIABLES
 ========================================================= */
 
-const productGrid =
-document.getElementById("productGrid");
+let allServices = [];
 
-async function loadProducts(){
+let cart = [];
 
-productGrid.innerHTML =
-"";
+let currentCategory = "all";
+
+/* =========================================================
+LOAD SERVICES FROM FIREBASE
+========================================================= */
+
+async function loadServices(){
+
+servicesGrid.innerHTML =
+"<p>Loading services...</p>";
 
 try{
 
@@ -88,47 +127,123 @@ await getDocs(
 collection(db,"services")
 );
 
+allServices = [];
+
 querySnapshot.forEach((doc)=>{
 
-const product =
-doc.data();
+allServices.push({
 
-productGrid.innerHTML +=
+id:doc.id,
+...doc.data()
+
+});
+
+});
+
+renderServices(allServices);
+
+}catch(error){
+
+console.log(error);
+
+servicesGrid.innerHTML =
+"<p>Failed to load services</p>";
+
+}
+
+}
+
+loadServices();
+
+/* =========================================================
+RENDER SERVICES
+========================================================= */
+
+function renderServices(data){
+
+servicesGrid.innerHTML = "";
+
+if(data.length === 0){
+
+servicesGrid.innerHTML =
 
 `
 
-<div class="productCard">
+<div class="emptyBox">
 
-<div class="productImage">
+<h3>
+No Services Found
+</h3>
 
-${product.icon || "🧺"}
-
-</div>
-
-<div class="productInfo">
-
-<div class="productName">
-
-${product.name}
+<p>
+Try another search
+</p>
 
 </div>
 
-<div class="productDesc">
+`;
 
-${product.description || "Premium laundry service"}
+return;
+
+}
+
+data.forEach((service)=>{
+
+servicesGrid.innerHTML +=
+
+`
+
+<div class="serviceCard">
+
+<div class="serviceImage">
+
+${service.icon || "🧺"}
 
 </div>
 
-<div class="productBottom">
+<div class="serviceInfo">
 
-<div class="productPrice">
+<div class="serviceCategory">
 
-₹${product.price}
+${service.category || "Premium"}
+
+</div>
+
+<h3 class="serviceName">
+
+${service.name || "Laundry Service"}
+
+</h3>
+
+<p class="serviceDesc">
+
+${service.description || "Premium laundry service"}
+
+</p>
+
+<div class="serviceBottom">
+
+<div>
+
+<div class="servicePrice">
+
+₹${service.price || 0}
+
+</div>
+
+<div class="deliveryTime">
+
+⚡ 10 mins
+
+</div>
 
 </div>
 
 <button
-class="addBtn">
+class="addBtn"
+data-id="${service.id}"
+data-name="${service.name}"
+data-price="${service.price}">
 
 ADD
 
@@ -144,92 +259,248 @@ ADD
 
 });
 
-activateCartButtons();
-
-}catch(error){
-
-console.log(error);
+activateAddButtons();
 
 }
-
-}
-
-loadProducts();
 
 /* =========================================================
-CATEGORY REDIRECT
+SEARCH
 ========================================================= */
 
-document.querySelectorAll(".categoryCard")
-.forEach(card=>{
+searchInput.addEventListener("input",()=>{
 
-card.addEventListener("click",()=>{
-
-const category =
-card.dataset.category
+const value =
+searchInput.value
 .toLowerCase();
 
-const products =
-document.querySelectorAll(".productCard");
+let filtered =
+allServices.filter(service=>{
 
-products.forEach(product=>{
+const name =
+(service.name || "")
+.toLowerCase();
 
-if(
-product.innerText
-.toLowerCase()
-.includes(category)
-){
+const category =
+(service.category || "")
+.toLowerCase();
 
-product.scrollIntoView({
+const matchSearch =
+name.includes(value) ||
+category.includes(value);
 
-behavior:"smooth",
-block:"center"
+const matchCategory =
+
+currentCategory === "all"
+?
+
+true
+
+:
+
+category.includes(currentCategory);
+
+return matchSearch && matchCategory;
+
+});
+
+renderServices(filtered);
+
+});
+
+/* =========================================================
+CATEGORY FILTER
+========================================================= */
+
+categoryBtns.forEach((btn)=>{
+
+btn.addEventListener("click",()=>{
+
+categoryBtns.forEach((b)=>{
+
+b.classList.remove("active");
+
+});
+
+btn.classList.add("active");
+
+currentCategory =
+btn.dataset.category;
+
+filterServices();
+
+});
+
+});
+
+function filterServices(){
+
+let filtered =
+allServices.filter(service=>{
+
+const category =
+(service.category || "")
+.toLowerCase();
+
+if(currentCategory === "all"){
+
+return true;
+
+}
+
+return category.includes(currentCategory);
+
+});
+
+renderServices(filtered);
+
+}
+
+/* =========================================================
+ADD TO CART
+========================================================= */
+
+function activateAddButtons(){
+
+document.querySelectorAll(".addBtn")
+.forEach((btn)=>{
+
+btn.onclick = ()=>{
+
+const item = {
+
+id:btn.dataset.id,
+name:btn.dataset.name,
+price:Number(btn.dataset.price)
+
+};
+
+cart.push(item);
+
+updateCart();
+
+showToast(
+`${item.name} added`
+);
+
+};
 
 });
 
 }
 
-});
-
-});
-
-});
-
 /* =========================================================
-POPUP CART
+UPDATE CART
 ========================================================= */
 
-const popupCart =
-document.getElementById("popupCart");
+function updateCart(){
 
-const cartBtn =
-document.querySelector(".cartBtn");
+cartCount.innerHTML =
+cart.length;
 
-const closePopup =
-document.getElementById("closePopup");
+if(cart.length === 0){
 
-cartBtn.onclick=()=>{
+cartItems.innerHTML =
+"No items added";
 
-popupCart.style.display=
+return;
+
+}
+
+cartItems.innerHTML = "";
+
+let total = 0;
+
+cart.forEach((item,index)=>{
+
+total += item.price;
+
+cartItems.innerHTML +=
+
+`
+
+<div class="cartItem">
+
+<div>
+
+<h4>
+${item.name}
+</h4>
+
+<p>
+₹${item.price}
+</p>
+
+</div>
+
+<button
+class="removeBtn"
+onclick="removeCartItem(${index})">
+
+Remove
+
+</button>
+
+</div>
+
+`;
+
+});
+
+cartItems.innerHTML +=
+
+`
+
+<div class="cartTotal">
+
+Total :
+₹${total}
+
+</div>
+
+`;
+
+}
+
+/* =========================================================
+REMOVE CART ITEM
+========================================================= */
+
+window.removeCartItem =
+function(index){
+
+cart.splice(index,1);
+
+updateCart();
+
+showToast(
+"Item removed"
+);
+
+}
+
+/* =========================================================
+OPEN / CLOSE CART
+========================================================= */
+
+cartBtn.onclick = ()=>{
+
+popupCart.style.display =
 "flex";
 
-};
+}
 
-closePopup.onclick=()=>{
+closePopup.onclick = ()=>{
 
-popupCart.style.display=
+popupCart.style.display =
 "none";
 
-};
+}
 
 /* =========================================================
 TOAST
 ========================================================= */
 
 function showToast(message){
-
-const toast =
-document.getElementById("toast");
 
 toast.innerHTML =
 message;
@@ -247,30 +518,38 @@ toast.style.display =
 }
 
 /* =========================================================
-ADD TO CART
+CHECKOUT BUTTON
 ========================================================= */
 
-let cartCount = 0;
+document.querySelector(".checkoutBtn")
+.onclick = ()=>{
 
-function activateCartButtons(){
-
-document.querySelectorAll(".addBtn")
-.forEach(btn=>{
-
-btn.onclick=()=>{
-
-cartCount++;
-
-document.getElementById("cartCount")
-.innerText =
-cartCount;
+if(cart.length === 0){
 
 showToast(
-"Added To Cart"
+"Cart is empty"
 );
 
-};
+return;
 
-});
+}
+
+window.location.href =
+"checkout.html";
+
+}
+
+/* =========================================================
+AUTO CLOSE POPUP
+========================================================= */
+
+window.onclick = (e)=>{
+
+if(e.target === popupCart){
+
+popupCart.style.display =
+"none";
+
+}
 
 }
