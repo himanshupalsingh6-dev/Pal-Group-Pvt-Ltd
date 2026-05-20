@@ -1,23 +1,26 @@
 /* =========================================================
-FILE : admin/js/orders.js
-QUICKPRESS ENTERPRISE ORDERS PANEL
+FILE : admin.js
+FULL REALTIME FIREBASE ADMIN PANEL
+========================================================= */
+
+/* =========================================================
+IMPORT FIREBASE
 ========================================================= */
 
 import { db }
 
-from
-
-"/Pal-Group-Pvt-Ltd/firebase.js";
+from "../firebase.js";
 
 import {
 
 collection,
-onSnapshot,
-query,
-orderBy,
+getDocs,
+deleteDoc,
 doc,
 updateDoc,
-getDocs
+onSnapshot,
+query,
+orderBy
 
 }
 
@@ -26,28 +29,18 @@ from
 "https://www.gstatic.com/firebasejs/12.11.0/firebase-firestore.js";
 
 /* =========================================================
-AUTH CHECK
-========================================================= */
-
-const adminLogin =
-localStorage.getItem(
-"quickpress_admin"
-);
-
-if(adminLogin !== "true"){
-
-window.location.href =
-"login.html";
-
-}
-
-/* =========================================================
 ELEMENTS
 ========================================================= */
-/* =========================================================
-ADD THESE ELEMENTS
-TOP OF orders.js
-========================================================= */
+
+const ordersTable =
+document.getElementById(
+"ordersTable"
+);
+
+const serviceList =
+document.getElementById(
+"serviceList"
+);
 
 const totalOrders =
 document.getElementById(
@@ -59,231 +52,14 @@ document.getElementById(
 "pendingOrders"
 );
 
-const preparingOrders =
-document.getElementById(
-"preparingOrders"
-);
-
-const deliveryOrders =
-document.getElementById(
-"deliveryOrders"
-);
-
 const deliveredOrders =
 document.getElementById(
 "deliveredOrders"
 );
 
-const totalRevenue =
+const revenue =
 document.getElementById(
-"totalRevenue"
-);
-
-/* =========================================================
-INSIDE SNAPSHOT
-ADD THIS
-========================================================= */
-
-let revenue = 0;
-
-let pending = 0;
-let preparing = 0;
-let delivery = 0;
-let delivered = 0;
-
-/* =========================================================
-INSIDE FOREACH
-========================================================= */
-
-revenue +=
-Number(order.total || 0);
-
-if(order.status === "Pending"){
-
-pending++;
-
-}
-
-if(order.status === "Preparing"){
-
-preparing++;
-
-}
-
-if(order.status === "Out For Delivery"){
-
-delivery++;
-
-}
-
-if(order.status === "Delivered"){
-
-delivered++;
-
-}
-
-/* =========================================================
-AFTER FOREACH
-========================================================= */
-
-totalOrders.innerHTML =
-allOrders.length;
-
-pendingOrders.innerHTML =
-pending;
-
-preparingOrders.innerHTML =
-preparing;
-
-deliveryOrders.innerHTML =
-delivery;
-
-deliveredOrders.innerHTML =
-delivered;
-
-totalRevenue.innerHTML =
-`₹${revenue}`;
-
-/* =========================================================
-REPLACE BUTTON GRID
-========================================================= */
-
-<div class="btnGrid">
-
-<button
-class="btn viewBtn"
-onclick="viewOrder('${order.id}')">
-
-View
-
-</button>
-
-<button
-class="btn assignBtn"
-onclick="assignOrder('${order.id}')">
-
-Assign
-
-</button>
-
-<button
-class="btn statusBtn"
-onclick="updateStatus('${order.id}')">
-
-Status
-
-</button>
-
-</div>
-
-/* =========================================================
-VIEW PAGE
-========================================================= */
-
-window.viewOrder =
-(id)=>{
-
-window.location.href =
-`order-view.html?id=${id}`;
-
-};
-
-/* =========================================================
-ASSIGN SYSTEM
-========================================================= */
-
-window.assignOrder =
-async(id)=>{
-
-const partner =
-prompt(
-"Enter Partner Name"
-);
-
-const rider =
-prompt(
-"Enter Rider Name"
-);
-
-if(!partner || !rider){
-
-return;
-
-}
-
-await updateDoc(
-
-doc(db,"orders",id),
-
-{
-
-partnerName:partner,
-riderName:rider,
-assigned:true
-
-}
-
-);
-
-alert(
-"Assigned Successfully"
-);
-
-};
-
-/* =========================================================
-STATUS UPDATE
-========================================================= */
-
-window.updateStatus =
-async(id)=>{
-
-const status =
-prompt(
-
-`Enter Status:
-
-Pending
-Preparing
-Out For Delivery
-Delivered`
-
-);
-
-if(!status){
-
-return;
-
-}
-
-await updateDoc(
-
-doc(db,"orders",id),
-
-{
-status:status
-}
-
-);
-
-alert(
-"Status Updated"
-);
-
-};
-const ordersGrid =
-document.getElementById(
-"ordersGrid"
-);
-
-const cityFilter =
-document.getElementById(
-"cityFilter"
-);
-
-const statusFilter =
-document.getElementById(
-"statusFilter"
+"revenue"
 );
 
 const searchInput =
@@ -291,570 +67,344 @@ document.getElementById(
 "searchInput"
 );
 
-const notificationCount =
+const statusFilter =
 document.getElementById(
-"notificationCount"
+"statusFilter"
 );
 
 /* =========================================================
-DATA
+GLOBAL DATA
 ========================================================= */
 
 let allOrders = [];
+let totalRevenue = 0;
 
 /* =========================================================
-REALTIME ORDERS
+LIVE ORDERS
 ========================================================= */
 
-onSnapshot(
-
+const ordersRef =
 query(
 collection(db,"orders"),
 orderBy("createdAt","desc")
-),
+);
 
+onSnapshot(
+ordersRef,
 (snapshot)=>{
 
 allOrders = [];
 
 let pending = 0;
-
-let cities = new Set();
+let delivered = 0;
+let revenueAmount = 0;
 
 /* ========================================= */
 
-snapshot.forEach((docSnap)=>{
+snapshot.forEach(docSnap=>{
 
-const order = {
+const data =
+docSnap.data();
+
+/* ========================================= */
+
+allOrders.push({
 
 id:docSnap.id,
-...docSnap.data()
+...data
 
-};
-
-allOrders.push(order);
+});
 
 /* ========================================= */
 
-if(order.city){
-
-cities.add(order.city);
-
-}
-
-/* ========================================= */
-
-if(order.status === "Pending"){
+if(data.status === "Pending"){
 
 pending++;
 
 }
 
+if(data.status === "Delivered"){
+
+delivered++;
+
+}
+
+/* ========================================= */
+
+revenueAmount +=
+Number(data.total || 0);
+
 });
 
 /* ========================================= */
 
-notificationCount.innerHTML =
+totalOrders.innerHTML =
+snapshot.size;
+
+pendingOrders.innerHTML =
 pending;
 
+deliveredOrders.innerHTML =
+delivered;
+
+revenue.innerHTML =
+`₹${revenueAmount}`;
+
 /* ========================================= */
 
-loadCities([...cities]);
+totalRevenue =
+revenueAmount;
 
 /* ========================================= */
 
-renderOrders();
-
-}
-
-/* END */
-
+renderOrders(
+allOrders
 );
 
-/* =========================================================
-LOAD CITIES
-========================================================= */
-
-function loadCities(cities){
-
-const current =
-cityFilter.value;
-
-cityFilter.innerHTML = `
-
-<option value="All">
-All Cities
-</option>
-
-`;
-
-cities.forEach((city)=>{
-
-cityFilter.innerHTML += `
-
-<option value="${city}">
-${city}
-</option>
-
-`;
-
-});
-
-cityFilter.value =
-current;
-
 }
+);
 
 /* =========================================================
 RENDER ORDERS
 ========================================================= */
 
-function renderOrders(){
+function renderOrders(data){
 
-ordersGrid.innerHTML = "";
-
-/* ========================================= */
-
-const search =
-searchInput.value
-.toLowerCase();
-
-const selectedCity =
-cityFilter.value;
-
-const selectedStatus =
-statusFilter.value;
+ordersTable.innerHTML = "";
 
 /* ========================================= */
 
-allOrders.forEach((order)=>{
+if(data.length === 0){
 
-/* =====================================
-SEARCH
-===================================== */
-if(
-search &&
-!(
-(order.name || "")
-.toLowerCase()
-.includes(search)
-)
-){
+ordersTable.innerHTML = `
 
-return;
+<tr>
 
-}
-/* =====================================
-CITY
-===================================== */
+<td colspan="7"
+style="
+text-align:center;
+padding:40px;
+font-weight:800;
+">
 
-if(
-selectedCity !== "All"
-&&
-order.city !== selectedCity
-){
+No Orders Found
 
-return;
+</td>
 
-}
-
-/* =====================================
-STATUS
-===================================== */
-
-if(
-selectedStatus !== "All"
-&&
-order.status !== selectedStatus
-){
-
-return;
-
-}
-
-/* =====================================
-STATUS CLASS
-===================================== */
-
-let statusClass =
-"pending";
-
-if(order.status === "Preparing"){
-
-statusClass =
-"preparing";
-
-}
-
-if(order.status === "Out For Delivery"){
-
-statusClass =
-"delivery";
-
-}
-
-if(order.status === "Delivered"){
-
-statusClass =
-"delivered";
-
-}
-
-/* =====================================
-ITEMS
-===================================== */
-
-let itemsHTML = "";
-
-let totalItems = 0;
-
-(order.items || [])
-.forEach((item)=>{
-
-totalItems +=
-Number(item.qty || 1);
-
-itemsHTML += `
-
-<div class="item">
-
-<div>
-
-${item.name}
-
-</div>
-
-<div>
-
-${item.qty || 1}
-x ₹${item.price || 0}
-
-</div>
-
-</div>
+</tr>
 
 `;
 
-});
-
-/* =====================================
-TIME
-===================================== */
-
-let orderTime = "--";
-
-if(order.createdAt?.seconds){
-
-orderTime =
-new Date(
-order.createdAt.seconds * 1000
-).toLocaleString();
+return;
 
 }
 
-/* =====================================
-CARD
-===================================== */
+/* ========================================= */
 
-const card = `
+data.forEach(order=>{
 
-<div class="orderCard">
+const statusClass =
 
-<!-- TOP -->
+order.status === "Delivered"
 
-<div class="cardTop">
+? "delivered"
 
-<div class="customer">
+:
 
-<div class="avatar">
+order.status === "Preparing"
 
-${order.name
-?.charAt(0)
-|| "U"}
+? "processing"
 
-</div>
+:
 
-<div>
+"pending";
 
-<h3>
+/* ========================================= */
+
+ordersTable.innerHTML += `
+
+<tr>
+
+<td>
+#${order.id.slice(0,5)}
+</td>
+
+<td>
+
+<div style="
+display:flex;
+flex-direction:column;
+gap:4px;
+">
+
+<span style="
+font-weight:900;
+">
 
 ${order.name || "Customer"}
 
-</h3>
-
-<p>
-
-${order.city || ""}
-
-</p>
-
-</div>
-
-</div>
-
-<div class="status ${statusClass}">
-
-${order.status || "Pending"}
-
-</div>
-
-</div>
-
-<!-- INFO -->
-
-<div class="infoGrid">
-
-<div class="infoBox">
-
-<span>
-Order Amount
 </span>
 
-<h4>
+<span style="
+font-size:12px;
+color:#6B7280;
+">
+
+${order.phone || "No Number"}
+
+</span>
+
+</div>
+
+</td>
+
+<td>
+
+${order.items?.length || 1}
+
+Items
+
+</td>
+
+<td>
 
 ₹${order.total || 0}
 
-</h4>
+</td>
 
-</div>
+<td>
 
-<div class="infoBox">
+<span class="status ${statusClass}">
 
-<span>
-Items
+${order.status || "Pending"}
+
 </span>
 
-<h4>
+</td>
 
-${totalItems}
+<td>
 
-</h4>
+${formatDate(order.createdAt)}
 
-</div>
+</td>
 
-<div class="infoBox">
+<td>
 
-<span>
-Payment
-</span>
-
-<h4>
-
-${order.paymentMethod || "COD"}
-
-</h4>
-
-</div>
-
-<div class="infoBox">
-
-<span>
-Order Time
-</span>
-
-<h4>
-
-${orderTime}
-
-</h4>
-
-</div>
-
-</div>
-
-<!-- ITEMS -->
-
-<div class="itemsBox">
-
-<h4>
-Order Items
-</h4>
-
-${itemsHTML}
-
-</div>
-
-<!-- ASSIGN -->
-
-<div class="assignBox">
-
-<h4>
-Assignment
-</h4>
-
-<div class="assignGrid">
-
-<div class="assignCard">
-
-<span>
-Partner
-</span>
-
-<h5>
-
-${order.partnerName || "Not Assigned"}
-
-</h5>
-
-</div>
-
-<div class="assignCard">
-
-<span>
-Rider
-</span>
-
-<h5>
-
-${order.riderName || "Not Assigned"}
-
-</h5>
-
-</div>
-
-</div>
-
-</div>
-
-<!-- BUTTONS -->
-
-<div class="btnGrid">
+<div style="
+display:flex;
+gap:10px;
+">
 
 <button
-class="btn viewBtn"
-onclick="viewOrder('${order.id}')">
+class="actionBtn"
+onclick="updateStatus('${order.id}','Preparing')">
 
-View
+<i class="fa-solid fa-box"></i>
 
 </button>
 
 <button
-class="btn assignBtn"
-onclick="assignOrder('${order.id}')">
+class="actionBtn"
+onclick="updateStatus('${order.id}','Delivered')">
 
-Assign
+<i class="fa-solid fa-check"></i>
 
 </button>
 
 <button
-class="btn statusBtn"
-onclick="updateStatus('${order.id}')">
+class="actionBtn"
+style="
+background:#DC2626;
+"
+onclick="deleteOrder('${order.id}')">
 
-Status
+<i class="fa-solid fa-trash"></i>
 
 </button>
 
 </div>
 
-</div>
+</td>
+
+</tr>
 
 `;
-
-ordersGrid.innerHTML += card;
 
 });
 
 }
 
 /* =========================================================
-SEARCH EVENTS
+FORMAT DATE
 ========================================================= */
 
-searchInput.addEventListener(
-"input",
-renderOrders
-);
+function formatDate(timestamp){
 
-cityFilter.addEventListener(
-"change",
-renderOrders
-);
+if(!timestamp){
 
-statusFilter.addEventListener(
-"change",
-renderOrders
-);
+return "Now";
+
+}
+
+/* ========================================= */
+
+try{
+
+const date =
+timestamp.toDate();
+
+return date.toLocaleString();
+
+}
+
+/* ========================================= */
+
+catch{
+
+return "Now";
+
+}
+
+}
 
 /* =========================================================
-VIEW ORDER
+DELETE ORDER
 ========================================================= */
 
-window.viewOrder =
-(id)=>{
+window.deleteOrder =
+async function(id){
 
-window.location.href =
-`order-view.html?id=${id}`;
-
-};
-
-/* =========================================================
-ASSIGN ORDER
-========================================================= */
-
-window.assignOrder =
-async(id)=>{
-
-const partner =
-prompt(
-"Enter Partner Name"
+const confirmDelete =
+confirm(
+"Delete this order?"
 );
 
-const rider =
-prompt(
-"Enter Rider Name"
-);
+/* ========================================= */
 
-if(!partner || !rider){
+if(!confirmDelete){
 
 return;
 
 }
 
-await updateDoc(
+/* ========================================= */
 
-doc(db,"orders",id),
-
-{
-
-partnerName:partner,
-riderName:rider,
-
-assigned:true
-
-}
-
+await deleteDoc(
+doc(db,"orders",id)
 );
 
 alert(
-"Order Assigned"
+"Order Deleted"
 );
 
-};
+}
 
 /* =========================================================
 UPDATE STATUS
 ========================================================= */
 
 window.updateStatus =
-async(id)=>{
-
-const status =
-prompt(
-
-`Enter Status:
-
-Pending
-Preparing
-Out For Delivery
-Delivered`
-
-);
-
-if(!status){
-
-return;
-
-}
+async function(id,status){
 
 await updateDoc(
 
@@ -868,8 +418,385 @@ status:status
 
 );
 
+/* ========================================= */
+
 alert(
-"Status Updated"
+`Order marked as ${status}`
 );
 
-};
+}
+
+/* =========================================================
+LIVE SERVICES
+========================================================= */
+
+const servicesRef =
+collection(db,"services");
+
+onSnapshot(
+servicesRef,
+(snapshot)=>{
+
+serviceList.innerHTML = "";
+
+/* ========================================= */
+
+snapshot.forEach(docSnap=>{
+
+const data =
+docSnap.data();
+
+/* ========================================= */
+
+serviceList.innerHTML += `
+
+<div class="serviceItem">
+
+<div class="serviceLeft">
+
+<img
+src="${data.image}"
+class="serviceImg">
+
+<div class="serviceInfo">
+
+<h3>
+${data.name}
+</h3>
+
+<p>
+₹${data.price}
+</p>
+
+</div>
+
+</div>
+
+<div style="
+display:flex;
+gap:10px;
+">
+
+<button
+class="actionBtn"
+onclick="editService(
+'${docSnap.id}',
+'${data.name}',
+'${data.price}'
+)">
+
+<i class="fa-solid fa-pen"></i>
+
+</button>
+
+<button
+class="deleteBtn"
+onclick="deleteService('${docSnap.id}')">
+
+<i class="fa-solid fa-trash"></i>
+
+</button>
+
+</div>
+
+</div>
+
+`;
+
+});
+
+}
+);
+
+/* =========================================================
+DELETE SERVICE
+========================================================= */
+
+window.deleteService =
+async function(id){
+
+const confirmDelete =
+confirm(
+"Delete this service?"
+);
+
+/* ========================================= */
+
+if(!confirmDelete){
+
+return;
+
+}
+
+/* ========================================= */
+
+await deleteDoc(
+doc(db,"services",id)
+);
+
+alert(
+"Service Deleted"
+);
+
+}
+
+/* =========================================================
+EDIT SERVICE
+========================================================= */
+
+window.editService =
+async function(id,name,price){
+
+const newName =
+prompt(
+"Edit Service Name",
+name
+);
+
+/* ========================================= */
+
+const newPrice =
+prompt(
+"Edit Price",
+price
+);
+
+/* ========================================= */
+
+if(!newName || !newPrice){
+
+return;
+
+}
+
+/* ========================================= */
+
+await updateDoc(
+
+doc(db,"services",id),
+
+{
+
+name:newName,
+price:newPrice
+
+}
+
+);
+
+/* ========================================= */
+
+alert(
+"Service Updated"
+);
+
+}
+
+/* =========================================================
+SEARCH
+========================================================= */
+
+searchInput.addEventListener(
+"input",
+filterOrders
+);
+
+/* =========================================================
+FILTER
+========================================================= */
+
+statusFilter.addEventListener(
+"change",
+filterOrders
+);
+
+/* =========================================================
+FILTER FUNCTION
+========================================================= */
+
+function filterOrders(){
+
+const search =
+searchInput.value.toLowerCase();
+
+const status =
+statusFilter.value;
+
+/* ========================================= */
+
+const filtered =
+allOrders.filter(order=>{
+
+const matchesSearch =
+
+(order.name || "")
+.toLowerCase()
+.includes(search)
+
+||
+
+(order.phone || "")
+.toLowerCase()
+.includes(search);
+
+/* ========================================= */
+
+const matchesStatus =
+
+status === ""
+
+||
+
+order.status === status;
+
+/* ========================================= */
+
+return matchesSearch && matchesStatus;
+
+});
+
+/* ========================================= */
+
+renderOrders(
+filtered
+);
+
+}
+
+/* =========================================================
+EXPORT CSV
+========================================================= */
+
+document.getElementById(
+"exportBtn"
+).addEventListener(
+"click",
+()=>{
+
+let csv =
+"Order ID,Customer,Phone,Items,Amount,Status\n";
+
+/* ========================================= */
+
+allOrders.forEach(order=>{
+
+csv +=
+
+`${order.id},
+${order.name || ""},
+${order.phone || ""},
+${order.items?.length || 1},
+${order.total || 0},
+${order.status || "Pending"}\n`;
+
+});
+
+/* ========================================= */
+
+const blob =
+new Blob(
+[csv],
+{
+type:"text/csv"
+}
+);
+
+/* ========================================= */
+
+const url =
+URL.createObjectURL(blob);
+
+/* ========================================= */
+
+const a =
+document.createElement("a");
+
+a.href = url;
+
+a.download =
+"quickpress-orders.csv";
+
+/* ========================================= */
+
+a.click();
+
+/* ========================================= */
+
+URL.revokeObjectURL(url);
+
+});
+
+/* =========================================================
+REVENUE CHART
+========================================================= */
+
+const ctx =
+document.getElementById(
+"revenueChart"
+);
+
+/* ========================================= */
+
+new Chart(ctx,{
+
+type:"line",
+
+data:{
+
+labels:[
+"Mon",
+"Tue",
+"Wed",
+"Thu",
+"Fri",
+"Sat",
+"Sun"
+],
+
+datasets:[{
+
+label:"Revenue",
+
+data:[
+1200,
+2400,
+1800,
+3000,
+4200,
+3800,
+5200
+],
+
+borderWidth:4,
+
+fill:true,
+
+tension:0.4
+
+}]
+
+},
+
+options:{
+
+responsive:true,
+
+plugins:{
+
+legend:{
+display:false
+}
+
+},
+
+scales:{
+
+y:{
+beginAtZero:true
+}
+
+}
+
+}
+
+});
