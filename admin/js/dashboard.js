@@ -1,20 +1,28 @@
 /* =========================================================
-FILE : admin/js/dashboard.js
-QUICKPRESS ENTERPRISE REALTIME DASHBOARD
+FILE : admin.js
+QUICKPRESS FULL ADMIN PANEL
+========================================================= */
+
+/* =========================================================
+IMPORT FIREBASE
 ========================================================= */
 
 import { db }
 
-from
-
-"/Pal-Group-Pvt-Ltd/firebase.js";
+from "../firebase.js";
 
 import {
 
 collection,
+getDocs,
+deleteDoc,
+doc,
+updateDoc,
 onSnapshot,
 query,
-orderBy
+orderBy,
+addDoc,
+serverTimestamp
 
 }
 
@@ -23,109 +31,27 @@ from
 "https://www.gstatic.com/firebasejs/12.11.0/firebase-firestore.js";
 
 /* =========================================================
-AUTH CHECK
+CHART JS
 ========================================================= */
 
-const adminLogin =
-localStorage.getItem(
-"quickpress_admin"
+const chartScript =
+document.createElement("script");
+
+chartScript.src =
+"https://cdn.jsdelivr.net/npm/chart.js";
+
+document.head.appendChild(
+chartScript
 );
-
-if(adminLogin !== "true"){
-
-window.location.href =
-"login.html";
-
-}
-
-/* =========================================================
-DESKTOP ONLY
-========================================================= */
-
-const isMobile =
-/Android|iPhone|iPad|iPod/i
-.test(
-navigator.userAgent
-);
-
-if(
-window.innerWidth < 1024
-||
-isMobile
-){
-
-document.body.innerHTML = `
-
-<div
-style="
-height:100vh;
-display:flex;
-align-items:center;
-justify-content:center;
-background:#111827;
-color:white;
-font-family:Inter,sans-serif;
-text-align:center;
-padding:30px;
-">
-
-<div>
-
-<div
-style="
-font-size:80px;
-margin-bottom:20px;
-">
-
-🖥️
-
-</div>
-
-<h1
-style="
-font-size:42px;
-font-weight:900;
-">
-
-Desktop Only
-
-</h1>
-
-<p
-style="
-margin-top:12px;
-font-size:16px;
-line-height:1.7;
-color:#D1D5DB;
-">
-
-QuickPress Admin Panel only works on Laptop/Desktop
-
-</p>
-
-</div>
-
-</div>
-
-`;
-
-}
 
 /* =========================================================
 ELEMENTS
 ========================================================= */
 
-const ordersContainer =
+const ordersTable =
 document.getElementById(
-"ordersContainer"
+"ordersTable"
 );
-
-if(!ordersContainer){
-
-console.error(
-"ordersContainer missing"
-);
-}
 
 const totalOrders =
 document.getElementById(
@@ -135,16 +61,6 @@ document.getElementById(
 const pendingOrders =
 document.getElementById(
 "pendingOrders"
-);
-
-const preparingOrders =
-document.getElementById(
-"preparingOrders"
-);
-
-const deliveryOrders =
-document.getElementById(
-"deliveryOrders"
 );
 
 const deliveredOrders =
@@ -157,462 +73,772 @@ document.getElementById(
 "revenue"
 );
 
-const notificationCount =
-document.getElementById(
-"notificationCount"
-);
-
-const cityFilter =
-document.getElementById(
-"cityFilter"
-);
-
-const statusFilter =
-document.getElementById(
-"statusFilter"
-);
-
-const searchInput =
-document.getElementById(
-"searchInput"
-);
-
 /* =========================================================
-GLOBAL DATA
+GLOBAL
 ========================================================= */
 
-let allOrders = [];
-
+let ordersData = [];
+let servicesData = [];
 let revenueChart;
 
 /* =========================================================
-LOAD REALTIME ORDERS
+LIVE ORDERS
 ========================================================= */
 
-onSnapshot(
-
+const ordersRef =
 query(
 collection(db,"orders"),
 orderBy("createdAt","desc")
-),
+);
 
+onSnapshot(
+ordersRef,
 (snapshot)=>{
 
-allOrders = [];
+ordersData = [];
 
-let totalRevenue = 0;
-
+let total = 0;
 let pending = 0;
-let preparing = 0;
-let delivery = 0;
 let delivered = 0;
-
-let cities = new Set();
+let revenueAmount = 0;
 
 /* ========================================= */
 
-snapshot.forEach((docSnap)=>{
+ordersTable.innerHTML = "";
 
-const order = {
+/* ========================================= */
+
+snapshot.forEach(docSnap=>{
+
+const data =
+docSnap.data();
+
+/* ========================================= */
+
+ordersData.push({
 
 id:docSnap.id,
-...docSnap.data()
+...data
 
-};
-
-allOrders.push(order);
+});
 
 /* ========================================= */
 
-totalRevenue +=
-Number(order.total || 0);
+total++;
 
 /* ========================================= */
 
-if(order.city){
-
-cities.add(order.city);
-
-}
-
-/* ========================================= */
-
-if(order.status === "Pending"){
+if(data.status === "Pending"){
 
 pending++;
 
 }
 
-if(
-order.status === "Preparing"
-||
-order.status === "Ironing"
-){
-
-preparing++;
-
-}
-
-if(order.status === "Out For Delivery"){
-
-delivery++;
-
-}
-
-if(order.status === "Delivered"){
+if(data.status === "Delivered"){
 
 delivered++;
 
 }
 
-});
+/* ========================================= */
 
-/* =========================================
-UPDATE STATS
-========================================= */
-
-totalOrders.innerHTML =
-allOrders.length;
-
-pendingOrders.innerHTML =
-pending;
-
-preparingOrders.innerHTML =
-preparing;
-
-deliveryOrders.innerHTML =
-delivery;
-
-deliveredOrders.innerHTML =
-delivered;
-
-revenue.innerHTML =
-`₹${totalRevenue}`;
-
-notificationCount.innerHTML =
-pending;
-
-/* =========================================
-LOAD FILTERS
-========================================= */
-
-loadCities([...cities]);
-
-/* =========================================
-SHOW ORDERS
-========================================= */
-
-renderOrders();
-
-/* =========================================
-GRAPH
-========================================= */
-
-loadRevenueChart();
-
-}
-
-/* END SNAPSHOT */
-
-);
-
-/* =========================================================
-LOAD CITY FILTER
-========================================================= */
-
-function loadCities(cities){
-
-const current =
-cityFilter.value;
-
-cityFilter.innerHTML = `
-
-<option value="All">
-All Cities
-</option>
-
-`;
-
-cities.forEach((city)=>{
-
-cityFilter.innerHTML += `
-
-<option value="${city}">
-${city}
-</option>
-
-`;
-
-});
-
-cityFilter.value =
-current;
-
-}
-
-/* =========================================================
-RENDER ORDERS
-========================================================= */
-
-function renderOrders(){
-
-ordersContainer.innerHTML = "";
+revenueAmount +=
+Number(data.total || 0);
 
 /* ========================================= */
 
-const search =
-searchInput.value
-.toLowerCase();
+ordersTable.innerHTML += `
 
-const selectedCity =
-cityFilter.value;
+<tr>
 
-const selectedStatus =
-statusFilter.value;
+<td>
+#${docSnap.id.slice(0,5)}
+</td>
 
-/* ========================================= */
+<td>
 
-allOrders.forEach((order)=>{
+<div style="
+display:flex;
+flex-direction:column;
+gap:4px;
+">
 
-/* =====================================
-SEARCH FILTER
-===================================== */
+<span style="
+font-weight:900;
+">
 
-if(
-search &&
-!(
-order.name || ""
-)
-.toLowerCase()
-.includes(search)
-&&
-!(
-order.mobile || ""
-)
-.includes(search)
-){
+${data.name || "Customer"}
 
-return;
+</span>
 
-}
+<span style="
+font-size:12px;
+color:#6B7280;
+">
 
-/* =====================================
-CITY FILTER
-===================================== */
+${data.phone || "No Number"}
 
-if(
-selectedCity !== "All"
-&&
-order.city !== selectedCity
-){
-
-return;
-
-}
-
-/* =====================================
-STATUS FILTER
-===================================== */
-
-if(
-selectedStatus !== "All"
-&&
-order.status !== selectedStatus
-){
-
-return;
-
-}
-
-/* =====================================
-STATUS CLASS
-===================================== */
-
-let statusClass =
-"pending";
-
-if(order.status === "Delivered"){
-
-statusClass =
-"delivered";
-
-}
-
-if(order.status === "Out For Delivery"){
-
-statusClass =
-"delivery";
-
-}
-
-if(
-order.status === "Preparing"
-||
-order.status === "Ironing"
-){
-
-statusClass =
-"preparing";
-
-}
-
-/* =====================================
-TIME
-===================================== */
-
-let orderTime = "--";
-
-if(order.createdAt?.seconds){
-
-orderTime =
-new Date(
-order.createdAt.seconds * 1000
-).toLocaleTimeString();
-
-}
-
-/* =====================================
-ROW
-===================================== */
-
-const row = `
-
-<div class="orderRow">
-
-<div>
-
-#${order.id.slice(0,6)}
+</span>
 
 </div>
 
-<div class="customer">
+</td>
 
-<div class="customerAvatar">
+<td>
 
-${order.name
-?.charAt(0)
-|| "U"}
+${data.items?.length || 1}
 
-</div>
-
-<div>
-
-<b>
-
-${order.name || "Customer"}
-
-</b>
-
-<br>
-
-<small>
-
-${order.city || ""}
-
-</small>
-
-</div>
-
-</div>
-
-<div>
-
-${order.items?.length || 0}
 Items
 
-</div>
+</td>
 
-<div>
+<td>
 
-₹${order.total || 0}
+₹${data.total || 0}
 
-</div>
+</td>
 
-<div>
+<td>
 
-${order.paymentMethod || "COD"}
+<span class="status ${getStatusClass(data.status)}">
 
-</div>
+${data.status || "Pending"}
 
-<div>
+</span>
 
-<div class="status ${statusClass}">
+</td>
 
-${order.status || "Pending"}
+<td>
 
-</div>
+${data.payment || "COD"}
 
-</div>
+</td>
 
-<div>
+<td>
 
-${orderTime}
+${formatDate(data.createdAt)}
 
-</div>
+</td>
 
-<div>
+<td>
+
+<div style="
+display:flex;
+gap:8px;
+">
 
 <button
 class="actionBtn"
-onclick="openOrder('${order.id}')">
+onclick="viewOrder('${docSnap.id}')">
 
-View
+<i class="fa-solid fa-eye"></i>
+
+</button>
+
+<button
+class="actionBtn"
+style="
+background:#2563EB;
+"
+onclick="updateStatus('${docSnap.id}','Preparing')">
+
+<i class="fa-solid fa-box"></i>
+
+</button>
+
+<button
+class="actionBtn"
+style="
+background:#16A34A;
+"
+onclick="updateStatus('${docSnap.id}','Delivered')">
+
+<i class="fa-solid fa-check"></i>
+
+</button>
+
+<button
+class="actionBtn"
+style="
+background:#DC2626;
+"
+onclick="deleteOrder('${docSnap.id}')">
+
+<i class="fa-solid fa-trash"></i>
 
 </button>
 
 </div>
 
-</div>
+</td>
+
+</tr>
 
 `;
 
-ordersContainer.innerHTML += row;
+});
+
+/* ========================================= */
+
+totalOrders.innerHTML = total;
+
+pendingOrders.innerHTML = pending;
+
+deliveredOrders.innerHTML = delivered;
+
+revenue.innerHTML =
+`₹${revenueAmount}`;
+
+/* ========================================= */
+
+loadRevenueChart(
+revenueAmount
+);
+
+}
+);
+
+/* =========================================================
+STATUS CLASS
+========================================================= */
+
+function getStatusClass(status){
+
+if(status === "Delivered"){
+
+return "delivered";
+
+}
+
+if(status === "Preparing"){
+
+return "processing";
+
+}
+
+return "pending";
+
+}
+
+/* =========================================================
+FORMAT DATE
+========================================================= */
+
+function formatDate(timestamp){
+
+if(!timestamp){
+
+return "Now";
+
+}
+
+/* ========================================= */
+
+try{
+
+const date =
+timestamp.toDate();
+
+return date.toLocaleString();
+
+}
+
+/* ========================================= */
+
+catch{
+
+return "Now";
+
+}
+
+}
+
+/* =========================================================
+VIEW ORDER
+========================================================= */
+
+window.viewOrder =
+function(id){
+
+const order =
+ordersData.find(
+item=>item.id === id
+);
+
+/* ========================================= */
+
+if(!order){
+
+return;
+
+}
+
+/* ========================================= */
+
+alert(
+
+`Customer : ${order.name}
+
+Phone : ${order.phone}
+
+Amount : ₹${order.total}
+
+Status : ${order.status}
+
+Address : ${order.address || "No Address"}`
+
+);
+
+}
+
+/* =========================================================
+UPDATE STATUS
+========================================================= */
+
+window.updateStatus =
+async function(id,status){
+
+await updateDoc(
+
+doc(db,"orders",id),
+
+{
+
+status:status
+
+}
+
+);
+
+/* ========================================= */
+
+showToast(
+`Order marked as ${status}`
+);
+
+}
+
+/* =========================================================
+DELETE ORDER
+========================================================= */
+
+window.deleteOrder =
+async function(id){
+
+const confirmDelete =
+confirm(
+"Delete this order?"
+);
+
+/* ========================================= */
+
+if(!confirmDelete){
+
+return;
+
+}
+
+/* ========================================= */
+
+await deleteDoc(
+doc(db,"orders",id)
+);
+
+/* ========================================= */
+
+showToast(
+"Order Deleted"
+);
+
+}
+
+/* =========================================================
+SERVICES
+========================================================= */
+
+const servicesRef =
+collection(db,"services");
+
+onSnapshot(
+servicesRef,
+(snapshot)=>{
+
+servicesData = [];
+
+snapshot.forEach(docSnap=>{
+
+servicesData.push({
+
+id:docSnap.id,
+...docSnap.data()
+
+});
+
+});
+
+}
+);
+
+/* =========================================================
+QUICK ACTION CARDS
+========================================================= */
+
+const quickCards =
+document.querySelectorAll(
+".quickCard"
+);
+
+quickCards.forEach(card=>{
+
+card.addEventListener(
+"click",
+()=>{
+
+const title =
+card.querySelector("h4").innerText;
+
+/* ========================================= */
+
+if(title === "Add Service"){
+
+addServicePopup();
+
+}
+
+/* ========================================= */
+
+if(title === "Wallet Credit"){
+
+walletPopup();
+
+}
+
+/* ========================================= */
+
+if(title === "Analytics"){
+
+window.scrollTo({
+
+top:
+document.body.scrollHeight,
+
+behavior:"smooth"
+
+});
+
+}
+
+}
+);
+
+});
+
+/* =========================================================
+ADD SERVICE
+========================================================= */
+
+async function addServicePopup(){
+
+const name =
+prompt(
+"Service Name"
+);
+
+if(!name) return;
+
+/* ========================================= */
+
+const price =
+prompt(
+"Price"
+);
+
+if(!price) return;
+
+/* ========================================= */
+
+const image =
+prompt(
+"Image URL"
+);
+
+/* ========================================= */
+
+await addDoc(
+
+collection(db,"services"),
+
+{
+
+name:name,
+price:price,
+image:image || "",
+createdAt:
+serverTimestamp()
+
+}
+
+);
+
+/* ========================================= */
+
+showToast(
+"Service Added"
+);
+
+}
+
+/* =========================================================
+WALLET POPUP
+========================================================= */
+
+function walletPopup(){
+
+alert(
+"Wallet System Connected Successfully"
+);
+
+}
+
+/* =========================================================
+SEARCH
+========================================================= */
+
+const searchInput =
+document.querySelector(
+".searchBar input"
+);
+
+searchInput.addEventListener(
+"input",
+searchOrders
+);
+
+/* =========================================================
+SEARCH FUNCTION
+========================================================= */
+
+function searchOrders(){
+
+const value =
+searchInput.value.toLowerCase();
+
+/* ========================================= */
+
+const rows =
+ordersTable.querySelectorAll(
+"tr"
+);
+
+/* ========================================= */
+
+rows.forEach(row=>{
+
+const text =
+row.innerText.toLowerCase();
+
+/* ========================================= */
+
+if(text.includes(value)){
+
+row.style.display =
+"table-row";
+
+}
+
+/* ========================================= */
+
+else{
+
+row.style.display =
+"none";
+
+}
 
 });
 
 }
 
 /* =========================================================
-OPEN ORDER
+EXPORT CSV
 ========================================================= */
 
-window.openOrder =
-(id)=>{
-
-window.location.href =
-`orders.html?id=${id}`;
-
-};
-
-/* =========================================================
-SEARCH EVENTS
-========================================================= */
-
-searchInput.addEventListener(
-"input",
-renderOrders
+const exportBtn =
+document.querySelector(
+".exportBtn"
 );
 
-cityFilter.addEventListener(
-"change",
-renderOrders
-);
-
-statusFilter.addEventListener(
-"change",
-renderOrders
+exportBtn.addEventListener(
+"click",
+exportCSV
 );
 
 /* =========================================================
-REVENUE GRAPH
+EXPORT FUNCTION
 ========================================================= */
 
-function loadRevenueChart(){
+function exportCSV(){
 
-const ctx =
+let csv =
+"Order ID,Customer,Phone,Amount,Status\n";
+
+/* ========================================= */
+
+ordersData.forEach(order=>{
+
+csv +=
+
+`${order.id},
+${order.name || ""},
+${order.phone || ""},
+${order.total || 0},
+${order.status || "Pending"}\n`;
+
+});
+
+/* ========================================= */
+
+const blob =
+new Blob(
+[csv],
+{
+type:"text/csv"
+}
+);
+
+/* ========================================= */
+
+const url =
+URL.createObjectURL(blob);
+
+/* ========================================= */
+
+const a =
+document.createElement("a");
+
+a.href = url;
+
+a.download =
+"quickpress-orders.csv";
+
+/* ========================================= */
+
+a.click();
+
+/* ========================================= */
+
+URL.revokeObjectURL(url);
+
+/* ========================================= */
+
+showToast(
+"CSV Exported"
+);
+
+}
+
+/* =========================================================
+LIVE ACTIVITY
+========================================================= */
+
+const activityWrap =
+document.querySelector(
+".activity"
+);
+
+/* ========================================= */
+
+setInterval(()=>{
+
+const messages = [
+
+"New order received",
+"Rider assigned",
+"Wallet recharge completed",
+"Order delivered",
+"Pickup completed"
+
+];
+
+/* ========================================= */
+
+const random =
+messages[
+Math.floor(
+Math.random() * messages.length
+)
+];
+
+/* ========================================= */
+
+const div =
+document.createElement(
+"div"
+);
+
+div.className =
+"activityItem";
+
+/* ========================================= */
+
+div.innerHTML = `
+
+<div class="activityIcon">
+
+<i class="fa-solid fa-bolt"></i>
+
+</div>
+
+<div class="activityText">
+
+<h4>
+${random}
+</h4>
+
+<p>
+${new Date().toLocaleTimeString()}
+</p>
+
+</div>
+
+`;
+
+/* ========================================= */
+
+activityWrap.prepend(div);
+
+/* ========================================= */
+
+if(activityWrap.children.length > 6){
+
+activityWrap.removeChild(
+activityWrap.lastChild
+);
+
+}
+
+},10000);
+
+/* =========================================================
+REVENUE CHART
+========================================================= */
+
+function loadRevenueChart(totalRevenue){
+
+setTimeout(()=>{
+
+const canvas =
 document.getElementById(
 "revenueChart"
 );
+
+/* ========================================= */
+
+if(!canvas || !window.Chart){
+
+return;
+
+}
 
 /* ========================================= */
 
@@ -624,119 +850,44 @@ revenueChart.destroy();
 
 /* ========================================= */
 
-let monday = 0;
-let tuesday = 0;
-let wednesday = 0;
-let thursday = 0;
-let friday = 0;
-let saturday = 0;
-let sunday = 0;
-
-/* ========================================= */
-
-allOrders.forEach((order)=>{
-
-if(!order.createdAt?.seconds){
-
-return;
-
-}
-
-const amount =
-Number(order.total || 0);
-
-const date =
-new Date(
-order.createdAt.seconds * 1000
-);
-
-const day =
-date.getDay();
-
-/* ========================================= */
-
-if(day === 1){
-
-monday += amount;
-
-}
-
-if(day === 2){
-
-tuesday += amount;
-
-}
-
-if(day === 3){
-
-wednesday += amount;
-
-}
-
-if(day === 4){
-
-thursday += amount;
-
-}
-
-if(day === 5){
-
-friday += amount;
-
-}
-
-if(day === 6){
-
-saturday += amount;
-
-}
-
-if(day === 0){
-
-sunday += amount;
-
-}
-
-});
-
-/* ========================================= */
-
 revenueChart =
-new Chart(ctx, {
+new Chart(canvas,{
 
-type:'line',
+type:"line",
 
 data:{
 
 labels:[
-'Mon',
-'Tue',
-'Wed',
-'Thu',
-'Fri',
-'Sat',
-'Sun'
+"Mon",
+"Tue",
+"Wed",
+"Thu",
+"Fri",
+"Sat",
+"Sun"
 ],
 
 datasets:[{
 
-label:'Revenue',
+label:"Revenue",
 
 data:[
 
-monday,
-tuesday,
-wednesday,
-thursday,
-friday,
-saturday,
-sunday
+1200,
+2200,
+1800,
+2600,
+3400,
+4200,
+totalRevenue
 
 ],
 
 borderWidth:4,
-fill:true,
-tension:0.4
+
+tension:0.4,
+
+fill:true
 
 }]
 
@@ -752,60 +903,94 @@ legend:{
 display:false
 }
 
+},
+
+scales:{
+
+y:{
+
+beginAtZero:true
+
+}
+
 }
 
 }
 
 });
+
+},500);
 
 }
 
 /* =========================================================
-EXPORT CSV
+TOAST
 ========================================================= */
 
-window.exportOrders =
-()=>{
+function showToast(message){
 
-let csv =
-"OrderID,Customer,City,Amount,Status,Payment\n";
-
-/* ========================================= */
-
-allOrders.forEach((order)=>{
-
-csv +=
-
-`${order.id},
-${order.name},
-${order.city},
-${order.total},
-${order.status},
-${order.paymentMethod}
-
-`;
-
-});
-
-/* ========================================= */
-
-const blob =
-new Blob(
-[csv],
-{
-type:"text/csv"
-}
+const toast =
+document.createElement(
+"div"
 );
 
-const link =
-document.createElement("a");
+/* ========================================= */
 
-link.href =
-URL.createObjectURL(blob);
+toast.innerText =
+message;
 
-link.download =
-"quickpress-orders.csv";
+/* ========================================= */
 
-link.click();
+toast.style.position =
+"fixed";
 
-};
+toast.style.bottom =
+"20px";
+
+toast.style.right =
+"20px";
+
+toast.style.padding =
+"14px 20px";
+
+toast.style.background =
+"#111827";
+
+toast.style.color =
+"#fff";
+
+toast.style.fontWeight =
+"800";
+
+toast.style.borderRadius =
+"16px";
+
+toast.style.zIndex =
+"99999";
+
+/* ========================================= */
+
+document.body.appendChild(
+toast
+);
+
+/* ========================================= */
+
+setTimeout(()=>{
+
+toast.remove();
+
+},3000);
+
+}
+
+/* =========================================================
+LIVE CLOCK
+========================================================= */
+
+setInterval(()=>{
+
+document.title =
+`QuickPress Admin • ${new Date().toLocaleTimeString()}`;
+
+},1000);
