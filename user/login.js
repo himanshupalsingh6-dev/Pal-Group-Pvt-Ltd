@@ -1,6 +1,7 @@
 /* =====================================================
 FILE : login.js
-REAL QUICKPRESS LOGIN SYSTEM
+FINAL FIXED LOGIN.JS
+NO AUTO REDIRECT BUG
 ===================================================== */
 
 /* =====================================================
@@ -19,8 +20,7 @@ from "../firebase.js";
 import {
 
 signInWithEmailAndPassword,
-signInAnonymously,
-onAuthStateChanged
+signInAnonymously
 
 }
 
@@ -31,7 +31,6 @@ from
 import {
 
 doc,
-getDoc,
 setDoc
 
 }
@@ -62,24 +61,6 @@ document.getElementById(
 const loginBtn =
 document.getElementById(
 "loginBtn"
-);
-
-/* =====================================================
-AUTO LOGIN CHECK
-===================================================== */
-
-onAuthStateChanged(
-auth,
-(user)=>{
-
-if(user){
-
-window.location.href =
-"index.html";
-
-}
-
-}
 );
 
 /* =====================================================
@@ -134,6 +115,7 @@ true;
 
 /* =========================================
 TEMP OTP LOGIN
+OTP : 4502
 ========================================= */
 
 if(password === "4502"){
@@ -178,7 +160,7 @@ Date.now()
 /* ========================================= */
 
 showToast(
-"Login Success 🚀"
+"OTP Login Success 🚀"
 );
 
 /* ========================================= */
