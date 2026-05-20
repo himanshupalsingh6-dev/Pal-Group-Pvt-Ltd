@@ -3,459 +3,452 @@
 
 <head>
 
-<meta charset="UTF-8"/>
+<meta charset="UTF-8">
 
 <meta
 name="viewport"
-content="width=device-width, initial-scale=1.0"
-/>
+content="width=device-width, initial-scale=1.0">
 
 <title>
 QuickPress Cart
 </title>
 
+<link rel="preconnect"
+href="https://fonts.googleapis.com">
+
+<link rel="preconnect"
+href="https://fonts.gstatic.com"
+crossorigin>
+
 <link
-rel="stylesheet"
-href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css"
-/>
+href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap"
+rel="stylesheet">
+
+<link rel="stylesheet"
+href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css"/>
 
 <style>
 
-/* =========================
+/* =====================================================
 RESET
-========================= */
+===================================================== */
 
 *{
 margin:0;
 padding:0;
 box-sizing:border-box;
-font-family:
-"Poppins",
-sans-serif;
+font-family:'Inter',sans-serif;
+-webkit-tap-highlight-color:transparent;
 }
 
 body{
-background:#F8FAFC;
-color:#111827;
+background:#F6F7FB;
+padding-bottom:120px;
 overflow-x:hidden;
+color:#111827;
 }
 
-/* =========================
-TOPBAR
-========================= */
+/* =====================================================
+HEADER
+===================================================== */
 
-.topbar{
-position:sticky;
-top:0;
-z-index:999;
-padding:16px;
+.cartHeader{
+
 background:
-rgba(255,255,255,0.95);
-backdrop-filter:blur(18px);
-border-bottom:
-1px solid #EEF2F7;
+linear-gradient(
+135deg,
+#FFD633 0%,
+#FFE98A 100%
+);
+
+padding:18px 16px 26px;
+
+border-bottom-left-radius:30px;
+border-bottom-right-radius:30px;
+
+position:sticky;
+
+top:0;
+
+z-index:999;
+
 }
 
-.topRow{
+.topBar{
+
 display:flex;
+
 align-items:center;
-gap:12px;
+
+justify-content:space-between;
+
 }
 
 .backBtn{
+
 width:46px;
 height:46px;
+
 border:none;
+
 border-radius:16px;
-background:#FFD400;
+
+background:#fff;
+
 font-size:18px;
-font-weight:900;
-cursor:pointer;
+
 box-shadow:
-0 6px 14px rgba(255,212,0,0.25);
+0 6px 18px rgba(0,0,0,0.06);
+
+cursor:pointer;
+
 }
 
-.pageText h2{
-font-size:22px;
-font-weight:900;
-margin-bottom:4px;
-}
+.cartTitle{
 
-.pageText p{
-font-size:12px;
-color:#6B7280;
-}
-
-/* =========================
-MAIN
-========================= */
-
-.main{
-width:100%;
-max-width:1200px;
-margin:auto;
-padding:18px;
-padding-bottom:220px;
-}
-
-/* =========================
-EMPTY
-========================= */
-
-.emptyCart{
-padding:70px 20px;
-text-align:center;
-display:none;
-}
-
-.emptyIcon{
-width:110px;
-height:110px;
-border-radius:34px;
-background:#FFF7CC;
-display:flex;
-align-items:center;
-justify-content:center;
-font-size:52px;
-margin:auto;
-margin-bottom:24px;
-}
-
-.emptyCart h2{
 font-size:28px;
-margin-bottom:10px;
+
 font-weight:900;
+
 }
 
-.emptyCart p{
-font-size:14px;
-line-height:1.8;
-color:#6B7280;
-max-width:400px;
-margin:auto;
-margin-bottom:24px;
+.cartSub{
+
+margin-top:6px;
+
+font-size:13px;
+
+font-weight:700;
+
+color:#374151;
+
 }
 
-.shopBtn{
-height:54px;
-padding:0 24px;
-border:none;
-border-radius:18px;
-background:#111827;
-color:#fff;
-font-size:14px;
-font-weight:900;
-cursor:pointer;
+/* =====================================================
+CART ITEMS
+===================================================== */
+
+.cartContainer{
+
+padding:18px 16px;
+
 }
 
-/* =========================
-GRID
-========================= */
+.cartItem{
 
-.cartGrid{
-display:flex;
-flex-direction:column;
-gap:16px;
-}
-
-/* =========================
-CARD
-========================= */
-
-.cartCard{
 background:#fff;
-padding:18px;
-border-radius:26px;
-box-shadow:
-0 8px 24px rgba(15,23,42,0.05);
-border:1px solid #EEF2F7;
-}
 
-.cardTop{
+border-radius:24px;
+
+padding:16px;
+
 display:flex;
+
+align-items:center;
+
 justify-content:space-between;
-align-items:flex-start;
-gap:14px;
+
+margin-bottom:14px;
+
+box-shadow:
+0 4px 14px rgba(0,0,0,0.05);
+
 }
 
-.leftCard{
+.itemLeft{
+
 display:flex;
+
+align-items:center;
+
 gap:14px;
-flex:1;
+
 }
 
-.productIcon{
-width:70px;
-height:70px;
-border-radius:22px;
-background:#fff;
+.itemImage{
+
+width:74px;
+height:74px;
+
+border-radius:20px;
+
+background:#F3F4F6;
+
 display:flex;
+
 align-items:center;
 justify-content:center;
-font-size:32px;
-box-shadow:
-0 6px 16px rgba(0,0,0,0.06);
-flex-shrink:0;
+
+font-size:40px;
+
 }
 
-.productInfo{
-flex:1;
-}
+.itemInfo h3{
 
-.categoryTag{
-display:inline-block;
-padding:6px 12px;
-border-radius:12px;
-font-size:11px;
-font-weight:700;
-margin-bottom:8px;
-}
+font-size:16px;
 
-.productInfo h2{
-font-size:17px;
-margin-bottom:6px;
 font-weight:800;
+
+margin-bottom:4px;
+
 }
 
-.productInfo p{
-font-size:12px;
-line-height:1.6;
+.itemInfo p{
+
+font-size:13px;
+
 color:#6B7280;
-margin-bottom:10px;
+
 }
 
-.price{
-font-size:19px;
+.itemPrice{
+
+margin-top:8px;
+
+font-size:20px;
+
 font-weight:900;
-color:#22C55E;
+
 }
 
-.deleteBtn{
-width:40px;
-height:40px;
-border:none;
-border-radius:14px;
-background:#FEE2E2;
-color:#EF4444;
-font-size:15px;
-cursor:pointer;
-flex-shrink:0;
-}
+.itemActions{
 
-/* =========================
-BOTTOM ROW
-========================= */
-
-.bottomRow{
-margin-top:16px;
 display:flex;
-justify-content:space-between;
+
+flex-direction:column;
+
 align-items:center;
-gap:14px;
+
+gap:12px;
+
 }
 
 .qtyBox{
+
 display:flex;
+
 align-items:center;
+
 gap:10px;
-background:#F8FAFC;
-padding:6px;
-border-radius:16px;
+
+background:#F3F4F6;
+
+padding:6px 10px;
+
+border-radius:14px;
+
 }
 
 .qtyBtn{
-width:34px;
-height:34px;
+
+width:28px;
+height:28px;
+
 border:none;
-border-radius:12px;
+
+border-radius:10px;
+
 background:#fff;
-font-size:15px;
+
+font-size:16px;
+
 font-weight:900;
+
 cursor:pointer;
-box-shadow:
-0 2px 6px rgba(0,0,0,0.05);
+
 }
 
-.qtyText{
-min-width:26px;
+.deleteBtn{
+
+width:36px;
+height:36px;
+
+border:none;
+
+border-radius:12px;
+
+background:#FFE4E6;
+
+color:#DC2626;
+
+font-size:16px;
+
+cursor:pointer;
+
+}
+
+/* =====================================================
+EMPTY CART
+===================================================== */
+
+.emptyCart{
+
+padding:80px 20px;
+
 text-align:center;
-font-size:15px;
-font-weight:800;
+
 }
 
-.itemTotal{
-font-size:18px;
+.emptyCartIcon{
+
+font-size:80px;
+
+margin-bottom:18px;
+
+}
+
+.emptyCart h2{
+
+font-size:26px;
+
 font-weight:900;
+
 }
 
-/* =========================
-BILL
-========================= */
+.emptyCart p{
 
-.billWrapper{
+margin-top:10px;
+
+font-size:14px;
+
+line-height:1.7;
+
+color:#6B7280;
+
+}
+
+.shopBtn{
+
+margin-top:22px;
+
+height:52px;
+
+padding:0 24px;
+
+border:none;
+
+border-radius:18px;
+
+background:#16A34A;
+
+color:#fff;
+
+font-size:15px;
+
+font-weight:900;
+
+cursor:pointer;
+
+}
+
+/* =====================================================
+BILL SECTION
+===================================================== */
+
+.billSection{
+
 position:fixed;
-bottom:70px;
-left:0;
-width:100%;
-padding:14px;
-z-index:998;
-transition:0.3s;
-}
 
-.billBox{
-width:100%;
-max-width:1200px;
-margin:auto;
+left:0;
+right:0;
+bottom:0;
+
 background:#fff;
-border-radius:28px;
-padding:20px;
+
+padding:18px 16px calc(18px + env(safe-area-inset-bottom));
+
+border-top-left-radius:28px;
+border-top-right-radius:28px;
+
 box-shadow:
-0 -6px 30px rgba(15,23,42,0.08);
-border:1px solid #EEF2F7;
+0 -8px 30px rgba(0,0,0,0.08);
+
+z-index:999;
+
 }
 
 .billRow{
+
 display:flex;
+
 justify-content:space-between;
-align-items:center;
-margin-bottom:14px;
-}
 
-.billRow h4{
-font-size:13px;
-color:#6B7280;
-}
+margin-bottom:12px;
 
-.billRow h3{
-font-size:15px;
-font-weight:800;
+font-size:14px;
+
+font-weight:700;
+
 }
 
 .totalRow{
-padding-top:16px;
-border-top:
-1px dashed #CBD5E1;
-margin-top:8px;
-}
 
-.totalRow h2{
-font-size:24px;
+display:flex;
+
+justify-content:space-between;
+
+margin-top:14px;
+
+padding-top:14px;
+
+border-top:1px solid #F3F4F6;
+
+font-size:22px;
+
 font-weight:900;
+
 }
 
 .checkoutBtn{
+
 width:100%;
-height:56px;
-border:none;
-border-radius:18px;
-background:#111827;
-color:#fff;
-font-size:15px;
-font-weight:900;
-cursor:pointer;
+
+height:54px;
+
 margin-top:18px;
-}
 
-/* =========================
-BOTTOM NAV
-========================= */
+border:none;
 
-.bottomNav{
-position:fixed;
-bottom:0;
-left:0;
-width:100%;
-height:70px;
-background:#fff;
-display:flex;
-justify-content:space-around;
-align-items:center;
-border-top:1px solid #EEF2F7;
-z-index:1000;
-}
-
-.bottomNav a{
-text-decoration:none;
-color:#6B7280;
-font-size:0;
-}
-
-.bottomNav i{
-font-size:22px;
-}
-
-.activeNav{
-color:#FFD400 !important;
-}
-
-/* =========================
-DESKTOP
-========================= */
-
-@media screen and (min-width:768px){
-
-.bottomNav a{
-font-size:12px;
-}
-
-.bottomNav i{
-display:block;
-margin-bottom:4px;
-}
-
-}
-
-/* =========================
-MOBILE
-========================= */
-
-@media screen and (max-width:768px){
-
-.main{
-padding:14px;
-padding-bottom:220px;
-}
-
-.cartCard{
-padding:16px;
-border-radius:22px;
-}
-
-.productIcon{
-width:60px;
-height:60px;
-font-size:28px;
 border-radius:18px;
+
+background:#16A34A;
+
+color:#fff;
+
+font-size:16px;
+
+font-weight:900;
+
+cursor:pointer;
+
 }
 
-.productInfo h2{
-font-size:15px;
+/* =====================================================
+DESKTOP
+===================================================== */
+
+@media(min-width:900px){
+
+.cartContainer{
+
+max-width:900px;
+
+margin:auto;
+
 }
 
-.productInfo p{
-font-size:11px;
-}
+.billSection{
 
-.price{
-font-size:17px;
-}
+left:50%;
 
-.billWrapper{
-padding:10px;
-bottom:68px;
-}
+transform:translateX(-50%);
 
-.billBox{
-padding:18px;
-border-radius:24px;
-}
+width:450px;
 
-.totalRow h2{
-font-size:22px;
-}
+bottom:20px;
 
-.bottomNav a{
-font-size:0;
+border-radius:28px;
+
 }
 
 }
@@ -466,69 +459,194 @@ font-size:0;
 
 <body>
 
-<!-- TOPBAR -->
+<!-- =====================================================
+HEADER
+===================================================== -->
 
-<div class="topbar">
+<div class="cartHeader">
 
-<div class="topRow">
+<div class="topBar">
 
 <button
 class="backBtn"
-onclick="history.back()"
->
+onclick="history.back()">
 
-←
+<i class="fa-solid fa-arrow-left"></i>
 
 </button>
 
-<div class="pageText">
+<div>
 
-<h2>
-My Cart
-</h2>
+<div class="cartTitle">
+Your Cart
+</div>
 
-<p id="cartItemCount">
-0 Items
-</p>
+<div class="cartSub">
+QuickPress Premium Checkout
+</div>
+
+</div>
+
+<div style="width:46px;"></div>
 
 </div>
 
 </div>
 
-</div>
-
-<!-- MAIN -->
-
-<div class="main">
-
-<!-- EMPTY -->
+<!-- =====================================================
+CART ITEMS
+===================================================== -->
 
 <div
-class="emptyCart"
-id="emptyCart"
->
+class="cartContainer"
+id="cartContainer">
 
-<div class="emptyIcon">
+</div>
+
+<!-- =====================================================
+BILL
+===================================================== -->
+
+<div
+class="billSection"
+id="billSection">
+
+<div class="billRow">
+
+<span>Item Total</span>
+
+<span id="itemTotal">
+₹0
+</span>
+
+</div>
+
+<div class="billRow">
+
+<span>Delivery Fee</span>
+
+<span>
+₹29
+</span>
+
+</div>
+
+<div class="billRow">
+
+<span>Platform Fee</span>
+
+<span>
+₹5
+</span>
+
+</div>
+
+<div class="totalRow">
+
+<span>Total</span>
+
+<span id="grandTotal">
+₹0
+</span>
+
+</div>
+
+<button
+class="checkoutBtn"
+id="checkoutBtn">
+
+Proceed Checkout
+
+</button>
+
+</div>
+
+<script>
+
+/* =====================================================
+DEMO CART DATA
+===================================================== */
+
+let cart = [
+
+{
+emoji:"👔",
+name:"Shirt Iron",
+desc:"Premium steam ironing",
+price:29,
+qty:1
+},
+
+{
+emoji:"👟",
+name:"Sneaker Clean",
+desc:"Deep sneaker wash",
+price:199,
+qty:1
+}
+
+];
+
+/* =====================================================
+ELEMENTS
+===================================================== */
+
+const cartContainer =
+document.getElementById(
+"cartContainer"
+);
+
+const itemTotal =
+document.getElementById(
+"itemTotal"
+);
+
+const grandTotal =
+document.getElementById(
+"grandTotal"
+);
+
+const billSection =
+document.getElementById(
+"billSection"
+);
+
+/* =====================================================
+RENDER CART
+===================================================== */
+
+function renderCart(){
+
+cartContainer.innerHTML = "";
+
+let total = 0;
+
+/* ========================================= */
+
+if(cart.length === 0){
+
+billSection.style.display =
+"none";
+
+cartContainer.innerHTML = `
+
+<div class="emptyCart">
+
+<div class="emptyCartIcon">
 🛒
 </div>
 
 <h2>
-Your Cart Is Empty
+Cart is Empty
 </h2>
 
 <p>
-
-Looks like you haven't added
-any laundry services yet.
-
+Looks like you haven't added any services yet.
 </p>
 
 <button
 class="shopBtn"
-onclick="
-window.location.href='services.html'
-"
->
+onclick="window.location.href='services.html'">
 
 Browse Services
 
@@ -536,299 +654,72 @@ Browse Services
 
 </div>
 
-<!-- CART -->
-
-<div
-class="cartGrid"
-id="cartGrid"
->
-
-</div>
-
-</div>
-
-<!-- BILL -->
-
-<div
-class="billWrapper"
-id="billWrapper"
->
-
-<div class="billBox">
-
-<div class="billRow totalRow">
-
-<h2>
-Total
-</h2>
-
-<h2 id="total">
-₹0
-</h2>
-
-</div>
-
-<button
-class="checkoutBtn"
-onclick="
-goCheckout()
-"
->
-
-Proceed To Checkout →
-
-</button>
-
-</div>
-
-</div>
-
-<!-- NAV -->
-
-<div class="bottomNav">
-
-<a href="index.html">
-
-<i class="fa-solid fa-house"></i>
-
-Home
-
-</a>
-
-<a href="services.html">
-
-<i class="fa-solid fa-shirt"></i>
-
-Services
-
-</a>
-
-<a
-href="cart.html"
-class="activeNav"
->
-
-<i class="fa-solid fa-cart-shopping"></i>
-
-Cart
-
-</a>
-
-<a href="offers.html">
-
-<i class="fa-solid fa-tags"></i>
-
-Offers
-
-</a>
-
-<a href="profile.html">
-
-<i class="fa-regular fa-user"></i>
-
-Profile
-
-</a>
-
-</div>
-
-<script>
-
-/* =========================
-LOCAL CART
-========================= */
-
-let cart =
-
-JSON.parse(
-localStorage.getItem("cart")
-) || [];
-
-/* =========================
-ELEMENTS
-========================= */
-
-const cartGrid =
-document.getElementById(
-"cartGrid"
-);
-
-const emptyCart =
-document.getElementById(
-"emptyCart"
-);
-
-const billWrapper =
-document.getElementById(
-"billWrapper"
-);
-
-/* =========================
-RENDER CART
-========================= */
-
-function renderCart(){
-
-if(cart.length === 0){
-
-cartGrid.style.display =
-"none";
-
-billWrapper.style.display =
-"none";
-
-emptyCart.style.display =
-"block";
-
-document.getElementById(
-"cartItemCount"
-).innerHTML =
-"0 Items";
+`;
 
 return;
 
 }
 
-emptyCart.style.display =
-"none";
+/* ========================================= */
 
-cartGrid.style.display =
-"flex";
-
-billWrapper.style.display =
+billSection.style.display =
 "block";
 
-let html = "";
-
-let subtotal = 0;
+/* ========================================= */
 
 cart.forEach((item,index)=>{
 
-const qty =
-item.qty || 1;
+total += item.price * item.qty;
 
-const price =
-parseInt(
-String(item.price)
-.replace("₹","")
-) || 0;
+/* ========================================= */
 
-subtotal += price * qty;
+cartContainer.innerHTML += `
 
-/* CATEGORY */
+<div class="cartItem">
 
-const category =
-item.category || "Laundry";
+<div class="itemLeft">
 
-/* CATEGORY STYLE */
-
-let bg =
-"#E0F2FE";
-
-let color =
-"#0369A1";
-
-if(category === "Ironing"){
-
-bg = "#FEF3C7";
-color = "#92400E";
-
-}
-
-if(category === "Washing"){
-
-bg = "#DCFCE7";
-color = "#166534";
-
-}
-
-if(category === "Dry Clean"){
-
-bg = "#F3E8FF";
-color = "#6B21A8";
-
-}
-
-html += `
-
-<div class="cartCard">
-
-<div class="cardTop">
-
-<div class="leftCard">
-
-<div class="productIcon">
-${item.icon || "👕"}
+<div class="itemImage">
+${item.emoji}
 </div>
 
-<div class="productInfo">
+<div class="itemInfo">
 
-<div
-class="categoryTag"
-style="
-background:${bg};
-color:${color};
-"
->
-
-${category}
-
-</div>
-
-<h2>
+<h3>
 ${item.name}
-</h2>
+</h3>
 
 <p>
-Premium laundry service
+${item.desc}
 </p>
 
-<div class="price">
-₹${price}
+<div class="itemPrice">
+₹${item.price}
 </div>
 
 </div>
 
 </div>
 
-<button
-class="deleteBtn"
-onclick="
-removeItem(${index})
-"
->
-
-🗑️
-
-</button>
-
-</div>
-
-<div class="bottomRow">
+<div class="itemActions">
 
 <div class="qtyBox">
 
 <button
 class="qtyBtn"
-onclick="
-changeQty(${index},-1)
-"
->
+onclick="decreaseQty(${index})">
 
-−
+-
 
 </button>
 
-<div class="qtyText">
-${qty}
-</div>
+<span>
+${item.qty}
+</span>
 
 <button
 class="qtyBtn"
-onclick="
-changeQty(${index},1)
-"
->
+onclick="increaseQty(${index})">
 
 +
 
@@ -836,11 +727,13 @@ changeQty(${index},1)
 
 </div>
 
-<div class="itemTotal">
+<button
+class="deleteBtn"
+onclick="removeItem(${index})">
 
-₹${price * qty}
+<i class="fa-solid fa-trash"></i>
 
-</div>
+</button>
 
 </div>
 
@@ -850,124 +743,89 @@ changeQty(${index},1)
 
 });
 
-cartGrid.innerHTML = html;
+/* ========================================= */
 
-document.getElementById(
-"total"
-).innerHTML =
-`₹${subtotal}`;
+itemTotal.innerText =
+`₹${total}`;
 
-document.getElementById(
-"cartItemCount"
-).innerHTML =
-`${cart.length} Items`;
+grandTotal.innerText =
+`₹${total + 29 + 5}`;
 
 }
 
-/* =========================
-REMOVE
-========================= */
+/* =====================================================
+INCREASE
+===================================================== */
 
-function removeItem(index){
+function increaseQty(index){
 
-cart.splice(index,1);
-
-saveCart();
-
-}
-
-/* =========================
-CHANGE QTY
-========================= */
-
-function changeQty(index,change){
-
-if(!cart[index].qty){
-
-cart[index].qty = 1;
-
-}
-
-cart[index].qty += change;
-
-if(cart[index].qty <= 0){
-
-cart[index].qty = 1;
-
-}
-
-saveCart();
-
-}
-
-/* =========================
-SAVE
-========================= */
-
-function saveCart(){
-
-localStorage.setItem(
-
-"cart",
-
-JSON.stringify(cart)
-
-);
+cart[index].qty++;
 
 renderCart();
 
 }
 
-/* =========================
-CHECKOUT
-========================= */
+/* =====================================================
+DECREASE
+===================================================== */
 
-function goCheckout(){
+function decreaseQty(index){
+
+if(cart[index].qty > 1){
+
+cart[index].qty--;
+
+}else{
+
+cart.splice(index,1);
+
+}
+
+renderCart();
+
+}
+
+/* =====================================================
+REMOVE
+===================================================== */
+
+function removeItem(index){
+
+cart.splice(index,1);
+
+renderCart();
+
+}
+
+/* =====================================================
+CHECKOUT
+===================================================== */
+
+document.getElementById(
+"checkoutBtn"
+)
+
+.addEventListener(
+"click",
+()=>{
+
+alert(
+"Proceeding to Checkout 🚀"
+);
 
 window.location.href =
 "checkout.html";
 
 }
+);
 
-/* =========================
-SCROLL HIDE BILL
-========================= */
-
-let lastScroll = 0;
-
-window.addEventListener(
-"scroll",
-function(){
-
-const currentScroll =
-window.pageYOffset;
-
-if(currentScroll > lastScroll){
-
-billWrapper.style.transform =
-"translateY(200px)";
-
-}
-
-else{
-
-billWrapper.style.transform =
-"translateY(0px)";
-
-}
-
-lastScroll = currentScroll;
-
-});
-
-/* =========================
-INIT
-========================= */
+/* =====================================================
+START
+===================================================== */
 
 renderCart();
 
 </script>
 
 </body>
-
 </html>
