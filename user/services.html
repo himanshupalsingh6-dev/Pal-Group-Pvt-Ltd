@@ -1,269 +1,983 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-<meta charset="UTF-8">
-<title>QuickPress Services</title>
-<meta name="viewport" content="width=device-width, initial-scale=1">
+/* =====================================================
+QUICKPRESS FINAL INDEX JS
+FILE NAME : index.js
+===================================================== */
 
-<style>
-:root{
-  --yellow:#FFD400;
-  --bg:#f6f7f9;
-}
+/* =====================================================
+FIREBASE IMPORT
+===================================================== */
 
-body{
-  margin:0;
-  font-family:Segoe UI;
-  background:var(--bg);
-}
+import { initializeApp }
 
-/* 🔥 HEADER */
-.header{
-  display:flex;
-  justify-content:space-between;
-  align-items:center;
-  padding:12px 16px;
-  background:#fff;
-  box-shadow:0 2px 10px rgba(0,0,0,.1);
-}
+from "https://www.gstatic.com/firebasejs/10.12.2/firebase-app.js";
 
-.logo{
-  font-weight:bold;
-  font-size:20px;
-  color:#000;
-}
-
-.search{
-  flex:1;
-  margin:0 10px;
-}
-
-.search input{
-  width:100%;
-  padding:10px;
-  border-radius:8px;
-  border:1px solid #ddd;
-}
-
-.cart{
-  background:var(--yellow);
-  padding:8px 12px;
-  border-radius:20px;
-}
-
-/* 🔥 LAYOUT */
-.main{
-  display:flex;
-}
-
-/* 🔥 CATEGORY SIDEBAR */
-.sidebar{
-  width:90px;
-  background:#fff;
-  height:calc(100vh - 60px);
-  overflow:auto;
-  border-right:1px solid #eee;
-}
-
-.cat{
-  padding:12px;
-  text-align:center;
-  cursor:pointer;
-  font-size:12px;
-}
-
-.active{
-  background:#f0f0f0;
-  font-weight:bold;
-}
-
-/* 🔥 PRODUCT GRID */
-.content{
-  flex:1;
-  padding:10px;
-}
-
-.grid{
-  display:grid;
-  grid-template-columns:repeat(2,1fr);
-  gap:10px;
-}
-
-.card{
-  background:#fff;
-  padding:10px;
-  border-radius:12px;
-  box-shadow:0 5px 15px rgba(0,0,0,.08);
-}
-
-.title{
-  font-size:14px;
-  font-weight:600;
-}
-
-.price{
-  font-size:13px;
-  color:#666;
-}
-
-/* 🔥 ADD BUTTON */
-.add{
-  margin-top:6px;
-  padding:6px;
-  text-align:center;
-  background:var(--yellow);
-  border-radius:6px;
-  cursor:pointer;
-  font-weight:bold;
-}
-
-.qty{
-  display:flex;
-  justify-content:space-between;
-  margin-top:6px;
-}
-
-.btn{
-  background:var(--yellow);
-  border:none;
-  padding:5px 10px;
-  border-radius:5px;
-}
-</style>
-</head>
-
-<body>
-
-<!-- 🔥 HEADER -->
-<div class="header">
-  <div class="logo">⚡ QuickPress</div>
-
-  <div class="search">
-    <input placeholder="Search services...">
-  </div>
-
-  <div class="cart">🛒 <span id="count">0</span></div>
-</div>
-
-<div class="main">
-
-  <!-- 🔥 CATEGORY -->
-  <div class="sidebar" id="cats"></div>
-
-  <!-- 🔥 PRODUCTS -->
-  <div class="content">
-    <div class="grid" id="products"></div>
-  </div>
-
-</div>
-
-<script type="module">
-
-/* 🔥 FIREBASE IMPORT */
-import { db } from "./firebase.js";
 import {
+
+getFirestore,
 collection,
-onSnapshot
-} from "https://www.gstatic.com/firebasejs/12.11.0/firebase-firestore.js";
+query,
+limit,
+getDocs
 
-/* 🔥 STATE */
-let allProducts = [];
-let current = "ironing";
-let cart = JSON.parse(localStorage.getItem("cart")||"[]");
-
-/* 🔥 CATEGORY LIST */
-const categories = ["ironing","dry","washing","steam","express"];
-
-/* LOAD CATEGORY */
-function loadCategories(){
-  let html="";
-  categories.forEach(c=>{
-    html+=`
-    <div class="cat ${c==current?'active':''}" onclick="changeCat('${c}')">
-      ${c}
-    </div>`;
-  });
-  cats.innerHTML=html;
 }
 
-/* CHANGE CATEGORY */
-window.changeCat=function(cat){
-  current=cat;
-  loadCategories();
-  loadProducts();
+from "https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore.js";
+
+/* =====================================================
+FIREBASE CONFIG
+===================================================== */
+
+const firebaseConfig = {
+
+apiKey: "YOUR_API_KEY",
+
+authDomain: "YOUR_PROJECT.firebaseapp.com",
+
+projectId: "YOUR_PROJECT_ID",
+
+storageBucket: "YOUR_PROJECT.appspot.com",
+
+messagingSenderId: "YOUR_SENDER_ID",
+
+appId: "YOUR_APP_ID"
+
 };
 
-/* 🔥 LOAD PRODUCTS FROM FIREBASE */
-onSnapshot(collection(db,"services"), snap=>{
-  allProducts=[];
-  snap.forEach(d=>{
-    allProducts.push(d.data());
-  });
-  loadProducts();
+/* =====================================================
+INITIALIZE FIREBASE
+===================================================== */
+
+const app =
+initializeApp(firebaseConfig);
+
+const db =
+getFirestore(app);
+
+/* =====================================================
+LIVE LOCATION
+===================================================== */
+
+const locationText =
+document.getElementById(
+"locationText"
+);
+
+function success(position){
+
+const latitude =
+position.coords.latitude;
+
+const longitude =
+position.coords.longitude;
+
+fetch(
+
+`https://nominatim.openstreetmap.org/reverse?format=jsonv2&lat=${latitude}&lon=${longitude}`
+
+)
+
+.then(response => response.json())
+
+.then(data => {
+
+const area =
+
+data.address.suburb ||
+
+data.address.neighbourhood ||
+
+data.address.city ||
+
+data.address.town ||
+
+data.address.village ||
+
+"Kasganj";
+
+/* ========================================= */
+
+locationText.innerHTML =
+
+`📍 ${area}`;
+
+/* ========================================= */
+
+})
+
+.catch(()=>{
+
+locationText.innerHTML =
+"📍 Kasganj";
+
 });
 
-/* SHOW PRODUCTS */
-function loadProducts(){
-
-  let list = allProducts.filter(p=>p.category==current);
-
-  let html="";
-
-  list.forEach(p=>{
-    let found = cart.find(c=>c.name==p.name);
-    let qty = found ? found.qty : 0;
-
-    html+=`
-    <div class="card">
-      <div class="title">${p.name}</div>
-      <div class="price">₹${p.price}</div>
-
-      ${
-        qty==0
-        ? `<div class="add" onclick="add('${p.name}',${p.price})">ADD</div>`
-        : `<div class="qty">
-            <button class="btn" onclick="add('${p.name}',${p.price},-1)">-</button>
-            <span>${qty}</span>
-            <button class="btn" onclick="add('${p.name}',${p.price},1)">+</button>
-          </div>`
-      }
-    </div>`;
-  });
-
-  products.innerHTML=html;
 }
 
-/* CART UPDATE */
-window.add=function(name,price,delta=1){
+function error(){
 
-  let item = cart.find(c=>c.name==name);
+locationText.innerHTML =
+"📍 Kasganj";
 
-  if(item){
-    item.qty+=delta;
-    if(item.qty<=0){
-      cart = cart.filter(c=>c.name!=name);
-    }
-  }else{
-    cart.push({name,price,qty:1});
-  }
-
-  localStorage.setItem("cart",JSON.stringify(cart));
-  updateCart();
-  loadProducts();
-};
-
-/* CART COUNT */
-function updateCart(){
-  let count=0;
-  cart.forEach(i=>count+=i.qty);
-  document.getElementById("count").innerText=count;
 }
 
-/* INIT */
-loadCategories();
-updateCart();
+if(navigator.geolocation){
 
-</script>
+navigator.geolocation.getCurrentPosition(
+success,
+error
+);
 
-</body>
-</html>
+}else{
+
+locationText.innerHTML =
+"📍 Kasganj";
+
+}
+
+/* =====================================================
+PROFILE BUTTON
+===================================================== */
+
+const profileBtn =
+document.querySelector(
+".profileBtn"
+);
+
+if(profileBtn){
+
+profileBtn.addEventListener(
+"click",
+()=>{
+
+window.location.href =
+"profile.html";
+
+}
+);
+
+}
+
+/* =====================================================
+MIC BUTTON
+===================================================== */
+
+const micBtn =
+document.querySelector(
+".micBtn"
+);
+
+micBtn.addEventListener(
+"click",
+()=>{
+
+showToast(
+"Voice Search Coming Soon 🎤"
+);
+
+}
+);
+
+/* =====================================================
+SEARCH EFFECT
+===================================================== */
+
+const searchBar =
+document.querySelector(
+".searchBar"
+);
+
+const searchInput =
+document.querySelector(
+".searchBar input"
+);
+
+searchInput.addEventListener(
+"focus",
+()=>{
+
+searchBar.style.transform =
+"scale(1.01)";
+
+searchBar.style.boxShadow =
+"0 12px 28px rgba(0,0,0,0.12)";
+
+}
+);
+
+searchInput.addEventListener(
+"blur",
+()=>{
+
+searchBar.style.transform =
+"scale(1)";
+
+searchBar.style.boxShadow =
+"0 8px 22px rgba(0,0,0,0.08)";
+
+}
+);
+
+/* =====================================================
+CATEGORY ACTIVE
+===================================================== */
+
+const categoryCards =
+document.querySelectorAll(
+".categoryCard"
+);
+
+categoryCards.forEach(card=>{
+
+card.addEventListener(
+"click",
+()=>{
+
+categoryCards.forEach(item=>{
+
+item.classList.remove(
+"activeCategory"
+);
+
+});
+
+card.classList.add(
+"activeCategory"
+);
+
+showToast(
+`${card.innerText} selected`
+);
+
+}
+);
+
+});
+
+/* =====================================================
+FIREBASE PRODUCTS
+===================================================== */
+
+const productGrid =
+document.getElementById(
+"productGrid"
+);
+
+async function loadTrendingServices(){
+
+productGrid.innerHTML = `
+
+<div style="
+grid-column:1/3;
+text-align:center;
+padding:40px 0;
+font-weight:700;
+color:#6B7280;
+">
+
+Loading Services...
+
+</div>
+
+`;
+
+try{
+
+const servicesQuery =
+query(
+
+collection(
+db,
+"services"
+),
+
+limit(6)
+
+);
+
+const querySnapshot =
+await getDocs(
+servicesQuery
+);
+
+productGrid.innerHTML = "";
+
+/* ========================================= */
+
+querySnapshot.forEach(doc=>{
+
+const product =
+doc.data();
+
+/* ========================================= */
+
+productGrid.innerHTML += `
+
+<div class="productCard">
+
+<div class="favoriteBtn">
+🤍
+</div>
+
+<div class="productImage">
+
+${product.icon || "🧺"}
+
+</div>
+
+<div class="productInfo">
+
+<h3>
+${product.name || "Service"}
+</h3>
+
+<p>
+${product.description || "Premium laundry service"}
+</p>
+
+<div class="productBottom">
+
+<div class="price">
+₹${product.price || 0}
+</div>
+
+<button class="addBtn">
+ADD
+</button>
+
+</div>
+
+</div>
+
+</div>
+
+`;
+
+});
+
+/* ========================================= */
+
+if(querySnapshot.empty){
+
+productGrid.innerHTML = `
+
+<div style="
+grid-column:1/3;
+text-align:center;
+padding:40px 0;
+font-weight:700;
+color:#6B7280;
+">
+
+No services found
+
+</div>
+
+`;
+
+}
+
+/* ========================================= */
+
+activateCartButtons();
+
+activateFavoriteButtons();
+
+}catch(error){
+
+console.log(error);
+
+productGrid.innerHTML = `
+
+<div style="
+grid-column:1/3;
+text-align:center;
+padding:40px 0;
+font-weight:700;
+color:red;
+">
+
+Failed to load services
+
+</div>
+
+`;
+
+}
+
+}
+
+loadTrendingServices();
+
+/* =====================================================
+POPUP CART
+===================================================== */
+
+let cart = [];
+
+const popupCart =
+document.getElementById(
+"popupCart"
+);
+
+const cartItems =
+document.getElementById(
+"cartItems"
+);
+
+const cartTotal =
+document.getElementById(
+"cartTotal"
+);
+
+const walletAmount =
+document.getElementById(
+"walletAmount"
+);
+
+/* =====================================================
+OPEN CART
+===================================================== */
+
+const walletBtn =
+document.getElementById(
+"walletBtn"
+);
+
+walletBtn.addEventListener(
+"click",
+()=>{
+
+popupCart.style.display =
+"block";
+
+renderCart();
+
+}
+);
+
+/* =====================================================
+CLOSE CART
+===================================================== */
+
+const closeCart =
+document.getElementById(
+"closeCart"
+);
+
+closeCart.addEventListener(
+"click",
+()=>{
+
+popupCart.style.display =
+"none";
+
+}
+);
+
+/* =====================================================
+ADD TO CART
+===================================================== */
+
+function activateCartButtons(){
+
+document.querySelectorAll(
+".addBtn"
+)
+
+.forEach(button=>{
+
+button.addEventListener(
+"click",
+()=>{
+
+const card =
+button.closest(
+".productCard"
+);
+
+const name =
+card.querySelector("h3")
+.innerText;
+
+const price =
+card.querySelector(".price")
+.innerText;
+
+const emoji =
+card.querySelector(".productImage")
+.innerText;
+
+/* ========================================= */
+
+cart.push({
+
+name,
+price,
+emoji
+
+});
+
+/* ========================================= */
+
+button.innerHTML =
+"Added ✓";
+
+button.style.background =
+"#111827";
+
+/* ========================================= */
+
+renderCart();
+
+showToast(
+`${name} added to cart`
+);
+
+}
+);
+
+});
+
+}
+
+/* =====================================================
+RENDER CART
+===================================================== */
+
+function renderCart(){
+
+cartItems.innerHTML = "";
+
+let total = 0;
+
+/* ========================================= */
+
+if(cart.length === 0){
+
+cartItems.innerHTML = `
+
+<div style="
+padding:25px;
+text-align:center;
+font-weight:700;
+color:#6B7280;
+">
+
+Cart is empty 🛒
+
+</div>
+
+`;
+
+}
+
+/* ========================================= */
+
+cart.forEach(item=>{
+
+const numericPrice =
+parseInt(
+item.price.replace("₹","")
+);
+
+total += numericPrice;
+
+/* ========================================= */
+
+cartItems.innerHTML += `
+
+<div class="cartItem">
+
+<div style="
+display:flex;
+align-items:center;
+gap:12px;
+">
+
+<div style="
+font-size:32px;
+">
+
+${item.emoji}
+
+</div>
+
+<div>
+
+<div style="
+font-size:15px;
+font-weight:800;
+">
+
+${item.name}
+
+</div>
+
+<div style="
+font-size:14px;
+color:#16A34A;
+font-weight:700;
+margin-top:3px;
+">
+
+${item.price}
+
+</div>
+
+</div>
+
+</div>
+
+</div>
+
+`;
+
+});
+
+/* ========================================= */
+
+cartTotal.innerText =
+`₹${total}`;
+
+walletAmount.innerText =
+`₹${total}`;
+
+}
+
+/* =====================================================
+CHECKOUT BUTTON
+===================================================== */
+
+const checkoutBtn =
+document.querySelector(
+".checkoutBtn"
+);
+
+checkoutBtn.addEventListener(
+"click",
+()=>{
+
+if(cart.length === 0){
+
+showToast(
+"Cart is empty"
+);
+
+return;
+
+}
+
+showToast(
+"Opening checkout 🚀"
+);
+
+setTimeout(()=>{
+
+window.location.href =
+"checkout.html";
+
+},1200);
+
+}
+);
+
+/* =====================================================
+BOOK PICKUP BUTTON
+===================================================== */
+
+const bookBtn =
+document.querySelector(
+".bookBtn"
+);
+
+bookBtn.addEventListener(
+"click",
+()=>{
+
+showToast(
+"Pickup booked successfully 🚀"
+);
+
+}
+);
+
+/* =====================================================
+PARTNER BUTTON
+===================================================== */
+
+const partnerBtn =
+document.querySelector(
+".partnerBtn"
+);
+
+partnerBtn.addEventListener(
+"click",
+()=>{
+
+showToast(
+"Opening partners..."
+);
+
+}
+);
+
+/* =====================================================
+FAVORITE BUTTON
+===================================================== */
+
+function activateFavoriteButtons(){
+
+document.querySelectorAll(
+".favoriteBtn"
+)
+
+.forEach(button=>{
+
+button.addEventListener(
+"click",
+()=>{
+
+if(button.innerHTML === "🤍"){
+
+button.innerHTML =
+"❤️";
+
+showToast(
+"Added to wishlist"
+);
+
+}else{
+
+button.innerHTML =
+"🤍";
+
+showToast(
+"Removed from wishlist"
+);
+
+}
+
+}
+);
+
+});
+
+}
+
+/* =====================================================
+BOTTOM NAV
+===================================================== */
+
+const navItems =
+document.querySelectorAll(
+".navItem"
+);
+
+navItems.forEach(item=>{
+
+item.addEventListener(
+"click",
+()=>{
+
+navItems.forEach(nav=>{
+
+nav.classList.remove(
+"activeNav"
+);
+
+});
+
+item.classList.add(
+"activeNav"
+);
+
+/* =========================================
+PAGE REDIRECT
+========================================= */
+
+const pageText =
+item.innerText.trim();
+
+/* ========================================= */
+
+if(pageText.includes("Home")){
+
+window.location.href =
+"index.html";
+
+}
+
+if(pageText.includes("Orders")){
+
+window.location.href =
+"orders.html";
+
+}
+
+if(pageText.includes("Services")){
+
+window.location.href =
+"services.html";
+
+}
+
+if(pageText.includes("Wallet")){
+
+window.location.href =
+"wallet.html";
+
+}
+
+if(pageText.includes("Profile")){
+
+window.location.href =
+"profile.html";
+
+}
+
+}
+);
+
+});
+
+/* =====================================================
+AUTO REVIEW SLIDER
+===================================================== */
+
+const reviewTrack =
+document.querySelector(
+".reviewTrack"
+);
+
+let reviewScroll = 0;
+
+setInterval(()=>{
+
+if(reviewTrack){
+
+reviewScroll += 300;
+
+if(
+
+reviewScroll >=
+
+reviewTrack.scrollWidth -
+
+reviewTrack.clientWidth
+
+){
+
+reviewScroll = 0;
+
+}
+
+reviewTrack.scrollTo({
+
+left:reviewScroll,
+
+behavior:"smooth"
+
+});
+
+}
+
+},3200);
+
+/* =====================================================
+TOAST
+===================================================== */
+
+function showToast(message){
+
+const toast =
+document.createElement("div");
+
+toast.innerHTML = message;
+
+toast.style.position =
+"fixed";
+
+toast.style.bottom =
+"100px";
+
+toast.style.left =
+"50%";
+
+toast.style.transform =
+"translateX(-50%)";
+
+toast.style.background =
+"#111827";
+
+toast.style.color =
+"#fff";
+
+toast.style.padding =
+"14px 22px";
+
+toast.style.borderRadius =
+"18px";
+
+toast.style.fontWeight =
+"700";
+
+toast.style.fontSize =
+"14px";
+
+toast.style.zIndex =
+"99999";
+
+toast.style.boxShadow =
+"0 8px 24px rgba(0,0,0,0.18)";
+
+document.body.appendChild(
+toast
+);
+
+setTimeout(()=>{
+
+toast.remove();
+
+},2500);
+
+}
+
+/* =====================================================
+HEADER SCROLL EFFECT
+===================================================== */
+
+window.addEventListener(
+"scroll",
+()=>{
+
+const hero =
+document.querySelector(
+".hero"
+);
+
+if(window.scrollY > 10){
+
+hero.style.boxShadow =
+"0 8px 22px rgba(0,0,0,0.08)";
+
+}else{
+
+hero.style.boxShadow =
+"none";
+
+}
+
+});
+
+/* =====================================================
+PAGE LOAD
+===================================================== */
+
+window.addEventListener(
+"load",
+()=>{
+
+document.body.style.opacity =
+"1";
+
+});
