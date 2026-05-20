@@ -5,12 +5,32 @@
 
 <meta charset="UTF-8">
 
-<meta name="viewport"
+<meta
+name="viewport"
 content="width=device-width, initial-scale=1.0">
 
 <title>
 QuickPress Signup
 </title>
+
+<!-- =====================================================
+FONTS
+===================================================== -->
+
+<link rel="preconnect"
+href="https://fonts.googleapis.com">
+
+<link rel="preconnect"
+href="https://fonts.gstatic.com"
+crossorigin>
+
+<link
+href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap"
+rel="stylesheet">
+
+<!-- =====================================================
+ICONS
+===================================================== -->
 
 <link rel="stylesheet"
 href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css"/>
@@ -25,20 +45,32 @@ RESET
 margin:0;
 padding:0;
 box-sizing:border-box;
-font-family:Inter,sans-serif;
+font-family:'Inter',sans-serif;
+-webkit-tap-highlight-color:transparent;
 }
 
-/* =====================================================
-BODY
-===================================================== */
-
 body{
-background:#FFD000;
+
+background:
+linear-gradient(
+180deg,
+#FFD633 0%,
+#FFE98A 35%,
+#F6F7FB 35%
+);
+
 min-height:100vh;
+
 display:flex;
+
 align-items:center;
+
 justify-content:center;
+
 padding:20px;
+
+overflow-x:hidden;
+
 }
 
 /* =====================================================
@@ -46,13 +78,47 @@ CARD
 ===================================================== */
 
 .signupCard{
+
 width:100%;
-max-width:460px;
+
+max-width:430px;
+
 background:#fff;
-border-radius:34px;
-padding:34px 28px;
+
+border-radius:38px;
+
+padding:34px 24px;
+
 box-shadow:
-0 20px 60px rgba(0,0,0,0.15);
+0 20px 50px rgba(0,0,0,0.08);
+
+position:relative;
+
+overflow:hidden;
+
+}
+
+/* =====================================================
+TOP CIRCLE
+===================================================== */
+
+.signupCard::before{
+
+content:"";
+
+position:absolute;
+
+right:-80px;
+top:-80px;
+
+width:220px;
+height:220px;
+
+border-radius:50%;
+
+background:
+rgba(255,214,51,0.16);
+
 }
 
 /* =====================================================
@@ -60,62 +126,165 @@ LOGO
 ===================================================== */
 
 .logo{
-text-align:center;
-margin-bottom:28px;
-}
 
-.logo h1{
-font-size:42px;
+width:88px;
+height:88px;
+
+border-radius:28px;
+
+background:
+linear-gradient(
+135deg,
+#111827,
+#1F2937
+);
+
+display:flex;
+
+align-items:center;
+justify-content:center;
+
+margin:auto;
+
+font-size:36px;
+
 font-weight:900;
-color:#111;
-margin-bottom:8px;
-}
 
-.logo p{
-font-size:14px;
-font-weight:600;
-color:#666;
+color:#FFD633;
+
+position:relative;
+
+z-index:2;
+
 }
 
 /* =====================================================
-INPUTS
+TITLE
 ===================================================== */
 
-.inputGroup{
-margin-bottom:18px;
-}
+.title{
 
-.inputGroup label{
-display:block;
-font-size:13px;
-font-weight:800;
-margin-bottom:10px;
-color:#111;
-}
+margin-top:24px;
 
-.inputWrap{
+text-align:center;
+
+font-size:36px;
+
+font-weight:900;
+
+line-height:1.1;
+
 position:relative;
+
+z-index:2;
+
 }
 
-.inputWrap i{
-position:absolute;
-left:18px;
-top:50%;
-transform:translateY(-50%);
-font-size:16px;
-color:#666;
+.subtitle{
+
+margin-top:12px;
+
+text-align:center;
+
+font-size:14px;
+
+line-height:1.7;
+
+color:#6B7280;
+
+position:relative;
+
+z-index:2;
+
 }
 
-.inputField{
-width:100%;
-height:58px;
+/* =====================================================
+FORM
+===================================================== */
+
+.formGroup{
+
+margin-top:22px;
+
+position:relative;
+
+z-index:2;
+
+}
+
+.label{
+
+margin-bottom:10px;
+
+font-size:13px;
+
+font-weight:800;
+
+color:#111827;
+
+}
+
+.inputBox{
+
+height:60px;
+
+background:#F3F4F6;
+
+border-radius:20px;
+
+display:flex;
+
+align-items:center;
+
+padding:0 18px;
+
+transition:0.3s;
+
+}
+
+.inputBox:focus-within{
+
+background:#fff;
+
+box-shadow:
+0 0 0 3px rgba(22,163,74,0.12);
+
+}
+
+.inputBox i{
+
+font-size:18px;
+
+color:#16A34A;
+
+}
+
+.inputBox input{
+
+flex:1;
+
+height:100%;
+
 border:none;
-border-radius:18px;
-padding:0 18px 0 50px;
-font-size:15px;
-background:#F5F5F5;
+
 outline:none;
-font-weight:600;
+
+padding:0 14px;
+
+background:none;
+
+font-size:15px;
+
+font-weight:700;
+
+color:#111827;
+
+}
+
+.inputBox input::placeholder{
+
+color:#9CA3AF;
+
 }
 
 /* =====================================================
@@ -123,16 +292,69 @@ BUTTON
 ===================================================== */
 
 .signupBtn{
+
 width:100%;
+
 height:60px;
+
+margin-top:30px;
+
 border:none;
-border-radius:20px;
-background:#111;
-color:#FFD000;
+
+border-radius:22px;
+
+background:#16A34A;
+
+color:#fff;
+
 font-size:16px;
+
 font-weight:900;
+
 cursor:pointer;
-margin-top:12px;
+
+transition:0.3s;
+
+position:relative;
+
+z-index:2;
+
+}
+
+.signupBtn:active{
+
+transform:scale(0.98);
+
+}
+
+/* =====================================================
+TERMS
+===================================================== */
+
+.terms{
+
+margin-top:18px;
+
+text-align:center;
+
+font-size:12px;
+
+line-height:1.7;
+
+color:#6B7280;
+
+position:relative;
+
+z-index:2;
+
+}
+
+.terms span{
+
+font-weight:800;
+
+color:#111827;
+
 }
 
 /* =====================================================
@@ -140,36 +362,45 @@ BOTTOM
 ===================================================== */
 
 .bottomText{
+
+margin-top:26px;
+
 text-align:center;
-margin-top:22px;
+
 font-size:14px;
-font-weight:600;
-color:#666;
+
+font-weight:700;
+
+color:#6B7280;
+
+position:relative;
+
+z-index:2;
+
 }
 
 .bottomText a{
-color:#111;
-font-weight:900;
+
+color:#16A34A;
+
 text-decoration:none;
+
+font-weight:900;
+
 }
 
 /* =====================================================
-STATUS
+DESKTOP
 ===================================================== */
 
-.statusBox{
-margin-top:18px;
-text-align:center;
-font-size:14px;
-font-weight:700;
+@media(min-width:900px){
+
+.signupCard{
+
+padding:42px 34px;
+
 }
 
-.success{
-color:#16A34A;
-}
-
-.error{
-color:#DC2626;
 }
 
 </style>
@@ -179,108 +410,77 @@ color:#DC2626;
 <body>
 
 <!-- =====================================================
-CARD
+SIGNUP CARD
 ===================================================== -->
 
 <div class="signupCard">
 
-<!-- LOGO -->
+<!-- =====================================================
+LOGO
+===================================================== -->
 
 <div class="logo">
-
-<h1>
-QuickPress
-</h1>
-
-<p>
-Login or Signup
-</p>
-
+Q
 </div>
+
+<!-- =====================================================
+TITLE
+===================================================== -->
+
+<div class="title">
+Create Account
+</div>
+
+<div class="subtitle">
+Join QuickPress and enjoy premium
+laundry pickup & express delivery.
+</div>
+
+<!-- =====================================================
+FORM
+===================================================== -->
+
+<form id="signupForm">
 
 <!-- NAME -->
 
-<div class="inputGroup">
+<div class="formGroup">
 
-<label>
+<div class="label">
 Full Name
-</label>
+</div>
 
-<div class="inputWrap">
+<div class="inputBox">
 
 <i class="fa-solid fa-user"></i>
 
 <input
-class="inputField"
 type="text"
 id="name"
-placeholder="Enter full name">
+placeholder="Enter full name"
+required>
 
 </div>
 
 </div>
 
-<!-- MOBILE -->
+<!-- PHONE -->
 
-<div class="inputGroup">
+<div class="formGroup">
 
-<label>
+<div class="label">
 Mobile Number
-</label>
+</div>
 
-<div class="inputWrap">
+<div class="inputBox">
 
 <i class="fa-solid fa-phone"></i>
 
 <input
-class="inputField"
-type="number"
-id="mobile"
-placeholder="Enter mobile number">
-
-</div>
-
-</div>
-
-<!-- EMAIL -->
-
-<div class="inputGroup">
-
-<label>
-Email Address
-</label>
-
-<div class="inputWrap">
-
-<i class="fa-solid fa-envelope"></i>
-
-<input
-class="inputField"
-type="email"
-id="email"
-placeholder="Enter email address">
-
-</div>
-
-</div>
-
-<!-- PASSWORD -->
-
-<div class="inputGroup">
-
-<label>
-Password
-</label>
-
-<div class="inputWrap">
-
-<i class="fa-solid fa-lock"></i>
-
-<input
-class="inputField"
-type="password"
-id="password"
-placeholder="Create password">
+type="tel"
+id="phone"
+placeholder="+91 9876543210"
+required>
 
 </div>
 
@@ -288,43 +488,43 @@ placeholder="Create password">
 
 <!-- CITY -->
 
-<div class="inputGroup">
+<div class="formGroup">
 
-<label>
+<div class="label">
 City
-</label>
+</div>
 
-<div class="inputWrap">
+<div class="inputBox">
 
 <i class="fa-solid fa-location-dot"></i>
 
 <input
-class="inputField"
 type="text"
 id="city"
-placeholder="Enter city">
+placeholder="Enter your city"
+required>
 
 </div>
 
 </div>
 
-<!-- ADDRESS -->
+<!-- PASSWORD -->
 
-<div class="inputGroup">
+<div class="formGroup">
 
-<label>
-Address
-</label>
+<div class="label">
+Password
+</div>
 
-<div class="inputWrap">
+<div class="inputBox">
 
-<i class="fa-solid fa-house"></i>
+<i class="fa-solid fa-lock"></i>
 
 <input
-class="inputField"
-type="text"
-id="address"
-placeholder="Enter address">
+type="password"
+id="password"
+placeholder="Create password"
+required>
 
 </div>
 
@@ -334,198 +534,39 @@ placeholder="Enter address">
 
 <button
 class="signupBtn"
-onclick="signupUser()">
+id="signupBtn">
 
 Create Account
 
 </button>
 
-<!-- STATUS -->
+</form>
 
-<div
-class="statusBox"
-id="statusBox">
+<!-- TERMS -->
+
+<div class="terms">
+By continuing, you agree to QuickPress
+<span>Terms & Conditions</span>
 </div>
 
 <!-- LOGIN -->
 
 <div class="bottomText">
-
-By continuing, you agree to QuickPress Terms & Privacy Policy
-
+Already have account?
+<a href="login.html">
+Login
+</a>
 </div>
 
 </div>
 
 <!-- =====================================================
-FIREBASE SCRIPT
+SCRIPT
 ===================================================== -->
 
-<script type="module">
-
-import { db }
-from "/Pal-Group-Pvt-Ltd/firebase.js";
-
-import {
-collection,
-addDoc,
-serverTimestamp
-}
-from "https://www.gstatic.com/firebasejs/12.11.0/firebase-firestore.js";
-
-const name =
-document.getElementById("name");
-
-const mobile =
-document.getElementById("mobile");
-
-const email =
-document.getElementById("email");
-
-const password =
-document.getElementById("password");
-
-const city =
-document.getElementById("city");
-
-const address =
-document.getElementById("address");
-
-const statusBox =
-document.getElementById("statusBox");
-
-window.signupUser = async()=>{
-
-const userName =
-name.value.trim();
-
-const userMobile =
-mobile.value.trim();
-
-const userEmail =
-email.value.trim();
-
-const userPassword =
-password.value.trim();
-
-const userCity =
-city.value.trim();
-
-const userAddress =
-address.value.trim();
-
-/* ========================================= */
-
-if(
-!userName
-||
-!userMobile
-||
-!userEmail
-||
-!userPassword
-||
-!userCity
-||
-!userAddress
-){
-
-statusBox.innerHTML =
-"Fill all fields";
-
-statusBox.className =
-"statusBox error";
-
-return;
-
-}
-
-/* ========================================= */
-
-if(userPassword.length < 6){
-
-statusBox.innerHTML =
-"Password must be at least 6 characters";
-
-statusBox.className =
-"statusBox error";
-
-return;
-
-}
-
-/* ========================================= */
-
-try{
-
-await addDoc(
-collection(db,"users"),
-{
-name:userName,
-mobile:userMobile,
-email:userEmail,
-password:userPassword,
-city:userCity,
-address:userAddress,
-wallet:0,
-status:"Active",
-createdAt:serverTimestamp()
-}
-);
-
-/* ========================================= */
-
-statusBox.innerHTML =
-"Account created successfully";
-
-statusBox.className =
-"statusBox success";
-
-/* ========================================= */
-
-localStorage.setItem(
-"quickpress_user",
-"true"
-);
-
-localStorage.setItem(
-"quickpress_user_name",
-userName
-);
-
-localStorage.setItem(
-"quickpress_user_mobile",
-userMobile
-);
-
-localStorage.setItem(
-"quickpress_user_city",
-userCity
-);
-
-/* ========================================= */
-
-setTimeout(()=>{
-
-window.location.href =
-"index.html";
-
-},1500);
-
-}
-
-catch(error){
-
-statusBox.innerHTML =
-error.message;
-
-statusBox.className =
-"statusBox error";
-
-}
-
-};
-
+<script
+type="module"
+src="signup.js">
 </script>
 
 </body>
