@@ -1,6 +1,6 @@
 /* =====================================================
-LOGIN.JS
-FULL REAL LOGIN SYSTEM
+FILE : login.js
+REAL QUICKPRESS LOGIN SYSTEM
 ===================================================== */
 
 /* =====================================================
@@ -9,11 +9,12 @@ IMPORT FIREBASE
 
 import {
 
-auth
+auth,
+db
 
 }
 
-from "./firebase.js";
+from "../firebase.js";
 
 import {
 
@@ -38,14 +39,6 @@ setDoc
 from
 
 "https://www.gstatic.com/firebasejs/12.11.0/firebase-firestore.js";
-
-import {
-
-db
-
-}
-
-from "./firebase.js";
 
 /* =====================================================
 ELEMENTS
@@ -82,7 +75,7 @@ auth,
 if(user){
 
 window.location.href =
-"user/index.html";
+"index.html";
 
 }
 
@@ -90,7 +83,7 @@ window.location.href =
 );
 
 /* =====================================================
-LOGIN SYSTEM
+LOGIN FORM
 ===================================================== */
 
 loginForm.addEventListener(
@@ -109,10 +102,10 @@ passwordInput.value.trim();
 
 /* ========================================= */
 
-if(phone === ""){
+if(phone.length < 10){
 
 showToast(
-"Enter mobile number"
+"Enter valid mobile number"
 );
 
 return;
@@ -147,10 +140,6 @@ if(password === "4502"){
 
 try{
 
-/* =========================================
-ANONYMOUS LOGIN
-========================================= */
-
 const userCredential =
 await signInAnonymously(
 auth
@@ -159,9 +148,7 @@ auth
 const user =
 userCredential.user;
 
-/* =========================================
-SAVE TEMP USER
-========================================= */
+/* ========================================= */
 
 await setDoc(
 
@@ -177,9 +164,9 @@ name:"QuickPress User",
 
 phone:phone,
 
-city:"Kasganj",
-
 wallet:0,
+
+city:"Kasganj",
 
 createdAt:
 Date.now()
@@ -191,7 +178,7 @@ Date.now()
 /* ========================================= */
 
 showToast(
-"OTP Login Success 🚀"
+"Login Success 🚀"
 );
 
 /* ========================================= */
@@ -199,7 +186,7 @@ showToast(
 setTimeout(()=>{
 
 window.location.href =
-"user/index.html";
+"index.html";
 
 },1200);
 
@@ -225,20 +212,14 @@ return;
 
 }
 
-/* =====================================================
-EMAIL STYLE LOGIN
-===================================================== */
-
 /* =========================================
-CONVERT PHONE TO EMAIL
+PHONE TO EMAIL
 ========================================= */
 
 const fakeEmail =
 `${phone}@quickpress.com`;
 
 try{
-
-/* ========================================= */
 
 await signInWithEmailAndPassword(
 
@@ -251,7 +232,7 @@ password
 /* ========================================= */
 
 showToast(
-"Login Successful 🚀"
+"Welcome Back 🚀"
 );
 
 /* ========================================= */
@@ -259,7 +240,7 @@ showToast(
 setTimeout(()=>{
 
 window.location.href =
-"user/index.html";
+"index.html";
 
 },1200);
 
@@ -317,7 +298,7 @@ toast.style.color =
 "#fff";
 
 toast.style.padding =
-"14px 22px";
+"14px 24px";
 
 toast.style.borderRadius =
 "18px";
@@ -325,14 +306,11 @@ toast.style.borderRadius =
 toast.style.fontWeight =
 "700";
 
-toast.style.fontSize =
-"14px";
-
 toast.style.zIndex =
 "99999";
 
 toast.style.boxShadow =
-"0 8px 24px rgba(0,0,0,0.18)";
+"0 10px 30px rgba(0,0,0,0.18)";
 
 document.body.appendChild(
 toast
