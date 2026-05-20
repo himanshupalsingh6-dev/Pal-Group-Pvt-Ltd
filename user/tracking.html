@@ -3,352 +3,666 @@
 
 <head>
 
-<meta charset="UTF-8"/>
+<meta charset="UTF-8">
 
 <meta
 name="viewport"
-content="width=device-width, initial-scale=1.0"
-/>
+content="width=device-width, initial-scale=1.0">
 
 <title>
 QuickPress Tracking
 </title>
 
+<link rel="preconnect"
+href="https://fonts.googleapis.com">
+
+<link rel="preconnect"
+href="https://fonts.gstatic.com"
+crossorigin>
+
 <link
-rel="stylesheet"
-href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css"
-/>
+href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap"
+rel="stylesheet">
+
+<link rel="stylesheet"
+href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css"/>
 
 <style>
 
-/* =========================
+/* =====================================================
 RESET
-========================= */
+===================================================== */
 
 *{
 margin:0;
 padding:0;
 box-sizing:border-box;
-font-family:
-"Poppins",
-sans-serif;
+font-family:'Inter',sans-serif;
+-webkit-tap-highlight-color:transparent;
 }
 
 body{
-background:#F8FAFC;
-color:#111827;
+background:#F6F7FB;
+padding-bottom:120px;
 overflow-x:hidden;
+color:#111827;
 }
 
-/* =========================
-TOPBAR
-========================= */
+/* =====================================================
+HEADER
+===================================================== */
 
-.topbar{
-position:sticky;
-top:0;
-z-index:999;
-padding:16px;
+.trackHeader{
+
 background:
-rgba(255,255,255,0.95);
-backdrop-filter:blur(18px);
-border-bottom:
-1px solid #EEF2F7;
+linear-gradient(
+135deg,
+#FFD633 0%,
+#FFE98A 100%
+);
+
+padding:18px 16px 28px;
+
+border-bottom-left-radius:30px;
+border-bottom-right-radius:30px;
+
+position:sticky;
+
+top:0;
+
+z-index:999;
+
 }
 
-.topRow{
+.topBar{
+
 display:flex;
+
 align-items:center;
-gap:12px;
+
+justify-content:space-between;
+
 }
 
 .backBtn{
+
 width:46px;
 height:46px;
+
 border:none;
+
 border-radius:16px;
-background:#FFD400;
-font-size:18px;
-font-weight:900;
-cursor:pointer;
-box-shadow:
-0 6px 14px rgba(255,212,0,0.25);
-}
 
-.pageText h2{
-font-size:22px;
-font-weight:900;
-margin-bottom:4px;
-}
-
-.pageText p{
-font-size:12px;
-color:#6B7280;
-}
-
-/* =========================
-MAIN
-========================= */
-
-.main{
-width:100%;
-max-width:900px;
-margin:auto;
-padding:16px;
-padding-bottom:120px;
-}
-
-/* =========================
-CARD
-========================= */
-
-.card{
 background:#fff;
-border-radius:26px;
-padding:20px;
-margin-bottom:16px;
-box-shadow:
-0 8px 24px rgba(15,23,42,0.05);
-border:1px solid #EEF2F7;
-}
 
-.cardTitle{
 font-size:18px;
-font-weight:900;
-margin-bottom:18px;
+
+box-shadow:
+0 6px 18px rgba(0,0,0,0.06);
+
+cursor:pointer;
+
 }
 
-/* =========================
-ORDER HEADER
-========================= */
+.trackTitle{
 
-.orderHeader{
+font-size:28px;
+
+font-weight:900;
+
+}
+
+.trackSub{
+
+margin-top:6px;
+
+font-size:13px;
+
+font-weight:700;
+
+color:#374151;
+
+}
+
+/* =====================================================
+LIVE STATUS
+===================================================== */
+
+.liveStatus{
+
+margin:18px 16px;
+
+background:#fff;
+
+padding:22px;
+
+border-radius:26px;
+
+box-shadow:
+0 4px 14px rgba(0,0,0,0.05);
+
+}
+
+.statusTop{
+
 display:flex;
-justify-content:space-between;
+
 align-items:center;
-gap:12px;
-margin-bottom:18px;
+
+justify-content:space-between;
+
+}
+
+.statusBadge{
+
+height:36px;
+
+padding:0 16px;
+
+border-radius:999px;
+
+background:#DCFCE7;
+
+display:flex;
+
+align-items:center;
+
+font-size:12px;
+
+font-weight:900;
+
+color:#16A34A;
+
 }
 
 .orderId{
-padding:10px 16px;
-border-radius:14px;
-background:#FFF7CC;
-font-size:12px;
-font-weight:800;
-}
 
-.status{
-padding:10px 16px;
-border-radius:14px;
-font-size:12px;
-font-weight:800;
-}
+margin-top:16px;
 
-.pending{
-background:#FEF3C7;
-color:#92400E;
-}
+font-size:14px;
 
-.processing{
-background:#DBEAFE;
-color:#1D4ED8;
-}
-
-.completed{
-background:#DCFCE7;
-color:#166534;
-}
-
-/* =========================
-DETAILS
-========================= */
-
-.detailGrid{
-display:grid;
-grid-template-columns:
-1fr 1fr;
-gap:14px;
-}
-
-.detailBox{
-background:#F8FAFC;
-padding:16px;
-border-radius:18px;
-}
-
-.detailBox h4{
-font-size:12px;
-color:#6B7280;
-margin-bottom:8px;
-}
-
-.detailBox p{
-font-size:15px;
 font-weight:700;
-line-height:1.7;
+
+color:#6B7280;
+
 }
 
-/* =========================
-TIMELINE
-========================= */
+.deliveryTime{
 
-.timeline{
 margin-top:10px;
+
+font-size:36px;
+
+font-weight:900;
+
 }
 
-.timelineItem{
-display:flex;
-gap:14px;
-position:relative;
-padding-bottom:24px;
-}
+.deliveryText{
 
-.timelineItem:last-child{
-padding-bottom:0;
-}
+margin-top:8px;
 
-.timelineLine{
-position:absolute;
-left:10px;
-top:26px;
-width:3px;
-height:100%;
-background:#E5E7EB;
-}
+font-size:14px;
 
-.timelineDot{
-width:22px;
-height:22px;
-border-radius:50%;
-background:#E5E7EB;
-z-index:2;
-flex-shrink:0;
-margin-top:2px;
-}
-
-.activeDot{
-background:#22C55E;
-}
-
-.timelineContent h3{
-font-size:15px;
-margin-bottom:4px;
-}
-
-.timelineContent p{
-font-size:12px;
 line-height:1.7;
+
 color:#6B7280;
+
 }
 
-/* =========================
-ITEMS
-========================= */
-
-.orderItem{
-display:flex;
-justify-content:space-between;
-align-items:center;
-padding:14px 0;
-border-bottom:
-1px solid #F1F5F9;
-gap:12px;
-}
-
-.itemLeft{
-display:flex;
-align-items:center;
-gap:12px;
-}
-
-.itemIcon{
-width:50px;
-height:50px;
-border-radius:16px;
-background:#fff;
-display:flex;
-align-items:center;
-justify-content:center;
-font-size:24px;
-box-shadow:
-0 4px 12px rgba(0,0,0,0.05);
-}
-
-.categoryTag{
-display:inline-block;
-padding:5px 10px;
-border-radius:10px;
-font-size:10px;
-font-weight:700;
-margin-bottom:6px;
-}
-
-/* =========================
+/* =====================================================
 MAP
-========================= */
+===================================================== */
 
 .mapBox{
+
+margin:18px 16px;
+
 height:240px;
-border-radius:24px;
+
+border-radius:26px;
+
 overflow:hidden;
-background:#E5E7EB;
+
 position:relative;
+
+background:#E5E7EB;
+
 }
 
 .mapBox iframe{
+
 width:100%;
 height:100%;
 border:none;
+
 }
 
-.liveTag{
+.riderCard{
+
 position:absolute;
-top:14px;
-left:14px;
-padding:8px 12px;
-border-radius:12px;
-background:#111827;
-color:#fff;
-font-size:11px;
-font-weight:700;
-z-index:2;
+
+left:16px;
+right:16px;
+bottom:16px;
+
+background:#fff;
+
+border-radius:20px;
+
+padding:14px;
+
+display:flex;
+
+align-items:center;
+
+justify-content:space-between;
+
+box-shadow:
+0 6px 18px rgba(0,0,0,0.08);
+
 }
 
-/* =========================
-BOTTOM
-========================= */
+.riderLeft{
+
+display:flex;
+
+align-items:center;
+
+gap:12px;
+
+}
+
+.riderImg{
+
+width:56px;
+height:56px;
+
+border-radius:18px;
+
+object-fit:cover;
+
+}
+
+.riderInfo h3{
+
+font-size:16px;
+
+font-weight:800;
+
+}
+
+.riderInfo p{
+
+margin-top:4px;
+
+font-size:13px;
+
+color:#6B7280;
+
+}
+
+.callBtn{
+
+width:52px;
+height:52px;
+
+border:none;
+
+border-radius:18px;
+
+background:#16A34A;
+
+color:#fff;
+
+font-size:20px;
+
+cursor:pointer;
+
+}
+
+/* =====================================================
+TRACKING TIMELINE
+===================================================== */
+
+.timelineSection{
+
+margin:18px 16px;
+
+background:#fff;
+
+border-radius:26px;
+
+padding:24px;
+
+box-shadow:
+0 4px 14px rgba(0,0,0,0.05);
+
+}
+
+.timelineTitle{
+
+font-size:22px;
+
+font-weight:900;
+
+margin-bottom:22px;
+
+}
+
+.timeline{
+
+position:relative;
+
+padding-left:26px;
+
+}
+
+.timeline::before{
+
+content:"";
+
+position:absolute;
+
+left:8px;
+top:0;
+bottom:0;
+
+width:3px;
+
+background:#E5E7EB;
+
+border-radius:999px;
+
+}
+
+.step{
+
+position:relative;
+
+margin-bottom:28px;
+
+}
+
+.step:last-child{
+
+margin-bottom:0;
+
+}
+
+.stepDot{
+
+position:absolute;
+
+left:-26px;
+top:2px;
+
+width:18px;
+height:18px;
+
+border-radius:50%;
+
+background:#16A34A;
+
+border:4px solid #DCFCE7;
+
+}
+
+.pending .stepDot{
+
+background:#D1D5DB;
+
+border:4px solid #F3F4F6;
+
+}
+
+.step h3{
+
+font-size:15px;
+
+font-weight:800;
+
+}
+
+.step p{
+
+margin-top:6px;
+
+font-size:13px;
+
+line-height:1.6;
+
+color:#6B7280;
+
+}
+
+.stepTime{
+
+margin-top:8px;
+
+font-size:12px;
+
+font-weight:700;
+
+color:#16A34A;
+
+}
+
+.pending .stepTime{
+
+color:#9CA3AF;
+
+}
+
+/* =====================================================
+ORDER SUMMARY
+===================================================== */
+
+.summaryCard{
+
+margin:18px 16px;
+
+background:#fff;
+
+border-radius:26px;
+
+padding:22px;
+
+box-shadow:
+0 4px 14px rgba(0,0,0,0.05);
+
+}
+
+.summaryTitle{
+
+font-size:22px;
+
+font-weight:900;
+
+margin-bottom:18px;
+
+}
+
+.orderItem{
+
+display:flex;
+
+align-items:center;
+
+justify-content:space-between;
+
+margin-bottom:14px;
+
+}
+
+.orderLeft{
+
+display:flex;
+
+align-items:center;
+
+gap:12px;
+
+}
+
+.orderImage{
+
+width:58px;
+height:58px;
+
+border-radius:18px;
+
+background:#F3F4F6;
+
+display:flex;
+
+align-items:center;
+justify-content:center;
+
+font-size:30px;
+
+}
+
+.orderInfo h3{
+
+font-size:15px;
+
+font-weight:800;
+
+}
+
+.orderInfo p{
+
+margin-top:4px;
+
+font-size:12px;
+
+color:#6B7280;
+
+}
+
+.orderPrice{
+
+font-size:16px;
+
+font-weight:900;
+
+}
+
+/* =====================================================
+SUPPORT
+===================================================== */
+
+.supportSection{
+
+margin:18px 16px;
+
+display:grid;
+
+grid-template-columns:1fr 1fr;
+
+gap:14px;
+
+}
 
 .supportBtn{
-width:100%;
-height:56px;
+
+height:58px;
+
 border:none;
-border-radius:18px;
-background:#111827;
-color:#fff;
-font-size:15px;
-font-weight:900;
+
+border-radius:20px;
+
+background:#fff;
+
+font-size:14px;
+
+font-weight:800;
+
+display:flex;
+
+align-items:center;
+justify-content:center;
+
+gap:10px;
+
+box-shadow:
+0 4px 14px rgba(0,0,0,0.05);
+
 cursor:pointer;
+
 }
 
-/* =========================
-RESPONSIVE
-========================= */
+/* =====================================================
+BOTTOM BAR
+===================================================== */
 
-@media screen and (max-width:768px){
+.bottomBar{
 
-.card{
-padding:18px;
-border-radius:22px;
+position:fixed;
+
+left:0;
+right:0;
+bottom:0;
+
+background:#fff;
+
+padding:18px 16px calc(18px + env(safe-area-inset-bottom));
+
+box-shadow:
+0 -8px 30px rgba(0,0,0,0.08);
+
+z-index:999;
+
 }
 
-.detailGrid{
-grid-template-columns:1fr;
+.homeBtn{
+
+width:100%;
+
+height:56px;
+
+border:none;
+
+border-radius:20px;
+
+background:#16A34A;
+
+color:#fff;
+
+font-size:16px;
+
+font-weight:900;
+
+cursor:pointer;
+
 }
 
-.orderHeader{
-flex-direction:column;
-align-items:flex-start;
+/* =====================================================
+DESKTOP
+===================================================== */
+
+@media(min-width:900px){
+
+.wrapper{
+
+max-width:900px;
+
+margin:auto;
+
+}
+
+.bottomBar{
+
+left:50%;
+
+transform:translateX(-50%);
+
+width:450px;
+
+bottom:20px;
+
+border-radius:28px;
+
 }
 
 }
@@ -359,289 +673,321 @@ align-items:flex-start;
 
 <body>
 
-<!-- TOPBAR -->
+<div class="wrapper">
 
-<div class="topbar">
+<!-- =====================================================
+HEADER
+===================================================== -->
 
-<div class="topRow">
+<div class="trackHeader">
+
+<div class="topBar">
 
 <button
 class="backBtn"
-onclick="history.back()"
->
+onclick="history.back()">
 
-←
+<i class="fa-solid fa-arrow-left"></i>
 
 </button>
 
-<div class="pageText">
+<div>
 
-<h2>
-Track Order
-</h2>
-
-<p>
-Live order updates
-</p>
-
-</div>
-
-</div>
-
-</div>
-
-<!-- MAIN -->
-
-<div class="main">
-
-<!-- ORDER INFO -->
-
-<div class="card">
-
-<div class="orderHeader">
-
-<div
-class="orderId"
-id="orderId"
->
-
-#000000
-
-</div>
-
-<div
-class="status pending"
-id="statusBadge"
->
-
-Pending
-
-</div>
-
-</div>
-
-<div class="detailGrid">
-
-<div class="detailBox">
-
-<h4>
-Customer Name
-</h4>
-
-<p id="customerName">
--
-</p>
-
-</div>
-
-<div class="detailBox">
-
-<h4>
-Phone Number
-</h4>
-
-<p id="customerPhone">
--
-</p>
-
-</div>
-
-<div class="detailBox">
-
-<h4>
-Pickup Date
-</h4>
-
-<p id="pickupDate">
--
-</p>
-
-</div>
-
-<div class="detailBox">
-
-<h4>
-Pickup Time
-</h4>
-
-<p id="pickupTime">
--
-</p>
-
-</div>
-
-<div class="detailBox">
-
-<h4>
-Address
-</h4>
-
-<p id="customerAddress">
--
-</p>
-
-</div>
-
-<div class="detailBox">
-
-<h4>
-Total Amount
-</h4>
-
-<p id="orderTotal">
-₹0
-</p>
-
-</div>
-
-</div>
-
-</div>
-
-<!-- MAP -->
-
-<div class="card">
-
-<h2 class="cardTitle">
+<div class="trackTitle">
 Live Tracking
-</h2>
+</div>
+
+<div class="trackSub">
+QuickPress Express Delivery
+</div>
+
+</div>
+
+<div style="width:46px;"></div>
+
+</div>
+
+</div>
+
+<!-- =====================================================
+LIVE STATUS
+===================================================== -->
+
+<div class="liveStatus">
+
+<div class="statusTop">
+
+<div class="statusBadge">
+● PICKUP PARTNER ON THE WAY
+</div>
+
+</div>
+
+<div class="orderId">
+Order #QP45892
+</div>
+
+<div class="deliveryTime">
+12 mins
+</div>
+
+<div class="deliveryText">
+Your QuickPress partner is arriving soon for pickup.
+</div>
+
+</div>
+
+<!-- =====================================================
+MAP
+===================================================== -->
 
 <div class="mapBox">
 
-<div class="liveTag">
-LIVE LOCATION
-</div>
-
 <iframe
-src="https://maps.google.com/maps?q=meerut&t=&z=13&ie=UTF8&iwloc=&output=embed"
-></iframe>
+src="https://maps.google.com/maps?q=kasganj&t=&z=13&ie=UTF8&iwloc=&output=embed">
+</iframe>
+
+<div class="riderCard">
+
+<div class="riderLeft">
+
+<img
+src="https://randomuser.me/api/portraits/men/32.jpg"
+class="riderImg">
+
+<div class="riderInfo">
+
+<h3>
+Ravi Kumar
+</h3>
+
+<p>
+Pickup Partner • 4.9 ⭐
+</p>
 
 </div>
 
 </div>
 
-<!-- TIMELINE -->
+<button class="callBtn">
+<i class="fa-solid fa-phone"></i>
+</button>
 
-<div class="card">
+</div>
 
-<h2 class="cardTitle">
-Order Status
-</h2>
+</div>
+
+<!-- =====================================================
+TIMELINE
+===================================================== -->
+
+<div class="timelineSection">
+
+<div class="timelineTitle">
+Tracking Details
+</div>
 
 <div class="timeline">
 
-<div class="timelineItem">
+<div class="step">
 
-<div class="timelineLine"></div>
-
-<div
-class="timelineDot activeDot"
-></div>
-
-<div class="timelineContent">
+<div class="stepDot"></div>
 
 <h3>
-Order Placed
+Order Confirmed
 </h3>
 
 <p>
-Your order has been placed successfully.
+Your order has been confirmed successfully.
 </p>
 
+<div class="stepTime">
+10:05 AM
 </div>
 
 </div>
 
-<div class="timelineItem">
+<div class="step">
 
-<div class="timelineLine"></div>
-
-<div
-class="timelineDot"
-id="pickupDot"
-></div>
-
-<div class="timelineContent">
+<div class="stepDot"></div>
 
 <h3>
-Pickup Assigned
+Partner Assigned
 </h3>
 
 <p>
-Pickup partner will arrive shortly.
+Pickup partner Ravi Kumar assigned.
 </p>
 
+<div class="stepTime">
+10:08 AM
 </div>
 
 </div>
 
-<div class="timelineItem">
+<div class="step">
 
-<div class="timelineLine"></div>
+<div class="stepDot"></div>
 
-<div
-class="timelineDot"
-id="processDot"
-></div>
+<h3>
+Partner Reaching Location
+</h3>
 
-<div class="timelineContent">
+<p>
+Partner is near your location.
+</p>
+
+<div class="stepTime">
+Live Now
+</div>
+
+</div>
+
+<div class="step pending">
+
+<div class="stepDot"></div>
 
 <h3>
 Laundry Processing
 </h3>
 
 <p>
-Your clothes are being cleaned.
+Your clothes will be cleaned professionally.
 </p>
 
+<div class="stepTime">
+Pending
 </div>
 
 </div>
 
-<div class="timelineItem">
+<div class="step pending">
 
-<div
-class="timelineDot"
-id="deliveryDot"
-></div>
-
-<div class="timelineContent">
+<div class="stepDot"></div>
 
 <h3>
-Out For Delivery
+Delivered
 </h3>
 
 <p>
-Your order is on the way.
+Order delivered successfully.
+</p>
+
+<div class="stepTime">
+Pending
+</div>
+
+</div>
+
+</div>
+
+</div>
+
+<!-- =====================================================
+SUMMARY
+===================================================== -->
+
+<div class="summaryCard">
+
+<div class="summaryTitle">
+Order Summary
+</div>
+
+<div class="orderItem">
+
+<div class="orderLeft">
+
+<div class="orderImage">
+👔
+</div>
+
+<div class="orderInfo">
+
+<h3>
+Shirt Iron
+</h3>
+
+<p>
+Qty 1
 </p>
 
 </div>
 
 </div>
 
+<div class="orderPrice">
+₹29
 </div>
 
 </div>
 
-<!-- ITEMS -->
+<div class="orderItem">
 
-<div class="card">
+<div class="orderLeft">
 
-<h2 class="cardTitle">
-Order Items
-</h2>
+<div class="orderImage">
+👟
+</div>
 
-<div id="orderItems">
+<div class="orderInfo">
+
+<h3>
+Sneaker Clean
+</h3>
+
+<p>
+Qty 1
+</p>
 
 </div>
 
 </div>
 
-<!-- SUPPORT -->
+<div class="orderPrice">
+₹199
+</div>
+
+</div>
+
+</div>
+
+<!-- =====================================================
+SUPPORT
+===================================================== -->
+
+<div class="supportSection">
 
 <button class="supportBtn">
 
-Need Help & Support
+<i class="fa-solid fa-headset"></i>
+
+Support
+
+</button>
+
+<button class="supportBtn">
+
+<i class="fa-solid fa-comment-dots"></i>
+
+Chat
+
+</button>
+
+</div>
+
+</div>
+
+<!-- =====================================================
+BOTTOM
+===================================================== -->
+
+<div class="bottomBar">
+
+<button
+class="homeBtn"
+onclick="window.location.href='index.html'">
+
+Back To Home
 
 </button>
 
@@ -649,290 +995,72 @@ Need Help & Support
 
 <script>
 
-/* =========================
-GET ORDER
-========================= */
+/* =====================================================
+CALL BUTTON
+===================================================== */
 
-const order =
-
-JSON.parse(
-localStorage.getItem(
-"lastOrder"
+document.querySelector(
+".callBtn"
 )
-);
 
-/* =========================
-NO ORDER
-========================= */
+.addEventListener(
+"click",
+()=>{
 
-if(!order){
-
-document.body.innerHTML = `
-
-<div
-style="
-height:100vh;
-display:flex;
-align-items:center;
-justify-content:center;
-flex-direction:column;
-padding:20px;
-text-align:center;
-"
->
-
-<h1
-style="
-font-size:32px;
-margin-bottom:14px;
-"
->
-
-No Active Order
-
-</h1>
-
-<p
-style="
-color:#6B7280;
-margin-bottom:20px;
-"
->
-
-You don't have any active orders.
-
-</p>
-
-<button
-onclick="
-window.location.href='services.html'
-"
-style="
-height:54px;
-padding:0 24px;
-border:none;
-border-radius:18px;
-background:#111827;
-color:#fff;
-font-weight:800;
-cursor:pointer;
-"
->
-
-Browse Services
-
-</button>
-
-</div>
-
-`;
+window.location.href =
+"tel:+919999999999";
 
 }
-
-/* =========================
-LOAD DATA
-========================= */
-
-else{
-
-document.getElementById(
-"orderId"
-).innerHTML =
-"#QP" +
-Math.floor(
-Math.random()*999999
 );
 
-document.getElementById(
-"customerName"
-).innerHTML =
-order.name || "-";
+/* =====================================================
+SUPPORT BUTTONS
+===================================================== */
 
-document.getElementById(
-"customerPhone"
-).innerHTML =
-order.phone || "-";
+document.querySelectorAll(
+".supportBtn"
+)
 
-document.getElementById(
-"pickupDate"
-).innerHTML =
-order.pickupDate || "-";
+.forEach(btn=>{
 
-document.getElementById(
-"pickupTime"
-).innerHTML =
-order.pickupTime || "-";
+btn.addEventListener(
+"click",
+()=>{
 
-document.getElementById(
-"customerAddress"
-).innerHTML =
-order.address || "-";
-
-document.getElementById(
-"orderTotal"
-).innerHTML =
-"₹" + order.total;
-
-/* STATUS */
-
-const status =
-order.status || "Pending";
-
-const badge =
-document.getElementById(
-"statusBadge"
-);
-
-badge.innerHTML = status;
-
-if(status === "Processing"){
-
-badge.className =
-"status processing";
-
-document.getElementById(
-"pickupDot"
-).classList.add(
-"activeDot"
-);
-
-document.getElementById(
-"processDot"
-).classList.add(
-"activeDot"
+alert(
+"QuickPress Support Coming Soon 🚀"
 );
 
 }
-
-if(status === "Completed"){
-
-badge.className =
-"status completed";
-
-document.getElementById(
-"pickupDot"
-).classList.add(
-"activeDot"
 );
-
-document.getElementById(
-"processDot"
-).classList.add(
-"activeDot"
-);
-
-document.getElementById(
-"deliveryDot"
-).classList.add(
-"activeDot"
-);
-
-}
-
-/* ITEMS */
-
-const orderItems =
-document.getElementById(
-"orderItems"
-);
-
-let html = "";
-
-(order.items || []).forEach((item)=>{
-
-const qty =
-item.qty || 1;
-
-const price =
-parseInt(
-String(item.price)
-.replace("₹","")
-) || 0;
-
-const category =
-item.category || "Laundry";
-
-let bg =
-"#E0F2FE";
-
-let color =
-"#0369A1";
-
-if(category === "Ironing"){
-
-bg = "#FEF3C7";
-color = "#92400E";
-
-}
-
-if(category === "Washing"){
-
-bg = "#DCFCE7";
-color = "#166534";
-
-}
-
-if(category === "Dry Clean"){
-
-bg = "#F3E8FF";
-color = "#6B21A8";
-
-}
-
-html += `
-
-<div class="orderItem">
-
-<div class="itemLeft">
-
-<div class="itemIcon">
-${item.icon || "👕"}
-</div>
-
-<div>
-
-<div
-class="categoryTag"
-style="
-background:${bg};
-color:${color};
-"
->
-
-${category}
-
-</div>
-
-<h4>
-${item.name}
-</h4>
-
-<p>
-Qty: ${qty}
-</p>
-
-</div>
-
-</div>
-
-<h3>
-
-₹${price * qty}
-
-</h3>
-
-</div>
-
-`;
 
 });
 
-orderItems.innerHTML = html;
+/* =====================================================
+LIVE TIMER DEMO
+===================================================== */
+
+let minutes = 12;
+
+const deliveryTime =
+document.querySelector(
+".deliveryTime"
+);
+
+setInterval(()=>{
+
+if(minutes > 1){
+
+minutes--;
+
+deliveryTime.innerHTML =
+`${minutes} mins`;
 
 }
+
+},60000);
 
 </script>
 
 </body>
-
 </html>
