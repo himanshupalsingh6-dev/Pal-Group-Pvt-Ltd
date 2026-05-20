@@ -1,7 +1,779 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+<meta charset="UTF-8">
+
+<meta
+name="viewport"
+content="width=device-width, initial-scale=1.0">
+
+<title>
+QuickPress Services
+</title>
+
+<link rel="preconnect"
+href="https://fonts.googleapis.com">
+
+<link rel="preconnect"
+href="https://fonts.gstatic.com"
+crossorigin>
+
+<link
+href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap"
+rel="stylesheet">
+
+<link rel="stylesheet"
+href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css"/>
+
+<style>
+
 /* =====================================================
-QUICKPRESS FINAL INDEX JS
-FILE NAME : index.js
+RESET
 ===================================================== */
+
+*{
+margin:0;
+padding:0;
+box-sizing:border-box;
+font-family:'Inter',sans-serif;
+-webkit-tap-highlight-color:transparent;
+}
+
+body{
+background:#F6F7FB;
+overflow-x:hidden;
+padding-bottom:110px;
+color:#111827;
+}
+
+/* =====================================================
+HEADER
+===================================================== */
+
+.serviceHero{
+
+background:
+linear-gradient(
+135deg,
+#FFD633 0%,
+#FFE98A 100%
+);
+
+padding:18px 16px 24px;
+
+border-bottom-left-radius:30px;
+border-bottom-right-radius:30px;
+
+position:sticky;
+
+top:0;
+
+z-index:999;
+
+}
+
+.topBar{
+
+display:flex;
+
+justify-content:space-between;
+
+align-items:center;
+
+}
+
+.pageTitle{
+
+font-size:30px;
+
+font-weight:900;
+
+line-height:1;
+
+}
+
+.pageSub{
+
+margin-top:6px;
+
+font-size:13px;
+
+font-weight:700;
+
+color:#374151;
+
+}
+
+/* =====================================================
+ACTION BUTTONS
+===================================================== */
+
+.topActions{
+
+display:flex;
+
+align-items:center;
+
+gap:10px;
+
+}
+
+.iconBtn{
+
+width:46px;
+height:46px;
+
+border:none;
+
+border-radius:16px;
+
+background:#fff;
+
+display:flex;
+
+align-items:center;
+justify-content:center;
+
+font-size:18px;
+
+box-shadow:
+0 6px 18px rgba(0,0,0,0.06);
+
+cursor:pointer;
+
+}
+
+/* =====================================================
+SEARCH
+===================================================== */
+
+.searchWrap{
+
+margin-top:18px;
+
+}
+
+.searchBar{
+
+height:56px;
+
+background:#fff;
+
+border-radius:18px;
+
+display:flex;
+
+align-items:center;
+
+padding:0 16px;
+
+box-shadow:
+0 8px 20px rgba(0,0,0,0.06);
+
+}
+
+.searchBar i{
+
+font-size:18px;
+
+color:#16A34A;
+
+}
+
+.searchBar input{
+
+flex:1;
+
+border:none;
+
+outline:none;
+
+padding:0 12px;
+
+font-size:15px;
+
+font-weight:600;
+
+background:none;
+
+}
+
+/* =====================================================
+FILTERS
+===================================================== */
+
+.filterWrap{
+
+display:flex;
+
+overflow-x:auto;
+
+gap:12px;
+
+padding:20px 16px;
+
+scrollbar-width:none;
+
+}
+
+.filterWrap::-webkit-scrollbar{
+
+display:none;
+
+}
+
+.filterBtn{
+
+height:42px;
+
+padding:0 18px;
+
+border:none;
+
+border-radius:999px;
+
+background:#fff;
+
+font-size:13px;
+
+font-weight:800;
+
+white-space:nowrap;
+
+box-shadow:
+0 4px 12px rgba(0,0,0,0.05);
+
+cursor:pointer;
+
+}
+
+.activeFilter{
+
+background:#16A34A;
+
+color:#fff;
+
+}
+
+/* =====================================================
+SERVICE GRID
+===================================================== */
+
+.serviceGrid{
+
+display:grid;
+
+grid-template-columns:repeat(2,1fr);
+
+gap:14px;
+
+padding:0 16px;
+
+}
+
+/* =====================================================
+CARD
+===================================================== */
+
+.serviceCard{
+
+background:#fff;
+
+border-radius:24px;
+
+overflow:hidden;
+
+position:relative;
+
+box-shadow:
+0 4px 14px rgba(0,0,0,0.05);
+
+}
+
+.serviceBadge{
+
+position:absolute;
+
+left:10px;
+top:10px;
+
+background:#16A34A;
+
+color:#fff;
+
+font-size:10px;
+
+font-weight:900;
+
+padding:6px 10px;
+
+border-radius:999px;
+
+z-index:2;
+
+}
+
+.favoriteBtn{
+
+position:absolute;
+
+right:10px;
+top:10px;
+
+width:32px;
+height:32px;
+
+border-radius:50%;
+
+background:#fff;
+
+display:flex;
+
+align-items:center;
+justify-content:center;
+
+font-size:14px;
+
+box-shadow:
+0 5px 12px rgba(0,0,0,0.06);
+
+z-index:2;
+
+cursor:pointer;
+
+}
+
+.serviceImage{
+
+height:130px;
+
+background:#F3F4F6;
+
+display:flex;
+
+align-items:center;
+justify-content:center;
+
+font-size:58px;
+
+}
+
+.serviceInfo{
+
+padding:14px;
+
+}
+
+.serviceInfo h3{
+
+font-size:15px;
+
+font-weight:800;
+
+margin-bottom:4px;
+
+}
+
+.serviceInfo p{
+
+font-size:12px;
+
+line-height:1.6;
+
+color:#6B7280;
+
+}
+
+.rating{
+
+margin-top:10px;
+
+display:flex;
+
+align-items:center;
+
+gap:6px;
+
+font-size:12px;
+
+font-weight:800;
+
+color:#16A34A;
+
+}
+
+.serviceBottom{
+
+margin-top:14px;
+
+display:flex;
+
+justify-content:space-between;
+
+align-items:center;
+
+}
+
+.price{
+
+font-size:20px;
+
+font-weight:900;
+
+}
+
+.addBtn{
+
+height:38px;
+
+padding:0 16px;
+
+border:none;
+
+border-radius:12px;
+
+background:#16A34A;
+
+color:#fff;
+
+font-size:12px;
+
+font-weight:900;
+
+cursor:pointer;
+
+}
+
+/* =====================================================
+OFFER BANNER
+===================================================== */
+
+.offerBanner{
+
+margin:24px 16px;
+
+background:
+linear-gradient(
+135deg,
+#111827,
+#1F2937
+);
+
+padding:24px;
+
+border-radius:24px;
+
+color:#fff;
+
+}
+
+.offerBanner h2{
+
+font-size:26px;
+
+font-weight:900;
+
+line-height:1.2;
+
+}
+
+.offerBanner p{
+
+margin-top:10px;
+
+font-size:14px;
+
+line-height:1.7;
+
+opacity:0.9;
+
+}
+
+.claimBtn{
+
+margin-top:18px;
+
+height:48px;
+
+padding:0 22px;
+
+border:none;
+
+border-radius:16px;
+
+background:#FFD633;
+
+font-size:14px;
+
+font-weight:900;
+
+cursor:pointer;
+
+}
+
+/* =====================================================
+BOTTOM NAV
+===================================================== */
+
+.bottomNav{
+
+position:fixed;
+
+left:0;
+right:0;
+bottom:0;
+
+height:74px;
+
+background:#fff;
+
+display:flex;
+
+justify-content:space-around;
+
+align-items:center;
+
+box-shadow:
+0 -4px 16px rgba(0,0,0,0.08);
+
+z-index:999;
+
+}
+
+.navItem{
+
+flex:1;
+
+height:100%;
+
+border:none;
+
+background:none;
+
+display:flex;
+
+flex-direction:column;
+
+align-items:center;
+
+justify-content:center;
+
+gap:4px;
+
+font-size:11px;
+
+font-weight:700;
+
+color:#6B7280;
+
+cursor:pointer;
+
+}
+
+.navItem i{
+
+font-size:20px;
+
+}
+
+.activeNav{
+
+color:#16A34A;
+
+}
+
+/* =====================================================
+DESKTOP
+===================================================== */
+
+@media(min-width:900px){
+
+.serviceGrid{
+
+grid-template-columns:repeat(4,1fr);
+
+padding:0 40px;
+
+}
+
+.filterWrap{
+
+padding-left:40px;
+padding-right:40px;
+
+}
+
+.offerBanner{
+
+margin-left:40px;
+margin-right:40px;
+
+}
+
+.serviceHero{
+
+padding:20px 40px 28px;
+
+}
+
+}
+
+</style>
+
+</head>
+
+<body>
+
+<!-- =====================================================
+HEADER
+===================================================== -->
+
+<div class="serviceHero">
+
+<div class="topBar">
+
+<div>
+
+<div class="pageTitle">
+Services
+</div>
+
+<div class="pageSub">
+Premium laundry & cleaning
+</div>
+
+</div>
+
+<div class="topActions">
+
+<button class="iconBtn">
+<i class="fa-solid fa-wallet"></i>
+</button>
+
+<button class="iconBtn">
+<i class="fa-regular fa-user"></i>
+</button>
+
+</div>
+
+</div>
+
+<!-- SEARCH -->
+
+<div class="searchWrap">
+
+<div class="searchBar">
+
+<i class="fa-solid fa-magnifying-glass"></i>
+
+<input
+type="text"
+placeholder="Search services">
+
+</div>
+
+</div>
+
+</div>
+
+<!-- =====================================================
+FILTERS
+===================================================== -->
+
+<div class="filterWrap">
+
+<button class="filterBtn activeFilter">
+All
+</button>
+
+<button class="filterBtn">
+Ironing
+</button>
+
+<button class="filterBtn">
+Wash
+</button>
+
+<button class="filterBtn">
+Steam
+</button>
+
+<button class="filterBtn">
+Premium
+</button>
+
+<button class="filterBtn">
+Shoes
+</button>
+
+</div>
+
+<!-- =====================================================
+SERVICES
+===================================================== -->
+
+<div
+class="serviceGrid"
+id="serviceGrid">
+
+</div>
+
+<!-- =====================================================
+OFFER
+===================================================== -->
+
+<div class="offerBanner">
+
+<h2>
+Get Quick+ Membership
+</h2>
+
+<p>
+Free pickup, express delivery and premium support with Quick+.
+</p>
+
+<button class="claimBtn">
+Claim Now
+</button>
+
+</div>
+
+<!-- =====================================================
+BOTTOM NAV
+===================================================== -->
+
+<div class="bottomNav">
+
+<button class="navItem">
+<i class="fa-solid fa-house"></i>
+<span>Home</span>
+</button>
+
+<button class="navItem">
+<i class="fa-solid fa-box"></i>
+<span>Orders</span>
+</button>
+
+<button class="navItem activeNav">
+<i class="fa-solid fa-table-cells-large"></i>
+<span>Services</span>
+</button>
+
+<button class="navItem">
+<i class="fa-solid fa-wallet"></i>
+<span>Wallet</span>
+</button>
+
+<button class="navItem">
+<i class="fa-regular fa-user"></i>
+<span>Profile</span>
+</button>
+
+</div>
+
+<script type="module">
 
 /* =====================================================
 FIREBASE IMPORT
@@ -15,8 +787,6 @@ import {
 
 getFirestore,
 collection,
-query,
-limit,
 getDocs
 
 }
@@ -24,7 +794,7 @@ getDocs
 from "https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore.js";
 
 /* =====================================================
-FIREBASE CONFIG
+CONFIG
 ===================================================== */
 
 const firebaseConfig = {
@@ -44,7 +814,7 @@ appId: "YOUR_APP_ID"
 };
 
 /* =====================================================
-INITIALIZE FIREBASE
+INIT
 ===================================================== */
 
 const app =
@@ -54,222 +824,26 @@ const db =
 getFirestore(app);
 
 /* =====================================================
-LIVE LOCATION
+GRID
 ===================================================== */
 
-const locationText =
+const serviceGrid =
 document.getElementById(
-"locationText"
-);
-
-function success(position){
-
-const latitude =
-position.coords.latitude;
-
-const longitude =
-position.coords.longitude;
-
-fetch(
-
-`https://nominatim.openstreetmap.org/reverse?format=jsonv2&lat=${latitude}&lon=${longitude}`
-
-)
-
-.then(response => response.json())
-
-.then(data => {
-
-const area =
-
-data.address.suburb ||
-
-data.address.neighbourhood ||
-
-data.address.city ||
-
-data.address.town ||
-
-data.address.village ||
-
-"Kasganj";
-
-/* ========================================= */
-
-locationText.innerHTML =
-
-`📍 ${area}`;
-
-/* ========================================= */
-
-})
-
-.catch(()=>{
-
-locationText.innerHTML =
-"📍 Kasganj";
-
-});
-
-}
-
-function error(){
-
-locationText.innerHTML =
-"📍 Kasganj";
-
-}
-
-if(navigator.geolocation){
-
-navigator.geolocation.getCurrentPosition(
-success,
-error
-);
-
-}else{
-
-locationText.innerHTML =
-"📍 Kasganj";
-
-}
-
-/* =====================================================
-PROFILE BUTTON
-===================================================== */
-
-const profileBtn =
-document.querySelector(
-".profileBtn"
-);
-
-if(profileBtn){
-
-profileBtn.addEventListener(
-"click",
-()=>{
-
-window.location.href =
-"profile.html";
-
-}
-);
-
-}
-
-/* =====================================================
-MIC BUTTON
-===================================================== */
-
-const micBtn =
-document.querySelector(
-".micBtn"
-);
-
-micBtn.addEventListener(
-"click",
-()=>{
-
-showToast(
-"Voice Search Coming Soon 🎤"
-);
-
-}
+"serviceGrid"
 );
 
 /* =====================================================
-SEARCH EFFECT
+LOAD SERVICES
 ===================================================== */
 
-const searchBar =
-document.querySelector(
-".searchBar"
-);
+async function loadServices(){
 
-const searchInput =
-document.querySelector(
-".searchBar input"
-);
-
-searchInput.addEventListener(
-"focus",
-()=>{
-
-searchBar.style.transform =
-"scale(1.01)";
-
-searchBar.style.boxShadow =
-"0 12px 28px rgba(0,0,0,0.12)";
-
-}
-);
-
-searchInput.addEventListener(
-"blur",
-()=>{
-
-searchBar.style.transform =
-"scale(1)";
-
-searchBar.style.boxShadow =
-"0 8px 22px rgba(0,0,0,0.08)";
-
-}
-);
-
-/* =====================================================
-CATEGORY ACTIVE
-===================================================== */
-
-const categoryCards =
-document.querySelectorAll(
-".categoryCard"
-);
-
-categoryCards.forEach(card=>{
-
-card.addEventListener(
-"click",
-()=>{
-
-categoryCards.forEach(item=>{
-
-item.classList.remove(
-"activeCategory"
-);
-
-});
-
-card.classList.add(
-"activeCategory"
-);
-
-showToast(
-`${card.innerText} selected`
-);
-
-}
-);
-
-});
-
-/* =====================================================
-FIREBASE PRODUCTS
-===================================================== */
-
-const productGrid =
-document.getElementById(
-"productGrid"
-);
-
-async function loadTrendingServices(){
-
-productGrid.innerHTML = `
+serviceGrid.innerHTML = `
 
 <div style="
 grid-column:1/3;
-text-align:center;
 padding:40px 0;
+text-align:center;
 font-weight:700;
 color:#6B7280;
 ">
@@ -282,62 +856,56 @@ Loading Services...
 
 try{
 
-const servicesQuery =
-query(
-
-collection(
-db,
-"services"
-),
-
-limit(6)
-
-);
-
-const querySnapshot =
+const snapshot =
 await getDocs(
-servicesQuery
+collection(db,"services")
 );
 
-productGrid.innerHTML = "";
+serviceGrid.innerHTML = "";
 
 /* ========================================= */
 
-querySnapshot.forEach(doc=>{
+snapshot.forEach(doc=>{
 
-const product =
+const service =
 doc.data();
 
 /* ========================================= */
 
-productGrid.innerHTML += `
+serviceGrid.innerHTML += `
 
-<div class="productCard">
+<div class="serviceCard">
+
+<div class="serviceBadge">
+FAST
+</div>
 
 <div class="favoriteBtn">
 🤍
 </div>
 
-<div class="productImage">
-
-${product.icon || "🧺"}
-
+<div class="serviceImage">
+${service.icon || "🧺"}
 </div>
 
-<div class="productInfo">
+<div class="serviceInfo">
 
 <h3>
-${product.name || "Service"}
+${service.name || "Laundry"}
 </h3>
 
 <p>
-${product.description || "Premium laundry service"}
+${service.description || "Premium cleaning"}
 </p>
 
-<div class="productBottom">
+<div class="rating">
+⭐ 4.9 • 10 mins
+</div>
+
+<div class="serviceBottom">
 
 <div class="price">
-₹${product.price || 0}
+₹${service.price || 0}
 </div>
 
 <button class="addBtn">
@@ -356,42 +924,18 @@ ADD
 
 /* ========================================= */
 
-if(querySnapshot.empty){
-
-productGrid.innerHTML = `
-
-<div style="
-grid-column:1/3;
-text-align:center;
-padding:40px 0;
-font-weight:700;
-color:#6B7280;
-">
-
-No services found
-
-</div>
-
-`;
-
-}
-
-/* ========================================= */
-
-activateCartButtons();
-
-activateFavoriteButtons();
+activateButtons();
 
 }catch(error){
 
 console.log(error);
 
-productGrid.innerHTML = `
+serviceGrid.innerHTML = `
 
 <div style="
 grid-column:1/3;
-text-align:center;
 padding:40px 0;
+text-align:center;
 font-weight:700;
 color:red;
 ">
@@ -406,131 +950,32 @@ Failed to load services
 
 }
 
-loadTrendingServices();
+loadServices();
 
 /* =====================================================
-POPUP CART
+BUTTONS
 ===================================================== */
 
-let cart = [];
-
-const popupCart =
-document.getElementById(
-"popupCart"
-);
-
-const cartItems =
-document.getElementById(
-"cartItems"
-);
-
-const cartTotal =
-document.getElementById(
-"cartTotal"
-);
-
-const walletAmount =
-document.getElementById(
-"walletAmount"
-);
-
-/* =====================================================
-OPEN CART
-===================================================== */
-
-const walletBtn =
-document.getElementById(
-"walletBtn"
-);
-
-walletBtn.addEventListener(
-"click",
-()=>{
-
-popupCart.style.display =
-"block";
-
-renderCart();
-
-}
-);
-
-/* =====================================================
-CLOSE CART
-===================================================== */
-
-const closeCart =
-document.getElementById(
-"closeCart"
-);
-
-closeCart.addEventListener(
-"click",
-()=>{
-
-popupCart.style.display =
-"none";
-
-}
-);
-
-/* =====================================================
-ADD TO CART
-===================================================== */
-
-function activateCartButtons(){
+function activateButtons(){
 
 document.querySelectorAll(
 ".addBtn"
 )
 
-.forEach(button=>{
+.forEach(btn=>{
 
-button.addEventListener(
+btn.addEventListener(
 "click",
 ()=>{
 
-const card =
-button.closest(
-".productCard"
-);
-
-const name =
-card.querySelector("h3")
-.innerText;
-
-const price =
-card.querySelector(".price")
-.innerText;
-
-const emoji =
-card.querySelector(".productImage")
-.innerText;
-
-/* ========================================= */
-
-cart.push({
-
-name,
-price,
-emoji
-
-});
-
-/* ========================================= */
-
-button.innerHTML =
+btn.innerHTML =
 "Added ✓";
 
-button.style.background =
+btn.style.background =
 "#111827";
 
-/* ========================================= */
-
-renderCart();
-
 showToast(
-`${name} added to cart`
+"Added to cart"
 );
 
 }
@@ -538,222 +983,25 @@ showToast(
 
 });
 
-}
-
-/* =====================================================
-RENDER CART
-===================================================== */
-
-function renderCart(){
-
-cartItems.innerHTML = "";
-
-let total = 0;
-
 /* ========================================= */
-
-if(cart.length === 0){
-
-cartItems.innerHTML = `
-
-<div style="
-padding:25px;
-text-align:center;
-font-weight:700;
-color:#6B7280;
-">
-
-Cart is empty 🛒
-
-</div>
-
-`;
-
-}
-
-/* ========================================= */
-
-cart.forEach(item=>{
-
-const numericPrice =
-parseInt(
-item.price.replace("₹","")
-);
-
-total += numericPrice;
-
-/* ========================================= */
-
-cartItems.innerHTML += `
-
-<div class="cartItem">
-
-<div style="
-display:flex;
-align-items:center;
-gap:12px;
-">
-
-<div style="
-font-size:32px;
-">
-
-${item.emoji}
-
-</div>
-
-<div>
-
-<div style="
-font-size:15px;
-font-weight:800;
-">
-
-${item.name}
-
-</div>
-
-<div style="
-font-size:14px;
-color:#16A34A;
-font-weight:700;
-margin-top:3px;
-">
-
-${item.price}
-
-</div>
-
-</div>
-
-</div>
-
-</div>
-
-`;
-
-});
-
-/* ========================================= */
-
-cartTotal.innerText =
-`₹${total}`;
-
-walletAmount.innerText =
-`₹${total}`;
-
-}
-
-/* =====================================================
-CHECKOUT BUTTON
-===================================================== */
-
-const checkoutBtn =
-document.querySelector(
-".checkoutBtn"
-);
-
-checkoutBtn.addEventListener(
-"click",
-()=>{
-
-if(cart.length === 0){
-
-showToast(
-"Cart is empty"
-);
-
-return;
-
-}
-
-showToast(
-"Opening checkout 🚀"
-);
-
-setTimeout(()=>{
-
-window.location.href =
-"checkout.html";
-
-},1200);
-
-}
-);
-
-/* =====================================================
-BOOK PICKUP BUTTON
-===================================================== */
-
-const bookBtn =
-document.querySelector(
-".bookBtn"
-);
-
-bookBtn.addEventListener(
-"click",
-()=>{
-
-showToast(
-"Pickup booked successfully 🚀"
-);
-
-}
-);
-
-/* =====================================================
-PARTNER BUTTON
-===================================================== */
-
-const partnerBtn =
-document.querySelector(
-".partnerBtn"
-);
-
-partnerBtn.addEventListener(
-"click",
-()=>{
-
-showToast(
-"Opening partners..."
-);
-
-}
-);
-
-/* =====================================================
-FAVORITE BUTTON
-===================================================== */
-
-function activateFavoriteButtons(){
 
 document.querySelectorAll(
 ".favoriteBtn"
 )
 
-.forEach(button=>{
+.forEach(btn=>{
 
-button.addEventListener(
+btn.addEventListener(
 "click",
 ()=>{
 
-if(button.innerHTML === "🤍"){
+if(btn.innerHTML === "🤍"){
 
-button.innerHTML =
-"❤️";
-
-showToast(
-"Added to wishlist"
-);
+btn.innerHTML = "❤️";
 
 }else{
 
-button.innerHTML =
-"🤍";
-
-showToast(
-"Removed from wishlist"
-);
+btn.innerHTML = "🤍";
 
 }
 
@@ -765,123 +1013,36 @@ showToast(
 }
 
 /* =====================================================
-BOTTOM NAV
+FILTERS
 ===================================================== */
 
-const navItems =
+const filterBtns =
 document.querySelectorAll(
-".navItem"
+".filterBtn"
 );
 
-navItems.forEach(item=>{
+filterBtns.forEach(btn=>{
 
-item.addEventListener(
+btn.addEventListener(
 "click",
 ()=>{
 
-navItems.forEach(nav=>{
+filterBtns.forEach(item=>{
 
-nav.classList.remove(
-"activeNav"
+item.classList.remove(
+"activeFilter"
 );
 
 });
 
-item.classList.add(
-"activeNav"
+btn.classList.add(
+"activeFilter"
 );
-
-/* =========================================
-PAGE REDIRECT
-========================================= */
-
-const pageText =
-item.innerText.trim();
-
-/* ========================================= */
-
-if(pageText.includes("Home")){
-
-window.location.href =
-"index.html";
-
-}
-
-if(pageText.includes("Orders")){
-
-window.location.href =
-"orders.html";
-
-}
-
-if(pageText.includes("Services")){
-
-window.location.href =
-"services.html";
-
-}
-
-if(pageText.includes("Wallet")){
-
-window.location.href =
-"wallet.html";
-
-}
-
-if(pageText.includes("Profile")){
-
-window.location.href =
-"profile.html";
-
-}
 
 }
 );
 
 });
-
-/* =====================================================
-AUTO REVIEW SLIDER
-===================================================== */
-
-const reviewTrack =
-document.querySelector(
-".reviewTrack"
-);
-
-let reviewScroll = 0;
-
-setInterval(()=>{
-
-if(reviewTrack){
-
-reviewScroll += 300;
-
-if(
-
-reviewScroll >=
-
-reviewTrack.scrollWidth -
-
-reviewTrack.clientWidth
-
-){
-
-reviewScroll = 0;
-
-}
-
-reviewTrack.scrollTo({
-
-left:reviewScroll,
-
-behavior:"smooth"
-
-});
-
-}
-
-},3200);
 
 /* =====================================================
 TOAST
@@ -921,14 +1082,8 @@ toast.style.borderRadius =
 toast.style.fontWeight =
 "700";
 
-toast.style.fontSize =
-"14px";
-
 toast.style.zIndex =
 "99999";
-
-toast.style.boxShadow =
-"0 8px 24px rgba(0,0,0,0.18)";
 
 document.body.appendChild(
 toast
@@ -938,46 +1093,64 @@ setTimeout(()=>{
 
 toast.remove();
 
-},2500);
+},2200);
 
 }
 
 /* =====================================================
-HEADER SCROLL EFFECT
+NAVIGATION
 ===================================================== */
 
-window.addEventListener(
-"scroll",
-()=>{
-
-const hero =
-document.querySelector(
-".hero"
+const navItems =
+document.querySelectorAll(
+".navItem"
 );
 
-if(window.scrollY > 10){
+navItems.forEach(item=>{
 
-hero.style.boxShadow =
-"0 8px 22px rgba(0,0,0,0.08)";
+item.addEventListener(
+"click",
+()=>{
 
-}else{
+const text =
+item.innerText;
 
-hero.style.boxShadow =
-"none";
+/* ========================================= */
+
+if(text.includes("Home")){
+
+window.location.href =
+"index.html";
 
 }
 
+if(text.includes("Orders")){
+
+window.location.href =
+"orders.html";
+
+}
+
+if(text.includes("Wallet")){
+
+window.location.href =
+"wallet.html";
+
+}
+
+if(text.includes("Profile")){
+
+window.location.href =
+"profile.html";
+
+}
+
+}
+);
+
 });
 
-/* =====================================================
-PAGE LOAD
-===================================================== */
+</script>
 
-window.addEventListener(
-"load",
-()=>{
-
-document.body.style.opacity =
-"1";
-
-});
+</body>
+</html>
