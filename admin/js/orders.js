@@ -1,10 +1,6 @@
 /* =========================================================
-FILE : admin.js
-FULL REALTIME FIREBASE ADMIN PANEL
-========================================================= */
-
-/* =========================================================
-IMPORT FIREBASE
+FILE : orders.js
+REALTIME ORDER MANAGEMENT
 ========================================================= */
 
 import { db }
@@ -14,13 +10,12 @@ from "../firebase.js";
 import {
 
 collection,
-getDocs,
-deleteDoc,
+query,
+orderBy,
+onSnapshot,
 doc,
 updateDoc,
-onSnapshot,
-query,
-orderBy
+deleteDoc
 
 }
 
@@ -37,221 +32,108 @@ document.getElementById(
 "ordersTable"
 );
 
-const serviceList =
-document.getElementById(
-"serviceList"
+const filterBtns =
+document.querySelectorAll(
+".filterBtn"
 );
 
-const totalOrders =
+const exportBtn =
 document.getElementById(
-"totalOrders"
-);
-
-const pendingOrders =
-document.getElementById(
-"pendingOrders"
-);
-
-const deliveredOrders =
-document.getElementById(
-"deliveredOrders"
-);
-
-const revenue =
-document.getElementById(
-"revenue"
-);
-
-const searchInput =
-document.getElementById(
-"searchInput"
-);
-
-const statusFilter =
-document.getElementById(
-"statusFilter"
+"exportBtn"
 );
 
 /* =========================================================
-GLOBAL DATA
+GLOBAL
 ========================================================= */
 
-let allOrders = [];
-let totalRevenue = 0;
+let ordersData = [];
+let currentFilter = "All";
 
 /* =========================================================
-LIVE ORDERS
+LOAD ORDERS
 ========================================================= */
 
-const ordersRef =
+const q =
 query(
+
 collection(db,"orders"),
+
 orderBy("createdAt","desc")
+
 );
+
+/* ========================================================= */
 
 onSnapshot(
-ordersRef,
+q,
 (snapshot)=>{
 
-allOrders = [];
-
-let pending = 0;
-let delivered = 0;
-let revenueAmount = 0;
-
-/* ========================================= */
+ordersData = [];
 
 snapshot.forEach(docSnap=>{
 
-const data =
-docSnap.data();
-
-/* ========================================= */
-
-allOrders.push({
+ordersData.push({
 
 id:docSnap.id,
-...data
+...docSnap.data()
 
 });
 
-/* ========================================= */
-
-if(data.status === "Pending"){
-
-pending++;
-
-}
-
-if(data.status === "Delivered"){
-
-delivered++;
-
-}
-
-/* ========================================= */
-
-revenueAmount +=
-Number(data.total || 0);
-
 });
 
-/* ========================================= */
+/* ========================================================= */
 
-totalOrders.innerHTML =
-snapshot.size;
-
-pendingOrders.innerHTML =
-pending;
-
-deliveredOrders.innerHTML =
-delivered;
-
-revenue.innerHTML =
-`₹${revenueAmount}`;
-
-/* ========================================= */
-
-totalRevenue =
-revenueAmount;
-
-/* ========================================= */
-
-renderOrders(
-allOrders
-);
+renderOrders();
 
 }
 );
 
 /* =========================================================
-RENDER ORDERS
+RENDER
 ========================================================= */
 
-function renderOrders(data){
+function renderOrders(){
 
 ordersTable.innerHTML = "";
 
-/* ========================================= */
+/* ========================================================= */
 
-if(data.length === 0){
+let filtered =
+ordersData;
 
-ordersTable.innerHTML = `
+/* ========================================================= */
 
-<tr>
+if(currentFilter !== "All"){
 
-<td colspan="7"
-style="
-text-align:center;
-padding:40px;
-font-weight:800;
-">
-
-No Orders Found
-
-</td>
-
-</tr>
-
-`;
-
-return;
+filtered =
+ordersData.filter(
+item=>item.status === currentFilter
+);
 
 }
 
-/* ========================================= */
+/* ========================================================= */
 
-data.forEach(order=>{
-
-const statusClass =
-
-order.status === "Delivered"
-
-? "delivered"
-
-:
-
-order.status === "Preparing"
-
-? "processing"
-
-:
-
-"pending";
-
-/* ========================================= */
+filtered.forEach(order=>{
 
 ordersTable.innerHTML += `
 
 <tr>
 
 <td>
-#${order.id.slice(0,5)}
+#${order.id.slice(0,6)}
 </td>
 
 <td>
 
-<div style="
-display:flex;
-flex-direction:column;
-gap:4px;
-">
+<div class="customer">
 
-<span style="
-font-weight:900;
-">
+<b>
+${order.name || "Unknown"}
+</b>
 
-${order.name || "Customer"}
-
-</span>
-
-<span style="
-font-size:12px;
-color:#6B7280;
-">
-
+<span>
 ${order.phone || "No Number"}
-
 </span>
 
 </div>
@@ -268,13 +150,25 @@ Items
 
 <td>
 
+${order.address || "No Address"}
+
+</td>
+
+<td>
+
 ₹${order.total || 0}
 
 </td>
 
 <td>
 
-<span class="status ${statusClass}">
+${order.payment || "COD"}
+
+</td>
+
+<td>
+
+<span class="status ${getStatusClass(order.status)}">
 
 ${order.status || "Pending"}
 
@@ -290,14 +184,20 @@ ${formatDate(order.createdAt)}
 
 <td>
 
-<div style="
-display:flex;
-gap:10px;
-">
+<div class="actionWrap">
 
 <button
 class="actionBtn"
-onclick="updateStatus('${order.id}','Preparing')">
+onclick="viewOrder('${order.id}')">
+
+<i class="fa-solid fa-eye"></i>
+
+</button>
+
+<button
+class="actionBtn"
+style="background:#2563EB;"
+onclick="changeStatus('${order.id}','Preparing')">
 
 <i class="fa-solid fa-box"></i>
 
@@ -305,7 +205,8 @@ onclick="updateStatus('${order.id}','Preparing')">
 
 <button
 class="actionBtn"
-onclick="updateStatus('${order.id}','Delivered')">
+style="background:#16A34A;"
+onclick="changeStatus('${order.id}','Delivered')">
 
 <i class="fa-solid fa-check"></i>
 
@@ -313,9 +214,7 @@ onclick="updateStatus('${order.id}','Delivered')">
 
 <button
 class="actionBtn"
-style="
-background:#DC2626;
-"
+style="background:#DC2626;"
 onclick="deleteOrder('${order.id}')">
 
 <i class="fa-solid fa-trash"></i>
@@ -335,6 +234,34 @@ onclick="deleteOrder('${order.id}')">
 }
 
 /* =========================================================
+STATUS CLASS
+========================================================= */
+
+function getStatusClass(status){
+
+if(status === "Delivered"){
+
+return "delivered";
+
+}
+
+if(status === "Preparing"){
+
+return "processing";
+
+}
+
+if(status === "Cancelled"){
+
+return "cancelled";
+
+}
+
+return "pending";
+
+}
+
+/* =========================================================
 FORMAT DATE
 ========================================================= */
 
@@ -346,24 +273,119 @@ return "Now";
 
 }
 
-/* ========================================= */
-
 try{
 
-const date =
-timestamp.toDate();
+return timestamp
+.toDate()
+.toLocaleString();
 
-return date.toLocaleString();
-
-}
-
-/* ========================================= */
-
-catch{
+}catch{
 
 return "Now";
 
 }
+
+}
+
+/* =========================================================
+FILTER BUTTONS
+========================================================= */
+
+filterBtns.forEach(btn=>{
+
+btn.addEventListener(
+"click",
+()=>{
+
+filterBtns.forEach(item=>{
+
+item.classList.remove(
+"active"
+);
+
+});
+
+/* ========================================================= */
+
+btn.classList.add(
+"active"
+);
+
+/* ========================================================= */
+
+currentFilter =
+btn.dataset.filter;
+
+/* ========================================================= */
+
+renderOrders();
+
+});
+
+});
+
+/* =========================================================
+VIEW ORDER
+========================================================= */
+
+window.viewOrder =
+function(id){
+
+const order =
+ordersData.find(
+item=>item.id === id
+);
+
+/* ========================================================= */
+
+if(!order){
+
+return;
+
+}
+
+/* ========================================================= */
+
+alert(
+
+`Customer : ${order.name}
+
+Phone : ${order.phone}
+
+Amount : ₹${order.total}
+
+Status : ${order.status}
+
+Address : ${order.address}
+
+Payment : ${order.payment}`
+
+);
+
+}
+
+/* =========================================================
+UPDATE STATUS
+========================================================= */
+
+window.changeStatus =
+async function(id,status){
+
+await updateDoc(
+
+doc(db,"orders",id),
+
+{
+
+status:status
+
+}
+
+);
+
+showToast(
+`Order ${status}`
+);
 
 }
 
@@ -379,286 +401,20 @@ confirm(
 "Delete this order?"
 );
 
-/* ========================================= */
-
 if(!confirmDelete){
 
 return;
 
 }
 
-/* ========================================= */
+/* ========================================================= */
 
 await deleteDoc(
 doc(db,"orders",id)
 );
 
-alert(
+showToast(
 "Order Deleted"
-);
-
-}
-
-/* =========================================================
-UPDATE STATUS
-========================================================= */
-
-window.updateStatus =
-async function(id,status){
-
-await updateDoc(
-
-doc(db,"orders",id),
-
-{
-
-status:status
-
-}
-
-);
-
-/* ========================================= */
-
-alert(
-`Order marked as ${status}`
-);
-
-}
-
-/* =========================================================
-LIVE SERVICES
-========================================================= */
-
-const servicesRef =
-collection(db,"services");
-
-onSnapshot(
-servicesRef,
-(snapshot)=>{
-
-serviceList.innerHTML = "";
-
-/* ========================================= */
-
-snapshot.forEach(docSnap=>{
-
-const data =
-docSnap.data();
-
-/* ========================================= */
-
-serviceList.innerHTML += `
-
-<div class="serviceItem">
-
-<div class="serviceLeft">
-
-<img
-src="${data.image}"
-class="serviceImg">
-
-<div class="serviceInfo">
-
-<h3>
-${data.name}
-</h3>
-
-<p>
-₹${data.price}
-</p>
-
-</div>
-
-</div>
-
-<div style="
-display:flex;
-gap:10px;
-">
-
-<button
-class="actionBtn"
-onclick="editService(
-'${docSnap.id}',
-'${data.name}',
-'${data.price}'
-)">
-
-<i class="fa-solid fa-pen"></i>
-
-</button>
-
-<button
-class="deleteBtn"
-onclick="deleteService('${docSnap.id}')">
-
-<i class="fa-solid fa-trash"></i>
-
-</button>
-
-</div>
-
-</div>
-
-`;
-
-});
-
-}
-);
-
-/* =========================================================
-DELETE SERVICE
-========================================================= */
-
-window.deleteService =
-async function(id){
-
-const confirmDelete =
-confirm(
-"Delete this service?"
-);
-
-/* ========================================= */
-
-if(!confirmDelete){
-
-return;
-
-}
-
-/* ========================================= */
-
-await deleteDoc(
-doc(db,"services",id)
-);
-
-alert(
-"Service Deleted"
-);
-
-}
-
-/* =========================================================
-EDIT SERVICE
-========================================================= */
-
-window.editService =
-async function(id,name,price){
-
-const newName =
-prompt(
-"Edit Service Name",
-name
-);
-
-/* ========================================= */
-
-const newPrice =
-prompt(
-"Edit Price",
-price
-);
-
-/* ========================================= */
-
-if(!newName || !newPrice){
-
-return;
-
-}
-
-/* ========================================= */
-
-await updateDoc(
-
-doc(db,"services",id),
-
-{
-
-name:newName,
-price:newPrice
-
-}
-
-);
-
-/* ========================================= */
-
-alert(
-"Service Updated"
-);
-
-}
-
-/* =========================================================
-SEARCH
-========================================================= */
-
-searchInput.addEventListener(
-"input",
-filterOrders
-);
-
-/* =========================================================
-FILTER
-========================================================= */
-
-statusFilter.addEventListener(
-"change",
-filterOrders
-);
-
-/* =========================================================
-FILTER FUNCTION
-========================================================= */
-
-function filterOrders(){
-
-const search =
-searchInput.value.toLowerCase();
-
-const status =
-statusFilter.value;
-
-/* ========================================= */
-
-const filtered =
-allOrders.filter(order=>{
-
-const matchesSearch =
-
-(order.name || "")
-.toLowerCase()
-.includes(search)
-
-||
-
-(order.phone || "")
-.toLowerCase()
-.includes(search);
-
-/* ========================================= */
-
-const matchesStatus =
-
-status === ""
-
-||
-
-order.status === status;
-
-/* ========================================= */
-
-return matchesSearch && matchesStatus;
-
-});
-
-/* ========================================= */
-
-renderOrders(
-filtered
 );
 
 }
@@ -667,31 +423,28 @@ filtered
 EXPORT CSV
 ========================================================= */
 
-document.getElementById(
-"exportBtn"
-).addEventListener(
+exportBtn.addEventListener(
 "click",
 ()=>{
 
 let csv =
-"Order ID,Customer,Phone,Items,Amount,Status\n";
+"OrderID,Customer,Phone,Amount,Status\n";
 
-/* ========================================= */
+/* ========================================================= */
 
-allOrders.forEach(order=>{
+ordersData.forEach(order=>{
 
 csv +=
 
 `${order.id},
-${order.name || ""},
-${order.phone || ""},
-${order.items?.length || 1},
-${order.total || 0},
-${order.status || "Pending"}\n`;
+${order.name},
+${order.phone},
+${order.total},
+${order.status}\n`;
 
 });
 
-/* ========================================= */
+/* ========================================================= */
 
 const blob =
 new Blob(
@@ -701,12 +454,12 @@ type:"text/csv"
 }
 );
 
-/* ========================================= */
+/* ========================================================= */
 
 const url =
 URL.createObjectURL(blob);
 
-/* ========================================= */
+/* ========================================================= */
 
 const a =
 document.createElement("a");
@@ -716,87 +469,65 @@ a.href = url;
 a.download =
 "quickpress-orders.csv";
 
-/* ========================================= */
-
 a.click();
 
-/* ========================================= */
-
 URL.revokeObjectURL(url);
+
+showToast(
+"CSV Exported"
+);
 
 });
 
 /* =========================================================
-REVENUE CHART
+TOAST
 ========================================================= */
 
-const ctx =
-document.getElementById(
-"revenueChart"
+function showToast(message){
+
+const toast =
+document.createElement(
+"div"
 );
 
-/* ========================================= */
+toast.innerHTML =
+message;
 
-new Chart(ctx,{
+toast.style.position =
+"fixed";
 
-type:"line",
+toast.style.bottom =
+"20px";
 
-data:{
+toast.style.right =
+"20px";
 
-labels:[
-"Mon",
-"Tue",
-"Wed",
-"Thu",
-"Fri",
-"Sat",
-"Sun"
-],
+toast.style.background =
+"#111827";
 
-datasets:[{
+toast.style.color =
+"#fff";
 
-label:"Revenue",
+toast.style.padding =
+"14px 20px";
 
-data:[
-1200,
-2400,
-1800,
-3000,
-4200,
-3800,
-5200
-],
+toast.style.borderRadius =
+"14px";
 
-borderWidth:4,
+toast.style.fontWeight =
+"800";
 
-fill:true,
+toast.style.zIndex =
+"99999";
 
-tension:0.4
+document.body.appendChild(
+toast
+);
 
-}]
+setTimeout(()=>{
 
-},
+toast.remove();
 
-options:{
-
-responsive:true,
-
-plugins:{
-
-legend:{
-display:false
-}
-
-},
-
-scales:{
-
-y:{
-beginAtZero:true
-}
+},3000);
 
 }
-
-}
-
-});
