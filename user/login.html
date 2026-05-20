@@ -1,413 +1,213 @@
-<!-- =====================================================
-LOGIN.HTML
-PREMIUM QUICKPRESS LOGIN
-===================================================== -->
-
-<!DOCTYPE html>
-<html lang="en">
-
-<head>
-
-<meta charset="UTF-8">
-
-<meta
-name="viewport"
-content="width=device-width, initial-scale=1.0">
-
-<title>
-QuickPress Login
-</title>
-
-<link rel="preconnect"
-href="https://fonts.googleapis.com">
-
-<link rel="preconnect"
-href="https://fonts.gstatic.com"
-crossorigin>
-
-<link
-href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap"
-rel="stylesheet">
-
-<link rel="stylesheet"
-href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css"/>
-
-<style>
-
 /* =====================================================
-RESET
+FILE : login.js
+QUICKPRESS REAL FIREBASE LOGIN
 ===================================================== */
 
-*{
-margin:0;
-padding:0;
-box-sizing:border-box;
-font-family:'Inter',sans-serif;
+/* =====================================================
+IMPORT FIREBASE
+===================================================== */
+
+import {
+
+auth
+
 }
 
-body{
+from "../firebase.js";
 
-background:
-linear-gradient(
-180deg,
-#FFD633 0%,
-#FFE98A 35%,
-#F6F7FB 35%
+import {
+
+signInWithEmailAndPassword
+
+}
+
+from
+
+"https://www.gstatic.com/firebasejs/12.11.0/firebase-auth.js";
+
+/* =====================================================
+ELEMENTS
+===================================================== */
+
+const loginForm =
+document.getElementById(
+"loginForm"
 );
 
-min-height:100vh;
-
-display:flex;
-
-align-items:center;
-
-justify-content:center;
-
-padding:20px;
-
-overflow:hidden;
-
-}
-
-/* =====================================================
-LOGIN CARD
-===================================================== */
-
-.loginCard{
-
-width:100%;
-
-max-width:420px;
-
-background:#fff;
-
-border-radius:36px;
-
-padding:32px 24px;
-
-box-shadow:
-0 20px 40px rgba(0,0,0,0.08);
-
-position:relative;
-
-overflow:hidden;
-
-}
-
-/* =====================================================
-TOP
-===================================================== */
-
-.logo{
-
-width:82px;
-height:82px;
-
-border-radius:26px;
-
-background:
-linear-gradient(
-135deg,
-#111827,
-#1F2937
+const loginBtn =
+document.getElementById(
+"loginBtn"
 );
 
-display:flex;
-
-align-items:center;
-justify-content:center;
-
-margin:auto;
-
-font-size:34px;
-
-color:#FFD633;
-
-font-weight:900;
-
-}
-
-.title{
-
-margin-top:22px;
-
-text-align:center;
-
-font-size:34px;
-
-font-weight:900;
-
-line-height:1.1;
-
-}
-
-.subtitle{
-
-margin-top:12px;
-
-text-align:center;
-
-font-size:14px;
-
-line-height:1.7;
-
-color:#6B7280;
-
-}
-
 /* =====================================================
-FORM
+LOGIN
 ===================================================== */
 
-.formGroup{
+loginForm.addEventListener(
+"submit",
+async(e)=>{
 
-margin-top:22px;
+e.preventDefault();
 
-}
+/* ========================================= */
 
-.label{
+const phone =
+document.getElementById(
+"phone"
+).value.trim();
 
-margin-bottom:10px;
+const password =
+document.getElementById(
+"password"
+).value.trim();
 
-font-size:13px;
+/* ========================================= */
 
-font-weight:800;
+if(phone.length !== 10){
 
-}
+showToast(
+"Enter valid mobile number"
+);
 
-.inputBox{
-
-height:58px;
-
-background:#F3F4F6;
-
-border-radius:18px;
-
-display:flex;
-
-align-items:center;
-
-padding:0 18px;
+return;
 
 }
 
-.inputBox i{
+/* ========================================= */
 
-font-size:18px;
+if(password === ""){
 
-color:#16A34A;
+showToast(
+"Enter password"
+);
+
+return;
+
+}
+
+/* ========================================= */
+
+loginBtn.innerHTML =
+"Please Wait...";
+
+loginBtn.disabled =
+true;
+
+/* =========================================
+CONVERT PHONE TO EMAIL
+========================================= */
+
+const email =
+`${phone}@quickpress.com`;
+
+try{
+
+/* ========================================= */
+
+await signInWithEmailAndPassword(
+
+auth,
+email,
+password
+
+);
+
+/* ========================================= */
+
+showToast(
+"Login Successful 🚀"
+);
+
+/* ========================================= */
+
+setTimeout(()=>{
+
+window.location.href =
+"index.html";
+
+},1200);
+
+/* ========================================= */
+
+}catch(error){
+
+console.log(error);
+
+/* ========================================= */
+
+showToast(
+"Invalid mobile number or password"
+);
+
+loginBtn.innerHTML =
+"Login Now";
+
+loginBtn.disabled =
+false;
 
 }
 
-.inputBox input{
-
-flex:1;
-
-height:100%;
-
-border:none;
-
-outline:none;
-
-padding:0 14px;
-
-background:none;
-
-font-size:15px;
-
-font-weight:700;
-
 }
+);
 
 /* =====================================================
-BUTTON
+TOAST
 ===================================================== */
 
-.loginBtn{
+function showToast(message){
 
-width:100%;
+const toast =
+document.createElement(
+"div"
+);
 
-height:58px;
+toast.innerHTML =
+message;
 
-margin-top:28px;
+toast.style.position =
+"fixed";
 
-border:none;
+toast.style.bottom =
+"100px";
 
-border-radius:20px;
+toast.style.left =
+"50%";
 
-background:#16A34A;
+toast.style.transform =
+"translateX(-50%)";
 
-color:#fff;
+toast.style.background =
+"#111827";
 
-font-size:16px;
+toast.style.color =
+"#fff";
 
-font-weight:900;
+toast.style.padding =
+"14px 24px";
 
-cursor:pointer;
+toast.style.borderRadius =
+"18px";
 
-transition:0.3s;
+toast.style.fontWeight =
+"700";
 
-}
+toast.style.fontSize =
+"14px";
 
-.loginBtn:active{
+toast.style.zIndex =
+"99999";
 
-transform:scale(0.98);
+toast.style.boxShadow =
+"0 10px 30px rgba(0,0,0,0.18)";
 
-}
+document.body.appendChild(
+toast
+);
 
-/* =====================================================
-OTP
-===================================================== */
+setTimeout(()=>{
 
-.otpText{
+toast.remove();
 
-margin-top:16px;
-
-text-align:center;
-
-font-size:13px;
-
-font-weight:700;
-
-color:#6B7280;
-
-}
-
-/* =====================================================
-BOTTOM
-===================================================== */
-
-.bottomText{
-
-margin-top:26px;
-
-text-align:center;
-
-font-size:14px;
-
-font-weight:700;
-
-color:#6B7280;
+},2500);
 
 }
-
-.bottomText a{
-
-color:#16A34A;
-
-text-decoration:none;
-
-font-weight:900;
-
-}
-
-/* =====================================================
-DESKTOP
-===================================================== */
-
-@media(min-width:900px){
-
-.loginCard{
-
-padding:40px 34px;
-
-}
-
-}
-
-</style>
-
-</head>
-
-<body>
-
-<div class="loginCard">
-
-<!-- LOGO -->
-
-<div class="logo">
-Q
-</div>
-
-<!-- TITLE -->
-
-<div class="title">
-Welcome Back
-</div>
-
-<div class="subtitle">
-Login into your QuickPress account
-for premium laundry experience.
-</div>
-
-<!-- FORM -->
-
-<form id="loginForm">
-
-<div class="formGroup">
-
-<div class="label">
-Mobile Number
-</div>
-
-<div class="inputBox">
-
-<i class="fa-solid fa-phone"></i>
-
-<input
-type="tel"
-id="phone"
-placeholder="+91 9876543210"
-required>
-
-</div>
-
-</div>
-
-<div class="formGroup">
-
-<div class="label">
-Password / OTP
-</div>
-
-<div class="inputBox">
-
-<i class="fa-solid fa-lock"></i>
-
-<input
-type="password"
-id="password"
-placeholder="Enter Password or OTP"
-required>
-
-</div>
-
-</div>
-
-<button
-class="loginBtn"
-id="loginBtn">
-
-Login Now
-
-</button>
-
-</form>
-
-<div class="otpText">
-Demo OTP : 4502
-</div>
-
-<div class="bottomText">
-Don't have account?
-<a href="signup.html">
-Create Account
-</a>
-</div>
-
-</div>
-
-<script type="module" src="login.js"></script>
-
-</body>
-</html>
