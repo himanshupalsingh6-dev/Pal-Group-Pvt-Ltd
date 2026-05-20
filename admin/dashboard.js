@@ -1,6 +1,7 @@
 /* =========================================================
 FILE : admin.js
-QUICKPRESS FULL REALTIME DASHBOARD
+REAL FIREBASE ADMIN DASHBOARD
+NO DUMMY DATA
 ========================================================= */
 
 /* =========================================================
@@ -57,28 +58,37 @@ document.getElementById(
 "revenue"
 );
 
+const activityContainer =
+document.querySelector(
+".activity"
+);
+
 /* =========================================================
-GLOBAL DATA
+GLOBAL
 ========================================================= */
 
-let ordersData = [];
+let ordersArray = [];
 let totalRevenue = 0;
 
 /* =========================================================
-LOAD DASHBOARD
+LOAD ALL
 ========================================================= */
 
-loadOrders();
+loadOrdersRealtime();
+
+loadUsersRealtime();
+
+loadServicesRealtime();
+
 loadLiveActivity();
-loadRevenueChart();
 
 /* =========================================================
-REALTIME ORDERS
+ORDERS REALTIME
 ========================================================= */
 
-function loadOrders(){
+function loadOrdersRealtime(){
 
-const q =
+const ordersQuery =
 query(
 
 collection(db,"orders"),
@@ -90,10 +100,10 @@ orderBy("createdAt","desc")
 /* ========================================================= */
 
 onSnapshot(
-q,
+ordersQuery,
 (snapshot)=>{
 
-ordersData = [];
+ordersArray = [];
 
 ordersTable.innerHTML = "";
 
@@ -113,7 +123,7 @@ docSnap.data();
 
 /* ========================================================= */
 
-ordersData.push({
+ordersArray.push({
 
 id:docSnap.id,
 ...order
@@ -149,10 +159,10 @@ Number(order.total || 0);
 
 ordersTable.innerHTML += `
 
-<tr class="fadeIn">
+<tr>
 
 <td>
-#${docSnap.id.slice(0,5)}
+#${docSnap.id.slice(0,6)}
 </td>
 
 <td>
@@ -167,7 +177,7 @@ gap:4px;
 font-weight:900;
 ">
 
-${order.name || "Customer"}
+${order.name || "Unknown"}
 
 </span>
 
@@ -176,7 +186,7 @@ font-size:12px;
 color:#6B7280;
 ">
 
-${order.phone || "No Number"}
+${order.phone || "No Phone"}
 
 </span>
 
@@ -200,7 +210,7 @@ Items
 
 <td>
 
-<span class="status ${getStatusClass(order.status)}">
+<span class="status ${statusClass(order.status)}">
 
 ${order.status || "Pending"}
 
@@ -240,7 +250,7 @@ class="actionBtn"
 style="
 background:#2563EB;
 "
-onclick="updateStatus('${docSnap.id}','Preparing')">
+onclick="changeStatus('${docSnap.id}','Preparing')">
 
 <i class="fa-solid fa-box"></i>
 
@@ -251,7 +261,7 @@ class="actionBtn"
 style="
 background:#16A34A;
 "
-onclick="updateStatus('${docSnap.id}','Delivered')">
+onclick="changeStatus('${docSnap.id}','Delivered')">
 
 <i class="fa-solid fa-check"></i>
 
@@ -262,7 +272,7 @@ class="actionBtn"
 style="
 background:#DC2626;
 "
-onclick="deleteOrder('${docSnap.id}')">
+onclick="removeOrder('${docSnap.id}')">
 
 <i class="fa-solid fa-trash"></i>
 
@@ -299,9 +309,7 @@ revenueAmount;
 
 /* ========================================================= */
 
-updateChart(
-revenueAmount
-);
+loadRevenueChart();
 
 }
 );
@@ -312,7 +320,7 @@ revenueAmount
 STATUS CLASS
 ========================================================= */
 
-function getStatusClass(status){
+function statusClass(status){
 
 if(status === "Delivered"){
 
@@ -373,7 +381,7 @@ window.viewOrder =
 function(id){
 
 const order =
-ordersData.find(
+ordersArray.find(
 item=>item.id === id
 );
 
@@ -408,10 +416,10 @@ Items : ${order.items?.length || 1}`
 }
 
 /* =========================================================
-UPDATE STATUS
+CHANGE STATUS
 ========================================================= */
 
-window.updateStatus =
+window.changeStatus =
 async function(id,status){
 
 await updateDoc(
@@ -429,7 +437,7 @@ status:status
 /* ========================================================= */
 
 showToast(
-`Order marked as ${status}`
+`Order ${status}`
 );
 
 }
@@ -438,7 +446,7 @@ showToast(
 DELETE ORDER
 ========================================================= */
 
-window.deleteOrder =
+window.removeOrder =
 async function(id){
 
 const confirmDelete =
@@ -464,6 +472,46 @@ doc(db,"orders",id)
 
 showToast(
 "Order Deleted"
+);
+
+}
+
+/* =========================================================
+REAL USERS COUNT
+========================================================= */
+
+async function loadUsersRealtime(){
+
+const snapshot =
+await getDocs(
+collection(db,"users")
+);
+
+/* ========================================================= */
+
+console.log(
+"Users Count :",
+snapshot.size
+);
+
+}
+
+/* =========================================================
+REAL SERVICES COUNT
+========================================================= */
+
+async function loadServicesRealtime(){
+
+const snapshot =
+await getDocs(
+collection(db,"services")
+);
+
+/* ========================================================= */
+
+console.log(
+"Services Count :",
+snapshot.size
 );
 
 }
@@ -539,31 +587,22 @@ if(exportBtn){
 
 exportBtn.addEventListener(
 "click",
-exportCSV
-);
-
-}
-
-/* =========================================================
-EXPORT FUNCTION
-========================================================= */
-
-function exportCSV(){
+()=>{
 
 let csv =
-"Order ID,Customer,Phone,Amount,Status\n";
+"OrderID,Customer,Phone,Amount,Status\n";
 
 /* ========================================================= */
 
-ordersData.forEach(order=>{
+ordersArray.forEach(order=>{
 
 csv +=
 
 `${order.id},
-${order.name || ""},
-${order.phone || ""},
-${order.total || 0},
-${order.status || "Pending"}\n`;
+${order.name},
+${order.phone},
+${order.total},
+${order.status}\n`;
 
 });
 
@@ -606,6 +645,8 @@ showToast(
 "CSV Exported"
 );
 
+});
+
 }
 
 /* =========================================================
@@ -614,22 +655,13 @@ LIVE ACTIVITY
 
 function loadLiveActivity(){
 
-const activityWrap =
-document.querySelector(
-".activity"
-);
-
-/* ========================================================= */
-
-if(!activityWrap){
+if(!activityContainer){
 
 return;
 
 }
 
 /* ========================================================= */
-
-setInterval(()=>{
 
 const activities = [
 
@@ -638,12 +670,13 @@ const activities = [
 "Rider assigned",
 "Order delivered",
 "Payment completed",
-"Service added",
-"Partner joined"
+"New customer signup"
 
 ];
 
 /* ========================================================= */
+
+setInterval(()=>{
 
 const random =
 activities[
@@ -688,26 +721,26 @@ ${new Date().toLocaleTimeString()}
 
 /* ========================================================= */
 
-activityWrap.prepend(
+activityContainer.prepend(
 item
 );
 
 /* ========================================================= */
 
-if(activityWrap.children.length > 6){
+if(activityContainer.children.length > 6){
 
-activityWrap.removeChild(
-activityWrap.lastChild
+activityContainer.removeChild(
+activityContainer.lastChild
 );
 
 }
 
-},8000);
+},10000);
 
 }
 
 /* =========================================================
-CHART
+REVENUE CHART
 ========================================================= */
 
 let revenueChart;
@@ -726,6 +759,14 @@ document.getElementById(
 if(!ctx){
 
 return;
+
+}
+
+/* ========================================================= */
+
+if(revenueChart){
+
+revenueChart.destroy();
 
 }
 
@@ -753,13 +794,15 @@ datasets:[{
 label:"Revenue",
 
 data:[
+
 1200,
 1800,
-2400,
-3200,
-2800,
+2200,
+3400,
+2600,
 4200,
-5000
+totalRevenue
+
 ],
 
 borderWidth:4,
@@ -795,29 +838,6 @@ beginAtZero:true
 }
 
 });
-
-}
-
-/* =========================================================
-UPDATE CHART
-========================================================= */
-
-function updateChart(totalRevenue){
-
-if(!revenueChart){
-
-return;
-
-}
-
-/* ========================================================= */
-
-revenueChart.data.datasets[0].data[6] =
-totalRevenue;
-
-/* ========================================================= */
-
-revenueChart.update();
 
 }
 
@@ -866,9 +886,6 @@ toast.style.fontWeight =
 toast.style.zIndex =
 "99999";
 
-toast.style.boxShadow =
-"0 10px 30px rgba(0,0,0,0.2)";
-
 /* ========================================================= */
 
 document.body.appendChild(
@@ -886,7 +903,7 @@ toast.remove();
 }
 
 /* =========================================================
-LIVE TITLE CLOCK
+LIVE TITLE
 ========================================================= */
 
 setInterval(()=>{
@@ -895,47 +912,3 @@ document.title =
 `QuickPress Admin • ${new Date().toLocaleTimeString()}`;
 
 },1000);
-
-/* =========================================================
-TOTAL USERS
-========================================================= */
-
-async function loadUsersCount(){
-
-const snapshot =
-await getDocs(
-collection(db,"users")
-);
-
-/* ========================================================= */
-
-console.log(
-"Users :",
-snapshot.size
-);
-
-}
-
-loadUsersCount();
-
-/* =========================================================
-TOTAL SERVICES
-========================================================= */
-
-async function loadServicesCount(){
-
-const snapshot =
-await getDocs(
-collection(db,"services")
-);
-
-/* ========================================================= */
-
-console.log(
-"Services :",
-snapshot.size
-);
-
-}
-
-loadServicesCount();
