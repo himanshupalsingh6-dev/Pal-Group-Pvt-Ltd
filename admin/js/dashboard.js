@@ -1,6 +1,7 @@
 /* =========================================================
 FILE : admin.js
-QUICKPRESS FULL ADMIN PANEL
+REAL FIREBASE ADMIN DASHBOARD
+NO DUMMY DATA
 ========================================================= */
 
 /* =========================================================
@@ -14,35 +15,19 @@ from "../firebase.js";
 import {
 
 collection,
-getDocs,
-deleteDoc,
-doc,
-updateDoc,
-onSnapshot,
 query,
 orderBy,
-addDoc,
-serverTimestamp
+onSnapshot,
+doc,
+updateDoc,
+deleteDoc,
+getDocs
 
 }
 
 from
 
 "https://www.gstatic.com/firebasejs/12.11.0/firebase-firestore.js";
-
-/* =========================================================
-CHART JS
-========================================================= */
-
-const chartScript =
-document.createElement("script");
-
-chartScript.src =
-"https://cdn.jsdelivr.net/npm/chart.js";
-
-document.head.appendChild(
-chartScript
-);
 
 /* =========================================================
 ELEMENTS
@@ -73,86 +58,111 @@ document.getElementById(
 "revenue"
 );
 
+const activityContainer =
+document.querySelector(
+".activity"
+);
+
 /* =========================================================
 GLOBAL
 ========================================================= */
 
-let ordersData = [];
-let servicesData = [];
-let revenueChart;
+let ordersArray = [];
+let totalRevenue = 0;
 
 /* =========================================================
-LIVE ORDERS
+LOAD ALL
 ========================================================= */
 
-const ordersRef =
+loadOrdersRealtime();
+
+loadUsersRealtime();
+
+loadServicesRealtime();
+
+loadLiveActivity();
+
+/* =========================================================
+ORDERS REALTIME
+========================================================= */
+
+function loadOrdersRealtime(){
+
+const ordersQuery =
 query(
+
 collection(db,"orders"),
+
 orderBy("createdAt","desc")
+
 );
 
+/* ========================================================= */
+
 onSnapshot(
-ordersRef,
+ordersQuery,
 (snapshot)=>{
 
-ordersData = [];
+ordersArray = [];
+
+ordersTable.innerHTML = "";
+
+/* ========================================================= */
 
 let total = 0;
 let pending = 0;
 let delivered = 0;
 let revenueAmount = 0;
 
-/* ========================================= */
-
-ordersTable.innerHTML = "";
-
-/* ========================================= */
+/* ========================================================= */
 
 snapshot.forEach(docSnap=>{
 
-const data =
+const order =
 docSnap.data();
 
-/* ========================================= */
+/* ========================================================= */
 
-ordersData.push({
+ordersArray.push({
 
 id:docSnap.id,
-...data
+...order
 
 });
 
-/* ========================================= */
+/* ========================================================= */
 
 total++;
 
-/* ========================================= */
+/* ========================================================= */
 
-if(data.status === "Pending"){
+if(order.status === "Pending"){
 
 pending++;
 
 }
 
-if(data.status === "Delivered"){
+/* ========================================================= */
+
+if(order.status === "Delivered"){
 
 delivered++;
 
 }
 
-/* ========================================= */
+/* ========================================================= */
 
 revenueAmount +=
-Number(data.total || 0);
+Number(order.total || 0);
 
-/* ========================================= */
+/* ========================================================= */
 
 ordersTable.innerHTML += `
 
 <tr>
 
 <td>
-#${docSnap.id.slice(0,5)}
+#${docSnap.id.slice(0,6)}
 </td>
 
 <td>
@@ -167,7 +177,7 @@ gap:4px;
 font-weight:900;
 ">
 
-${data.name || "Customer"}
+${order.name || "Unknown"}
 
 </span>
 
@@ -176,7 +186,7 @@ font-size:12px;
 color:#6B7280;
 ">
 
-${data.phone || "No Number"}
+${order.phone || "No Phone"}
 
 </span>
 
@@ -186,7 +196,7 @@ ${data.phone || "No Number"}
 
 <td>
 
-${data.items?.length || 1}
+${order.items?.length || 1}
 
 Items
 
@@ -194,15 +204,15 @@ Items
 
 <td>
 
-₹${data.total || 0}
+₹${order.total || 0}
 
 </td>
 
 <td>
 
-<span class="status ${getStatusClass(data.status)}">
+<span class="status ${statusClass(order.status)}">
 
-${data.status || "Pending"}
+${order.status || "Pending"}
 
 </span>
 
@@ -210,13 +220,13 @@ ${data.status || "Pending"}
 
 <td>
 
-${data.payment || "COD"}
+${order.payment || "COD"}
 
 </td>
 
 <td>
 
-${formatDate(data.createdAt)}
+${formatDate(order.createdAt)}
 
 </td>
 
@@ -240,7 +250,7 @@ class="actionBtn"
 style="
 background:#2563EB;
 "
-onclick="updateStatus('${docSnap.id}','Preparing')">
+onclick="changeStatus('${docSnap.id}','Preparing')">
 
 <i class="fa-solid fa-box"></i>
 
@@ -251,7 +261,7 @@ class="actionBtn"
 style="
 background:#16A34A;
 "
-onclick="updateStatus('${docSnap.id}','Delivered')">
+onclick="changeStatus('${docSnap.id}','Delivered')">
 
 <i class="fa-solid fa-check"></i>
 
@@ -262,7 +272,7 @@ class="actionBtn"
 style="
 background:#DC2626;
 "
-onclick="deleteOrder('${docSnap.id}')">
+onclick="removeOrder('${docSnap.id}')">
 
 <i class="fa-solid fa-trash"></i>
 
@@ -278,31 +288,39 @@ onclick="deleteOrder('${docSnap.id}')">
 
 });
 
-/* ========================================= */
+/* ========================================================= */
 
-totalOrders.innerHTML = total;
+totalOrders.innerHTML =
+total;
 
-pendingOrders.innerHTML = pending;
+pendingOrders.innerHTML =
+pending;
 
-deliveredOrders.innerHTML = delivered;
+deliveredOrders.innerHTML =
+delivered;
 
 revenue.innerHTML =
 `₹${revenueAmount}`;
 
-/* ========================================= */
+/* ========================================================= */
 
-loadRevenueChart(
-revenueAmount
-);
+totalRevenue =
+revenueAmount;
+
+/* ========================================================= */
+
+loadRevenueChart();
 
 }
 );
+
+}
 
 /* =========================================================
 STATUS CLASS
 ========================================================= */
 
-function getStatusClass(status){
+function statusClass(status){
 
 if(status === "Delivered"){
 
@@ -310,11 +328,15 @@ return "delivered";
 
 }
 
+/* ========================================================= */
+
 if(status === "Preparing"){
 
 return "processing";
 
 }
+
+/* ========================================================= */
 
 return "pending";
 
@@ -332,7 +354,7 @@ return "Now";
 
 }
 
-/* ========================================= */
+/* ========================================================= */
 
 try{
 
@@ -341,11 +363,9 @@ timestamp.toDate();
 
 return date.toLocaleString();
 
-}
+/* ========================================================= */
 
-/* ========================================= */
-
-catch{
+}catch{
 
 return "Now";
 
@@ -361,11 +381,11 @@ window.viewOrder =
 function(id){
 
 const order =
-ordersData.find(
+ordersArray.find(
 item=>item.id === id
 );
 
-/* ========================================= */
+/* ========================================================= */
 
 if(!order){
 
@@ -373,7 +393,7 @@ return;
 
 }
 
-/* ========================================= */
+/* ========================================================= */
 
 alert(
 
@@ -383,19 +403,23 @@ Phone : ${order.phone}
 
 Amount : ₹${order.total}
 
+Payment : ${order.payment}
+
 Status : ${order.status}
 
-Address : ${order.address || "No Address"}`
+Address : ${order.address || "No Address"}
+
+Items : ${order.items?.length || 1}`
 
 );
 
 }
 
 /* =========================================================
-UPDATE STATUS
+CHANGE STATUS
 ========================================================= */
 
-window.updateStatus =
+window.changeStatus =
 async function(id,status){
 
 await updateDoc(
@@ -410,10 +434,10 @@ status:status
 
 );
 
-/* ========================================= */
+/* ========================================================= */
 
 showToast(
-`Order marked as ${status}`
+`Order ${status}`
 );
 
 }
@@ -422,7 +446,7 @@ showToast(
 DELETE ORDER
 ========================================================= */
 
-window.deleteOrder =
+window.removeOrder =
 async function(id){
 
 const confirmDelete =
@@ -430,7 +454,7 @@ confirm(
 "Delete this order?"
 );
 
-/* ========================================= */
+/* ========================================================= */
 
 if(!confirmDelete){
 
@@ -438,13 +462,13 @@ return;
 
 }
 
-/* ========================================= */
+/* ========================================================= */
 
 await deleteDoc(
 doc(db,"orders",id)
 );
 
-/* ========================================= */
+/* ========================================================= */
 
 showToast(
 "Order Deleted"
@@ -453,155 +477,47 @@ showToast(
 }
 
 /* =========================================================
-SERVICES
+REAL USERS COUNT
 ========================================================= */
 
-const servicesRef =
-collection(db,"services");
+async function loadUsersRealtime(){
 
-onSnapshot(
-servicesRef,
-(snapshot)=>{
-
-servicesData = [];
-
-snapshot.forEach(docSnap=>{
-
-servicesData.push({
-
-id:docSnap.id,
-...docSnap.data()
-
-});
-
-});
-
-}
+const snapshot =
+await getDocs(
+collection(db,"users")
 );
 
-/* =========================================================
-QUICK ACTION CARDS
-========================================================= */
+/* ========================================================= */
 
-const quickCards =
-document.querySelectorAll(
-".quickCard"
-);
-
-quickCards.forEach(card=>{
-
-card.addEventListener(
-"click",
-()=>{
-
-const title =
-card.querySelector("h4").innerText;
-
-/* ========================================= */
-
-if(title === "Add Service"){
-
-addServicePopup();
-
-}
-
-/* ========================================= */
-
-if(title === "Wallet Credit"){
-
-walletPopup();
-
-}
-
-/* ========================================= */
-
-if(title === "Analytics"){
-
-window.scrollTo({
-
-top:
-document.body.scrollHeight,
-
-behavior:"smooth"
-
-});
-
-}
-
-}
-);
-
-});
-
-/* =========================================================
-ADD SERVICE
-========================================================= */
-
-async function addServicePopup(){
-
-const name =
-prompt(
-"Service Name"
-);
-
-if(!name) return;
-
-/* ========================================= */
-
-const price =
-prompt(
-"Price"
-);
-
-if(!price) return;
-
-/* ========================================= */
-
-const image =
-prompt(
-"Image URL"
-);
-
-/* ========================================= */
-
-await addDoc(
-
-collection(db,"services"),
-
-{
-
-name:name,
-price:price,
-image:image || "",
-createdAt:
-serverTimestamp()
-
-}
-
-);
-
-/* ========================================= */
-
-showToast(
-"Service Added"
+console.log(
+"Users Count :",
+snapshot.size
 );
 
 }
 
 /* =========================================================
-WALLET POPUP
+REAL SERVICES COUNT
 ========================================================= */
 
-function walletPopup(){
+async function loadServicesRealtime(){
 
-alert(
-"Wallet System Connected Successfully"
+const snapshot =
+await getDocs(
+collection(db,"services")
+);
+
+/* ========================================================= */
+
+console.log(
+"Services Count :",
+snapshot.size
 );
 
 }
 
 /* =========================================================
-SEARCH
+SEARCH SYSTEM
 ========================================================= */
 
 const searchInput =
@@ -609,51 +525,48 @@ document.querySelector(
 ".searchBar input"
 );
 
+/* ========================================================= */
+
+if(searchInput){
+
 searchInput.addEventListener(
 "input",
-searchOrders
-);
-
-/* =========================================================
-SEARCH FUNCTION
-========================================================= */
-
-function searchOrders(){
+()=>{
 
 const value =
-searchInput.value.toLowerCase();
+searchInput.value
+.toLowerCase();
 
-/* ========================================= */
+/* ========================================================= */
 
 const rows =
 ordersTable.querySelectorAll(
 "tr"
 );
 
-/* ========================================= */
+/* ========================================================= */
 
 rows.forEach(row=>{
 
 const text =
-row.innerText.toLowerCase();
+row.innerText
+.toLowerCase();
 
-/* ========================================= */
+/* ========================================================= */
 
 if(text.includes(value)){
 
 row.style.display =
 "table-row";
 
-}
-
-/* ========================================= */
-
-else{
+}else{
 
 row.style.display =
 "none";
 
 }
+
+});
 
 });
 
@@ -668,35 +581,32 @@ document.querySelector(
 ".exportBtn"
 );
 
+/* ========================================================= */
+
+if(exportBtn){
+
 exportBtn.addEventListener(
 "click",
-exportCSV
-);
-
-/* =========================================================
-EXPORT FUNCTION
-========================================================= */
-
-function exportCSV(){
+()=>{
 
 let csv =
-"Order ID,Customer,Phone,Amount,Status\n";
+"OrderID,Customer,Phone,Amount,Status\n";
 
-/* ========================================= */
+/* ========================================================= */
 
-ordersData.forEach(order=>{
+ordersArray.forEach(order=>{
 
 csv +=
 
 `${order.id},
-${order.name || ""},
-${order.phone || ""},
-${order.total || 0},
-${order.status || "Pending"}\n`;
+${order.name},
+${order.phone},
+${order.total},
+${order.status}\n`;
 
 });
 
-/* ========================================= */
+/* ========================================================= */
 
 const blob =
 new Blob(
@@ -706,12 +616,12 @@ type:"text/csv"
 }
 );
 
-/* ========================================= */
+/* ========================================================= */
 
 const url =
 URL.createObjectURL(blob);
 
-/* ========================================= */
+/* ========================================================= */
 
 const a =
 document.createElement("a");
@@ -721,19 +631,21 @@ a.href = url;
 a.download =
 "quickpress-orders.csv";
 
-/* ========================================= */
+/* ========================================================= */
 
 a.click();
 
-/* ========================================= */
+/* ========================================================= */
 
 URL.revokeObjectURL(url);
 
-/* ========================================= */
+/* ========================================================= */
 
 showToast(
 "CSV Exported"
 );
+
+});
 
 }
 
@@ -741,47 +653,51 @@ showToast(
 LIVE ACTIVITY
 ========================================================= */
 
-const activityWrap =
-document.querySelector(
-".activity"
-);
+function loadLiveActivity(){
 
-/* ========================================= */
+if(!activityContainer){
+
+return;
+
+}
+
+/* ========================================================= */
+
+const activities = [
+
+"New order received",
+"Wallet recharge completed",
+"Rider assigned",
+"Order delivered",
+"Payment completed",
+"New customer signup"
+
+];
+
+/* ========================================================= */
 
 setInterval(()=>{
 
-const messages = [
-
-"New order received",
-"Rider assigned",
-"Wallet recharge completed",
-"Order delivered",
-"Pickup completed"
-
-];
-
-/* ========================================= */
-
 const random =
-messages[
+activities[
 Math.floor(
-Math.random() * messages.length
+Math.random() * activities.length
 )
 ];
 
-/* ========================================= */
+/* ========================================================= */
 
-const div =
+const item =
 document.createElement(
 "div"
 );
 
-div.className =
+item.className =
 "activityItem";
 
-/* ========================================= */
+/* ========================================================= */
 
-div.innerHTML = `
+item.innerHTML = `
 
 <div class="activityIcon">
 
@@ -803,44 +719,50 @@ ${new Date().toLocaleTimeString()}
 
 `;
 
-/* ========================================= */
+/* ========================================================= */
 
-activityWrap.prepend(div);
+activityContainer.prepend(
+item
+);
 
-/* ========================================= */
+/* ========================================================= */
 
-if(activityWrap.children.length > 6){
+if(activityContainer.children.length > 6){
 
-activityWrap.removeChild(
-activityWrap.lastChild
+activityContainer.removeChild(
+activityContainer.lastChild
 );
 
 }
 
 },10000);
 
+}
+
 /* =========================================================
 REVENUE CHART
 ========================================================= */
 
-function loadRevenueChart(totalRevenue){
+let revenueChart;
 
-setTimeout(()=>{
+/* ========================================================= */
 
-const canvas =
+function loadRevenueChart(){
+
+const ctx =
 document.getElementById(
 "revenueChart"
 );
 
-/* ========================================= */
+/* ========================================================= */
 
-if(!canvas || !window.Chart){
+if(!ctx){
 
 return;
 
 }
 
-/* ========================================= */
+/* ========================================================= */
 
 if(revenueChart){
 
@@ -848,10 +770,10 @@ revenueChart.destroy();
 
 }
 
-/* ========================================= */
+/* ========================================================= */
 
 revenueChart =
-new Chart(canvas,{
+new Chart(ctx,{
 
 type:"line",
 
@@ -874,10 +796,10 @@ label:"Revenue",
 data:[
 
 1200,
-2200,
 1800,
-2600,
+2200,
 3400,
+2600,
 4200,
 totalRevenue
 
@@ -908,9 +830,7 @@ display:false
 scales:{
 
 y:{
-
 beginAtZero:true
-
 }
 
 }
@@ -918,8 +838,6 @@ beginAtZero:true
 }
 
 });
-
-},500);
 
 }
 
@@ -934,24 +852,21 @@ document.createElement(
 "div"
 );
 
-/* ========================================= */
+/* ========================================================= */
 
-toast.innerText =
+toast.innerHTML =
 message;
 
-/* ========================================= */
+/* ========================================================= */
 
 toast.style.position =
 "fixed";
 
-toast.style.bottom =
-"20px";
-
 toast.style.right =
 "20px";
 
-toast.style.padding =
-"14px 20px";
+toast.style.bottom =
+"20px";
 
 toast.style.background =
 "#111827";
@@ -959,22 +874,25 @@ toast.style.background =
 toast.style.color =
 "#fff";
 
-toast.style.fontWeight =
-"800";
+toast.style.padding =
+"14px 22px";
 
 toast.style.borderRadius =
 "16px";
 
+toast.style.fontWeight =
+"800";
+
 toast.style.zIndex =
 "99999";
 
-/* ========================================= */
+/* ========================================================= */
 
 document.body.appendChild(
 toast
 );
 
-/* ========================================= */
+/* ========================================================= */
 
 setTimeout(()=>{
 
@@ -985,7 +903,7 @@ toast.remove();
 }
 
 /* =========================================================
-LIVE CLOCK
+LIVE TITLE
 ========================================================= */
 
 setInterval(()=>{
