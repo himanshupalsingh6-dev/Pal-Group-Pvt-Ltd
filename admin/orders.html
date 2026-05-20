@@ -1,179 +1,225 @@
-<!-- =========================================================
-FILE : admin/orders.html
-QUICKPRESS ENTERPRISE ORDERS PANEL
-========================================================= -->
-
 <!DOCTYPE html>
 <html lang="en">
 
 <head>
 
-<meta charset="UTF-8"/>
+<meta charset="UTF-8">
 
-<meta name="viewport"
-content="width=device-width, initial-scale=1.0"/>
+<meta
+name="viewport"
+content="width=device-width, initial-scale=1.0">
 
 <title>
 QuickPress Orders
 </title>
 
+<link rel="stylesheet" href="layout.css">
+
 <link rel="stylesheet"
 href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css"/>
 
-<link
-rel="stylesheet"
-href="./css/global.css"/>
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 
 <style>
 
 /* =====================================================
-GLOBAL
+PAGE
 ===================================================== */
 
-*{
-margin:0;
-padding:0;
-box-sizing:border-box;
-font-family:Inter,sans-serif;
-}
-
-body{
-background:#F5F7FB;
-overflow:hidden;
-color:#111827;
-}
-/* =====================================================
-MAIN
-===================================================== */
-
-.main{
-margin-left:240px;
-margin-top:82px;
-height:calc(100vh - 82px);
-overflow:auto;
-padding:24px;
+.content{
+padding:28px;
 }
 
 /* =====================================================
-HEADER
+TITLE
 ===================================================== */
 
 .pageHeader{
+
 display:flex;
-justify-content:space-between;
+
 align-items:center;
+
+justify-content:space-between;
+
 margin-bottom:24px;
+
 }
 
-.pageHeader h1{
-font-size:42px;
+.pageTitle{
+
+font-size:52px;
+
 font-weight:900;
+
+letter-spacing:-2px;
+
 }
 
 /* =====================================================
 FILTERS
 ===================================================== */
 
-.filterBar{
-background:#fff;
-border:1px solid #E5E7EB;
-border-radius:24px;
-padding:18px;
-display:flex;
-justify-content:space-between;
-align-items:center;
-gap:16px;
-margin-bottom:24px;
-flex-wrap:wrap;
-}
+.filterWrap{
 
-.leftFilters{
 display:flex;
+
 gap:14px;
+
+margin-bottom:24px;
+
 flex-wrap:wrap;
+
 }
 
-.searchBox{
-width:340px;
+.filterBtn{
+
 height:52px;
-border-radius:14px;
-border:1px solid #E5E7EB;
-padding:0 18px;
-font-size:14px;
-outline:none;
-}
 
-.selectBox{
-height:52px;
-padding:0 16px;
-border-radius:14px;
-border:1px solid #E5E7EB;
+padding:0 22px;
+
+border:none;
+
 background:#fff;
-font-size:14px;
-font-weight:600;
-outline:none;
-min-width:170px;
-}
 
-/* =====================================================
-ORDER GRID
-===================================================== */
-
-.ordersGrid{
-display:grid;
-grid-template-columns:repeat(3,1fr);
-gap:20px;
-}
-
-/* =====================================================
-CARD
-===================================================== */
-
-.orderCard{
-background:#fff;
 border:1px solid #E5E7EB;
-border-radius:24px;
-padding:20px;
+
+border-radius:16px;
+
+font-weight:800;
+
+cursor:pointer;
+
+}
+
+.filterBtn.active{
+
+background:#111827;
+
+color:#fff;
+
 }
 
 /* =====================================================
-TOP
+TABLE
 ===================================================== */
 
-.cardTop{
+.ordersCard{
+
+background:#fff;
+
+border-radius:30px;
+
+border:1px solid #E5E7EB;
+
+overflow:hidden;
+
+}
+
+.ordersTop{
+
+padding:24px;
+
 display:flex;
+
 justify-content:space-between;
+
 align-items:center;
-margin-bottom:20px;
+
+border-bottom:1px solid #F3F4F6;
+
 }
+
+.ordersTop h3{
+
+font-size:28px;
+
+font-weight:900;
+
+}
+
+.exportBtn{
+
+height:52px;
+
+padding:0 24px;
+
+border:none;
+
+border-radius:16px;
+
+background:#111827;
+
+color:#fff;
+
+font-weight:900;
+
+cursor:pointer;
+
+}
+
+.tableWrap{
+overflow:auto;
+}
+
+table{
+
+width:100%;
+
+border-collapse:collapse;
+
+min-width:1400px;
+
+}
+
+th{
+
+padding:22px;
+
+text-align:left;
+
+font-size:13px;
+
+font-weight:900;
+
+border-bottom:1px solid #F3F4F6;
+
+}
+
+td{
+
+padding:22px;
+
+font-size:14px;
+
+font-weight:700;
+
+border-bottom:1px solid #F3F4F6;
+
+vertical-align:top;
+
+}
+
+/* =====================================================
+CUSTOMER
+===================================================== */
 
 .customer{
+
 display:flex;
-align-items:center;
-gap:12px;
+
+flex-direction:column;
+
+gap:4px;
+
 }
 
-.avatar{
-width:52px;
-height:52px;
-border-radius:16px;
-background:#DBEAFE;
-display:flex;
-align-items:center;
-justify-content:center;
-font-weight:800;
-font-size:18px;
-}
+.customer span{
 
-.customer h3{
-font-size:16px;
-font-weight:800;
-}
-
-.customer p{
 font-size:12px;
+
 color:#6B7280;
-margin-top:4px;
+
 }
 
 /* =====================================================
@@ -181,200 +227,80 @@ STATUS
 ===================================================== */
 
 .status{
-padding:8px 14px;
+
+padding:10px 14px;
+
 border-radius:999px;
+
 font-size:12px;
-font-weight:800;
+
+font-weight:900;
+
+display:inline-block;
+
 }
 
 .pending{
 background:#FEF3C7;
-color:#92400E;
+color:#B45309;
 }
 
-.preparing{
+.processing{
 background:#EDE9FE;
 color:#7C3AED;
 }
 
-.delivery{
-background:#DBEAFE;
-color:#1D4ED8;
-}
-
 .delivered{
 background:#DCFCE7;
-color:#166534;
+color:#15803D;
+}
+
+.cancelled{
+background:#FEE2E2;
+color:#DC2626;
 }
 
 /* =====================================================
-INFO
+ACTION
 ===================================================== */
 
-.infoGrid{
-display:grid;
-grid-template-columns:1fr 1fr;
-gap:12px;
-margin-bottom:18px;
-}
+.actionWrap{
 
-.infoBox{
-background:#F9FAFB;
-padding:14px;
-border-radius:16px;
-}
-
-.infoBox span{
-font-size:11px;
-color:#6B7280;
-}
-
-.infoBox h4{
-font-size:16px;
-font-weight:900;
-margin-top:6px;
-}
-
-/* =====================================================
-ITEMS
-===================================================== */
-
-.itemsBox{
-background:#F9FAFB;
-padding:16px;
-border-radius:18px;
-margin-bottom:18px;
-}
-
-.itemsBox h4{
-font-size:14px;
-font-weight:900;
-margin-bottom:12px;
-}
-
-.item{
 display:flex;
-justify-content:space-between;
-font-size:13px;
-padding:8px 0;
-border-bottom:1px solid #E5E7EB;
+
+gap:8px;
+
 }
 
-.item:last-child{
+.actionBtn{
+
+width:42px;
+height:42px;
+
 border:none;
-}
 
-/* =====================================================
-ASSIGN
-===================================================== */
-
-.assignBox{
-background:#F9FAFB;
-padding:16px;
-border-radius:18px;
-margin-bottom:18px;
-}
-
-.assignBox h4{
-font-size:14px;
-font-weight:900;
-margin-bottom:14px;
-}
-
-.assignGrid{
-display:grid;
-grid-template-columns:1fr 1fr;
-gap:12px;
-}
-
-.assignCard{
-background:#fff;
-padding:14px;
 border-radius:14px;
-}
 
-.assignCard span{
-font-size:11px;
-color:#6B7280;
-}
-
-.assignCard h5{
-font-size:14px;
-font-weight:800;
-margin-top:5px;
-}
-
-/* =====================================================
-ORDER STATS
-===================================================== */
-
-.statsGrid{
-display:grid;
-grid-template-columns:repeat(6,1fr);
-gap:18px;
-margin-bottom:24px;
-}
-
-.statCard{
-background:#fff;
-border:1px solid #E5E7EB;
-border-radius:22px;
-padding:22px;
-}
-
-.statCard span{
-font-size:13px;
-color:#6B7280;
-font-weight:700;
-}
-
-.statCard h2{
-font-size:34px;
-font-weight:900;
-margin-top:10px;
-}
-/* =====================================================
-BUTTONS
-===================================================== */
-
-.btnGrid{
-display:grid;
-grid-template-columns:repeat(3,1fr);
-gap:12px;
-}
-
-.btn{
-height:46px;
-border:none;
-border-radius:14px;
-font-size:13px;
-font-weight:800;
-cursor:pointer;
-}
-
-.viewBtn{
 background:#111827;
-color:#fff;
-}
 
-.assignBtn{
-background:#2563EB;
 color:#fff;
-}
 
-.statusBtn{
-background:#7C3AED;
-color:#fff;
+cursor:pointer;
+
 }
 
 /* =====================================================
 RESPONSIVE
 ===================================================== */
 
-@media(max-width:1700px){
+@media(max-width:700px){
 
-.ordersGrid{
-grid-template-columns:repeat(2,1fr);
+.content{
+padding:16px;
+}
+
+.pageTitle{
+font-size:34px;
 }
 
 }
@@ -385,20 +311,31 @@ grid-template-columns:repeat(2,1fr);
 
 <body>
 
-<div id="topbar"></div>
+<div class="adminLayout">
 
-<div id="sidebar"></div>
-<!-- =====================================================
-MAIN
-===================================================== -->
+<div id="layoutContainer"></div>
 
 <div class="main">
 
+<div class="content">
+
+<!-- =====================================================
+HEADER
+===================================================== -->
+
 <div class="pageHeader">
 
-<h1>
+<div class="pageTitle">
 Orders
-</h1>
+</div>
+
+<button class="exportBtn" id="exportBtn">
+
+<i class="fa-solid fa-download"></i>
+
+Export CSV
+
+</button>
 
 </div>
 
@@ -406,163 +343,103 @@ Orders
 FILTERS
 ===================================================== -->
 
-<div class="filterBar">
+<div class="filterWrap">
 
-<div class="leftFilters">
+<button class="filterBtn active"
+data-filter="All">
 
-<input
-type="text"
-placeholder="Search Customer / Order"
-class="searchBox"
-id="searchInput"
-/>
+All Orders
 
-<select
-class="selectBox"
-id="cityFilter">
+</button>
 
-<option value="All">
-All Cities
-</option>
+<button class="filterBtn"
+data-filter="Pending">
 
-</select>
-
-<select
-class="selectBox"
-id="statusFilter">
-
-<option value="All">
-All Status
-</option>
-
-<option value="Pending">
 Pending
-</option>
 
-<option value="Preparing">
+</button>
+
+<button class="filterBtn"
+data-filter="Preparing">
+
 Preparing
-</option>
 
-<option value="Out For Delivery">
-Out For Delivery
-</option>
+</button>
 
-<option value="Delivered">
+<button class="filterBtn"
+data-filter="Delivered">
+
 Delivered
-</option>
 
-</select>
+</button>
+
+<button class="filterBtn"
+data-filter="Cancelled">
+
+Cancelled
+
+</button>
 
 </div>
-
-</div>
-
-<!-- =========================================================
-ADD THIS INSIDE orders.html
-FILTER BAR KE NICHE
-========================================================= -->
 
 <!-- =====================================================
-ORDER STATS
+ORDERS TABLE
 ===================================================== -->
 
-<div class="statsGrid">
+<div class="ordersCard">
 
-<div class="statCard">
+<div class="ordersTop">
 
-<span>
-Total Orders
-</span>
-
-<h2 id="totalOrders">
-0
-</h2>
+<h3>
+All Orders
+</h3>
 
 </div>
 
-<div class="statCard">
+<div class="tableWrap">
 
-<span>
-Pending
-</span>
+<table>
 
-<h2 id="pendingOrders">
-0
-</h2>
+<thead>
 
-</div>
+<tr>
 
-<div class="statCard">
+<th>ID</th>
+<th>Customer</th>
+<th>Items</th>
+<th>Address</th>
+<th>Amount</th>
+<th>Payment</th>
+<th>Status</th>
+<th>Time</th>
+<th>Actions</th>
 
-<span>
-Preparing
-</span>
+</tr>
 
-<h2 id="preparingOrders">
-0
-</h2>
+</thead>
 
-</div>
+<tbody id="ordersTable">
 
-<div class="statCard">
+</tbody>
 
-<span>
-On The Way
-</span>
-
-<h2 id="deliveryOrders">
-0
-</h2>
-
-</div>
-
-<div class="statCard">
-
-<span>
-Delivered
-</span>
-
-<h2 id="deliveredOrders">
-0
-</h2>
-
-</div>
-
-<div class="statCard">
-
-<span>
-Revenue
-</span>
-
-<h2 id="totalRevenue">
-₹0
-</h2>
+</table>
 
 </div>
 
 </div>
-<!-- =====================================================
-ORDERS GRID
-===================================================== -->
 
-<div
-class="ordersGrid"
-id="ordersGrid">
+</div>
 
 </div>
 
 </div>
 
 <script type="module"
-src="./js/orders.js">
+src="layout.js">
 </script>
 
 <script type="module"
-src="./components/topbar.js">
-</script>
-
-<script type="module"
-src="./components/sidebar.js">
+src="orders.js">
 </script>
 
 </body>
