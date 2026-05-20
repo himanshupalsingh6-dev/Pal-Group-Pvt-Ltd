@@ -1,6 +1,6 @@
 /* =====================================================
-LOGIN.JS
-FULL REAL LOGIN SYSTEM
+FILE : signup.js
+REAL QUICKPRESS SIGNUP SYSTEM
 ===================================================== */
 
 /* =====================================================
@@ -9,17 +9,16 @@ IMPORT FIREBASE
 
 import {
 
-auth
+auth,
+db
 
 }
 
-from "./firebase.js";
+from "../firebase.js";
 
 import {
 
-signInWithEmailAndPassword,
-signInAnonymously,
-onAuthStateChanged
+createUserWithEmailAndPassword
 
 }
 
@@ -30,7 +29,6 @@ from
 import {
 
 doc,
-getDoc,
 setDoc
 
 }
@@ -39,61 +37,25 @@ from
 
 "https://www.gstatic.com/firebasejs/12.11.0/firebase-firestore.js";
 
-import {
-
-db
-
-}
-
-from "./firebase.js";
-
 /* =====================================================
 ELEMENTS
 ===================================================== */
 
-const loginForm =
+const signupForm =
 document.getElementById(
-"loginForm"
+"signupForm"
 );
 
-const phoneInput =
+const signupBtn =
 document.getElementById(
-"phone"
-);
-
-const passwordInput =
-document.getElementById(
-"password"
-);
-
-const loginBtn =
-document.getElementById(
-"loginBtn"
+"signupBtn"
 );
 
 /* =====================================================
-AUTO LOGIN CHECK
+SIGNUP FORM
 ===================================================== */
 
-onAuthStateChanged(
-auth,
-(user)=>{
-
-if(user){
-
-window.location.href =
-"index.html";
-
-}
-
-}
-);
-
-/* =====================================================
-LOGIN SYSTEM
-===================================================== */
-
-loginForm.addEventListener(
+signupForm.addEventListener(
 "submit",
 async(e)=>{
 
@@ -101,18 +63,62 @@ e.preventDefault();
 
 /* ========================================= */
 
+const name =
+document.getElementById(
+"name"
+).value.trim();
+
 const phone =
-phoneInput.value.trim();
+document.getElementById(
+"phone"
+).value.trim();
+
+const city =
+document.getElementById(
+"city"
+).value.trim();
 
 const password =
-passwordInput.value.trim();
+document.getElementById(
+"password"
+).value.trim();
 
 /* ========================================= */
 
-if(phone === ""){
+if(name === ""){
 
 showToast(
-"Enter mobile number"
+"Enter full name"
+);
+
+return;
+
+}
+
+if(phone.length < 10){
+
+showToast(
+"Enter valid mobile number"
+);
+
+return;
+
+}
+
+if(city === ""){
+
+showToast(
+"Enter city"
+);
+
+return;
+
+}
+
+if(password.length < 4){
+
+showToast(
+"Password too short"
 );
 
 return;
@@ -121,46 +127,39 @@ return;
 
 /* ========================================= */
 
-if(password === ""){
+signupBtn.innerHTML =
+"Creating Account...";
 
-showToast(
-"Enter password"
-);
-
-return;
-
-}
-
-/* ========================================= */
-
-loginBtn.innerHTML =
-"Please Wait...";
-
-loginBtn.disabled =
+signupBtn.disabled =
 true;
 
 /* =========================================
-TEMP OTP LOGIN
+PHONE TO EMAIL
 ========================================= */
 
-if(password === "4502"){
+const fakeEmail =
+`${phone}@quickpress.com`;
 
 try{
 
-/* =========================================
-ANONYMOUS LOGIN
-========================================= */
+/* ========================================= */
 
 const userCredential =
-await signInAnonymously(
-auth
+await createUserWithEmailAndPassword(
+
+auth,
+fakeEmail,
+password
+
 );
+
+/* ========================================= */
 
 const user =
 userCredential.user;
 
 /* =========================================
-SAVE TEMP USER
+SAVE USER DATA
 ========================================= */
 
 await setDoc(
@@ -173,13 +172,20 @@ user.uid
 
 {
 
-name:"QuickPress User",
+uid:user.uid,
+
+name:name,
 
 phone:phone,
 
-city:"Kasganj",
+city:city,
 
 wallet:0,
+
+orders:0,
+
+profile:
+`https://ui-avatars.com/api/?name=${name}&background=111827&color=ffffff`,
 
 createdAt:
 Date.now()
@@ -191,7 +197,7 @@ Date.now()
 /* ========================================= */
 
 showToast(
-"OTP Login Success 🚀"
+"Account Created 🚀"
 );
 
 /* ========================================= */
@@ -201,7 +207,7 @@ setTimeout(()=>{
 window.location.href =
 "index.html";
 
-},1200);
+},1500);
 
 /* ========================================= */
 
@@ -210,73 +216,13 @@ window.location.href =
 console.log(error);
 
 showToast(
-"Login Failed"
+"Mobile already registered"
 );
 
-loginBtn.innerHTML =
-"Login Now";
+signupBtn.innerHTML =
+"Create Account";
 
-loginBtn.disabled =
-false;
-
-}
-
-return;
-
-}
-
-/* =====================================================
-EMAIL STYLE LOGIN
-===================================================== */
-
-/* =========================================
-CONVERT PHONE TO EMAIL
-========================================= */
-
-const fakeEmail =
-`${phone}@quickpress.com`;
-
-try{
-
-/* ========================================= */
-
-await signInWithEmailAndPassword(
-
-auth,
-fakeEmail,
-password
-
-);
-
-/* ========================================= */
-
-showToast(
-"Login Successful 🚀"
-);
-
-/* ========================================= */
-
-setTimeout(()=>{
-
-window.location.href =
-"index.html";
-
-},1200);
-
-/* ========================================= */
-
-}catch(error){
-
-console.log(error);
-
-showToast(
-"Invalid Login Details"
-);
-
-loginBtn.innerHTML =
-"Login Now";
-
-loginBtn.disabled =
+signupBtn.disabled =
 false;
 
 }
@@ -317,7 +263,7 @@ toast.style.color =
 "#fff";
 
 toast.style.padding =
-"14px 22px";
+"14px 24px";
 
 toast.style.borderRadius =
 "18px";
@@ -325,14 +271,11 @@ toast.style.borderRadius =
 toast.style.fontWeight =
 "700";
 
-toast.style.fontSize =
-"14px";
-
 toast.style.zIndex =
 "99999";
 
 toast.style.boxShadow =
-"0 8px 24px rgba(0,0,0,0.18)";
+"0 10px 30px rgba(0,0,0,0.18)";
 
 document.body.appendChild(
 toast
