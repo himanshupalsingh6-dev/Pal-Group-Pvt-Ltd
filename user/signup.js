@@ -82,7 +82,7 @@ auth,
 if(user){
 
 window.location.href =
-"user/index.html";
+"index.html";
 
 }
 
@@ -199,7 +199,7 @@ showToast(
 setTimeout(()=>{
 
 window.location.href =
-"user/index.html";
+"index.html";
 
 },1200);
 
@@ -259,7 +259,7 @@ showToast(
 setTimeout(()=>{
 
 window.location.href =
-"user/index.html";
+"index.html";
 
 },1200);
 
