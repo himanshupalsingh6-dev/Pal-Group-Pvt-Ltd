@@ -1,644 +1,1372 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-<meta charset="UTF-8" />
-<meta name="viewport" content="width=device-width, initial-scale=1.0" />
-<title>QuickPress Profile</title>
 
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" />
+<head>
+
+<meta charset="UTF-8">
+
+<meta
+name="viewport"
+content="width=device-width, initial-scale=1.0">
+
+<title>
+QuickPress Profile
+</title>
+
+<link rel="preconnect"
+href="https://fonts.googleapis.com">
+
+<link rel="preconnect"
+href="https://fonts.gstatic.com"
+crossorigin>
+
+<link
+href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap"
+rel="stylesheet">
+
+<link rel="stylesheet"
+href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css"/>
 
 <style>
+
+/* =====================================================
+RESET
+===================================================== */
 
 *{
 margin:0;
 padding:0;
 box-sizing:border-box;
-font-family:Poppins,sans-serif;
+font-family:'Inter',sans-serif;
+-webkit-tap-highlight-color:transparent;
 }
 
 body{
-background:#F5F7FB;
-color:#111827;
+background:#F6F7FB;
 padding-bottom:120px;
+overflow-x:hidden;
+color:#111827;
 }
 
-.topbar{
-padding:18px;
+/* =====================================================
+HEADER
+===================================================== */
+
+.profileHero{
+
+background:
+linear-gradient(
+135deg,
+#FFD633 0%,
+#FFE98A 100%
+);
+
+padding:20px 16px 34px;
+
+border-bottom-left-radius:34px;
+border-bottom-right-radius:34px;
+
+position:relative;
+
+overflow:hidden;
+
+}
+
+.profileHero::before{
+
+content:"";
+
+position:absolute;
+
+right:-60px;
+top:-60px;
+
+width:200px;
+height:200px;
+
+border-radius:50%;
+
+background:
+rgba(255,255,255,0.18);
+
+}
+
+.topBar{
+
 display:flex;
+
 align-items:center;
+
 justify-content:space-between;
-position:sticky;
-top:0;
-z-index:999;
-background:rgba(255,255,255,0.96);
-backdrop-filter:blur(14px);
+
+position:relative;
+
+z-index:2;
+
 }
 
-.topbar h2{
+.pageTitle{
+
 font-size:30px;
+
 font-weight:900;
+
 }
 
-.iconBtn{
-width:48px;
-height:48px;
-border:none;
-border-radius:16px;
-background:#fff;
-font-size:20px;
-box-shadow:0 4px 14px rgba(0,0,0,0.08);
-}
-
-.main{
-padding:0 18px;
-max-width:700px;
-margin:auto;
-}
+/* =====================================================
+PROFILE CARD
+===================================================== */
 
 .profileCard{
+
+margin-top:26px;
+
 background:#fff;
-border-radius:34px;
-overflow:hidden;
-margin-bottom:18px;
-box-shadow:0 10px 30px rgba(0,0,0,0.05);
-}
 
-.profileTop{
-padding:24px;
-display:flex;
-justify-content:space-between;
-align-items:center;
-}
+border-radius:30px;
 
-.profileLeft{
-display:flex;
-gap:16px;
-align-items:center;
-}
-
-.avatar{
-width:90px;
-height:90px;
-border-radius:50%;
-background:#DDE8FF;
-display:flex;
-align-items:center;
-justify-content:center;
-font-size:40px;
-font-weight:900;
-color:#2563EB;
-}
-
-.profileInfo h2{
-font-size:28px;
-font-weight:900;
-margin-bottom:4px;
-}
-
-.profileInfo p{
-font-size:14px;
-color:#6B7280;
-margin-bottom:10px;
-}
-
-.editBtn{
-color:#EF4444;
-font-weight:700;
-font-size:15px;
-text-decoration:none;
-}
-
-.goldCard{
-background:linear-gradient(135deg,#111827,#1F2937);
 padding:20px;
+
 display:flex;
+
 align-items:center;
-justify-content:space-between;
-color:#fff;
+
+gap:16px;
+
+box-shadow:
+0 8px 24px rgba(0,0,0,0.08);
+
+position:relative;
+
+z-index:2;
+
 }
 
-.goldLeft{
-display:flex;
-align-items:center;
-gap:14px;
+.profileImg{
+
+width:84px;
+height:84px;
+
+border-radius:26px;
+
+object-fit:cover;
+
 }
 
-.goldIcon{
-width:54px;
-height:54px;
-border-radius:50%;
-background:#FFD400;
-display:flex;
-align-items:center;
-justify-content:center;
-font-size:24px;
-color:#111827;
+.profileInfo{
+
+flex:1;
+
 }
 
-.gridRow{
-display:grid;
-grid-template-columns:1fr 1fr;
-gap:14px;
-margin-bottom:18px;
+.profileName{
+
+font-size:22px;
+
+font-weight:900;
+
 }
 
-.smallCard{
-background:#fff;
-padding:18px;
-border-radius:24px;
-box-shadow:0 8px 24px rgba(0,0,0,0.05);
-}
+.profilePhone{
 
-.smallTop{
-display:flex;
-align-items:center;
-gap:12px;
-margin-bottom:12px;
-}
+margin-top:6px;
 
-.smallIcon{
-width:46px;
-height:46px;
-border-radius:16px;
-background:#F3F4F6;
-display:flex;
-align-items:center;
-justify-content:center;
-font-size:20px;
-}
+font-size:14px;
 
-.smallTitle{
-font-size:16px;
 font-weight:700;
+
+color:#6B7280;
+
 }
 
-.smallValue{
-font-size:24px;
-font-weight:900;
+.quickBadge{
+
+margin-top:12px;
+
+display:inline-flex;
+
+align-items:center;
+
+gap:8px;
+
+height:34px;
+
+padding:0 14px;
+
+border-radius:999px;
+
+background:#DCFCE7;
+
 color:#16A34A;
-}
 
-.sectionCard{
-background:#fff;
-border-radius:28px;
-overflow:hidden;
-margin-bottom:18px;
-box-shadow:0 10px 30px rgba(0,0,0,0.05);
-}
+font-size:12px;
 
-.sectionHeader{
-padding:20px 22px;
-font-size:16px;
 font-weight:900;
-color:#EF4444;
+
+}
+
+/* =====================================================
+WALLET CARD
+===================================================== */
+
+.walletCard{
+
+margin:20px 16px;
+
+background:
+linear-gradient(
+135deg,
+#111827,
+#1F2937
+);
+
+border-radius:30px;
+
+padding:24px;
+
+color:#fff;
+
+position:relative;
+
+overflow:hidden;
+
+}
+
+.walletCard::before{
+
+content:"";
+
+position:absolute;
+
+right:-40px;
+top:-40px;
+
+width:160px;
+height:160px;
+
+border-radius:50%;
+
+background:
+rgba(255,255,255,0.06);
+
+}
+
+.walletTop{
+
+display:flex;
+
+align-items:center;
+
+justify-content:space-between;
+
+position:relative;
+
+z-index:2;
+
+}
+
+.walletLabel{
+
+font-size:14px;
+
+font-weight:700;
+
+opacity:0.8;
+
+}
+
+.walletAmount{
+
+margin-top:10px;
+
+font-size:42px;
+
+font-weight:900;
+
+position:relative;
+
+z-index:2;
+
+}
+
+.addFundBtn{
+
+margin-top:20px;
+
+height:52px;
+
+padding:0 22px;
+
+border:none;
+
+border-radius:18px;
+
+background:#FFD633;
+
+color:#111827;
+
+font-size:15px;
+
+font-weight:900;
+
+cursor:pointer;
+
+position:relative;
+
+z-index:2;
+
+}
+
+/* =====================================================
+MENU
+===================================================== */
+
+.menuSection{
+
+padding:0 16px;
+
+}
+
+.menuCard{
+
+background:#fff;
+
+border-radius:26px;
+
+overflow:hidden;
+
+box-shadow:
+0 4px 14px rgba(0,0,0,0.05);
+
 }
 
 .menuItem{
+
+height:72px;
+
+padding:0 18px;
+
 display:flex;
-justify-content:space-between;
+
 align-items:center;
-padding:20px 22px;
-border-top:1px solid #F1F5F9;
-transition:0.3s;
+
+justify-content:space-between;
+
+border-bottom:1px solid #F3F4F6;
+
 cursor:pointer;
+
+transition:0.2s;
+
 }
 
-.menuItem:hover{
-background:#FAFAFA;
+.menuItem:last-child{
+
+border-bottom:none;
+
+}
+
+.menuItem:active{
+
+background:#F9FAFB;
+
 }
 
 .menuLeft{
+
 display:flex;
+
 align-items:center;
-gap:16px;
+
+gap:14px;
+
 }
 
 .menuIcon{
+
 width:46px;
 height:46px;
+
 border-radius:16px;
+
 background:#F3F4F6;
+
 display:flex;
+
 align-items:center;
 justify-content:center;
-font-size:20px;
-color:#6B7280;
+
+font-size:18px;
+
 }
 
 .menuText h3{
-font-size:18px;
-margin-bottom:4px;
+
+font-size:15px;
+
+font-weight:800;
+
 }
 
 .menuText p{
-font-size:13px;
+
+margin-top:3px;
+
+font-size:12px;
+
 color:#6B7280;
+
 }
 
+.arrow{
+
+font-size:14px;
+
+color:#9CA3AF;
+
+}
+
+/* =====================================================
+LOGOUT
+===================================================== */
+
+.logoutBtn{
+
+margin:24px 16px;
+
+width:calc(100% - 32px);
+
+height:56px;
+
+border:none;
+
+border-radius:22px;
+
+background:#DC2626;
+
+color:#fff;
+
+font-size:16px;
+
+font-weight:900;
+
+cursor:pointer;
+
+}
+
+/* =====================================================
+BOTTOM NAV
+===================================================== */
+
 .bottomNav{
+
 position:fixed;
-bottom:0;
+
 left:0;
-width:100%;
+right:0;
+bottom:0;
+
+height:76px;
+
 background:#fff;
-border-top:1px solid #E5E7EB;
+
 display:flex;
+
 justify-content:space-around;
-padding:10px 0;
+
+align-items:center;
+
+box-shadow:
+0 -4px 16px rgba(0,0,0,0.08);
+
 z-index:999;
+
 }
 
 .navItem{
-display:flex;
-flex-direction:column;
-align-items:center;
-gap:6px;
-font-size:11px;
-font-weight:700;
-color:#6B7280;
-}
 
-.navItem.active{
-color:#111827;
+flex:1;
+
+height:100%;
+
+border:none;
+
+background:none;
+
+display:flex;
+
+flex-direction:column;
+
+align-items:center;
+
+justify-content:center;
+
+gap:4px;
+
+font-size:11px;
+
+font-weight:700;
+
+color:#6B7280;
+
+cursor:pointer;
+
 }
 
 .navItem i{
-font-size:22px;
+
+font-size:20px;
+
 }
+
+.activeNav{
+
+color:#16A34A;
+
+}
+
+/* =====================================================
+POPUP
+===================================================== */
 
 .popup{
+
 position:fixed;
-top:20px;
-left:50%;
-transform:translateX(-50%);
-background:#111827;
-color:#fff;
-padding:14px 22px;
-border-radius:18px;
-font-size:14px;
-font-weight:700;
+
+inset:0;
+
+background:
+rgba(0,0,0,0.55);
+
 display:none;
-z-index:9999;
-box-shadow:0 10px 30px rgba(0,0,0,0.2);
+
+align-items:center;
+justify-content:center;
+
+z-index:99999;
+
+padding:20px;
+
 }
 
-@media(max-width:768px){
+.popupCard{
 
-.topbar h2{
+width:100%;
+
+max-width:340px;
+
+background:#fff;
+
+border-radius:30px;
+
+padding:26px;
+
+text-align:center;
+
+}
+
+.popupCard h2{
+
 font-size:24px;
+
+font-weight:900;
+
 }
 
-.profileInfo h2{
-font-size:22px;
+.popupCard p{
+
+margin-top:10px;
+
+font-size:14px;
+
+line-height:1.7;
+
+color:#6B7280;
+
 }
 
-.avatar{
-width:78px;
-height:78px;
-font-size:34px;
+.amountInput{
+
+width:100%;
+
+height:56px;
+
+margin-top:20px;
+
+border:none;
+
+outline:none;
+
+border-radius:18px;
+
+background:#F3F4F6;
+
+padding:0 18px;
+
+font-size:18px;
+
+font-weight:800;
+
 }
 
-.menuText h3{
-font-size:16px;
+.popupBtns{
+
+display:flex;
+
+gap:12px;
+
+margin-top:20px;
+
 }
 
-.smallValue{
-font-size:20px;
+.popupBtn{
+
+flex:1;
+
+height:50px;
+
+border:none;
+
+border-radius:18px;
+
+font-size:14px;
+
+font-weight:900;
+
+cursor:pointer;
+
+}
+
+.cancelBtn{
+
+background:#F3F4F6;
+
+}
+
+.confirmBtn{
+
+background:#16A34A;
+
+color:#fff;
+
+}
+
+/* =====================================================
+DESKTOP
+===================================================== */
+
+@media(min-width:900px){
+
+.wrapper{
+
+max-width:900px;
+
+margin:auto;
+
+}
+
+.bottomNav{
+
+left:50%;
+
+transform:translateX(-50%);
+
+width:450px;
+
+bottom:18px;
+
+border-radius:28px;
+
 }
 
 }
 
 </style>
+
 </head>
+
 <body>
 
-<div class="popup" id="popup">
-Action Completed
+<div class="wrapper">
+
+<!-- =====================================================
+HEADER
+===================================================== -->
+
+<div class="profileHero">
+
+<div class="topBar">
+
+<div class="pageTitle">
+Profile
 </div>
 
-<div class="topbar">
-<button class="iconBtn" onclick="history.back()">
-<i class="fa-solid fa-arrow-left"></i>
-</button>
+<i
+class="fa-solid fa-gear"
+style="
+font-size:22px;
+position:relative;
+z-index:2;
+">
+</i>
 
-<h2>Profile</h2>
-
-<button class="iconBtn" onclick="window.location.href='support.html'">
-<i class="fa-regular fa-circle-question"></i>
-</button>
 </div>
 
-<div class="main">
+<!-- PROFILE -->
 
 <div class="profileCard">
 
-<div class="profileTop">
-
-<div class="profileLeft">
-
-<div class="avatar" id="avatar">
-H
-</div>
+<img
+src="https://ui-avatars.com/api/?name=Himanshu+Baghel&background=111827&color=fff"
+class="profileImg"
+id="profileImage">
 
 <div class="profileInfo">
-<h2 id="userName">Loading...</h2>
-<p id="userEmail">loading@gmail.com</p>
-<a href="profile-edit.html" class="editBtn">
-Edit profile ▸
-</a>
-</div>
+
+<div
+class="profileName"
+id="profileName">
+
+Loading...
 
 </div>
 
-<i class="fa-solid fa-chevron-right"></i>
+<div
+class="profilePhone"
+id="profilePhone">
+
+Loading...
 
 </div>
 
-<div class="goldCard" onclick="window.location.href='offers.html'">
-
-<div class="goldLeft">
-
-<div class="goldIcon">
-👑
-</div>
-
-<div>
-<h3>QuickPress Gold</h3>
-<p style="font-size:13px;color:#D1D5DB;">
-Free pickup & extra cashback
-</p>
+<div class="quickBadge">
+⚡ QUICK+ MEMBER
 </div>
 
 </div>
-
-<i class="fa-solid fa-chevron-right"></i>
 
 </div>
 
 </div>
 
-<div class="gridRow">
+<!-- =====================================================
+WALLET
+===================================================== -->
 
-<div class="smallCard" onclick="window.location.href='payments.html'">
-<div class="smallTop">
-<div class="smallIcon">💰</div>
-<div class="smallTitle">Wallet</div>
+<div class="walletCard">
+
+<div class="walletTop">
+
+<div class="walletLabel">
+Quick Wallet Balance
 </div>
-<div class="smallValue" id="walletBalance">
+
+<i class="fa-solid fa-wallet"></i>
+
+</div>
+
+<div
+class="walletAmount"
+id="walletAmount">
+
 ₹0
-</div>
-</div>
-
-<div class="smallCard" onclick="window.location.href='offers.html'">
-<div class="smallTop">
-<div class="smallIcon">🎁</div>
-<div class="smallTitle">Coupons</div>
-</div>
-<div class="smallValue">
-12
-</div>
-</div>
 
 </div>
 
-<div class="sectionCard">
+<button
+class="addFundBtn"
+id="addFundBtn">
 
-<div class="sectionHeader">
-Your Preferences
+Add Funds
+
+</button>
+
 </div>
 
-<div class="menuItem" onclick="window.location.href='settings.html'">
+<!-- =====================================================
+MENU
+===================================================== -->
+
+<div class="menuSection">
+
+<div class="menuCard">
+
+<!-- ORDERS -->
+
+<div
+class="menuItem"
+onclick="goPage('orders.html')">
+
 <div class="menuLeft">
-<div class="menuIcon">⚙️</div>
-<div class="menuText">
-<h3>Settings</h3>
-<p>Theme & preferences</p>
-</div>
-</div>
-<i class="fa-solid fa-chevron-right"></i>
+
+<div class="menuIcon">
+📦
 </div>
 
-<div class="menuItem" onclick="window.location.href='payments.html'">
+<div class="menuText">
+
+<h3>
+My Orders
+</h3>
+
+<p>
+Track all your orders
+</p>
+
+</div>
+
+</div>
+
+<i class="fa-solid fa-chevron-right arrow"></i>
+
+</div>
+
+<!-- ADDRESS -->
+
+<div
+class="menuItem"
+onclick="goPage('address.html')">
+
 <div class="menuLeft">
-<div class="menuIcon">💳</div>
-<div class="menuText">
-<h3>Payment Methods</h3>
-<p>UPI, Wallet & Cards</p>
-</div>
-</div>
-<i class="fa-solid fa-chevron-right"></i>
+
+<div class="menuIcon">
+📍
 </div>
 
-<div class="menuItem" onclick="window.location.href='notifications.html'">
+<div class="menuText">
+
+<h3>
+Address Book
+</h3>
+
+<p>
+Manage saved addresses
+</p>
+
+</div>
+
+</div>
+
+<i class="fa-solid fa-chevron-right arrow"></i>
+
+</div>
+
+<!-- PAYMENTS -->
+
+<div
+class="menuItem"
+onclick="goPage('payments.html')">
+
 <div class="menuLeft">
-<div class="menuIcon">🔔</div>
+
+<div class="menuIcon">
+💳
+</div>
+
 <div class="menuText">
-<h3>Notifications</h3>
-<p>Order & offer updates</p>
-</div>
-</div>
-<i class="fa-solid fa-chevron-right"></i>
-</div>
+
+<h3>
+Saved Payments
+</h3>
+
+<p>
+Cards, UPI & wallets
+</p>
 
 </div>
 
-<div class="sectionCard">
-
-<div class="sectionHeader">
-Laundry Services
 </div>
 
-<div class="menuItem" onclick="window.location.href='myorders.html'">
+<i class="fa-solid fa-chevron-right arrow"></i>
+
+</div>
+
+<!-- COUPONS -->
+
+<div
+class="menuItem"
+onclick="goPage('coupons.html')">
+
 <div class="menuLeft">
-<div class="menuIcon">🧺</div>
-<div class="menuText">
-<h3>My Orders</h3>
-<p>Track your orders</p>
-</div>
-</div>
-<i class="fa-solid fa-chevron-right"></i>
+
+<div class="menuIcon">
+🎁
 </div>
 
-<div class="menuItem" onclick="window.location.href='tracking.html'">
+<div class="menuText">
+
+<h3>
+Coupons
+</h3>
+
+<p>
+View all available offers
+</p>
+
+</div>
+
+</div>
+
+<i class="fa-solid fa-chevron-right arrow"></i>
+
+</div>
+
+<!-- SUPPORT -->
+
+<div
+class="menuItem"
+onclick="goPage('support.html')">
+
 <div class="menuLeft">
-<div class="menuIcon">🚚</div>
+
+<div class="menuIcon">
+🎧
+</div>
+
 <div class="menuText">
-<h3>Live Tracking</h3>
-<p>Real-time delivery tracking</p>
-</div>
-</div>
-<i class="fa-solid fa-chevron-right"></i>
+
+<h3>
+Help & Support
+</h3>
+
+<p>
+QuickPress customer help
+</p>
+
 </div>
 
-<div class="menuItem" onclick="window.location.href='address.html'">
-<div class="menuLeft">
-<div class="menuIcon">📍</div>
-<div class="menuText">
-<h3>Address Book</h3>
-<p>Saved addresses</p>
-</div>
-</div>
-<i class="fa-solid fa-chevron-right"></i>
 </div>
 
-<div class="menuItem" onclick="window.location.href='support.html'">
-<div class="menuLeft">
-<div class="menuIcon">📞</div>
-<div class="menuText">
-<h3>Help & Support</h3>
-<p>24x7 customer support</p>
-</div>
-</div>
-<i class="fa-solid fa-chevron-right"></i>
-</div>
+<i class="fa-solid fa-chevron-right arrow"></i>
 
-<div class="menuItem" onclick="logout()">
-<div class="menuLeft">
-<div class="menuIcon">🚪</div>
-<div class="menuText">
-<h3>Logout</h3>
-<p>Secure account logout</p>
-</div>
-</div>
-<i class="fa-solid fa-chevron-right"></i>
 </div>
 
 </div>
 
 </div>
+
+<!-- =====================================================
+LOGOUT
+===================================================== -->
+
+<button
+class="logoutBtn"
+id="logoutBtn">
+
+Log Out
+
+</button>
+
+</div>
+
+<!-- =====================================================
+BOTTOM NAV
+===================================================== -->
 
 <div class="bottomNav">
 
-<div class="navItem" onclick="window.location.href='index.html'">
+<button
+class="navItem"
+onclick="goPage('index.html')">
+
 <i class="fa-solid fa-house"></i>
-<span>Home</span>
+
+<span>
+Home
+</span>
+
+</button>
+
+<button
+class="navItem"
+onclick="goPage('orders.html')">
+
+<i class="fa-solid fa-box"></i>
+
+<span>
+Orders
+</span>
+
+</button>
+
+<button
+class="navItem"
+onclick="goPage('services.html')">
+
+<i class="fa-solid fa-table-cells-large"></i>
+
+<span>
+Services
+</span>
+
+</button>
+
+<button
+class="navItem"
+onclick="goPage('wallet.html')">
+
+<i class="fa-solid fa-wallet"></i>
+
+<span>
+Wallet
+</span>
+
+</button>
+
+<button
+class="navItem activeNav">
+
+<i class="fa-regular fa-user"></i>
+
+<span>
+Profile
+</span>
+
+</button>
+
 </div>
 
-<div class="navItem" onclick="window.location.href='services.html'">
-<i class="fa-solid fa-shirt"></i>
-<span>Services</span>
+<!-- =====================================================
+ADD FUND POPUP
+===================================================== -->
+
+<div
+class="popup"
+id="popup">
+
+<div class="popupCard">
+
+<h2>
+Add Wallet Funds
+</h2>
+
+<p>
+Securely add money into your Quick Wallet.
+</p>
+
+<input
+type="number"
+placeholder="Enter amount"
+class="amountInput"
+id="amountInput">
+
+<div class="popupBtns">
+
+<button
+class="popupBtn cancelBtn"
+id="cancelBtn">
+
+Cancel
+
+</button>
+
+<button
+class="popupBtn confirmBtn"
+id="confirmBtn">
+
+Add Money
+
+</button>
+
 </div>
 
-<div class="navItem" onclick="window.location.href='cart.html'">
-<i class="fa-solid fa-cart-shopping"></i>
-<span>Cart</span>
-</div>
-
-<div class="navItem active">
-<i class="fa-solid fa-user"></i>
-<span>Profile</span>
 </div>
 
 </div>
 
 <script type="module">
 
-import { db } from '../firebase.js';
+/* =====================================================
+FIREBASE
+===================================================== */
+
+import { initializeApp }
+
+from "https://www.gstatic.com/firebasejs/10.12.2/firebase-app.js";
 
 import {
+
+getFirestore,
 doc,
 getDoc,
 updateDoc
-}
-from 'https://www.gstatic.com/firebasejs/12.11.0/firebase-firestore.js';
 
-const popup = document.getElementById('popup');
-
-function showPopup(message){
-popup.innerHTML = message;
-popup.style.display = 'block';
-
-setTimeout(()=>{
-popup.style.display='none';
-},2000);
 }
 
-const isLoggedIn = localStorage.getItem('isLoggedIn');
+from "https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore.js";
 
-if(isLoggedIn !== 'true'){
-window.location.href='/Pal-Group-Pvt-Ltd/user/login.html';
+import {
+
+getAuth,
+onAuthStateChanged,
+signOut
+
 }
 
-const userPhone = localStorage.getItem('userPhone');
+from "https://www.gstatic.com/firebasejs/10.12.2/firebase-auth.js";
 
-async function loadProfile(){
+/* =====================================================
+CONFIG
+===================================================== */
 
-try{
+const firebaseConfig = {
 
-const userRef = doc(db,'users',userPhone);
-const userSnap = await getDoc(userRef);
+apiKey: "YOUR_API_KEY",
+
+authDomain: "YOUR_PROJECT.firebaseapp.com",
+
+projectId: "YOUR_PROJECT_ID",
+
+storageBucket: "YOUR_PROJECT.appspot.com",
+
+messagingSenderId: "YOUR_SENDER_ID",
+
+appId: "YOUR_APP_ID"
+
+};
+
+/* =====================================================
+INIT
+===================================================== */
+
+const app =
+initializeApp(firebaseConfig);
+
+const db =
+getFirestore(app);
+
+const auth =
+getAuth(app);
+
+/* =====================================================
+ELEMENTS
+===================================================== */
+
+const profileName =
+document.getElementById(
+"profileName"
+);
+
+const profilePhone =
+document.getElementById(
+"profilePhone"
+);
+
+const walletAmount =
+document.getElementById(
+"walletAmount"
+);
+
+/* =====================================================
+AUTH CHECK
+===================================================== */
+
+onAuthStateChanged(
+auth,
+async(user)=>{
+
+if(!user){
+
+window.location.href =
+"login.html";
+
+return;
+
+}
+
+/* ========================================= */
+
+const userRef =
+doc(
+db,
+"users",
+user.uid
+);
+
+const userSnap =
+await getDoc(
+userRef
+);
+
+/* ========================================= */
 
 if(userSnap.exists()){
 
-const user = userSnap.data();
+const data =
+userSnap.data();
 
-/* USER DATA */
+/* ========================================= */
 
-document.getElementById('userName').innerHTML =
-user.name || 'QuickPress User';
+profileName.innerHTML =
+data.name || "QuickPress User";
 
-document.getElementById('userEmail').innerHTML =
-user.email || 'No Email';
+profilePhone.innerHTML =
+data.phone || "+91 0000000000";
 
-document.getElementById('walletBalance').innerHTML =
-'₹'+(user.wallet || 0);
+walletAmount.innerHTML =
+`₹${data.wallet || 0}`;
 
-document.getElementById('avatar').innerHTML =
-user.name
-? user.name.charAt(0).toUpperCase()
-: 'Q';
+/* ========================================= */
 
 }
 
 }
+);
 
-catch(error){
-console.log(error);
-showPopup('Failed To Load Profile');
+/* =====================================================
+ADD FUNDS
+===================================================== */
+
+const popup =
+document.getElementById(
+"popup"
+);
+
+document.getElementById(
+"addFundBtn"
+)
+
+.addEventListener(
+"click",
+()=>{
+
+popup.style.display =
+"flex";
+
+}
+);
+
+/* =====================================================
+CANCEL
+===================================================== */
+
+document.getElementById(
+"cancelBtn"
+)
+
+.addEventListener(
+"click",
+()=>{
+
+popup.style.display =
+"none";
+
+}
+);
+
+/* =====================================================
+CONFIRM
+===================================================== */
+
+document.getElementById(
+"confirmBtn"
+)
+
+.addEventListener(
+"click",
+async()=>{
+
+const amount =
+parseInt(
+
+document.getElementById(
+"amountInput"
+).value
+
+);
+
+/* ========================================= */
+
+if(!amount){
+
+alert(
+"Enter valid amount"
+);
+
+return;
+
 }
 
-}
+/* ========================================= */
 
-loadProfile();
+const user =
+auth.currentUser;
 
-/* WALLET ADD DEMO */
+const userRef =
+doc(
+db,
+"users",
+user.uid
+);
 
-window.addWalletMoney = async function(){
+const snap =
+await getDoc(
+userRef
+);
 
-try{
+const data =
+snap.data();
 
-const userRef = doc(db,'users',userPhone);
-const snap = await getDoc(userRef);
-const user = snap.data();
+/* ========================================= */
 
-const newBalance = (user.wallet || 0) + 100;
+const newBalance =
+(data.wallet || 0) + amount;
 
-await updateDoc(userRef,{
+/* ========================================= */
+
+await updateDoc(
+userRef,
+{
 wallet:newBalance
-});
+}
+);
 
-loadProfile();
-showPopup('₹100 Added To Wallet');
+/* ========================================= */
+
+walletAmount.innerHTML =
+`₹${newBalance}`;
+
+/* ========================================= */
+
+popup.style.display =
+"none";
+
+alert(
+"Money Added Successfully 🚀"
+);
 
 }
+);
 
-catch(error){
-console.log(error);
+/* =====================================================
+LOGOUT
+===================================================== */
+
+document.getElementById(
+"logoutBtn"
+)
+
+.addEventListener(
+"click",
+async()=>{
+
+await signOut(auth);
+
+window.location.href =
+"login.html";
+
 }
+);
 
-}
+/* =====================================================
+NAVIGATION
+===================================================== */
 
-/* LOGOUT */
+window.goPage =
+function(page){
 
-window.logout = function(){
-
-localStorage.clear();
-
-showPopup('Logged Out');
-
-setTimeout(()=>{
-window.location.href='/Pal-Group-Pvt-Ltd/user/login.html';
-},1000);
+window.location.href =
+page;
 
 }
 
