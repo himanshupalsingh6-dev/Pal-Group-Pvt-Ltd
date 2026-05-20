@@ -10,12 +10,12 @@ name="viewport"
 content="width=device-width, initial-scale=1.0">
 
 <title>
-QuickPress Enterprise Admin
+QuickPress Admin Dashboard
 </title>
 
-<!-- =====================================
+<!-- =====================================================
 FONT
-===================================== -->
+===================================================== -->
 
 <link rel="preconnect"
 href="https://fonts.googleapis.com">
@@ -28,312 +28,33 @@ crossorigin>
 href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap"
 rel="stylesheet">
 
-<!-- =====================================
+<!-- =====================================================
 ICONS
-===================================== -->
+===================================================== -->
 
 <link rel="stylesheet"
 href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css"/>
 
+<!-- =====================================================
+LAYOUT CSS
+===================================================== -->
+
+<link rel="stylesheet"
+href="layout.css">
+
 <style>
 
-/* =====================================
-RESET
-===================================== */
-
-*{
-margin:0;
-padding:0;
-box-sizing:border-box;
-font-family:'Inter',sans-serif;
--webkit-tap-highlight-color:transparent;
-}
-
-body{
-background:#F4F7FB;
-overflow-x:hidden;
-color:#111827;
-}
-
-/* =====================================
-LAYOUT
-===================================== */
-
-.adminLayout{
-display:flex;
-min-height:100vh;
-}
-
-/* =====================================
-SIDEBAR
-===================================== */
-
-.sidebar{
-
-width:290px;
-
-background:#ffffff;
-
-border-right:1px solid #E5E7EB;
-
-padding:24px 18px;
-
-position:fixed;
-
-left:0;
-top:0;
-bottom:0;
-
-overflow-y:auto;
-
-}
-
-.logo{
-
-font-size:42px;
-
-font-weight:900;
-
-letter-spacing:-2px;
-
-margin-bottom:30px;
-
-}
-
-.menuTitle{
-
-font-size:12px;
-
-font-weight:800;
-
-letter-spacing:2px;
-
-color:#9CA3AF;
-
-margin:
-22px
-0
-12px;
-
-padding-left:10px;
-
-}
-
-.menu{
-
-display:flex;
-flex-direction:column;
-gap:10px;
-
-}
-
-.menu a{
-
-height:58px;
-
-display:flex;
-
-align-items:center;
-
-gap:16px;
-
-padding:0 18px;
-
-border-radius:18px;
-
-text-decoration:none;
-
-color:#111827;
-
-font-weight:800;
-
-transition:.2s;
-
-}
-
-.menu a:hover{
-background:#F3F4F6;
-}
-
-.menu a.active{
-
-background:#111827;
-
-color:#fff;
-
-}
-
-.menu i{
-
-font-size:18px;
-
-width:24px;
-
-}
-
-/* =====================================
-MAIN
-===================================== */
-
-.main{
-
-margin-left:290px;
-
-width:calc(100% - 290px);
-
-}
-
-/* =====================================
-TOPBAR
-===================================== */
-
-.topbar{
-
-height:86px;
-
-background:#fff;
-
-display:flex;
-
-align-items:center;
-
-justify-content:space-between;
-
-padding:0 28px;
-
-border-bottom:1px solid #E5E7EB;
-
-position:sticky;
-
-top:0;
-
-z-index:999;
-
-}
-
-.searchBar{
-
-width:420px;
-
-height:58px;
-
-background:#F9FAFB;
-
-border-radius:18px;
-
-display:flex;
-
-align-items:center;
-
-padding:0 20px;
-
-gap:14px;
-
-}
-
-.searchBar input{
-
-width:100%;
-
-border:none;
-
-background:none;
-
-outline:none;
-
-font-size:15px;
-
-font-weight:700;
-
-}
-
-.topRight{
-
-display:flex;
-
-align-items:center;
-
-gap:16px;
-
-}
-
-.liveBox{
-
-padding:12px 18px;
-
-border-radius:16px;
-
-border:1px solid #E5E7EB;
-
-display:flex;
-
-align-items:center;
-
-gap:10px;
-
-font-weight:900;
-
-background:#fff;
-
-}
-
-.liveDot{
-
-width:12px;
-height:12px;
-
-background:#22C55E;
-
-border-radius:50%;
-
-}
-
-.adminProfile{
-
-padding:10px 16px;
-
-border-radius:18px;
-
-background:#fff;
-
-border:1px solid #E5E7EB;
-
-display:flex;
-
-align-items:center;
-
-gap:12px;
-
-}
-
-.adminProfile img{
-
-width:42px;
-height:42px;
-
-border-radius:50%;
-
-object-fit:cover;
-
-}
-
-.adminProfile span{
-
-font-weight:900;
-
-}
-
-/* =====================================
-CONTENT
-===================================== */
+/* =====================================================
+PAGE CSS
+===================================================== */
 
 .content{
 padding:28px;
 }
 
-/* =====================================
+/* =====================================================
 TITLE
-===================================== */
+===================================================== */
 
 .pageTitle{
 
@@ -347,9 +68,9 @@ margin-bottom:26px;
 
 }
 
-/* =====================================
-CARDS
-===================================== */
+/* =====================================================
+STATS GRID
+===================================================== */
 
 .statsGrid{
 
@@ -419,11 +140,6 @@ background:#FEE2E2;
 color:#DC2626;
 }
 
-.purple{
-background:#EDE9FE;
-color:#7C3AED;
-}
-
 .statContent h5{
 
 font-size:14px;
@@ -444,9 +160,9 @@ font-weight:900;
 
 }
 
-/* =====================================
-ACTION GRID
-===================================== */
+/* =====================================================
+QUICK ACTION
+===================================================== */
 
 .quickGrid{
 
@@ -478,7 +194,9 @@ transition:.2s;
 }
 
 .quickCard:hover{
+
 transform:translateY(-4px);
+
 }
 
 .quickCard i{
@@ -511,9 +229,9 @@ line-height:1.5;
 
 }
 
-/* =====================================
+/* =====================================================
 TABLE
-===================================== */
+===================================================== */
 
 .tableCard{
 
@@ -640,9 +358,26 @@ background:#DCFCE7;
 color:#15803D;
 }
 
-/* =====================================
+.actionBtn{
+
+width:42px;
+height:42px;
+
+border:none;
+
+border-radius:14px;
+
+background:#111827;
+
+color:#fff;
+
+cursor:pointer;
+
+}
+
+/* =====================================================
 BOTTOM GRID
-===================================== */
+===================================================== */
 
 .bottomGrid{
 
@@ -654,9 +389,9 @@ gap:24px;
 
 }
 
-/* =====================================
+/* =====================================================
 CARD
-===================================== */
+===================================================== */
 
 .card{
 
@@ -680,9 +415,9 @@ margin-bottom:20px;
 
 }
 
-/* =====================================
+/* =====================================================
 ACTIVITY
-===================================== */
+===================================================== */
 
 .activity{
 
@@ -745,9 +480,9 @@ color:#6B7280;
 
 }
 
-/* =====================================
+/* =====================================================
 RESPONSIVE
-===================================== */
+===================================================== */
 
 @media(max-width:1400px){
 
@@ -767,22 +502,8 @@ grid-template-columns:1fr;
 
 @media(max-width:900px){
 
-.sidebar{
-display:none;
-}
-
-.main{
-margin-left:0;
-width:100%;
-}
-
-.topbar{
-padding:0 14px;
-}
-
-.searchBar{
-width:100%;
-max-width:300px;
+.content{
+padding:16px;
 }
 
 .pageTitle{
@@ -805,20 +526,8 @@ grid-template-columns:1fr;
 grid-template-columns:1fr;
 }
 
-.searchBar{
-display:none;
-}
-
-.content{
-padding:16px;
-}
-
 .pageTitle{
 font-size:32px;
-}
-
-.topbar{
-height:74px;
 }
 
 }
@@ -829,162 +538,21 @@ height:74px;
 
 <body>
 
+<!-- =====================================================
+LAYOUT
+===================================================== -->
+
 <div class="adminLayout">
 
-<!-- =====================================
-SIDEBAR
-===================================== -->
+<div id="layoutContainer"></div>
 
-<div class="sidebar">
-
-<div class="logo">
-QuickPress
-</div>
-
-<div class="menuTitle">
-MAIN
-</div>
-
-<div class="menu">
-
-<a href="#" class="active">
-<i class="fa-solid fa-chart-line"></i>
-Dashboard
-</a>
-
-<a href="#">
-<i class="fa-solid fa-bag-shopping"></i>
-Orders
-</a>
-
-<a href="#">
-<i class="fa-solid fa-shirt"></i>
-Services
-</a>
-
-<a href="#">
-<i class="fa-solid fa-truck-fast"></i>
-Delivery
-</a>
-
-<a href="#">
-<i class="fa-solid fa-location-dot"></i>
-Live Tracking
-</a>
-
-<a href="#">
-<i class="fa-solid fa-wallet"></i>
-Payments
-</a>
-
-</div>
-
-<div class="menuTitle">
-MANAGEMENT
-</div>
-
-<div class="menu">
-
-<a href="#">
-<i class="fa-solid fa-users"></i>
-Customers
-</a>
-
-<a href="#">
-<i class="fa-solid fa-user-group"></i>
-Partners
-</a>
-
-<a href="#">
-<i class="fa-solid fa-user-tie"></i>
-Riders
-</a>
-
-<a href="#">
-<i class="fa-solid fa-building"></i>
-Franchise
-</a>
-
-<a href="#">
-<i class="fa-solid fa-headset"></i>
-Support
-</a>
-
-</div>
-
-<div class="menuTitle">
-SYSTEM
-</div>
-
-<div class="menu">
-
-<a href="#">
-<i class="fa-solid fa-gear"></i>
-Settings
-</a>
-
-<a href="#">
-<i class="fa-solid fa-shield-halved"></i>
-Security
-</a>
-
-<a href="#">
-<i class="fa-solid fa-right-from-bracket"></i>
-Logout
-</a>
-
-</div>
-
-</div>
-
-<!-- =====================================
-MAIN
-===================================== -->
-
-<div class="main">
-
-<!-- TOPBAR -->
-
-<div class="topbar">
-
-<div class="searchBar">
-
-<i class="fa-solid fa-magnifying-glass"></i>
-
-<input
-type="text"
-placeholder="Search orders, customer, rider...">
-
-</div>
-
-<div class="topRight">
-
-<div class="liveBox">
-
-<div class="liveDot"></div>
-
-LIVE
-
-</div>
-
-<div class="adminProfile">
-
-<img
-src="https://i.pravatar.cc/100">
-
-<span>
-Admin
-</span>
-
-</div>
-
-</div>
-
-</div>
-
-<!-- CONTENT -->
+<!-- =====================================================
+CONTENT
+===================================================== -->
 
 <div class="content">
+
+<!-- TITLE -->
 
 <div class="pageTitle">
 Dashboard
@@ -1002,7 +570,9 @@ Dashboard
 
 <div class="statContent">
 
-<h5>Total Orders</h5>
+<h5>
+Total Orders
+</h5>
 
 <h2 id="totalOrders">
 0
@@ -1020,7 +590,9 @@ Dashboard
 
 <div class="statContent">
 
-<h5>Pending</h5>
+<h5>
+Pending
+</h5>
 
 <h2 id="pendingOrders">
 0
@@ -1038,7 +610,9 @@ Dashboard
 
 <div class="statContent">
 
-<h5>Delivered</h5>
+<h5>
+Delivered
+</h5>
 
 <h2 id="deliveredOrders">
 0
@@ -1056,7 +630,9 @@ Dashboard
 
 <div class="statContent">
 
-<h5>Revenue</h5>
+<h5>
+Revenue
+</h5>
 
 <h2 id="revenue">
 ₹0
@@ -1081,21 +657,7 @@ Add Service
 </h4>
 
 <p>
-Create premium laundry service.
-</p>
-
-</div>
-
-<div class="quickCard">
-
-<i class="fa-solid fa-motorcycle"></i>
-
-<h4>
-Assign Rider
-</h4>
-
-<p>
-Manage delivery partner orders.
+Create premium laundry services.
 </p>
 
 </div>
@@ -1109,35 +671,49 @@ Wallet Credit
 </h4>
 
 <p>
-Add funds into customer wallet.
+Add customer wallet balance.
 </p>
 
 </div>
 
 <div class="quickCard">
 
-<i class="fa-solid fa-ticket"></i>
+<i class="fa-solid fa-truck-fast"></i>
 
 <h4>
-Coupons
+Assign Rider
 </h4>
 
 <p>
-Generate promo and discount codes.
+Manage delivery assignment.
 </p>
 
 </div>
 
 <div class="quickCard">
 
-<i class="fa-solid fa-chart-pie"></i>
+<i class="fa-solid fa-tags"></i>
+
+<h4>
+Offers
+</h4>
+
+<p>
+Create promo and discount code.
+</p>
+
+</div>
+
+<div class="quickCard">
+
+<i class="fa-solid fa-chart-line"></i>
 
 <h4>
 Analytics
 </h4>
 
 <p>
-View growth and revenue charts.
+Track platform performance.
 </p>
 
 </div>
@@ -1183,72 +759,6 @@ Export CSV
 
 <tbody id="ordersTable">
 
-<tr>
-
-<td>#QP102</td>
-<td>Himanshu Baghel</td>
-<td>5 Services</td>
-<td>₹480</td>
-
-<td>
-<span class="status delivered">
-Delivered
-</span>
-</td>
-
-<td>Online</td>
-<td>10:45 AM</td>
-
-<td>
-<i class="fa-solid fa-eye"></i>
-</td>
-
-</tr>
-
-<tr>
-
-<td>#QP103</td>
-<td>Avnesh Pal</td>
-<td>3 Services</td>
-<td>₹220</td>
-
-<td>
-<span class="status pending">
-Pending
-</span>
-</td>
-
-<td>COD</td>
-<td>11:20 AM</td>
-
-<td>
-<i class="fa-solid fa-eye"></i>
-</td>
-
-</tr>
-
-<tr>
-
-<td>#QP104</td>
-<td>Deepak Singh</td>
-<td>8 Services</td>
-<td>₹720</td>
-
-<td>
-<span class="status processing">
-Preparing
-</span>
-</td>
-
-<td>Online</td>
-<td>12:02 PM</td>
-
-<td>
-<i class="fa-solid fa-eye"></i>
-</td>
-
-</tr>
-
 </tbody>
 
 </table>
@@ -1261,7 +771,7 @@ Preparing
 
 <div class="bottomGrid">
 
-<!-- REVENUE -->
+<!-- CHART -->
 
 <div class="card">
 
@@ -1343,22 +853,6 @@ Order #QP102 assigned
 
 </div>
 
-<div class="activityItem">
-
-<div class="activityIcon">
-<i class="fa-solid fa-circle-check"></i>
-</div>
-
-<div class="activityText">
-
-<h4>
-Order delivered
-</h4>
-
-<p>
-Customer rated 5 stars
-</p>
-
 </div>
 
 </div>
@@ -1369,13 +863,23 @@ Customer rated 5 stars
 
 </div>
 
-</div>
+<!-- =====================================================
+CHART JS
+===================================================== -->
 
-</div>
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 
-<!-- =====================================
+<!-- =====================================================
+LAYOUT JS
+===================================================== -->
+
+<script type="module"
+src="layout.js">
+</script>
+
+<!-- =====================================================
 ADMIN JS
-===================================== -->
+===================================================== -->
 
 <script type="module"
 src="admin.js">
