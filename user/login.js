@@ -1,7 +1,6 @@
 /* =====================================================
 FILE : login.js
-FINAL FIXED LOGIN.JS
-NO AUTO REDIRECT BUG
+QUICKPRESS REAL FIREBASE LOGIN
 ===================================================== */
 
 /* =====================================================
@@ -10,8 +9,7 @@ IMPORT FIREBASE
 
 import {
 
-auth,
-db
+auth
 
 }
 
@@ -19,25 +17,13 @@ from "../firebase.js";
 
 import {
 
-signInWithEmailAndPassword,
-signInAnonymously
+signInWithEmailAndPassword
 
 }
 
 from
 
 "https://www.gstatic.com/firebasejs/12.11.0/firebase-auth.js";
-
-import {
-
-doc,
-setDoc
-
-}
-
-from
-
-"https://www.gstatic.com/firebasejs/12.11.0/firebase-firestore.js";
 
 /* =====================================================
 ELEMENTS
@@ -48,23 +34,13 @@ document.getElementById(
 "loginForm"
 );
 
-const phoneInput =
-document.getElementById(
-"phone"
-);
-
-const passwordInput =
-document.getElementById(
-"password"
-);
-
 const loginBtn =
 document.getElementById(
 "loginBtn"
 );
 
 /* =====================================================
-LOGIN FORM
+LOGIN
 ===================================================== */
 
 loginForm.addEventListener(
@@ -76,14 +52,18 @@ e.preventDefault();
 /* ========================================= */
 
 const phone =
-phoneInput.value.trim();
+document.getElementById(
+"phone"
+).value.trim();
 
 const password =
-passwordInput.value.trim();
+document.getElementById(
+"password"
+).value.trim();
 
 /* ========================================= */
 
-if(phone.length < 10){
+if(phone.length !== 10){
 
 showToast(
 "Enter valid mobile number"
@@ -114,99 +94,20 @@ loginBtn.disabled =
 true;
 
 /* =========================================
-TEMP OTP LOGIN
-OTP : 4502
+CONVERT PHONE TO EMAIL
 ========================================= */
 
-if(password === "4502"){
-
-try{
-
-const userCredential =
-await signInAnonymously(
-auth
-);
-
-const user =
-userCredential.user;
-
-/* ========================================= */
-
-await setDoc(
-
-doc(
-db,
-"users",
-user.uid
-),
-
-{
-
-name:"QuickPress User",
-
-phone:phone,
-
-wallet:0,
-
-city:"Kasganj",
-
-createdAt:
-Date.now()
-
-}
-
-);
-
-/* ========================================= */
-
-showToast(
-"OTP Login Success 🚀"
-);
-
-/* ========================================= */
-
-setTimeout(()=>{
-
-window.location.href =
-"index.html";
-
-},1200);
-
-/* ========================================= */
-
-}catch(error){
-
-console.log(error);
-
-showToast(
-"Login Failed"
-);
-
-loginBtn.innerHTML =
-"Login Now";
-
-loginBtn.disabled =
-false;
-
-}
-
-return;
-
-}
-
-/* =========================================
-PHONE TO EMAIL
-========================================= */
-
-const fakeEmail =
+const email =
 `${phone}@quickpress.com`;
 
 try{
 
+/* ========================================= */
+
 await signInWithEmailAndPassword(
 
 auth,
-fakeEmail,
+email,
 password
 
 );
@@ -214,7 +115,7 @@ password
 /* ========================================= */
 
 showToast(
-"Welcome Back 🚀"
+"Login Successful 🚀"
 );
 
 /* ========================================= */
@@ -232,8 +133,10 @@ window.location.href =
 
 console.log(error);
 
+/* ========================================= */
+
 showToast(
-"Invalid Login Details"
+"Invalid mobile number or password"
 );
 
 loginBtn.innerHTML =
@@ -287,6 +190,9 @@ toast.style.borderRadius =
 
 toast.style.fontWeight =
 "700";
+
+toast.style.fontSize =
+"14px";
 
 toast.style.zIndex =
 "99999";
