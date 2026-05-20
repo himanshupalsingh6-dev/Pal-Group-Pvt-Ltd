@@ -1,6 +1,6 @@
 /* =====================================================
 FILE : signup.js
-FINAL FIXED SIGNUP.JS
+QUICKPRESS REAL FIREBASE SIGNUP
 ===================================================== */
 
 /* =====================================================
@@ -52,7 +52,7 @@ document.getElementById(
 );
 
 /* =====================================================
-SIGNUP FORM
+SIGNUP
 ===================================================== */
 
 signupForm.addEventListener(
@@ -95,7 +95,9 @@ return;
 
 }
 
-if(phone.length < 10){
+/* ========================================= */
+
+if(phone.length !== 10){
 
 showToast(
 "Enter valid mobile number"
@@ -104,6 +106,8 @@ showToast(
 return;
 
 }
+
+/* ========================================= */
 
 if(city === ""){
 
@@ -115,10 +119,12 @@ return;
 
 }
 
+/* ========================================= */
+
 if(password.length < 4){
 
 showToast(
-"Password too short"
+"Password must be 4+ characters"
 );
 
 return;
@@ -134,10 +140,10 @@ signupBtn.disabled =
 true;
 
 /* =========================================
-PHONE TO EMAIL
+CONVERT PHONE TO EMAIL
 ========================================= */
 
-const fakeEmail =
+const email =
 `${phone}@quickpress.com`;
 
 try{
@@ -148,7 +154,7 @@ const userCredential =
 await createUserWithEmailAndPassword(
 
 auth,
-fakeEmail,
+email,
 password
 
 );
@@ -184,11 +190,11 @@ wallet:0,
 
 orders:0,
 
-profile:
-`https://ui-avatars.com/api/?name=${name}&background=111827&color=ffffff`,
-
 createdAt:
-Date.now()
+Date.now(),
+
+profile:
+`https://ui-avatars.com/api/?name=${name}&background=111827&color=ffffff`
 
 }
 
@@ -197,7 +203,7 @@ Date.now()
 /* ========================================= */
 
 showToast(
-"Account Created 🚀"
+"Account Created Successfully 🚀"
 );
 
 /* ========================================= */
@@ -207,7 +213,7 @@ setTimeout(()=>{
 window.location.href =
 "index.html";
 
-},1500);
+},1200);
 
 /* ========================================= */
 
@@ -215,9 +221,26 @@ window.location.href =
 
 console.log(error);
 
+/* ========================================= */
+
+if(
+error.code ===
+"auth/email-already-in-use"
+){
+
 showToast(
-"Mobile already registered"
+"Mobile number already registered"
 );
+
+}else{
+
+showToast(
+error.message
+);
+
+}
+
+/* ========================================= */
 
 signupBtn.innerHTML =
 "Create Account";
@@ -231,7 +254,7 @@ false;
 );
 
 /* =====================================================
-TOAST
+TOAST FUNCTION
 ===================================================== */
 
 function showToast(message){
@@ -270,6 +293,9 @@ toast.style.borderRadius =
 
 toast.style.fontWeight =
 "700";
+
+toast.style.fontSize =
+"14px";
 
 toast.style.zIndex =
 "99999";
