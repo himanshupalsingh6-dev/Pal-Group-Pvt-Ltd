@@ -13,6 +13,10 @@ content="width=device-width, initial-scale=1.0">
 QuickPress Orders
 </title>
 
+<!-- =========================================
+FONT
+========================================= -->
+
 <link rel="preconnect"
 href="https://fonts.googleapis.com">
 
@@ -24,47 +28,54 @@ crossorigin>
 href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap"
 rel="stylesheet">
 
+<!-- =========================================
+ICONS
+========================================= -->
+
 <link rel="stylesheet"
 href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css"/>
 
 <style>
 
-/* =====================================================
+/* =========================================
 RESET
-===================================================== */
+========================================= */
 
 *{
+
 margin:0;
 padding:0;
 box-sizing:border-box;
 font-family:'Inter',sans-serif;
 -webkit-tap-highlight-color:transparent;
+
 }
 
 body{
-background:#F6F7FB;
-padding-bottom:120px;
+
+background:#F5F7FB;
+padding-bottom:110px;
 overflow-x:hidden;
-color:#111827;
+
 }
 
-/* =====================================================
+/* =========================================
 HEADER
-===================================================== */
+========================================= */
 
-.orderHero{
+.ordersHero{
 
 background:
 linear-gradient(
 135deg,
-#FFD633 0%,
-#FFE98A 100%
+#FFD633,
+#FFE98A
 );
 
-padding:18px 16px 30px;
+padding:22px 18px 36px;
 
-border-bottom-left-radius:34px;
-border-bottom-right-radius:34px;
+border-bottom-left-radius:36px;
+border-bottom-right-radius:36px;
 
 position:sticky;
 
@@ -78,17 +89,19 @@ z-index:999;
 
 display:flex;
 
-align-items:center;
-
 justify-content:space-between;
+
+align-items:center;
 
 }
 
 .pageTitle{
 
-font-size:30px;
+font-size:32px;
 
 font-weight:900;
+
+color:#111827;
 
 }
 
@@ -104,19 +117,19 @@ color:#374151;
 
 }
 
-/* =====================================================
+/* =========================================
 FILTERS
-===================================================== */
+========================================= */
 
 .filterWrap{
 
 display:flex;
 
-overflow-x:auto;
-
 gap:12px;
 
-margin-top:20px;
+overflow-x:auto;
+
+margin-top:22px;
 
 scrollbar-width:none;
 
@@ -161,9 +174,9 @@ color:#fff;
 
 }
 
-/* =====================================================
-ORDER LIST
-===================================================== */
+/* =========================================
+ORDERS
+========================================= */
 
 .ordersWrap{
 
@@ -182,21 +195,21 @@ padding:20px;
 margin-bottom:18px;
 
 box-shadow:
-0 6px 18px rgba(0,0,0,0.05);
+0 8px 24px rgba(0,0,0,0.05);
 
 }
 
-/* =====================================================
+/* =========================================
 TOP
-===================================================== */
+========================================= */
 
 .orderTop{
 
 display:flex;
 
-align-items:flex-start;
-
 justify-content:space-between;
+
+align-items:flex-start;
 
 }
 
@@ -206,6 +219,8 @@ font-size:15px;
 
 font-weight:900;
 
+color:#111827;
+
 }
 
 .orderDate{
@@ -214,13 +229,13 @@ margin-top:6px;
 
 font-size:12px;
 
-color:#6B7280;
-
 font-weight:700;
+
+color:#6B7280;
 
 }
 
-.statusBadge{
+.orderStatus{
 
 height:36px;
 
@@ -238,7 +253,7 @@ font-weight:900;
 
 }
 
-.statusLive{
+.statusActive{
 
 background:#DCFCE7;
 
@@ -254,9 +269,9 @@ color:#2563EB;
 
 }
 
-/* =====================================================
+/* =========================================
 ITEMS
-===================================================== */
+========================================= */
 
 .orderItems{
 
@@ -274,9 +289,9 @@ gap:14px;
 
 display:flex;
 
-align-items:center;
-
 justify-content:space-between;
+
+align-items:center;
 
 }
 
@@ -295,7 +310,7 @@ gap:12px;
 width:62px;
 height:62px;
 
-border-radius:18px;
+border-radius:20px;
 
 background:#F3F4F6;
 
@@ -304,7 +319,7 @@ display:flex;
 align-items:center;
 justify-content:center;
 
-font-size:34px;
+font-size:32px;
 
 }
 
@@ -334,17 +349,13 @@ font-weight:900;
 
 }
 
-/* =====================================================
+/* =========================================
 DETAILS
-===================================================== */
+========================================= */
 
-.orderDetails{
+.detailsGrid{
 
-margin-top:18px;
-
-padding-top:18px;
-
-border-top:1px solid #F3F4F6;
+margin-top:20px;
 
 display:grid;
 
@@ -358,9 +369,9 @@ gap:14px;
 
 background:#F9FAFB;
 
-padding:14px;
+padding:16px;
 
-border-radius:18px;
+border-radius:20px;
 
 }
 
@@ -382,21 +393,23 @@ font-size:15px;
 
 font-weight:900;
 
+color:#111827;
+
 }
 
-/* =====================================================
-RIDER
-===================================================== */
+/* =========================================
+TRACKING
+========================================= */
 
-.riderCard{
+.trackCard{
 
-margin-top:18px;
+margin-top:20px;
 
 background:#F9FAFB;
 
-border-radius:22px;
+border-radius:24px;
 
-padding:16px;
+padding:18px;
 
 display:flex;
 
@@ -421,7 +434,7 @@ gap:12px;
 width:58px;
 height:58px;
 
-border-radius:18px;
+border-radius:20px;
 
 object-fit:cover;
 
@@ -447,8 +460,8 @@ color:#6B7280;
 
 .callBtn{
 
-width:50px;
-height:50px;
+width:52px;
+height:52px;
 
 border:none;
 
@@ -464,9 +477,9 @@ cursor:pointer;
 
 }
 
-/* =====================================================
+/* =========================================
 BUTTONS
-===================================================== */
+========================================= */
 
 .orderBtns{
 
@@ -482,11 +495,11 @@ gap:12px;
 
 .trackBtn{
 
-height:52px;
+height:54px;
 
 border:none;
 
-border-radius:18px;
+border-radius:20px;
 
 background:#16A34A;
 
@@ -502,11 +515,11 @@ cursor:pointer;
 
 .invoiceBtn{
 
-height:52px;
+height:54px;
 
 border:none;
 
-border-radius:18px;
+border-radius:20px;
 
 background:#111827;
 
@@ -520,9 +533,69 @@ cursor:pointer;
 
 }
 
-/* =====================================================
+/* =========================================
+EMPTY
+========================================= */
+
+.emptyOrders{
+
+padding:100px 20px;
+
+text-align:center;
+
+}
+
+.emptyOrders h2{
+
+margin-top:18px;
+
+font-size:30px;
+
+font-weight:900;
+
+color:#111827;
+
+}
+
+.emptyOrders p{
+
+margin-top:10px;
+
+font-size:14px;
+
+line-height:1.7;
+
+color:#6B7280;
+
+}
+
+.shopBtn{
+
+margin-top:24px;
+
+height:56px;
+
+padding:0 24px;
+
+border:none;
+
+border-radius:22px;
+
+background:#16A34A;
+
+color:#fff;
+
+font-size:15px;
+
+font-weight:900;
+
+cursor:pointer;
+
+}
+
+/* =========================================
 BOTTOM NAV
-===================================================== */
+========================================= */
 
 .bottomNav{
 
@@ -543,7 +616,7 @@ justify-content:space-around;
 align-items:center;
 
 box-shadow:
-0 -4px 16px rgba(0,0,0,0.08);
+0 -6px 20px rgba(0,0,0,0.08);
 
 z-index:999;
 
@@ -591,105 +664,17 @@ color:#16A34A;
 
 }
 
-/* =====================================================
-EMPTY
-===================================================== */
-
-.emptyOrders{
-
-padding:100px 20px;
-
-text-align:center;
-
-}
-
-.emptyOrders h2{
-
-margin-top:18px;
-
-font-size:28px;
-
-font-weight:900;
-
-}
-
-.emptyOrders p{
-
-margin-top:10px;
-
-font-size:14px;
-
-line-height:1.7;
-
-color:#6B7280;
-
-}
-
-.shopBtn{
-
-margin-top:22px;
-
-height:54px;
-
-padding:0 24px;
-
-border:none;
-
-border-radius:20px;
-
-background:#16A34A;
-
-color:#fff;
-
-font-size:15px;
-
-font-weight:900;
-
-cursor:pointer;
-
-}
-
-/* =====================================================
-DESKTOP
-===================================================== */
-
-@media(min-width:900px){
-
-.ordersWrap{
-
-max-width:900px;
-
-margin:auto;
-
-}
-
-.bottomNav{
-
-left:50%;
-
-transform:translateX(-50%);
-
-width:450px;
-
-bottom:18px;
-
-border-radius:28px;
-
-}
-
-}
-
 </style>
 
 </head>
 
 <body>
 
-<!-- =====================================================
+<!-- =========================================
 HEADER
-===================================================== -->
+========================================= -->
 
-<div class="orderHero">
+<div class="ordersHero">
 
 <div class="topBar">
 
@@ -738,21 +723,19 @@ Cancelled
 
 </div>
 
-<!-- =====================================================
+<!-- =========================================
 ORDERS
-===================================================== -->
+========================================= -->
 
 <div
 class="ordersWrap"
 id="ordersWrap">
 
-<!-- ORDERS AUTO LOAD -->
-
 </div>
 
-<!-- =====================================================
+<!-- =========================================
 BOTTOM NAV
-===================================================== -->
+========================================= -->
 
 <div class="bottomNav">
 
@@ -792,8 +775,7 @@ Services
 </button>
 
 <button
-class="navItem"
-onclick="goPage('wallet.html')">
+class="navItem">
 
 <i class="fa-solid fa-wallet"></i>
 
@@ -817,19 +799,32 @@ Profile
 
 </div>
 
+<!-- =========================================
+SCRIPT
+========================================= -->
+
 <script type="module">
 
-/* =====================================================
-FIREBASE
-===================================================== */
+/* =========================================
+IMPORT
+========================================= */
 
-import { initializeApp }
+import { auth, db }
 
-from "https://www.gstatic.com/firebasejs/10.12.2/firebase-app.js";
+from "../firebase.js";
 
 import {
 
-getFirestore,
+onAuthStateChanged
+
+}
+
+from
+
+"https://www.gstatic.com/firebasejs/12.11.0/firebase-auth.js";
+
+import {
+
 collection,
 query,
 where,
@@ -838,86 +833,46 @@ orderBy
 
 }
 
-from "https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore.js";
+from
 
-import {
+"https://www.gstatic.com/firebasejs/12.11.0/firebase-firestore.js";
 
-getAuth,
-onAuthStateChanged
-
-}
-
-from "https://www.gstatic.com/firebasejs/10.12.2/firebase-auth.js";
-
-/* =====================================================
-CONFIG
-===================================================== */
-
-const firebaseConfig = {
-
-apiKey: "YOUR_API_KEY",
-
-authDomain: "YOUR_PROJECT.firebaseapp.com",
-
-projectId: "YOUR_PROJECT_ID",
-
-storageBucket: "YOUR_PROJECT.appspot.com",
-
-messagingSenderId: "YOUR_SENDER_ID",
-
-appId: "YOUR_APP_ID"
-
-};
-
-/* =====================================================
-INIT
-===================================================== */
-
-const app =
-initializeApp(firebaseConfig);
-
-const db =
-getFirestore(app);
-
-const auth =
-getAuth(app);
-
-/* =====================================================
+/* =========================================
 ELEMENT
-===================================================== */
+========================================= */
 
 const ordersWrap =
 document.getElementById(
 "ordersWrap"
 );
 
-/* =====================================================
+/* =========================================
 AUTH CHECK
-===================================================== */
+========================================= */
 
 onAuthStateChanged(
 auth,
 async(user)=>{
 
-if(!user){
+if(user){
+
+loadOrders(
+user.uid
+);
+
+}else{
 
 window.location.href =
 "login.html";
 
-return;
-
 }
-
-/* ========================================= */
-
-loadOrders(user.uid);
 
 }
 );
 
-/* =====================================================
+/* =========================================
 LOAD ORDERS
-===================================================== */
+========================================= */
 
 async function loadOrders(uid){
 
@@ -937,7 +892,7 @@ Loading Orders...
 
 try{
 
-const ordersQuery =
+const q =
 query(
 
 collection(db,"orders"),
@@ -949,9 +904,7 @@ orderBy("createdAt","desc")
 );
 
 const snapshot =
-await getDocs(
-ordersQuery
-);
+await getDocs(q);
 
 /* ========================================= */
 
@@ -1002,46 +955,6 @@ doc.data();
 
 /* ========================================= */
 
-let itemsHTML = "";
-
-(order.items || []).forEach(item=>{
-
-itemsHTML += `
-
-<div class="orderItem">
-
-<div class="itemLeft">
-
-<div class="itemImg">
-${item.icon || "🧺"}
-</div>
-
-<div class="itemInfo">
-
-<h3>
-${item.name}
-</h3>
-
-<p>
-Qty ${item.qty || 1}
-</p>
-
-</div>
-
-</div>
-
-<div class="itemPrice">
-₹${item.price}
-</div>
-
-</div>
-
-`;
-
-});
-
-/* ========================================= */
-
 ordersWrap.innerHTML += `
 
 <div class="orderCard">
@@ -1062,7 +975,7 @@ ${order.date || "Today"}
 
 </div>
 
-<div class="statusBadge ${order.status === "Completed" ? "statusDone" : "statusLive"}">
+<div class="orderStatus ${order.status === "Completed" ? "statusDone" : "statusActive"}">
 
 ${order.status || "Active"}
 
@@ -1074,22 +987,76 @@ ${order.status || "Active"}
 
 <div class="orderItems">
 
-${itemsHTML}
+<div class="orderItem">
+
+<div class="itemLeft">
+
+<div class="itemImg">
+👔
+</div>
+
+<div class="itemInfo">
+
+<h3>
+Shirt Iron
+</h3>
+
+<p>
+Qty 2
+</p>
+
+</div>
+
+</div>
+
+<div class="itemPrice">
+₹58
+</div>
+
+</div>
+
+<div class="orderItem">
+
+<div class="itemLeft">
+
+<div class="itemImg">
+👟
+</div>
+
+<div class="itemInfo">
+
+<h3>
+Sneaker Clean
+</h3>
+
+<p>
+Qty 1
+</p>
+
+</div>
+
+</div>
+
+<div class="itemPrice">
+₹199
+</div>
+
+</div>
 
 </div>
 
 <!-- DETAILS -->
 
-<div class="orderDetails">
+<div class="detailsGrid">
 
 <div class="detailBox">
 
 <div class="detailLabel">
-TOTAL AMOUNT
+TOTAL
 </div>
 
 <div class="detailValue">
-₹${order.total || 0}
+₹${order.total || 257}
 </div>
 
 </div>
@@ -1109,7 +1076,7 @@ ${order.payment || "UPI"}
 <div class="detailBox">
 
 <div class="detailLabel">
-DELIVERY TIME
+DELIVERY
 </div>
 
 <div class="detailValue">
@@ -1134,7 +1101,7 @@ ${order.city || "Kasganj"}
 
 <!-- RIDER -->
 
-<div class="riderCard">
+<div class="trackCard">
 
 <div class="riderLeft">
 
@@ -1172,7 +1139,7 @@ onclick="callPartner()">
 
 <button
 class="trackBtn"
-onclick="trackOrder('${doc.id}')">
+onclick="trackOrder()">
 
 Track Live
 
@@ -1180,7 +1147,7 @@ Track Live
 
 <button
 class="invoiceBtn"
-onclick="downloadInvoice('${doc.id}')">
+onclick="downloadInvoice()">
 
 Invoice
 
@@ -1217,34 +1184,21 @@ Failed to load orders
 
 }
 
-/* =====================================================
+/* =========================================
 TRACK
-===================================================== */
+========================================= */
 
 window.trackOrder =
-function(id){
+function(){
 
 window.location.href =
-`tracking.html?order=${id}`;
+"tracking.html";
 
 }
 
-/* =====================================================
-INVOICE
-===================================================== */
-
-window.downloadInvoice =
-function(id){
-
-alert(
-"Invoice Download Started 📄"
-);
-
-}
-
-/* =====================================================
+/* =========================================
 CALL
-===================================================== */
+========================================= */
 
 window.callPartner =
 function(){
@@ -1254,9 +1208,22 @@ window.location.href =
 
 }
 
-/* =====================================================
+/* =========================================
+INVOICE
+========================================= */
+
+window.downloadInvoice =
+function(){
+
+alert(
+"Invoice Download Started 📄"
+);
+
+}
+
+/* =========================================
 NAVIGATION
-===================================================== */
+========================================= */
 
 window.goPage =
 function(page){
@@ -1265,38 +1232,6 @@ window.location.href =
 page;
 
 }
-
-/* =====================================================
-FILTER
-===================================================== */
-
-const filterBtns =
-document.querySelectorAll(
-".filterBtn"
-);
-
-filterBtns.forEach(btn=>{
-
-btn.addEventListener(
-"click",
-()=>{
-
-filterBtns.forEach(item=>{
-
-item.classList.remove(
-"activeFilter"
-);
-
-});
-
-btn.classList.add(
-"activeFilter"
-);
-
-}
-);
-
-});
 
 </script>
 
