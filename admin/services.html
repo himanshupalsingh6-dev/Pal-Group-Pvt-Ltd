@@ -1,56 +1,46 @@
-<!-- =========================================================
-FILE : admin/services.html
-QUICKPRESS ENTERPRISE SERVICES PANEL
-========================================================= -->
-
 <!DOCTYPE html>
 <html lang="en">
 
 <head>
 
-<meta charset="UTF-8"/>
+<meta charset="UTF-8">
 
-<meta name="viewport"
-content="width=device-width, initial-scale=1.0"/>
+<meta
+name="viewport"
+content="width=device-width, initial-scale=1.0">
 
 <title>
 QuickPress Services
 </title>
 
 <link rel="stylesheet"
-href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css"/>
+href="layout.css">
 
-<link rel="stylesheet" href="./css/global.css"/>
+<link rel="stylesheet"
+href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css"/>
 
 <style>
 
 /* =====================================================
-GLOBAL
-===================================================== */
-
-*{
-margin:0;
-padding:0;
-box-sizing:border-box;
-font-family:Inter,sans-serif;
-}
-
-body{
-background:#F5F7FB;
-overflow:hidden;
-color:#111827;
-}
-
-/* =====================================================
-MAIN
+PAGE
 ===================================================== */
 
 .main{
-margin-left:240px;
-margin-top:82px;
-height:calc(100vh - 82px);
-overflow:auto;
-padding:24px;
+
+margin-left:290px;
+
+width:calc(100% - 290px);
+
+min-height:100vh;
+
+background:#F4F7FB;
+
+}
+
+.content{
+
+padding:28px;
+
 }
 
 /* =====================================================
@@ -58,208 +48,344 @@ HEADER
 ===================================================== */
 
 .pageHeader{
+
 display:flex;
+
 justify-content:space-between;
+
 align-items:center;
+
 margin-bottom:24px;
+
+gap:20px;
+
+flex-wrap:wrap;
+
 }
 
-.pageHeader h1{
-font-size:42px;
+.pageTitle{
+
+font-size:56px;
+
 font-weight:900;
+
+letter-spacing:-2px;
+
 }
+
+/* =====================================================
+BUTTON
+===================================================== */
 
 .addBtn{
-height:52px;
-padding:0 22px;
+
+height:56px;
+
+padding:0 26px;
+
 border:none;
-border-radius:14px;
+
+border-radius:18px;
+
 background:#111827;
+
 color:#fff;
-font-size:14px;
-font-weight:700;
-cursor:pointer;
-}
 
-/* =====================================================
-STATS
-===================================================== */
-
-.statsGrid{
-display:grid;
-grid-template-columns:repeat(4,1fr);
-gap:18px;
-margin-bottom:24px;
-}
-
-.statCard{
-background:#fff;
-border:1px solid #E5E7EB;
-border-radius:22px;
-padding:22px;
-}
-
-.statCard span{
-font-size:13px;
-font-weight:700;
-color:#6B7280;
-}
-
-.statCard h2{
-font-size:34px;
 font-weight:900;
-margin-top:10px;
+
+font-size:15px;
+
+cursor:pointer;
+
 }
 
 /* =====================================================
-FILTER
+FORM
 ===================================================== */
 
-.filterBar{
+.formCard{
+
 background:#fff;
-border:1px solid #E5E7EB;
-border-radius:24px;
-padding:18px;
-display:flex;
-gap:14px;
+
+padding:26px;
+
+border-radius:32px;
+
 margin-bottom:24px;
+
+border:1px solid #E5E7EB;
+
+display:grid;
+
+grid-template-columns:
+repeat(3,1fr);
+
+gap:18px;
+
 }
 
-.searchBox{
-width:320px;
-height:52px;
-border-radius:14px;
-border:1px solid #E5E7EB;
-padding:0 18px;
-font-size:14px;
+.inputBox{
+
+display:flex;
+
+flex-direction:column;
+
+gap:10px;
+
+}
+
+.inputBox label{
+
+font-size:13px;
+
+font-weight:900;
+
+}
+
+.input{
+
+height:56px;
+
+border:none;
+
 outline:none;
+
+background:#F9FAFB;
+
+border:1px solid #E5E7EB;
+
+border-radius:18px;
+
+padding:0 18px;
+
+font-size:14px;
+
+font-weight:700;
+
+}
+
+textarea.input{
+
+height:120px;
+
+padding-top:16px;
+
+resize:none;
+
+}
+
+.saveBtn{
+
+height:56px;
+
+border:none;
+
+border-radius:18px;
+
+background:#16A34A;
+
+color:#fff;
+
+font-size:15px;
+
+font-weight:900;
+
+cursor:pointer;
+
+margin-top:auto;
+
 }
 
 /* =====================================================
-SERVICES GRID
+GRID
 ===================================================== */
 
 .servicesGrid{
+
 display:grid;
-grid-template-columns:repeat(4,1fr);
-gap:20px;
+
+grid-template-columns:
+repeat(3,1fr);
+
+gap:22px;
+
 }
 
 /* =====================================================
-SERVICE CARD
+CARD
 ===================================================== */
 
 .serviceCard{
+
 background:#fff;
+
+border-radius:30px;
+
+overflow:hidden;
+
 border:1px solid #E5E7EB;
-border-radius:24px;
+
+}
+
+.serviceImage{
+
+width:100%;
+
+height:220px;
+
+object-fit:cover;
+
+background:#F3F4F6;
+
+}
+
+.serviceBody{
+
 padding:22px;
+
 }
 
-.serviceTop{
-display:flex;
-justify-content:space-between;
-align-items:center;
-margin-bottom:20px;
-}
+.serviceTitle{
 
-.serviceIcon{
-width:64px;
-height:64px;
-border-radius:18px;
-background:#DBEAFE;
-display:flex;
-align-items:center;
-justify-content:center;
-font-size:28px;
-}
+font-size:24px;
 
-.status{
-padding:8px 14px;
-border-radius:999px;
-font-size:12px;
-font-weight:800;
-}
-
-.active{
-background:#DCFCE7;
-color:#166534;
-}
-
-.inactive{
-background:#FEE2E2;
-color:#991B1B;
-}
-
-.serviceCard h3{
-font-size:22px;
 font-weight:900;
+
 margin-bottom:10px;
+
 }
 
-.serviceCard p{
+.serviceDesc{
+
 font-size:14px;
-color:#6B7280;
+
+font-weight:600;
+
 line-height:1.6;
-margin-bottom:18px;
-}
 
-.priceGrid{
-display:grid;
-grid-template-columns:1fr 1fr;
-gap:12px;
-margin-bottom:18px;
-}
-
-.priceBox{
-background:#F9FAFB;
-padding:14px;
-border-radius:16px;
-}
-
-.priceBox span{
-font-size:11px;
 color:#6B7280;
+
+margin-bottom:18px;
+
 }
 
-.priceBox h4{
-font-size:20px;
+.priceWrap{
+
+display:flex;
+
+align-items:center;
+
+justify-content:space-between;
+
+margin-bottom:18px;
+
+}
+
+.price{
+
+font-size:30px;
+
 font-weight:900;
-margin-top:5px;
+
 }
 
-/* =====================================================
-BUTTONS
-===================================================== */
+.city{
 
-.btnGrid{
-display:grid;
-grid-template-columns:repeat(3,1fr);
-gap:12px;
+padding:10px 14px;
+
+border-radius:999px;
+
+background:#EEF2FF;
+
+font-size:12px;
+
+font-weight:900;
+
+color:#4338CA;
+
 }
 
-.btn{
-height:46px;
+.cardActions{
+
+display:flex;
+
+gap:10px;
+
+}
+
+.actionBtn{
+
+flex:1;
+
+height:52px;
+
 border:none;
-border-radius:14px;
-font-size:13px;
-font-weight:800;
+
+border-radius:16px;
+
+font-size:14px;
+
+font-weight:900;
+
 cursor:pointer;
+
 }
 
 .editBtn{
+
 background:#111827;
+
 color:#fff;
+
 }
 
 .deleteBtn{
-background:#EF4444;
-color:#fff;
+
+background:#FEE2E2;
+
+color:#DC2626;
+
 }
 
-.toggleBtn{
-background:#2563EB;
-color:#fff;
+/* =====================================================
+RESPONSIVE
+===================================================== */
+
+@media(max-width:1200px){
+
+.servicesGrid{
+grid-template-columns:repeat(2,1fr);
+}
+
+.formCard{
+grid-template-columns:repeat(2,1fr);
+}
+
+}
+
+@media(max-width:800px){
+
+.main{
+margin-left:0;
+width:100%;
+}
+
+.content{
+padding:16px;
+}
+
+.pageTitle{
+font-size:38px;
+}
+
+.servicesGrid{
+grid-template-columns:1fr;
+}
+
+.formCard{
+grid-template-columns:1fr;
+}
+
 }
 
 </style>
@@ -267,101 +393,178 @@ color:#fff;
 </head>
 
 <body>
-  
-<div id="topbar"></div>
 
-<div id="sidebar"></div>
+<div class="adminLayout">
 
-<!-- =====================================================
-MAIN
-===================================================== -->
+<div id="layoutContainer"></div>
 
 <div class="main">
 
+<div class="content">
+
+<!-- =====================================================
+HEADER
+===================================================== -->
+
 <div class="pageHeader">
 
-<h1>
+<div class="pageTitle">
 Services
-</h1>
+</div>
 
-<button
-class="addBtn"
-onclick="addService()">
+<button class="addBtn">
 
-+ Add Service
+<i class="fa-solid fa-plus"></i>
+
+Add Service
 
 </button>
 
 </div>
 
 <!-- =====================================================
-STATS
+FORM
 ===================================================== -->
 
-<div class="statsGrid">
+<div class="formCard">
 
-<div class="statCard">
+<div class="inputBox">
 
-<span>
-Total Services
-</span>
-
-<h2 id="totalServices">
-0
-</h2>
-
-</div>
-
-<div class="statCard">
-
-<span>
-Active Services
-</span>
-
-<h2 id="activeServices">
-0
-</h2>
-
-</div>
-
-<div class="statCard">
-
-<span>
-Inactive Services
-</span>
-
-<h2 id="inactiveServices">
-0
-</h2>
-
-</div>
-
-<div class="statCard">
-
-<span>
-Total Revenue
-</span>
-
-<h2 id="serviceRevenue">
-₹0
-</h2>
-
-</div>
-
-</div>
-
-<!-- =====================================================
-FILTER
-===================================================== -->
-
-<div class="filterBar">
+<label>
+Service Name
+</label>
 
 <input
 type="text"
-placeholder="Search Service"
-class="searchBox"
-id="searchInput"
-/>
+id="serviceName"
+class="input"
+placeholder="Premium Laundry">
+
+</div>
+
+<div class="inputBox">
+
+<label>
+Price
+</label>
+
+<input
+type="number"
+id="servicePrice"
+class="input"
+placeholder="99">
+
+</div>
+
+<div class="inputBox">
+
+<label>
+City
+</label>
+
+<select
+id="serviceCity"
+class="input">
+
+<option value="Kasganj">
+Kasganj
+</option>
+
+<option value="Delhi">
+Delhi
+</option>
+
+<option value="Noida">
+Noida
+</option>
+
+<option value="Lucknow">
+Lucknow
+</option>
+
+</select>
+
+</div>
+
+<div class="inputBox">
+
+<label>
+Image URL
+</label>
+
+<input
+type="text"
+id="serviceImage"
+class="input"
+placeholder="https://">
+
+</div>
+
+<div class="inputBox">
+
+<label>
+Category
+</label>
+
+<select
+id="serviceCategory"
+class="input">
+
+<option value="Laundry">
+Laundry
+</option>
+
+<option value="Dry Clean">
+Dry Clean
+</option>
+
+<option value="Steam Iron">
+Steam Iron
+</option>
+
+<option value="Shoe Cleaning">
+Shoe Cleaning
+</option>
+
+</select>
+
+</div>
+
+<div class="inputBox">
+
+<label>
+Delivery Time
+</label>
+
+<input
+type="text"
+id="serviceTime"
+class="input"
+placeholder="30 mins">
+
+</div>
+
+<div class="inputBox"
+style="grid-column:1/-1;">
+
+<label>
+Description
+</label>
+
+<textarea
+id="serviceDesc"
+class="input"
+placeholder="Premium laundry service..."></textarea>
+
+</div>
+
+<button
+id="saveServiceBtn"
+class="saveBtn">
+
+Save Service
+
+</button>
 
 </div>
 
@@ -369,24 +572,23 @@ id="searchInput"
 GRID
 ===================================================== -->
 
-<div
-class="servicesGrid"
+<div class="servicesGrid"
 id="servicesGrid">
 
 </div>
 
 </div>
 
+</div>
+
+</div>
+
 <script type="module"
-src="./js/services.js">
+src="layout.js">
 </script>
 
 <script type="module"
-src="./components/topbar.js">
-</script>
-
-<script type="module"
-src="./components/sidebar.js">
+src="services.js">
 </script>
 
 </body>
