@@ -1,11 +1,11 @@
 /* =========================================================
-FILE : services.js
-FULL REALTIME SERVICES SYSTEM
+FILE : js/services.js
+ADVANCE SERVICES SYSTEM
 ========================================================= */
 
 import { db }
 
-from "../firebase.js";
+from "../../firebase.js";
 
 import {
 
@@ -31,9 +31,9 @@ document.getElementById(
 "serviceName"
 );
 
-const servicePrice =
+const serviceCategory =
 document.getElementById(
-"servicePrice"
+"serviceCategory"
 );
 
 const serviceCity =
@@ -41,19 +41,34 @@ document.getElementById(
 "serviceCity"
 );
 
-const serviceImage =
+const servicePrice =
 document.getElementById(
-"serviceImage"
+"servicePrice"
 );
 
-const serviceCategory =
+const serviceOldPrice =
 document.getElementById(
-"serviceCategory"
+"serviceOldPrice"
 );
 
 const serviceTime =
 document.getElementById(
 "serviceTime"
+);
+
+const serviceRating =
+document.getElementById(
+"serviceRating"
+);
+
+const serviceIcon =
+document.getElementById(
+"serviceIcon"
+);
+
+const serviceImage =
+document.getElementById(
+"serviceImage"
 );
 
 const serviceDesc =
@@ -78,14 +93,12 @@ GLOBAL
 let editId = null;
 
 /* =========================================================
-SAVE SERVICE
+SAVE
 ========================================================= */
 
 saveServiceBtn.addEventListener(
 "click",
 async ()=>{
-
-/* ========================================================= */
 
 if(
 !serviceName.value ||
@@ -93,7 +106,7 @@ if(
 ){
 
 showToast(
-"Fill all details"
+"Fill all fields"
 );
 
 return;
@@ -107,20 +120,29 @@ const serviceData = {
 name:
 serviceName.value,
 
-price:
-Number(servicePrice.value),
+category:
+serviceCategory.value,
 
 city:
 serviceCity.value,
 
-image:
-serviceImage.value,
+price:
+Number(servicePrice.value),
 
-category:
-serviceCategory.value,
+oldPrice:
+Number(serviceOldPrice.value),
 
 time:
 serviceTime.value,
+
+rating:
+serviceRating.value,
+
+icon:
+serviceIcon.value,
+
+image:
+serviceImage.value,
 
 description:
 serviceDesc.value,
@@ -142,13 +164,9 @@ serviceData
 
 );
 
-/* ========================================================= */
-
 showToast(
 "Service Updated"
 );
-
-/* ========================================================= */
 
 editId = null;
 
@@ -167,8 +185,6 @@ serviceData
 
 );
 
-/* ========================================================= */
-
 showToast(
 "Service Added"
 );
@@ -183,7 +199,7 @@ clearForm();
 );
 
 /* =========================================================
-LOAD SERVICES
+LOAD
 ========================================================= */
 
 onSnapshot(
@@ -213,9 +229,19 @@ class="serviceImage">
 
 <div class="serviceBody">
 
-<div class="serviceTitle">
+<div class="serviceTop">
+
+<div class="serviceName">
 
 ${service.name}
+
+</div>
+
+<div class="categoryTag">
+
+${service.category}
+
+</div>
 
 </div>
 
@@ -225,17 +251,53 @@ ${service.description}
 
 </div>
 
-<div class="priceWrap">
+<div class="serviceInfo">
 
-<div class="price">
+<div class="infoBox">
 
+<h5>
+Price
+</h5>
+
+<h4>
 ₹${service.price}
+</h4>
 
 </div>
 
-<div class="city">
+<div class="infoBox">
 
+<h5>
+City
+</h5>
+
+<h4>
 ${service.city}
+</h4>
+
+</div>
+
+<div class="infoBox">
+
+<h5>
+Delivery
+</h5>
+
+<h4>
+${service.time}
+</h4>
+
+</div>
+
+<div class="infoBox">
+
+<h5>
+Rating
+</h5>
+
+<h4>
+⭐ ${service.rating}
+</h4>
 
 </div>
 
@@ -244,14 +306,17 @@ ${service.city}
 <div class="cardActions">
 
 <button
-class="actionBtn editBtn"
+class="editBtn"
 onclick="editService('${docSnap.id}',
 '${service.name}',
-'${service.price}',
-'${service.city}',
-'${service.image}',
 '${service.category}',
+'${service.city}',
+'${service.price}',
+'${service.oldPrice}',
 '${service.time}',
+'${service.rating}',
+'${service.icon}',
+'${service.image}',
 '${service.description}')">
 
 Edit
@@ -259,7 +324,7 @@ Edit
 </button>
 
 <button
-class="actionBtn deleteBtn"
+class="deleteBtn"
 onclick="deleteService('${docSnap.id}')">
 
 Delete
@@ -287,45 +352,32 @@ window.editService =
 function(
 id,
 name,
-price,
-city,
-image,
 category,
+city,
+price,
+oldPrice,
 time,
+rating,
+icon,
+image,
 description
 ){
 
 editId = id;
 
-/* ========================================================= */
-
-serviceName.value =
-name;
-
-servicePrice.value =
-price;
-
-serviceCity.value =
-city;
-
-serviceImage.value =
-image;
-
-serviceCategory.value =
-category;
-
-serviceTime.value =
-time;
-
-serviceDesc.value =
-description;
-
-/* ========================================================= */
+serviceName.value = name;
+serviceCategory.value = category;
+serviceCity.value = city;
+servicePrice.value = price;
+serviceOldPrice.value = oldPrice;
+serviceTime.value = time;
+serviceRating.value = rating;
+serviceIcon.value = icon;
+serviceImage.value = image;
+serviceDesc.value = description;
 
 saveServiceBtn.innerHTML =
 "Update Service";
-
-/* ========================================================= */
 
 window.scrollTo({
 top:0,
@@ -343,7 +395,7 @@ async function(id){
 
 const confirmDelete =
 confirm(
-"Delete this service?"
+"Delete service?"
 );
 
 if(!confirmDelete){
@@ -352,13 +404,9 @@ return;
 
 }
 
-/* ========================================================= */
-
 await deleteDoc(
 doc(db,"services",id)
 );
-
-/* ========================================================= */
 
 showToast(
 "Service Deleted"
@@ -374,10 +422,11 @@ function clearForm(){
 
 serviceName.value = "";
 servicePrice.value = "";
-serviceCity.value = "Kasganj";
-serviceImage.value = "";
-serviceCategory.value = "Laundry";
+serviceOldPrice.value = "";
 serviceTime.value = "";
+serviceRating.value = "";
+serviceIcon.value = "";
+serviceImage.value = "";
 serviceDesc.value = "";
 
 }
@@ -396,15 +445,13 @@ document.createElement(
 toast.innerHTML =
 message;
 
-/* ========================================================= */
-
 toast.style.position =
 "fixed";
 
-toast.style.right =
+toast.style.bottom =
 "20px";
 
-toast.style.bottom =
+toast.style.right =
 "20px";
 
 toast.style.background =
@@ -425,13 +472,9 @@ toast.style.fontWeight =
 toast.style.zIndex =
 "99999";
 
-/* ========================================================= */
-
 document.body.appendChild(
 toast
 );
-
-/* ========================================================= */
 
 setTimeout(()=>{
 
