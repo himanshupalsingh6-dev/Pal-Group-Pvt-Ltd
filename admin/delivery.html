@@ -1,10 +1,12 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
 
 <meta charset="UTF-8">
 
-<meta name="viewport"
+<meta
+name="viewport"
 content="width=device-width, initial-scale=1.0">
 
 <title>
@@ -12,347 +14,410 @@ QuickPress Riders
 </title>
 
 <link rel="stylesheet"
+href="layout.css">
+
+<link rel="stylesheet"
 href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css"/>
-
-<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-
-<link rel="stylesheet" href="./css/global.css"/>
 
 <style>
 
-*{
-margin:0;
-padding:0;
-box-sizing:border-box;
-font-family:Poppins,sans-serif;
-}
-
-body{
-background:#F4F7FC;
-display:flex;
-}
-
-
-/* MAIN */
+/* =====================================================
+MAIN
+===================================================== */
 
 .main{
-margin-left:240px;
-width:calc(100% - 240px);
-padding:24px;
+
+margin-left:290px;
+
+width:calc(100% - 290px);
+
+background:#F4F7FB;
+
+min-height:100vh;
+
+overflow-x:hidden;
+
 }
 
-/* TOP */
+.content{
 
-.topBar{
+padding:28px;
+
+}
+
+/* =====================================================
+HEADER
+===================================================== */
+
+.pageHeader{
+
 display:flex;
+
 justify-content:space-between;
+
 align-items:center;
-margin-bottom:24px;
-gap:14px;
+
+gap:20px;
+
 flex-wrap:wrap;
-}
 
-.topBar h1{
-font-size:40px;
-font-weight:900;
-}
-
-/* FILTERS */
-
-.filters{
-display:flex;
-gap:12px;
-flex-wrap:wrap;
-}
-
-.filterBox{
-height:52px;
-padding:0 18px;
-border:none;
-outline:none;
-border-radius:16px;
-background:#fff;
-font-size:14px;
-font-weight:700;
-min-width:180px;
-}
-
-/* STATS */
-
-.statsGrid{
-display:grid;
-grid-template-columns:repeat(5,1fr);
-gap:18px;
 margin-bottom:24px;
+
 }
 
-.statCard{
-background:#fff;
-padding:24px;
-border-radius:26px;
-box-shadow:0 10px 30px rgba(0,0,0,0.05);
-}
+.pageTitle{
 
-.statCard span{
-font-size:13px;
-color:#6B7280;
-font-weight:700;
-}
+font-size:58px;
 
-.statCard h2{
-font-size:32px;
 font-weight:900;
-margin-top:10px;
+
+letter-spacing:-2px;
+
 }
 
-/* CREATE */
+.addBtn{
 
-.createBtn{
 height:56px;
-padding:0 22px;
+
+padding:0 24px;
+
 border:none;
+
 border-radius:18px;
-background:#FFD400;
-font-size:15px;
-font-weight:900;
-cursor:pointer;
-}
 
-/* RIDERS */
+background:#111827;
 
-.ridersGrid{
-display:grid;
-grid-template-columns:repeat(3,1fr);
-gap:18px;
-}
-
-/* CARD */
-
-.riderCard{
-background:#fff;
-padding:20px;
-border-radius:30px;
-box-shadow:0 10px 30px rgba(0,0,0,0.05);
-}
-
-.riderTop{
-display:flex;
-justify-content:space-between;
-align-items:center;
-margin-bottom:18px;
-}
-
-.riderInfo{
-display:flex;
-align-items:center;
-gap:12px;
-}
-
-.riderLogo{
-width:60px;
-height:60px;
-border-radius:20px;
-background:#FFD400;
-display:flex;
-align-items:center;
-justify-content:center;
-font-size:24px;
-font-weight:900;
-}
-
-.riderInfo h3{
-font-size:22px;
-font-weight:900;
-}
-
-.riderInfo p{
-font-size:12px;
-color:#6B7280;
-margin-top:4px;
-}
-
-.statusTag{
-padding:8px 14px;
-border-radius:20px;
-background:#DCFCE7;
-color:#166534;
-font-size:12px;
-font-weight:800;
-}
-
-/* MINI */
-
-.miniGrid{
-display:grid;
-grid-template-columns:repeat(3,1fr);
-gap:10px;
-margin-bottom:16px;
-}
-
-.miniCard{
-background:#F9FAFB;
-padding:12px;
-border-radius:16px;
-}
-
-.miniCard span{
-font-size:11px;
-color:#6B7280;
-}
-
-.miniCard h4{
-font-size:18px;
-font-weight:900;
-margin-top:6px;
-}
-
-/* DETAILS */
-
-.detailGrid{
-display:grid;
-grid-template-columns:repeat(2,1fr);
-gap:10px;
-margin-bottom:16px;
-}
-
-.detailCard{
-background:#F9FAFB;
-padding:12px;
-border-radius:14px;
-}
-
-.detailCard span{
-font-size:11px;
-color:#6B7280;
-}
-
-.detailCard h4{
-font-size:14px;
-font-weight:800;
-margin-top:6px;
-}
-
-/* BUTTONS */
-
-.actionGrid{
-display:grid;
-grid-template-columns:1fr 1fr;
-gap:12px;
-}
-
-.actionBtn{
-height:52px;
-border:none;
-border-radius:16px;
-background:#081028;
 color:#fff;
-font-size:14px;
-font-weight:800;
+
+font-weight:900;
+
 cursor:pointer;
+
 }
 
-.viewBtn{
-background:#FFD400;
-color:#000;
-}
+/* =====================================================
+SEARCH
+===================================================== */
 
-/* POPUP */
+.searchWrap{
 
-.popup{
-position:fixed;
-inset:0;
-background:rgba(0,0,0,0.5);
-display:none;
-align-items:center;
-justify-content:center;
-padding:20px;
-z-index:9999;
-}
-
-.popupContent{
-background:#fff;
-width:100%;
-max-width:1000px;
-border-radius:30px;
-padding:24px;
-max-height:90vh;
-overflow:auto;
-}
-
-.popupHeader{
 display:flex;
-justify-content:space-between;
-align-items:center;
+
+gap:14px;
+
+flex-wrap:wrap;
+
 margin-bottom:24px;
+
 }
 
-.popupHeader h2{
-font-size:32px;
-font-weight:900;
+.searchInput,
+.selectInput{
+
+height:56px;
+
+border:none;
+
+outline:none;
+
+padding:0 20px;
+
+border-radius:18px;
+
+background:#fff;
+
+border:1px solid #E5E7EB;
+
+font-size:14px;
+
+font-weight:700;
+
 }
 
-.closeBtn{
-width:44px;
-height:44px;
-border-radius:14px;
-background:#081028;
-color:#fff;
-display:flex;
-align-items:center;
-justify-content:center;
-font-size:20px;
-cursor:pointer;
+.searchInput{
+
+width:320px;
+
 }
 
-/* FORM */
+/* =====================================================
+FORM
+===================================================== */
 
-.formGrid{
+.formCard{
+
+background:#fff;
+
+border-radius:32px;
+
+padding:28px;
+
+margin-bottom:28px;
+
+border:1px solid #E5E7EB;
+
 display:grid;
-grid-template-columns:repeat(2,1fr);
-gap:16px;
+
+grid-template-columns:
+repeat(3,1fr);
+
+gap:18px;
+
 }
 
 .inputBox{
-width:100%;
+
+display:flex;
+
+flex-direction:column;
+
+gap:10px;
+
+}
+
+.inputBox label{
+
+font-size:13px;
+
+font-weight:900;
+
+}
+
+.input{
+
 height:56px;
+
 border:none;
+
 outline:none;
+
 background:#F9FAFB;
-padding:0 16px;
-border-radius:16px;
-font-size:14px;
-font-weight:700;
-}
 
-.submitBtn{
-width:100%;
-height:56px;
-border:none;
+border:1px solid #E5E7EB;
+
 border-radius:18px;
-background:#FFD400;
-font-size:16px;
+
+padding:0 18px;
+
+font-size:14px;
+
+font-weight:700;
+
+}
+
+.saveBtn{
+
+height:56px;
+
+border:none;
+
+background:#16A34A;
+
+color:#fff;
+
 font-weight:900;
-margin-top:18px;
+
+border-radius:18px;
+
 cursor:pointer;
+
 }
 
-/* GRAPH */
+/* =====================================================
+GRID
+===================================================== */
 
-.graphCard{
+.ridersGrid{
+
+display:grid;
+
+grid-template-columns:
+repeat(3,1fr);
+
+gap:24px;
+
+}
+
+/* =====================================================
+CARD
+===================================================== */
+
+.riderCard{
+
 background:#fff;
+
+border-radius:32px;
+
+overflow:hidden;
+
+border:1px solid #E5E7EB;
+
+}
+
+.riderTop{
+
 padding:24px;
-border-radius:30px;
-margin-top:28px;
-box-shadow:0 10px 30px rgba(0,0,0,0.05);
+
+display:flex;
+
+align-items:center;
+
+gap:18px;
+
+border-bottom:1px solid #F3F4F6;
+
 }
 
-.graphCard h2{
-font-size:28px;
+.riderImage{
+
+width:90px;
+
+height:90px;
+
+border-radius:50%;
+
+object-fit:cover;
+
+}
+
+.riderInfo h2{
+
+font-size:24px;
+
 font-weight:900;
-margin-bottom:20px;
+
+margin-bottom:6px;
+
 }
 
-/* MOBILE */
+.riderInfo p{
+
+font-size:14px;
+
+font-weight:700;
+
+color:#6B7280;
+
+}
+
+.riderBody{
+
+padding:22px;
+
+}
+
+.infoGrid{
+
+display:grid;
+
+grid-template-columns:1fr 1fr;
+
+gap:12px;
+
+margin-bottom:20px;
+
+}
+
+.infoBox{
+
+background:#F9FAFB;
+
+padding:14px;
+
+border-radius:18px;
+
+}
+
+.infoBox h5{
+
+font-size:12px;
+
+font-weight:900;
+
+color:#6B7280;
+
+margin-bottom:8px;
+
+}
+
+.infoBox h4{
+
+font-size:18px;
+
+font-weight:900;
+
+}
+
+.status{
+
+padding:10px 14px;
+
+border-radius:999px;
+
+font-size:12px;
+
+font-weight:900;
+
+display:inline-block;
+
+}
+
+.online{
+background:#DCFCE7;
+color:#15803D;
+}
+
+.offline{
+background:#FEE2E2;
+color:#DC2626;
+}
+
+.cardActions{
+
+display:flex;
+
+gap:12px;
+
+}
+
+.editBtn,
+.deleteBtn{
+
+flex:1;
+
+height:52px;
+
+border:none;
+
+border-radius:16px;
+
+font-size:14px;
+
+font-weight:900;
+
+cursor:pointer;
+
+}
+
+.editBtn{
+
+background:#111827;
+
+color:#fff;
+
+}
+
+.deleteBtn{
+
+background:#FEE2E2;
+
+color:#DC2626;
+
+}
+
+/* =====================================================
+RESPONSIVE
+===================================================== */
 
 @media(max-width:1200px){
 
@@ -360,916 +425,254 @@ margin-bottom:20px;
 grid-template-columns:repeat(2,1fr);
 }
 
-.statsGrid{
+.formCard{
 grid-template-columns:repeat(2,1fr);
 }
 
 }
 
-@media(max-width:900px){
-
-.sidebar{
-display:none;
-}
+@media(max-width:800px){
 
 .main{
 margin-left:0;
 width:100%;
+}
+
+.content{
 padding:16px;
+}
+
+.pageTitle{
+font-size:40px;
 }
 
 .ridersGrid{
 grid-template-columns:1fr;
 }
 
-.formGrid{
+.formCard{
 grid-template-columns:1fr;
+}
+
+.searchInput{
+width:100%;
 }
 
 }
 
 </style>
+
 </head>
+
 <body>
-  
-<div id="sidebar"></div>
-<!-- MAIN -->
+
+<div class="adminLayout">
+
+<div id="layoutContainer"></div>
 
 <div class="main">
 
-<!-- TOP -->
+<div class="content">
 
-<div class="topBar">
+<!-- =====================================================
+HEADER
+===================================================== -->
 
-<h1>
+<div class="pageHeader">
+
+<div class="pageTitle">
 Riders
-</h1>
+</div>
 
-<div class="filters">
+<button class="addBtn">
+
+<i class="fa-solid fa-plus"></i>
+
+Add Rider
+
+</button>
+
+</div>
+
+<!-- =====================================================
+SEARCH
+===================================================== -->
+
+<div class="searchWrap">
 
 <input
 type="text"
-placeholder="Search Rider..."
-class="filterBox"
 id="searchInput"
-/>
+class="searchInput"
+placeholder="Search rider">
 
 <select
 id="cityFilter"
-class="filterBox">
+class="selectInput">
 
 <option value="All">
 All Cities
 </option>
 
-<option>
+<option value="Kasganj">
 Kasganj
 </option>
 
-<option>
-Noida
-</option>
-
-<option>
+<option value="Delhi">
 Delhi
 </option>
 
-<option>
-Mumbai
-</option>
-
-<option>
-Aligarh
+<option value="Noida">
+Noida
 </option>
 
 </select>
 
-<button
-class="createBtn"
-onclick="openCreatePopup()">
+</div>
 
-+ New Rider
+<!-- =====================================================
+FORM
+===================================================== -->
+
+<div class="formCard">
+
+<div class="inputBox">
+
+<label>
+Rider Name
+</label>
+
+<input
+type="text"
+id="riderName"
+class="input"
+placeholder="Rahul Kumar">
+
+</div>
+
+<div class="inputBox">
+
+<label>
+Mobile Number
+</label>
+
+<input
+type="text"
+id="riderPhone"
+class="input"
+placeholder="9876543210">
+
+</div>
+
+<div class="inputBox">
+
+<label>
+City
+</label>
+
+<select
+id="riderCity"
+class="input">
+
+<option value="Kasganj">
+Kasganj
+</option>
+
+<option value="Delhi">
+Delhi
+</option>
+
+<option value="Noida">
+Noida
+</option>
+
+</select>
+
+</div>
+
+<div class="inputBox">
+
+<label>
+Vehicle Number
+</label>
+
+<input
+type="text"
+id="vehicleNumber"
+class="input"
+placeholder="UP87AB1234">
+
+</div>
+
+<div class="inputBox">
+
+<label>
+Profile Image URL
+</label>
+
+<input
+type="text"
+id="riderImage"
+class="input"
+placeholder="https://">
+
+</div>
+
+<div class="inputBox">
+
+<label>
+Status
+</label>
+
+<select
+id="riderStatus"
+class="input">
+
+<option value="Online">
+Online
+</option>
+
+<option value="Offline">
+Offline
+</option>
+
+</select>
+
+</div>
+
+<button
+id="saveRiderBtn"
+class="saveBtn">
+
+Save Rider
 
 </button>
 
 </div>
 
-</div>
+<!-- =====================================================
+GRID
+===================================================== -->
 
-<!-- STATS -->
-
-<div class="statsGrid">
-
-<div class="statCard">
-
-<span>
-Total Riders
-</span>
-
-<h2 id="totalRiders">
-0
-</h2>
-
-</div>
-
-<div class="statCard">
-
-<span>
-Today's Riders
-</span>
-
-<h2 id="todayRiders">
-0
-</h2>
-
-</div>
-
-<div class="statCard">
-
-<span>
-Total Earnings
-</span>
-
-<h2 id="totalEarning">
-₹0
-</h2>
-
-</div>
-
-<div class="statCard">
-
-<span>
-Wallet Payments
-</span>
-
-<h2 id="walletPayments">
-₹0
-</h2>
-
-</div>
-
-<div class="statCard">
-
-<span>
-Active Cities
-</span>
-
-<h2 id="activeCities">
-0
-</h2>
-
-</div>
-
-</div>
-
-<!-- RIDERS -->
-
-<div class="ridersGrid"
+<div
+class="ridersGrid"
 id="ridersGrid">
 
 </div>
 
-<!-- GRAPH -->
-
-<div class="graphCard">
-
-<h2>
-📈 Rider Growth Graph
-</h2>
-
-<canvas id="growthChart">
-
-</canvas>
-
-</div>
-
-</div>
-
-<!-- VIEW POPUP -->
-
-<div class="popup"
-id="viewPopup">
-
-<div class="popupContent">
-
-<div class="popupHeader">
-
-<h2>
-Rider Full Details
-</h2>
-
-<div class="closeBtn"
-onclick="closePopup()">
-
-✕
-
-</div>
-
-</div>
-
-<div id="popupData">
-
 </div>
 
 </div>
 
 </div>
 
-<!-- CREATE POPUP -->
-
-<div class="popup"
-id="createPopup">
-
-<div class="popupContent">
-
-<div class="popupHeader">
-
-<h2>
-Create Rider
-</h2>
-
-<div class="closeBtn"
-onclick="closeCreatePopup()">
-
-✕
-
-</div>
-
-</div>
-
-<div class="formGrid">
-
-<input
-type="text"
-placeholder="Full Name"
-id="name"
-class="inputBox"
-/>
-
-<input
-type="text"
-placeholder="Mobile Number"
-id="mobile"
-class="inputBox"
-/>
-
-<input
-type="email"
-placeholder="Email"
-id="email"
-class="inputBox"
-/>
-
-<input
-type="text"
-placeholder="City"
-id="city"
-class="inputBox"
-/>
-
-<input
-type="text"
-placeholder="State"
-id="state"
-class="inputBox"
-/>
-
-<input
-type="text"
-placeholder="Aadhar Number"
-id="aadhar"
-class="inputBox"
-/>
-
-<input
-type="text"
-placeholder="PAN Number"
-id="pan"
-class="inputBox"
-/>
-
-<input
-type="text"
-placeholder="Vehicle Number"
-id="vehicle"
-class="inputBox"
-/>
-
-<input
-type="text"
-placeholder="Insurance Number"
-id="insurance"
-class="inputBox"
-/>
-
-<input
-type="text"
-placeholder="License Number"
-id="license"
-class="inputBox"
-/>
-
-<input
-type="text"
-placeholder="Bank Account"
-id="bank"
-class="inputBox"
-/>
-
-<input
-type="text"
-placeholder="IFSC Code"
-id="ifsc"
-class="inputBox"
-/>
-
-</div>
-
-<button
-class="submitBtn"
-onclick="createRider()">
-
-Create Rider
-
-</button>
-
-</div>
-
-</div>
-
-<!-- FIREBASE -->
-
-<script type="module">
-
-import { db }
-
-from
-
-"/Pal-Group-Pvt-Ltd/firebase.js";
-
-import {
-
-collection,
-getDocs,
-addDoc
-
-}
-
-from
-
-"https://www.gstatic.com/firebasejs/12.11.0/firebase-firestore.js";
-
-/* GLOBAL */
-
-let riders = [];
-
-/* ELEMENTS */
-
-const ridersGrid =
-document.getElementById(
-"ridersGrid"
-);
-
-const cityFilter =
-document.getElementById(
-"cityFilter"
-);
-
-const searchInput =
-document.getElementById(
-"searchInput"
-);
-
-/* LOAD */
-
-async function loadRiders(){
-
-const snap =
-await getDocs(
-collection(db,"riders")
-);
-
-riders = [];
-
-snap.forEach((doc)=>{
-
-riders.push({
-
-id:doc.id,
-
-...doc.data()
-
-});
-
-});
-
-renderRiders();
-
-createGraph();
-
-}
-
-loadRiders();
-
-/* RENDER */
-
-function renderRiders(){
-
-let html = "";
-
-let earning = 0;
-
-let wallet = 0;
-
-const cities = new Set();
-
-const search =
-searchInput.value
-.toLowerCase();
-
-riders.forEach((rider)=>{
-
-if(
-
-cityFilter.value !== "All"
-
-&&
-
-rider.city !== cityFilter.value
-
-){
-
-return;
-
-}
-
-if(
-
-!(rider.name || "")
-.toLowerCase()
-.includes(search)
-
-){
-
-return;
-
-}
-
-earning +=
-Number(rider.totalEarn || 0);
-
-wallet +=
-Number(rider.wallet || 0);
-
-cities.add(rider.city);
-
-html += `
-
-<div class="riderCard">
-
-<div class="riderTop">
-
-<div class="riderInfo">
-
-<div class="riderLogo">
-
-${rider.name?.charAt(0) || "R"}
-
-</div>
-
-<div>
-
-<h3>
-${rider.name || "Rider"}
-</h3>
-
-<p>
-${rider.mobile || "No Mobile"}
-</p>
-
-</div>
-
-</div>
-
-<div class="statusTag">
-
-Active
-
-</div>
-
-</div>
-
-<div class="miniGrid">
-
-<div class="miniCard">
-
-<span>
-Trips
-</span>
-
-<h4>
-${rider.totalTrips || 0}
-</h4>
-
-</div>
-
-<div class="miniCard">
-
-<span>
-Rejected
-</span>
-
-<h4>
-${rider.rejected || 0}
-</h4>
-
-</div>
-
-<div class="miniCard">
-
-<span>
-Earned
-</span>
-
-<h4>
-₹${rider.totalEarn || 0}
-</h4>
-
-</div>
-
-</div>
-
-<div class="detailGrid">
-
-<div class="detailCard">
-
-<span>
-City
-</span>
-
-<h4>
-${rider.city || "N/A"}
-</h4>
-
-</div>
-
-<div class="detailCard">
-
-<span>
-Vehicle
-</span>
-
-<h4>
-${rider.vehicle || "N/A"}
-</h4>
-
-</div>
-
-<div class="detailCard">
-
-<span>
-Wallet
-</span>
-
-<h4>
-₹${rider.wallet || 0}
-</h4>
-
-</div>
-
-<div class="detailCard">
-
-<span>
-Insurance
-</span>
-
-<h4>
-${rider.insurance || "N/A"}
-</h4>
-
-</div>
-
-</div>
-
-<div class="actionGrid">
-
-<button
-class="actionBtn">
-
-📞 Call
-
-</button>
-
-<button
-class="actionBtn viewBtn"
-onclick='openPopup(${JSON.stringify(rider)})'>
-
-View
-
-</button>
-
-</div>
-
-</div>
-
-`;
-
-});
-
-ridersGrid.innerHTML =
-html;
-
-document.getElementById(
-"totalRiders"
-).innerHTML =
-riders.length;
-
-document.getElementById(
-"todayRiders"
-).innerHTML =
-Math.floor(riders.length/2);
-
-document.getElementById(
-"totalEarning"
-).innerHTML =
-`₹${earning}`;
-
-document.getElementById(
-"walletPayments"
-).innerHTML =
-`₹${wallet}`;
-
-document.getElementById(
-"activeCities"
-).innerHTML =
-cities.size;
-
-}
-
-/* FILTER */
-
-cityFilter.addEventListener(
-"change",
-renderRiders
-);
-
-searchInput.addEventListener(
-"keyup",
-renderRiders
-);
-
-/* VIEW */
-
-window.openPopup =
-function(rider){
-
-document.getElementById(
-"viewPopup"
-).style.display =
-"flex";
-
-document.getElementById(
-"popupData"
-).innerHTML =
-
-`
-
-<div class="detailGrid">
-
-<div class="detailCard">
-<span>Name</span>
-<h4>${rider.name || 'N/A'}</h4>
-</div>
-
-<div class="detailCard">
-<span>Mobile</span>
-<h4>${rider.mobile || 'N/A'}</h4>
-</div>
-
-<div class="detailCard">
-<span>Email</span>
-<h4>${rider.email || 'N/A'}</h4>
-</div>
-
-<div class="detailCard">
-<span>City</span>
-<h4>${rider.city || 'N/A'}</h4>
-</div>
-
-<div class="detailCard">
-<span>State</span>
-<h4>${rider.state || 'N/A'}</h4>
-</div>
-
-<div class="detailCard">
-<span>Aadhar</span>
-<h4>${rider.aadhar || 'N/A'}</h4>
-</div>
-
-<div class="detailCard">
-<span>PAN</span>
-<h4>${rider.pan || 'N/A'}</h4>
-</div>
-
-<div class="detailCard">
-<span>Vehicle</span>
-<h4>${rider.vehicle || 'N/A'}</h4>
-</div>
-
-<div class="detailCard">
-<span>Insurance</span>
-<h4>${rider.insurance || 'N/A'}</h4>
-</div>
-
-<div class="detailCard">
-<span>License</span>
-<h4>${rider.license || 'N/A'}</h4>
-</div>
-
-<div class="detailCard">
-<span>Total Trips</span>
-<h4>${rider.totalTrips || 0}</h4>
-</div>
-
-<div class="detailCard">
-<span>Rejected</span>
-<h4>${rider.rejected || 0}</h4>
-</div>
-
-<div class="detailCard">
-<span>Total Earn</span>
-<h4>₹${rider.totalEarn || 0}</h4>
-</div>
-
-<div class="detailCard">
-<span>Wallet</span>
-<h4>₹${rider.wallet || 0}</h4>
-</div>
-
-</div>
-
-`;
-
-};
-
-window.closePopup =
-function(){
-
-document.getElementById(
-"viewPopup"
-).style.display =
-"none";
-
-};
-
-/* CREATE */
-
-window.openCreatePopup =
-function(){
-
-document.getElementById(
-"createPopup"
-).style.display =
-"flex";
-
-};
-
-window.closeCreatePopup =
-function(){
-
-document.getElementById(
-"createPopup"
-).style.display =
-"none";
-
-};
-
-window.createRider =
-async function(){
-
-await addDoc(
-
-collection(db,"riders"),
-
-{
-
-name:
-document.getElementById("name").value,
-
-mobile:
-document.getElementById("mobile").value,
-
-email:
-document.getElementById("email").value,
-
-city:
-document.getElementById("city").value,
-
-state:
-document.getElementById("state").value,
-
-aadhar:
-document.getElementById("aadhar").value,
-
-pan:
-document.getElementById("pan").value,
-
-vehicle:
-document.getElementById("vehicle").value,
-
-insurance:
-document.getElementById("insurance").value,
-
-license:
-document.getElementById("license").value,
-
-bank:
-document.getElementById("bank").value,
-
-ifsc:
-document.getElementById("ifsc").value,
-
-wallet:0,
-totalTrips:0,
-rejected:0,
-totalEarn:0
-
-}
-
-);
-
-alert(
-"Rider Created"
-);
-
-closeCreatePopup();
-
-loadRiders();
-
-};
-
-/* GRAPH */
-
-function createGraph(){
-
-const ctx =
-document.getElementById(
-'growthChart'
-);
-
-new Chart(ctx, {
-
-type:'line',
-
-data:{
-
-labels:[
-'Jan',
-'Feb',
-'Mar',
-'Apr',
-'May',
-'Jun',
-'Jul'
-],
-
-datasets:[{
-
-label:'Rider Growth',
-
-data:[
-5,
-12,
-20,
-28,
-35,
-50,
-75
-],
-
-borderWidth:4,
-
-tension:0.4
-
-}]
-
-},
-
-options:{
-
-responsive:true
-
-}
-
-});
-
-}
-
+<script type="module"
+src="js/layout.js">
 </script>
 
 <script type="module"
-src="./components/sidebar.js">
+src="js/riders.js">
 </script>
-  
+
 </body>
 </html>
