@@ -1,11 +1,11 @@
 /* =========================================================
-FILE : orders.js
-REALTIME ORDER MANAGEMENT
+FILE : js/orders.js
+ADVANCE REALTIME ORDERS SYSTEM
 ========================================================= */
 
 import { db }
 
-from "../firebase.js";
+from "../../firebase.js";
 
 import {
 
@@ -37,6 +37,16 @@ document.querySelectorAll(
 ".filterBtn"
 );
 
+const searchInput =
+document.getElementById(
+"searchInput"
+);
+
+const cityFilter =
+document.getElementById(
+"cityFilter"
+);
+
 const exportBtn =
 document.getElementById(
 "exportBtn"
@@ -46,14 +56,15 @@ document.getElementById(
 GLOBAL
 ========================================================= */
 
-let ordersData = [];
+let allOrders = [];
+
 let currentFilter = "All";
 
 /* =========================================================
 LOAD ORDERS
 ========================================================= */
 
-const q =
+const ordersQuery =
 query(
 
 collection(db,"orders"),
@@ -65,14 +76,16 @@ orderBy("createdAt","desc")
 /* ========================================================= */
 
 onSnapshot(
-q,
+ordersQuery,
 (snapshot)=>{
 
-ordersData = [];
+allOrders = [];
+
+/* ========================================================= */
 
 snapshot.forEach(docSnap=>{
 
-ordersData.push({
+allOrders.push({
 
 id:docSnap.id,
 ...docSnap.data()
@@ -98,30 +111,151 @@ ordersTable.innerHTML = "";
 
 /* ========================================================= */
 
-let filtered =
-ordersData;
+let filteredOrders =
+allOrders;
 
-/* ========================================================= */
+/* =========================================================
+STATUS FILTER
+========================================================= */
 
 if(currentFilter !== "All"){
 
-filtered =
-ordersData.filter(
-item=>item.status === currentFilter
+filteredOrders =
+filteredOrders.filter(
+item=>
+
+(item.status || "")
+.toLowerCase()
+
+===
+
+currentFilter.toLowerCase()
+
 );
 
 }
 
-/* ========================================================= */
+/* =========================================================
+CITY FILTER
+========================================================= */
 
-filtered.forEach(order=>{
+if(cityFilter.value !== "All"){
+
+filteredOrders =
+filteredOrders.filter(
+item=>
+
+(item.city || "")
+.toLowerCase()
+
+===
+
+cityFilter.value.toLowerCase()
+
+);
+
+}
+
+/* =========================================================
+SEARCH FILTER
+========================================================= */
+
+const keyword =
+searchInput.value.toLowerCase();
+
+if(keyword){
+
+filteredOrders =
+filteredOrders.filter(item=>
+
+(item.name || "")
+.toLowerCase()
+.includes(keyword)
+
+||
+
+(item.phone || "")
+.toLowerCase()
+.includes(keyword)
+
+||
+
+(item.id || "")
+.toLowerCase()
+.includes(keyword)
+
+);
+
+}
+
+/* =========================================================
+EMPTY
+========================================================= */
+
+if(filteredOrders.length === 0){
+
+ordersTable.innerHTML = `
+
+<tr>
+
+<td colspan="11"
+style="padding:80px;text-align:center;">
+
+<i
+class="fa-solid fa-box-open"
+style="
+font-size:70px;
+color:#D1D5DB;
+margin-bottom:20px;
+display:block;
+"></i>
+
+<h2
+style="
+font-size:30px;
+font-weight:900;
+margin-bottom:10px;
+">
+
+No Orders Found
+
+</h2>
+
+<p
+style="
+font-size:14px;
+font-weight:700;
+color:#6B7280;
+">
+
+Realtime orders will appear here
+
+</p>
+
+</td>
+
+</tr>
+
+`;
+
+return;
+
+}
+
+/* =========================================================
+RENDER ROWS
+========================================================= */
+
+filteredOrders.forEach(order=>{
 
 ordersTable.innerHTML += `
 
 <tr>
 
 <td>
+
 #${order.id.slice(0,6)}
+
 </td>
 
 <td>
@@ -129,7 +263,7 @@ ordersTable.innerHTML += `
 <div class="customer">
 
 <b>
-${order.name || "Unknown"}
+${order.name || "Customer"}
 </b>
 
 <span>
@@ -142,15 +276,19 @@ ${order.phone || "No Number"}
 
 <td>
 
-${order.items?.length || 1}
-
-Items
+${order.items?.length || 1} Items
 
 </td>
 
 <td>
 
 ${order.address || "No Address"}
+
+</td>
+
+<td>
+
+${order.city || "Kasganj"}
 
 </td>
 
@@ -178,6 +316,18 @@ ${order.status || "Pending"}
 
 <td>
 
+<div class="trackBox">
+
+<i class="fa-solid fa-location-dot"></i>
+
+${order.tracking || "Order Received"}
+
+</div>
+
+</td>
+
+<td>
+
 ${formatDate(order.createdAt)}
 
 </td>
@@ -188,6 +338,7 @@ ${formatDate(order.createdAt)}
 
 <button
 class="actionBtn"
+style="background:#2563EB;"
 onclick="viewOrder('${order.id}')">
 
 <i class="fa-solid fa-eye"></i>
@@ -196,8 +347,8 @@ onclick="viewOrder('${order.id}')">
 
 <button
 class="actionBtn"
-style="background:#2563EB;"
-onclick="changeStatus('${order.id}','Preparing')">
+style="background:#7C3AED;"
+onclick="updateStatus('${order.id}','Preparing')">
 
 <i class="fa-solid fa-box"></i>
 
@@ -206,9 +357,18 @@ onclick="changeStatus('${order.id}','Preparing')">
 <button
 class="actionBtn"
 style="background:#16A34A;"
-onclick="changeStatus('${order.id}','Delivered')">
+onclick="updateStatus('${order.id}','Delivered')">
 
 <i class="fa-solid fa-check"></i>
+
+</button>
+
+<button
+class="actionBtn"
+style="background:#F97316;"
+onclick="updateTracking('${order.id}')">
+
+<i class="fa-solid fa-location-dot"></i>
 
 </button>
 
@@ -262,7 +422,7 @@ return "pending";
 }
 
 /* =========================================================
-FORMAT DATE
+DATE
 ========================================================= */
 
 function formatDate(timestamp){
@@ -305,24 +465,32 @@ item.classList.remove(
 
 });
 
-/* ========================================================= */
-
 btn.classList.add(
 "active"
 );
 
-/* ========================================================= */
-
 currentFilter =
 btn.dataset.filter;
-
-/* ========================================================= */
 
 renderOrders();
 
 });
 
 });
+
+/* =========================================================
+SEARCH
+========================================================= */
+
+searchInput.addEventListener(
+"input",
+renderOrders
+);
+
+cityFilter.addEventListener(
+"change",
+renderOrders
+);
 
 /* =========================================================
 VIEW ORDER
@@ -332,11 +500,9 @@ window.viewOrder =
 function(id){
 
 const order =
-ordersData.find(
+allOrders.find(
 item=>item.id === id
 );
-
-/* ========================================================= */
 
 if(!order){
 
@@ -354,11 +520,13 @@ Phone : ${order.phone}
 
 Amount : ₹${order.total}
 
+Payment : ${order.payment}
+
 Status : ${order.status}
 
-Address : ${order.address}
+Tracking : ${order.tracking || "Order Received"}
 
-Payment : ${order.payment}`
+Address : ${order.address}`
 
 );
 
@@ -368,7 +536,7 @@ Payment : ${order.payment}`
 UPDATE STATUS
 ========================================================= */
 
-window.changeStatus =
+window.updateStatus =
 async function(id,status){
 
 await updateDoc(
@@ -385,6 +553,48 @@ status:status
 
 showToast(
 `Order ${status}`
+);
+
+}
+
+/* =========================================================
+LIVE TRACKING
+========================================================= */
+
+window.updateTracking =
+async function(id){
+
+const tracking =
+prompt(
+
+"Update Tracking",
+
+"Rider On The Way"
+
+);
+
+if(!tracking){
+
+return;
+
+}
+
+/* ========================================================= */
+
+await updateDoc(
+
+doc(db,"orders",id),
+
+{
+
+tracking:tracking
+
+}
+
+);
+
+showToast(
+"Tracking Updated"
 );
 
 }
@@ -428,11 +638,11 @@ exportBtn.addEventListener(
 ()=>{
 
 let csv =
-"OrderID,Customer,Phone,Amount,Status\n";
+"OrderID,Customer,Phone,Amount,Status,City\n";
 
 /* ========================================================= */
 
-ordersData.forEach(order=>{
+allOrders.forEach(order=>{
 
 csv +=
 
@@ -440,7 +650,8 @@ csv +=
 ${order.name},
 ${order.phone},
 ${order.total},
-${order.status}\n`;
+${order.status},
+${order.city}\n`;
 
 });
 
@@ -454,12 +665,8 @@ type:"text/csv"
 }
 );
 
-/* ========================================================= */
-
 const url =
 URL.createObjectURL(blob);
-
-/* ========================================================= */
 
 const a =
 document.createElement("a");
@@ -496,10 +703,10 @@ message;
 toast.style.position =
 "fixed";
 
-toast.style.bottom =
+toast.style.right =
 "20px";
 
-toast.style.right =
+toast.style.bottom =
 "20px";
 
 toast.style.background =
@@ -512,7 +719,7 @@ toast.style.padding =
 "14px 20px";
 
 toast.style.borderRadius =
-"14px";
+"16px";
 
 toast.style.fontWeight =
 "800";
