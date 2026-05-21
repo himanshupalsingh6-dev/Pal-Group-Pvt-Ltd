@@ -1,6 +1,6 @@
 /* =========================================================
 FILE : js/services.js
-ADVANCE SERVICES SYSTEM
+ADVANCE REALTIME SERVICES SYSTEM
 ========================================================= */
 
 import { db }
@@ -14,7 +14,9 @@ addDoc,
 onSnapshot,
 deleteDoc,
 doc,
-updateDoc
+updateDoc,
+query,
+orderBy
 
 }
 
@@ -24,6 +26,35 @@ from
 
 /* =========================================================
 ELEMENTS
+========================================================= */
+
+const servicesGrid =
+document.getElementById(
+"servicesGrid"
+);
+
+const saveServiceBtn =
+document.getElementById(
+"saveServiceBtn"
+);
+
+const searchInput =
+document.getElementById(
+"searchInput"
+);
+
+const cityFilter =
+document.getElementById(
+"cityFilter"
+);
+
+const categoryFilter =
+document.getElementById(
+"categoryFilter"
+);
+
+/* =========================================================
+FORM INPUTS
 ========================================================= */
 
 const serviceName =
@@ -76,24 +107,16 @@ document.getElementById(
 "serviceDesc"
 );
 
-const saveServiceBtn =
-document.getElementById(
-"saveServiceBtn"
-);
-
-const servicesGrid =
-document.getElementById(
-"servicesGrid"
-);
-
 /* =========================================================
 GLOBAL
 ========================================================= */
 
 let editId = null;
 
+let allServices = [];
+
 /* =========================================================
-SAVE
+SAVE SERVICE
 ========================================================= */
 
 saveServiceBtn.addEventListener(
@@ -106,7 +129,7 @@ if(
 ){
 
 showToast(
-"Fill all fields"
+"Fill all required fields"
 );
 
 return;
@@ -146,6 +169,12 @@ serviceImage.value,
 
 description:
 serviceDesc.value,
+
+orders:
+0,
+
+revenue:
+0,
 
 createdAt:
 new Date()
@@ -199,33 +228,236 @@ clearForm();
 );
 
 /* =========================================================
-LOAD
+LOAD SERVICES
 ========================================================= */
 
-onSnapshot(
+const servicesQuery =
+query(
 
 collection(db,"services"),
 
+orderBy("createdAt","desc")
+
+);
+
+/* ========================================================= */
+
+onSnapshot(
+servicesQuery,
 (snapshot)=>{
 
-servicesGrid.innerHTML = "";
+allServices = [];
 
 /* ========================================================= */
 
 snapshot.forEach(docSnap=>{
 
-const service =
-docSnap.data();
+allServices.push({
+
+id:docSnap.id,
+...docSnap.data()
+
+});
+
+});
 
 /* ========================================================= */
+
+renderServices();
+
+}
+);
+
+/* =========================================================
+RENDER SERVICES
+========================================================= */
+
+function renderServices(){
+
+servicesGrid.innerHTML = "";
+
+/* ========================================================= */
+
+let filtered =
+allServices;
+
+/* =========================================================
+SEARCH FILTER
+========================================================= */
+
+const keyword =
+searchInput?.value
+?.toLowerCase() || "";
+
+if(keyword){
+
+filtered =
+filtered.filter(item=>
+
+(item.name || "")
+.toLowerCase()
+.includes(keyword)
+
+||
+
+(item.category || "")
+.toLowerCase()
+.includes(keyword)
+
+);
+
+}
+
+/* =========================================================
+CITY FILTER
+========================================================= */
+
+if(
+cityFilter &&
+cityFilter.value !== "All"
+){
+
+filtered =
+filtered.filter(item=>
+
+(item.city || "")
+.toLowerCase()
+
+===
+
+cityFilter.value
+.toLowerCase()
+
+);
+
+}
+
+/* =========================================================
+CATEGORY FILTER
+========================================================= */
+
+if(
+categoryFilter &&
+categoryFilter.value !== "All"
+){
+
+filtered =
+filtered.filter(item=>
+
+(item.category || "")
+.toLowerCase()
+
+===
+
+categoryFilter.value
+.toLowerCase()
+
+);
+
+}
+
+/* =========================================================
+EMPTY
+========================================================= */
+
+if(filtered.length === 0){
+
+servicesGrid.innerHTML = `
+
+<div
+style="
+grid-column:1/-1;
+padding:80px;
+background:#fff;
+border-radius:30px;
+text-align:center;
+">
+
+<i
+class="fa-solid fa-box-open"
+style="
+font-size:70px;
+color:#D1D5DB;
+margin-bottom:20px;
+display:block;
+"></i>
+
+<h2
+style="
+font-size:32px;
+font-weight:900;
+margin-bottom:10px;
+">
+
+No Services Found
+
+</h2>
+
+<p
+style="
+font-size:14px;
+font-weight:700;
+color:#6B7280;
+">
+
+Add services from admin panel
+
+</p>
+
+</div>
+
+`;
+
+return;
+
+}
+
+/* =========================================================
+RENDER CARDS
+========================================================= */
+
+filtered.forEach(service=>{
 
 servicesGrid.innerHTML += `
 
 <div class="serviceCard">
 
+<div
+style="
+height:230px;
+background:#F9FAFB;
+display:flex;
+align-items:center;
+justify-content:center;
+position:relative;
+">
+
 <img
-src="${service.image}"
-class="serviceImage">
+src="${service.icon}"
+style="
+width:100px;
+height:100px;
+object-fit:contain;
+">
+
+<div
+style="
+position:absolute;
+top:18px;
+right:18px;
+background:#111827;
+color:#fff;
+padding:10px 14px;
+border-radius:999px;
+font-size:12px;
+font-weight:900;
+">
+
+${service.category}
+
+</div>
+
+</div>
 
 <div class="serviceBody">
 
@@ -239,7 +471,7 @@ ${service.name}
 
 <div class="categoryTag">
 
-${service.category}
+${service.city}
 
 </div>
 
@@ -268,11 +500,35 @@ Price
 <div class="infoBox">
 
 <h5>
-City
+Old Price
 </h5>
 
 <h4>
-${service.city}
+₹${service.oldPrice || 0}
+</h4>
+
+</div>
+
+<div class="infoBox">
+
+<h5>
+Orders
+</h5>
+
+<h4>
+${service.orders || 0}
+</h4>
+
+</div>
+
+<div class="infoBox">
+
+<h5>
+Revenue
+</h5>
+
+<h4>
+₹${service.revenue || 0}
 </h4>
 
 </div>
@@ -284,7 +540,7 @@ Delivery
 </h5>
 
 <h4>
-${service.time}
+${service.time || "30 mins"}
 </h4>
 
 </div>
@@ -296,7 +552,7 @@ Rating
 </h5>
 
 <h4>
-⭐ ${service.rating}
+⭐ ${service.rating || 5}
 </h4>
 
 </div>
@@ -307,17 +563,7 @@ Rating
 
 <button
 class="editBtn"
-onclick="editService('${docSnap.id}',
-'${service.name}',
-'${service.category}',
-'${service.city}',
-'${service.price}',
-'${service.oldPrice}',
-'${service.time}',
-'${service.rating}',
-'${service.icon}',
-'${service.image}',
-'${service.description}')">
+onclick="editService('${service.id}')">
 
 Edit
 
@@ -325,7 +571,7 @@ Edit
 
 <button
 class="deleteBtn"
-onclick="deleteService('${docSnap.id}')">
+onclick="deleteService('${service.id}')">
 
 Delete
 
@@ -342,46 +588,67 @@ Delete
 });
 
 }
-);
 
 /* =========================================================
 EDIT
 ========================================================= */
 
 window.editService =
-function(
-id,
-name,
-category,
-city,
-price,
-oldPrice,
-time,
-rating,
-icon,
-image,
-description
-){
+function(id){
+
+const service =
+allServices.find(
+item=>item.id === id
+);
+
+if(!service){
+
+return;
+
+}
 
 editId = id;
 
-serviceName.value = name;
-serviceCategory.value = category;
-serviceCity.value = city;
-servicePrice.value = price;
-serviceOldPrice.value = oldPrice;
-serviceTime.value = time;
-serviceRating.value = rating;
-serviceIcon.value = icon;
-serviceImage.value = image;
-serviceDesc.value = description;
+serviceName.value =
+service.name || "";
+
+serviceCategory.value =
+service.category || "";
+
+serviceCity.value =
+service.city || "";
+
+servicePrice.value =
+service.price || "";
+
+serviceOldPrice.value =
+service.oldPrice || "";
+
+serviceTime.value =
+service.time || "";
+
+serviceRating.value =
+service.rating || "";
+
+serviceIcon.value =
+service.icon || "";
+
+serviceImage.value =
+service.image || "";
+
+serviceDesc.value =
+service.description || "";
 
 saveServiceBtn.innerHTML =
 "Update Service";
 
+/* ========================================================= */
+
 window.scrollTo({
+
 top:0,
 behavior:"smooth"
+
 });
 
 }
@@ -404,6 +671,8 @@ return;
 
 }
 
+/* ========================================================= */
+
 await deleteDoc(
 doc(db,"services",id)
 );
@@ -415,18 +684,56 @@ showToast(
 }
 
 /* =========================================================
-CLEAR
+FILTER EVENTS
+========================================================= */
+
+if(searchInput){
+
+searchInput.addEventListener(
+"input",
+renderServices
+);
+
+}
+
+if(cityFilter){
+
+cityFilter.addEventListener(
+"change",
+renderServices
+);
+
+}
+
+if(categoryFilter){
+
+categoryFilter.addEventListener(
+"change",
+renderServices
+);
+
+}
+
+/* =========================================================
+CLEAR FORM
 ========================================================= */
 
 function clearForm(){
 
 serviceName.value = "";
+
 servicePrice.value = "";
+
 serviceOldPrice.value = "";
+
 serviceTime.value = "";
+
 serviceRating.value = "";
+
 serviceIcon.value = "";
+
 serviceImage.value = "";
+
 serviceDesc.value = "";
 
 }
