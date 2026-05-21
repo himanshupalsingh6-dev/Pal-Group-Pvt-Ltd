@@ -26,21 +26,14 @@ PAGE
 ===================================================== */
 
 .main{
-
 margin-left:290px;
-
 width:calc(100% - 290px);
-
-min-height:100vh;
-
 background:#F4F7FB;
-
+min-height:100vh;
 }
 
 .content{
-
 padding:28px;
-
 }
 
 /* =====================================================
@@ -57,9 +50,9 @@ align-items:center;
 
 margin-bottom:24px;
 
-gap:20px;
-
 flex-wrap:wrap;
+
+gap:20px;
 
 }
 
@@ -74,14 +67,22 @@ letter-spacing:-2px;
 }
 
 /* =====================================================
-BUTTON
+TOP ACTIONS
 ===================================================== */
 
-.addBtn{
+.topActions{
+
+display:flex;
+
+gap:14px;
+
+}
+
+.actionMainBtn{
 
 height:56px;
 
-padding:0 26px;
+padding:0 24px;
 
 border:none;
 
@@ -92,8 +93,6 @@ background:#111827;
 color:#fff;
 
 font-weight:900;
-
-font-size:15px;
 
 cursor:pointer;
 
@@ -107,18 +106,18 @@ FORM
 
 background:#fff;
 
-padding:26px;
-
 border-radius:32px;
 
-margin-bottom:24px;
+padding:28px;
+
+margin-bottom:28px;
 
 border:1px solid #E5E7EB;
 
 display:grid;
 
 grid-template-columns:
-repeat(3,1fr);
+repeat(4,1fr);
 
 gap:18px;
 
@@ -168,7 +167,7 @@ textarea.input{
 
 height:120px;
 
-padding-top:16px;
+padding-top:18px;
 
 resize:none;
 
@@ -180,19 +179,15 @@ height:56px;
 
 border:none;
 
-border-radius:18px;
-
 background:#16A34A;
 
 color:#fff;
 
-font-size:15px;
-
 font-weight:900;
 
-cursor:pointer;
+border-radius:18px;
 
-margin-top:auto;
+cursor:pointer;
 
 }
 
@@ -207,7 +202,7 @@ display:grid;
 grid-template-columns:
 repeat(3,1fr);
 
-gap:22px;
+gap:24px;
 
 }
 
@@ -219,11 +214,19 @@ CARD
 
 background:#fff;
 
-border-radius:30px;
+border-radius:32px;
 
 overflow:hidden;
 
 border:1px solid #E5E7EB;
+
+transition:.2s;
+
+}
+
+.serviceCard:hover{
+
+transform:translateY(-4px);
 
 }
 
@@ -231,7 +234,7 @@ border:1px solid #E5E7EB;
 
 width:100%;
 
-height:220px;
+height:230px;
 
 object-fit:cover;
 
@@ -245,13 +248,39 @@ padding:22px;
 
 }
 
-.serviceTitle{
+.serviceTop{
+
+display:flex;
+
+justify-content:space-between;
+
+align-items:center;
+
+margin-bottom:14px;
+
+}
+
+.serviceName{
 
 font-size:24px;
 
 font-weight:900;
 
-margin-bottom:10px;
+}
+
+.categoryTag{
+
+padding:10px 14px;
+
+background:#EEF2FF;
+
+color:#4338CA;
+
+border-radius:999px;
+
+font-size:12px;
+
+font-weight:900;
 
 }
 
@@ -269,39 +298,45 @@ margin-bottom:18px;
 
 }
 
-.priceWrap{
+.serviceInfo{
 
-display:flex;
+display:grid;
 
-align-items:center;
+grid-template-columns:1fr 1fr;
 
-justify-content:space-between;
+gap:12px;
 
-margin-bottom:18px;
-
-}
-
-.price{
-
-font-size:30px;
-
-font-weight:900;
+margin-bottom:20px;
 
 }
 
-.city{
+.infoBox{
 
-padding:10px 14px;
+background:#F9FAFB;
 
-border-radius:999px;
+padding:14px;
 
-background:#EEF2FF;
+border-radius:18px;
+
+}
+
+.infoBox h5{
 
 font-size:12px;
 
 font-weight:900;
 
-color:#4338CA;
+color:#6B7280;
+
+margin-bottom:8px;
+
+}
+
+.infoBox h4{
+
+font-size:18px;
+
+font-weight:900;
 
 }
 
@@ -309,11 +344,12 @@ color:#4338CA;
 
 display:flex;
 
-gap:10px;
+gap:12px;
 
 }
 
-.actionBtn{
+.editBtn,
+.deleteBtn{
 
 flex:1;
 
@@ -351,7 +387,7 @@ color:#DC2626;
 RESPONSIVE
 ===================================================== */
 
-@media(max-width:1200px){
+@media(max-width:1300px){
 
 .servicesGrid{
 grid-template-columns:repeat(2,1fr);
@@ -412,13 +448,25 @@ HEADER
 Services
 </div>
 
-<button class="addBtn">
+<div class="topActions">
+
+<button class="actionMainBtn">
+
+<i class="fa-solid fa-layer-group"></i>
+
+Categories
+
+</button>
+
+<button class="actionMainBtn">
 
 <i class="fa-solid fa-plus"></i>
 
 Add Service
 
 </button>
+
+</div>
 
 </div>
 
@@ -445,14 +493,34 @@ placeholder="Premium Laundry">
 <div class="inputBox">
 
 <label>
-Price
+Category
 </label>
 
-<input
-type="number"
-id="servicePrice"
-class="input"
-placeholder="99">
+<select
+id="serviceCategory"
+class="input">
+
+<option value="Laundry">
+Laundry
+</option>
+
+<option value="Dry Clean">
+Dry Clean
+</option>
+
+<option value="Steam Iron">
+Steam Iron
+</option>
+
+<option value="Shoe Cleaning">
+Shoe Cleaning
+</option>
+
+<option value="Premium Wash">
+Premium Wash
+</option>
+
+</select>
 
 </div>
 
@@ -489,44 +557,28 @@ Lucknow
 <div class="inputBox">
 
 <label>
-Image URL
+Price
 </label>
 
 <input
-type="text"
-id="serviceImage"
+type="number"
+id="servicePrice"
 class="input"
-placeholder="https://">
+placeholder="99">
 
 </div>
 
 <div class="inputBox">
 
 <label>
-Category
+Discount Price
 </label>
 
-<select
-id="serviceCategory"
-class="input">
-
-<option value="Laundry">
-Laundry
-</option>
-
-<option value="Dry Clean">
-Dry Clean
-</option>
-
-<option value="Steam Iron">
-Steam Iron
-</option>
-
-<option value="Shoe Cleaning">
-Shoe Cleaning
-</option>
-
-</select>
+<input
+type="number"
+id="serviceOldPrice"
+class="input"
+placeholder="149">
 
 </div>
 
@@ -541,6 +593,49 @@ type="text"
 id="serviceTime"
 class="input"
 placeholder="30 mins">
+
+</div>
+
+<div class="inputBox">
+
+<label>
+Rating
+</label>
+
+<input
+type="number"
+id="serviceRating"
+class="input"
+placeholder="4.9">
+
+</div>
+
+<div class="inputBox">
+
+<label>
+Product Icon URL
+</label>
+
+<input
+type="text"
+id="serviceIcon"
+class="input"
+placeholder="https://">
+
+</div>
+
+<div class="inputBox"
+style="grid-column:1/-1;">
+
+<label>
+Banner Image URL
+</label>
+
+<input
+type="text"
+id="serviceImage"
+class="input"
+placeholder="https://">
 
 </div>
 
@@ -588,7 +683,7 @@ src="layout.js">
 </script>
 
 <script type="module"
-src="services.js">
+src="js/services.js">
 </script>
 
 </body>
