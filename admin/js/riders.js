@@ -1,22 +1,22 @@
 /* =========================================================
-FILE : admin/js/riders.js
-QUICKPRESS ENTERPRISE RIDERS PANEL
+FILE : js/riders.js
+REALTIME RIDERS SYSTEM
 ========================================================= */
 
 import { db }
 
-from
-
-"/Pal-Group-Pvt-Ltd/firebase.js";
+from "../../firebase.js";
 
 import {
 
 collection,
-onSnapshot,
 addDoc,
+onSnapshot,
+deleteDoc,
 doc,
 updateDoc,
-deleteDoc
+query,
+orderBy
 
 }
 
@@ -25,101 +25,17 @@ from
 "https://www.gstatic.com/firebasejs/12.11.0/firebase-firestore.js";
 
 /* =========================================================
-AUTH CHECK
-========================================================= */
-
-const adminLogin =
-localStorage.getItem(
-"quickpress_admin"
-);
-
-if(adminLogin !== "true"){
-
-window.location.href =
-"login.html";
-
-}
-
-/* =========================================================
-DESKTOP ONLY
-========================================================= */
-
-const isMobile =
-/Android|iPhone|iPad|iPod/i
-.test(
-navigator.userAgent
-);
-
-if(
-window.innerWidth < 1024
-||
-isMobile
-){
-
-document.body.innerHTML = `
-
-<div
-style="
-height:100vh;
-display:flex;
-align-items:center;
-justify-content:center;
-background:#111827;
-color:white;
-font-family:Inter,sans-serif;
-text-align:center;
-padding:30px;
-">
-
-<div>
-
-<div
-style="
-font-size:80px;
-margin-bottom:20px;
-">
-
-🖥️
-
-</div>
-
-<h1
-style="
-font-size:42px;
-font-weight:900;
-">
-
-Desktop Only
-
-</h1>
-
-<p
-style="
-margin-top:12px;
-font-size:16px;
-line-height:1.7;
-color:#D1D5DB;
-">
-
-QuickPress Admin Panel only works on Laptop/Desktop
-
-</p>
-
-</div>
-
-</div>
-
-`;
-
-}
-
-/* =========================================================
 ELEMENTS
 ========================================================= */
 
 const ridersGrid =
 document.getElementById(
 "ridersGrid"
+);
+
+const saveRiderBtn =
+document.getElementById(
+"saveRiderBtn"
 );
 
 const searchInput =
@@ -132,165 +48,192 @@ document.getElementById(
 "cityFilter"
 );
 
-const totalRiders =
+/* =========================================================
+INPUTS
+========================================================= */
+
+const riderName =
 document.getElementById(
-"totalRiders"
+"riderName"
 );
 
-const onlineRiders =
+const riderPhone =
 document.getElementById(
-"onlineRiders"
+"riderPhone"
 );
 
-const totalTrips =
+const riderCity =
 document.getElementById(
-"totalTrips"
+"riderCity"
 );
 
-const rejectedOrders =
+const vehicleNumber =
 document.getElementById(
-"rejectedOrders"
+"vehicleNumber"
 );
 
-const riderRevenue =
+const riderImage =
 document.getElementById(
-"riderRevenue"
+"riderImage"
+);
+
+const riderStatus =
+document.getElementById(
+"riderStatus"
 );
 
 /* =========================================================
-DATA
+GLOBAL
 ========================================================= */
+
+let editId = null;
 
 let allRiders = [];
 
 /* =========================================================
-REALTIME RIDERS
+SAVE RIDER
 ========================================================= */
 
-onSnapshot(
+saveRiderBtn.addEventListener(
+"click",
+async ()=>{
+
+if(
+!riderName.value ||
+!riderPhone.value
+){
+
+showToast(
+"Fill all fields"
+);
+
+return;
+
+}
+
+/* ========================================================= */
+
+const riderData = {
+
+name:
+riderName.value,
+
+phone:
+riderPhone.value,
+
+city:
+riderCity.value,
+
+vehicle:
+vehicleNumber.value,
+
+image:
+riderImage.value,
+
+status:
+riderStatus.value,
+
+orders:
+0,
+
+earnings:
+0,
+
+rating:5,
+
+liveLocation:"Kasganj",
+
+createdAt:
+new Date()
+
+};
+
+/* ========================================================= */
+
+if(editId){
+
+await updateDoc(
+
+doc(db,"riders",editId),
+
+riderData
+
+);
+
+showToast(
+"Rider Updated"
+);
+
+editId = null;
+
+saveRiderBtn.innerHTML =
+"Save Rider";
+
+/* ========================================================= */
+
+}else{
+
+await addDoc(
 
 collection(db,"riders"),
 
+riderData
+
+);
+
+showToast(
+"Rider Added"
+);
+
+}
+
+/* ========================================================= */
+
+clearForm();
+
+}
+);
+
+/* =========================================================
+LOAD RIDERS
+========================================================= */
+
+const ridersQuery =
+query(
+
+collection(db,"riders"),
+
+orderBy("createdAt","desc")
+
+);
+
+/* ========================================================= */
+
+onSnapshot(
+ridersQuery,
 (snapshot)=>{
 
 allRiders = [];
 
-let cities = new Set();
+/* ========================================================= */
 
-let online = 0;
+snapshot.forEach(docSnap=>{
 
-let trips = 0;
-
-let rejected = 0;
-
-let revenue = 0;
-
-/* ========================================= */
-
-snapshot.forEach((docSnap)=>{
-
-const rider = {
+allRiders.push({
 
 id:docSnap.id,
 ...docSnap.data()
 
-};
-
-allRiders.push(rider);
-
-/* ========================================= */
-
-if(rider.city){
-
-cities.add(rider.city);
-
-}
-
-/* ========================================= */
-
-if(rider.online){
-
-online++;
-
-}
-
-/* ========================================= */
-
-trips +=
-Number(rider.totalTrips || 0);
-
-rejected +=
-Number(rider.rejectedOrders || 0);
-
-revenue +=
-Number(rider.totalEarnings || 0);
+});
 
 });
 
-/* ========================================= */
-
-totalRiders.innerHTML =
-allRiders.length;
-
-onlineRiders.innerHTML =
-online;
-
-totalTrips.innerHTML =
-trips;
-
-rejectedOrders.innerHTML =
-rejected;
-
-riderRevenue.innerHTML =
-`₹${revenue}`;
-
-/* ========================================= */
-
-loadCities([...cities]);
-
-/* ========================================= */
+/* ========================================================= */
 
 renderRiders();
 
 }
-
-/* END */
-
 );
-
-/* =========================================================
-LOAD CITIES
-========================================================= */
-
-function loadCities(cities){
-
-const current =
-cityFilter.value;
-
-cityFilter.innerHTML = `
-
-<option value="All">
-All Cities
-</option>
-
-`;
-
-cities.forEach((city)=>{
-
-cityFilter.innerHTML += `
-
-<option value="${city}">
-${city}
-</option>
-
-`;
-
-});
-
-cityFilter.value =
-current;
-
-}
 
 /* =========================================================
 RENDER RIDERS
@@ -300,244 +243,249 @@ function renderRiders(){
 
 ridersGrid.innerHTML = "";
 
-/* ========================================= */
+/* ========================================================= */
 
-const search =
-searchInput.value
-.toLowerCase();
+let filtered =
+allRiders;
 
-const selectedCity =
-cityFilter.value;
-
-/* ========================================= */
-
-allRiders.forEach((rider)=>{
-
-/* =====================================
+/* =========================================================
 SEARCH
-===================================== */
+========================================================= */
 
-if(
-search &&
-!(
-(rider.name || "")
+const keyword =
+searchInput.value.toLowerCase();
+
+if(keyword){
+
+filtered =
+filtered.filter(item=>
+
+(item.name || "")
 .toLowerCase()
-.includes(search)
-)
-){
+.includes(keyword)
 
-return;
+||
 
-}
+(item.phone || "")
+.toLowerCase()
+.includes(keyword)
 
-/* =====================================
-CITY
-===================================== */
-
-if(
-selectedCity !== "All"
-&&
-rider.city !== selectedCity
-){
-
-return;
+);
 
 }
 
-/* =====================================
-STATUS
-===================================== */
+/* =========================================================
+CITY FILTER
+========================================================= */
 
-const statusClass =
-rider.online
+if(cityFilter.value !== "All"){
 
-?
+filtered =
+filtered.filter(item=>
 
-"online"
+(item.city || "")
+.toLowerCase()
 
-:
+===
 
-"offline";
+cityFilter.value
+.toLowerCase()
 
-const statusText =
-rider.online
+);
 
-?
+}
 
-"Online"
+/* =========================================================
+EMPTY
+========================================================= */
 
-:
+if(filtered.length === 0){
 
-"Offline";
+ridersGrid.innerHTML = `
 
-/* =====================================
-CARD
-===================================== */
+<div
+style="
+grid-column:1/-1;
+background:#fff;
+padding:80px;
+border-radius:30px;
+text-align:center;
+">
 
-const card = `
+<i
+class="fa-solid fa-motorcycle"
+style="
+font-size:70px;
+color:#D1D5DB;
+margin-bottom:20px;
+display:block;
+"></i>
 
-<div class="riderCard">
+<h2
+style="
+font-size:32px;
+font-weight:900;
+margin-bottom:10px;
+">
 
-<!-- TOP -->
+No Riders Found
 
-<div class="riderTop">
+</h2>
 
-<div class="riderInfo">
+<p
+style="
+font-size:14px;
+font-weight:700;
+color:#6B7280;
+">
 
-<div class="avatar">
+Add riders from admin panel
 
-${rider.name
-?.charAt(0)
-|| "R"}
+</p>
 
 </div>
 
-<div>
+`;
 
-<h3>
+return;
 
-${rider.name || "Rider"}
+}
 
-</h3>
+/* =========================================================
+RENDER CARDS
+========================================================= */
+
+filtered.forEach(rider=>{
+
+ridersGrid.innerHTML += `
+
+<div class="riderCard">
+
+<div class="riderTop">
+
+<img
+src="${rider.image || 'https://i.ibb.co/3SWQHfY/user.png'}"
+class="riderImage">
+
+<div class="riderInfo">
+
+<h2>
+${rider.name}
+</h2>
 
 <p>
-
-${rider.city || ""}
-
+${rider.phone}
 </p>
 
 </div>
 
 </div>
 
-<div class="status ${statusClass}">
-
-${statusText}
-
-</div>
-
-</div>
-
-<!-- INFO -->
+<div class="riderBody">
 
 <div class="infoGrid">
 
 <div class="infoBox">
 
-<span>
-Mobile
-</span>
+<h5>
+City
+</h5>
 
 <h4>
-
-${rider.mobile || "--"}
-
+${rider.city}
 </h4>
 
 </div>
 
 <div class="infoBox">
 
-<span>
-Trips
-</span>
-
-<h4>
-
-${rider.totalTrips || 0}
-
-</h4>
-
-</div>
-
-<div class="infoBox">
-
-<span>
-Rejected
-</span>
-
-<h4>
-
-${rider.rejectedOrders || 0}
-
-</h4>
-
-</div>
-
-<div class="infoBox">
-
-<span>
-Earnings
-</span>
-
-<h4>
-
-₹${rider.totalEarnings || 0}
-
-</h4>
-
-</div>
-
-<div class="infoBox">
-
-<span>
+<h5>
 Vehicle
-</span>
+</h5>
 
 <h4>
-
-${rider.vehicleNumber || "--"}
-
+${rider.vehicle}
 </h4>
 
 </div>
 
 <div class="infoBox">
 
-<span>
-Area
-</span>
+<h5>
+Orders
+</h5>
 
 <h4>
+${rider.orders || 0}
+</h4>
 
-${rider.area || "--"}
+</div>
 
+<div class="infoBox">
+
+<h5>
+Earnings
+</h5>
+
+<h4>
+₹${rider.earnings || 0}
+</h4>
+
+</div>
+
+<div class="infoBox">
+
+<h5>
+Rating
+</h5>
+
+<h4>
+⭐ ${rider.rating || 5}
+</h4>
+
+</div>
+
+<div class="infoBox">
+
+<h5>
+Live Location
+</h5>
+
+<h4>
+${rider.liveLocation || "Kasganj"}
 </h4>
 
 </div>
 
 </div>
 
-<!-- BUTTONS -->
+<span class="status ${rider.status === "Online" ? "online" : "offline"}">
 
-<div class="btnGrid">
+${rider.status}
+
+</span>
+
+<br><br>
+
+<div class="cardActions">
 
 <button
-class="btn viewBtn"
-onclick="viewRider('${rider.id}')">
+class="editBtn"
+onclick="editRider('${rider.id}')">
 
-View
+Edit
 
 </button>
 
 <button
-class="btn callBtn"
-onclick="callRider('${rider.mobile}')">
+class="deleteBtn"
+onclick="deleteRider('${rider.id}')">
 
-Call
-
-</button>
-
-<button
-class="btn toggleBtn"
-onclick="toggleRider(
-'${rider.id}',
-${rider.online}
-)">
-
-${rider.online ? "Offline" : "Online"}
+Delete
 
 </button>
+
+</div>
 
 </div>
 
@@ -545,14 +493,96 @@ ${rider.online ? "Offline" : "Online"}
 
 `;
 
-ridersGrid.innerHTML += card;
+});
+
+}
+
+/* =========================================================
+EDIT RIDER
+========================================================= */
+
+window.editRider =
+function(id){
+
+const rider =
+allRiders.find(
+item=>item.id === id
+);
+
+if(!rider){
+
+return;
+
+}
+
+/* ========================================================= */
+
+editId = id;
+
+riderName.value =
+rider.name;
+
+riderPhone.value =
+rider.phone;
+
+riderCity.value =
+rider.city;
+
+vehicleNumber.value =
+rider.vehicle;
+
+riderImage.value =
+rider.image;
+
+riderStatus.value =
+rider.status;
+
+saveRiderBtn.innerHTML =
+"Update Rider";
+
+/* ========================================================= */
+
+window.scrollTo({
+
+top:0,
+behavior:"smooth"
 
 });
 
 }
 
 /* =========================================================
-SEARCH EVENTS
+DELETE RIDER
+========================================================= */
+
+window.deleteRider =
+async function(id){
+
+const confirmDelete =
+confirm(
+"Delete Rider?"
+);
+
+if(!confirmDelete){
+
+return;
+
+}
+
+/* ========================================================= */
+
+await deleteDoc(
+doc(db,"riders",id)
+);
+
+showToast(
+"Rider Deleted"
+);
+
+}
+
+/* =========================================================
+FILTER EVENTS
 ========================================================= */
 
 searchInput.addEventListener(
@@ -566,160 +596,72 @@ renderRiders
 );
 
 /* =========================================================
-ADD RIDER
+CLEAR FORM
 ========================================================= */
 
-window.addRider =
-async()=>{
+function clearForm(){
 
-const name =
-prompt(
-"Enter Rider Name"
-);
+riderName.value = "";
 
-if(!name){
+riderPhone.value = "";
 
-return;
+vehicleNumber.value = "";
+
+riderImage.value = "";
+
+riderStatus.value = "Online";
 
 }
 
-const mobile =
-prompt(
-"Enter Mobile"
+/* =========================================================
+TOAST
+========================================================= */
+
+function showToast(message){
+
+const toast =
+document.createElement(
+"div"
 );
 
-const city =
-prompt(
-"Enter City"
+toast.innerHTML =
+message;
+
+toast.style.position =
+"fixed";
+
+toast.style.bottom =
+"20px";
+
+toast.style.right =
+"20px";
+
+toast.style.background =
+"#111827";
+
+toast.style.color =
+"#fff";
+
+toast.style.padding =
+"14px 20px";
+
+toast.style.borderRadius =
+"16px";
+
+toast.style.fontWeight =
+"800";
+
+toast.style.zIndex =
+"99999";
+
+document.body.appendChild(
+toast
 );
 
-const area =
-prompt(
-"Enter Area"
-);
+setTimeout(()=>{
 
-const vehicleNumber =
-prompt(
-"Enter Vehicle Number"
-);
+toast.remove();
 
-const aadhar =
-prompt(
-"Enter Aadhar Number"
-);
-
-const pan =
-prompt(
-"Enter PAN Number"
-);
-
-/* ========================================= */
-
-await addDoc(
-
-collection(db,"riders"),
-
-{
-
-name,
-mobile,
-city,
-area,
-vehicleNumber,
-aadhar,
-pan,
-
-online:true,
-
-totalTrips:0,
-rejectedOrders:0,
-totalEarnings:0,
-
-createdAt:
-new Date()
+},3000);
 
 }
-
-);
-
-alert(
-"Rider Added"
-);
-
-};
-
-/* =========================================================
-VIEW RIDER
-========================================================= */
-
-window.viewRider =
-(id)=>{
-
-window.location.href =
-`rider-view.html?id=${id}`;
-
-};
-
-/* =========================================================
-CALL RIDER
-========================================================= */
-
-window.callRider =
-(number)=>{
-
-window.open(
-`tel:${number}`
-);
-
-};
-
-/* =========================================================
-TOGGLE RIDER
-========================================================= */
-
-window.toggleRider =
-async(id,current)=>{
-
-await updateDoc(
-
-doc(db,"riders",id),
-
-{
-
-online:!current
-
-}
-
-);
-
-};
-
-/* =========================================================
-DELETE RIDER
-========================================================= */
-
-window.deleteRider =
-async(id)=>{
-
-const confirmDelete =
-confirm(
-"Delete Rider?"
-);
-
-if(!confirmDelete){
-
-return;
-
-}
-
-await deleteDoc(
-
-doc(db,"riders",id)
-
-);
-
-alert(
-"Rider Deleted"
-);
-
-};
