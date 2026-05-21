@@ -1,22 +1,20 @@
 /* =========================================================
-FILE : admin/js/services.js
-QUICKPRESS ENTERPRISE SERVICES PANEL
+FILE : services.js
+FULL REALTIME SERVICES SYSTEM
 ========================================================= */
 
 import { db }
 
-from
-
-"/Pal-Group-Pvt-Ltd/firebase.js";
+from "../firebase.js";
 
 import {
 
 collection,
-onSnapshot,
 addDoc,
+onSnapshot,
+deleteDoc,
 doc,
-updateDoc,
-deleteDoc
+updateDoc
 
 }
 
@@ -25,136 +23,167 @@ from
 "https://www.gstatic.com/firebasejs/12.11.0/firebase-firestore.js";
 
 /* =========================================================
-AUTH CHECK
-========================================================= */
-
-const adminLogin =
-localStorage.getItem(
-"quickpress_admin"
-);
-
-if(adminLogin !== "true"){
-
-window.location.href =
-"login.html";
-
-}
-
-/* =========================================================
-DESKTOP ONLY
-========================================================= */
-
-const isMobile =
-/Android|iPhone|iPad|iPod/i
-.test(
-navigator.userAgent
-);
-
-if(
-window.innerWidth < 1024
-||
-isMobile
-){
-
-document.body.innerHTML = `
-
-<div
-style="
-height:100vh;
-display:flex;
-align-items:center;
-justify-content:center;
-background:#111827;
-color:white;
-font-family:Inter,sans-serif;
-text-align:center;
-padding:30px;
-">
-
-<div>
-
-<div
-style="
-font-size:80px;
-margin-bottom:20px;
-">
-
-🖥️
-
-</div>
-
-<h1
-style="
-font-size:42px;
-font-weight:900;
-">
-
-Desktop Only
-
-</h1>
-
-<p
-style="
-margin-top:12px;
-font-size:16px;
-line-height:1.7;
-color:#D1D5DB;
-">
-
-QuickPress Admin Panel only works on Laptop/Desktop
-
-</p>
-
-</div>
-
-</div>
-
-`;
-
-}
-
-/* =========================================================
 ELEMENTS
 ========================================================= */
+
+const serviceName =
+document.getElementById(
+"serviceName"
+);
+
+const servicePrice =
+document.getElementById(
+"servicePrice"
+);
+
+const serviceCity =
+document.getElementById(
+"serviceCity"
+);
+
+const serviceImage =
+document.getElementById(
+"serviceImage"
+);
+
+const serviceCategory =
+document.getElementById(
+"serviceCategory"
+);
+
+const serviceTime =
+document.getElementById(
+"serviceTime"
+);
+
+const serviceDesc =
+document.getElementById(
+"serviceDesc"
+);
+
+const saveServiceBtn =
+document.getElementById(
+"saveServiceBtn"
+);
 
 const servicesGrid =
 document.getElementById(
 "servicesGrid"
 );
 
-const searchInput =
-document.getElementById(
-"searchInput"
-);
-
-const totalServices =
-document.getElementById(
-"totalServices"
-);
-
-const activeServices =
-document.getElementById(
-"activeServices"
-);
-
-const inactiveServices =
-document.getElementById(
-"inactiveServices"
-);
-
-const serviceRevenue =
-document.getElementById(
-"serviceRevenue"
-);
-
 /* =========================================================
-DATA
+GLOBAL
 ========================================================= */
 
-let allServices = [];
+let editId = null;
 
 /* =========================================================
-REALTIME SERVICES
+SAVE SERVICE
+========================================================= */
+
+saveServiceBtn.addEventListener(
+"click",
+async ()=>{
+
+/* ========================================================= */
+
+if(
+!serviceName.value ||
+!servicePrice.value
+){
+
+showToast(
+"Fill all details"
+);
+
+return;
+
+}
+
+/* ========================================================= */
+
+const serviceData = {
+
+name:
+serviceName.value,
+
+price:
+Number(servicePrice.value),
+
+city:
+serviceCity.value,
+
+image:
+serviceImage.value,
+
+category:
+serviceCategory.value,
+
+time:
+serviceTime.value,
+
+description:
+serviceDesc.value,
+
+createdAt:
+new Date()
+
+};
+
+/* ========================================================= */
+
+if(editId){
+
+await updateDoc(
+
+doc(db,"services",editId),
+
+serviceData
+
+);
+
+/* ========================================================= */
+
+showToast(
+"Service Updated"
+);
+
+/* ========================================================= */
+
+editId = null;
+
+saveServiceBtn.innerHTML =
+"Save Service";
+
+/* ========================================================= */
+
+}else{
+
+await addDoc(
+
+collection(db,"services"),
+
+serviceData
+
+);
+
+/* ========================================================= */
+
+showToast(
+"Service Added"
+);
+
+}
+
+/* ========================================================= */
+
+clearForm();
+
+}
+);
+
+/* =========================================================
+LOAD SERVICES
 ========================================================= */
 
 onSnapshot(
@@ -163,236 +192,75 @@ collection(db,"services"),
 
 (snapshot)=>{
 
-allServices = [];
-
-let active = 0;
-let inactive = 0;
-
-let revenue = 0;
-
-/* ========================================= */
-
-snapshot.forEach((docSnap)=>{
-
-const service = {
-
-id:docSnap.id,
-...docSnap.data()
-
-};
-
-allServices.push(service);
-
-/* ========================================= */
-
-revenue +=
-Number(service.price || 0);
-
-/* ========================================= */
-
-if(service.active){
-
-active++;
-
-}else{
-
-inactive++;
-
-}
-
-});
-
-/* ========================================= */
-
-totalServices.innerHTML =
-allServices.length;
-
-activeServices.innerHTML =
-active;
-
-inactiveServices.innerHTML =
-inactive;
-
-serviceRevenue.innerHTML =
-`₹${revenue}`;
-
-/* ========================================= */
-
-renderServices();
-
-}
-
-/* END */
-
-);
-
-/* =========================================================
-RENDER SERVICES
-========================================================= */
-
-function renderServices(){
-
 servicesGrid.innerHTML = "";
 
-/* ========================================= */
+/* ========================================================= */
 
-const search =
-searchInput.value
-.toLowerCase();
+snapshot.forEach(docSnap=>{
 
-/* ========================================= */
+const service =
+docSnap.data();
 
-allServices.forEach((service)=>{
+/* ========================================================= */
 
-/* =====================================
-SEARCH
-===================================== */
-
-if(
-search &&
-!(
-service.name || "")
-.toLowerCase()
-.includes(search)
-){
-
-return;
-
-}
-
-/* =====================================
-STATUS
-===================================== */
-
-const statusClass =
-service.active
-
-?
-
-"active"
-
-:
-
-"inactive";
-
-const statusText =
-service.active
-
-?
-
-"Active"
-
-:
-
-"Inactive";
-
-/* =====================================
-ICON
-===================================== */
-
-const icon =
-service.icon || "👕";
-
-/* =====================================
-CARD
-===================================== */
-
-const card = `
+servicesGrid.innerHTML += `
 
 <div class="serviceCard">
 
-<!-- TOP -->
+<img
+src="${service.image}"
+class="serviceImage">
 
-<div class="serviceTop">
+<div class="serviceBody">
 
-<div class="serviceIcon">
+<div class="serviceTitle">
 
-${icon}
-
-</div>
-
-<div class="status ${statusClass}">
-
-${statusText}
+${service.name}
 
 </div>
 
-</div>
+<div class="serviceDesc">
 
-<!-- INFO -->
-
-<h3>
-
-${service.name || "Service"}
-
-</h3>
-
-<p>
-
-${service.description || "QuickPress Service"}
-
-</p>
-
-<!-- PRICE -->
-
-<div class="priceGrid">
-
-<div class="priceBox">
-
-<span>
-Price
-</span>
-
-<h4>
-
-₹${service.price || 0}
-
-</h4>
+${service.description}
 
 </div>
 
-<div class="priceBox">
+<div class="priceWrap">
 
-<span>
-Category
-</span>
+<div class="price">
 
-<h4>
+₹${service.price}
 
-${service.category || "Laundry"}
+</div>
 
-</h4>
+<div class="city">
+
+${service.city}
 
 </div>
 
 </div>
 
-<!-- BUTTONS -->
-
-<div class="btnGrid">
+<div class="cardActions">
 
 <button
-class="btn editBtn"
-onclick="editService('${service.id}')">
+class="actionBtn editBtn"
+onclick="editService('${docSnap.id}',
+'${service.name}',
+'${service.price}',
+'${service.city}',
+'${service.image}',
+'${service.category}',
+'${service.time}',
+'${service.description}')">
 
 Edit
 
 </button>
 
 <button
-class="btn toggleBtn"
-onclick="toggleService(
-'${service.id}',
-${service.active}
-)">
-
-${service.active ? "Disable" : "Enable"}
-
-</button>
-
-<button
-class="btn deleteBtn"
-onclick="deleteService('${service.id}')">
+class="actionBtn deleteBtn"
+onclick="deleteService('${docSnap.id}')">
 
 Delete
 
@@ -402,163 +270,80 @@ Delete
 
 </div>
 
+</div>
+
 `;
 
-servicesGrid.innerHTML += card;
+});
 
+}
+);
+
+/* =========================================================
+EDIT
+========================================================= */
+
+window.editService =
+function(
+id,
+name,
+price,
+city,
+image,
+category,
+time,
+description
+){
+
+editId = id;
+
+/* ========================================================= */
+
+serviceName.value =
+name;
+
+servicePrice.value =
+price;
+
+serviceCity.value =
+city;
+
+serviceImage.value =
+image;
+
+serviceCategory.value =
+category;
+
+serviceTime.value =
+time;
+
+serviceDesc.value =
+description;
+
+/* ========================================================= */
+
+saveServiceBtn.innerHTML =
+"Update Service";
+
+/* ========================================================= */
+
+window.scrollTo({
+top:0,
+behavior:"smooth"
 });
 
 }
 
 /* =========================================================
-SEARCH
-========================================================= */
-
-searchInput.addEventListener(
-"input",
-renderServices
-);
-
-/* =========================================================
-ADD SERVICE
-========================================================= */
-
-window.addService =
-async()=>{
-
-const name =
-prompt(
-"Enter Service Name"
-);
-
-if(!name){
-
-return;
-
-}
-
-const price =
-prompt(
-"Enter Price"
-);
-
-const category =
-prompt(
-"Enter Category"
-);
-
-const icon =
-prompt(
-"Enter Icon Emoji"
-);
-
-const description =
-prompt(
-"Enter Description"
-);
-
-/* ========================================= */
-
-await addDoc(
-
-collection(db,"services"),
-
-{
-
-name,
-price:Number(price || 0),
-category,
-icon,
-description,
-
-active:true,
-
-createdAt:
-new Date()
-
-}
-
-);
-
-alert(
-"Service Added"
-);
-
-};
-
-/* =========================================================
-EDIT SERVICE
-========================================================= */
-
-window.editService =
-async(id)=>{
-
-const name =
-prompt(
-"Enter New Name"
-);
-
-const price =
-prompt(
-"Enter New Price"
-);
-
-if(!name){
-
-return;
-
-}
-
-await updateDoc(
-
-doc(db,"services",id),
-
-{
-
-name,
-price:Number(price || 0)
-
-}
-
-);
-
-alert(
-"Service Updated"
-);
-
-};
-
-/* =========================================================
-TOGGLE SERVICE
-========================================================= */
-
-window.toggleService =
-async(id,current)=>{
-
-await updateDoc(
-
-doc(db,"services",id),
-
-{
-
-active:!current
-
-}
-
-);
-
-};
-
-/* =========================================================
-DELETE SERVICE
+DELETE
 ========================================================= */
 
 window.deleteService =
-async(id)=>{
+async function(id){
 
 const confirmDelete =
 confirm(
-"Delete Service?"
+"Delete this service?"
 );
 
 if(!confirmDelete){
@@ -567,14 +352,91 @@ return;
 
 }
 
+/* ========================================================= */
+
 await deleteDoc(
-
 doc(db,"services",id)
-
 );
 
-alert(
+/* ========================================================= */
+
+showToast(
 "Service Deleted"
 );
 
-};
+}
+
+/* =========================================================
+CLEAR
+========================================================= */
+
+function clearForm(){
+
+serviceName.value = "";
+servicePrice.value = "";
+serviceCity.value = "Kasganj";
+serviceImage.value = "";
+serviceCategory.value = "Laundry";
+serviceTime.value = "";
+serviceDesc.value = "";
+
+}
+
+/* =========================================================
+TOAST
+========================================================= */
+
+function showToast(message){
+
+const toast =
+document.createElement(
+"div"
+);
+
+toast.innerHTML =
+message;
+
+/* ========================================================= */
+
+toast.style.position =
+"fixed";
+
+toast.style.right =
+"20px";
+
+toast.style.bottom =
+"20px";
+
+toast.style.background =
+"#111827";
+
+toast.style.color =
+"#fff";
+
+toast.style.padding =
+"14px 20px";
+
+toast.style.borderRadius =
+"16px";
+
+toast.style.fontWeight =
+"800";
+
+toast.style.zIndex =
+"99999";
+
+/* ========================================================= */
+
+document.body.appendChild(
+toast
+);
+
+/* ========================================================= */
+
+setTimeout(()=>{
+
+toast.remove();
+
+},3000);
+
+}
