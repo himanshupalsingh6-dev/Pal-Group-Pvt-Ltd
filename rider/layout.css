@@ -1,0 +1,404 @@
+/* =====================================================
+QUICKPRESS RIDER APP
+MOBILE LAYOUT
+===================================================== */
+
+*{
+
+margin:0;
+padding:0;
+box-sizing:border-box;
+font-family:Arial,sans-serif;
+
+}
+
+body{
+
+background:#F4F7FB;
+overflow-x:hidden;
+
+}
+
+/* =====================================================
+APP
+===================================================== */
+
+.app{
+
+width:100%;
+max-width:480px;
+margin:auto;
+min-height:100vh;
+background:#fff;
+position:relative;
+overflow:hidden;
+
+}
+
+/* =====================================================
+TOPBAR
+===================================================== */
+
+.topbar{
+
+width:100%;
+height:78px;
+background:#ffffff;
+
+display:flex;
+align-items:center;
+justify-content:space-between;
+
+padding:0 18px;
+
+position:sticky;
+top:0;
+z-index:999;
+
+border-bottom:1px solid #E5E7EB;
+
+}
+
+/* =====================================================
+LEFT
+===================================================== */
+
+.topLeft{
+
+display:flex;
+align-items:center;
+gap:12px;
+
+}
+
+.profileImage{
+
+width:52px;
+height:52px;
+border-radius:50%;
+object-fit:cover;
+
+}
+
+/* =====================================================
+TEXT
+===================================================== */
+
+.topText h3{
+
+font-size:18px;
+font-weight:900;
+color:#111827;
+
+}
+
+.topText p{
+
+font-size:12px;
+font-weight:700;
+color:#6B7280;
+margin-top:4px;
+
+}
+
+/* =====================================================
+ONLINE STATUS
+===================================================== */
+
+.onlineBtn{
+
+height:44px;
+padding:0 18px;
+
+border-radius:999px;
+background:#DCFCE7;
+
+display:flex;
+align-items:center;
+gap:8px;
+
+font-size:13px;
+font-weight:900;
+color:#16A34A;
+
+}
+
+.onlineDot{
+
+width:10px;
+height:10px;
+border-radius:50%;
+background:#16A34A;
+
+}
+
+/* =====================================================
+CONTENT
+===================================================== */
+
+.content{
+
+padding:18px;
+padding-bottom:110px;
+
+}
+
+/* =====================================================
+CARDS
+===================================================== */
+
+.card{
+
+background:#fff;
+
+border-radius:28px;
+
+padding:22px;
+
+border:1px solid #E5E7EB;
+
+margin-bottom:18px;
+
+}
+
+/* =====================================================
+GRID
+===================================================== */
+
+.grid2{
+
+display:grid;
+grid-template-columns:1fr 1fr;
+gap:16px;
+
+}
+
+/* =====================================================
+STAT CARD
+===================================================== */
+
+.statCard{
+
+background:#F9FAFB;
+padding:20px;
+border-radius:24px;
+
+}
+
+.statCard h5{
+
+font-size:13px;
+font-weight:900;
+color:#6B7280;
+margin-bottom:10px;
+
+}
+
+.statCard h2{
+
+font-size:34px;
+font-weight:900;
+color:#111827;
+
+}
+
+.statCard p{
+
+font-size:12px;
+font-weight:700;
+color:#6B7280;
+margin-top:8px;
+
+}
+
+/* =====================================================
+ORDER CARD
+===================================================== */
+
+.orderCard{
+
+background:#fff;
+border-radius:26px;
+padding:20px;
+margin-bottom:18px;
+border:1px solid #E5E7EB;
+
+}
+
+.orderTop{
+
+display:flex;
+justify-content:space-between;
+align-items:center;
+margin-bottom:16px;
+
+}
+
+.orderId{
+
+font-size:18px;
+font-weight:900;
+color:#111827;
+
+}
+
+.orderStatus{
+
+padding:10px 14px;
+border-radius:999px;
+background:#DBEAFE;
+color:#2563EB;
+font-size:12px;
+font-weight:900;
+
+}
+
+/* =====================================================
+CUSTOMER
+===================================================== */
+
+.customerName{
+
+font-size:18px;
+font-weight:900;
+margin-bottom:6px;
+
+}
+
+.customerAddress{
+
+font-size:13px;
+font-weight:700;
+color:#6B7280;
+line-height:1.6;
+
+}
+
+/* =====================================================
+BUTTONS
+===================================================== */
+
+.actionGrid{
+
+display:grid;
+grid-template-columns:1fr 1fr;
+gap:14px;
+margin-top:20px;
+
+}
+
+.btn{
+
+height:54px;
+border:none;
+border-radius:18px;
+font-size:14px;
+font-weight:900;
+cursor:pointer;
+
+}
+
+.primaryBtn{
+
+background:#111827;
+color:#fff;
+
+}
+
+.secondaryBtn{
+
+background:#F3F4F6;
+color:#111827;
+
+}
+
+/* =====================================================
+BOTTOM NAVBAR
+===================================================== */
+
+.bottomNav{
+
+width:100%;
+max-width:480px;
+height:82px;
+
+background:#fff;
+
+position:fixed;
+bottom:0;
+left:50%;
+transform:translateX(-50%);
+
+display:flex;
+justify-content:space-around;
+align-items:center;
+
+border-top:1px solid #E5E7EB;
+
+z-index:9999;
+
+}
+
+/* =====================================================
+NAV ITEM
+===================================================== */
+
+.navItem{
+
+display:flex;
+flex-direction:column;
+align-items:center;
+justify-content:center;
+
+text-decoration:none;
+
+font-size:11px;
+font-weight:900;
+
+color:#9CA3AF;
+
+gap:6px;
+
+}
+
+.navItem i{
+
+font-size:22px;
+
+}
+
+/* =====================================================
+ACTIVE
+===================================================== */
+
+.navItem.active{
+
+color:#111827;
+
+}
+
+/* =====================================================
+MAP
+===================================================== */
+
+.mapBox{
+
+width:100%;
+height:280px;
+border-radius:28px;
+overflow:hidden;
+
+}
+
+/* =====================================================
+SECTION TITLE
+===================================================== */
+
+.sectionTitle{
+
+font-size:24px;
+font-weight:900;
+margin-bottom:18px;
+color:#111827;
+
+}
