@@ -19,6 +19,8 @@ body{
 
 background:#F4F7FB;
 
+overflow-x:hidden;
+
 }
 
 /* =====================================================
@@ -37,13 +39,15 @@ width:290px;
 
 height:100vh;
 
-background:#111827;
+background:#0F172A;
 
 padding:26px;
 
 overflow-y:auto;
 
 z-index:9999;
+
+border-right:1px solid rgba(255,255,255,.05);
 
 }
 
@@ -53,13 +57,15 @@ LOGO
 
 .logo{
 
-font-size:42px;
+font-size:48px;
 
 font-weight:900;
 
 color:#fff;
 
 margin-bottom:40px;
+
+letter-spacing:-2px;
 
 }
 
@@ -73,7 +79,7 @@ display:flex;
 
 flex-direction:column;
 
-gap:12px;
+gap:14px;
 
 }
 
@@ -83,11 +89,9 @@ MENU ITEM
 
 .menuItem{
 
-height:60px;
+height:62px;
 
-padding:0 20px;
-
-border-radius:18px;
+border-radius:20px;
 
 display:flex;
 
@@ -95,13 +99,15 @@ align-items:center;
 
 gap:16px;
 
+padding:0 22px;
+
 text-decoration:none;
 
 font-size:15px;
 
 font-weight:800;
 
-color:#9CA3AF;
+color:#94A3B8;
 
 transition:.3s;
 
@@ -109,11 +115,17 @@ transition:.3s;
 
 .menuItem:hover{
 
-background:#1F2937;
+background:#1E293B;
 
 color:#fff;
 
+transform:translateX(4px);
+
 }
+
+/* =====================================================
+ACTIVE
+===================================================== */
 
 .menuItem.active{
 
@@ -121,13 +133,22 @@ background:#fff;
 
 color:#111827;
 
+box-shadow:
+0 10px 30px rgba(0,0,0,.08);
+
 }
+
+/* =====================================================
+ICONS
+===================================================== */
 
 .menuItem i{
 
 font-size:18px;
 
-min-width:20px;
+width:22px;
+
+text-align:center;
 
 }
 
@@ -142,6 +163,12 @@ margin-top:20px;
 background:#DC2626;
 
 color:#fff;
+
+}
+
+.logout:hover{
+
+background:#B91C1C;
 
 }
 
@@ -160,6 +187,24 @@ min-height:100vh;
 }
 
 /* =====================================================
+SCROLLBAR
+===================================================== */
+
+.sidebar::-webkit-scrollbar{
+
+width:6px;
+
+}
+
+.sidebar::-webkit-scrollbar-thumb{
+
+background:#334155;
+
+border-radius:20px;
+
+}
+
+/* =====================================================
 RESPONSIVE
 ===================================================== */
 
@@ -168,6 +213,14 @@ RESPONSIVE
 .sidebar{
 
 left:-100%;
+
+transition:.3s;
+
+}
+
+.sidebar.active{
+
+left:0;
 
 }
 
