@@ -1,13 +1,4 @@
-/* =========================================================
-FILE : admin/js/dashboard.js
-REALTIME ADMIN DASHBOARD
-========================================================= */
-
-import {
-
-db
-
-}
+import { db }
 
 from "../../firebase.js";
 
@@ -22,8 +13,25 @@ from
 
 "https://www.gstatic.com/firebasejs/12.11.0/firebase-firestore.js";
 
+/* ========================================================= */
+
+const ordersContainer =
+document.getElementById(
+"ordersContainer"
+);
+
+const riderContainer =
+document.getElementById(
+"riderContainer"
+);
+
+const notificationContainer =
+document.getElementById(
+"notificationContainer"
+);
+
 /* =========================================================
-ELEMENTS
+SUMMARY
 ========================================================= */
 
 const totalOrders =
@@ -31,34 +39,19 @@ document.getElementById(
 "totalOrders"
 );
 
-const todayOrders =
-document.getElementById(
-"todayOrders"
-);
-
 const pendingOrders =
 document.getElementById(
 "pendingOrders"
 );
 
-const completedOrders =
+const deliveredOrders =
 document.getElementById(
-"completedOrders"
+"deliveredOrders"
 );
 
-const cancelledOrders =
+const revenueValue =
 document.getElementById(
-"cancelledOrders"
-);
-
-const totalEarnings =
-document.getElementById(
-"totalEarnings"
-);
-
-const walletBalance =
-document.getElementById(
-"walletBalance"
+"revenueValue"
 );
 
 const activeRiders =
@@ -66,23 +59,8 @@ document.getElementById(
 "activeRiders"
 );
 
-const activePartners =
-document.getElementById(
-"activePartners"
-);
-
-const liveUsers =
-document.getElementById(
-"liveUsers"
-);
-
-const activityContainer =
-document.getElementById(
-"activityContainer"
-);
-
 /* =========================================================
-ORDERS REALTIME
+ORDERS
 ========================================================= */
 
 onSnapshot(
@@ -91,19 +69,14 @@ collection(db,"orders"),
 
 (snapshot)=>{
 
+ordersContainer.innerHTML = "";
+
+notificationContainer.innerHTML = "";
+
 let total = 0;
-let today = 0;
 let pending = 0;
-let completed = 0;
-let cancelled = 0;
-let earnings = 0;
-
-const todayDate =
-new Date().toDateString();
-
-/* ========================================================= */
-
-activityContainer.innerHTML = "";
+let delivered = 0;
+let revenue = 0;
 
 /* ========================================================= */
 
@@ -116,28 +89,8 @@ docSnap.data();
 
 total++;
 
-earnings +=
+revenue +=
 order.total || 0;
-
-/* ========================================================= */
-
-const orderDate =
-
-order.createdAt
-?
-new Date(
-order.createdAt.seconds * 1000
-).toDateString()
-:
-"";
-
-/* ========================================================= */
-
-if(orderDate === todayDate){
-
-today++;
-
-}
 
 /* ========================================================= */
 
@@ -147,51 +100,84 @@ pending++;
 
 }
 
+/* ========================================================= */
+
 if(order.status === "completed"){
 
-completed++;
-
-}
-
-if(order.status === "cancelled"){
-
-cancelled++;
+delivered++;
 
 }
 
 /* =========================================================
-ACTIVITY
+LIVE ORDERS
 ========================================================= */
 
-activityContainer.innerHTML += `
+ordersContainer.innerHTML += `
 
-<div class="activityItem">
+<div class="orderRow">
 
-<div class="activityLeft">
-
-<div class="activityIcon">
-
-<i class="fa-solid fa-box"></i>
-
+<div>
+${order.orderId || '-'}
 </div>
 
-<div class="activityText">
+<div>
+${order.customerName || '-'}
+</div>
 
-<h4>
-${order.customerName || 'Customer'}
-</h4>
+<div>
+${order.area || '-'}
+</div>
 
-<p>
-${order.status || 'pending'}
-</p>
+<div>
+₹${order.total || 0}
+</div>
 
+<div>
+
+<div class="status ${order.status}">
+${order.status}
 </div>
 
 </div>
 
 <div>
+${order.riderName || 'Not Assigned'}
+</div>
 
-₹${order.total || 0}
+<div class="actionBtns">
+
+<button class="actionBtn viewBtn">
+View
+</button>
+
+<button class="actionBtn assignBtn">
+Assign
+</button>
+
+</div>
+
+</div>
+
+`;
+
+/* =========================================================
+NOTIFICATIONS
+========================================================= */
+
+notificationContainer.innerHTML += `
+
+<div class="notifyItem">
+
+<div class="notifyText">
+
+${order.customerName}
+placed order
+
+</div>
+
+<div>
+
+₹${order.total}
 
 </div>
 
@@ -201,32 +187,22 @@ ${order.status || 'pending'}
 
 });
 
-/* =========================================================
-UPDATE UI
-========================================================= */
+/* ========================================================= */
 
 totalOrders.innerHTML =
 total;
 
-todayOrders.innerHTML =
-today;
-
 pendingOrders.innerHTML =
 pending;
 
-completedOrders.innerHTML =
-completed;
+deliveredOrders.innerHTML =
+delivered;
 
-cancelledOrders.innerHTML =
-cancelled;
+revenueValue.innerHTML =
+"₹" + revenue;
 
-totalEarnings.innerHTML =
-"₹" + earnings;
-
-walletBalance.innerHTML =
-"₹" + earnings;
-
-});
+}
+);
 
 /* =========================================================
 RIDERS
@@ -238,90 +214,121 @@ collection(db,"riders"),
 
 (snapshot)=>{
 
-let online = 0;
+riderContainer.innerHTML = "";
+
+let active = 0;
+
+/* ========================================================= */
 
 snapshot.forEach(docSnap=>{
 
 const rider =
 docSnap.data();
 
+/* ========================================================= */
+
 if(rider.online){
 
-online++;
+active++;
 
 }
+
+/* ========================================================= */
+
+riderContainer.innerHTML += `
+
+<div class="riderCard">
+
+<div class="riderInfo">
+
+<img
+src="${rider.photo || 'https://i.ibb.co/3SWQHfY/user.png'}"
+class="riderImage">
+
+<div>
+
+<div class="riderName">
+
+${rider.name}
+
+</div>
+
+<div class="riderStatus">
+
+${rider.online ? 'Online' : 'Offline'}
+
+</div>
+
+</div>
+
+</div>
+
+<button class="quickBtn">
+
+View Rider
+
+</button>
+
+</div>
+
+`;
 
 });
 
 /* ========================================================= */
 
 activeRiders.innerHTML =
-online;
+active;
 
 }
 );
 
 /* =========================================================
-PARTNERS
+MAP
 ========================================================= */
 
-onSnapshot(
+const map =
 
-collection(db,"partners"),
-
-(snapshot)=>{
-
-let online = 0;
-
-snapshot.forEach(docSnap=>{
-
-const partner =
-docSnap.data();
-
-if(partner.online){
-
-online++;
-
-}
-
-});
-
-/* ========================================================= */
-
-activePartners.innerHTML =
-online;
-
-}
-);
-
-/* =========================================================
-USERS
-========================================================= */
-
-onSnapshot(
-
-collection(db,"users"),
-
-(snapshot)=>{
-
-liveUsers.innerHTML =
-snapshot.size;
-
-}
-);
-
-/* =========================================================
-CHART
-========================================================= */
-
-const ctx =
-document.getElementById(
-"growthChart"
+L.map("map").setView(
+[28.8176,78.0653],
+13
 );
 
 /* ========================================================= */
 
-new Chart(ctx,{
+L.tileLayer(
+
+"https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png",
+
+{
+
+attribution:"QuickPress"
+
+}
+
+).addTo(map);
+
+/* ========================================================= */
+
+L.marker(
+[28.8176,78.0653]
+).addTo(map);
+
+L.marker(
+[28.8250,78.0550]
+).addTo(map);
+
+/* =========================================================
+CHARTS
+========================================================= */
+
+function createChart(id,data){
+
+new Chart(
+
+document.getElementById(id),
+
+{
 
 type:"line",
 
@@ -339,11 +346,9 @@ labels:[
 
 datasets:[{
 
-label:"Orders",
+data:data,
 
-data:[12,19,25,18,32,40,28],
-
-borderWidth:4,
+borderWidth:3,
 
 tension:.4
 
@@ -353,19 +358,50 @@ tension:.4
 
 options:{
 
+plugins:{
+legend:{
+display:false
+}
+},
+
 responsive:true
 
 }
 
-});
+}
 
-/* =========================================================
-OPEN ORDERS
-========================================================= */
+);
 
-window.openOrders = (type)=>{
+}
 
-window.location.href =
-`orders.html?filter=${type}`;
+/* ========================================================= */
 
-};
+createChart(
+"ordersChart",
+[10,20,30,25,40,55,70]
+);
+
+createChart(
+"pendingChart",
+[20,18,15,14,10,8,6]
+);
+
+createChart(
+"deliveryChart",
+[5,10,15,25,35,50,65]
+);
+
+createChart(
+"revenueChart",
+[2000,3000,4500,5000,6500,7000,9000]
+);
+
+createChart(
+"riderChart",
+[2,4,6,8,10,12,15]
+);
+
+createChart(
+"salesChart",
+[5000,7000,9000,11000,15000,18000,22000]
+);
