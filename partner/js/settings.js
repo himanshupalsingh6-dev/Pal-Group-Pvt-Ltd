@@ -1,6 +1,6 @@
 /* =========================================================
 FILE : partner/js/settings.js
-QUICKPRESS SETTINGS
+ADVANCE SETTINGS SYSTEM
 ========================================================= */
 
 import {
@@ -16,7 +16,8 @@ import {
 
 doc,
 getDoc,
-updateDoc
+updateDoc,
+setDoc
 
 }
 
@@ -58,7 +59,7 @@ window.location.href =
 }
 
 /* =========================================================
-TAB SWITCH
+TAB SYSTEM
 ========================================================= */
 
 const menuBtns =
@@ -79,9 +80,9 @@ btn.addEventListener(
 "click",
 ()=>{
 
-menuBtns.forEach(b=>{
+menuBtns.forEach(item=>{
 
-b.classList.remove(
+item.classList.remove(
 "active"
 );
 
@@ -117,9 +118,12 @@ btn.dataset.tab
 LOAD PROFILE
 ========================================================= */
 
-async function loadProfile(){
+async function loadPartnerData(){
 
-const ref =
+try{
+
+const partnerRef =
+
 await getDoc(
 
 doc(
@@ -132,12 +136,14 @@ partner.uid
 
 /* ========================================================= */
 
-if(ref.exists()){
+if(partnerRef.exists()){
 
 const data =
-ref.data();
+partnerRef.data();
 
-/* ========================================================= */
+/* =========================================================
+PROFILE
+========================================================= */
 
 document.getElementById(
 "partnerName"
@@ -159,7 +165,57 @@ document.getElementById(
 ).value =
 data.city || "";
 
-/* ========================================================= */
+/* =========================================================
+BUSINESS
+========================================================= */
+
+document.getElementById(
+"openingTime"
+).value =
+data.openingTime || "";
+
+document.getElementById(
+"closingTime"
+).value =
+data.closingTime || "";
+
+document.getElementById(
+"minimumOrder"
+).value =
+data.minimumOrder || "";
+
+document.getElementById(
+"deliveryRadius"
+).value =
+data.deliveryRadius || "";
+
+/* =========================================================
+BANK
+========================================================= */
+
+document.getElementById(
+"accountHolder"
+).value =
+data.accountHolder || "";
+
+document.getElementById(
+"accountNumber"
+).value =
+data.accountNumber || "";
+
+document.getElementById(
+"ifscCode"
+).value =
+data.ifscCode || "";
+
+document.getElementById(
+"upiId"
+).value =
+data.upiId || "";
+
+/* =========================================================
+PROFILE IMAGE
+========================================================= */
 
 if(data.profile){
 
@@ -169,6 +225,29 @@ document.getElementById(
 data.profile;
 
 }
+
+/* =========================================================
+UPDATE SESSION
+========================================================= */
+
+localStorage.setItem(
+
+"partnerSession",
+
+JSON.stringify({
+
+...partner,
+...data
+
+})
+
+);
+
+}
+
+}catch(error){
+
+console.log(error);
 
 }
 
@@ -190,15 +269,7 @@ async()=>{
 
 try{
 
-await updateDoc(
-
-doc(
-db,
-"partners",
-partner.uid
-),
-
-{
+const updatedData = {
 
 name:
 
@@ -226,7 +297,43 @@ document.getElementById(
 
 updatedAt:new Date()
 
-}
+};
+
+/* ========================================================= */
+
+await updateDoc(
+
+doc(
+db,
+"partners",
+partner.uid
+),
+
+updatedData
+
+);
+
+/* =========================================================
+ADMIN PANEL LIVE DATA
+========================================================= */
+
+await setDoc(
+
+doc(
+db,
+"admin_partners",
+partner.uid
+),
+
+{
+
+...updatedData,
+
+partnerId:partner.uid
+
+},
+
+{merge:true}
 
 );
 
@@ -236,9 +343,17 @@ showToast(
 "Profile Updated"
 );
 
+/* ========================================================= */
+
+loadPartnerData();
+
 }catch(error){
 
 console.log(error);
+
+showToast(
+"Update Failed"
+);
 
 }
 
@@ -261,15 +376,7 @@ async()=>{
 
 try{
 
-await updateDoc(
-
-doc(
-db,
-"partners",
-partner.uid
-),
-
-{
+const businessData = {
 
 openingTime:
 
@@ -293,9 +400,39 @@ deliveryRadius:
 
 document.getElementById(
 "deliveryRadius"
-).value
+).value,
 
-}
+updatedAt:new Date()
+
+};
+
+/* ========================================================= */
+
+await updateDoc(
+
+doc(
+db,
+"partners",
+partner.uid
+),
+
+businessData
+
+);
+
+/* ========================================================= */
+
+await setDoc(
+
+doc(
+db,
+"admin_partners",
+partner.uid
+),
+
+businessData,
+
+{merge:true}
 
 );
 
@@ -330,15 +467,7 @@ async()=>{
 
 try{
 
-await updateDoc(
-
-doc(
-db,
-"partners",
-partner.uid
-),
-
-{
+const bankData = {
 
 accountHolder:
 
@@ -362,9 +491,39 @@ upiId:
 
 document.getElementById(
 "upiId"
-).value
+).value,
 
-}
+updatedAt:new Date()
+
+};
+
+/* ========================================================= */
+
+await updateDoc(
+
+doc(
+db,
+"partners",
+partner.uid
+),
+
+bankData
+
+);
+
+/* ========================================================= */
+
+await setDoc(
+
+doc(
+db,
+"admin_partners",
+partner.uid
+),
+
+bankData,
+
+{merge:true}
 
 );
 
@@ -377,6 +536,10 @@ showToast(
 }catch(error){
 
 console.log(error);
+
+showToast(
+"Bank Save Failed"
+);
 
 }
 
@@ -406,6 +569,18 @@ const confirmPassword =
 document.getElementById(
 "confirmPassword"
 ).value;
+
+/* ========================================================= */
+
+if(!newPassword){
+
+showToast(
+"Enter password"
+);
+
+return;
+
+}
 
 /* ========================================================= */
 
@@ -450,7 +625,7 @@ error.message
 );
 
 /* =========================================================
-SWITCH
+SWITCHES
 ========================================================= */
 
 document
@@ -470,6 +645,215 @@ sw.classList.toggle(
 });
 
 /* =========================================================
+PROFILE IMAGE UPLOAD
+========================================================= */
+
+document
+.getElementById(
+"uploadBtn"
+)
+.addEventListener(
+
+"click",
+
+()=>{
+
+const imageUrl = prompt(
+"Paste Profile Image URL"
+);
+
+/* ========================================================= */
+
+if(imageUrl){
+
+saveProfileImage(
+imageUrl
+);
+
+}
+
+}
+);
+
+/* =========================================================
+SAVE IMAGE
+========================================================= */
+
+async function saveProfileImage(url){
+
+try{
+
+await updateDoc(
+
+doc(
+db,
+"partners",
+partner.uid
+),
+
+{
+
+profile:url
+
+}
+
+);
+
+/* ========================================================= */
+
+document.getElementById(
+"profileImage"
+).src = url;
+
+/* ========================================================= */
+
+showToast(
+"Profile Updated"
+);
+
+}catch(error){
+
+console.log(error);
+
+}
+
+}
+
+/* =========================================================
+DISABLE SHOP
+========================================================= */
+
+document
+.querySelectorAll(".dangerBtn")
+.forEach(btn=>{
+
+btn.addEventListener(
+"click",
+async()=>{
+
+const text =
+btn.innerText;
+
+/* ========================================================= */
+
+if(text.includes("Disable")){
+
+await updateDoc(
+
+doc(
+db,
+"partners",
+partner.uid
+),
+
+{
+
+shopDisabled:true
+
+}
+
+);
+
+showToast(
+"Shop Disabled"
+);
+
+}
+
+/* ========================================================= */
+
+if(text.includes("Delete")){
+
+const confirmDelete =
+
+confirm(
+"Delete Account?"
+);
+
+/* ========================================================= */
+
+if(confirmDelete){
+
+await updateDoc(
+
+doc(
+db,
+"partners",
+partner.uid
+),
+
+{
+
+deleted:true
+
+}
+
+);
+
+localStorage.removeItem(
+"partnerSession"
+);
+
+window.location.href =
+"login.html";
+
+}
+
+}
+
+});
+
+});
+
+/* =========================================================
+REALTIME ADMIN SYNC
+========================================================= */
+
+async function syncAdminPanel(){
+
+try{
+
+const partnerRef =
+
+await getDoc(
+
+doc(
+db,
+"partners",
+partner.uid
+)
+
+);
+
+/* ========================================================= */
+
+if(partnerRef.exists()){
+
+await setDoc(
+
+doc(
+db,
+"admin_partners",
+partner.uid
+),
+
+partnerRef.data(),
+
+{merge:true}
+
+);
+
+}
+
+}catch(error){
+
+console.log(error);
+
+}
+
+}
+
+/* =========================================================
 TOAST
 ========================================================= */
 
@@ -480,8 +864,12 @@ document.createElement(
 "div"
 );
 
+/* ========================================================= */
+
 toast.innerHTML =
 message;
+
+/* ========================================================= */
 
 toast.style.position =
 "fixed";
@@ -526,6 +914,10 @@ toast.remove();
 
 }
 
-/* ========================================================= */
+/* =========================================================
+INIT
+========================================================= */
 
-loadProfile();
+loadPartnerData();
+
+syncAdminPanel();
