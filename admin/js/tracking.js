@@ -1,8 +1,3 @@
-/* =========================================================
-FILE : admin/js/tracking.js
-QUICKPRESS ADMIN LIVE TRACKING
-========================================================= */
-
 import { db }
 
 from "../../firebase.js";
@@ -18,17 +13,45 @@ from
 
 "https://www.gstatic.com/firebasejs/12.11.0/firebase-firestore.js";
 
+/* ========================================================= */
+
+const ridersContainer =
+document.getElementById(
+"ridersContainer"
+);
+
+const onlineRiders =
+document.getElementById(
+"onlineRiders"
+);
+
+const busyRiders =
+document.getElementById(
+"busyRiders"
+);
+
+const activeOrders =
+document.getElementById(
+"activeOrders"
+);
+
+/* ========================================================= */
+
+let allRiders = [];
+let markers = [];
+
 /* =========================================================
 MAP
 ========================================================= */
 
 const map =
-L.map("map")
-.setView([27.4924,78.1234],12);
 
-/* =========================================================
-MAP LAYER
-========================================================= */
+L.map("map").setView(
+[27.8176,78.6450],
+13
+);
+
+/* ========================================================= */
 
 L.tileLayer(
 
@@ -36,89 +59,67 @@ L.tileLayer(
 
 {
 
-attribution:
-"&copy; OpenStreetMap"
+attribution:"QuickPress"
 
 }
 
 ).addTo(map);
 
 /* =========================================================
-GLOBAL
-========================================================= */
-
-const ridersList =
-document.getElementById(
-"ridersList"
-);
-
-const riderMarkers = {};
-
-/* =========================================================
-LOAD TRACKING
+REALTIME RIDERS
 ========================================================= */
 
 onSnapshot(
 
-collection(db,"tracking"),
+collection(db,"riders"),
 
 (snapshot)=>{
 
-ridersList.innerHTML = "";
+ridersContainer.innerHTML = "";
+
+allRiders = [];
 
 /* ========================================================= */
 
-let onlineCount = 0;
+markers.forEach(marker=>{
+
+map.removeLayer(marker);
+
+});
+
+/* ========================================================= */
+
+markers = [];
+
+let online = 0;
+let busy = 0;
 
 /* ========================================================= */
 
 snapshot.forEach(docSnap=>{
 
-const data =
+const rider =
 docSnap.data();
 
-/* ========================================================= */
+rider.id =
+docSnap.id;
 
-onlineCount++;
-
-/* ========================================================= */
-
-const lat =
-data.lat || 27.4924;
-
-const lng =
-data.lng || 78.1234;
+allRiders.push(rider);
 
 /* ========================================================= */
 
-if(riderMarkers[docSnap.id]){
+if(rider.status === "online"){
 
-riderMarkers[docSnap.id]
-.setLatLng([lat,lng]);
+online++;
 
-}else{
+}
 
-const marker =
-L.marker([lat,lng])
+if(
+rider.status === "pickup" ||
+rider.status === "delivery"
+){
 
-.addTo(map)
-
-.bindPopup(
-
-`
-
-<b>${data.riderName}</b>
-
-<br>
-
-${data.status}
-
-`
-
-);
-
-riderMarkers[docSnap.id] =
-marker;
+busy++;
 
 }
 
@@ -126,87 +127,106 @@ marker;
 RIDER CARD
 ========================================================= */
 
-ridersList.innerHTML += `
+ridersContainer.innerHTML += `
 
-<div class="riderCard">
+<div
+class="riderCard"
+onclick="focusRider(
+${rider.lat || 27.8176},
+${rider.lng || 78.6450}
+)">
 
 <div class="riderTop">
 
-<div class="riderLeft">
-
-<img
-src="${data.image || 'https://i.ibb.co/3SWQHfY/user.png'}"
-class="riderImage">
-
 <div class="riderInfo">
 
-<h3>
-${data.riderName || "Rider"}
-</h3>
+<img
+src="${rider.photo || 'https://i.ibb.co/3SWQHfY/user.png'}"
+class="riderImage">
 
-<p>
-${data.riderPhone || ""}
-</p>
+<div>
+
+<div class="riderName">
+
+${rider.name || '-'}
+
+</div>
+
+<div class="riderArea">
+
+${rider.city || '-'}
+• ${rider.area || '-'}
 
 </div>
 
 </div>
 
-<div class="status">
+</div>
 
-${data.status || "Online"}
+<div class="status ${rider.status || 'online'}">
+
+${rider.status || 'online'}
 
 </div>
 
 </div>
 
-<div class="riderBottom">
+<div class="riderStats">
 
-<div class="infoBox">
+<div class="statBox">
 
-<h5>
-Order
-</h5>
-
-<h4>
-${data.orderId || "QP102"}
-</h4>
-
-</div>
-
-<div class="infoBox">
-
-<h5>
-ETA
-</h5>
-
-<h4>
-${data.eta || "12 Min"}
-</h4>
-
-</div>
-
-<div class="infoBox">
-
-<h5>
+<div class="statLabel">
 Speed
-</h5>
+</div>
 
-<h4>
-${data.speed || 30} km/h
-</h4>
+<div class="statValue">
+
+${rider.speed || 32}
+km/h
 
 </div>
 
-<div class="infoBox">
+</div>
 
-<h5>
-City
-</h5>
+<div class="statBox">
 
-<h4>
-${data.city || "Kasganj"}
-</h4>
+<div class="statLabel">
+Battery
+</div>
+
+<div class="statValue">
+
+${rider.battery || 80}%
+
+</div>
+
+</div>
+
+<div class="statBox">
+
+<div class="statLabel">
+Orders
+</div>
+
+<div class="statValue">
+
+${rider.activeOrders || 0}
+
+</div>
+
+</div>
+
+<div class="statBox">
+
+<div class="statLabel">
+ETA
+</div>
+
+<div class="statValue">
+
+4 Min
+
+</div>
 
 </div>
 
@@ -216,26 +236,213 @@ ${data.city || "Kasganj"}
 
 `;
 
-});
-
 /* =========================================================
-STATS
+MARKER
 ========================================================= */
 
-document.getElementById(
-"onlineRiders"
-).innerHTML = onlineCount;
+const marker =
 
-document.getElementById(
-"activeOrders"
-).innerHTML = onlineCount;
+L.marker([
+rider.lat || 27.8176,
+rider.lng || 78.6450
+])
 
-document.getElementById(
-"deliveredOrders"
-).innerHTML =
-Math.floor(
-onlineCount * 3
-);
+.addTo(map)
+
+.bindPopup(`
+
+<div class="popupTitle">
+
+${rider.name}
+
+</div>
+
+<div class="popupRow">
+
+📞 ${rider.phone || '-'}
+
+</div>
+
+<div class="popupRow">
+
+📍 ${rider.area || '-'}
+
+</div>
+
+<div class="popupRow">
+
+🚴 Speed:
+${rider.speed || 30} km/h
+
+</div>
+
+<div class="popupRow">
+
+🔋 Battery:
+${rider.battery || 80}%
+
+</div>
+
+<div class="popupRow">
+
+💰 Earnings:
+₹${rider.earnings || 0}
+
+</div>
+
+<div class="popupRow">
+
+📦 Active Orders:
+${rider.activeOrders || 0}
+
+</div>
+
+<div class="popupRow">
+
+🕒 Updated:
+Just now
+
+</div>
+
+<br>
+
+<button
+style="
+width:100%;
+height:42px;
+border:none;
+border-radius:12px;
+background:#111827;
+color:#fff;
+font-weight:900;
+cursor:pointer;
+margin-bottom:8px;
+">
+
+Call Rider
+
+</button>
+
+<button
+style="
+width:100%;
+height:42px;
+border:none;
+border-radius:12px;
+background:#25D366;
+color:#fff;
+font-weight:900;
+cursor:pointer;
+margin-bottom:8px;
+">
+
+WhatsApp
+
+</button>
+
+<button
+style="
+width:100%;
+height:42px;
+border:none;
+border-radius:12px;
+background:#2563EB;
+color:#fff;
+font-weight:900;
+cursor:pointer;
+">
+
+Assign Order
+
+</button>
+
+`);
+
+/* ========================================================= */
+
+markers.push(marker);
+
+});
+
+/* ========================================================= */
+
+onlineRiders.innerHTML =
+online;
+
+busyRiders.innerHTML =
+busy;
+
+activeOrders.innerHTML =
+busy + 3;
 
 }
 );
+
+/* =========================================================
+FOCUS RIDER
+========================================================= */
+
+window.focusRider =
+(lat,lng)=>{
+
+map.setView(
+[lat,lng],
+16
+);
+
+};
+
+/* =========================================================
+TRACK ALL
+========================================================= */
+
+window.trackAllRiders =
+()=>{
+
+map.setZoom(12);
+
+};
+
+/* =========================================================
+REFRESH
+========================================================= */
+
+window.refreshTracking =
+()=>{
+
+location.reload();
+
+};
+
+/* =========================================================
+NEAREST RIDER
+========================================================= */
+
+window.findNearestRider =
+()=>{
+
+if(markers[0]){
+
+map.setView(
+markers[0].getLatLng(),
+16
+);
+
+markers[0]
+.openPopup();
+
+}
+
+};
+
+/* =========================================================
+AUTO REFRESH
+========================================================= */
+
+setInterval(()=>{
+
+console.log(
+"Tracking Updated"
+);
+
+},5000);
