@@ -1,0 +1,260 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+<meta charset="UTF-8">
+
+<meta
+name="viewport"
+content="width=device-width, initial-scale=1.0">
+
+<title>
+QuickPress Rider Login
+</title>
+
+<link
+rel="stylesheet"
+href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css"/>
+
+<style>
+
+/* =====================================================
+GLOBAL
+===================================================== */
+
+*{
+
+margin:0;
+padding:0;
+box-sizing:border-box;
+font-family:Arial,sans-serif;
+
+}
+
+body{
+
+background:#111827;
+
+display:flex;
+align-items:center;
+justify-content:center;
+
+min-height:100vh;
+
+padding:20px;
+
+}
+
+/* =====================================================
+LOGIN CARD
+===================================================== */
+
+.loginCard{
+
+width:100%;
+max-width:430px;
+
+background:#fff;
+
+border-radius:40px;
+
+padding:34px;
+
+}
+
+/* =====================================================
+LOGO
+===================================================== */
+
+.logo{
+
+font-size:48px;
+font-weight:900;
+color:#111827;
+
+margin-bottom:10px;
+
+}
+
+/* =====================================================
+SUBTITLE
+===================================================== */
+
+.subTitle{
+
+font-size:14px;
+font-weight:700;
+color:#6B7280;
+
+margin-bottom:34px;
+
+}
+
+/* =====================================================
+INPUT
+===================================================== */
+
+.inputGroup{
+
+margin-bottom:22px;
+
+}
+
+.inputLabel{
+
+font-size:13px;
+font-weight:900;
+margin-bottom:10px;
+display:block;
+
+}
+
+.inputBox{
+
+width:100%;
+height:62px;
+
+background:#F9FAFB;
+
+border:1px solid #E5E7EB;
+
+border-radius:20px;
+
+padding:0 18px;
+
+font-size:15px;
+font-weight:800;
+
+outline:none;
+
+}
+
+/* =====================================================
+BUTTON
+===================================================== */
+
+.loginBtn{
+
+width:100%;
+height:64px;
+
+border:none;
+
+border-radius:22px;
+
+background:#111827;
+
+color:#fff;
+
+font-size:15px;
+font-weight:900;
+
+cursor:pointer;
+
+margin-top:10px;
+
+}
+
+/* =====================================================
+BOTTOM
+===================================================== */
+
+.bottomText{
+
+text-align:center;
+
+margin-top:24px;
+
+font-size:13px;
+font-weight:700;
+color:#6B7280;
+
+}
+
+</style>
+
+</head>
+
+<body>
+
+<!-- =====================================================
+LOGIN CARD
+===================================================== -->
+
+<div class="loginCard">
+
+<div class="logo">
+QuickPress
+</div>
+
+<div class="subTitle">
+Rider Delivery Partner Login
+</div>
+
+<!-- =====================================================
+EMAIL
+===================================================== -->
+
+<div class="inputGroup">
+
+<label class="inputLabel">
+Email Address
+</label>
+
+<input
+type="email"
+class="inputBox"
+id="email"
+placeholder="Enter email">
+
+</div>
+
+<!-- =====================================================
+PASSWORD
+===================================================== -->
+
+<div class="inputGroup">
+
+<label class="inputLabel">
+Password
+</label>
+
+<input
+type="password"
+class="inputBox"
+id="password"
+placeholder="Enter password">
+
+</div>
+
+<!-- =====================================================
+BUTTON
+===================================================== -->
+
+<button
+class="loginBtn"
+id="loginBtn">
+
+Login Rider Account
+
+</button>
+
+<div class="bottomText">
+
+Realtime Delivery System
+
+</div>
+
+</div>
+
+<!-- =====================================================
+SCRIPT
+===================================================== -->
+
+<script type="module"
+src="./js/login.js">
+</script>
+
+</body>
+</html>
