@@ -1,19 +1,11 @@
-/* =========================================================
-FILE : admin/js/partners.js
-ADVANCE PARTNER MANAGEMENT
-========================================================= */
-
-import {
-
-db
-
-}
+import { db }
 
 from "../../firebase.js";
 
 import {
 
 collection,
+addDoc,
 onSnapshot,
 doc,
 updateDoc
@@ -24,13 +16,11 @@ from
 
 "https://www.gstatic.com/firebasejs/12.11.0/firebase-firestore.js";
 
-/* =========================================================
-ELEMENTS
-========================================================= */
+/* ========================================================= */
 
-const partnersTable =
+const partnersContainer =
 document.getElementById(
-"partnersTable"
+"partnersContainer"
 );
 
 const totalPartners =
@@ -38,38 +28,132 @@ document.getElementById(
 "totalPartners"
 );
 
-const onlinePartners =
+const activePartners =
 document.getElementById(
-"onlinePartners"
+"activePartners"
 );
 
-const totalRevenue =
+const pendingKyc =
 document.getElementById(
-"totalRevenue"
+"pendingKyc"
 );
 
-const activeOrders =
+const monthlyRevenue =
 document.getElementById(
-"activeOrders"
+"monthlyRevenue"
 );
 
-const searchInput =
-document.getElementById(
-"searchInput"
-);
+/* ========================================================= */
 
-const cityFilter =
-document.getElementById(
-"cityFilter"
-);
-
-const statusFilter =
-document.getElementById(
-"statusFilter"
-);
+let allPartners = [];
 
 /* =========================================================
-LOAD PARTNERS
+PASSWORD
+========================================================= */
+
+window.generatePassword = ()=>{
+
+const password =
+
+"QP@" +
+Math.floor(
+1000 + Math.random() * 9000
+);
+
+/* ========================================================= */
+
+document.getElementById(
+"partnerPassword"
+).value = password;
+
+};
+
+/* =========================================================
+ADD PARTNER
+========================================================= */
+
+window.addPartner =
+async()=>{
+
+const partner = {
+
+name:
+document.getElementById(
+"partnerName"
+).value,
+
+phone:
+document.getElementById(
+"partnerPhone"
+).value,
+
+email:
+document.getElementById(
+"partnerEmail"
+).value,
+
+password:
+document.getElementById(
+"partnerPassword"
+).value,
+
+shopName:
+document.getElementById(
+"shopName"
+).value,
+
+city:
+document.getElementById(
+"partnerCity"
+).value,
+
+area:
+document.getElementById(
+"partnerArea"
+).value,
+
+service:
+document.getElementById(
+"partnerService"
+).value,
+
+commission:
+document.getElementById(
+"partnerCommission"
+).value,
+
+status:
+document.getElementById(
+"partnerStatus"
+).value,
+
+earnings:0,
+
+createdAt:
+Date.now()
+
+};
+
+/* ========================================================= */
+
+await addDoc(
+
+collection(db,"partners"),
+
+partner
+
+);
+
+/* ========================================================= */
+
+alert(
+"Partner Added"
+);
+
+};
+
+/* =========================================================
+REALTIME
 ========================================================= */
 
 onSnapshot(
@@ -78,14 +162,13 @@ collection(db,"partners"),
 
 (snapshot)=>{
 
-partnersTable.innerHTML = "";
+partnersContainer.innerHTML = "";
 
-/* ========================================================= */
+allPartners = [];
 
-let partnerCount = 0;
-let onlineCount = 0;
-let revenueCount = 0;
-let orderCount = 0;
+let active = 0;
+let pending = 0;
+let revenue = 0;
 
 const cities = [];
 
@@ -96,161 +179,65 @@ snapshot.forEach(docSnap=>{
 const partner =
 docSnap.data();
 
-const partnerId =
+partner.id =
 docSnap.id;
 
-/* ========================================================= */
-
-partnerCount++;
-
-revenueCount +=
-partner.earnings || 0;
-
-orderCount +=
-partner.orders || 0;
+allPartners.push(partner);
 
 /* ========================================================= */
 
-if(partner.online){
-
-onlineCount++;
-
+if(partner.status === "active"){
+active++;
 }
+
+if(partner.status === "pending"){
+pending++;
+}
+
+revenue +=
+partner.earnings || 0;
 
 /* ========================================================= */
 
 if(
 partner.city &&
-!cities.includes(
-partner.city
-)
+!cities.includes(partner.city)
 ){
 
-cities.push(
-partner.city
-);
+cities.push(partner.city);
 
 }
 
-/* ========================================================= */
-
-partnersTable.innerHTML += `
-
-<tr class="partnerRow">
-
-<td>
-
-<div class="partnerBox">
-
-<img
-src="${partner.profile || 'https://i.ibb.co/3SWQHfY/user.png'}"
-class="partnerImage">
-
-<div class="partnerInfo">
-
-<h4>
-${partner.name || 'Partner'}
-</h4>
-
-<p>
-${partner.shop || 'QuickPress'}
-</p>
-
-</div>
-
-</div>
-
-</td>
-
-<td>
-${partner.city || '-'}
-</td>
-
-<td>
-₹${partner.earnings || 0}
-</td>
-
-<td>
-${partner.orders || 0}
-</td>
-
-<td>
-₹${partner.wallet || 0}
-</td>
-
-<td>
-
-<div class="status ${partner.online ? 'active' : 'offline'}">
-
-${partner.online ? 'Online' : 'Offline'}
-
-</div>
-
-</td>
-
-<td>
-
-<div class="actionButtons">
-
-<button
-class="actionBtn viewBtn"
-onclick="viewPartner('${partnerId}')">
-
-View
-
-</button>
-
-<button
-class="actionBtn walletBtn"
-onclick="walletPartner('${partnerId}')">
-
-Wallet
-
-</button>
-
-<button
-class="actionBtn disableBtn"
-onclick="togglePartner(
-'${partnerId}',
-${partner.shopDisabled ? true : false}
-)">
-
-${partner.shopDisabled ? 'Enable' : 'Disable'}
-
-</button>
-
-</div>
-
-</td>
-
-</tr>
-
-`;
-
 });
 
-/* =========================================================
-UPDATE CARDS
-========================================================= */
+/* ========================================================= */
 
 totalPartners.innerHTML =
-partnerCount;
+allPartners.length;
 
-onlinePartners.innerHTML =
-onlineCount;
+activePartners.innerHTML =
+active;
 
-totalRevenue.innerHTML =
-"₹" + revenueCount;
+pendingKyc.innerHTML =
+pending;
 
-activeOrders.innerHTML =
-orderCount;
+monthlyRevenue.innerHTML =
+"₹" + revenue;
 
-/* =========================================================
-CITY FILTER
-========================================================= */
+/* ========================================================= */
+
+const cityFilter =
+document.getElementById(
+"cityFilter"
+);
 
 cityFilter.innerHTML =
-`<option value="">All Cities</option>`;
+
+`
+<option value="">
+All Cities
+</option>
+`;
 
 /* ========================================================= */
 
@@ -266,213 +253,267 @@ ${city}
 
 });
 
+/* ========================================================= */
+
+renderPartners(allPartners);
+
 }
 );
 
 /* =========================================================
-SEARCH
+RENDER
 ========================================================= */
 
-searchInput.addEventListener(
-"keyup",
-filterPartners
-);
+function renderPartners(data){
 
-cityFilter.addEventListener(
-"change",
-filterPartners
-);
-
-statusFilter.addEventListener(
-"change",
-filterPartners
-);
-
-/* =========================================================
-FILTER
-========================================================= */
-
-function filterPartners(){
-
-const search =
-searchInput.value.toLowerCase();
-
-const city =
-cityFilter.value.toLowerCase();
-
-const status =
-statusFilter.value.toLowerCase();
+partnersContainer.innerHTML = "";
 
 /* ========================================================= */
 
-document
-.querySelectorAll(".partnerRow")
-.forEach(row=>{
+data.forEach(item=>{
 
-const text =
-row.innerText.toLowerCase();
+partnersContainer.innerHTML += `
 
-/* ========================================================= */
+<div class="tableRow">
 
-const showSearch =
-text.includes(search);
+<div>
+${item.id.slice(0,6)}
+</div>
 
-const showCity =
-city === "" || text.includes(city);
+<div>
+${item.shopName || '-'}
+</div>
 
-const showStatus =
-status === "" || text.includes(status);
+<div>
+${item.name || '-'}
+</div>
 
-/* ========================================================= */
+<div>
 
-if(
-showSearch &&
-showCity &&
-showStatus
-){
+${item.city}
 
-row.style.display =
-"table-row";
+<br>
 
-}
+${item.area}
 
-else{
+</div>
 
-row.style.display =
-"none";
+<div>
+${item.service}
+</div>
 
-}
+<div>
+
+<div class="status ${item.status}">
+
+${item.status}
+
+</div>
+
+</div>
+
+<div class="actions">
+
+<button
+class="actionBtn viewBtn">
+
+View
+
+</button>
+
+<button
+class="actionBtn editBtn">
+
+Edit
+
+</button>
+
+<button
+class="actionBtn walletBtn">
+
+Wallet
+
+</button>
+
+<button
+class="actionBtn suspendBtn"
+onclick="suspendPartner('${item.id}')">
+
+Suspend
+
+</button>
+
+</div>
+
+</div>
+
+`;
 
 });
 
 }
 
 /* =========================================================
-VIEW
+SUSPEND
 ========================================================= */
 
-window.viewPartner = (id)=>{
-
-window.location.href =
-`partner-view.html?id=${id}`;
-
-};
-
-/* =========================================================
-WALLET
-========================================================= */
-
-window.walletPartner = (id)=>{
-
-window.location.href =
-`partner-wallet.html?id=${id}`;
-
-};
-
-/* =========================================================
-ENABLE DISABLE
-========================================================= */
-
-window.togglePartner =
-async(id,status)=>{
-
-try{
+window.suspendPartner =
+async(id)=>{
 
 await updateDoc(
 
-doc(
-db,
-"partners",
-id
-),
+doc(db,"partners",id),
 
 {
 
-shopDisabled:!status,
-
-updatedAt:new Date()
+status:"suspended"
 
 }
 
 );
-
-/* ========================================================= */
-
-showToast(
-
-status
-?
-"Partner Enabled"
-:
-"Partner Disabled"
-
-);
-
-}catch(error){
-
-console.log(error);
-
-}
 
 };
 
 /* =========================================================
-TOAST
+FILTERS
 ========================================================= */
 
-function showToast(message){
+document.getElementById(
+"searchInput"
+).addEventListener(
+"keyup",
+filterPartners
+);
 
-const toast =
-document.createElement(
-"div"
+document.getElementById(
+"cityFilter"
+).addEventListener(
+"change",
+filterPartners
+);
+
+document.getElementById(
+"serviceFilter"
+).addEventListener(
+"change",
+filterPartners
+);
+
+document.getElementById(
+"statusFilter"
+).addEventListener(
+"change",
+filterPartners
 );
 
 /* ========================================================= */
 
-toast.innerHTML =
-message;
+function filterPartners(){
+
+const search =
+
+document.getElementById(
+"searchInput"
+).value.toLowerCase();
+
+const city =
+
+document.getElementById(
+"cityFilter"
+).value;
+
+const service =
+
+document.getElementById(
+"serviceFilter"
+).value;
+
+const status =
+
+document.getElementById(
+"statusFilter"
+).value;
 
 /* ========================================================= */
 
-toast.style.position =
-"fixed";
+const filtered =
 
-toast.style.bottom =
-"20px";
+allPartners.filter(item=>{
 
-toast.style.right =
-"20px";
+const matchSearch =
 
-toast.style.background =
-"#111827";
+(item.name || '')
+.toLowerCase()
+.includes(search);
 
-toast.style.color =
-"#fff";
+const matchCity =
 
-toast.style.padding =
-"14px 20px";
+city
+?
+item.city === city
+:
+true;
 
-toast.style.borderRadius =
-"18px";
+const matchService =
 
-toast.style.fontWeight =
-"800";
+service
+?
+item.service === service
+:
+true;
 
-toast.style.zIndex =
-"999999";
+const matchStatus =
 
-/* ========================================================= */
+status
+?
+item.status === status
+:
+true;
 
-document.body.appendChild(
-toast
+return (
+
+matchSearch &&
+matchCity &&
+matchService &&
+matchStatus
+
 );
 
+});
+
 /* ========================================================= */
 
-setTimeout(()=>{
-
-toast.remove();
-
-},3000);
+renderPartners(filtered);
 
 }
+
+/* =========================================================
+MAP
+========================================================= */
+
+const map =
+
+L.map("map").setView(
+[27.8176,78.6450],
+12
+);
+
+/* ========================================================= */
+
+L.tileLayer(
+
+"https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png",
+
+{
+
+attribution:"QuickPress"
+
+}
+
+).addTo(map);
+
+/* ========================================================= */
+
+L.marker(
+[27.8176,78.6450]
+).addTo(map);
