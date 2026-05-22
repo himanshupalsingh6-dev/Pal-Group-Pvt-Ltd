@@ -1,8 +1,3 @@
-/* =========================================================
-FILE : js/orders.js
-ADVANCE REALTIME ORDERS SYSTEM
-========================================================= */
-
 import { db }
 
 from "../../firebase.js";
@@ -10,12 +5,9 @@ from "../../firebase.js";
 import {
 
 collection,
-query,
-orderBy,
 onSnapshot,
 doc,
-updateDoc,
-deleteDoc
+updateDoc
 
 }
 
@@ -23,80 +15,169 @@ from
 
 "https://www.gstatic.com/firebasejs/12.11.0/firebase-firestore.js";
 
-/* =========================================================
-ELEMENTS
-========================================================= */
+/* ========================================================= */
 
-const ordersTable =
+const ordersContainer =
 document.getElementById(
-"ordersTable"
+"ordersContainer"
 );
 
-const filterBtns =
-document.querySelectorAll(
-".filterBtn"
-);
-
-const searchInput =
+const totalOrders =
 document.getElementById(
-"searchInput"
+"totalOrders"
 );
 
-const cityFilter =
+const pendingOrders =
 document.getElementById(
-"cityFilter"
+"pendingOrders"
 );
 
-const exportBtn =
+const assignedOrders =
 document.getElementById(
-"exportBtn"
+"assignedOrders"
 );
 
-/* =========================================================
-GLOBAL
-========================================================= */
+const deliveredOrders =
+document.getElementById(
+"deliveredOrders"
+);
 
-let allOrders = [];
+const cancelledOrders =
+document.getElementById(
+"cancelledOrders"
+);
 
-let currentFilter = "All";
+const codCollection =
+document.getElementById(
+"codCollection"
+);
 
-/* =========================================================
-LOAD ORDERS
-========================================================= */
-
-const ordersQuery =
-query(
-
-collection(db,"orders"),
-
-orderBy("createdAt","desc")
-
+const activeRiders =
+document.getElementById(
+"activeRiders"
 );
 
 /* ========================================================= */
 
+let allOrders = [];
+let allRiders = [];
+
+/* =========================================================
+RIDER REALTIME
+========================================================= */
+
 onSnapshot(
-ordersQuery,
+
+collection(db,"riders"),
+
+(snapshot)=>{
+
+allRiders = [];
+
+let active = 0;
+
+snapshot.forEach(docSnap=>{
+
+const rider = docSnap.data();
+
+rider.id = docSnap.id;
+
+allRiders.push(rider);
+
+if(rider.online){
+
+active++;
+
+}
+
+});
+
+activeRiders.innerHTML =
+active;
+
+}
+);
+
+/* =========================================================
+ORDERS REALTIME
+========================================================= */
+
+onSnapshot(
+
+collection(db,"orders"),
+
 (snapshot)=>{
 
 allOrders = [];
+
+ordersContainer.innerHTML = "";
+
+/* ========================================================= */
+
+let pending = 0;
+let assigned = 0;
+let completed = 0;
+let cancelled = 0;
+let cod = 0;
 
 /* ========================================================= */
 
 snapshot.forEach(docSnap=>{
 
-allOrders.push({
+const order =
+docSnap.data();
 
-id:docSnap.id,
-...docSnap.data()
+order.id = docSnap.id;
 
-});
+allOrders.push(order);
+
+/* ========================================================= */
+
+if(order.status === "pending"){
+pending++;
+}
+
+if(order.status === "assigned"){
+assigned++;
+}
+
+if(order.status === "completed"){
+completed++;
+}
+
+if(order.status === "cancelled"){
+cancelled++;
+}
+
+if(order.paymentType === "cod"){
+cod += order.total || 0;
+}
 
 });
 
 /* ========================================================= */
 
-renderOrders();
+totalOrders.innerHTML =
+allOrders.length;
+
+pendingOrders.innerHTML =
+pending;
+
+assignedOrders.innerHTML =
+assigned;
+
+deliveredOrders.innerHTML =
+completed;
+
+cancelledOrders.innerHTML =
+cancelled;
+
+codCollection.innerHTML =
+"₹" + cod;
+
+/* ========================================================= */
+
+renderOrders(allOrders);
 
 }
 );
@@ -105,636 +186,451 @@ renderOrders();
 RENDER
 ========================================================= */
 
-function renderOrders(){
+function renderOrders(data){
 
-ordersTable.innerHTML = "";
+ordersContainer.innerHTML = "";
 
 /* ========================================================= */
 
-let filteredOrders =
-allOrders;
+data.forEach(order=>{
 
-/* =========================================================
-STATUS FILTER
-========================================================= */
+ordersContainer.innerHTML += `
 
-if(currentFilter !== "All"){
+<div class="orderRow">
 
-filteredOrders =
-filteredOrders.filter(
-item=>
-
-(item.status || "")
-.toLowerCase()
-
-===
-
-currentFilter.toLowerCase()
-
-);
-
-}
-
-/* =========================================================
-CITY FILTER
-========================================================= */
-
-if(cityFilter.value !== "All"){
-
-filteredOrders =
-filteredOrders.filter(
-item=>
-
-(item.city || "")
-.toLowerCase()
-
-===
-
-cityFilter.value.toLowerCase()
-
-);
-
-}
-
-/* =========================================================
-SEARCH FILTER
-========================================================= */
-
-const keyword =
-searchInput.value.toLowerCase();
-
-if(keyword){
-
-filteredOrders =
-filteredOrders.filter(item=>
-
-(item.name || "")
-.toLowerCase()
-.includes(keyword)
-
-||
-
-(item.phone || "")
-.toLowerCase()
-.includes(keyword)
-
-||
-
-(item.id || "")
-.toLowerCase()
-.includes(keyword)
-
-);
-
-}
-
-/* =========================================================
-EMPTY
-========================================================= */
-
-if(filteredOrders.length === 0){
-
-ordersTable.innerHTML = `
-
-<tr>
-
-<td colspan="11"
-style="padding:80px;text-align:center;">
-
-<i
-class="fa-solid fa-box-open"
-style="
-font-size:70px;
-color:#D1D5DB;
-margin-bottom:20px;
-display:block;
-"></i>
-
-<h2
-style="
-font-size:30px;
-font-weight:900;
-margin-bottom:10px;
-">
-
-No Orders Found
-
-</h2>
-
-<p
-style="
-font-size:14px;
-font-weight:700;
-color:#6B7280;
-">
-
-Realtime orders will appear here
-
-</p>
-
-</td>
-
-</tr>
-
-`;
-
-return;
-
-}
-
-/* =========================================================
-RENDER ROWS
-========================================================= */
-
-filteredOrders.forEach(order=>{
-
-ordersTable.innerHTML += `
-
-<tr>
-
-<td>
-
-#${order.id.slice(0,6)}
-
-</td>
-
-<td>
-
-<div class="customer">
-
-<b>
-${order.name || "Customer"}
-</b>
-
-<span>
-${order.phone || "No Number"}
-</span>
-
+<div>
+${order.orderId || order.id}
 </div>
 
-</td>
+<div>
+${order.customerName || '-'}
+</div>
 
-<td>
+<div>
+${order.address || '-'}
+</div>
 
-${order.items?.length || 1} Items
+<div>
+${order.area || '-'}
+</div>
 
-</td>
-
-<td>
-
-${order.address || "No Address"}
-
-</td>
-
-<td>
-
-${order.city || "Kasganj"}
-
-</td>
-
-<td>
-
+<div>
 ₹${order.total || 0}
+</div>
 
-</td>
+<div>
 
-<td>
-
-${order.payment || "COD"}
-
-</td>
-
-<td>
-
-<span class="status ${getStatusClass(order.status)}">
-
-${order.status || "Pending"}
-
-</span>
-
-</td>
-
-<td>
-
-<div class="trackBox">
-
-<i class="fa-solid fa-location-dot"></i>
-
-${order.tracking || "Order Received"}
+<div class="status ${order.status}">
+${order.status}
+</div>
 
 </div>
 
-</td>
+<div>
+${order.riderName || 'Not Assigned'}
+</div>
 
-<td>
-
-${formatDate(order.createdAt)}
-
-</td>
-
-<td>
-
-<div class="actionWrap">
+<div class="actions">
 
 <button
-class="actionBtn"
-style="background:#2563EB;"
+class="actionBtn viewBtn"
 onclick="viewOrder('${order.id}')">
 
-<i class="fa-solid fa-eye"></i>
+View
 
 </button>
 
 <button
-class="actionBtn"
-style="background:#7C3AED;"
-onclick="updateStatus('${order.id}','Preparing')">
+class="actionBtn assignBtn"
+onclick="openAssign('${order.id}')">
 
-<i class="fa-solid fa-box"></i>
-
-</button>
-
-<button
-class="actionBtn"
-style="background:#16A34A;"
-onclick="updateStatus('${order.id}','Delivered')">
-
-<i class="fa-solid fa-check"></i>
+Assign Rider
 
 </button>
 
 <button
-class="actionBtn"
-style="background:#F97316;"
-onclick="updateTracking('${order.id}')">
+class="actionBtn trackBtn"
+onclick="trackOrder('${order.id}')">
 
-<i class="fa-solid fa-location-dot"></i>
-
-</button>
-
-<button
-class="actionBtn"
-style="background:#DC2626;"
-onclick="deleteOrder('${order.id}')">
-
-<i class="fa-solid fa-trash"></i>
+Track Rider
 
 </button>
 
 </div>
 
-</td>
-
-</tr>
+</div>
 
 `;
 
 });
 
 }
-
-/* =========================================================
-STATUS CLASS
-========================================================= */
-
-function getStatusClass(status){
-
-if(status === "Delivered"){
-
-return "delivered";
-
-}
-
-if(status === "Preparing"){
-
-return "processing";
-
-}
-
-if(status === "Cancelled"){
-
-return "cancelled";
-
-}
-
-return "pending";
-
-}
-
-/* =========================================================
-DATE
-========================================================= */
-
-function formatDate(timestamp){
-
-if(!timestamp){
-
-return "Now";
-
-}
-
-try{
-
-return timestamp
-.toDate()
-.toLocaleString();
-
-}catch{
-
-return "Now";
-
-}
-
-}
-
-/* =========================================================
-FILTER BUTTONS
-========================================================= */
-
-filterBtns.forEach(btn=>{
-
-btn.addEventListener(
-"click",
-()=>{
-
-filterBtns.forEach(item=>{
-
-item.classList.remove(
-"active"
-);
-
-});
-
-btn.classList.add(
-"active"
-);
-
-currentFilter =
-btn.dataset.filter;
-
-renderOrders();
-
-});
-
-});
-
-/* =========================================================
-SEARCH
-========================================================= */
-
-searchInput.addEventListener(
-"input",
-renderOrders
-);
-
-cityFilter.addEventListener(
-"change",
-renderOrders
-);
 
 /* =========================================================
 VIEW ORDER
 ========================================================= */
 
-window.viewOrder =
-function(id){
+window.viewOrder = (id)=>{
 
 const order =
-allOrders.find(
-item=>item.id === id
-);
+allOrders.find(o=>o.id === id);
 
-if(!order){
-
-return;
-
-}
+if(!order) return;
 
 /* ========================================================= */
 
-alert(
+document.getElementById(
+"viewModal"
+).style.display = "flex";
 
-`Customer : ${order.name}
+/* ========================================================= */
 
-Phone : ${order.phone}
+document.getElementById(
+"orderDetails"
+).innerHTML = `
 
-Amount : ₹${order.total}
+<div class="detailRow">
 
-Payment : ${order.payment}
+<div>
+Customer
+</div>
 
-Status : ${order.status}
+<div>
+${order.customerName}
+</div>
 
-Tracking : ${order.tracking || "Order Received"}
+</div>
 
-Address : ${order.address}`
+<div class="detailRow">
 
-);
+<div>
+Phone
+</div>
 
-}
+<div>
+${order.phone}
+</div>
+
+</div>
+
+<div class="detailRow">
+
+<div>
+Address
+</div>
+
+<div>
+${order.address}
+</div>
+
+</div>
+
+<div class="detailRow">
+
+<div>
+Area
+</div>
+
+<div>
+${order.area}
+</div>
+
+</div>
+
+<div class="detailRow">
+
+<div>
+Amount
+</div>
+
+<div>
+₹${order.total}
+</div>
+
+</div>
+
+<div class="detailRow">
+
+<div>
+Payment
+</div>
+
+<div>
+${order.paymentType}
+</div>
+
+</div>
+
+<div class="detailRow">
+
+<div>
+Status
+</div>
+
+<div>
+${order.status}
+</div>
+
+</div>
+
+<div class="detailRow">
+
+<div>
+Assigned Rider
+</div>
+
+<div>
+${order.riderName || 'Not Assigned'}
+</div>
+
+</div>
+
+`;
+
+};
 
 /* =========================================================
-UPDATE STATUS
+ASSIGN MODAL
 ========================================================= */
 
-window.updateStatus =
-async function(id,status){
+window.openAssign = (orderId)=>{
+
+document.getElementById(
+"assignModal"
+).style.display = "flex";
+
+/* ========================================================= */
+
+const ridersList =
+document.getElementById(
+"ridersList"
+);
+
+ridersList.innerHTML = "";
+
+/* ========================================================= */
+
+allRiders.forEach(rider=>{
+
+ridersList.innerHTML += `
+
+<div class="riderCard">
+
+<div>
+
+<div style="
+font-size:18px;
+font-weight:900;
+margin-bottom:8px;
+">
+
+${rider.name}
+
+</div>
+
+<div>
+
+${rider.vehicle || 'Bike'}
+
+</div>
+
+<div>
+
+${rider.currentOrders || 0}
+Current Orders
+
+</div>
+
+</div>
+
+<button
+class="assignNowBtn"
+onclick="assignRider('${orderId}','${rider.id}','${rider.name}')">
+
+Assign
+
+</button>
+
+</div>
+
+`;
+
+});
+
+};
+
+/* =========================================================
+ASSIGN RIDER
+========================================================= */
+
+window.assignRider =
+async(orderId,riderId,riderName)=>{
 
 await updateDoc(
 
-doc(db,"orders",id),
+doc(db,"orders",orderId),
 
 {
 
-status:status
+riderId,
+riderName,
+status:"assigned"
 
 }
 
 );
-
-showToast(
-`Order ${status}`
-);
-
-}
-
-/* =========================================================
-LIVE TRACKING
-========================================================= */
-
-window.updateTracking =
-async function(id){
-
-const tracking =
-prompt(
-
-"Update Tracking",
-
-"Rider On The Way"
-
-);
-
-if(!tracking){
-
-return;
-
-}
 
 /* ========================================================= */
+
+document.getElementById(
+"assignModal"
+).style.display = "none";
+
+};
+
+/* =========================================================
+AI AUTO ASSIGN
+========================================================= */
+
+window.autoAssignOrders =
+async()=>{
+
+const pendingOrders =
+
+allOrders.filter(
+o=>o.status === "pending"
+);
+
+/* ========================================================= */
+
+pendingOrders.forEach(async(order)=>{
+
+const onlineRider =
+
+allRiders.find(
+r=>r.online
+);
+
+if(onlineRider){
 
 await updateDoc(
 
-doc(db,"orders",id),
+doc(db,"orders",order.id),
 
 {
 
-tracking:tracking
+riderId:onlineRider.id,
+riderName:onlineRider.name,
+status:"assigned"
 
 }
 
 );
 
-showToast(
-"Tracking Updated"
-);
-
 }
+
+});
+
+};
 
 /* =========================================================
-DELETE ORDER
+TRACK ORDER
 ========================================================= */
 
-window.deleteOrder =
-async function(id){
+window.trackOrder = (id)=>{
 
-const confirmDelete =
-confirm(
-"Delete this order?"
+window.location.href =
+`tracking.html?order=${id}`;
+
+};
+
+/* =========================================================
+SEARCH
+========================================================= */
+
+document.getElementById(
+"searchInput"
+).addEventListener(
+"keyup",
+filterOrders
 );
 
-if(!confirmDelete){
-
-return;
-
-}
+document.getElementById(
+"statusFilter"
+).addEventListener(
+"change",
+filterOrders
+);
 
 /* ========================================================= */
 
-await deleteDoc(
-doc(db,"orders",id)
-);
+function filterOrders(){
 
-showToast(
-"Order Deleted"
-);
+const search =
 
-}
+document.getElementById(
+"searchInput"
+).value.toLowerCase();
 
-/* =========================================================
-EXPORT CSV
-========================================================= */
+const status =
 
-exportBtn.addEventListener(
-"click",
-()=>{
-
-let csv =
-"OrderID,Customer,Phone,Amount,Status,City\n";
+document.getElementById(
+"statusFilter"
+).value;
 
 /* ========================================================= */
 
-allOrders.forEach(order=>{
+const filtered =
 
-csv +=
+allOrders.filter(order=>{
 
-`${order.id},
-${order.name},
-${order.phone},
-${order.total},
-${order.status},
-${order.city}\n`;
+const matchSearch =
+
+(order.orderId || '')
+.toLowerCase()
+.includes(search);
+
+const matchStatus =
+
+status
+?
+order.status === status
+:
+true;
+
+return (
+matchSearch &&
+matchStatus
+);
 
 });
 
 /* ========================================================= */
 
-const blob =
-new Blob(
-[csv],
-{
-type:"text/csv"
+renderOrders(filtered);
+
 }
-);
-
-const url =
-URL.createObjectURL(blob);
-
-const a =
-document.createElement("a");
-
-a.href = url;
-
-a.download =
-"quickpress-orders.csv";
-
-a.click();
-
-URL.revokeObjectURL(url);
-
-showToast(
-"CSV Exported"
-);
-
-});
 
 /* =========================================================
-TOAST
+CLOSE MODAL
 ========================================================= */
 
-function showToast(message){
+window.onclick = (e)=>{
 
-const toast =
-document.createElement(
-"div"
-);
+if(e.target.id === "viewModal"){
 
-toast.innerHTML =
-message;
-
-toast.style.position =
-"fixed";
-
-toast.style.right =
-"20px";
-
-toast.style.bottom =
-"20px";
-
-toast.style.background =
-"#111827";
-
-toast.style.color =
-"#fff";
-
-toast.style.padding =
-"14px 20px";
-
-toast.style.borderRadius =
-"16px";
-
-toast.style.fontWeight =
-"800";
-
-toast.style.zIndex =
-"99999";
-
-document.body.appendChild(
-toast
-);
-
-setTimeout(()=>{
-
-toast.remove();
-
-},3000);
+document.getElementById(
+"viewModal"
+).style.display = "none";
 
 }
+
+if(e.target.id === "assignModal"){
+
+document.getElementById(
+"assignModal"
+).style.display = "none";
+
+}
+
+};
