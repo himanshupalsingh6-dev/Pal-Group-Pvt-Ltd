@@ -1,0 +1,987 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+<meta charset="UTF-8">
+
+<meta
+name="viewport"
+content="width=device-width, initial-scale=1.0">
+
+<title>
+Partner Settings
+</title>
+
+<link
+rel="stylesheet"
+href="./layout.css">
+
+<link
+rel="stylesheet"
+href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css"/>
+
+<style>
+
+/* =====================================================
+GLOBAL
+===================================================== */
+
+*{
+margin:0;
+padding:0;
+box-sizing:border-box;
+font-family:Arial,sans-serif;
+}
+
+body{
+background:#F4F7FB;
+overflow-x:hidden;
+}
+
+/* =====================================================
+MAIN
+===================================================== */
+
+.main{
+
+margin-left:290px;
+padding:24px;
+min-height:100vh;
+
+}
+
+/* =====================================================
+HEADER
+===================================================== */
+
+.pageHeader{
+
+display:flex;
+justify-content:space-between;
+align-items:center;
+margin-bottom:30px;
+flex-wrap:wrap;
+gap:20px;
+
+}
+
+.pageTitle{
+
+font-size:58px;
+font-weight:900;
+color:#111827;
+
+}
+
+/* =====================================================
+LAYOUT
+===================================================== */
+
+.settingsLayout{
+
+display:grid;
+grid-template-columns:320px 1fr;
+gap:24px;
+
+}
+
+/* =====================================================
+LEFT MENU
+===================================================== */
+
+.settingsMenu{
+
+background:#fff;
+border-radius:32px;
+padding:20px;
+border:1px solid #E5E7EB;
+height:max-content;
+
+}
+
+.menuBtn{
+
+width:100%;
+height:58px;
+border:none;
+border-radius:18px;
+background:#F9FAFB;
+margin-bottom:12px;
+font-size:14px;
+font-weight:900;
+cursor:pointer;
+text-align:left;
+padding:0 20px;
+
+}
+
+.menuBtn.active{
+
+background:#111827;
+color:#fff;
+
+}
+
+/* =====================================================
+RIGHT CONTENT
+===================================================== */
+
+.settingsContent{
+
+background:#fff;
+border-radius:32px;
+padding:28px;
+border:1px solid #E5E7EB;
+
+}
+
+/* =====================================================
+SECTION
+===================================================== */
+
+.settingsSection{
+
+display:none;
+
+}
+
+.settingsSection.active{
+
+display:block;
+
+}
+
+/* =====================================================
+TITLE
+===================================================== */
+
+.sectionTitle{
+
+font-size:34px;
+font-weight:900;
+margin-bottom:24px;
+
+}
+
+/* =====================================================
+PROFILE
+===================================================== */
+
+.profileBox{
+
+display:flex;
+align-items:center;
+gap:20px;
+margin-bottom:30px;
+flex-wrap:wrap;
+
+}
+
+.profileImage{
+
+width:120px;
+height:120px;
+border-radius:50%;
+object-fit:cover;
+
+}
+
+.uploadBtn{
+
+height:54px;
+padding:0 22px;
+border:none;
+border-radius:18px;
+background:#111827;
+color:#fff;
+font-weight:900;
+cursor:pointer;
+
+}
+
+/* =====================================================
+FORM
+===================================================== */
+
+.formGrid{
+
+display:grid;
+grid-template-columns:1fr 1fr;
+gap:20px;
+
+}
+
+.inputGroup{
+
+margin-bottom:18px;
+
+}
+
+.inputLabel{
+
+font-size:13px;
+font-weight:900;
+margin-bottom:10px;
+display:block;
+
+}
+
+.input{
+
+width:100%;
+height:60px;
+border:none;
+outline:none;
+background:#F9FAFB;
+border:1px solid #E5E7EB;
+border-radius:18px;
+padding:0 18px;
+font-size:14px;
+font-weight:800;
+
+}
+
+.textarea{
+
+height:120px;
+padding-top:18px;
+resize:none;
+
+}
+
+/* =====================================================
+SWITCH
+===================================================== */
+
+.switchRow{
+
+display:flex;
+justify-content:space-between;
+align-items:center;
+padding:18px;
+border-radius:22px;
+background:#F9FAFB;
+margin-bottom:18px;
+
+}
+
+.switchInfo h4{
+
+font-size:16px;
+font-weight:900;
+margin-bottom:6px;
+
+}
+
+.switchInfo p{
+
+font-size:13px;
+font-weight:700;
+color:#6B7280;
+
+}
+
+.switch{
+
+width:60px;
+height:34px;
+background:#D1D5DB;
+border-radius:999px;
+position:relative;
+cursor:pointer;
+
+}
+
+.switch.active{
+
+background:#111827;
+
+}
+
+.switchCircle{
+
+width:28px;
+height:28px;
+background:#fff;
+border-radius:50%;
+position:absolute;
+top:3px;
+left:4px;
+transition:.3s;
+
+}
+
+.switch.active .switchCircle{
+
+left:28px;
+
+}
+
+/* =====================================================
+SAVE BUTTON
+===================================================== */
+
+.saveBtn{
+
+width:100%;
+height:62px;
+border:none;
+border-radius:22px;
+background:#111827;
+color:#fff;
+font-size:15px;
+font-weight:900;
+cursor:pointer;
+margin-top:10px;
+
+}
+
+/* =====================================================
+DANGER
+===================================================== */
+
+.dangerBox{
+
+background:#FEF2F2;
+padding:24px;
+border-radius:28px;
+border:1px solid #FECACA;
+
+}
+
+.dangerBtn{
+
+width:100%;
+height:58px;
+border:none;
+border-radius:18px;
+background:#DC2626;
+color:#fff;
+font-size:14px;
+font-weight:900;
+cursor:pointer;
+margin-top:14px;
+
+}
+
+/* =====================================================
+RESPONSIVE
+===================================================== */
+
+@media(max-width:1200px){
+
+.settingsLayout{
+
+grid-template-columns:1fr;
+
+}
+
+}
+
+@media(max-width:900px){
+
+.main{
+
+margin-left:0;
+padding:16px;
+
+}
+
+.pageTitle{
+
+font-size:38px;
+
+}
+
+.formGrid{
+
+grid-template-columns:1fr;
+
+}
+
+}
+
+</style>
+
+</head>
+
+<body>
+
+<div id="layoutContainer"></div>
+
+<div class="main">
+
+<div class="pageHeader">
+
+<div class="pageTitle">
+Settings
+</div>
+
+</div>
+
+<div class="settingsLayout">
+
+<!-- =====================================================
+LEFT MENU
+===================================================== -->
+
+<div class="settingsMenu">
+
+<button class="menuBtn active" data-tab="profile">
+Profile Settings
+</button>
+
+<button class="menuBtn" data-tab="business">
+Business Settings
+</button>
+
+<button class="menuBtn" data-tab="bank">
+Bank Settings
+</button>
+
+<button class="menuBtn" data-tab="delivery">
+Delivery Settings
+</button>
+
+<button class="menuBtn" data-tab="notification">
+Notification Settings
+</button>
+
+<button class="menuBtn" data-tab="security">
+Security Settings
+</button>
+
+<button class="menuBtn" data-tab="wallet">
+Wallet Settings
+</button>
+
+<button class="menuBtn" data-tab="danger">
+Danger Zone
+</button>
+
+</div>
+
+<!-- =====================================================
+RIGHT CONTENT
+===================================================== -->
+
+<div class="settingsContent">
+
+<!-- =====================================================
+PROFILE
+===================================================== -->
+
+<div class="settingsSection active" id="profile">
+
+<div class="sectionTitle">
+Profile Settings
+</div>
+
+<div class="profileBox">
+
+<img
+src="https://i.ibb.co/3SWQHfY/user.png"
+class="profileImage"
+id="profileImage">
+
+<button
+class="uploadBtn"
+id="uploadBtn">
+
+Upload Image
+
+</button>
+
+</div>
+
+<div class="formGrid">
+
+<div class="inputGroup">
+
+<label class="inputLabel">
+Partner Name
+</label>
+
+<input
+type="text"
+class="input"
+id="partnerName">
+
+</div>
+
+<div class="inputGroup">
+
+<label class="inputLabel">
+Shop Name
+</label>
+
+<input
+type="text"
+class="input"
+id="shopName">
+
+</div>
+
+<div class="inputGroup">
+
+<label class="inputLabel">
+Phone
+</label>
+
+<input
+type="text"
+class="input"
+id="phone">
+
+</div>
+
+<div class="inputGroup">
+
+<label class="inputLabel">
+City
+</label>
+
+<input
+type="text"
+class="input"
+id="city">
+
+</div>
+
+</div>
+
+<button
+class="saveBtn"
+id="saveProfileBtn">
+
+Save Profile
+
+</button>
+
+</div>
+
+<!-- =====================================================
+BUSINESS
+===================================================== -->
+
+<div class="settingsSection" id="business">
+
+<div class="sectionTitle">
+Business Settings
+</div>
+
+<div class="formGrid">
+
+<div class="inputGroup">
+
+<label class="inputLabel">
+Opening Time
+</label>
+
+<input
+type="time"
+class="input"
+id="openingTime">
+
+</div>
+
+<div class="inputGroup">
+
+<label class="inputLabel">
+Closing Time
+</label>
+
+<input
+type="time"
+class="input"
+id="closingTime">
+
+</div>
+
+<div class="inputGroup">
+
+<label class="inputLabel">
+Minimum Order
+</label>
+
+<input
+type="number"
+class="input"
+id="minimumOrder">
+
+</div>
+
+<div class="inputGroup">
+
+<label class="inputLabel">
+Delivery Radius
+</label>
+
+<input
+type="number"
+class="input"
+id="deliveryRadius">
+
+</div>
+
+</div>
+
+<button
+class="saveBtn"
+id="saveBusinessBtn">
+
+Save Business Settings
+
+</button>
+
+</div>
+
+<!-- =====================================================
+BANK
+===================================================== -->
+
+<div class="settingsSection" id="bank">
+
+<div class="sectionTitle">
+Bank Settings
+</div>
+
+<div class="formGrid">
+
+<div class="inputGroup">
+
+<label class="inputLabel">
+Account Holder
+</label>
+
+<input
+type="text"
+class="input"
+id="accountHolder">
+
+</div>
+
+<div class="inputGroup">
+
+<label class="inputLabel">
+Account Number
+</label>
+
+<input
+type="text"
+class="input"
+id="accountNumber">
+
+</div>
+
+<div class="inputGroup">
+
+<label class="inputLabel">
+IFSC Code
+</label>
+
+<input
+type="text"
+class="input"
+id="ifscCode">
+
+</div>
+
+<div class="inputGroup">
+
+<label class="inputLabel">
+UPI ID
+</label>
+
+<input
+type="text"
+class="input"
+id="upiId">
+
+</div>
+
+</div>
+
+<button
+class="saveBtn"
+id="saveBankBtn">
+
+Save Bank Settings
+
+</button>
+
+</div>
+
+<!-- =====================================================
+DELIVERY
+===================================================== -->
+
+<div class="settingsSection" id="delivery">
+
+<div class="sectionTitle">
+Delivery Settings
+</div>
+
+<div class="switchRow">
+
+<div class="switchInfo">
+
+<h4>
+Auto Assign Rider
+</h4>
+
+<p>
+Automatically assign nearest rider
+</p>
+
+</div>
+
+<div class="switch active">
+
+<div class="switchCircle"></div>
+
+</div>
+
+</div>
+
+<div class="switchRow">
+
+<div class="switchInfo">
+
+<h4>
+Realtime Tracking
+</h4>
+
+<p>
+Enable live rider tracking
+</p>
+
+</div>
+
+<div class="switch active">
+
+<div class="switchCircle"></div>
+
+</div>
+
+</div>
+
+<button class="saveBtn">
+Save Delivery Settings
+</button>
+
+</div>
+
+<!-- =====================================================
+NOTIFICATION
+===================================================== -->
+
+<div class="settingsSection" id="notification">
+
+<div class="sectionTitle">
+Notification Settings
+</div>
+
+<div class="switchRow">
+
+<div class="switchInfo">
+
+<h4>
+Push Notifications
+</h4>
+
+<p>
+Enable app notifications
+</p>
+
+</div>
+
+<div class="switch active">
+
+<div class="switchCircle"></div>
+
+</div>
+
+</div>
+
+<div class="switchRow">
+
+<div class="switchInfo">
+
+<h4>
+SMS Alerts
+</h4>
+
+<p>
+Receive SMS updates
+</p>
+
+</div>
+
+<div class="switch">
+
+<div class="switchCircle"></div>
+
+</div>
+
+</div>
+
+<button class="saveBtn">
+Save Notification Settings
+</button>
+
+</div>
+
+<!-- =====================================================
+SECURITY
+===================================================== -->
+
+<div class="settingsSection" id="security">
+
+<div class="sectionTitle">
+Security Settings
+</div>
+
+<div class="formGrid">
+
+<div class="inputGroup">
+
+<label class="inputLabel">
+New Password
+</label>
+
+<input
+type="password"
+class="input"
+id="newPassword">
+
+</div>
+
+<div class="inputGroup">
+
+<label class="inputLabel">
+Confirm Password
+</label>
+
+<input
+type="password"
+class="input"
+id="confirmPassword">
+
+</div>
+
+</div>
+
+<button
+class="saveBtn"
+id="changePasswordBtn">
+
+Change Password
+
+</button>
+
+</div>
+
+<!-- =====================================================
+WALLET
+===================================================== -->
+
+<div class="settingsSection" id="wallet">
+
+<div class="sectionTitle">
+Wallet Settings
+</div>
+
+<div class="formGrid">
+
+<div class="inputGroup">
+
+<label class="inputLabel">
+Settlement Cycle
+</label>
+
+<input
+type="text"
+class="input"
+value="7 Days"
+disabled>
+
+</div>
+
+<div class="inputGroup">
+
+<label class="inputLabel">
+Commission Rate
+</label>
+
+<input
+type="text"
+class="input"
+value="20%"
+disabled>
+
+</div>
+
+</div>
+
+<button class="saveBtn">
+Wallet Settings Saved
+</button>
+
+</div>
+
+<!-- =====================================================
+DANGER
+===================================================== -->
+
+<div class="settingsSection" id="danger">
+
+<div class="sectionTitle">
+Danger Zone
+</div>
+
+<div class="dangerBox">
+
+<h3>
+Disable Shop
+</h3>
+
+<p style="margin-top:10px;color:#6B7280;font-weight:700;">
+
+Temporarily disable your store.
+
+</p>
+
+<button class="dangerBtn">
+Disable Shop
+</button>
+
+<button class="dangerBtn">
+Delete Account
+</button>
+
+</div>
+
+</div>
+
+</div>
+
+</div>
+
+</div>
+
+<script type="module"
+src="./js/auth.js">
+</script>
+
+<script type="module"
+src="./js/layout.js">
+</script>
+
+<script type="module"
+src="./js/settings.js">
+</script>
+
+</body>
+</html>
