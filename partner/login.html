@@ -34,14 +34,12 @@ font-family:Arial,sans-serif;
 
 body{
 
-background:#F4F7FB;
+background:#0F172A;
 
 min-height:100vh;
 
 display:flex;
-
 align-items:center;
-
 justify-content:center;
 
 padding:20px;
@@ -54,186 +52,73 @@ overflow:hidden;
 BG
 ===================================================== */
 
-.bgCircle{
+.bgBlur{
 
-position:absolute;
-
-border-radius:50%;
-
-filter:blur(120px);
-
-opacity:.3;
-
-z-index:-1;
-
-}
-
-.bg1{
+position:fixed;
 
 width:400px;
 height:400px;
 
-background:#6366F1;
+background:#2563EB;
+
+filter:blur(120px);
+
+opacity:.25;
+
+border-radius:50%;
 
 top:-100px;
-left:-100px;
-
-}
-
-.bg2{
-
-width:350px;
-height:350px;
-
-background:#16A34A;
-
-bottom:-100px;
 right:-100px;
 
 }
 
 /* =====================================================
-CONTAINER
+CARD
 ===================================================== */
 
 .loginContainer{
 
 width:100%;
-
-max-width:1200px;
-
-display:grid;
-
-grid-template-columns:1fr 1fr;
+max-width:460px;
 
 background:#fff;
 
 border-radius:40px;
 
-overflow:hidden;
+padding:34px;
+
+position:relative;
+
+z-index:2;
 
 box-shadow:
-0 20px 60px rgba(0,0,0,.08);
+0 20px 80px rgba(0,0,0,.25);
 
 }
 
 /* =====================================================
-LEFT
+TOP
 ===================================================== */
-
-.leftSide{
-
-background:linear-gradient(
-135deg,
-#111827,
-#1F2937
-);
-
-padding:60px;
-
-color:#fff;
-
-display:flex;
-
-flex-direction:column;
-
-justify-content:center;
-
-}
 
 .logo{
 
-font-size:54px;
-
-font-weight:900;
-
-margin-bottom:20px;
-
-}
-
-.leftTitle{
-
 font-size:42px;
-
 font-weight:900;
+color:#111827;
 
-line-height:1.2;
-
-margin-bottom:20px;
-
-}
-
-.leftText{
-
-font-size:16px;
-
-line-height:1.7;
-
-opacity:.8;
-
-margin-bottom:40px;
+margin-bottom:8px;
 
 }
 
-.featureList{
+.subTitle{
 
-display:flex;
-
-flex-direction:column;
-
-gap:18px;
-
-}
-
-.feature{
-
-display:flex;
-
-align-items:center;
-
-gap:14px;
-
-font-size:15px;
-
+font-size:14px;
 font-weight:700;
-
-}
-
-/* =====================================================
-RIGHT
-===================================================== */
-
-.rightSide{
-
-padding:60px;
-
-display:flex;
-
-flex-direction:column;
-
-justify-content:center;
-
-}
-
-.formTitle{
-
-font-size:42px;
-
-font-weight:900;
-
-margin-bottom:10px;
-
-}
-
-.formSub{
-
-font-size:15px;
-
-font-weight:700;
-
 color:#6B7280;
 
-margin-bottom:40px;
+margin-bottom:34px;
+
+line-height:1.7;
 
 }
 
@@ -250,54 +135,66 @@ margin-bottom:22px;
 .inputLabel{
 
 font-size:13px;
-
 font-weight:900;
 
 margin-bottom:10px;
 
 display:block;
 
+color:#111827;
+
 }
 
-.inputWrap{
+.inputBox{
+
+width:100%;
+height:64px;
+
+background:#F9FAFB;
+
+border:2px solid #E5E7EB;
+
+border-radius:22px;
+
+padding:0 20px;
+
+font-size:15px;
+font-weight:800;
+
+outline:none;
+
+transition:.3s;
+
+}
+
+.inputBox:focus{
+
+border-color:#111827;
+
+background:#fff;
+
+}
+
+/* =====================================================
+PASSWORD
+===================================================== */
+
+.passwordWrap{
 
 position:relative;
 
 }
 
-.input{
-
-width:100%;
-
-height:62px;
-
-border:none;
-
-outline:none;
-
-background:#F9FAFB;
-
-border:1px solid #E5E7EB;
-
-border-radius:20px;
-
-padding:0 20px 0 56px;
-
-font-size:15px;
-
-font-weight:700;
-
-}
-
-.inputIcon{
+.togglePassword{
 
 position:absolute;
 
-left:20px;
-
+right:18px;
 top:50%;
 
 transform:translateY(-50%);
+
+cursor:pointer;
 
 font-size:18px;
 
@@ -312,19 +209,17 @@ BUTTON
 .loginBtn{
 
 width:100%;
-
-height:64px;
+height:66px;
 
 border:none;
 
-border-radius:22px;
+border-radius:24px;
 
 background:#111827;
 
 color:#fff;
 
-font-size:16px;
-
+font-size:15px;
 font-weight:900;
 
 cursor:pointer;
@@ -349,23 +244,69 @@ BOTTOM
 
 margin-top:28px;
 
-font-size:14px;
+text-align:center;
 
+font-size:13px;
 font-weight:700;
-
 color:#6B7280;
 
-text-align:center;
+line-height:1.7;
 
 }
 
-.bottomText a{
+/* =====================================================
+STATUS
+===================================================== */
 
-color:#111827;
+.secureBox{
 
+margin-top:24px;
+
+background:#F9FAFB;
+
+padding:18px;
+
+border-radius:22px;
+
+display:flex;
+align-items:center;
+gap:14px;
+
+}
+
+.secureIcon{
+
+width:50px;
+height:50px;
+
+border-radius:16px;
+
+background:#111827;
+
+display:flex;
+align-items:center;
+justify-content:center;
+
+color:#fff;
+
+font-size:20px;
+
+}
+
+.secureText h4{
+
+font-size:15px;
 font-weight:900;
 
-text-decoration:none;
+margin-bottom:4px;
+
+}
+
+.secureText p{
+
+font-size:12px;
+font-weight:700;
+color:#6B7280;
 
 }
 
@@ -373,27 +314,16 @@ text-decoration:none;
 RESPONSIVE
 ===================================================== */
 
-@media(max-width:900px){
+@media(max-width:600px){
 
 .loginContainer{
 
-grid-template-columns:1fr;
+padding:28px;
+border-radius:30px;
 
 }
 
-.leftSide{
-
-display:none;
-
-}
-
-.rightSide{
-
-padding:34px 24px;
-
-}
-
-.formTitle{
+.logo{
 
 font-size:34px;
 
@@ -407,85 +337,21 @@ font-size:34px;
 
 <body>
 
-<div class="bgCircle bg1"></div>
-<div class="bgCircle bg2"></div>
-
-<div class="loginContainer">
+<div class="bgBlur"></div>
 
 <!-- =====================================================
-LEFT
+LOGIN CARD
 ===================================================== -->
 
-<div class="leftSide">
+<div class="loginContainer">
 
 <div class="logo">
 QuickPress
 </div>
 
-<div class="leftTitle">
+<div class="subTitle">
 
-Partner Laundry Dashboard
-
-</div>
-
-<div class="leftText">
-
-Manage orders, riders, earnings and laundry operations
-with realtime QuickPress ecosystem.
-
-</div>
-
-<div class="featureList">
-
-<div class="feature">
-
-<i class="fa-solid fa-check"></i>
-
-Realtime Orders
-
-</div>
-
-<div class="feature">
-
-<i class="fa-solid fa-check"></i>
-
-Laundry Processing
-
-</div>
-
-<div class="feature">
-
-<i class="fa-solid fa-check"></i>
-
-Live Rider Tracking
-
-</div>
-
-<div class="feature">
-
-<i class="fa-solid fa-check"></i>
-
-Wallet & Earnings
-
-</div>
-
-</div>
-
-</div>
-
-<!-- =====================================================
-RIGHT
-===================================================== -->
-
-<div class="rightSide">
-
-<div class="formTitle">
-Partner Login
-</div>
-
-<div class="formSub">
-
-Login to access your QuickPress partner dashboard
+Partner Dashboard Secure Login
 
 </div>
 
@@ -496,20 +362,14 @@ EMAIL
 <div class="inputGroup">
 
 <label class="inputLabel">
-Email Address
+Partner Email
 </label>
-
-<div class="inputWrap">
-
-<i class="fa-solid fa-envelope inputIcon"></i>
 
 <input
 type="email"
 id="email"
-class="input"
-placeholder="partner@gmail.com">
-
-</div>
+class="inputBox"
+placeholder="Enter email">
 
 </div>
 
@@ -523,15 +383,18 @@ PASSWORD
 Password
 </label>
 
-<div class="inputWrap">
-
-<i class="fa-solid fa-lock inputIcon"></i>
+<div class="passwordWrap">
 
 <input
 type="password"
 id="password"
-class="input"
-placeholder="••••••••">
+class="inputBox"
+placeholder="Enter password">
+
+<i
+class="fa-solid fa-eye togglePassword"
+id="togglePassword">
+</i>
 
 </div>
 
@@ -542,35 +405,53 @@ BUTTON
 ===================================================== -->
 
 <button
-id="loginBtn"
-class="loginBtn">
+class="loginBtn"
+id="loginBtn">
 
 Login Partner Account
 
 </button>
 
 <!-- =====================================================
-BOTTOM
+SECURITY
 ===================================================== -->
+
+<div class="secureBox">
+
+<div class="secureIcon">
+
+<i class="fa-solid fa-shield-halved"></i>
+
+</div>
+
+<div class="secureText">
+
+<h4>
+Secure Authentication
+</h4>
+
+<p>
+Firebase encrypted login security enabled
+</p>
+
+</div>
+
+</div>
 
 <div class="bottomText">
 
-Don't have account?
-
-<a href="signup.html">
-
-Create Partner Account
-
-</a>
+QuickPress Multi City Delivery System
 
 </div>
 
 </div>
 
-</div>
+<!-- =====================================================
+SCRIPT
+===================================================== -->
 
 <script type="module"
-src="js/login.js">
+src="./js/login.js">
 </script>
 
 </body>
