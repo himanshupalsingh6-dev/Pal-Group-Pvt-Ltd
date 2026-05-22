@@ -10,12 +10,12 @@ name="viewport"
 content="width=device-width, initial-scale=1.0">
 
 <title>
-QuickPress Live Tracking Admin
+QuickPress Live Tracking
 </title>
 
 <link
 rel="stylesheet"
-href="layout.css">
+href="./layout.css">
 
 <link
 rel="stylesheet"
@@ -25,226 +25,182 @@ href="https://unpkg.com/leaflet/dist/leaflet.css"/>
 rel="stylesheet"
 href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css"/>
 
+<script
+src="https://unpkg.com/leaflet/dist/leaflet.js">
+</script>
+
 <style>
 
 /* =====================================================
-MAIN
+GLOBAL
 ===================================================== */
 
-.main{
-
-margin-left:290px;
-
-width:calc(100% - 290px);
-
-min-height:100vh;
-
-background:#F4F7FB;
-
+body{
+background:#F4F4F5;
+font-family:Arial,sans-serif;
 overflow:hidden;
-
-}
-
-.content{
-
-padding:24px;
-
 }
 
 /* =====================================================
-HEADER
+TOPBAR
 ===================================================== */
 
-.pageHeader{
+.trackingTop{
+
+height:80px;
+
+background:#fff;
+
+border-bottom:1px solid #E5E7EB;
 
 display:flex;
-
 justify-content:space-between;
-
 align-items:center;
 
-gap:20px;
-
-margin-bottom:24px;
-
-flex-wrap:wrap;
+padding:0 24px;
 
 }
 
 .pageTitle{
 
-font-size:58px;
-
+font-size:34px;
 font-weight:900;
 
-letter-spacing:-2px;
+}
+
+.topActions{
+
+display:flex;
+gap:12px;
+
+}
+
+.actionBtn{
+
+height:46px;
+
+padding:0 18px;
+
+border:none;
+
+border-radius:14px;
+
+background:#111827;
+
+color:#fff;
+
+font-size:14px;
+font-weight:900;
+
+cursor:pointer;
 
 }
 
 /* =====================================================
-TOP STATS
+LAYOUT
 ===================================================== */
 
-.statsGrid{
+.trackingLayout{
 
 display:grid;
 
 grid-template-columns:
-repeat(4,1fr);
+420px 1fr;
 
-gap:20px;
-
-margin-bottom:24px;
+height:calc(100vh - 80px);
 
 }
 
-.statCard{
+/* =====================================================
+SIDEBAR
+===================================================== */
+
+.sidebar{
 
 background:#fff;
 
-padding:24px;
-
-border-radius:30px;
-
-border:1px solid #E5E7EB;
-
-}
-
-.statCard h5{
-
-font-size:13px;
-
-font-weight:900;
-
-color:#6B7280;
-
-margin-bottom:12px;
-
-}
-
-.statCard h2{
-
-font-size:38px;
-
-font-weight:900;
-
-}
-
-/* =====================================================
-MAP
-===================================================== */
-
-.mapWrap{
-
-position:relative;
-
-width:100%;
-
-height:75vh;
-
-border-radius:32px;
-
-overflow:hidden;
-
-border:1px solid #E5E7EB;
-
-}
-
-#map{
-
-width:100%;
-
-height:100%;
-
-z-index:1;
-
-}
-
-/* =====================================================
-LIVE PANEL
-===================================================== */
-
-.livePanel{
-
-position:absolute;
-
-top:20px;
-
-right:20px;
-
-width:380px;
-
-max-height:90%;
+border-right:1px solid #E5E7EB;
 
 overflow-y:auto;
 
-background:#fff;
-
-border-radius:30px;
-
 padding:20px;
-
-z-index:999;
-
-box-shadow:
-0 10px 40px rgba(0,0,0,.08);
 
 }
 
 /* =====================================================
-LIVE HEADER
+FILTERS
 ===================================================== */
 
-.liveHeader{
+.filters{
 
-display:flex;
+display:grid;
 
-justify-content:space-between;
-
-align-items:center;
+gap:14px;
 
 margin-bottom:20px;
 
 }
 
-.liveHeader h2{
+.filterInput{
 
-font-size:24px;
+height:52px;
 
+border:1px solid #E5E7EB;
+
+border-radius:14px;
+
+padding:0 16px;
+
+font-size:14px;
+font-weight:800;
+
+outline:none;
+
+background:#fff;
+
+}
+
+/* =====================================================
+SUMMARY
+===================================================== */
+
+.summaryGrid{
+
+display:grid;
+
+grid-template-columns:
+1fr 1fr;
+
+gap:14px;
+
+margin-bottom:20px;
+
+}
+
+.summaryCard{
+
+background:#F9FAFB;
+
+padding:18px;
+
+border-radius:18px;
+
+}
+
+.summaryTitle{
+
+font-size:13px;
+font-weight:800;
+color:#6B7280;
+
+margin-bottom:10px;
+
+}
+
+.summaryValue{
+
+font-size:30px;
 font-weight:900;
-
-}
-
-.liveDot{
-
-width:14px;
-
-height:14px;
-
-border-radius:50%;
-
-background:#16A34A;
-
-animation:pulse 1s infinite;
-
-}
-
-@keyframes pulse{
-
-0%{
-transform:scale(1);
-opacity:1;
-}
-
-50%{
-transform:scale(1.5);
-opacity:.5;
-}
-
-100%{
-transform:scale(1);
-opacity:1;
-}
 
 }
 
@@ -254,127 +210,181 @@ RIDER CARD
 
 .riderCard{
 
-background:#F9FAFB;
+background:#fff;
 
-border-radius:24px;
+border:1px solid #E5E7EB;
+
+border-radius:20px;
 
 padding:18px;
 
 margin-bottom:16px;
 
-border:1px solid #E5E7EB;
+cursor:pointer;
+
+transition:.3s;
+
+}
+
+.riderCard:hover{
+
+transform:translateY(-2px);
 
 }
 
 .riderTop{
 
 display:flex;
-
-align-items:center;
-
 justify-content:space-between;
-
-gap:12px;
+align-items:center;
 
 margin-bottom:14px;
 
 }
 
-.riderLeft{
+.riderInfo{
 
 display:flex;
-
-align-items:center;
-
 gap:14px;
+align-items:center;
 
 }
 
 .riderImage{
 
-width:60px;
+width:58px;
+height:58px;
 
-height:60px;
-
-border-radius:50%;
+border-radius:18px;
 
 object-fit:cover;
 
 }
 
-.riderInfo h3{
+.riderName{
 
-font-size:18px;
-
+font-size:16px;
 font-weight:900;
 
-margin-bottom:4px;
+margin-bottom:6px;
 
 }
 
-.riderInfo p{
+.riderArea{
 
 font-size:13px;
-
-font-weight:700;
-
+font-weight:800;
 color:#6B7280;
 
 }
+
+/* =====================================================
+STATUS
+===================================================== */
 
 .status{
 
-padding:8px 14px;
+padding:8px 12px;
 
-border-radius:999px;
+border-radius:10px;
 
 font-size:12px;
-
 font-weight:900;
 
-background:#DCFCE7;
-
-color:#15803D;
+color:#fff;
 
 }
 
-.riderBottom{
+.online{
+background:#10B981;
+}
+
+.pickup{
+background:#2563EB;
+}
+
+.delivery{
+background:#F59E0B;
+}
+
+.offline{
+background:#EF4444;
+}
+
+/* =====================================================
+DETAILS
+===================================================== */
+
+.riderStats{
 
 display:grid;
 
-grid-template-columns:1fr 1fr;
+grid-template-columns:
+1fr 1fr;
 
-gap:12px;
+gap:10px;
 
-}
-
-.infoBox{
-
-background:#fff;
-
-padding:14px;
-
-border-radius:18px;
+margin-top:16px;
 
 }
 
-.infoBox h5{
+.statBox{
 
-font-size:11px;
+background:#F9FAFB;
 
-font-weight:900;
+padding:12px;
 
+border-radius:14px;
+
+}
+
+.statLabel{
+
+font-size:12px;
+font-weight:800;
 color:#6B7280;
 
-margin-bottom:8px;
+margin-bottom:6px;
 
 }
 
-.infoBox h4{
+.statValue{
 
 font-size:16px;
-
 font-weight:900;
+
+}
+
+/* =====================================================
+MAP
+===================================================== */
+
+#map{
+
+width:100%;
+height:100%;
+
+}
+
+/* =====================================================
+POPUP
+===================================================== */
+
+.popupTitle{
+
+font-size:18px;
+font-weight:900;
+
+margin-bottom:12px;
+
+}
+
+.popupRow{
+
+margin-bottom:10px;
+
+font-size:14px;
+font-weight:800;
 
 }
 
@@ -382,64 +392,17 @@ font-weight:900;
 RESPONSIVE
 ===================================================== */
 
-@media(max-width:1200px){
+@media(max-width:1000px){
 
-.statsGrid{
-
-grid-template-columns:
-repeat(2,1fr);
-
-}
-
-}
-
-@media(max-width:900px){
-
-.main{
-
-margin-left:0;
-
-width:100%;
-
-}
-
-.content{
-
-padding:16px;
-
-}
-
-.pageTitle{
-
-font-size:40px;
-
-}
-
-.statsGrid{
+.trackingLayout{
 
 grid-template-columns:1fr;
 
 }
 
-.mapWrap{
+.sidebar{
 
-height:85vh;
-
-}
-
-.livePanel{
-
-position:relative;
-
-top:auto;
-
-right:auto;
-
-width:100%;
-
-margin-top:20px;
-
-max-height:none;
+height:450px;
 
 }
 
@@ -451,77 +414,193 @@ max-height:none;
 
 <body>
 
-<div class="adminLayout">
-
-<div id="layoutContainer"></div>
-
-<div class="main">
-
-<div class="content">
-
-<!-- =====================================================
-HEADER
-===================================================== -->
-
-<div class="pageHeader">
+<div class="trackingTop">
 
 <div class="pageTitle">
-Live Tracking
+Live Rider Tracking
+</div>
+
+<div class="topActions">
+
+<button
+class="actionBtn"
+onclick="trackAllRiders()">
+
+📍 Track All Riders
+
+</button>
+
+<button
+class="actionBtn"
+onclick="refreshTracking()">
+
+🔄 Refresh
+
+</button>
+
+<button
+class="actionBtn"
+onclick="findNearestRider()">
+
+🎯 Find Nearest
+
+</button>
+
+<button
+class="actionBtn">
+
+🚨 Emergency
+
+</button>
+
+</div>
+
+</div>
+
+<div class="trackingLayout">
+
+<!-- =====================================================
+SIDEBAR
+===================================================== -->
+
+<div class="sidebar">
+
+<!-- =====================================================
+FILTERS
+===================================================== -->
+
+<div class="filters">
+
+<input
+type="text"
+placeholder="Search Rider"
+class="filterInput"
+id="searchInput">
+
+<select
+class="filterInput"
+id="cityFilter">
+
+<option value="">
+All Cities
+</option>
+
+</select>
+
+<select
+class="filterInput"
+id="statusFilter">
+
+<option value="">
+All Status
+</option>
+
+<option value="online">
+Online
+</option>
+
+<option value="pickup">
+Pickup
+</option>
+
+<option value="delivery">
+Delivery
+</option>
+
+<option value="offline">
+Offline
+</option>
+
+</select>
+
+<select
+class="filterInput"
+id="areaFilter">
+
+<option value="">
+All Areas
+</option>
+
+</select>
+
+</div>
+
+<!-- =====================================================
+SUMMARY
+===================================================== -->
+
+<div class="summaryGrid">
+
+<div class="summaryCard">
+
+<div class="summaryTitle">
+Online Riders
+</div>
+
+<div
+class="summaryValue"
+id="onlineRiders">
+
+0
+
+</div>
+
+</div>
+
+<div class="summaryCard">
+
+<div class="summaryTitle">
+Active Orders
+</div>
+
+<div
+class="summaryValue"
+id="activeOrders">
+
+0
+
+</div>
+
+</div>
+
+<div class="summaryCard">
+
+<div class="summaryTitle">
+Busy Riders
+</div>
+
+<div
+class="summaryValue"
+id="busyRiders">
+
+0
+
+</div>
+
+</div>
+
+<div class="summaryCard">
+
+<div class="summaryTitle">
+Avg ETA
+</div>
+
+<div
+class="summaryValue">
+
+4m
+
+</div>
+
 </div>
 
 </div>
 
 <!-- =====================================================
-STATS
+RIDER LIST
 ===================================================== -->
 
-<div class="statsGrid">
-
-<div class="statCard">
-
-<h5>
-Online Riders
-</h5>
-
-<h2 id="onlineRiders">
-0
-</h2>
-
-</div>
-
-<div class="statCard">
-
-<h5>
-Active Deliveries
-</h5>
-
-<h2 id="activeOrders">
-0
-</h2>
-
-</div>
-
-<div class="statCard">
-
-<h5>
-Delivered Today
-</h5>
-
-<h2 id="deliveredOrders">
-0
-</h2>
-
-</div>
-
-<div class="statCard">
-
-<h5>
-Average ETA
-</h5>
-
-<h2 id="avgEta">
-12m
-</h2>
+<div id="ridersContainer">
 
 </div>
 
@@ -531,56 +610,16 @@ Average ETA
 MAP
 ===================================================== -->
 
-<div class="mapWrap">
-
 <div id="map"></div>
 
-<!-- =====================================================
-LIVE PANEL
-===================================================== -->
-
-<div class="livePanel">
-
-<div class="liveHeader">
-
-<h2>
-Live Riders
-</h2>
-
-<div class="liveDot"></div>
-
 </div>
-
-<div id="ridersList"></div>
-
-</div>
-
-</div>
-
-</div>
-
-</div>
-
-</div>
-
-<!-- =====================================================
-LEAFLET
-===================================================== -->
-
-<script
-src="https://unpkg.com/leaflet/dist/leaflet.js">
-</script>
-
-<!-- =====================================================
-JS
-===================================================== -->
 
 <script type="module"
-src="js/layout.js">
+src="./js/auth.js">
 </script>
 
 <script type="module"
-src="js/tracking.js">
+src="./js/live-tracking.js">
 </script>
 
 </body>
