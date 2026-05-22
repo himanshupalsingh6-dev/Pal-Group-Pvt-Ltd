@@ -1,19 +1,10 @@
-/* =========================================================
-FILE : admin/js/complaints.js
-QUICKPRESS CUSTOMER COMPLAINT CENTER
-========================================================= */
-
 import { db }
 
-from
-
-"/Pal-Group-Pvt-Ltd/firebase.js";
+from "../../firebase.js";
 
 import {
 
 collection,
-query,
-orderBy,
 onSnapshot,
 doc,
 updateDoc
@@ -24,30 +15,19 @@ from
 
 "https://www.gstatic.com/firebasejs/12.11.0/firebase-firestore.js";
 
-/* =========================================================
-AUTH CHECK
-========================================================= */
+/* ========================================================= */
 
-const adminLogin =
-localStorage.getItem(
-"quickpress_admin"
-);
-
-if(adminLogin !== "true"){
-
-window.location.href =
-"login.html";
-
-}
-
-/* =========================================================
-ELEMENTS
-========================================================= */
-
-const complaintContainer =
+const complaintsContainer =
 document.getElementById(
-"complaintContainer"
+"complaintsContainer"
 );
+
+const detailsContainer =
+document.getElementById(
+"detailsContainer"
+);
+
+/* ========================================================= */
 
 const totalComplaints =
 document.getElementById(
@@ -59,264 +39,208 @@ document.getElementById(
 "pendingComplaints"
 );
 
-const processingComplaints =
-document.getElementById(
-"processingComplaints"
-);
-
 const resolvedComplaints =
 document.getElementById(
 "resolvedComplaints"
 );
 
-const searchInput =
+const refundRequests =
 document.getElementById(
-"searchInput"
+"refundRequests"
 );
 
-const statusFilter =
-document.getElementById(
-"statusFilter"
-);
-
-/* =========================================================
-DATA
-========================================================= */
+/* ========================================================= */
 
 let allComplaints = [];
 
 /* =========================================================
-REALTIME COMPLAINTS
+REALTIME
 ========================================================= */
 
 onSnapshot(
 
-query(
 collection(db,"complaints"),
-orderBy("createdAt","desc")
-),
 
 (snapshot)=>{
 
-complaintContainer.innerHTML = "";
+complaintsContainer.innerHTML = "";
 
 allComplaints = [];
 
-/* ========================================= */
-
-let total = 0;
 let pending = 0;
-let processing = 0;
 let resolved = 0;
+let refunds = 0;
 
-/* ========================================= */
+const cities = [];
 
-snapshot.forEach((docSnap)=>{
+/* ========================================================= */
 
-const complaint = {
+snapshot.forEach(docSnap=>{
 
-id:docSnap.id,
-...docSnap.data()
+const complaint =
+docSnap.data();
 
-};
+complaint.id =
+docSnap.id;
 
-allComplaints.push(
-complaint
-);
+allComplaints.push(complaint);
 
-/* ========================================= */
+/* ========================================================= */
 
-total++;
-
-/* ========================================= */
-
-if(
-complaint.status === "Pending"
-||
-!complaint.status
-){
-
+if(complaint.status === "pending"){
 pending++;
-
 }
 
-if(
-complaint.status === "Processing"
-){
-
-processing++;
-
-}
-
-if(
-complaint.status === "Resolved"
-){
-
+if(complaint.status === "resolved"){
 resolved++;
-
 }
 
-/* ========================================= */
+if(complaint.type === "Refund"){
+refunds++;
+}
 
-renderComplaint(
-complaint
+if(
+complaint.city &&
+!cities.includes(complaint.city)
+){
+
+cities.push(
+complaint.city
 );
+
+}
 
 });
 
-/* ========================================= */
+/* ========================================================= */
 
 totalComplaints.innerHTML =
-total;
+allComplaints.length;
 
 pendingComplaints.innerHTML =
 pending;
 
-processingComplaints.innerHTML =
-processing;
-
 resolvedComplaints.innerHTML =
 resolved;
 
+refundRequests.innerHTML =
+refunds;
+
+/* ========================================================= */
+
+const cityFilter =
+document.getElementById(
+"cityFilter"
+);
+
+cityFilter.innerHTML =
+
+`
+<option value="">
+City Wise
+</option>
+`;
+
+/* ========================================================= */
+
+cities.forEach(city=>{
+
+cityFilter.innerHTML += `
+
+<option value="${city}">
+${city}
+</option>
+
+`;
+
+});
+
+/* ========================================================= */
+
+renderComplaints(allComplaints);
+
 }
-
-/* END */
-
 );
 
 /* =========================================================
-RENDER COMPLAINT
+RENDER
 ========================================================= */
 
-function renderComplaint(
-complaint
-){
+function renderComplaints(data){
 
-const search =
-searchInput.value
-.toLowerCase();
+complaintsContainer.innerHTML = "";
 
-const filter =
-statusFilter.value;
+/* ========================================================= */
 
-/* ========================================= */
+data.forEach(item=>{
 
-if(
-search &&
-!(
-(complaint.customerName || "")
-.toLowerCase()
-.includes(search)
-)
-){
+complaintsContainer.innerHTML += `
 
-return;
-
-}
-
-/* ========================================= */
-
-if(
-filter !== "All"
-&&
-(complaint.status || "Pending")
-!== filter
-){
-
-return;
-
-}
-
-/* ========================================= */
-
-let badgeClass =
-"pending";
-
-/* ========================================= */
-
-if(
-complaint.status === "Resolved"
-){
-
-badgeClass = "resolved";
-
-}
-
-if(
-complaint.status === "Processing"
-){
-
-badgeClass = "processing";
-
-}
-
-/* ========================================= */
-
-const row = `
-
-<div class="complaintRow">
-
-<!-- ID -->
+<div class="tableRow">
 
 <div>
-
-#${complaint.ticketId || complaint.id}
-
+${item.complaintId || item.id}
 </div>
 
-<!-- CUSTOMER -->
-
 <div>
-
-<b>
-
-${complaint.customerName || "--"}
-
-</b>
-
-<br>
-
-${complaint.mobile || "--"}
-
+${item.userName || '-'}
 </div>
 
-<!-- ISSUE -->
-
 <div>
-
-${complaint.issue || "--"}
-
+${item.type || '-'}
 </div>
 
-<!-- DATE -->
-
 <div>
-
-${complaint.date || "--"}
-
+${item.orderId || '-'}
 </div>
 
-<!-- STATUS -->
-
 <div>
 
-<div class="badge ${badgeClass}">
+<div class="status ${item.priority || 'medium'}">
 
-${complaint.status || "Pending"}
+${item.priority || 'medium'}
 
 </div>
 
 </div>
 
-<!-- ACTION -->
+<div>
+
+<div class="status ${item.status || 'pending'}">
+
+${item.status || 'pending'}
+
+</div>
+
+</div>
 
 <div>
+${item.assignedTo || 'Support'}
+</div>
+
+<div class="actions">
 
 <button
-class="actionBtn"
-onclick="updateComplaint('${complaint.id}')">
+class="actionBtn viewBtn"
+onclick="viewComplaint('${item.id}')">
 
-Update
+View
+
+</button>
+
+<button
+class="actionBtn resolveBtn"
+onclick="updateComplaint('${item.id}','resolved')">
+
+Resolve
+
+</button>
+
+<button
+class="actionBtn refundBtn"
+onclick="updateComplaint('${item.id}','progress')">
+
+Refund
 
 </button>
 
@@ -326,71 +250,155 @@ Update
 
 `;
 
-complaintContainer.innerHTML += row;
-
-}
-
-/* =========================================================
-SEARCH
-========================================================= */
-
-searchInput.addEventListener(
-"input",
-reloadComplaints
-);
-
-statusFilter.addEventListener(
-"change",
-reloadComplaints
-);
-
-/* =========================================================
-RELOAD
-========================================================= */
-
-function reloadComplaints(){
-
-complaintContainer.innerHTML = "";
-
-allComplaints.forEach((complaint)=>{
-
-renderComplaint(
-complaint
-);
-
 });
 
 }
 
 /* =========================================================
-UPDATE STATUS
+VIEW
+========================================================= */
+
+window.viewComplaint = (id)=>{
+
+const item =
+allComplaints.find(
+c=>c.id === id
+);
+
+if(!item) return;
+
+/* ========================================================= */
+
+detailsContainer.innerHTML = `
+
+<div class="detailRow">
+
+Complaint ID:
+${item.complaintId || item.id}
+
+</div>
+
+<div class="detailRow">
+
+User:
+${item.userName || '-'}
+
+</div>
+
+<div class="detailRow">
+
+Type:
+${item.type || '-'}
+
+</div>
+
+<div class="detailRow">
+
+Order:
+${item.orderId || '-'}
+
+</div>
+
+<div class="detailRow">
+
+Priority:
+${item.priority || '-'}
+
+</div>
+
+<div class="detailRow">
+
+Status:
+${item.status || '-'}
+
+</div>
+
+<div class="detailRow">
+
+Message:
+${item.message || 'No Message'}
+
+</div>
+
+<div class="detailRow">
+
+Refund:
+₹${item.refundAmount || 0}
+
+</div>
+
+<div class="detailRow">
+
+Assigned:
+${item.assignedTo || 'Support'}
+
+</div>
+
+<div class="detailRow">
+
+Timeline:
+10:00 Complaint Created
+
+</div>
+
+<div class="chatBox">
+
+<div class="chatMessage">
+
+Customer:
+Please resolve fast
+
+</div>
+
+<div class="chatMessage">
+
+Admin:
+We are checking issue
+
+</div>
+
+</div>
+
+<div class="actions"
+style="margin-top:20px;">
+
+<button
+class="actionBtn resolveBtn">
+
+Call User
+
+</button>
+
+<button
+class="actionBtn refundBtn">
+
+Approve Refund
+
+</button>
+
+<button
+class="actionBtn viewBtn">
+
+Close Ticket
+
+</button>
+
+</div>
+
+`;
+
+};
+
+/* =========================================================
+UPDATE
 ========================================================= */
 
 window.updateComplaint =
-async(id)=>{
-
-const status =
-prompt(
-"Update Status : Pending / Processing / Resolved"
-);
-
-/* ========================================= */
-
-if(!status){
-
-return;
-
-}
-
-/* ========================================= */
+async(id,status)=>{
 
 await updateDoc(
 
-doc(
-db,
-"complaints",
-id
-),
+doc(db,"complaints",id),
 
 {
 
@@ -400,18 +408,139 @@ status
 
 );
 
-/* ========================================= */
-
-alert(
-"Complaint Updated"
-);
-
 };
 
 /* =========================================================
-READY
+FILTERS
 ========================================================= */
 
-console.log(
-"QuickPress Complaint Center Active"
+document.getElementById(
+"searchInput"
+).addEventListener(
+"keyup",
+filterComplaints
 );
+
+document.getElementById(
+"statusFilter"
+).addEventListener(
+"change",
+filterComplaints
+);
+
+document.getElementById(
+"priorityFilter"
+).addEventListener(
+"change",
+filterComplaints
+);
+
+document.getElementById(
+"typeFilter"
+).addEventListener(
+"change",
+filterComplaints
+);
+
+document.getElementById(
+"cityFilter"
+).addEventListener(
+"change",
+filterComplaints
+);
+
+/* ========================================================= */
+
+function filterComplaints(){
+
+const search =
+
+document.getElementById(
+"searchInput"
+).value.toLowerCase();
+
+const status =
+
+document.getElementById(
+"statusFilter"
+).value;
+
+const priority =
+
+document.getElementById(
+"priorityFilter"
+).value;
+
+const type =
+
+document.getElementById(
+"typeFilter"
+).value;
+
+const city =
+
+document.getElementById(
+"cityFilter"
+).value;
+
+/* ========================================================= */
+
+const filtered =
+
+allComplaints.filter(item=>{
+
+const matchSearch =
+
+(item.userName || '')
+.toLowerCase()
+.includes(search);
+
+const matchStatus =
+
+status
+?
+item.status === status
+:
+true;
+
+const matchPriority =
+
+priority
+?
+item.priority === priority
+:
+true;
+
+const matchType =
+
+type
+?
+item.type === type
+:
+true;
+
+const matchCity =
+
+city
+?
+item.city === city
+:
+true;
+
+return (
+
+matchSearch &&
+matchStatus &&
+matchPriority &&
+matchType &&
+matchCity
+
+);
+
+});
+
+/* ========================================================= */
+
+renderComplaints(filtered);
+
+}
