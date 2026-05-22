@@ -1,515 +1,482 @@
-<!DOCTYPE html>
-<html lang="en">
+import { db }
 
-<head>
+from "../../firebase.js";
 
-<meta charset="UTF-8">
+import {
 
-<meta
-name="viewport"
-content="width=device-width, initial-scale=1.0">
-
-<title>
-QuickPress Reports
-</title>
-
-<link
-rel="stylesheet"
-href="./layout.css">
-
-<link
-rel="stylesheet"
-href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css"/>
-
-<script
-src="https://cdn.jsdelivr.net/npm/chart.js">
-</script>
-
-<style>
-
-/* =====================================================
-GLOBAL
-===================================================== */
-
-body{
-background:#F4F4F5;
-font-family:Arial,sans-serif;
-}
-
-/* =====================================================
-TOP BAR
-===================================================== */
-
-.reportTop{
-
-display:flex;
-justify-content:space-between;
-align-items:center;
-
-margin-bottom:22px;
+collection,
+addDoc,
+onSnapshot,
+doc,
+deleteDoc,
+updateDoc
 
 }
 
-/* =====================================================
-TABS
-===================================================== */
+from
 
-.tabs{
+"https://www.gstatic.com/firebasejs/12.11.0/firebase-firestore.js";
 
-display:flex;
-gap:24px;
+/* =========================================================
+ELEMENTS
+========================================================= */
+
+const servicesContainer =
+document.getElementById(
+"servicesContainer"
+);
+
+const totalServices =
+document.getElementById(
+"totalServices"
+);
+
+const cityFilter =
+document.getElementById(
+"cityFilter"
+);
+
+/* ========================================================= */
+
+let allServices = [];
+
+/* =========================================================
+ADD SERVICE
+========================================================= */
+
+window.addService =
+async()=>{
+
+const service = {
+
+name:
+document.getElementById(
+"serviceName"
+).value,
+
+category:
+document.getElementById(
+"serviceCategory"
+).value,
+
+description:
+document.getElementById(
+"serviceDescription"
+).value,
+
+icon:
+document.getElementById(
+"serviceIcon"
+).value,
+
+city:
+document.getElementById(
+"serviceCity"
+).value,
+
+area:
+document.getElementById(
+"serviceArea"
+).value,
+
+price:Number(
+
+document.getElementById(
+"servicePrice"
+).value
+
+),
+
+deliveryCharge:Number(
+
+document.getElementById(
+"deliveryCharge"
+).value
+
+),
+
+minimumOrder:Number(
+
+document.getElementById(
+"minimumOrder"
+).value
+
+),
+
+urgentCharge:Number(
+
+document.getElementById(
+"urgentCharge"
+).value
+
+),
+
+status:
+document.getElementById(
+"serviceStatus"
+).value,
+
+createdAt:
+Date.now()
+
+};
+
+/* ========================================================= */
+
+await addDoc(
+
+collection(db,"services"),
+
+service
+
+);
+
+/* ========================================================= */
+
+alert(
+"Service Added"
+);
+
+};
+
+/* =========================================================
+REALTIME
+========================================================= */
+
+onSnapshot(
+
+collection(db,"services"),
+
+(snapshot)=>{
+
+servicesContainer.innerHTML = "";
+
+allServices = [];
+
+let cities = [];
+
+/* ========================================================= */
+
+snapshot.forEach(docSnap=>{
+
+const service =
+docSnap.data();
+
+service.id =
+docSnap.id;
+
+allServices.push(service);
+
+/* ========================================================= */
+
+if(!cities.includes(service.city)){
+
+cities.push(service.city);
 
 }
 
-.tab{
+});
 
-font-size:32px;
+/* ========================================================= */
+
+totalServices.innerHTML =
+allServices.length;
+
+/* ========================================================= */
+
+cityFilter.innerHTML =
+
+`
+<option value="">
+All Cities
+</option>
+`;
+
+/* ========================================================= */
+
+cities.forEach(city=>{
+
+cityFilter.innerHTML += `
+
+<option value="${city}">
+${city}
+</option>
+
+`;
+
+});
+
+/* ========================================================= */
+
+renderServices(allServices);
+
+}
+);
+
+/* =========================================================
+RENDER
+========================================================= */
+
+function renderServices(data){
+
+servicesContainer.innerHTML = "";
+
+/* ========================================================= */
+
+data.forEach(service=>{
+
+servicesContainer.innerHTML += `
+
+<div class="tableRow">
+
+<div>
+
+<div class="serviceIcon">
+
+<i class="fa-solid ${service.icon}"></i>
+
+</div>
+
+</div>
+
+<div>
+
+<div style="
+font-size:16px;
 font-weight:900;
+margin-bottom:8px;
+">
 
-cursor:pointer;
+${service.name}
 
-color:#9CA3AF;
+</div>
+
+<div style="
+font-size:13px;
+color:#6B7280;
+">
+
+${service.description}
+
+</div>
+
+</div>
+
+<div>
+${service.category}
+</div>
+
+<div>
+
+${service.city}
+
+<br>
+
+${service.area}
+
+</div>
+
+<div>
+
+₹${service.price}
+
+</div>
+
+<div>
+
+<div class="status ${service.status}">
+${service.status}
+</div>
+
+</div>
+
+<div class="rowActions">
+
+<button
+class="rowBtn editBtn"
+onclick="toggleStatus('${service.id}','${service.status}')">
+
+Toggle
+
+</button>
+
+<button
+class="rowBtn deleteBtn"
+onclick="deleteService('${service.id}')">
+
+Delete
+
+</button>
+
+</div>
+
+</div>
+
+`;
+
+});
 
 }
 
-.tab.active{
+/* =========================================================
+DELETE
+========================================================= */
 
-color:#2563EB;
+window.deleteService =
+async(id)=>{
+
+await deleteDoc(
+doc(db,"services",id)
+);
+
+};
+
+/* =========================================================
+TOGGLE
+========================================================= */
+
+window.toggleStatus =
+async(id,current)=>{
+
+let next = "active";
+
+/* ========================================================= */
+
+if(current === "active"){
+
+next = "inactive";
+
+}else{
+
+next = "active";
 
 }
 
-/* =====================================================
+/* ========================================================= */
+
+await updateDoc(
+
+doc(db,"services",id),
+
+{
+
+status:next
+
+}
+
+);
+
+};
+
+/* =========================================================
 FILTERS
-===================================================== */
+========================================================= */
 
-.filters{
+document.getElementById(
+"searchInput"
+).addEventListener(
+"keyup",
+filterServices
+);
 
-display:flex;
-gap:12px;
+document.getElementById(
+"categoryFilter"
+).addEventListener(
+"change",
+filterServices
+);
 
-}
+document.getElementById(
+"cityFilter"
+).addEventListener(
+"change",
+filterServices
+);
 
-.filterBtn{
+document.getElementById(
+"statusFilter"
+).addEventListener(
+"change",
+filterServices
+);
 
-height:46px;
+/* ========================================================= */
 
-padding:0 18px;
+function filterServices(){
 
-border:none;
+const search =
 
-background:#fff;
+document.getElementById(
+"searchInput"
+).value.toLowerCase();
 
-border-radius:12px;
+const category =
 
-font-size:14px;
-font-weight:800;
+document.getElementById(
+"categoryFilter"
+).value;
 
-border:1px solid #E5E7EB;
+const city =
 
-}
+document.getElementById(
+"cityFilter"
+).value;
 
-/* =====================================================
-OVERVIEW
-===================================================== */
+const status =
 
-.overview{
+document.getElementById(
+"statusFilter"
+).value;
 
-background:#fff;
+/* ========================================================= */
 
-border-radius:20px;
+const filtered =
 
-padding:20px;
+allServices.filter(service=>{
 
-border:1px solid #E5E7EB;
+const matchSearch =
 
-margin-bottom:20px;
+service.name
+.toLowerCase()
+.includes(search);
 
-}
+const matchCategory =
 
-/* =====================================================
-ROW
-===================================================== */
+category
+?
+service.category === category
+:
+true;
 
-.reportRow{
+const matchCity =
 
-display:grid;
+city
+?
+service.city === city
+:
+true;
 
-grid-template-columns:
-1fr 250px 120px;
+const matchStatus =
 
-padding:18px 0;
+status
+?
+service.status === status
+:
+true;
 
-border-bottom:1px solid #F3F4F6;
+return (
 
-align-items:center;
+matchSearch &&
+matchCategory &&
+matchCity &&
+matchStatus
 
-}
+);
 
-/* =====================================================
-LABEL
-===================================================== */
+});
 
-.reportLabel{
+/* ========================================================= */
 
-font-size:18px;
-font-weight:800;
-
-}
-
-/* =====================================================
-VALUE
-===================================================== */
-
-.reportValue{
-
-font-size:20px;
-font-weight:900;
-
-text-align:right;
-
-}
-
-/* =====================================================
-GRID
-===================================================== */
-
-.chartGrid{
-
-display:grid;
-
-grid-template-columns:1fr 1fr;
-
-gap:20px;
-
-}
-
-/* =====================================================
-CARD
-===================================================== */
-
-.chartCard{
-
-background:#fff;
-
-border-radius:22px;
-
-padding:20px;
-
-border:1px solid #E5E7EB;
+renderServices(filtered);
 
 }
-
-/* =====================================================
-TITLE
-===================================================== */
-
-.cardTitle{
-
-font-size:24px;
-font-weight:900;
-
-margin-bottom:20px;
-
-}
-
-/* =====================================================
-RESPONSIVE
-===================================================== */
-
-@media(max-width:1000px){
-
-.chartGrid{
-
-grid-template-columns:1fr;
-
-}
-
-.reportTop{
-
-flex-direction:column;
-align-items:flex-start;
-gap:20px;
-
-}
-
-}
-
-</style>
-
-</head>
-
-<body>
-
-<div id="layoutContainer"></div>
-
-<div class="main">
-
-<!-- =====================================================
-TOP
-===================================================== -->
-
-<div class="reportTop">
-
-<div class="tabs">
-
-<div class="tab active">
-Live Tracking
-</div>
-
-<div class="tab">
-Business Reports
-</div>
-
-</div>
-
-<div class="filters">
-
-<button class="filterBtn">
-
-<i class="fa-solid fa-download"></i>
-
-Generate Report
-
-</button>
-
-<button class="filterBtn">
-
-All Outlets
-
-<i class="fa-solid fa-angle-down"></i>
-
-</button>
-
-</div>
-
-</div>
-
-<!-- =====================================================
-SALES OVERVIEW
-===================================================== -->
-
-<div class="overview">
-
-<div class="cardTitle">
-Sales Overview
-</div>
-
-<div class="reportRow">
-
-<div class="reportLabel">
-Sales
-</div>
-
-<canvas id="salesMini"></canvas>
-
-<div
-class="reportValue"
-id="salesValue">
-
-₹0
-
-</div>
-
-</div>
-
-<div class="reportRow">
-
-<div class="reportLabel">
-Delivered Orders
-</div>
-
-<canvas id="ordersMini"></canvas>
-
-<div
-class="reportValue"
-id="deliveredValue">
-
-0
-
-</div>
-
-</div>
-
-<div class="reportRow">
-
-<div class="reportLabel">
-AOV
-</div>
-
-<canvas id="aovMini"></canvas>
-
-<div
-class="reportValue"
-id="aovValue">
-
-₹0
-
-</div>
-
-</div>
-
-</div>
-
-<!-- =====================================================
-CUSTOMER EXPERIENCE
-===================================================== -->
-
-<div class="overview">
-
-<div class="cardTitle">
-Customer Experience
-</div>
-
-<div class="reportRow">
-
-<div class="reportLabel">
-Ratings
-</div>
-
-<canvas id="ratingMini"></canvas>
-
-<div
-class="reportValue">
-
-4.8★
-
-</div>
-
-</div>
-
-<div class="reportRow">
-
-<div class="reportLabel">
-Rejected Orders
-</div>
-
-<canvas id="rejectMini"></canvas>
-
-<div
-class="reportValue"
-id="rejectValue">
-
-0%
-
-</div>
-
-</div>
-
-<div class="reportRow">
-
-<div class="reportLabel">
-Delayed Orders
-</div>
-
-<canvas id="delayMini"></canvas>
-
-<div
-class="reportValue">
-
-0%
-
-</div>
-
-</div>
-
-<div class="reportRow">
-
-<div class="reportLabel">
-Poor Rated Orders
-</div>
-
-<canvas id="poorMini"></canvas>
-
-<div
-class="reportValue">
-
-0%
-
-</div>
-
-</div>
-
-<div class="reportRow">
-
-<div class="reportLabel">
-Total Complaints
-</div>
-
-<canvas id="complaintMini"></canvas>
-
-<div
-class="reportValue"
-id="complaintValue">
-
-0
-
-</div>
-
-</div>
-
-</div>
-
-<!-- =====================================================
-CHARTS
-===================================================== -->
-
-<div class="chartGrid">
-
-<div class="chartCard">
-
-<div class="cardTitle">
-Total Sales & Ads
-</div>
-
-<canvas id="salesChart"></canvas>
-
-</div>
-
-<div class="chartCard">
-
-<div class="cardTitle">
-Orders From Ads
-</div>
-
-<canvas id="adsChart"></canvas>
-
-</div>
-
-<div class="chartCard">
-
-<div class="cardTitle">
-Impressions
-</div>
-
-<canvas id="impressionChart"></canvas>
-
-</div>
-
-<div class="chartCard">
-
-<div class="cardTitle">
-Ads CTR
-</div>
-
-<canvas id="ctrChart"></canvas>
-
-</div>
-
-</div>
-
-</div>
-
-<script type="module"
-src="./js/auth.js">
-</script>
-
-<script type="module"
-src="./js/layout.js">
-</script>
-
-<script type="module"
-src="./js/reporting.js">
-</script>
-
-</body>
-</html>
