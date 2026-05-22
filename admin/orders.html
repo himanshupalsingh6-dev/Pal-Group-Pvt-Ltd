@@ -13,177 +13,43 @@ content="width=device-width, initial-scale=1.0">
 QuickPress Orders
 </title>
 
-<link rel="stylesheet"
-href="layout.css">
+<link
+rel="stylesheet"
+href="./layout.css">
 
-<link rel="stylesheet"
+<link
+rel="stylesheet"
 href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css"/>
+
+<script
+src="https://cdn.jsdelivr.net/npm/chart.js">
+</script>
 
 <style>
 
 /* =====================================================
-MAIN
+GLOBAL
 ===================================================== */
 
-.main{
-
-margin-left:290px;
-
-width:calc(100% - 290px);
-
-min-height:100vh;
-
-background:#F4F7FB;
-
-overflow-x:hidden;
-
-}
-
-.content{
-
-padding:28px;
-
-width:100%;
-
-box-sizing:border-box;
-
+body{
+background:#F4F4F5;
+font-family:Arial,sans-serif;
 }
 
 /* =====================================================
-HEADER
+TOP STATS
 ===================================================== */
 
-.pageHeader{
+.topStats{
 
-display:flex;
+display:grid;
 
-justify-content:space-between;
-
-align-items:center;
-
-gap:20px;
-
-flex-wrap:wrap;
-
-margin-bottom:24px;
-
-}
-
-.pageTitle{
-
-font-size:60px;
-
-font-weight:900;
-
-letter-spacing:-2px;
-
-}
-
-/* =====================================================
-SEARCH
-===================================================== */
-
-.searchWrap{
-
-display:flex;
+grid-template-columns:
+repeat(7,1fr);
 
 gap:14px;
 
-flex-wrap:wrap;
-
-margin-bottom:24px;
-
-}
-
-.searchInput{
-
-height:56px;
-
-width:320px;
-
-border:none;
-
-outline:none;
-
-padding:0 20px;
-
-border-radius:18px;
-
-background:#fff;
-
-border:1px solid #E5E7EB;
-
-font-size:14px;
-
-font-weight:700;
-
-}
-
-.selectInput{
-
-height:56px;
-
-padding:0 18px;
-
-border:none;
-
-outline:none;
-
-border-radius:18px;
-
-background:#fff;
-
-border:1px solid #E5E7EB;
-
-font-size:14px;
-
-font-weight:800;
-
-}
-
-/* =====================================================
-FILTERS
-===================================================== */
-
-.filterWrap{
-
-display:flex;
-
-gap:14px;
-
-flex-wrap:wrap;
-
-margin-bottom:24px;
-
-}
-
-.filterBtn{
-
-height:54px;
-
-padding:0 22px;
-
-border:none;
-
-border-radius:18px;
-
-background:#fff;
-
-border:1px solid #E5E7EB;
-
-font-weight:900;
-
-cursor:pointer;
-
-transition:.2s;
-
-}
-
-.filterBtn.active{
-
-background:#111827;
-
-color:#fff;
+margin-bottom:20px;
 
 }
 
@@ -191,67 +57,79 @@ color:#fff;
 CARD
 ===================================================== */
 
-.ordersCard{
+.statCard{
 
 background:#fff;
 
-border-radius:32px;
+border-radius:18px;
 
-overflow:hidden;
+padding:18px;
 
 border:1px solid #E5E7EB;
 
-width:100%;
+cursor:pointer;
+
+transition:.2s;
 
 }
 
-/* =====================================================
-TOP
-===================================================== */
+.statCard:hover{
 
-.ordersTop{
-
-padding:24px;
-
-display:flex;
-
-justify-content:space-between;
-
-align-items:center;
-
-border-bottom:1px solid #F3F4F6;
+transform:translateY(-3px);
 
 }
 
-.ordersTop h3{
+.statTitle{
+
+font-size:13px;
+font-weight:800;
+color:#6B7280;
+
+margin-bottom:10px;
+
+}
+
+.statValue{
 
 font-size:34px;
-
 font-weight:900;
+color:#111827;
 
 }
 
 /* =====================================================
-EXPORT
+FILTERS
 ===================================================== */
 
-.exportBtn{
+.filters{
 
-height:54px;
+display:grid;
 
-padding:0 24px;
+grid-template-columns:
+repeat(6,1fr);
 
-border:none;
+gap:14px;
 
-border-radius:18px;
+margin-bottom:20px;
 
-background:#111827;
+}
 
-color:#fff;
+.filterInput{
 
-font-weight:900;
+height:50px;
 
-cursor:pointer;
+border:1px solid #E5E7EB;
+
+border-radius:12px;
+
+padding:0 16px;
+
+background:#fff;
+
+font-size:14px;
+font-weight:800;
+
+outline:none;
 
 }
 
@@ -259,77 +137,59 @@ cursor:pointer;
 TABLE
 ===================================================== */
 
-.tableWrap{
+.tableBox{
 
-overflow-x:auto;
+background:#fff;
 
-width:100%;
+border-radius:18px;
 
-}
+border:1px solid #E5E7EB;
 
-table{
-
-width:100%;
-
-min-width:1600px;
-
-border-collapse:collapse;
-
-}
-
-th{
-
-padding:22px;
-
-text-align:left;
-
-font-size:13px;
-
-font-weight:900;
-
-color:#6B7280;
-
-border-bottom:1px solid #F3F4F6;
-
-white-space:nowrap;
-
-}
-
-td{
-
-padding:22px;
-
-font-size:14px;
-
-font-weight:700;
-
-border-bottom:1px solid #F3F4F6;
-
-vertical-align:top;
-
-white-space:nowrap;
+overflow:hidden;
 
 }
 
 /* =====================================================
-CUSTOMER
+HEADER
 ===================================================== */
 
-.customer{
+.tableHeader{
 
-display:flex;
+display:grid;
 
-flex-direction:column;
+grid-template-columns:
+120px 220px 200px 140px 120px 160px 180px 240px;
 
-gap:4px;
+padding:18px;
+
+background:#F9FAFB;
+
+font-size:13px;
+font-weight:900;
+
+border-bottom:1px solid #E5E7EB;
 
 }
 
-.customer span{
+/* =====================================================
+ROW
+===================================================== */
 
-font-size:12px;
+.orderRow{
 
-color:#6B7280;
+display:grid;
+
+grid-template-columns:
+120px 220px 200px 140px 120px 160px 180px 240px;
+
+padding:18px;
+
+align-items:center;
+
+border-bottom:1px solid #F3F4F6;
+
+font-size:14px;
+font-weight:800;
 
 }
 
@@ -339,91 +199,196 @@ STATUS
 
 .status{
 
-padding:10px 14px;
+padding:8px 12px;
 
-border-radius:999px;
+border-radius:8px;
+
+display:inline-flex;
+
+width:max-content;
 
 font-size:12px;
-
 font-weight:900;
 
-display:inline-block;
+color:#fff;
 
 }
 
 .pending{
-background:#FEF3C7;
-color:#B45309;
+background:#F59E0B;
 }
 
-.processing{
-background:#EDE9FE;
-color:#7C3AED;
+.assigned{
+background:#3B82F6;
 }
 
-.delivered{
-background:#DCFCE7;
-color:#15803D;
+.picked{
+background:#8B5CF6;
+}
+
+.delivery{
+background:#EC4899;
+}
+
+.completed{
+background:#10B981;
 }
 
 .cancelled{
-background:#FEE2E2;
-color:#DC2626;
+background:#EF4444;
 }
 
 /* =====================================================
-TRACKING
+BUTTONS
 ===================================================== */
 
-.trackBox{
+.actions{
 
 display:flex;
-
-align-items:center;
-
-gap:8px;
-
-padding:10px 14px;
-
-background:#EEF2FF;
-
-border-radius:14px;
-
-font-size:12px;
-
-font-weight:800;
-
-color:#4338CA;
-
-}
-
-/* =====================================================
-ACTION
-===================================================== */
-
-.actionWrap{
-
-display:flex;
-
-gap:8px;
+gap:10px;
+flex-wrap:wrap;
 
 }
 
 .actionBtn{
 
-width:42px;
+height:38px;
 
-height:42px;
+padding:0 16px;
 
 border:none;
 
-border-radius:14px;
+border-radius:10px;
 
-color:#fff;
+font-size:12px;
+font-weight:900;
 
 cursor:pointer;
 
-font-size:14px;
+}
+
+.viewBtn{
+
+background:#111827;
+color:#fff;
+
+}
+
+.assignBtn{
+
+background:#2563EB;
+color:#fff;
+
+}
+
+.trackBtn{
+
+background:#10B981;
+color:#fff;
+
+}
+
+/* =====================================================
+MODAL
+===================================================== */
+
+.modal{
+
+position:fixed;
+
+top:0;
+left:0;
+
+width:100%;
+height:100%;
+
+background:rgba(0,0,0,.4);
+
+display:none;
+align-items:center;
+justify-content:center;
+
+z-index:99999;
+
+}
+
+.modalBox{
+
+width:700px;
+max-width:95%;
+
+background:#fff;
+
+border-radius:24px;
+
+padding:24px;
+
+max-height:90vh;
+
+overflow-y:auto;
+
+}
+
+.modalTitle{
+
+font-size:32px;
+font-weight:900;
+
+margin-bottom:20px;
+
+}
+
+.detailRow{
+
+display:flex;
+justify-content:space-between;
+
+padding:14px 0;
+
+border-bottom:1px solid #F3F4F6;
+
+font-size:15px;
+font-weight:800;
+
+}
+
+/* =====================================================
+RIDER CARD
+===================================================== */
+
+.riderCard{
+
+padding:16px;
+
+border:1px solid #E5E7EB;
+
+border-radius:16px;
+
+margin-bottom:14px;
+
+display:flex;
+justify-content:space-between;
+align-items:center;
+
+}
+
+.assignNowBtn{
+
+height:42px;
+
+padding:0 18px;
+
+border:none;
+
+background:#111827;
+
+color:#fff;
+
+border-radius:10px;
+
+font-weight:900;
+
+cursor:pointer;
 
 }
 
@@ -431,41 +396,59 @@ font-size:14px;
 RESPONSIVE
 ===================================================== */
 
-@media(max-width:900px){
+@media(max-width:1600px){
 
-.main{
+.topStats{
 
-margin-left:0;
-
-width:100%;
-
-}
-
-.content{
-
-padding:16px;
+grid-template-columns:
+repeat(4,1fr);
 
 }
 
-.pageTitle{
+.filters{
 
-font-size:38px;
-
-}
-
-.searchInput{
-
-width:100%;
+grid-template-columns:
+repeat(3,1fr);
 
 }
 
-.ordersTop{
+}
 
-flex-direction:column;
+@media(max-width:1100px){
 
-align-items:flex-start;
+.topStats{
 
-gap:16px;
+grid-template-columns:
+repeat(2,1fr);
+
+}
+
+.filters{
+
+grid-template-columns:
+repeat(2,1fr);
+
+}
+
+.tableBox{
+
+overflow:auto;
+
+}
+
+}
+
+@media(max-width:700px){
+
+.topStats{
+
+grid-template-columns:1fr;
+
+}
+
+.filters{
+
+grid-template-columns:1fr;
 
 }
 
@@ -477,73 +460,127 @@ gap:16px;
 
 <body>
 
-<div class="adminLayout">
-
 <div id="layoutContainer"></div>
 
 <div class="main">
 
-<div class="content">
-
 <!-- =====================================================
-HEADER
+TOP STATS
 ===================================================== -->
 
-<div class="pageHeader">
+<div class="topStats">
 
-<div class="pageTitle">
-Orders
+<div class="statCard">
+
+<div class="statTitle">
+Total Orders
 </div>
 
-<button
-class="exportBtn"
-id="exportBtn">
+<div
+class="statValue"
+id="totalOrders">
 
-<i class="fa-solid fa-download"></i>
-
-Export CSV
-
-</button>
+0
 
 </div>
 
-<!-- =====================================================
-SEARCH
-===================================================== -->
+</div>
 
-<div class="searchWrap">
+<div class="statCard">
 
-<input
-type="text"
-id="searchInput"
-class="searchInput"
-placeholder="Search customer / mobile / order">
+<div class="statTitle">
+Pending Orders
+</div>
 
-<select
-id="cityFilter"
-class="selectInput">
+<div
+class="statValue"
+id="pendingOrders">
 
-<option value="All">
-All Cities
-</option>
+0
 
-<option value="Kasganj">
-Kasganj
-</option>
+</div>
 
-<option value="Delhi">
-Delhi
-</option>
+</div>
 
-<option value="Noida">
-Noida
-</option>
+<div class="statCard">
 
-<option value="Lucknow">
-Lucknow
-</option>
+<div class="statTitle">
+Assigned Orders
+</div>
 
-</select>
+<div
+class="statValue"
+id="assignedOrders">
+
+0
+
+</div>
+
+</div>
+
+<div class="statCard">
+
+<div class="statTitle">
+Delivered Orders
+</div>
+
+<div
+class="statValue"
+id="deliveredOrders">
+
+0
+
+</div>
+
+</div>
+
+<div class="statCard">
+
+<div class="statTitle">
+Cancelled Orders
+</div>
+
+<div
+class="statValue"
+id="cancelledOrders">
+
+0
+
+</div>
+
+</div>
+
+<div class="statCard">
+
+<div class="statTitle">
+COD Collection
+</div>
+
+<div
+class="statValue"
+id="codCollection">
+
+₹0
+
+</div>
+
+</div>
+
+<div class="statCard">
+
+<div class="statTitle">
+Active Riders
+</div>
+
+<div
+class="statValue"
+id="activeRiders">
+
+0
+
+</div>
+
+</div>
 
 </div>
 
@@ -551,97 +588,178 @@ Lucknow
 FILTERS
 ===================================================== -->
 
-<div class="filterWrap">
+<div class="filters">
 
-<button
-class="filterBtn active"
-data-filter="All">
+<input
+type="text"
+placeholder="Search Order ID"
+class="filterInput"
+id="searchInput">
 
-All Orders
+<select
+class="filterInput"
+id="statusFilter">
 
-</button>
+<option value="">
+All Status
+</option>
 
-<button
-class="filterBtn"
-data-filter="Pending">
-
+<option value="pending">
 Pending
+</option>
 
-</button>
+<option value="assigned">
+Assigned
+</option>
 
-<button
-class="filterBtn"
-data-filter="Preparing">
+<option value="picked">
+Picked
+</option>
 
-Preparing
+<option value="delivery">
+Out For Delivery
+</option>
 
-</button>
-
-<button
-class="filterBtn"
-data-filter="Delivered">
-
+<option value="completed">
 Delivered
+</option>
 
-</button>
+<option value="cancelled">
+Cancelled
+</option>
+
+</select>
+
+<select
+class="filterInput"
+id="areaFilter">
+
+<option value="">
+All Areas
+</option>
+
+</select>
+
+<select
+class="filterInput"
+id="paymentFilter">
+
+<option value="">
+Payment Type
+</option>
+
+<option value="cod">
+COD
+</option>
+
+<option value="online">
+Online
+</option>
+
+</select>
+
+<input
+type="date"
+class="filterInput"
+id="dateFilter">
 
 <button
-class="filterBtn"
-data-filter="Cancelled">
+class="filterInput"
+onclick="autoAssignOrders()">
 
-Cancelled
+AI Auto Assign
 
 </button>
 
 </div>
 
 <!-- =====================================================
-TABLE CARD
+TABLE
 ===================================================== -->
 
-<div class="ordersCard">
+<div class="tableBox">
 
-<div class="ordersTop">
+<div class="tableHeader">
 
-<h3>
-Realtime Orders
-</h3>
-
+<div>
+Order ID
 </div>
 
-<div class="tableWrap">
+<div>
+Customer
+</div>
 
-<table>
+<div>
+Address
+</div>
 
-<thead>
+<div>
+Area
+</div>
 
-<tr>
+<div>
+Amount
+</div>
 
-<th>ID</th>
-<th>Customer</th>
-<th>Items</th>
-<th>Address</th>
-<th>City</th>
-<th>Amount</th>
-<th>Payment</th>
-<th>Status</th>
-<th>Tracking</th>
-<th>Time</th>
-<th>Actions</th>
+<div>
+Status
+</div>
 
-</tr>
+<div>
+Assigned Rider
+</div>
 
-</thead>
-
-<tbody id="ordersTable">
-
-</tbody>
-
-</table>
-
+<div>
+Actions
 </div>
 
 </div>
+
+<div id="ordersContainer">
+
+</div>
+
+</div>
+
+</div>
+
+<!-- =====================================================
+VIEW MODAL
+===================================================== -->
+
+<div
+class="modal"
+id="viewModal">
+
+<div class="modalBox">
+
+<div class="modalTitle">
+Order Details
+</div>
+
+<div id="orderDetails">
+
+</div>
+
+</div>
+
+</div>
+
+<!-- =====================================================
+ASSIGN MODAL
+===================================================== -->
+
+<div
+class="modal"
+id="assignModal">
+
+<div class="modalBox">
+
+<div class="modalTitle">
+Assign Rider
+</div>
+
+<div id="ridersList">
 
 </div>
 
@@ -650,11 +768,15 @@ Realtime Orders
 </div>
 
 <script type="module"
-src="js/layout.js">
+src="./js/auth.js">
 </script>
 
 <script type="module"
-src="js/orders.js">
+src="./js/layout.js">
+</script>
+
+<script type="module"
+src="./js/orders.js">
 </script>
 
 </body>
