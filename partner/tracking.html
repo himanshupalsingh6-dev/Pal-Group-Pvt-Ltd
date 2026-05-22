@@ -1,0 +1,727 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+<meta charset="UTF-8">
+
+<meta
+name="viewport"
+content="width=device-width, initial-scale=1.0">
+
+<title>
+Partner Live Tracking
+</title>
+
+<!-- =====================================================
+CSS
+===================================================== -->
+
+<link
+rel="stylesheet"
+href="./layout.css">
+
+<link
+rel="stylesheet"
+href="https://unpkg.com/leaflet/dist/leaflet.css"/>
+
+<link
+rel="stylesheet"
+href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css"/>
+
+<style>
+
+/* =====================================================
+GLOBAL
+===================================================== */
+
+*{
+
+margin:0;
+padding:0;
+box-sizing:border-box;
+font-family:Arial,sans-serif;
+
+}
+
+body{
+
+background:#F4F7FB;
+
+overflow:hidden;
+
+}
+
+/* =====================================================
+MAIN
+===================================================== */
+
+.main{
+
+margin-left:290px;
+
+height:100vh;
+
+position:relative;
+
+}
+
+/* =====================================================
+MAP
+===================================================== */
+
+#map{
+
+width:100%;
+
+height:100vh;
+
+z-index:1;
+
+}
+
+/* =====================================================
+TOP BAR
+===================================================== */
+
+.topBar{
+
+position:absolute;
+
+top:20px;
+
+left:20px;
+
+right:20px;
+
+z-index:9999;
+
+display:flex;
+
+justify-content:space-between;
+
+align-items:center;
+
+gap:20px;
+
+flex-wrap:wrap;
+
+}
+
+.pageTitle{
+
+font-size:54px;
+
+font-weight:900;
+
+color:#111827;
+
+}
+
+/* =====================================================
+LIVE
+===================================================== */
+
+.liveBadge{
+
+padding:14px 22px;
+
+border-radius:999px;
+
+background:#DCFCE7;
+
+display:flex;
+
+align-items:center;
+
+gap:10px;
+
+font-size:14px;
+
+font-weight:900;
+
+color:#15803D;
+
+}
+
+.liveDot{
+
+width:12px;
+
+height:12px;
+
+border-radius:50%;
+
+background:#16A34A;
+
+animation:pulse 1s infinite;
+
+}
+
+@keyframes pulse{
+
+0%{
+transform:scale(1);
+}
+
+50%{
+transform:scale(1.5);
+}
+
+100%{
+transform:scale(1);
+}
+
+}
+
+/* =====================================================
+ORDERS PANEL
+===================================================== */
+
+.ordersPanel{
+
+position:absolute;
+
+top:110px;
+
+left:20px;
+
+width:420px;
+
+max-height:80vh;
+
+overflow-y:auto;
+
+background:#fff;
+
+border-radius:32px;
+
+padding:22px;
+
+z-index:9999;
+
+box-shadow:
+0 20px 60px rgba(0,0,0,.08);
+
+}
+
+/* =====================================================
+TITLE
+===================================================== */
+
+.panelTitle{
+
+font-size:30px;
+
+font-weight:900;
+
+margin-bottom:20px;
+
+}
+
+/* =====================================================
+ORDER CARD
+===================================================== */
+
+.orderCard{
+
+background:#F9FAFB;
+
+padding:18px;
+
+border-radius:24px;
+
+margin-bottom:18px;
+
+border:1px solid #E5E7EB;
+
+}
+
+/* =====================================================
+TOP
+===================================================== */
+
+.orderTop{
+
+display:flex;
+
+justify-content:space-between;
+
+align-items:center;
+
+margin-bottom:14px;
+
+gap:12px;
+
+}
+
+.orderId{
+
+font-size:20px;
+
+font-weight:900;
+
+color:#111827;
+
+}
+
+.orderStatus{
+
+padding:8px 14px;
+
+border-radius:999px;
+
+font-size:12px;
+
+font-weight:900;
+
+background:#DCFCE7;
+
+color:#15803D;
+
+}
+
+/* =====================================================
+CUSTOMER
+===================================================== */
+
+.customerInfo{
+
+margin-bottom:18px;
+
+}
+
+.customerInfo h4{
+
+font-size:17px;
+
+font-weight:900;
+
+margin-bottom:8px;
+
+}
+
+.customerInfo p{
+
+font-size:13px;
+
+font-weight:700;
+
+color:#6B7280;
+
+margin-bottom:6px;
+
+}
+
+/* =====================================================
+BUTTONS
+===================================================== */
+
+.actionButtons{
+
+display:grid;
+
+grid-template-columns:1fr 1fr;
+
+gap:12px;
+
+}
+
+.actionBtn{
+
+height:54px;
+
+border:none;
+
+border-radius:18px;
+
+font-size:13px;
+
+font-weight:900;
+
+cursor:pointer;
+
+}
+
+.viewBtn{
+
+background:#F3F4F6;
+
+color:#111827;
+
+}
+
+.trackBtn{
+
+background:#111827;
+
+color:#fff;
+
+}
+
+/* =====================================================
+RIDER PANEL
+===================================================== */
+
+.riderPanel{
+
+position:absolute;
+
+bottom:20px;
+
+right:20px;
+
+width:420px;
+
+background:#fff;
+
+border-radius:32px;
+
+padding:24px;
+
+z-index:9999;
+
+box-shadow:
+0 20px 60px rgba(0,0,0,.08);
+
+display:none;
+
+}
+
+/* =====================================================
+RIDER TOP
+===================================================== */
+
+.riderTop{
+
+display:flex;
+
+align-items:center;
+
+gap:18px;
+
+margin-bottom:24px;
+
+}
+
+.riderImage{
+
+width:90px;
+
+height:90px;
+
+border-radius:50%;
+
+object-fit:cover;
+
+}
+
+.riderInfo h2{
+
+font-size:28px;
+
+font-weight:900;
+
+margin-bottom:8px;
+
+}
+
+.riderInfo p{
+
+font-size:14px;
+
+font-weight:700;
+
+color:#6B7280;
+
+margin-bottom:6px;
+
+}
+
+/* =====================================================
+RIDER STATS
+===================================================== */
+
+.riderStats{
+
+display:grid;
+
+grid-template-columns:1fr 1fr;
+
+gap:14px;
+
+margin-bottom:22px;
+
+}
+
+.statBox{
+
+background:#F9FAFB;
+
+padding:16px;
+
+border-radius:18px;
+
+}
+
+.statBox h5{
+
+font-size:12px;
+
+font-weight:900;
+
+color:#6B7280;
+
+margin-bottom:8px;
+
+}
+
+.statBox h3{
+
+font-size:18px;
+
+font-weight:900;
+
+}
+
+/* =====================================================
+CALL BUTTON
+===================================================== */
+
+.callBtn{
+
+width:100%;
+
+height:60px;
+
+border:none;
+
+border-radius:20px;
+
+background:#16A34A;
+
+color:#fff;
+
+font-size:15px;
+
+font-weight:900;
+
+cursor:pointer;
+
+}
+
+/* =====================================================
+RESPONSIVE
+===================================================== */
+
+@media(max-width:900px){
+
+.main{
+
+margin-left:0;
+
+}
+
+.ordersPanel{
+
+width:calc(100% - 20px);
+
+left:10px;
+
+right:10px;
+
+}
+
+.riderPanel{
+
+width:calc(100% - 20px);
+
+right:10px;
+
+}
+
+.pageTitle{
+
+font-size:34px;
+
+}
+
+}
+
+</style>
+
+</head>
+
+<body>
+
+<!-- =====================================================
+LAYOUT
+===================================================== -->
+
+<div id="layoutContainer"></div>
+
+<!-- =====================================================
+MAIN
+===================================================== -->
+
+<div class="main">
+
+<!-- =====================================================
+MAP
+===================================================== -->
+
+<div id="map"></div>
+
+<!-- =====================================================
+TOP BAR
+===================================================== -->
+
+<div class="topBar">
+
+<div class="pageTitle">
+Live Tracking
+</div>
+
+<div class="liveBadge">
+
+<div class="liveDot"></div>
+
+Realtime Tracking Active
+
+</div>
+
+</div>
+
+<!-- =====================================================
+ORDERS PANEL
+===================================================== -->
+
+<div class="ordersPanel">
+
+<div class="panelTitle">
+Live Orders
+</div>
+
+<div id="ordersContainer"></div>
+
+</div>
+
+<!-- =====================================================
+RIDER PANEL
+===================================================== -->
+
+<div
+class="riderPanel"
+id="riderPanel">
+
+<div class="riderTop">
+
+<img
+src="https://i.ibb.co/3SWQHfY/user.png"
+class="riderImage"
+id="riderImage">
+
+<div class="riderInfo">
+
+<h2 id="riderName">
+Rider Name
+</h2>
+
+<p id="riderPhone">
++91 9876543210
+</p>
+
+<p id="vehicleName">
+Honda Shine
+</p>
+
+</div>
+
+</div>
+
+<div class="riderStats">
+
+<div class="statBox">
+
+<h5>
+Vehicle Number
+</h5>
+
+<h3 id="vehicleNumber">
+UP87AB1234
+</h3>
+
+</div>
+
+<div class="statBox">
+
+<h5>
+Current Speed
+</h5>
+
+<h3 id="riderSpeed">
+0 km/h
+</h3>
+
+</div>
+
+<div class="statBox">
+
+<h5>
+Delivery Status
+</h5>
+
+<h3 id="deliveryStatus">
+Pickup
+</h3>
+
+</div>
+
+<div class="statBox">
+
+<h5>
+ETA
+</h5>
+
+<h3 id="etaText">
+12 Min
+</h3>
+
+</div>
+
+</div>
+
+<button
+class="callBtn"
+id="callBtn">
+
+Call Rider
+
+</button>
+
+</div>
+
+</div>
+
+<!-- =====================================================
+SCRIPTS
+===================================================== -->
+
+<script
+src="https://unpkg.com/leaflet/dist/leaflet.js">
+</script>
+
+<script type="module"
+src="./js/auth.js">
+</script>
+
+<script type="module"
+src="./js/layout.js">
+</script>
+
+<script type="module"
+src="./js/tracking.js">
+</script>
+
+</body>
+</html>
