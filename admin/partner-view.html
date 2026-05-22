@@ -1,0 +1,526 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+<meta charset="UTF-8">
+
+<meta
+name="viewport"
+content="width=device-width, initial-scale=1.0">
+
+<title>
+Partner Details
+</title>
+
+<link
+rel="stylesheet"
+href="./layout.css">
+
+<link
+rel="stylesheet"
+href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css"/>
+
+<style>
+
+/* =====================================================
+GLOBAL
+===================================================== */
+
+*{
+margin:0;
+padding:0;
+box-sizing:border-box;
+font-family:Arial,sans-serif;
+}
+
+body{
+background:#F4F7FB;
+}
+
+/* =====================================================
+MAIN
+===================================================== */
+
+.main{
+margin-left:290px;
+padding:24px;
+}
+
+/* =====================================================
+HEADER
+===================================================== */
+
+.pageHeader{
+display:flex;
+justify-content:space-between;
+align-items:center;
+margin-bottom:30px;
+flex-wrap:wrap;
+gap:20px;
+}
+
+.pageTitle{
+font-size:52px;
+font-weight:900;
+color:#111827;
+}
+
+/* =====================================================
+TOP
+===================================================== */
+
+.topSection{
+display:grid;
+grid-template-columns:380px 1fr;
+gap:24px;
+margin-bottom:24px;
+}
+
+/* =====================================================
+PROFILE CARD
+===================================================== */
+
+.profileCard{
+background:#fff;
+border-radius:32px;
+padding:28px;
+border:1px solid #E5E7EB;
+text-align:center;
+}
+
+.profileImage{
+width:140px;
+height:140px;
+border-radius:30px;
+object-fit:cover;
+margin-bottom:20px;
+}
+
+.partnerName{
+font-size:30px;
+font-weight:900;
+margin-bottom:8px;
+}
+
+.partnerShop{
+font-size:14px;
+font-weight:700;
+color:#6B7280;
+margin-bottom:20px;
+}
+
+.status{
+display:inline-flex;
+align-items:center;
+gap:8px;
+padding:12px 18px;
+border-radius:999px;
+background:#DCFCE7;
+color:#15803D;
+font-size:13px;
+font-weight:900;
+}
+
+/* =====================================================
+INFO GRID
+===================================================== */
+
+.infoGrid{
+display:grid;
+grid-template-columns:repeat(2,1fr);
+gap:20px;
+}
+
+.infoCard{
+background:#fff;
+border-radius:30px;
+padding:24px;
+border:1px solid #E5E7EB;
+}
+
+.infoCard h5{
+font-size:13px;
+font-weight:900;
+color:#6B7280;
+margin-bottom:12px;
+}
+
+.infoCard h2{
+font-size:34px;
+font-weight:900;
+}
+
+/* =====================================================
+DETAILS
+===================================================== */
+
+.detailsCard{
+background:#fff;
+border-radius:32px;
+padding:28px;
+border:1px solid #E5E7EB;
+margin-bottom:24px;
+}
+
+.sectionTitle{
+font-size:28px;
+font-weight:900;
+margin-bottom:24px;
+}
+
+.detailGrid{
+display:grid;
+grid-template-columns:repeat(2,1fr);
+gap:22px;
+}
+
+.detailItem{
+background:#F9FAFB;
+padding:22px;
+border-radius:24px;
+}
+
+.detailItem h5{
+font-size:12px;
+font-weight:900;
+color:#6B7280;
+margin-bottom:10px;
+}
+
+.detailItem p{
+font-size:16px;
+font-weight:800;
+color:#111827;
+}
+
+/* =====================================================
+ACTION
+===================================================== */
+
+.actionGrid{
+display:grid;
+grid-template-columns:repeat(4,1fr);
+gap:18px;
+margin-top:24px;
+}
+
+.actionBtn{
+height:60px;
+border:none;
+border-radius:20px;
+font-size:14px;
+font-weight:900;
+cursor:pointer;
+}
+
+.primaryBtn{
+background:#111827;
+color:#fff;
+}
+
+.redBtn{
+background:#FEE2E2;
+color:#DC2626;
+}
+
+.blueBtn{
+background:#DBEAFE;
+color:#2563EB;
+}
+
+.greenBtn{
+background:#DCFCE7;
+color:#15803D;
+}
+
+/* =====================================================
+RESPONSIVE
+===================================================== */
+
+@media(max-width:1200px){
+
+.topSection{
+grid-template-columns:1fr;
+}
+
+}
+
+@media(max-width:900px){
+
+.main{
+margin-left:0;
+padding:16px;
+}
+
+.detailGrid{
+grid-template-columns:1fr;
+}
+
+.actionGrid{
+grid-template-columns:1fr 1fr;
+}
+
+.pageTitle{
+font-size:38px;
+}
+
+}
+
+</style>
+
+</head>
+
+<body>
+
+<div id="layoutContainer"></div>
+
+<div class="main">
+
+<div class="pageHeader">
+
+<div class="pageTitle">
+Partner Details
+</div>
+
+</div>
+
+<!-- =====================================================
+TOP
+===================================================== -->
+
+<div class="topSection">
+
+<!-- PROFILE -->
+
+<div class="profileCard">
+
+<img
+src="https://i.ibb.co/3SWQHfY/user.png"
+class="profileImage"
+id="profileImage">
+
+<div
+class="partnerName"
+id="partnerName">
+
+Partner
+
+</div>
+
+<div
+class="partnerShop"
+id="partnerShop">
+
+QuickPress
+
+</div>
+
+<div class="status">
+
+Online
+
+</div>
+
+</div>
+
+<!-- INFO -->
+
+<div class="infoGrid">
+
+<div class="infoCard">
+
+<h5>
+Total Revenue
+</h5>
+
+<h2 id="partnerRevenue">
+₹0
+</h2>
+
+</div>
+
+<div class="infoCard">
+
+<h5>
+Total Orders
+</h5>
+
+<h2 id="partnerOrders">
+0
+</h2>
+
+</div>
+
+<div class="infoCard">
+
+<h5>
+Wallet Balance
+</h5>
+
+<h2 id="partnerWallet">
+₹0
+</h2>
+
+</div>
+
+<div class="infoCard">
+
+<h5>
+Online Riders
+</h5>
+
+<h2 id="partnerRiders">
+0
+</h2>
+
+</div>
+
+</div>
+
+</div>
+
+<!-- =====================================================
+DETAILS
+===================================================== -->
+
+<div class="detailsCard">
+
+<div class="sectionTitle">
+Business Details
+</div>
+
+<div class="detailGrid">
+
+<div class="detailItem">
+
+<h5>
+Owner Name
+</h5>
+
+<p id="ownerName">
+-
+</p>
+
+</div>
+
+<div class="detailItem">
+
+<h5>
+Phone Number
+</h5>
+
+<p id="ownerPhone">
+-
+</p>
+
+</div>
+
+<div class="detailItem">
+
+<h5>
+Email
+</h5>
+
+<p id="ownerEmail">
+-
+</p>
+
+</div>
+
+<div class="detailItem">
+
+<h5>
+City
+</h5>
+
+<p id="ownerCity">
+-
+</p>
+
+</div>
+
+<div class="detailItem">
+
+<h5>
+GST Number
+</h5>
+
+<p id="gstNumber">
+-
+</p>
+
+</div>
+
+<div class="detailItem">
+
+<h5>
+Joined Date
+</h5>
+
+<p id="joinDate">
+-
+</p>
+
+</div>
+
+</div>
+
+<!-- =====================================================
+ACTION
+===================================================== -->
+
+<div class="actionGrid">
+
+<button
+class="actionBtn primaryBtn"
+id="viewOrdersBtn">
+
+View Orders
+
+</button>
+
+<button
+class="actionBtn blueBtn"
+id="walletBtn">
+
+Wallet
+
+</button>
+
+<button
+class="actionBtn greenBtn"
+id="analyticsBtn">
+
+Analytics
+
+</button>
+
+<button
+class="actionBtn redBtn"
+id="disableBtn">
+
+Disable
+
+</button>
+
+</div>
+
+</div>
+
+</div>
+
+<script type="module"
+src="./js/auth.js">
+</script>
+
+<script type="module"
+src="./js/layout.js">
+</script>
+
+<script type="module"
+src="./js/partner-view.js">
+</script>
+
+</body>
+</html>
