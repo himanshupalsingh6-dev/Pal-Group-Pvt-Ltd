@@ -1,13 +1,11 @@
 /* =========================================================
 FILE : admin/js/tracking.js
-QUICKPRESS ENTERPRISE LIVE TRACKING SYSTEM
+QUICKPRESS ADMIN LIVE TRACKING
 ========================================================= */
 
 import { db }
 
-from
-
-"/Pal-Group-Pvt-Ltd/firebase.js";
+from "../../firebase.js";
 
 import {
 
@@ -21,328 +19,81 @@ from
 "https://www.gstatic.com/firebasejs/12.11.0/firebase-firestore.js";
 
 /* =========================================================
-OPEN ROUTE API
+MAP
 ========================================================= */
 
-const ORS_API_KEY =
-"eyJvcmciOiI1YjNjZTM1OTc4NTExMTAwMDFjZjYyNDgiLCJpZCI6ImZiZTAzNDcwNWY4NjQ0Mjg4ZmJmYTVkMzE0NzIzNWQxIiwiaCI6Im11cm11cjY0In0=";
+const map =
+L.map("map")
+.setView([27.4924,78.1234],12);
 
 /* =========================================================
-AUTH CHECK
-========================================================= */
-
-const adminLogin =
-localStorage.getItem(
-"quickpress_admin"
-);
-
-if(adminLogin !== "true"){
-
-window.location.href =
-"login.html";
-
-}
-
-/* =========================================================
-DESKTOP ONLY
-========================================================= */
-
-const isMobile =
-/Android|iPhone|iPad|iPod/i
-.test(
-navigator.userAgent
-);
-
-if(
-window.innerWidth < 1024
-||
-isMobile
-){
-
-document.body.innerHTML = `
-
-<div
-style="
-height:100vh;
-display:flex;
-align-items:center;
-justify-content:center;
-background:#111827;
-color:white;
-font-family:Inter,sans-serif;
-">
-
-<div style="text-align:center;">
-
-<div style="
-font-size:90px;
-margin-bottom:20px;
-">
-
-🖥️
-
-</div>
-
-<h1 style="
-font-size:42px;
-font-weight:900;
-margin-bottom:10px;
-">
-
-Desktop Only
-
-</h1>
-
-<p style="
-font-size:15px;
-color:#D1D5DB;
-">
-
-QuickPress Admin Panel only works on Desktop
-
-</p>
-
-</div>
-
-</div>
-
-`;
-
-}
-
-/* =========================================================
-ELEMENTS
-========================================================= */
-
-const riderList =
-document.getElementById(
-"riderList"
-);
-
-const searchInput =
-document.getElementById(
-"searchInput"
-);
-
-const liveOrder =
-document.getElementById(
-"liveOrder"
-);
-
-const liveEta =
-document.getElementById(
-"liveEta"
-);
-
-const liveCity =
-document.getElementById(
-"liveCity"
-);
-
-const liveSpeed =
-document.getElementById(
-"liveSpeed"
-);
-
-/* =========================================================
-MAP INIT
-========================================================= */
-
-const map = L.map(
-'map'
-).setView(
-[28.6139,77.2090],
-12
-);
-
-/* =========================================================
-MAP TILES
+MAP LAYER
 ========================================================= */
 
 L.tileLayer(
 
-'https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png',
+"https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png",
 
 {
 
 attribution:
-'© OpenStreetMap contributors'
+"&copy; OpenStreetMap"
 
 }
 
 ).addTo(map);
 
 /* =========================================================
-DATA
+GLOBAL
 ========================================================= */
 
-let allRiders = [];
+const ridersList =
+document.getElementById(
+"ridersList"
+);
 
-let markers = {};
-
-let selectedRider = null;
-
-let routeLine = null;
+const riderMarkers = {};
 
 /* =========================================================
-LOAD RIDERS
+LOAD TRACKING
 ========================================================= */
 
 onSnapshot(
 
-collection(db,"riders"),
+collection(db,"tracking"),
 
 (snapshot)=>{
 
-riderList.innerHTML = "";
+ridersList.innerHTML = "";
 
-allRiders = [];
+/* ========================================================= */
 
-/* ========================================= */
+let onlineCount = 0;
 
-snapshot.forEach((docSnap)=>{
+/* ========================================================= */
 
-const rider = {
+snapshot.forEach(docSnap=>{
 
-id:docSnap.id,
-...docSnap.data()
+const data =
+docSnap.data();
 
-};
+/* ========================================================= */
 
-allRiders.push(rider);
+onlineCount++;
 
-/* =========================================
-MARKER
-========================================= */
-
-updateMarker(rider);
-
-/* =========================================
-CARD
-========================================= */
-
-renderRider(rider);
-
-});
-
-}
-
-/* END */
-
-);
-
-/* =========================================================
-RENDER RIDER
-========================================================= */
-
-function renderRider(rider){
-
-const search =
-searchInput.value
-.toLowerCase();
-
-/* ========================================= */
-
-if(
-search &&
-!(
-(rider.name || "")
-.toLowerCase()
-.includes(search)
-)
-){
-
-return;
-
-}
-
-/* ========================================= */
-
-const html = `
-
-<div
-class="riderCard"
-onclick="focusRider('${rider.id}')">
-
-<div class="riderLeft">
-
-<div class="avatar">
-
-${(rider.name || "R")
-.charAt(0)
-.toUpperCase()}
-
-<div class="onlineDot"></div>
-
-</div>
-
-<div class="riderInfo">
-
-<h3>
-
-${rider.name || "Rider"}
-
-</h3>
-
-<p>
-
-${rider.city || "Unknown City"}
-
-</p>
-
-</div>
-
-</div>
-
-<div class="status online">
-
-ONLINE
-
-</div>
-
-</div>
-
-`;
-
-riderList.innerHTML += html;
-
-}
-
-/* =========================================================
-SEARCH
-========================================================= */
-
-searchInput.addEventListener(
-"input",
-()=>{
-
-riderList.innerHTML = "";
-
-allRiders.forEach((rider)=>{
-
-renderRider(rider);
-
-});
-
-});
-
-/* =========================================================
-UPDATE MARKER
-========================================================= */
-
-function updateMarker(rider){
+/* ========================================================= */
 
 const lat =
-rider.lat || 28.6139;
+data.lat || 27.4924;
 
 const lng =
-rider.lng || 77.2090;
+data.lng || 78.1234;
 
-/* ========================================= */
+/* ========================================================= */
 
-if(markers[rider.id]){
+if(riderMarkers[docSnap.id]){
 
-markers[rider.id]
+riderMarkers[docSnap.id]
 .setLatLng([lat,lng]);
 
 }else{
@@ -352,239 +103,139 @@ L.marker([lat,lng])
 
 .addTo(map)
 
-.bindPopup(`
+.bindPopup(
 
-<b>
-${rider.name || "Rider"}
-</b>
+`
+
+<b>${data.riderName}</b>
 
 <br>
 
-${rider.city || ""}
+${data.status}
 
-`);
+`
 
-markers[rider.id] =
+);
+
+riderMarkers[docSnap.id] =
 marker;
 
 }
 
-}
-
 /* =========================================================
-FOCUS RIDER
+RIDER CARD
 ========================================================= */
 
-window.focusRider =
-async(id)=>{
+ridersList.innerHTML += `
 
-selectedRider =
-allRiders.find(
-(r)=>r.id === id
-);
+<div class="riderCard">
 
-if(!selectedRider){
+<div class="riderTop">
 
-return;
+<div class="riderLeft">
 
-}
+<img
+src="${data.image || 'https://i.ibb.co/3SWQHfY/user.png'}"
+class="riderImage">
 
-/* ========================================= */
+<div class="riderInfo">
 
-const lat =
-selectedRider.lat || 28.6139;
+<h3>
+${data.riderName || "Rider"}
+</h3>
 
-const lng =
-selectedRider.lng || 77.2090;
+<p>
+${data.riderPhone || ""}
+</p>
 
-/* ========================================= */
+</div>
 
-map.flyTo(
-[lat,lng],
-15
-);
+</div>
 
-/* ========================================= */
+<div class="status">
 
-liveOrder.innerHTML =
-selectedRider.currentOrder
-|| "No Active Order";
+${data.status || "Online"}
 
-liveEta.innerHTML =
-selectedRider.eta
-|| "15 Min";
+</div>
 
-liveCity.innerHTML =
-selectedRider.city
-|| "--";
+</div>
 
-liveSpeed.innerHTML =
-`${selectedRider.speed || 0} km/h`;
+<div class="riderBottom">
 
-/* ========================================= */
+<div class="infoBox">
 
-drawRoute(
-lat,
-lng
-);
+<h5>
+Order
+</h5>
 
-};
+<h4>
+${data.orderId || "QP102"}
+</h4>
 
-/* =========================================================
-DRAW ROUTE
-========================================================= */
+</div>
 
-async function drawRoute(
-startLat,
-startLng
-){
+<div class="infoBox">
 
-/* =========================================
-DEMO DESTINATION
-========================================= */
+<h5>
+ETA
+</h5>
 
-const endLat = 28.7041;
-const endLng = 77.1025;
+<h4>
+${data.eta || "12 Min"}
+</h4>
 
-/* ========================================= */
+</div>
 
-try{
+<div class="infoBox">
 
-const response =
-await fetch(
+<h5>
+Speed
+</h5>
 
-`https://api.openrouteservice.org/v2/directions/driving-car?api_key=${ORS_API_KEY}&start=${startLng},${startLat}&end=${endLng},${endLat}`
+<h4>
+${data.speed || 30} km/h
+</h4>
 
-);
+</div>
 
-const data =
-await response.json();
+<div class="infoBox">
 
-/* ========================================= */
+<h5>
+City
+</h5>
 
-const coordinates =
-data.features[0]
-.geometry.coordinates;
+<h4>
+${data.city || "Kasganj"}
+</h4>
 
-/* ========================================= */
+</div>
 
-const route =
-coordinates.map(
+</div>
 
-(coord)=>[
-coord[1],
-coord[0]
-]
+</div>
 
-);
-
-/* ========================================= */
-
-if(routeLine){
-
-map.removeLayer(routeLine);
-
-}
-
-/* ========================================= */
-
-routeLine =
-L.polyline(route,{
-
-weight:6
-
-}).addTo(map);
-
-/* ========================================= */
-
-}catch(error){
-
-console.log(
-"Route Error",
-error
-);
-
-}
-
-}
-
-/* =========================================================
-LIVE MOVEMENT
-========================================================= */
-
-setInterval(()=>{
-
-allRiders.forEach((rider)=>{
-
-if(
-markers[rider.id]
-&&
-rider.online
-){
-
-const current =
-markers[rider.id]
-.getLatLng();
-
-/* =====================================
-DEMO MOVEMENT
-===================================== */
-
-const newLat =
-current.lat +
-((Math.random()-0.5)*0.001);
-
-const newLng =
-current.lng +
-((Math.random()-0.5)*0.001);
-
-/* =====================================
-MOVE
-===================================== */
-
-markers[rider.id]
-.setLatLng([
-newLat,
-newLng
-]);
-
-}
+`;
 
 });
 
-},5000);
-
 /* =========================================================
-AUTO CENTER
+STATS
 ========================================================= */
 
-window.autoCenter =
-()=>{
+document.getElementById(
+"onlineRiders"
+).innerHTML = onlineCount;
 
-if(!selectedRider){
+document.getElementById(
+"activeOrders"
+).innerHTML = onlineCount;
 
-return;
-
-}
-
-const marker =
-markers[selectedRider.id];
-
-if(marker){
-
-map.flyTo(
-marker.getLatLng(),
-15
+document.getElementById(
+"deliveredOrders"
+).innerHTML =
+Math.floor(
+onlineCount * 3
 );
 
 }
-
-};
-
-/* =========================================================
-LIVE STATUS
-========================================================= */
-
-console.log(
-"QuickPress Live Tracking Active"
 );
