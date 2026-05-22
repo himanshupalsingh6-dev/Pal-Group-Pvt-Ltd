@@ -1,6 +1,6 @@
 /* =========================================================
 FILE : partner/js/login.js
-QUICKPRESS PARTNER LOGIN SYSTEM
+FULL SECURE PARTNER LOGIN
 ========================================================= */
 
 import {
@@ -15,6 +15,8 @@ from "../../firebase.js";
 import {
 
 signInWithEmailAndPassword,
+setPersistence,
+browserLocalPersistence,
 onAuthStateChanged
 
 }
@@ -26,7 +28,8 @@ from
 import {
 
 doc,
-getDoc
+getDoc,
+updateDoc
 
 }
 
@@ -53,8 +56,44 @@ document.getElementById(
 "loginBtn"
 );
 
+const togglePassword =
+document.getElementById(
+"togglePassword"
+);
+
 /* =========================================================
-AUTO LOGIN CHECK
+SHOW PASSWORD
+========================================================= */
+
+togglePassword.addEventListener(
+"click",
+()=>{
+
+if(password.type === "password"){
+
+password.type = "text";
+
+togglePassword.classList.replace(
+"fa-eye",
+"fa-eye-slash"
+);
+
+}else{
+
+password.type = "password";
+
+togglePassword.classList.replace(
+"fa-eye-slash",
+"fa-eye"
+);
+
+}
+
+}
+);
+
+/* =========================================================
+AUTO LOGIN
 ========================================================= */
 
 onAuthStateChanged(
@@ -81,18 +120,22 @@ user.uid
 
 /* ========================================================= */
 
-if(
-partnerRef.exists()
-){
+if(partnerRef.exists()){
 
-const data =
+const partnerData =
 partnerRef.data();
 
-/* ========================================================= */
+/* =========================================================
+ROLE CHECK
+========================================================= */
 
 if(
-data.role === "partner"
+partnerData.role === "partner"
 ){
+
+/* =========================================================
+SESSION SAVE
+========================================================= */
 
 localStorage.setItem(
 
@@ -102,11 +145,21 @@ JSON.stringify({
 
 uid:user.uid,
 
-name:data.name,
+name:partnerData.name,
 
-email:data.email,
+email:partnerData.email,
 
-role:data.role
+phone:partnerData.phone,
+
+city:partnerData.city,
+
+shop:partnerData.shop,
+
+profile:partnerData.profile,
+
+role:partnerData.role,
+
+status:partnerData.status
 
 })
 
@@ -145,14 +198,12 @@ async()=>{
 /* ========================================================= */
 
 if(
-
 !email.value ||
 !password.value
-
 ){
 
 showToast(
-"Fill all fields"
+"Please fill all fields"
 );
 
 return;
@@ -164,8 +215,6 @@ return;
 loginBtn.innerHTML =
 "Please Wait...";
 
-/* ========================================================= */
-
 loginBtn.disabled = true;
 
 /* ========================================================= */
@@ -173,7 +222,16 @@ loginBtn.disabled = true;
 try{
 
 /* =========================================================
-LOGIN FIREBASE
+LOCAL SESSION
+========================================================= */
+
+await setPersistence(
+auth,
+browserLocalPersistence
+);
+
+/* =========================================================
+FIREBASE LOGIN
 ========================================================= */
 
 const userCredential =
@@ -209,18 +267,13 @@ user.uid
 
 /* ========================================================= */
 
-if(
-!partnerRef.exists()
-){
+if(!partnerRef.exists()){
 
 showToast(
 "Partner account not found"
 );
 
-loginBtn.innerHTML =
-"Login Partner Account";
-
-loginBtn.disabled = false;
+resetButton();
 
 return;
 
@@ -232,7 +285,7 @@ const partnerData =
 partnerRef.data();
 
 /* =========================================================
-ROLE CHECK
+SECURITY CHECK
 ========================================================= */
 
 if(
@@ -243,17 +296,14 @@ showToast(
 "Unauthorized Access"
 );
 
-loginBtn.innerHTML =
-"Login Partner Account";
-
-loginBtn.disabled = false;
+resetButton();
 
 return;
 
 }
 
 /* =========================================================
-STATUS CHECK
+ACCOUNT STATUS
 ========================================================= */
 
 if(
@@ -264,17 +314,38 @@ showToast(
 "Partner account disabled"
 );
 
-loginBtn.innerHTML =
-"Login Partner Account";
-
-loginBtn.disabled = false;
+resetButton();
 
 return;
 
 }
 
 /* =========================================================
-SAVE SESSION
+UPDATE LOGIN
+========================================================= */
+
+await updateDoc(
+
+doc(
+db,
+"partners",
+user.uid
+),
+
+{
+
+online:true,
+
+lastLogin:new Date(),
+
+device:navigator.userAgent
+
+}
+
+);
+
+/* =========================================================
+SESSION SAVE
 ========================================================= */
 
 localStorage.setItem(
@@ -289,17 +360,25 @@ name:partnerData.name,
 
 email:partnerData.email,
 
+phone:partnerData.phone,
+
+city:partnerData.city,
+
+shop:partnerData.shop,
+
+profile:partnerData.profile,
+
 role:partnerData.role,
 
-city:partnerData.city
+status:partnerData.status,
+
+online:true
 
 })
 
 );
 
-/* =========================================================
-UPDATE ONLINE STATUS
-========================================================= */
+/* ========================================================= */
 
 showToast(
 "Login Successful"
@@ -328,29 +407,18 @@ error.code ===
 ){
 
 showToast(
-"Invalid Email or Password"
+"Invalid email or password"
 );
 
 }
 
 else if(
 error.code ===
-"auth/user-not-found"
+"auth/too-many-requests"
 ){
 
 showToast(
-"Account not found"
-);
-
-}
-
-else if(
-error.code ===
-"auth/wrong-password"
-){
-
-showToast(
-"Wrong Password"
+"Too many attempts. Try later"
 );
 
 }
@@ -367,13 +435,23 @@ error.message
 
 /* ========================================================= */
 
+resetButton();
+
+}
+);
+
+/* =========================================================
+RESET BUTTON
+========================================================= */
+
+function resetButton(){
+
 loginBtn.innerHTML =
 "Login Partner Account";
 
 loginBtn.disabled = false;
 
 }
-);
 
 /* =========================================================
 TOAST
@@ -385,8 +463,6 @@ const toast =
 document.createElement(
 "div"
 );
-
-/* ========================================================= */
 
 toast.innerHTML =
 message;
@@ -412,7 +488,7 @@ toast.style.padding =
 "14px 20px";
 
 toast.style.borderRadius =
-"16px";
+"18px";
 
 toast.style.fontWeight =
 "800";
@@ -422,9 +498,6 @@ toast.style.fontSize =
 
 toast.style.zIndex =
 "999999";
-
-toast.style.boxShadow =
-"0 10px 30px rgba(0,0,0,.15)";
 
 /* ========================================================= */
 
