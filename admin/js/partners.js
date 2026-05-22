@@ -1,22 +1,22 @@
 /* =========================================================
 FILE : admin/js/partners.js
-QUICKPRESS ENTERPRISE PARTNERS PANEL
+ADVANCE PARTNER SYSTEM
 ========================================================= */
 
 import { db }
 
-from
-
-"/Pal-Group-Pvt-Ltd/firebase.js";
+from "../../firebase.js";
 
 import {
 
 collection,
-onSnapshot,
 addDoc,
+onSnapshot,
+deleteDoc,
 doc,
 updateDoc,
-deleteDoc
+query,
+orderBy
 
 }
 
@@ -25,101 +25,17 @@ from
 "https://www.gstatic.com/firebasejs/12.11.0/firebase-firestore.js";
 
 /* =========================================================
-AUTH CHECK
-========================================================= */
-
-const adminLogin =
-localStorage.getItem(
-"quickpress_admin"
-);
-
-if(adminLogin !== "true"){
-
-window.location.href =
-"login.html";
-
-}
-
-/* =========================================================
-DESKTOP ONLY
-========================================================= */
-
-const isMobile =
-/Android|iPhone|iPad|iPod/i
-.test(
-navigator.userAgent
-);
-
-if(
-window.innerWidth < 1024
-||
-isMobile
-){
-
-document.body.innerHTML = `
-
-<div
-style="
-height:100vh;
-display:flex;
-align-items:center;
-justify-content:center;
-background:#111827;
-color:white;
-font-family:Inter,sans-serif;
-text-align:center;
-padding:30px;
-">
-
-<div>
-
-<div
-style="
-font-size:80px;
-margin-bottom:20px;
-">
-
-🖥️
-
-</div>
-
-<h1
-style="
-font-size:42px;
-font-weight:900;
-">
-
-Desktop Only
-
-</h1>
-
-<p
-style="
-margin-top:12px;
-font-size:16px;
-line-height:1.7;
-color:#D1D5DB;
-">
-
-QuickPress Admin Panel only works on Laptop/Desktop
-
-</p>
-
-</div>
-
-</div>
-
-`;
-
-}
-
-/* =========================================================
 ELEMENTS
 ========================================================= */
 
 const partnersGrid =
 document.getElementById(
 "partnersGrid"
+);
+
+const savePartnerBtn =
+document.getElementById(
+"savePartnerBtn"
 );
 
 const searchInput =
@@ -132,348 +48,353 @@ document.getElementById(
 "cityFilter"
 );
 
-const totalPartners =
+/* =========================================================
+INPUTS
+========================================================= */
+
+const partnerName =
 document.getElementById(
-"totalPartners"
+"partnerName"
 );
 
-const activePartners =
+const partnerPhone =
 document.getElementById(
-"activePartners"
+"partnerPhone"
 );
 
-const partnerOrders =
+const partnerCity =
 document.getElementById(
-"partnerOrders"
+"partnerCity"
 );
 
-const partnerRevenue =
+const partnerAddress =
 document.getElementById(
-"partnerRevenue"
+"partnerAddress"
+);
+
+const partnerImage =
+document.getElementById(
+"partnerImage"
+);
+
+const partnerStatus =
+document.getElementById(
+"partnerStatus"
+);
+
+const partnerCommission =
+document.getElementById(
+"partnerCommission"
+);
+
+const partnerWallet =
+document.getElementById(
+"partnerWallet"
+);
+
+const partnerRating =
+document.getElementById(
+"partnerRating"
+);
+
+const partnerDesc =
+document.getElementById(
+"partnerDesc"
 );
 
 /* =========================================================
-DATA
+GLOBAL
 ========================================================= */
+
+let editId = null;
 
 let allPartners = [];
 
 /* =========================================================
-REALTIME PARTNERS
+SAVE PARTNER
 ========================================================= */
 
-onSnapshot(
+savePartnerBtn.addEventListener(
+"click",
+async ()=>{
+
+if(
+!partnerName.value ||
+!partnerPhone.value
+){
+
+showToast(
+"Fill all fields"
+);
+
+return;
+
+}
+
+/* ========================================================= */
+
+const partnerData = {
+
+name:
+partnerName.value,
+
+phone:
+partnerPhone.value,
+
+city:
+partnerCity.value,
+
+address:
+partnerAddress.value,
+
+image:
+partnerImage.value,
+
+status:
+partnerStatus.value,
+
+commission:
+Number(partnerCommission.value),
+
+wallet:
+Number(partnerWallet.value),
+
+rating:
+Number(partnerRating.value),
+
+description:
+partnerDesc.value,
+
+orders:0,
+
+revenue:0,
+
+createdAt:
+new Date()
+
+};
+
+/* ========================================================= */
+
+if(editId){
+
+await updateDoc(
+
+doc(db,"partners",editId),
+
+partnerData
+
+);
+
+showToast(
+"Partner Updated"
+);
+
+editId = null;
+
+savePartnerBtn.innerHTML =
+"Save Partner";
+
+}else{
+
+await addDoc(
 
 collection(db,"partners"),
 
+partnerData
+
+);
+
+showToast(
+"Partner Added"
+);
+
+}
+
+/* ========================================================= */
+
+clearForm();
+
+}
+);
+
+/* =========================================================
+LOAD PARTNERS
+========================================================= */
+
+const partnersQuery =
+query(
+
+collection(db,"partners"),
+
+orderBy("createdAt","desc")
+
+);
+
+onSnapshot(
+partnersQuery,
 (snapshot)=>{
 
 allPartners = [];
 
-let cities = new Set();
+snapshot.forEach(docSnap=>{
 
-let active = 0;
-
-let orders = 0;
-
-let revenue = 0;
-
-/* ========================================= */
-
-snapshot.forEach((docSnap)=>{
-
-const partner = {
+allPartners.push({
 
 id:docSnap.id,
 ...docSnap.data()
 
-};
-
-allPartners.push(partner);
-
-/* ========================================= */
-
-if(partner.city){
-
-cities.add(partner.city);
-
-}
-
-/* ========================================= */
-
-if(partner.active){
-
-active++;
-
-}
-
-/* ========================================= */
-
-orders +=
-Number(partner.totalOrders || 0);
-
-revenue +=
-Number(partner.totalRevenue || 0);
-
 });
 
-/* ========================================= */
-
-totalPartners.innerHTML =
-allPartners.length;
-
-activePartners.innerHTML =
-active;
-
-partnerOrders.innerHTML =
-orders;
-
-partnerRevenue.innerHTML =
-`₹${revenue}`;
-
-/* ========================================= */
-
-loadCities([...cities]);
-
-/* ========================================= */
+});
 
 renderPartners();
 
 }
-
-/* END */
-
 );
 
 /* =========================================================
-LOAD CITIES
-========================================================= */
-
-function loadCities(cities){
-
-const current =
-cityFilter.value;
-
-cityFilter.innerHTML = `
-
-<option value="All">
-All Cities
-</option>
-
-`;
-
-cities.forEach((city)=>{
-
-cityFilter.innerHTML += `
-
-<option value="${city}">
-${city}
-</option>
-
-`;
-
-});
-
-cityFilter.value =
-current;
-
-}
-
-/* =========================================================
-RENDER PARTNERS
+RENDER
 ========================================================= */
 
 function renderPartners(){
 
 partnersGrid.innerHTML = "";
 
-/* ========================================= */
+let filtered =
+allPartners;
 
-const search =
-searchInput.value
-.toLowerCase();
+/* ========================================================= */
 
-const selectedCity =
-cityFilter.value;
+const keyword =
+searchInput.value.toLowerCase();
 
-/* ========================================= */
+if(keyword){
 
-allPartners.forEach((partner)=>{
+filtered =
+filtered.filter(item=>
 
-/* =====================================
-SEARCH
-===================================== */
-
-if(
-search &&
-!(
-(partner.name || "")
+(item.name || "")
 .toLowerCase()
-.includes(search)
-)
-){
+.includes(keyword)
 
-return;
+||
 
-}
+(item.phone || "")
+.toLowerCase()
+.includes(keyword)
 
-/* =====================================
-CITY
-===================================== */
-
-if(
-selectedCity !== "All"
-&&
-partner.city !== selectedCity
-){
-
-return;
+);
 
 }
 
-/* =====================================
-STATUS
-===================================== */
+/* ========================================================= */
 
-const statusClass =
-partner.active
+if(cityFilter.value !== "All"){
 
-?
+filtered =
+filtered.filter(item=>
 
-"active"
+(item.city || "")
+.toLowerCase()
 
-:
+===
 
-"inactive";
+cityFilter.value
+.toLowerCase()
 
-const statusText =
-partner.active
+);
 
-?
+}
 
-"Active"
+/* ========================================================= */
 
-:
+filtered.forEach(partner=>{
 
-"Inactive";
-
-/* =====================================
-CARD
-===================================== */
-
-const card = `
+partnersGrid.innerHTML += `
 
 <div class="partnerCard">
 
-<!-- TOP -->
-
 <div class="partnerTop">
+
+<img
+src="${partner.image || 'https://i.ibb.co/3SWQHfY/user.png'}"
+class="partnerImage">
 
 <div class="partnerInfo">
 
-<div class="avatar">
-
-${partner.name
-?.charAt(0)
-|| "P"}
-
-</div>
-
-<div>
-
-<h3>
-
-${partner.name || "Partner"}
-
-</h3>
+<h2>
+${partner.name}
+</h2>
 
 <p>
-
-${partner.city || ""}
-
+${partner.phone}
 </p>
 
 </div>
 
 </div>
 
-<div class="status ${statusClass}">
-
-${statusText}
-
-</div>
-
-</div>
-
-<!-- INFO -->
+<div class="partnerBody">
 
 <div class="infoGrid">
 
 <div class="infoBox">
 
-<span>
-Mobile
-</span>
+<h5>
+City
+</h5>
 
 <h4>
-
-${partner.mobile || "--"}
-
+${partner.city}
 </h4>
 
 </div>
 
 <div class="infoBox">
 
-<span>
+<h5>
 Orders
-</span>
+</h5>
 
 <h4>
-
-${partner.totalOrders || 0}
-
+${partner.orders || 0}
 </h4>
 
 </div>
 
 <div class="infoBox">
 
-<span>
+<h5>
 Revenue
-</span>
+</h5>
 
 <h4>
-
-₹${partner.totalRevenue || 0}
-
+₹${partner.revenue || 0}
 </h4>
 
 </div>
 
 <div class="infoBox">
 
-<span>
-Commission
-</span>
-
-<h4>
-
-₹${partner.commission || 0}
-
-</h4>
-
-</div>
-
-<div class="infoBox">
-
-<span>
+<h5>
 Wallet
-</span>
+</h5>
 
 <h4>
-
 ₹${partner.wallet || 0}
+</h4>
+
+</div>
+
+<div class="infoBox">
+
+<h5>
+Commission
+</h5>
+
+<h4>
+${partner.commission || 0}%
 
 </h4>
 
@@ -481,50 +402,45 @@ Wallet
 
 <div class="infoBox">
 
-<span>
-Area
-</span>
+<h5>
+Rating
+</h5>
 
 <h4>
-
-${partner.area || "--"}
-
+⭐ ${partner.rating || 5}
 </h4>
 
 </div>
 
 </div>
 
-<!-- BUTTONS -->
+<span class="status ${partner.status === "Active" ? "active" : "inactive"}">
 
-<div class="btnGrid">
+${partner.status}
+
+</span>
+
+<br><br>
+
+<div class="cardActions">
 
 <button
-class="btn viewBtn"
-onclick="viewPartner('${partner.id}')">
+class="editBtn"
+onclick="editPartner('${partner.id}')">
 
-View
+Edit
 
 </button>
 
 <button
-class="btn callBtn"
-onclick="callPartner('${partner.mobile}')">
+class="deleteBtn"
+onclick="deletePartner('${partner.id}')">
 
-Call
-
-</button>
-
-<button
-class="btn toggleBtn"
-onclick="togglePartner(
-'${partner.id}',
-${partner.active}
-)">
-
-${partner.active ? "Disable" : "Enable"}
+Delete
 
 </button>
+
+</div>
 
 </div>
 
@@ -532,145 +448,78 @@ ${partner.active ? "Disable" : "Enable"}
 
 `;
 
-partnersGrid.innerHTML += card;
+});
+
+}
+
+/* =========================================================
+EDIT
+========================================================= */
+
+window.editPartner =
+function(id){
+
+const partner =
+allPartners.find(
+item=>item.id === id
+);
+
+if(!partner){
+
+return;
+
+}
+
+editId = id;
+
+partnerName.value =
+partner.name;
+
+partnerPhone.value =
+partner.phone;
+
+partnerCity.value =
+partner.city;
+
+partnerAddress.value =
+partner.address;
+
+partnerImage.value =
+partner.image;
+
+partnerStatus.value =
+partner.status;
+
+partnerCommission.value =
+partner.commission;
+
+partnerWallet.value =
+partner.wallet;
+
+partnerRating.value =
+partner.rating;
+
+partnerDesc.value =
+partner.description;
+
+savePartnerBtn.innerHTML =
+"Update Partner";
+
+window.scrollTo({
+
+top:0,
+behavior:"smooth"
 
 });
 
 }
 
 /* =========================================================
-SEARCH EVENTS
-========================================================= */
-
-searchInput.addEventListener(
-"input",
-renderPartners
-);
-
-cityFilter.addEventListener(
-"change",
-renderPartners
-);
-
-/* =========================================================
-ADD PARTNER
-========================================================= */
-
-window.addPartner =
-async()=>{
-
-const name =
-prompt(
-"Enter Partner Name"
-);
-
-if(!name){
-
-return;
-
-}
-
-const mobile =
-prompt(
-"Enter Mobile"
-);
-
-const city =
-prompt(
-"Enter City"
-);
-
-const area =
-prompt(
-"Enter Area"
-);
-
-/* ========================================= */
-
-await addDoc(
-
-collection(db,"partners"),
-
-{
-
-name,
-mobile,
-city,
-area,
-
-wallet:0,
-commission:0,
-
-totalOrders:0,
-totalRevenue:0,
-
-active:true,
-
-createdAt:
-new Date()
-
-}
-
-);
-
-alert(
-"Partner Added"
-);
-
-};
-
-/* =========================================================
-VIEW PARTNER
-========================================================= */
-
-window.viewPartner =
-(id)=>{
-
-window.location.href =
-`partner-view.html?id=${id}`;
-
-};
-
-/* =========================================================
-CALL PARTNER
-========================================================= */
-
-window.callPartner =
-(number)=>{
-
-window.open(
-`tel:${number}`
-);
-
-};
-
-/* =========================================================
-TOGGLE PARTNER
-========================================================= */
-
-window.togglePartner =
-async(id,current)=>{
-
-await updateDoc(
-
-doc(db,"partners",id),
-
-{
-
-active:!current
-
-}
-
-);
-
-};
-
-/* =========================================================
-DELETE PARTNER
+DELETE
 ========================================================= */
 
 window.deletePartner =
-async(id)=>{
+async function(id){
 
 const confirmDelete =
 confirm(
@@ -684,13 +533,96 @@ return;
 }
 
 await deleteDoc(
-
 doc(db,"partners",id)
-
 );
 
-alert(
+showToast(
 "Partner Deleted"
 );
 
-};
+}
+
+/* =========================================================
+FILTERS
+========================================================= */
+
+searchInput.addEventListener(
+"input",
+renderPartners
+);
+
+cityFilter.addEventListener(
+"change",
+renderPartners
+);
+
+/* =========================================================
+CLEAR FORM
+========================================================= */
+
+function clearForm(){
+
+partnerName.value = "";
+
+partnerPhone.value = "";
+
+partnerAddress.value = "";
+
+partnerImage.value = "";
+
+partnerDesc.value = "";
+
+}
+
+/* =========================================================
+TOAST
+========================================================= */
+
+function showToast(message){
+
+const toast =
+document.createElement(
+"div"
+);
+
+toast.innerHTML =
+message;
+
+toast.style.position =
+"fixed";
+
+toast.style.bottom =
+"20px";
+
+toast.style.right =
+"20px";
+
+toast.style.background =
+"#111827";
+
+toast.style.color =
+"#fff";
+
+toast.style.padding =
+"14px 20px";
+
+toast.style.borderRadius =
+"16px";
+
+toast.style.fontWeight =
+"800";
+
+toast.style.zIndex =
+"99999";
+
+document.body.appendChild(
+toast
+);
+
+setTimeout(()=>{
+
+toast.remove();
+
+},3000);
+
+}
