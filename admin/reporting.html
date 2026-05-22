@@ -1,482 +1,632 @@
-import { db }
+<!DOCTYPE html>
+<html lang="en">
 
-from "../../firebase.js";
+<head>
 
-import {
+<meta charset="UTF-8">
 
-collection,
-addDoc,
-onSnapshot,
-doc,
-deleteDoc,
-updateDoc
+<meta
+name="viewport"
+content="width=device-width, initial-scale=1.0">
+
+<title>
+QuickPress Reporting
+</title>
+
+<link
+rel="stylesheet"
+href="./layout.css">
+
+<link
+rel="stylesheet"
+href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css"/>
+
+<script
+src="https://cdn.jsdelivr.net/npm/chart.js">
+</script>
+
+<style>
+
+/* =====================================================
+GLOBAL
+===================================================== */
+
+body{
+background:#F4F4F5;
+font-family:Arial,sans-serif;
+}
+
+/* =====================================================
+TOP
+===================================================== */
+
+.reportingTop{
+
+display:flex;
+justify-content:space-between;
+align-items:center;
+
+margin-bottom:24px;
 
 }
 
-from
+.pageTitle{
 
-"https://www.gstatic.com/firebasejs/12.11.0/firebase-firestore.js";
-
-/* =========================================================
-ELEMENTS
-========================================================= */
-
-const servicesContainer =
-document.getElementById(
-"servicesContainer"
-);
-
-const totalServices =
-document.getElementById(
-"totalServices"
-);
-
-const cityFilter =
-document.getElementById(
-"cityFilter"
-);
-
-/* ========================================================= */
-
-let allServices = [];
-
-/* =========================================================
-ADD SERVICE
-========================================================= */
-
-window.addService =
-async()=>{
-
-const service = {
-
-name:
-document.getElementById(
-"serviceName"
-).value,
-
-category:
-document.getElementById(
-"serviceCategory"
-).value,
-
-description:
-document.getElementById(
-"serviceDescription"
-).value,
-
-icon:
-document.getElementById(
-"serviceIcon"
-).value,
-
-city:
-document.getElementById(
-"serviceCity"
-).value,
-
-area:
-document.getElementById(
-"serviceArea"
-).value,
-
-price:Number(
-
-document.getElementById(
-"servicePrice"
-).value
-
-),
-
-deliveryCharge:Number(
-
-document.getElementById(
-"deliveryCharge"
-).value
-
-),
-
-minimumOrder:Number(
-
-document.getElementById(
-"minimumOrder"
-).value
-
-),
-
-urgentCharge:Number(
-
-document.getElementById(
-"urgentCharge"
-).value
-
-),
-
-status:
-document.getElementById(
-"serviceStatus"
-).value,
-
-createdAt:
-Date.now()
-
-};
-
-/* ========================================================= */
-
-await addDoc(
-
-collection(db,"services"),
-
-service
-
-);
-
-/* ========================================================= */
-
-alert(
-"Service Added"
-);
-
-};
-
-/* =========================================================
-REALTIME
-========================================================= */
-
-onSnapshot(
-
-collection(db,"services"),
-
-(snapshot)=>{
-
-servicesContainer.innerHTML = "";
-
-allServices = [];
-
-let cities = [];
-
-/* ========================================================= */
-
-snapshot.forEach(docSnap=>{
-
-const service =
-docSnap.data();
-
-service.id =
-docSnap.id;
-
-allServices.push(service);
-
-/* ========================================================= */
-
-if(!cities.includes(service.city)){
-
-cities.push(service.city);
+font-size:42px;
+font-weight:900;
 
 }
 
-});
+/* =====================================================
+BUTTONS
+===================================================== */
 
-/* ========================================================= */
+.topButtons{
 
-totalServices.innerHTML =
-allServices.length;
-
-/* ========================================================= */
-
-cityFilter.innerHTML =
-
-`
-<option value="">
-All Cities
-</option>
-`;
-
-/* ========================================================= */
-
-cities.forEach(city=>{
-
-cityFilter.innerHTML += `
-
-<option value="${city}">
-${city}
-</option>
-
-`;
-
-});
-
-/* ========================================================= */
-
-renderServices(allServices);
+display:flex;
+gap:12px;
 
 }
-);
 
-/* =========================================================
-RENDER
-========================================================= */
+.topBtn{
 
-function renderServices(data){
+height:48px;
 
-servicesContainer.innerHTML = "";
+padding:0 20px;
 
-/* ========================================================= */
+border:none;
 
-data.forEach(service=>{
+border-radius:14px;
 
-servicesContainer.innerHTML += `
+background:#111827;
+
+color:#fff;
+
+font-size:14px;
+font-weight:900;
+
+cursor:pointer;
+
+}
+
+/* =====================================================
+SUMMARY GRID
+===================================================== */
+
+.summaryGrid{
+
+display:grid;
+
+grid-template-columns:
+repeat(5,1fr);
+
+gap:18px;
+
+margin-bottom:24px;
+
+}
+
+/* =====================================================
+CARD
+===================================================== */
+
+.summaryCard{
+
+background:#fff;
+
+border-radius:22px;
+
+padding:22px;
+
+border:1px solid #E5E7EB;
+
+}
+
+.summaryTitle{
+
+font-size:14px;
+font-weight:800;
+color:#6B7280;
+
+margin-bottom:12px;
+
+}
+
+.summaryValue{
+
+font-size:40px;
+font-weight:900;
+
+margin-bottom:14px;
+
+}
+
+/* =====================================================
+CHART GRID
+===================================================== */
+
+.chartGrid{
+
+display:grid;
+
+grid-template-columns:
+2fr 1fr;
+
+gap:20px;
+
+margin-bottom:24px;
+
+}
+
+/* =====================================================
+BOX
+===================================================== */
+
+.box{
+
+background:#fff;
+
+border-radius:22px;
+
+padding:24px;
+
+border:1px solid #E5E7EB;
+
+}
+
+/* =====================================================
+TITLE
+===================================================== */
+
+.sectionTitle{
+
+font-size:28px;
+font-weight:900;
+
+margin-bottom:20px;
+
+}
+
+/* =====================================================
+TABLE
+===================================================== */
+
+.tableRow{
+
+display:grid;
+
+grid-template-columns:
+1fr 160px 160px 160px;
+
+padding:16px 0;
+
+border-bottom:1px solid #F3F4F6;
+
+align-items:center;
+
+font-size:14px;
+font-weight:800;
+
+}
+
+/* =====================================================
+STATUS
+===================================================== */
+
+.status{
+
+padding:8px 14px;
+
+border-radius:10px;
+
+font-size:12px;
+font-weight:900;
+
+width:max-content;
+
+color:#fff;
+
+}
+
+.success{
+background:#10B981;
+}
+
+.warning{
+background:#F59E0B;
+}
+
+.danger{
+background:#EF4444;
+}
+
+/* =====================================================
+ANALYTICS GRID
+===================================================== */
+
+.analyticsGrid{
+
+display:grid;
+
+grid-template-columns:
+1fr 1fr;
+
+gap:20px;
+
+}
+
+/* =====================================================
+RESPONSIVE
+===================================================== */
+
+@media(max-width:1400px){
+
+.summaryGrid{
+
+grid-template-columns:
+repeat(3,1fr);
+
+}
+
+}
+
+@media(max-width:1100px){
+
+.chartGrid{
+
+grid-template-columns:1fr;
+
+}
+
+.analyticsGrid{
+
+grid-template-columns:1fr;
+
+}
+
+}
+
+@media(max-width:700px){
+
+.summaryGrid{
+
+grid-template-columns:1fr;
+
+}
+
+}
+
+</style>
+
+</head>
+
+<body>
+
+<div id="layoutContainer"></div>
+
+<div class="main">
+
+<!-- =====================================================
+TOP
+===================================================== -->
+
+<div class="reportingTop">
+
+<div class="pageTitle">
+Reporting & Analytics
+</div>
+
+<div class="topButtons">
+
+<button class="topBtn">
+
+Export Excel
+
+</button>
+
+<button class="topBtn">
+
+Download PDF
+
+</button>
+
+<button class="topBtn">
+
+Generate Report
+
+</button>
+
+</div>
+
+</div>
+
+<!-- =====================================================
+SUMMARY
+===================================================== -->
+
+<div class="summaryGrid">
+
+<div class="summaryCard">
+
+<div class="summaryTitle">
+Total Revenue
+</div>
+
+<div
+class="summaryValue"
+id="totalRevenue">
+
+₹0
+
+</div>
+
+<canvas id="revenueMiniChart"></canvas>
+
+</div>
+
+<div class="summaryCard">
+
+<div class="summaryTitle">
+Total Orders
+</div>
+
+<div
+class="summaryValue"
+id="totalOrders">
+
+0
+
+</div>
+
+<canvas id="ordersMiniChart"></canvas>
+
+</div>
+
+<div class="summaryCard">
+
+<div class="summaryTitle">
+Cancelled Orders
+</div>
+
+<div
+class="summaryValue"
+id="cancelledOrders">
+
+0
+
+</div>
+
+<canvas id="cancelMiniChart"></canvas>
+
+</div>
+
+<div class="summaryCard">
+
+<div class="summaryTitle">
+COD Collection
+</div>
+
+<div
+class="summaryValue"
+id="codCollection">
+
+₹0
+
+</div>
+
+<canvas id="codMiniChart"></canvas>
+
+</div>
+
+<div class="summaryCard">
+
+<div class="summaryTitle">
+Delivery Success
+</div>
+
+<div
+class="summaryValue"
+id="deliverySuccess">
+
+0%
+
+</div>
+
+<canvas id="deliveryMiniChart"></canvas>
+
+</div>
+
+</div>
+
+<!-- =====================================================
+CHART GRID
+===================================================== -->
+
+<div class="chartGrid">
+
+<div class="box">
+
+<div class="sectionTitle">
+Revenue Analytics
+</div>
+
+<canvas id="revenueChart"></canvas>
+
+</div>
+
+<div class="box">
+
+<div class="sectionTitle">
+Orders Distribution
+</div>
+
+<canvas id="pieChart"></canvas>
+
+</div>
+
+</div>
+
+<!-- =====================================================
+ANALYTICS GRID
+===================================================== -->
+
+<div class="analyticsGrid">
+
+<!-- =====================================================
+TOP AREAS
+===================================================== -->
+
+<div class="box">
+
+<div class="sectionTitle">
+Top Areas
+</div>
+
+<div id="areaContainer">
+
+</div>
+
+</div>
+
+<!-- =====================================================
+TOP RIDERS
+===================================================== -->
+
+<div class="box">
+
+<div class="sectionTitle">
+Top Riders
+</div>
+
+<div id="riderContainer">
+
+</div>
+
+</div>
+
+<!-- =====================================================
+LIVE REPORTS
+===================================================== -->
+
+<div class="box">
+
+<div class="sectionTitle">
+Live Reports
+</div>
+
+<div id="reportContainer">
+
+</div>
+
+</div>
+
+<!-- =====================================================
+SYSTEM STATUS
+===================================================== -->
+
+<div class="box">
+
+<div class="sectionTitle">
+System Status
+</div>
 
 <div class="tableRow">
 
 <div>
-
-<div class="serviceIcon">
-
-<i class="fa-solid ${service.icon}"></i>
-
+Server Status
 </div>
 
-</div>
-
-<div>
-
-<div style="
-font-size:16px;
-font-weight:900;
-margin-bottom:8px;
-">
-
-${service.name}
-
-</div>
-
-<div style="
-font-size:13px;
-color:#6B7280;
-">
-
-${service.description}
-
-</div>
-
+<div class="status success">
+Online
 </div>
 
 <div>
-${service.category}
+99.9%
 </div>
 
 <div>
+Running
+</div>
 
-${service.city}
+</div>
 
-<br>
+<div class="tableRow">
 
-${service.area}
+<div>
+Payment Gateway
+</div>
 
+<div class="status success">
+Active
 </div>
 
 <div>
-
-₹${service.price}
-
+100%
 </div>
 
 <div>
-
-<div class="status ${service.status}">
-${service.status}
+Secure
 </div>
 
 </div>
 
-<div class="rowActions">
+<div class="tableRow">
 
-<button
-class="rowBtn editBtn"
-onclick="toggleStatus('${service.id}','${service.status}')">
+<div>
+API Services
+</div>
 
-Toggle
+<div class="status success">
+Stable
+</div>
 
-</button>
+<div>
+98%
+</div>
 
-<button
-class="rowBtn deleteBtn"
-onclick="deleteService('${service.id}')">
+<div>
+Connected
+</div>
 
-Delete
+</div>
 
-</button>
+<div class="tableRow">
+
+<div>
+Delivery System
+</div>
+
+<div class="status warning">
+Busy
+</div>
+
+<div>
+87%
+</div>
+
+<div>
+Working
+</div>
+
+</div>
 
 </div>
 
 </div>
 
-`;
+</div>
 
-});
+<script type="module"
+src="./js/auth.js">
+</script>
 
-}
+<script type="module"
+src="./js/layout.js">
+</script>
 
-/* =========================================================
-DELETE
-========================================================= */
+<script type="module"
+src="./js/reporting.js">
+</script>
 
-window.deleteService =
-async(id)=>{
-
-await deleteDoc(
-doc(db,"services",id)
-);
-
-};
-
-/* =========================================================
-TOGGLE
-========================================================= */
-
-window.toggleStatus =
-async(id,current)=>{
-
-let next = "active";
-
-/* ========================================================= */
-
-if(current === "active"){
-
-next = "inactive";
-
-}else{
-
-next = "active";
-
-}
-
-/* ========================================================= */
-
-await updateDoc(
-
-doc(db,"services",id),
-
-{
-
-status:next
-
-}
-
-);
-
-};
-
-/* =========================================================
-FILTERS
-========================================================= */
-
-document.getElementById(
-"searchInput"
-).addEventListener(
-"keyup",
-filterServices
-);
-
-document.getElementById(
-"categoryFilter"
-).addEventListener(
-"change",
-filterServices
-);
-
-document.getElementById(
-"cityFilter"
-).addEventListener(
-"change",
-filterServices
-);
-
-document.getElementById(
-"statusFilter"
-).addEventListener(
-"change",
-filterServices
-);
-
-/* ========================================================= */
-
-function filterServices(){
-
-const search =
-
-document.getElementById(
-"searchInput"
-).value.toLowerCase();
-
-const category =
-
-document.getElementById(
-"categoryFilter"
-).value;
-
-const city =
-
-document.getElementById(
-"cityFilter"
-).value;
-
-const status =
-
-document.getElementById(
-"statusFilter"
-).value;
-
-/* ========================================================= */
-
-const filtered =
-
-allServices.filter(service=>{
-
-const matchSearch =
-
-service.name
-.toLowerCase()
-.includes(search);
-
-const matchCategory =
-
-category
-?
-service.category === category
-:
-true;
-
-const matchCity =
-
-city
-?
-service.city === city
-:
-true;
-
-const matchStatus =
-
-status
-?
-service.status === status
-:
-true;
-
-return (
-
-matchSearch &&
-matchCategory &&
-matchCity &&
-matchStatus
-
-);
-
-});
-
-/* ========================================================= */
-
-renderServices(filtered);
-
-}
+</body>
+</html>
