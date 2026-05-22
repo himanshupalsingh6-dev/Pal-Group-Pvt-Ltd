@@ -1,20 +1,22 @@
 /* =========================================================
-FILE : partner/js/index.js
-QUICKPRESS PARTNER DASHBOARD
+FILE : admin/js/partners.js
+ADVANCE PARTNER MANAGEMENT
 ========================================================= */
 
-import { db }
+import {
+
+db
+
+}
 
 from "../../firebase.js";
 
 import {
 
-doc,
-getDoc,
 collection,
-query,
-where,
-onSnapshot
+onSnapshot,
+doc,
+updateDoc
 
 }
 
@@ -23,222 +25,396 @@ from
 "https://www.gstatic.com/firebasejs/12.11.0/firebase-firestore.js";
 
 /* =========================================================
-SESSION
-========================================================= */
-
-const partnerSession =
-
-JSON.parse(
-
-localStorage.getItem(
-"partner"
-)
-
-);
-
-/* ========================================================= */
-
-if(!partnerSession){
-
-window.location.href =
-"login.html";
-
-}
-
-/* =========================================================
 ELEMENTS
 ========================================================= */
 
-const partnerName =
+const partnersTable =
 document.getElementById(
-"partnerName"
+"partnersTable"
 );
 
-const partnerCity =
+const totalPartners =
 document.getElementById(
-"partnerCity"
+"totalPartners"
 );
 
-const todayOrders =
+const onlinePartners =
 document.getElementById(
-"todayOrders"
+"onlinePartners"
 );
 
-const todayRevenue =
+const totalRevenue =
 document.getElementById(
-"todayRevenue"
+"totalRevenue"
 );
 
-const processingOrders =
+const activeOrders =
 document.getElementById(
-"processingOrders"
+"activeOrders"
 );
 
-const walletBalance =
+const searchInput =
 document.getElementById(
-"walletBalance"
+"searchInput"
 );
 
-const ordersContainer =
+const cityFilter =
 document.getElementById(
-"ordersContainer"
+"cityFilter"
+);
+
+const statusFilter =
+document.getElementById(
+"statusFilter"
 );
 
 /* =========================================================
-LOAD PARTNER
+LOAD PARTNERS
 ========================================================= */
-
-async function loadPartner(){
-
-const partnerRef =
-
-await getDoc(
-
-doc(
-
-db,
-"partners",
-partnerSession.uid
-
-)
-
-);
-
-/* ========================================================= */
-
-if(!partnerRef.exists()){
-
-showToast(
-"Partner not found"
-);
-
-return;
-
-}
-
-/* ========================================================= */
-
-const data =
-partnerRef.data();
-
-/* ========================================================= */
-
-partnerName.innerHTML =
-data.name || "Partner";
-
-partnerCity.innerHTML =
-data.city || "Kasganj";
-
-walletBalance.innerHTML =
-
-"₹" +
-
-(data.wallet || 0);
-
-}
-
-/* =========================================================
-LOAD ORDERS
-========================================================= */
-
-const ordersQuery =
-
-query(
-
-collection(db,"orders"),
-
-where(
-"partnerId",
-"==",
-partnerSession.uid
-)
-
-);
-
-/* ========================================================= */
 
 onSnapshot(
-ordersQuery,
+
+collection(db,"partners"),
+
 (snapshot)=>{
 
-ordersContainer.innerHTML = "";
+partnersTable.innerHTML = "";
 
 /* ========================================================= */
 
-let totalOrders = 0;
+let partnerCount = 0;
+let onlineCount = 0;
+let revenueCount = 0;
+let orderCount = 0;
 
-let totalRevenue = 0;
-
-let processing = 0;
+const cities = [];
 
 /* ========================================================= */
 
 snapshot.forEach(docSnap=>{
 
-const order =
+const partner =
 docSnap.data();
 
-totalOrders++;
-
-totalRevenue +=
-order.total || 0;
+const partnerId =
+docSnap.id;
 
 /* ========================================================= */
 
-if(
-order.status === "Processing"
-){
+partnerCount++;
 
-processing++;
+revenueCount +=
+partner.earnings || 0;
+
+orderCount +=
+partner.orders || 0;
+
+/* ========================================================= */
+
+if(partner.online){
+
+onlineCount++;
 
 }
 
 /* ========================================================= */
 
-ordersContainer.innerHTML += `
+if(
+partner.city &&
+!cities.includes(
+partner.city
+)
+){
 
-<div class="orderItem">
+cities.push(
+partner.city
+);
 
-<div class="orderLeft">
+}
 
-<h3>
-${order.orderId || "QP102"}
-</h3>
+/* ========================================================= */
+
+partnersTable.innerHTML += `
+
+<tr class="partnerRow">
+
+<td>
+
+<div class="partnerBox">
+
+<img
+src="${partner.profile || 'https://i.ibb.co/3SWQHfY/user.png'}"
+class="partnerImage">
+
+<div class="partnerInfo">
+
+<h4>
+${partner.name || 'Partner'}
+</h4>
 
 <p>
-${order.customerName || "Customer"}
+${partner.shop || 'QuickPress'}
 </p>
 
 </div>
 
-<div class="orderStatus ${order.status === 'Ready' ? 'ready' : 'processing'}">
+</div>
 
-${order.status || "Processing"}
+</td>
+
+<td>
+${partner.city || '-'}
+</td>
+
+<td>
+₹${partner.earnings || 0}
+</td>
+
+<td>
+${partner.orders || 0}
+</td>
+
+<td>
+₹${partner.wallet || 0}
+</td>
+
+<td>
+
+<div class="status ${partner.online ? 'active' : 'offline'}">
+
+${partner.online ? 'Online' : 'Offline'}
 
 </div>
 
+</td>
+
+<td>
+
+<div class="actionButtons">
+
+<button
+class="actionBtn viewBtn"
+onclick="viewPartner('${partnerId}')">
+
+View
+
+</button>
+
+<button
+class="actionBtn walletBtn"
+onclick="walletPartner('${partnerId}')">
+
+Wallet
+
+</button>
+
+<button
+class="actionBtn disableBtn"
+onclick="togglePartner(
+'${partnerId}',
+${partner.shopDisabled ? true : false}
+)">
+
+${partner.shopDisabled ? 'Enable' : 'Disable'}
+
+</button>
+
 </div>
+
+</td>
+
+</tr>
 
 `;
 
 });
 
+/* =========================================================
+UPDATE CARDS
+========================================================= */
+
+totalPartners.innerHTML =
+partnerCount;
+
+onlinePartners.innerHTML =
+onlineCount;
+
+totalRevenue.innerHTML =
+"₹" + revenueCount;
+
+activeOrders.innerHTML =
+orderCount;
+
+/* =========================================================
+CITY FILTER
+========================================================= */
+
+cityFilter.innerHTML =
+`<option value="">All Cities</option>`;
+
 /* ========================================================= */
 
-todayOrders.innerHTML =
-totalOrders;
+cities.forEach(city=>{
 
-todayRevenue.innerHTML =
+cityFilter.innerHTML += `
 
-"₹" +
+<option value="${city}">
+${city}
+</option>
 
-totalRevenue;
+`;
 
-processingOrders.innerHTML =
-processing;
+});
 
 }
 );
+
+/* =========================================================
+SEARCH
+========================================================= */
+
+searchInput.addEventListener(
+"keyup",
+filterPartners
+);
+
+cityFilter.addEventListener(
+"change",
+filterPartners
+);
+
+statusFilter.addEventListener(
+"change",
+filterPartners
+);
+
+/* =========================================================
+FILTER
+========================================================= */
+
+function filterPartners(){
+
+const search =
+searchInput.value.toLowerCase();
+
+const city =
+cityFilter.value.toLowerCase();
+
+const status =
+statusFilter.value.toLowerCase();
+
+/* ========================================================= */
+
+document
+.querySelectorAll(".partnerRow")
+.forEach(row=>{
+
+const text =
+row.innerText.toLowerCase();
+
+/* ========================================================= */
+
+const showSearch =
+text.includes(search);
+
+const showCity =
+city === "" || text.includes(city);
+
+const showStatus =
+status === "" || text.includes(status);
+
+/* ========================================================= */
+
+if(
+showSearch &&
+showCity &&
+showStatus
+){
+
+row.style.display =
+"table-row";
+
+}
+
+else{
+
+row.style.display =
+"none";
+
+}
+
+});
+
+}
+
+/* =========================================================
+VIEW
+========================================================= */
+
+window.viewPartner = (id)=>{
+
+window.location.href =
+`partner-view.html?id=${id}`;
+
+};
+
+/* =========================================================
+WALLET
+========================================================= */
+
+window.walletPartner = (id)=>{
+
+window.location.href =
+`partner-wallet.html?id=${id}`;
+
+};
+
+/* =========================================================
+ENABLE DISABLE
+========================================================= */
+
+window.togglePartner =
+async(id,status)=>{
+
+try{
+
+await updateDoc(
+
+doc(
+db,
+"partners",
+id
+),
+
+{
+
+shopDisabled:!status,
+
+updatedAt:new Date()
+
+}
+
+);
+
+/* ========================================================= */
+
+showToast(
+
+status
+?
+"Partner Enabled"
+:
+"Partner Disabled"
+
+);
+
+}catch(error){
+
+console.log(error);
+
+}
+
+};
 
 /* =========================================================
 TOAST
@@ -251,8 +427,12 @@ document.createElement(
 "div"
 );
 
+/* ========================================================= */
+
 toast.innerHTML =
 message;
+
+/* ========================================================= */
 
 toast.style.position =
 "fixed";
@@ -273,17 +453,21 @@ toast.style.padding =
 "14px 20px";
 
 toast.style.borderRadius =
-"16px";
+"18px";
 
 toast.style.fontWeight =
 "800";
 
 toast.style.zIndex =
-"99999";
+"999999";
+
+/* ========================================================= */
 
 document.body.appendChild(
 toast
 );
+
+/* ========================================================= */
 
 setTimeout(()=>{
 
@@ -292,7 +476,3 @@ toast.remove();
 },3000);
 
 }
-
-/* ========================================================= */
-
-loadPartner();
