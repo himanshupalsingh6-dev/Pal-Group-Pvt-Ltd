@@ -1,257 +1,448 @@
-<!-- =========================================================
-FILE : admin/tracking.html
-QUICKPRESS LIVE RIDER TRACKING SYSTEM
-========================================================= -->
-
 <!DOCTYPE html>
 <html lang="en">
 
 <head>
 
-<meta charset="UTF-8"/>
+<meta charset="UTF-8">
 
-<meta name="viewport"
-content="width=device-width, initial-scale=1.0"/>
+<meta
+name="viewport"
+content="width=device-width, initial-scale=1.0">
 
 <title>
-QuickPress Live Tracking
+QuickPress Live Tracking Admin
 </title>
-
-<link rel="stylesheet"
-href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css"/>
-  
-<link rel="stylesheet" href="./css/global.css"/>
-  
 
 <link
 rel="stylesheet"
-href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"/>
+href="layout.css">
 
-<script
-src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js">
-</script>
+<link
+rel="stylesheet"
+href="https://unpkg.com/leaflet/dist/leaflet.css"/>
+
+<link
+rel="stylesheet"
+href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css"/>
 
 <style>
-
-/* =====================================================
-GLOBAL
-===================================================== */
-
-*{
-margin:0;
-padding:0;
-box-sizing:border-box;
-font-family:Inter,sans-serif;
-}
-
-body{
-background:#F5F7FB;
-overflow:hidden;
-color:#111827;
-}
-
 
 /* =====================================================
 MAIN
 ===================================================== */
 
 .main{
-margin-left:240px;
-margin-top:82px;
-height:calc(100vh - 82px);
-display:flex;
+
+margin-left:290px;
+
+width:calc(100% - 290px);
+
+min-height:100vh;
+
+background:#F4F7FB;
+
+overflow:hidden;
+
 }
 
-/* =====================================================
-LEFT PANEL
-===================================================== */
+.content{
 
-.leftPanel{
-width:420px;
-background:#fff;
-border-right:1px solid #E5E7EB;
-display:flex;
-flex-direction:column;
-}
-
-.panelHeader{
 padding:24px;
-border-bottom:1px solid #E5E7EB;
-}
 
-.panelHeader h1{
-font-size:36px;
-font-weight:900;
-margin-bottom:18px;
-}
-
-.searchBox{
-width:100%;
-height:54px;
-border-radius:14px;
-border:1px solid #E5E7EB;
-padding:0 18px;
-font-size:14px;
-outline:none;
 }
 
 /* =====================================================
-RIDER LIST
+HEADER
 ===================================================== */
 
-.riderList{
-flex:1;
-overflow:auto;
-padding:14px;
-}
+.pageHeader{
 
-.riderCard{
-background:#fff;
-border:1px solid #E5E7EB;
-border-radius:22px;
-padding:18px;
 display:flex;
-align-items:center;
+
 justify-content:space-between;
-margin-bottom:14px;
-cursor:pointer;
-transition:0.2s;
-}
 
-.riderCard:hover{
-background:#F9FAFB;
-}
-
-.riderLeft{
-display:flex;
 align-items:center;
-gap:14px;
+
+gap:20px;
+
+margin-bottom:24px;
+
+flex-wrap:wrap;
+
 }
 
-.avatar{
-position:relative;
-width:60px;
-height:60px;
-border-radius:18px;
-background:#DBEAFE;
-display:flex;
-align-items:center;
-justify-content:center;
-font-size:20px;
+.pageTitle{
+
+font-size:58px;
+
 font-weight:900;
-}
 
-.onlineDot{
-position:absolute;
-bottom:0;
-right:0;
-width:14px;
-height:14px;
-border-radius:50%;
-background:#22C55E;
-border:2px solid white;
-}
+letter-spacing:-2px;
 
-.riderInfo h3{
-font-size:16px;
-font-weight:900;
-margin-bottom:6px;
-}
-
-.riderInfo p{
-font-size:13px;
-color:#6B7280;
-}
-
-.status{
-padding:10px 14px;
-border-radius:999px;
-font-size:12px;
-font-weight:800;
-}
-
-.online{
-background:#DCFCE7;
-color:#166534;
 }
 
 /* =====================================================
-MAP AREA
+TOP STATS
 ===================================================== */
 
-.mapArea{
-flex:1;
-position:relative;
+.statsGrid{
+
+display:grid;
+
+grid-template-columns:
+repeat(4,1fr);
+
+gap:20px;
+
+margin-bottom:24px;
+
+}
+
+.statCard{
+
+background:#fff;
+
+padding:24px;
+
+border-radius:30px;
+
+border:1px solid #E5E7EB;
+
+}
+
+.statCard h5{
+
+font-size:13px;
+
+font-weight:900;
+
+color:#6B7280;
+
+margin-bottom:12px;
+
+}
+
+.statCard h2{
+
+font-size:38px;
+
+font-weight:900;
+
 }
 
 /* =====================================================
 MAP
 ===================================================== */
 
-#map{
+.mapWrap{
+
+position:relative;
+
 width:100%;
+
+height:75vh;
+
+border-radius:32px;
+
+overflow:hidden;
+
+border:1px solid #E5E7EB;
+
+}
+
+#map{
+
+width:100%;
+
 height:100%;
+
+z-index:1;
+
 }
 
 /* =====================================================
-LIVE CARD
+LIVE PANEL
 ===================================================== */
 
-.liveCard{
+.livePanel{
+
 position:absolute;
-top:24px;
-left:24px;
-width:360px;
+
+top:20px;
+
+right:20px;
+
+width:380px;
+
+max-height:90%;
+
+overflow-y:auto;
+
 background:#fff;
-border-radius:24px;
-padding:22px;
+
+border-radius:30px;
+
+padding:20px;
+
 z-index:999;
-box-shadow:0 10px 40px rgba(0,0,0,0.08);
+
+box-shadow:
+0 10px 40px rgba(0,0,0,.08);
+
 }
 
-.liveTop{
+/* =====================================================
+LIVE HEADER
+===================================================== */
+
+.liveHeader{
+
 display:flex;
+
 justify-content:space-between;
+
 align-items:center;
-margin-bottom:18px;
+
+margin-bottom:20px;
+
 }
 
-.liveTop h2{
+.liveHeader h2{
+
 font-size:24px;
+
 font-weight:900;
+
 }
 
-.liveBadge{
-padding:10px 14px;
-border-radius:999px;
-background:#DCFCE7;
-color:#166534;
-font-size:12px;
-font-weight:800;
+.liveDot{
+
+width:14px;
+
+height:14px;
+
+border-radius:50%;
+
+background:#16A34A;
+
+animation:pulse 1s infinite;
+
 }
 
-.liveInfo{
-display:grid;
-grid-template-columns:1fr 1fr;
+@keyframes pulse{
+
+0%{
+transform:scale(1);
+opacity:1;
+}
+
+50%{
+transform:scale(1.5);
+opacity:.5;
+}
+
+100%{
+transform:scale(1);
+opacity:1;
+}
+
+}
+
+/* =====================================================
+RIDER CARD
+===================================================== */
+
+.riderCard{
+
+background:#F9FAFB;
+
+border-radius:24px;
+
+padding:18px;
+
+margin-bottom:16px;
+
+border:1px solid #E5E7EB;
+
+}
+
+.riderTop{
+
+display:flex;
+
+align-items:center;
+
+justify-content:space-between;
+
+gap:12px;
+
+margin-bottom:14px;
+
+}
+
+.riderLeft{
+
+display:flex;
+
+align-items:center;
+
 gap:14px;
+
+}
+
+.riderImage{
+
+width:60px;
+
+height:60px;
+
+border-radius:50%;
+
+object-fit:cover;
+
+}
+
+.riderInfo h3{
+
+font-size:18px;
+
+font-weight:900;
+
+margin-bottom:4px;
+
+}
+
+.riderInfo p{
+
+font-size:13px;
+
+font-weight:700;
+
+color:#6B7280;
+
+}
+
+.status{
+
+padding:8px 14px;
+
+border-radius:999px;
+
+font-size:12px;
+
+font-weight:900;
+
+background:#DCFCE7;
+
+color:#15803D;
+
+}
+
+.riderBottom{
+
+display:grid;
+
+grid-template-columns:1fr 1fr;
+
+gap:12px;
+
 }
 
 .infoBox{
-background:#F9FAFB;
-padding:16px;
-border-radius:16px;
+
+background:#fff;
+
+padding:14px;
+
+border-radius:18px;
+
 }
 
-.infoBox span{
-font-size:12px;
-font-weight:700;
-color:#6B7280;
-}
+.infoBox h5{
 
-.infoBox h3{
-font-size:18px;
+font-size:11px;
+
 font-weight:900;
-margin-top:8px;
+
+color:#6B7280;
+
+margin-bottom:8px;
+
+}
+
+.infoBox h4{
+
+font-size:16px;
+
+font-weight:900;
+
+}
+
+/* =====================================================
+RESPONSIVE
+===================================================== */
+
+@media(max-width:1200px){
+
+.statsGrid{
+
+grid-template-columns:
+repeat(2,1fr);
+
+}
+
+}
+
+@media(max-width:900px){
+
+.main{
+
+margin-left:0;
+
+width:100%;
+
+}
+
+.content{
+
+padding:16px;
+
+}
+
+.pageTitle{
+
+font-size:40px;
+
+}
+
+.statsGrid{
+
+grid-template-columns:1fr;
+
+}
+
+.mapWrap{
+
+height:85vh;
+
+}
+
+.livePanel{
+
+position:relative;
+
+top:auto;
+
+right:auto;
+
+width:100%;
+
+margin-top:20px;
+
+max-height:none;
+
+}
+
 }
 
 </style>
@@ -259,140 +450,138 @@ margin-top:8px;
 </head>
 
 <body>
-<div id="topbar"></div>
 
-<div id="sidebar"></div>
+<div class="adminLayout">
 
-<!-- =====================================================
-MAIN
-===================================================== -->
+<div id="layoutContainer"></div>
 
 <div class="main">
 
+<div class="content">
+
 <!-- =====================================================
-LEFT PANEL
+HEADER
 ===================================================== -->
 
-<div class="leftPanel">
+<div class="pageHeader">
 
-<div class="panelHeader">
-
-<h1>
+<div class="pageTitle">
 Live Tracking
-</h1>
-
-<input
-type="text"
-placeholder="Search rider..."
-class="searchBox"
-id="searchInput"
-/>
-
-</div>
-
-<div
-class="riderList"
-id="riderList">
-
 </div>
 
 </div>
 
 <!-- =====================================================
-MAP AREA
+STATS
 ===================================================== -->
 
-<div class="mapArea">
+<div class="statsGrid">
 
-<!-- LIVE CARD -->
+<div class="statCard">
 
-<div class="liveCard">
+<h5>
+Online Riders
+</h5>
 
-<div class="liveTop">
-
-<h2>
-Live Rider
+<h2 id="onlineRiders">
+0
 </h2>
 
-<div class="liveBadge">
-ONLINE
 </div>
 
-</div>
+<div class="statCard">
 
-<div class="liveInfo">
+<h5>
+Active Deliveries
+</h5>
 
-<div class="infoBox">
-
-<span>
-Current Order
-</span>
-
-<h3 id="liveOrder">
---
-</h3>
+<h2 id="activeOrders">
+0
+</h2>
 
 </div>
 
-<div class="infoBox">
+<div class="statCard">
 
-<span>
-ETA
-</span>
+<h5>
+Delivered Today
+</h5>
 
-<h3 id="liveEta">
---
-</h3>
-
-</div>
-
-<div class="infoBox">
-
-<span>
-City
-</span>
-
-<h3 id="liveCity">
---
-</h3>
+<h2 id="deliveredOrders">
+0
+</h2>
 
 </div>
 
-<div class="infoBox">
+<div class="statCard">
 
-<span>
-Speed
-</span>
+<h5>
+Average ETA
+</h5>
 
-<h3 id="liveSpeed">
---
-</h3>
+<h2 id="avgEta">
+12m
+</h2>
 
 </div>
 
 </div>
 
-</div>
+<!-- =====================================================
+MAP
+===================================================== -->
 
-<!-- MAP -->
+<div class="mapWrap">
 
 <div id="map"></div>
 
+<!-- =====================================================
+LIVE PANEL
+===================================================== -->
+
+<div class="livePanel">
+
+<div class="liveHeader">
+
+<h2>
+Live Riders
+</h2>
+
+<div class="liveDot"></div>
+
+</div>
+
+<div id="ridersList"></div>
+
 </div>
 
 </div>
 
+</div>
+
+</div>
+
+</div>
+
+<!-- =====================================================
+LEAFLET
+===================================================== -->
+
+<script
+src="https://unpkg.com/leaflet/dist/leaflet.js">
+</script>
+
+<!-- =====================================================
+JS
+===================================================== -->
+
 <script type="module"
-src="./js/tracking.js">
+src="js/layout.js">
 </script>
 
 <script type="module"
-src="./components/topbar.js">
+src="js/tracking.js">
 </script>
 
-<script type="module"
-src="./components/sidebar.js">
-</script>
-  
 </body>
 </html>
