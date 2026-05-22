@@ -13,15 +13,40 @@ content="width=device-width, initial-scale=1.0">
 QuickPress Partner Dashboard
 </title>
 
+<!-- =====================================================
+CSS
+===================================================== -->
+
 <link
 rel="stylesheet"
-href="../admin/layout.css">
+href="./layout.css">
 
 <link
 rel="stylesheet"
 href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css"/>
 
 <style>
+
+/* =====================================================
+GLOBAL
+===================================================== */
+
+*{
+
+margin:0;
+padding:0;
+box-sizing:border-box;
+font-family:Arial,sans-serif;
+
+}
+
+body{
+
+background:#F4F7FB;
+
+overflow-x:hidden;
+
+}
 
 /* =====================================================
 MAIN
@@ -34,8 +59,6 @@ margin-left:290px;
 width:calc(100% - 290px);
 
 min-height:100vh;
-
-background:#F4F7FB;
 
 padding:24px;
 
@@ -68,6 +91,8 @@ font-size:58px;
 font-weight:900;
 
 letter-spacing:-2px;
+
+color:#111827;
 
 }
 
@@ -115,7 +140,7 @@ opacity:1;
 }
 
 50%{
-transform:scale(1.4);
+transform:scale(1.5);
 opacity:.5;
 }
 
@@ -147,7 +172,7 @@ margin-bottom:28px;
 
 background:#fff;
 
-border-radius:30px;
+border-radius:32px;
 
 padding:24px;
 
@@ -163,7 +188,7 @@ font-weight:900;
 
 color:#6B7280;
 
-margin-bottom:10px;
+margin-bottom:12px;
 
 }
 
@@ -174,6 +199,8 @@ font-size:42px;
 font-weight:900;
 
 margin-bottom:10px;
+
+color:#111827;
 
 }
 
@@ -188,7 +215,7 @@ color:#6B7280;
 }
 
 /* =====================================================
-GRID
+DASHBOARD GRID
 ===================================================== */
 
 .dashboardGrid{
@@ -202,7 +229,7 @@ gap:24px;
 }
 
 /* =====================================================
-ORDERS
+ORDERS CARD
 ===================================================== */
 
 .ordersCard{
@@ -215,6 +242,8 @@ padding:24px;
 
 border:1px solid #E5E7EB;
 
+min-height:500px;
+
 }
 
 .cardHeader{
@@ -225,17 +254,23 @@ justify-content:space-between;
 
 align-items:center;
 
-margin-bottom:22px;
+margin-bottom:24px;
 
 }
 
 .cardTitle{
 
-font-size:28px;
+font-size:30px;
 
 font-weight:900;
 
+color:#111827;
+
 }
+
+/* =====================================================
+ORDER ITEM
+===================================================== */
 
 .orderItem{
 
@@ -249,7 +284,7 @@ gap:20px;
 
 padding:18px;
 
-border-radius:22px;
+border-radius:24px;
 
 background:#F9FAFB;
 
@@ -266,6 +301,8 @@ font-size:18px;
 font-weight:900;
 
 margin-bottom:6px;
+
+color:#111827;
 
 }
 
@@ -307,6 +344,14 @@ color:#15803D;
 
 }
 
+.pending{
+
+background:#DBEAFE;
+
+color:#2563EB;
+
+}
+
 /* =====================================================
 RIGHT PANEL
 ===================================================== */
@@ -322,7 +367,7 @@ gap:24px;
 }
 
 /* =====================================================
-PROFILE
+PROFILE CARD
 ===================================================== */
 
 .profileCard{
@@ -331,7 +376,7 @@ background:#fff;
 
 border-radius:32px;
 
-padding:24px;
+padding:28px;
 
 border:1px solid #E5E7EB;
 
@@ -349,17 +394,21 @@ border-radius:50%;
 
 object-fit:cover;
 
-margin-bottom:18px;
+margin-bottom:20px;
+
+border:6px solid #F3F4F6;
 
 }
 
 .profileCard h2{
 
-font-size:30px;
+font-size:32px;
 
 font-weight:900;
 
 margin-bottom:8px;
+
+color:#111827;
 
 }
 
@@ -371,12 +420,12 @@ font-weight:700;
 
 color:#6B7280;
 
-margin-bottom:24px;
+margin-bottom:28px;
 
 }
 
 /* =====================================================
-ACTION BUTTONS
+ACTION GRID
 ===================================================== */
 
 .actionGrid{
@@ -391,7 +440,7 @@ gap:14px;
 
 .actionBtn{
 
-height:60px;
+height:62px;
 
 border:none;
 
@@ -406,6 +455,14 @@ font-size:14px;
 font-weight:900;
 
 cursor:pointer;
+
+transition:.3s;
+
+}
+
+.actionBtn:hover{
+
+transform:translateY(-2px);
 
 }
 
@@ -454,6 +511,12 @@ grid-template-columns:1fr;
 
 }
 
+.actionGrid{
+
+grid-template-columns:1fr;
+
+}
+
 }
 
 </style>
@@ -462,9 +525,15 @@ grid-template-columns:1fr;
 
 <body>
 
-<div class="adminLayout">
+<!-- =====================================================
+LAYOUT
+===================================================== -->
 
 <div id="layoutContainer"></div>
+
+<!-- =====================================================
+MAIN
+===================================================== -->
 
 <div class="main">
 
@@ -580,7 +649,13 @@ Recent Orders
 
 </div>
 
-<div id="ordersContainer"></div>
+<div id="ordersContainer">
+
+<!-- =====================================================
+LIVE ORDERS HERE
+===================================================== -->
+
+</div>
 
 </div>
 
@@ -590,11 +665,16 @@ RIGHT PANEL
 
 <div class="rightPanel">
 
+<!-- =====================================================
+PROFILE
+===================================================== -->
+
 <div class="profileCard">
 
 <img
 src="https://i.ibb.co/3SWQHfY/user.png"
-class="profileImage">
+class="profileImage"
+id="partnerImage">
 
 <h2 id="partnerName">
 Laundry Partner
@@ -606,25 +686,33 @@ Kasganj
 
 <div class="actionGrid">
 
-<button class="actionBtn">
+<button
+class="actionBtn"
+onclick="window.location.href='orders.html'">
 
 Orders
 
 </button>
 
-<button class="actionBtn">
+<button
+class="actionBtn"
+onclick="window.location.href='wallet.html'">
 
 Wallet
 
 </button>
 
-<button class="actionBtn">
+<button
+class="actionBtn"
+onclick="window.location.href='services.html'">
 
 Services
 
 </button>
 
-<button class="actionBtn">
+<button
+class="actionBtn"
+onclick="window.location.href='analytics.html'">
 
 Analytics
 
@@ -640,14 +728,20 @@ Analytics
 
 </div>
 
-</div>
+<!-- =====================================================
+LAYOUT JS
+===================================================== -->
 
 <script type="module"
-src="js/layout.js">
+src="./js/layout.js">
 </script>
 
+<!-- =====================================================
+DASHBOARD JS
+===================================================== -->
+
 <script type="module"
-src="js/index.js">
+src="./js/index.js">
 </script>
 
 </body>
