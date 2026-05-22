@@ -1,6 +1,6 @@
 /* =========================================================
 FILE : partner/js/login.js
-QUICKPRESS PARTNER LOGIN
+QUICKPRESS PARTNER LOGIN SYSTEM
 ========================================================= */
 
 import {
@@ -14,7 +14,8 @@ from "../../firebase.js";
 
 import {
 
-signInWithEmailAndPassword
+signInWithEmailAndPassword,
+onAuthStateChanged
 
 }
 
@@ -53,18 +54,101 @@ document.getElementById(
 );
 
 /* =========================================================
-LOGIN
+AUTO LOGIN CHECK
 ========================================================= */
 
-loginBtn.addEventListener(
-"click",
-async ()=>{
+onAuthStateChanged(
+
+auth,
+
+async(user)=>{
+
+if(user){
+
+try{
+
+const partnerRef =
+
+await getDoc(
+
+doc(
+db,
+"partners",
+user.uid
+)
+
+);
 
 /* ========================================================= */
 
 if(
+partnerRef.exists()
+){
+
+const data =
+partnerRef.data();
+
+/* ========================================================= */
+
+if(
+data.role === "partner"
+){
+
+localStorage.setItem(
+
+"partnerSession",
+
+JSON.stringify({
+
+uid:user.uid,
+
+name:data.name,
+
+email:data.email,
+
+role:data.role
+
+})
+
+);
+
+/* ========================================================= */
+
+window.location.href =
+"index.html";
+
+}
+
+}
+
+}catch(error){
+
+console.log(error);
+
+}
+
+}
+
+}
+);
+
+/* =========================================================
+LOGIN
+========================================================= */
+
+loginBtn.addEventListener(
+
+"click",
+
+async()=>{
+
+/* ========================================================= */
+
+if(
+
 !email.value ||
 !password.value
+
 ){
 
 showToast(
@@ -82,9 +166,15 @@ loginBtn.innerHTML =
 
 /* ========================================================= */
 
-try{
+loginBtn.disabled = true;
 
 /* ========================================================= */
+
+try{
+
+/* =========================================================
+LOGIN FIREBASE
+========================================================= */
 
 const userCredential =
 
@@ -101,19 +191,27 @@ password.value
 const user =
 userCredential.user;
 
-/* ========================================================= */
+/* =========================================================
+GET PARTNER DATA
+========================================================= */
 
-const partnerDoc =
+const partnerRef =
 
 await getDoc(
 
-doc(db,"partners",user.uid)
+doc(
+db,
+"partners",
+user.uid
+)
 
 );
 
 /* ========================================================= */
 
-if(!partnerDoc.exists()){
+if(
+!partnerRef.exists()
+){
 
 showToast(
 "Partner account not found"
@@ -122,6 +220,8 @@ showToast(
 loginBtn.innerHTML =
 "Login Partner Account";
 
+loginBtn.disabled = false;
+
 return;
 
 }
@@ -129,17 +229,45 @@ return;
 /* ========================================================= */
 
 const partnerData =
-partnerDoc.data();
+partnerRef.data();
 
-/* ========================================================= */
+/* =========================================================
+ROLE CHECK
+========================================================= */
 
 if(
 partnerData.role !== "partner"
 ){
 
 showToast(
-"Unauthorized access"
+"Unauthorized Access"
 );
+
+loginBtn.innerHTML =
+"Login Partner Account";
+
+loginBtn.disabled = false;
+
+return;
+
+}
+
+/* =========================================================
+STATUS CHECK
+========================================================= */
+
+if(
+partnerData.status !== "active"
+){
+
+showToast(
+"Partner account disabled"
+);
+
+loginBtn.innerHTML =
+"Login Partner Account";
+
+loginBtn.disabled = false;
 
 return;
 
@@ -151,7 +279,7 @@ SAVE SESSION
 
 localStorage.setItem(
 
-"partner",
+"partnerSession",
 
 JSON.stringify({
 
@@ -161,16 +289,20 @@ name:partnerData.name,
 
 email:partnerData.email,
 
-role:"partner"
+role:partnerData.role,
+
+city:partnerData.city
 
 })
 
 );
 
-/* ========================================================= */
+/* =========================================================
+UPDATE ONLINE STATUS
+========================================================= */
 
 showToast(
-"Login Success"
+"Login Successful"
 );
 
 /* ========================================================= */
@@ -180,7 +312,7 @@ setTimeout(()=>{
 window.location.href =
 "index.html";
 
-},1500);
+},1200);
 
 /* ========================================================= */
 
@@ -188,9 +320,48 @@ window.location.href =
 
 console.log(error);
 
+/* ========================================================= */
+
+if(
+error.code ===
+"auth/invalid-credential"
+){
+
+showToast(
+"Invalid Email or Password"
+);
+
+}
+
+else if(
+error.code ===
+"auth/user-not-found"
+){
+
+showToast(
+"Account not found"
+);
+
+}
+
+else if(
+error.code ===
+"auth/wrong-password"
+){
+
+showToast(
+"Wrong Password"
+);
+
+}
+
+else{
+
 showToast(
 error.message
 );
+
+}
 
 }
 
@@ -198,6 +369,8 @@ error.message
 
 loginBtn.innerHTML =
 "Login Partner Account";
+
+loginBtn.disabled = false;
 
 }
 );
@@ -213,8 +386,12 @@ document.createElement(
 "div"
 );
 
+/* ========================================================= */
+
 toast.innerHTML =
 message;
+
+/* ========================================================= */
 
 toast.style.position =
 "fixed";
@@ -240,12 +417,22 @@ toast.style.borderRadius =
 toast.style.fontWeight =
 "800";
 
+toast.style.fontSize =
+"14px";
+
 toast.style.zIndex =
-"99999";
+"999999";
+
+toast.style.boxShadow =
+"0 10px 30px rgba(0,0,0,.15)";
+
+/* ========================================================= */
 
 document.body.appendChild(
 toast
 );
+
+/* ========================================================= */
 
 setTimeout(()=>{
 
