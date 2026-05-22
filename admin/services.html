@@ -13,53 +13,38 @@ content="width=device-width, initial-scale=1.0">
 QuickPress Services
 </title>
 
-<link rel="stylesheet"
-href="layout.css">
+<link
+rel="stylesheet"
+href="./layout.css">
 
-<link rel="stylesheet"
+<link
+rel="stylesheet"
 href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css"/>
+
+<script
+src="https://cdn.jsdelivr.net/npm/chart.js">
+</script>
 
 <style>
 
-/* =====================================================
-MAIN
-===================================================== */
+/* ======================================================
+GLOBAL
+====================================================== */
 
-.main{
-
-margin-left:290px;
-
-width:calc(100% - 290px);
-
-background:#F4F7FB;
-
-min-height:100vh;
-
-overflow-x:hidden;
-
+body{
+background:#F4F4F5;
+font-family:Arial,sans-serif;
 }
 
-.content{
+/* ======================================================
+TOP
+====================================================== */
 
-padding:28px;
-
-}
-
-/* =====================================================
-HEADER
-===================================================== */
-
-.pageHeader{
+.topBar{
 
 display:flex;
-
 justify-content:space-between;
-
 align-items:center;
-
-gap:20px;
-
-flex-wrap:wrap;
 
 margin-bottom:24px;
 
@@ -67,409 +52,318 @@ margin-bottom:24px;
 
 .pageTitle{
 
-font-size:58px;
-
+font-size:42px;
 font-weight:900;
-
-letter-spacing:-2px;
 
 }
 
-/* =====================================================
-TOP BUTTONS
-===================================================== */
+/* ======================================================
+BUTTONS
+====================================================== */
 
 .topActions{
 
 display:flex;
-
-gap:14px;
-
-flex-wrap:wrap;
+gap:12px;
 
 }
 
-.actionMainBtn{
+.actionBtn{
 
-height:56px;
+height:48px;
 
-padding:0 24px;
+padding:0 20px;
 
 border:none;
 
-border-radius:18px;
+border-radius:14px;
 
 background:#111827;
 
 color:#fff;
 
+font-size:14px;
 font-weight:900;
 
 cursor:pointer;
 
 }
 
-/* =====================================================
-SEARCH
-===================================================== */
+/* ======================================================
+GRID
+====================================================== */
 
-.searchWrap{
+.mainGrid{
 
-display:flex;
+display:grid;
 
-gap:14px;
+grid-template-columns:
+420px 1fr;
 
-flex-wrap:wrap;
-
-margin-bottom:24px;
-
-}
-
-.searchInput{
-
-height:56px;
-
-width:320px;
-
-border:none;
-
-outline:none;
-
-padding:0 20px;
-
-border-radius:18px;
-
-background:#fff;
-
-border:1px solid #E5E7EB;
-
-font-size:14px;
-
-font-weight:700;
+gap:20px;
 
 }
 
-.selectInput{
+/* ======================================================
+FORM
+====================================================== */
 
-height:56px;
-
-padding:0 18px;
-
-border:none;
-
-outline:none;
-
-border-radius:18px;
+.formBox{
 
 background:#fff;
 
+border-radius:22px;
+
+padding:24px;
+
 border:1px solid #E5E7EB;
 
-font-size:14px;
+height:max-content;
 
+}
+
+/* ======================================================
+TITLE
+====================================================== */
+
+.sectionTitle{
+
+font-size:28px;
+font-weight:900;
+
+margin-bottom:22px;
+
+}
+
+/* ======================================================
+INPUT
+====================================================== */
+
+.inputGroup{
+
+margin-bottom:18px;
+
+}
+
+.label{
+
+font-size:14px;
 font-weight:800;
 
+margin-bottom:10px;
+
+display:block;
+
 }
 
-/* =====================================================
-FORM
-===================================================== */
+.input{
 
-.formCard{
+width:100%;
+height:52px;
+
+border:1px solid #E5E7EB;
+
+border-radius:14px;
+
+padding:0 16px;
+
+font-size:14px;
+font-weight:800;
+
+outline:none;
 
 background:#fff;
 
-border-radius:32px;
+}
 
-padding:28px;
+.textarea{
 
-margin-bottom:28px;
+width:100%;
+
+height:110px;
 
 border:1px solid #E5E7EB;
+
+border-radius:14px;
+
+padding:16px;
+
+font-size:14px;
+font-weight:800;
+
+outline:none;
+
+resize:none;
+
+}
+
+/* ======================================================
+SERVICE LIST
+====================================================== */
+
+.servicesBox{
+
+background:#fff;
+
+border-radius:22px;
+
+padding:24px;
+
+border:1px solid #E5E7EB;
+
+}
+
+/* ======================================================
+FILTERS
+====================================================== */
+
+.filters{
 
 display:grid;
 
 grid-template-columns:
 repeat(4,1fr);
 
-gap:18px;
-
-}
-
-.inputBox{
-
-display:flex;
-
-flex-direction:column;
-
-gap:10px;
-
-}
-
-.inputBox label{
-
-font-size:13px;
-
-font-weight:900;
-
-}
-
-.input{
-
-height:56px;
-
-border:none;
-
-outline:none;
-
-background:#F9FAFB;
-
-border:1px solid #E5E7EB;
-
-border-radius:18px;
-
-padding:0 18px;
-
-font-size:14px;
-
-font-weight:700;
-
-}
-
-textarea.input{
-
-height:120px;
-
-padding-top:18px;
-
-resize:none;
-
-}
-
-.saveBtn{
-
-height:56px;
-
-border:none;
-
-background:#16A34A;
-
-color:#fff;
-
-font-weight:900;
-
-border-radius:18px;
-
-cursor:pointer;
-
-}
-
-/* =====================================================
-GRID
-===================================================== */
-
-.servicesGrid{
-
-display:grid;
-
-grid-template-columns:
-repeat(3,1fr);
-
-gap:24px;
-
-}
-
-/* =====================================================
-CARD
-===================================================== */
-
-.serviceCard{
-
-background:#fff;
-
-border-radius:32px;
-
-overflow:hidden;
-
-border:1px solid #E5E7EB;
-
-transition:.2s;
-
-}
-
-.serviceCard:hover{
-
-transform:translateY(-4px);
-
-}
-
-.serviceIconWrap{
-
-height:230px;
-
-background:#F9FAFB;
-
-display:flex;
-
-align-items:center;
-
-justify-content:center;
-
-position:relative;
-
-}
-
-.serviceIcon{
-
-width:100px;
-
-height:100px;
-
-object-fit:contain;
-
-}
-
-.categoryTag{
-
-position:absolute;
-
-top:18px;
-
-right:18px;
-
-background:#111827;
-
-color:#fff;
-
-padding:10px 14px;
-
-border-radius:999px;
-
-font-size:12px;
-
-font-weight:900;
-
-}
-
-.serviceBody{
-
-padding:22px;
-
-}
-
-.serviceTop{
-
-display:flex;
-
-justify-content:space-between;
-
-align-items:center;
-
-margin-bottom:14px;
-
-}
-
-.serviceName{
-
-font-size:24px;
-
-font-weight:900;
-
-}
-
-.cityTag{
-
-padding:10px 14px;
-
-border-radius:999px;
-
-background:#EEF2FF;
-
-color:#4338CA;
-
-font-size:12px;
-
-font-weight:900;
-
-}
-
-.serviceDesc{
-
-font-size:14px;
-
-font-weight:600;
-
-line-height:1.6;
-
-color:#6B7280;
-
-margin-bottom:18px;
-
-}
-
-.serviceInfo{
-
-display:grid;
-
-grid-template-columns:1fr 1fr;
-
-gap:12px;
+gap:14px;
 
 margin-bottom:20px;
 
 }
 
-.infoBox{
+/* ======================================================
+TABLE
+====================================================== */
+
+.table{
+
+width:100%;
+
+overflow:auto;
+
+}
+
+/* ======================================================
+HEADER
+====================================================== */
+
+.tableHeader{
+
+display:grid;
+
+grid-template-columns:
+120px 220px 180px 160px 140px 140px 240px;
+
+padding:16px;
 
 background:#F9FAFB;
 
-padding:14px;
+border-radius:16px;
+
+font-size:13px;
+font-weight:900;
+
+margin-bottom:12px;
+
+}
+
+/* ======================================================
+ROW
+====================================================== */
+
+.tableRow{
+
+display:grid;
+
+grid-template-columns:
+120px 220px 180px 160px 140px 140px 240px;
+
+padding:18px 16px;
+
+align-items:center;
+
+border-bottom:1px solid #F3F4F6;
+
+font-size:14px;
+font-weight:800;
+
+}
+
+/* ======================================================
+ICON
+====================================================== */
+
+.serviceIcon{
+
+width:58px;
+height:58px;
 
 border-radius:18px;
 
-}
-
-.infoBox h5{
-
-font-size:12px;
-
-font-weight:900;
-
-color:#6B7280;
-
-margin-bottom:8px;
-
-}
-
-.infoBox h4{
-
-font-size:18px;
-
-font-weight:900;
-
-}
-
-.cardActions{
+background:#EEF2FF;
 
 display:flex;
+align-items:center;
+justify-content:center;
 
-gap:12px;
+font-size:26px;
+
+color:#2563EB;
 
 }
 
-.editBtn,
-.deleteBtn{
+/* ======================================================
+STATUS
+====================================================== */
 
-flex:1;
+.status{
 
-height:52px;
+padding:8px 14px;
+
+border-radius:10px;
+
+width:max-content;
+
+font-size:12px;
+font-weight:900;
+
+color:#fff;
+
+}
+
+.active{
+background:#10B981;
+}
+
+.inactive{
+background:#EF4444;
+}
+
+.closed{
+background:#F59E0B;
+}
+
+/* ======================================================
+ACTION
+====================================================== */
+
+.rowActions{
+
+display:flex;
+gap:10px;
+
+}
+
+.rowBtn{
+
+height:38px;
+
+padding:0 16px;
 
 border:none;
 
-border-radius:16px;
+border-radius:10px;
 
-font-size:14px;
-
+font-size:12px;
 font-weight:900;
 
 cursor:pointer;
@@ -479,7 +373,6 @@ cursor:pointer;
 .editBtn{
 
 background:#111827;
-
 color:#fff;
 
 }
@@ -487,52 +380,93 @@ color:#fff;
 .deleteBtn{
 
 background:#FEE2E2;
-
 color:#DC2626;
 
 }
 
-/* =====================================================
-RESPONSIVE
-===================================================== */
+/* ======================================================
+ANALYTICS
+====================================================== */
 
-@media(max-width:1300px){
+.analyticsGrid{
 
-.servicesGrid{
-grid-template-columns:repeat(2,1fr);
+display:grid;
+
+grid-template-columns:
+1fr 1fr 1fr;
+
+gap:20px;
+
+margin-top:22px;
+
 }
 
-.formCard{
-grid-template-columns:repeat(2,1fr);
-}
+.analyticsCard{
+
+background:#fff;
+
+border-radius:22px;
+
+padding:24px;
+
+border:1px solid #E5E7EB;
 
 }
 
-@media(max-width:800px){
+.analyticsTitle{
 
-.main{
-margin-left:0;
-width:100%;
+font-size:15px;
+font-weight:800;
+color:#6B7280;
+
+margin-bottom:14px;
+
 }
 
-.content{
-padding:16px;
-}
+.analyticsValue{
 
-.pageTitle{
 font-size:40px;
+font-weight:900;
+
 }
 
-.servicesGrid{
+/* ======================================================
+RESPONSIVE
+====================================================== */
+
+@media(max-width:1400px){
+
+.mainGrid{
+
 grid-template-columns:1fr;
+
 }
 
-.formCard{
+}
+
+@media(max-width:900px){
+
+.filters{
+
+grid-template-columns:
+1fr 1fr;
+
+}
+
+.analyticsGrid{
+
 grid-template-columns:1fr;
+
 }
 
-.searchInput{
-width:100%;
+}
+
+@media(max-width:700px){
+
+.filters{
+
+grid-template-columns:1fr;
+
 }
 
 }
@@ -543,37 +477,319 @@ width:100%;
 
 <body>
 
-<div class="adminLayout">
-
 <div id="layoutContainer"></div>
 
 <div class="main">
 
-<div class="content">
+<!-- ======================================================
+TOP
+====================================================== -->
 
-<!-- =====================================================
-HEADER
-===================================================== -->
-
-<div class="pageHeader">
+<div class="topBar">
 
 <div class="pageTitle">
-Services
+Services Management
 </div>
 
 <div class="topActions">
 
-<button class="actionMainBtn">
-
-<i class="fa-solid fa-layer-group"></i>
-
-Categories
-
+<button class="actionBtn">
+Bulk Price Update
 </button>
 
-<button class="actionMainBtn">
+<button class="actionBtn">
+Export Services
+</button>
 
-<i class="fa-solid fa-plus"></i>
+</div>
+
+</div>
+
+<!-- ======================================================
+ANALYTICS
+====================================================== -->
+
+<div class="analyticsGrid">
+
+<div class="analyticsCard">
+
+<div class="analyticsTitle">
+Total Services
+</div>
+
+<div
+class="analyticsValue"
+id="totalServices">
+
+0
+
+</div>
+
+</div>
+
+<div class="analyticsCard">
+
+<div class="analyticsTitle">
+Most Ordered Service
+</div>
+
+<div
+class="analyticsValue"
+id="topService">
+
+Laundry
+
+</div>
+
+</div>
+
+<div class="analyticsCard">
+
+<div class="analyticsTitle">
+Top Revenue City
+</div>
+
+<div
+class="analyticsValue"
+id="topCity">
+
+Kasganj
+
+</div>
+
+</div>
+
+</div>
+
+<!-- ======================================================
+GRID
+====================================================== -->
+
+<div class="mainGrid">
+
+<!-- ======================================================
+FORM
+====================================================== -->
+
+<div class="formBox">
+
+<div class="sectionTitle">
+Add Service
+</div>
+
+<div class="inputGroup">
+
+<label class="label">
+Service Name
+</label>
+
+<input
+type="text"
+class="input"
+id="serviceName"
+placeholder="Shirt Wash">
+
+</div>
+
+<div class="inputGroup">
+
+<label class="label">
+Category
+</label>
+
+<select
+class="input"
+id="serviceCategory">
+
+<option>
+Laundry
+</option>
+
+<option>
+Ironing
+</option>
+
+<option>
+Dry Cleaning
+</option>
+
+<option>
+Steam Press
+</option>
+
+<option>
+Shoe Cleaning
+</option>
+
+<option>
+Blanket Wash
+</option>
+
+<option>
+Premium Wash
+</option>
+
+</select>
+
+</div>
+
+<div class="inputGroup">
+
+<label class="label">
+Description
+</label>
+
+<textarea
+class="textarea"
+id="serviceDescription"
+placeholder="Write service details..."></textarea>
+
+</div>
+
+<div class="inputGroup">
+
+<label class="label">
+Service Icon
+</label>
+
+<select
+class="input"
+id="serviceIcon">
+
+<option value="fa-shirt">
+👕 Shirt
+</option>
+
+<option value="fa-socks">
+🧦 Socks
+</option>
+
+<option value="fa-user-tie">
+🧥 Coat
+</option>
+
+<option value="fa-ring">
+👗 Saree
+</option>
+
+</select>
+
+</div>
+
+<div class="inputGroup">
+
+<label class="label">
+City
+</label>
+
+<input
+type="text"
+class="input"
+id="serviceCity"
+placeholder="Kasganj">
+
+</div>
+
+<div class="inputGroup">
+
+<label class="label">
+Area
+</label>
+
+<input
+type="text"
+class="input"
+id="serviceArea"
+placeholder="Main City">
+
+</div>
+
+<div class="inputGroup">
+
+<label class="label">
+Price
+</label>
+
+<input
+type="number"
+class="input"
+id="servicePrice"
+placeholder="20">
+
+</div>
+
+<div class="inputGroup">
+
+<label class="label">
+Delivery Charge
+</label>
+
+<input
+type="number"
+class="input"
+id="deliveryCharge"
+placeholder="10">
+
+</div>
+
+<div class="inputGroup">
+
+<label class="label">
+Minimum Order
+</label>
+
+<input
+type="number"
+class="input"
+id="minimumOrder"
+placeholder="100">
+
+</div>
+
+<div class="inputGroup">
+
+<label class="label">
+Urgent Charge
+</label>
+
+<input
+type="number"
+class="input"
+id="urgentCharge"
+placeholder="30">
+
+</div>
+
+<div class="inputGroup">
+
+<label class="label">
+Status
+</label>
+
+<select
+class="input"
+id="serviceStatus">
+
+<option value="active">
+Active
+</option>
+
+<option value="inactive">
+Inactive
+</option>
+
+<option value="closed">
+Temporarily Closed
+</option>
+
+</select>
+
+</div>
+
+<button
+class="actionBtn"
+style="width:100%;"
+onclick="addService()">
 
 Add Service
 
@@ -581,270 +797,125 @@ Add Service
 
 </div>
 
+<!-- ======================================================
+SERVICES
+====================================================== -->
+
+<div class="servicesBox">
+
+<div class="sectionTitle">
+All Services
 </div>
 
-<!-- =====================================================
-SEARCH
-===================================================== -->
+<!-- ======================================================
+FILTERS
+====================================================== -->
 
-<div class="searchWrap">
+<div class="filters">
 
 <input
 type="text"
-id="searchInput"
-class="searchInput"
-placeholder="Search service">
+class="input"
+placeholder="Search Service"
+id="searchInput">
 
 <select
-id="cityFilter"
-class="selectInput">
+class="input"
+id="categoryFilter">
 
-<option value="All">
-All Cities
-</option>
-
-<option value="Kasganj">
-Kasganj
-</option>
-
-<option value="Delhi">
-Delhi
-</option>
-
-<option value="Noida">
-Noida
-</option>
-
-<option value="Lucknow">
-Lucknow
-</option>
-
-</select>
-
-<select
-id="categoryFilter"
-class="selectInput">
-
-<option value="All">
+<option value="">
 All Categories
 </option>
 
-<option value="Laundry">
+<option>
 Laundry
 </option>
 
-<option value="Dry Clean">
-Dry Clean
+<option>
+Ironing
 </option>
 
-<option value="Steam Iron">
-Steam Iron
+<option>
+Dry Cleaning
 </option>
 
-<option value="Shoe Cleaning">
-Shoe Cleaning
+</select>
+
+<select
+class="input"
+id="cityFilter">
+
+<option value="">
+All Cities
+</option>
+
+</select>
+
+<select
+class="input"
+id="statusFilter">
+
+<option value="">
+All Status
+</option>
+
+<option value="active">
+Active
+</option>
+
+<option value="inactive">
+Inactive
+</option>
+
+<option value="closed">
+Closed
 </option>
 
 </select>
 
 </div>
 
-<!-- =====================================================
-FORM
-===================================================== -->
+<!-- ======================================================
+TABLE
+====================================================== -->
 
-<div class="formCard">
+<div class="table">
 
-<div class="inputBox">
+<div class="tableHeader">
 
-<label>
-Service Name
-</label>
-
-<input
-type="text"
-id="serviceName"
-class="input"
-placeholder="Premium Laundry">
-
+<div>
+Icon
 </div>
 
-<div class="inputBox">
+<div>
+Service
+</div>
 
-<label>
+<div>
 Category
-</label>
-
-<select
-id="serviceCategory"
-class="input">
-
-<option value="Laundry">
-Laundry
-</option>
-
-<option value="Dry Clean">
-Dry Clean
-</option>
-
-<option value="Steam Iron">
-Steam Iron
-</option>
-
-<option value="Shoe Cleaning">
-Shoe Cleaning
-</option>
-
-</select>
-
 </div>
 
-<div class="inputBox">
-
-<label>
+<div>
 City
-</label>
-
-<select
-id="serviceCity"
-class="input">
-
-<option value="Kasganj">
-Kasganj
-</option>
-
-<option value="Delhi">
-Delhi
-</option>
-
-<option value="Noida">
-Noida
-</option>
-
-<option value="Lucknow">
-Lucknow
-</option>
-
-</select>
-
 </div>
 
-<div class="inputBox">
-
-<label>
+<div>
 Price
-</label>
+</div>
 
-<input
-type="number"
-id="servicePrice"
-class="input"
-placeholder="99">
+<div>
+Status
+</div>
+
+<div>
+Actions
+</div>
 
 </div>
 
-<div class="inputBox">
-
-<label>
-Old Price
-</label>
-
-<input
-type="number"
-id="serviceOldPrice"
-class="input"
-placeholder="149">
+<div id="servicesContainer">
 
 </div>
-
-<div class="inputBox">
-
-<label>
-Delivery Time
-</label>
-
-<input
-type="text"
-id="serviceTime"
-class="input"
-placeholder="30 mins">
-
-</div>
-
-<div class="inputBox">
-
-<label>
-Rating
-</label>
-
-<input
-type="number"
-id="serviceRating"
-class="input"
-placeholder="4.9">
-
-</div>
-
-<div class="inputBox">
-
-<label>
-Icon URL
-</label>
-
-<input
-type="text"
-id="serviceIcon"
-class="input"
-placeholder="https://">
-
-</div>
-
-<div class="inputBox"
-style="grid-column:1/-1;">
-
-<label>
-Banner Image URL
-</label>
-
-<input
-type="text"
-id="serviceImage"
-class="input"
-placeholder="https://">
-
-</div>
-
-<div class="inputBox"
-style="grid-column:1/-1;">
-
-<label>
-Description
-</label>
-
-<textarea
-id="serviceDesc"
-class="input"
-placeholder="Premium laundry service"></textarea>
-
-</div>
-
-<button
-id="saveServiceBtn"
-class="saveBtn">
-
-Save Service
-
-</button>
-
-</div>
-
-<!-- =====================================================
-GRID
-===================================================== -->
-
-<div
-class="servicesGrid"
-id="servicesGrid">
 
 </div>
 
@@ -855,11 +926,15 @@ id="servicesGrid">
 </div>
 
 <script type="module"
-src="js/layout.js">
+src="./js/auth.js">
 </script>
 
 <script type="module"
-src="js/services.js">
+src="./js/layout.js">
+</script>
+
+<script type="module"
+src="./js/services.js">
 </script>
 
 </body>
