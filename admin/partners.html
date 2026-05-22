@@ -13,10 +13,6 @@ content="width=device-width, initial-scale=1.0">
 QuickPress Partners
 </title>
 
-<!-- =====================================================
-CSS
-===================================================== -->
-
 <link
 rel="stylesheet"
 href="./layout.css">
@@ -25,112 +21,117 @@ href="./layout.css">
 rel="stylesheet"
 href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css"/>
 
+<link
+rel="stylesheet"
+href="https://unpkg.com/leaflet/dist/leaflet.css"/>
+
+<script
+src="https://unpkg.com/leaflet/dist/leaflet.js">
+</script>
+
 <style>
 
 /* =====================================================
 GLOBAL
 ===================================================== */
 
-*{
-
-margin:0;
-padding:0;
-box-sizing:border-box;
-font-family:Arial,sans-serif;
-
-}
-
 body{
-
-background:#F4F7FB;
-overflow-x:hidden;
-
+background:#F4F4F5;
+font-family:Arial,sans-serif;
 }
 
 /* =====================================================
-MAIN
+TOP
 ===================================================== */
 
-.main{
-
-margin-left:290px;
-padding:24px;
-
-}
-
-/* =====================================================
-HEADER
-===================================================== */
-
-.pageHeader{
+.pageTop{
 
 display:flex;
 justify-content:space-between;
 align-items:center;
-margin-bottom:30px;
-flex-wrap:wrap;
-gap:20px;
+
+margin-bottom:24px;
 
 }
 
 .pageTitle{
 
-font-size:54px;
+font-size:42px;
 font-weight:900;
-color:#111827;
+
+}
+
+.topButtons{
+
+display:flex;
+gap:12px;
+
+}
+
+.topBtn{
+
+height:48px;
+
+padding:0 18px;
+
+border:none;
+
+border-radius:14px;
+
+background:#111827;
+
+color:#fff;
+
+font-size:14px;
+font-weight:900;
+
+cursor:pointer;
 
 }
 
 /* =====================================================
-TOP GRID
+SUMMARY
 ===================================================== */
 
-.topGrid{
+.summaryGrid{
 
 display:grid;
+
 grid-template-columns:
 repeat(4,1fr);
 
-gap:20px;
-margin-bottom:30px;
+gap:18px;
+
+margin-bottom:24px;
 
 }
 
-/* =====================================================
-CARD
-===================================================== */
-
-.topCard{
+.summaryCard{
 
 background:#fff;
-padding:24px;
-border-radius:30px;
+
+padding:22px;
+
+border-radius:22px;
+
 border:1px solid #E5E7EB;
 
 }
 
-.topCard h5{
+.cardTitle{
 
-font-size:13px;
-font-weight:900;
+font-size:14px;
+font-weight:800;
 color:#6B7280;
+
 margin-bottom:10px;
 
 }
 
-.topCard h2{
+.cardValue{
 
-font-size:42px;
+font-size:38px;
 font-weight:900;
-margin-bottom:8px;
-
-}
-
-.topCard p{
-
-font-size:13px;
-font-weight:700;
-color:#6B7280;
 
 }
 
@@ -140,56 +141,120 @@ FILTERS
 
 .filters{
 
-display:flex;
-gap:16px;
-margin-bottom:24px;
-flex-wrap:wrap;
+display:grid;
+
+grid-template-columns:
+repeat(5,1fr);
+
+gap:14px;
+
+margin-bottom:22px;
 
 }
 
-.searchBox{
+.filterInput{
 
-flex:1;
-min-width:260px;
-position:relative;
+height:52px;
 
-}
+border:1px solid #E5E7EB;
 
-.searchInput{
+border-radius:14px;
 
-width:100%;
-height:60px;
-border:none;
-outline:none;
-background:#fff;
-border-radius:22px;
-padding:0 20px 0 55px;
+padding:0 16px;
+
 font-size:14px;
 font-weight:800;
-border:1px solid #E5E7EB;
 
-}
-
-.searchIcon{
-
-position:absolute;
-left:20px;
-top:50%;
-transform:translateY(-50%);
-color:#6B7280;
-
-}
-
-.filterSelect{
-
-height:60px;
-border:none;
-outline:none;
-padding:0 18px;
-border-radius:20px;
 background:#fff;
-font-weight:800;
+
+outline:none;
+
+}
+
+/* =====================================================
+GRID
+===================================================== */
+
+.mainGrid{
+
+display:grid;
+
+grid-template-columns:
+420px 1fr;
+
+gap:20px;
+
+}
+
+/* =====================================================
+FORM
+===================================================== */
+
+.formBox{
+
+background:#fff;
+
+border-radius:22px;
+
+padding:24px;
+
 border:1px solid #E5E7EB;
+
+height:max-content;
+
+}
+
+/* =====================================================
+TITLE
+===================================================== */
+
+.sectionTitle{
+
+font-size:28px;
+font-weight:900;
+
+margin-bottom:20px;
+
+}
+
+/* =====================================================
+INPUT
+===================================================== */
+
+.inputGroup{
+
+margin-bottom:16px;
+
+}
+
+.label{
+
+font-size:14px;
+font-weight:800;
+
+margin-bottom:8px;
+
+display:block;
+
+}
+
+.input{
+
+width:100%;
+height:52px;
+
+border:1px solid #E5E7EB;
+
+border-radius:14px;
+
+padding:0 16px;
+
+font-size:14px;
+font-weight:800;
+
+outline:none;
+
+background:#fff;
 
 }
 
@@ -197,85 +262,55 @@ border:1px solid #E5E7EB;
 TABLE
 ===================================================== */
 
-.tableCard{
+.tableBox{
 
 background:#fff;
-border-radius:32px;
+
+border-radius:22px;
+
 padding:24px;
+
 border:1px solid #E5E7EB;
+
 overflow:auto;
 
 }
 
-.tableTitle{
+.tableHeader{
 
-font-size:30px;
-font-weight:900;
-margin-bottom:24px;
+display:grid;
 
-}
+grid-template-columns:
+120px 180px 140px 140px 180px 140px 220px;
 
-table{
+padding:16px;
 
-width:100%;
-border-collapse:collapse;
+background:#F9FAFB;
 
-}
+border-radius:14px;
 
-th{
-
-text-align:left;
-padding:18px;
 font-size:13px;
 font-weight:900;
-color:#6B7280;
-border-bottom:1px solid #E5E7EB;
+
+margin-bottom:10px;
 
 }
 
-td{
+.tableRow{
 
-padding:18px;
-font-size:14px;
-font-weight:800;
+display:grid;
+
+grid-template-columns:
+120px 180px 140px 140px 180px 140px 220px;
+
+padding:18px 16px;
+
+align-items:center;
+
 border-bottom:1px solid #F3F4F6;
 
-}
-
-/* =====================================================
-PARTNER
-===================================================== */
-
-.partnerBox{
-
-display:flex;
-align-items:center;
-gap:14px;
-
-}
-
-.partnerImage{
-
-width:55px;
-height:55px;
-border-radius:18px;
-object-fit:cover;
-
-}
-
-.partnerInfo h4{
-
-font-size:16px;
-font-weight:900;
-margin-bottom:6px;
-
-}
-
-.partnerInfo p{
-
-font-size:12px;
-font-weight:700;
-color:#6B7280;
+font-size:14px;
+font-weight:800;
 
 }
 
@@ -285,72 +320,95 @@ STATUS
 
 .status{
 
-padding:10px 14px;
-border-radius:999px;
+padding:8px 12px;
+
+border-radius:10px;
+
 font-size:12px;
 font-weight:900;
-display:inline-flex;
-align-items:center;
-gap:8px;
+
+width:max-content;
+
+color:#fff;
 
 }
 
 .active{
-
-background:#DCFCE7;
-color:#15803D;
-
+background:#10B981;
 }
 
-.offline{
+.inactive{
+background:#6B7280;
+}
 
-background:#F3F4F6;
-color:#6B7280;
+.suspended{
+background:#EF4444;
+}
 
+.pending{
+background:#F59E0B;
 }
 
 /* =====================================================
 BUTTONS
 ===================================================== */
 
-.actionButtons{
+.actions{
 
 display:flex;
-gap:10px;
+gap:8px;
 flex-wrap:wrap;
 
 }
 
 .actionBtn{
 
-height:42px;
-padding:0 16px;
+height:36px;
+
+padding:0 12px;
+
 border:none;
-border-radius:14px;
+
+border-radius:10px;
+
 font-size:12px;
 font-weight:900;
+
 cursor:pointer;
 
 }
 
 .viewBtn{
-
 background:#111827;
 color:#fff;
+}
 
+.editBtn{
+background:#2563EB;
+color:#fff;
 }
 
 .walletBtn{
-
-background:#DBEAFE;
-color:#1D4ED8;
-
+background:#10B981;
+color:#fff;
 }
 
-.disableBtn{
+.suspendBtn{
+background:#EF4444;
+color:#fff;
+}
 
-background:#FEE2E2;
-color:#DC2626;
+/* =====================================================
+MAP
+===================================================== */
+
+#map{
+
+height:240px;
+
+border-radius:18px;
+
+margin-top:20px;
 
 }
 
@@ -358,12 +416,18 @@ color:#DC2626;
 RESPONSIVE
 ===================================================== */
 
-@media(max-width:1200px){
+@media(max-width:1500px){
 
-.topGrid{
+.summaryGrid{
 
 grid-template-columns:
 repeat(2,1fr);
+
+}
+
+.mainGrid{
+
+grid-template-columns:1fr;
 
 }
 
@@ -371,20 +435,24 @@ repeat(2,1fr);
 
 @media(max-width:900px){
 
-.main{
+.filters{
 
-margin-left:0;
-padding:16px;
-
-}
-
-.pageTitle{
-
-font-size:38px;
+grid-template-columns:
+1fr 1fr;
 
 }
 
-.topGrid{
+}
+
+@media(max-width:700px){
+
+.summaryGrid{
+
+grid-template-columns:1fr;
+
+}
+
+.filters{
 
 grid-template-columns:1fr;
 
@@ -398,97 +466,105 @@ grid-template-columns:1fr;
 
 <body>
 
-<!-- =====================================================
-LAYOUT
-===================================================== -->
-
 <div id="layoutContainer"></div>
-
-<!-- =====================================================
-MAIN
-===================================================== -->
 
 <div class="main">
 
 <!-- =====================================================
-HEADER
+TOP
 ===================================================== -->
 
-<div class="pageHeader">
+<div class="pageTop">
 
 <div class="pageTitle">
 Partner Management
 </div>
 
+<div class="topButtons">
+
+<button class="topBtn">
+Export Report
+</button>
+
+<button class="topBtn">
+Settlement Report
+</button>
+
+<button class="topBtn">
+Partner Analytics
+</button>
+
+</div>
+
 </div>
 
 <!-- =====================================================
-TOP CARDS
+SUMMARY
 ===================================================== -->
 
-<div class="topGrid">
+<div class="summaryGrid">
 
-<div class="topCard">
+<div class="summaryCard">
 
-<h5>
+<div class="cardTitle">
 Total Partners
-</h5>
+</div>
 
-<h2 id="totalPartners">
+<div
+class="cardValue"
+id="totalPartners">
+
 0
-</h2>
-
-<p>
-All registered partners
-</p>
 
 </div>
 
-<div class="topCard">
+</div>
 
-<h5>
-Online Partners
-</h5>
+<div class="summaryCard">
 
-<h2 id="onlinePartners">
+<div class="cardTitle">
+Active Partners
+</div>
+
+<div
+class="cardValue"
+id="activePartners">
+
 0
-</h2>
-
-<p>
-Realtime active partners
-</p>
 
 </div>
 
-<div class="topCard">
+</div>
 
-<h5>
-Total Revenue
-</h5>
+<div class="summaryCard">
 
-<h2 id="totalRevenue">
+<div class="cardTitle">
+Pending KYC
+</div>
+
+<div
+class="cardValue"
+id="pendingKyc">
+
+0
+
+</div>
+
+</div>
+
+<div class="summaryCard">
+
+<div class="cardTitle">
+Monthly Revenue
+</div>
+
+<div
+class="cardValue"
+id="monthlyRevenue">
+
 ₹0
-</h2>
-
-<p>
-Partner earnings
-</p>
 
 </div>
-
-<div class="topCard">
-
-<h5>
-Active Orders
-</h5>
-
-<h2 id="activeOrders">
-0
-</h2>
-
-<p>
-Live running orders
-</p>
 
 </div>
 
@@ -500,20 +576,14 @@ FILTERS
 
 <div class="filters">
 
-<div class="searchBox">
-
-<i class="fa-solid fa-search searchIcon"></i>
-
 <input
 type="text"
-class="searchInput"
-id="searchInput"
-placeholder="Search partners...">
-
-</div>
+placeholder="Search Partner"
+class="filterInput"
+id="searchInput">
 
 <select
-class="filterSelect"
+class="filterInput"
 id="cityFilter">
 
 <option value="">
@@ -523,7 +593,29 @@ All Cities
 </select>
 
 <select
-class="filterSelect"
+class="filterInput"
+id="serviceFilter">
+
+<option value="">
+All Services
+</option>
+
+<option>
+Laundry
+</option>
+
+<option>
+Ironing
+</option>
+
+<option>
+Dry Cleaning
+</option>
+
+</select>
+
+<select
+class="filterInput"
 id="statusFilter">
 
 <option value="">
@@ -534,11 +626,216 @@ All Status
 Active
 </option>
 
-<option value="offline">
-Offline
+<option value="inactive">
+Inactive
+</option>
+
+<option value="suspended">
+Suspended
+</option>
+
+<option value="pending">
+Pending
 </option>
 
 </select>
+
+<button
+class="topBtn"
+onclick="generatePassword()">
+
+Generate Password
+
+</button>
+
+</div>
+
+<!-- =====================================================
+GRID
+===================================================== -->
+
+<div class="mainGrid">
+
+<!-- =====================================================
+FORM
+===================================================== -->
+
+<div class="formBox">
+
+<div class="sectionTitle">
+Add Partner
+</div>
+
+<div class="inputGroup">
+
+<label class="label">
+Full Name
+</label>
+
+<input
+type="text"
+class="input"
+id="partnerName">
+
+</div>
+
+<div class="inputGroup">
+
+<label class="label">
+Mobile Number
+</label>
+
+<input
+type="text"
+class="input"
+id="partnerPhone">
+
+</div>
+
+<div class="inputGroup">
+
+<label class="label">
+Email
+</label>
+
+<input
+type="email"
+class="input"
+id="partnerEmail">
+
+</div>
+
+<div class="inputGroup">
+
+<label class="label">
+Password
+</label>
+
+<input
+type="text"
+class="input"
+id="partnerPassword">
+
+</div>
+
+<div class="inputGroup">
+
+<label class="label">
+Shop Name
+</label>
+
+<input
+type="text"
+class="input"
+id="shopName">
+
+</div>
+
+<div class="inputGroup">
+
+<label class="label">
+City
+</label>
+
+<input
+type="text"
+class="input"
+id="partnerCity">
+
+</div>
+
+<div class="inputGroup">
+
+<label class="label">
+Area
+</label>
+
+<input
+type="text"
+class="input"
+id="partnerArea">
+
+</div>
+
+<div class="inputGroup">
+
+<label class="label">
+Service Category
+</label>
+
+<select
+class="input"
+id="partnerService">
+
+<option>
+Laundry
+</option>
+
+<option>
+Ironing
+</option>
+
+<option>
+Dry Cleaning
+</option>
+
+</select>
+
+</div>
+
+<div class="inputGroup">
+
+<label class="label">
+Commission %
+</label>
+
+<input
+type="number"
+class="input"
+id="partnerCommission">
+
+</div>
+
+<div class="inputGroup">
+
+<label class="label">
+Status
+</label>
+
+<select
+class="input"
+id="partnerStatus">
+
+<option value="active">
+Active
+</option>
+
+<option value="inactive">
+Inactive
+</option>
+
+<option value="suspended">
+Suspended
+</option>
+
+<option value="pending">
+Verification Pending
+</option>
+
+</select>
+
+</div>
+
+<button
+class="topBtn"
+style="width:100%;"
+onclick="addPartner()">
+
++ Add Partner
+
+</button>
+
+<div id="map"></div>
 
 </div>
 
@@ -546,63 +843,53 @@ Offline
 TABLE
 ===================================================== -->
 
-<div class="tableCard">
+<div class="tableBox">
 
-<div class="tableTitle">
+<div class="sectionTitle">
 All Partners
 </div>
 
-<table>
+<div class="tableHeader">
 
-<thead>
+<div>
+Partner ID
+</div>
 
-<tr>
+<div>
+Shop Name
+</div>
 
-<th>
-Partner
-</th>
+<div>
+Owner
+</div>
 
-<th>
+<div>
 City
-</th>
+</div>
 
-<th>
-Revenue
-</th>
+<div>
+Services
+</div>
 
-<th>
-Orders
-</th>
-
-<th>
-Wallet
-</th>
-
-<th>
+<div>
 Status
-</th>
+</div>
 
-<th>
+<div>
 Actions
-</th>
+</div>
 
-</tr>
+</div>
 
-</thead>
-
-<tbody id="partnersTable">
-
-</tbody>
-
-</table>
+<div id="partnersContainer">
 
 </div>
 
 </div>
 
-<!-- =====================================================
-SCRIPTS
-===================================================== -->
+</div>
+
+</div>
 
 <script type="module"
 src="./js/auth.js">
@@ -617,4 +904,4 @@ src="./js/partners.js">
 </script>
 
 </body>
-</html>s
+</html>
