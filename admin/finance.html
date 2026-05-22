@@ -1,0 +1,786 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+<meta charset="UTF-8">
+
+<meta
+name="viewport"
+content="width=device-width, initial-scale=1.0">
+
+<title>
+QuickPress Finance
+</title>
+
+<link
+rel="stylesheet"
+href="./layout.css">
+
+<link
+rel="stylesheet"
+href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css"/>
+
+<script
+src="https://cdn.jsdelivr.net/npm/chart.js">
+</script>
+
+<style>
+
+/* =====================================================
+GLOBAL
+===================================================== */
+
+body{
+background:#F4F4F5;
+font-family:Arial,sans-serif;
+}
+
+/* =====================================================
+TOP
+===================================================== */
+
+.financeTop{
+
+display:flex;
+justify-content:space-between;
+align-items:center;
+
+margin-bottom:24px;
+
+}
+
+.pageTitle{
+
+font-size:42px;
+font-weight:900;
+
+}
+
+.topActions{
+
+display:flex;
+gap:12px;
+
+}
+
+.topBtn{
+
+height:48px;
+
+padding:0 18px;
+
+border:none;
+
+border-radius:14px;
+
+background:#111827;
+
+color:#fff;
+
+font-size:14px;
+font-weight:900;
+
+cursor:pointer;
+
+}
+
+/* =====================================================
+SUMMARY GRID
+===================================================== */
+
+.summaryGrid{
+
+display:grid;
+
+grid-template-columns:
+repeat(5,1fr);
+
+gap:18px;
+
+margin-bottom:24px;
+
+}
+
+/* =====================================================
+CARD
+===================================================== */
+
+.summaryCard{
+
+background:#fff;
+
+padding:22px;
+
+border-radius:22px;
+
+border:1px solid #E5E7EB;
+
+}
+
+.cardTitle{
+
+font-size:14px;
+font-weight:800;
+color:#6B7280;
+
+margin-bottom:12px;
+
+}
+
+.cardValue{
+
+font-size:38px;
+font-weight:900;
+
+margin-bottom:12px;
+
+}
+
+/* =====================================================
+GRID
+===================================================== */
+
+.mainGrid{
+
+display:grid;
+
+grid-template-columns:
+2fr 1fr;
+
+gap:20px;
+
+margin-bottom:24px;
+
+}
+
+/* =====================================================
+BOX
+===================================================== */
+
+.box{
+
+background:#fff;
+
+border-radius:22px;
+
+padding:24px;
+
+border:1px solid #E5E7EB;
+
+overflow:auto;
+
+}
+
+/* =====================================================
+TITLE
+===================================================== */
+
+.sectionTitle{
+
+font-size:28px;
+font-weight:900;
+
+margin-bottom:20px;
+
+}
+
+/* =====================================================
+TABLE
+===================================================== */
+
+.tableHeader{
+
+display:grid;
+
+grid-template-columns:
+140px 180px 160px 140px 140px 140px 180px;
+
+padding:16px;
+
+background:#F9FAFB;
+
+border-radius:14px;
+
+font-size:13px;
+font-weight:900;
+
+margin-bottom:10px;
+
+}
+
+.tableRow{
+
+display:grid;
+
+grid-template-columns:
+140px 180px 160px 140px 140px 140px 180px;
+
+padding:16px;
+
+align-items:center;
+
+border-bottom:1px solid #F3F4F6;
+
+font-size:14px;
+font-weight:800;
+
+}
+
+/* =====================================================
+STATUS
+===================================================== */
+
+.status{
+
+padding:8px 12px;
+
+border-radius:10px;
+
+width:max-content;
+
+font-size:12px;
+font-weight:900;
+
+color:#fff;
+
+}
+
+.success{
+background:#10B981;
+}
+
+.pending{
+background:#F59E0B;
+}
+
+.danger{
+background:#EF4444;
+}
+
+/* =====================================================
+BUTTONS
+===================================================== */
+
+.actionBtns{
+
+display:flex;
+gap:10px;
+flex-wrap:wrap;
+
+}
+
+.actionBtn{
+
+height:36px;
+
+padding:0 14px;
+
+border:none;
+
+border-radius:10px;
+
+font-size:12px;
+font-weight:900;
+
+cursor:pointer;
+
+}
+
+.greenBtn{
+
+background:#10B981;
+color:#fff;
+
+}
+
+.redBtn{
+
+background:#EF4444;
+color:#fff;
+
+}
+
+.darkBtn{
+
+background:#111827;
+color:#fff;
+
+}
+
+/* =====================================================
+FILTERS
+===================================================== */
+
+.filters{
+
+display:grid;
+
+grid-template-columns:
+repeat(5,1fr);
+
+gap:14px;
+
+margin-bottom:20px;
+
+}
+
+.filterInput{
+
+height:50px;
+
+border:1px solid #E5E7EB;
+
+border-radius:12px;
+
+padding:0 16px;
+
+font-size:14px;
+font-weight:800;
+
+outline:none;
+
+background:#fff;
+
+}
+
+/* =====================================================
+ANALYTICS GRID
+===================================================== */
+
+.analyticsGrid{
+
+display:grid;
+
+grid-template-columns:
+1fr 1fr;
+
+gap:20px;
+
+}
+
+/* =====================================================
+RESPONSIVE
+===================================================== */
+
+@media(max-width:1600px){
+
+.summaryGrid{
+
+grid-template-columns:
+repeat(3,1fr);
+
+}
+
+}
+
+@media(max-width:1200px){
+
+.mainGrid{
+
+grid-template-columns:1fr;
+
+}
+
+.analyticsGrid{
+
+grid-template-columns:1fr;
+
+}
+
+.filters{
+
+grid-template-columns:
+repeat(2,1fr);
+
+}
+
+}
+
+@media(max-width:700px){
+
+.summaryGrid{
+
+grid-template-columns:1fr;
+
+}
+
+.filters{
+
+grid-template-columns:1fr;
+
+}
+
+}
+
+</style>
+
+</head>
+
+<body>
+
+<div id="layoutContainer"></div>
+
+<div class="main">
+
+<!-- =====================================================
+TOP
+===================================================== -->
+
+<div class="financeTop">
+
+<div class="pageTitle">
+Finance Management
+</div>
+
+<div class="topActions">
+
+<button class="topBtn">
+Export Excel
+</button>
+
+<button class="topBtn">
+Download PDF
+</button>
+
+<button class="topBtn">
+GST Reports
+</button>
+
+</div>
+
+</div>
+
+<!-- =====================================================
+SUMMARY
+===================================================== -->
+
+<div class="summaryGrid">
+
+<div class="summaryCard">
+
+<div class="cardTitle">
+Total Revenue
+</div>
+
+<div
+class="cardValue"
+id="totalRevenue">
+
+₹0
+
+</div>
+
+<canvas id="revenueMini"></canvas>
+
+</div>
+
+<div class="summaryCard">
+
+<div class="cardTitle">
+Today Earnings
+</div>
+
+<div
+class="cardValue"
+id="todayEarnings">
+
+₹0
+
+</div>
+
+<canvas id="todayMini"></canvas>
+
+</div>
+
+<div class="summaryCard">
+
+<div class="cardTitle">
+COD Collection
+</div>
+
+<div
+class="cardValue"
+id="codCollection">
+
+₹0
+
+</div>
+
+<canvas id="codMini"></canvas>
+
+</div>
+
+<div class="summaryCard">
+
+<div class="cardTitle">
+Pending Payouts
+</div>
+
+<div
+class="cardValue"
+id="pendingPayouts">
+
+₹0
+
+</div>
+
+<canvas id="payoutMini"></canvas>
+
+</div>
+
+<div class="summaryCard">
+
+<div class="cardTitle">
+Net Profit
+</div>
+
+<div
+class="cardValue"
+id="netProfit">
+
+₹0
+
+</div>
+
+<canvas id="profitMini"></canvas>
+
+</div>
+
+</div>
+
+<!-- =====================================================
+FILTERS
+===================================================== -->
+
+<div class="filters">
+
+<input
+type="text"
+placeholder="Search Transaction"
+class="filterInput"
+id="searchInput">
+
+<select
+class="filterInput"
+id="paymentFilter">
+
+<option value="">
+Payment Method
+</option>
+
+<option value="cod">
+COD
+</option>
+
+<option value="online">
+Online
+</option>
+
+</select>
+
+<select
+class="filterInput"
+id="statusFilter">
+
+<option value="">
+Status
+</option>
+
+<option value="success">
+Success
+</option>
+
+<option value="pending">
+Pending
+</option>
+
+</select>
+
+<select
+class="filterInput"
+id="cityFilter">
+
+<option value="">
+City Wise
+</option>
+
+</select>
+
+<input
+type="date"
+class="filterInput"
+id="dateFilter">
+
+</div>
+
+<!-- =====================================================
+MAIN GRID
+===================================================== -->
+
+<div class="mainGrid">
+
+<!-- =====================================================
+TRANSACTIONS
+===================================================== -->
+
+<div class="box">
+
+<div class="sectionTitle">
+Transactions
+</div>
+
+<div class="tableHeader">
+
+<div>
+Transaction ID
+</div>
+
+<div>
+Customer
+</div>
+
+<div>
+Service
+</div>
+
+<div>
+Amount
+</div>
+
+<div>
+Payment
+</div>
+
+<div>
+Status
+</div>
+
+<div>
+Actions
+</div>
+
+</div>
+
+<div id="transactionsContainer">
+
+</div>
+
+</div>
+
+<!-- =====================================================
+FINANCE ACTIONS
+===================================================== -->
+
+<div class="box">
+
+<div class="sectionTitle">
+Finance Actions
+</div>
+
+<div class="actionBtns">
+
+<button class="actionBtn greenBtn">
+Verify COD
+</button>
+
+<button class="actionBtn darkBtn">
+Release Payout
+</button>
+
+<button class="actionBtn redBtn">
+Approve Refund
+</button>
+
+<button class="actionBtn darkBtn">
+Generate Invoice
+</button>
+
+<button class="actionBtn greenBtn">
+Export CSV
+</button>
+
+</div>
+
+<br>
+
+<div class="sectionTitle">
+Finance Alerts
+</div>
+
+<div id="alertContainer">
+
+</div>
+
+</div>
+
+</div>
+
+<!-- =====================================================
+ANALYTICS
+===================================================== -->
+
+<div class="analyticsGrid">
+
+<div class="box">
+
+<div class="sectionTitle">
+Revenue Analytics
+</div>
+
+<canvas id="revenueChart"></canvas>
+
+</div>
+
+<div class="box">
+
+<div class="sectionTitle">
+COD vs Online
+</div>
+
+<canvas id="paymentChart"></canvas>
+
+</div>
+
+<div class="box">
+
+<div class="sectionTitle">
+City Wise Revenue
+</div>
+
+<div id="cityContainer">
+
+</div>
+
+</div>
+
+<div class="box">
+
+<div class="sectionTitle">
+Expense Management
+</div>
+
+<div id="expenseContainer">
+
+</div>
+
+</div>
+
+</div>
+
+</div>
+
+<script type="module"
+src="./js/auth.js">
+</script>
+
+<script type="module"
+src="./js/layout.js">
+</script>
+
+<script type="module"
+src="./js/finance.js">
+</script>
+
+</body>
+</html>
