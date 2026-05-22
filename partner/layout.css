@@ -1,0 +1,133 @@
+/* =====================================================
+SIDEBAR
+===================================================== */
+
+.sidebar{
+
+position:fixed;
+
+top:0;
+
+left:0;
+
+width:290px;
+
+height:100vh;
+
+background:#111827;
+
+padding:26px;
+
+overflow-y:auto;
+
+}
+
+/* =====================================================
+LOGO
+===================================================== */
+
+.logo{
+
+font-size:38px;
+
+font-weight:900;
+
+color:#fff;
+
+margin-bottom:40px;
+
+}
+
+/* =====================================================
+MENU
+===================================================== */
+
+.menu{
+
+display:flex;
+
+flex-direction:column;
+
+gap:14px;
+
+}
+
+/* =====================================================
+ITEM
+===================================================== */
+
+.menuItem{
+
+height:60px;
+
+border-radius:18px;
+
+display:flex;
+
+align-items:center;
+
+gap:16px;
+
+padding:0 20px;
+
+text-decoration:none;
+
+font-size:15px;
+
+font-weight:800;
+
+color:#9CA3AF;
+
+transition:.3s;
+
+}
+
+.menuItem:hover{
+
+background:#1F2937;
+
+color:#fff;
+
+}
+
+.menuItem.active{
+
+background:#fff;
+
+color:#111827;
+
+}
+
+.menuItem i{
+
+font-size:18px;
+
+}
+
+/* =====================================================
+LOGOUT
+===================================================== */
+
+.logout{
+
+margin-top:20px;
+
+background:#DC2626;
+
+color:#fff;
+
+}
+
+/* =====================================================
+RESPONSIVE
+===================================================== */
+
+@media(max-width:900px){
+
+.sidebar{
+
+left:-100%;
+
+}
+
+}
