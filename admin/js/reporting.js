@@ -17,29 +17,44 @@ from
 ELEMENTS
 ========================================================= */
 
-const salesValue =
+const totalRevenue =
 document.getElementById(
-"salesValue"
+"totalRevenue"
 );
 
-const deliveredValue =
+const totalOrders =
 document.getElementById(
-"deliveredValue"
+"totalOrders"
 );
 
-const aovValue =
+const cancelledOrders =
 document.getElementById(
-"aovValue"
+"cancelledOrders"
 );
 
-const rejectValue =
+const codCollection =
 document.getElementById(
-"rejectValue"
+"codCollection"
 );
 
-const complaintValue =
+const deliverySuccess =
 document.getElementById(
-"complaintValue"
+"deliverySuccess"
+);
+
+const areaContainer =
+document.getElementById(
+"areaContainer"
+);
+
+const riderContainer =
+document.getElementById(
+"riderContainer"
+);
+
+const reportContainer =
+document.getElementById(
+"reportContainer"
 );
 
 /* =========================================================
@@ -52,9 +67,17 @@ collection(db,"orders"),
 
 (snapshot)=>{
 
-let totalSales = 0;
-let delivered = 0;
-let rejected = 0;
+let revenue = 0;
+let orders = 0;
+let cancelled = 0;
+let completed = 0;
+let cod = 0;
+
+const areaStats = {};
+
+/* ========================================================= */
+
+reportContainer.innerHTML = "";
 
 /* ========================================================= */
 
@@ -65,14 +88,16 @@ docSnap.data();
 
 /* ========================================================= */
 
-totalSales +=
+orders++;
+
+revenue +=
 order.total || 0;
 
 /* ========================================================= */
 
 if(order.status === "completed"){
 
-delivered++;
+completed++;
 
 }
 
@@ -80,77 +105,209 @@ delivered++;
 
 if(order.status === "cancelled"){
 
-rejected++;
+cancelled++;
 
 }
+
+/* ========================================================= */
+
+if(order.paymentType === "cod"){
+
+cod += order.total || 0;
+
+}
+
+/* =========================================================
+AREA REPORT
+========================================================= */
+
+if(order.area){
+
+if(!areaStats[order.area]){
+
+areaStats[order.area] = 0;
+
+}
+
+areaStats[order.area]++;
+
+}
+
+/* =========================================================
+LIVE REPORT
+========================================================= */
+
+reportContainer.innerHTML += `
+
+<div class="tableRow">
+
+<div>
+${order.customerName || '-'}
+</div>
+
+<div>
+₹${order.total || 0}
+</div>
+
+<div>
+
+<div class="status ${order.status === 'completed' ? 'success' : 'warning'}">
+
+${order.status}
+
+</div>
+
+</div>
+
+<div>
+${order.area || '-'}
+</div>
+
+</div>
+
+`;
 
 });
 
 /* ========================================================= */
 
-const totalOrders =
-snapshot.size;
+totalRevenue.innerHTML =
+"₹" + revenue;
+
+totalOrders.innerHTML =
+orders;
+
+cancelledOrders.innerHTML =
+cancelled;
+
+codCollection.innerHTML =
+"₹" + cod;
 
 /* ========================================================= */
 
-const rejectPercent =
+const successRate =
 
-totalOrders
+orders
 ?
-((rejected / totalOrders) * 100)
+((completed / orders) * 100)
 .toFixed(1)
 :
 0;
 
 /* ========================================================= */
 
-const aov =
+deliverySuccess.innerHTML =
+successRate + "%";
 
-totalOrders
-?
-(totalSales / totalOrders)
-.toFixed(0)
-:
-0;
+/* =========================================================
+AREA RENDER
+========================================================= */
+
+areaContainer.innerHTML = "";
 
 /* ========================================================= */
 
-salesValue.innerHTML =
-"₹" + totalSales;
+Object.entries(areaStats)
+.forEach(([area,count])=>{
 
-deliveredValue.innerHTML =
-delivered;
+areaContainer.innerHTML += `
 
-aovValue.innerHTML =
-"₹" + aov;
+<div class="tableRow">
 
-rejectValue.innerHTML =
-rejectPercent + "%";
+<div>
+${area}
+</div>
+
+<div>
+${count}
+Orders
+</div>
+
+<div>
+
+<div class="status success">
+
+Active
+
+</div>
+
+</div>
+
+<div>
+Top Area
+</div>
+
+</div>
+
+`;
+
+});
 
 }
 );
 
 /* =========================================================
-COMPLAINTS
+RIDER REPORT
 ========================================================= */
 
 onSnapshot(
 
-collection(db,"complaints"),
+collection(db,"riders"),
 
 (snapshot)=>{
 
-complaintValue.innerHTML =
-snapshot.size;
+riderContainer.innerHTML = "";
+
+/* ========================================================= */
+
+snapshot.forEach(docSnap=>{
+
+const rider =
+docSnap.data();
+
+/* ========================================================= */
+
+riderContainer.innerHTML += `
+
+<div class="tableRow">
+
+<div>
+${rider.name || '-'}
+</div>
+
+<div>
+${rider.completedOrders || 0}
+Orders
+</div>
+
+<div>
+
+<div class="status ${rider.online ? 'success' : 'danger'}">
+
+${rider.online ? 'Online' : 'Offline'}
+
+</div>
+
+</div>
+
+<div>
+${rider.city || '-'}
+</div>
+
+</div>
+
+`;
+
+});
 
 }
 );
 
 /* =========================================================
-CHART FUNCTION
+CHARTS
 ========================================================= */
 
-function createChart(id,data){
+function createLineChart(id,data){
 
 new Chart(
 
@@ -163,13 +320,13 @@ type:"line",
 data:{
 
 labels:[
-"Week 1",
-"Week 2",
-"Week 3",
-"Week 4",
-"Week 5",
-"Week 6",
-"Week 7"
+"Mon",
+"Tue",
+"Wed",
+"Thu",
+"Fri",
+"Sat",
+"Sun"
 ],
 
 datasets:[{
@@ -202,70 +359,72 @@ display:false
 
 }
 
-/* =========================================================
-MINI CHARTS
-========================================================= */
+/* ========================================================= */
 
-createChart(
-"salesMini",
-[10,20,15,30,28,40,50]
+function createPieChart(){
+
+new Chart(
+
+document.getElementById(
+"pieChart"
+),
+
+{
+
+type:"pie",
+
+data:{
+
+labels:[
+"Completed",
+"Pending",
+"Cancelled"
+],
+
+datasets:[{
+
+data:[60,25,15]
+
+}]
+
+}
+
+}
+
 );
 
-createChart(
-"ordersMini",
-[5,8,10,15,20,24,30]
+}
+
+/* ========================================================= */
+
+createLineChart(
+"revenueMiniChart",
+[2000,3000,4500,5000,7000,8500,10000]
 );
 
-createChart(
-"aovMini",
-[100,200,180,300,280,400,500]
+createLineChart(
+"ordersMiniChart",
+[12,18,20,30,45,60,72]
 );
 
-createChart(
-"ratingMini",
-[4,4.2,4.4,4.5,4.6,4.7,4.8]
+createLineChart(
+"cancelMiniChart",
+[5,4,4,3,3,2,1]
 );
 
-createChart(
-"rejectMini",
-[5,4,3,2,2,1,1]
+createLineChart(
+"codMiniChart",
+[1000,2000,3000,3500,4200,4800,5200]
 );
 
-createChart(
-"delayMini",
-[4,4,3,3,2,2,1]
+createLineChart(
+"deliveryMiniChart",
+[70,75,80,85,90,94,97]
 );
 
-createChart(
-"poorMini",
-[3,3,2,2,1,1,1]
+createLineChart(
+"revenueChart",
+[5000,7000,10000,12000,16000,22000,28000]
 );
 
-createChart(
-"complaintMini",
-[10,8,7,6,5,4,2]
-);
-
-/* =========================================================
-BIG CHARTS
-========================================================= */
-
-createChart(
-"salesChart",
-[1200,1500,1800,2000,2500,3000,3500]
-);
-
-createChart(
-"adsChart",
-[20,30,25,40,50,60,70]
-);
-
-createChart(
-"impressionChart",
-[1000,1200,1400,1800,2200,2500,3000]
-);
-
-createChart(
-"ctrChart",
-[2,3,4,5,6,5,7]
-);
+createPieChart();
