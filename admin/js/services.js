@@ -1,8 +1,3 @@
-/* =========================================================
-FILE : js/services.js
-ADVANCE REALTIME SERVICES SYSTEM
-========================================================= */
-
 import { db }
 
 from "../../firebase.js";
@@ -12,11 +7,9 @@ import {
 collection,
 addDoc,
 onSnapshot,
-deleteDoc,
 doc,
-updateDoc,
-query,
-orderBy
+deleteDoc,
+updateDoc
 
 }
 
@@ -28,19 +21,14 @@ from
 ELEMENTS
 ========================================================= */
 
-const servicesGrid =
+const servicesContainer =
 document.getElementById(
-"servicesGrid"
+"servicesContainer"
 );
 
-const saveServiceBtn =
+const totalServices =
 document.getElementById(
-"saveServiceBtn"
-);
-
-const searchInput =
-document.getElementById(
-"searchInput"
+"totalServices"
 );
 
 const cityFilter =
@@ -48,529 +36,272 @@ document.getElementById(
 "cityFilter"
 );
 
-const categoryFilter =
-document.getElementById(
-"categoryFilter"
-);
-
-/* =========================================================
-FORM INPUTS
-========================================================= */
-
-const serviceName =
-document.getElementById(
-"serviceName"
-);
-
-const serviceCategory =
-document.getElementById(
-"serviceCategory"
-);
-
-const serviceCity =
-document.getElementById(
-"serviceCity"
-);
-
-const servicePrice =
-document.getElementById(
-"servicePrice"
-);
-
-const serviceOldPrice =
-document.getElementById(
-"serviceOldPrice"
-);
-
-const serviceTime =
-document.getElementById(
-"serviceTime"
-);
-
-const serviceRating =
-document.getElementById(
-"serviceRating"
-);
-
-const serviceIcon =
-document.getElementById(
-"serviceIcon"
-);
-
-const serviceImage =
-document.getElementById(
-"serviceImage"
-);
-
-const serviceDesc =
-document.getElementById(
-"serviceDesc"
-);
-
-/* =========================================================
-GLOBAL
-========================================================= */
-
-let editId = null;
+/* ========================================================= */
 
 let allServices = [];
 
 /* =========================================================
-SAVE SERVICE
+ADD SERVICE
 ========================================================= */
 
-saveServiceBtn.addEventListener(
-"click",
-async ()=>{
+window.addService =
+async()=>{
 
-if(
-!serviceName.value ||
-!servicePrice.value
-){
-
-showToast(
-"Fill all required fields"
-);
-
-return;
-
-}
-
-/* ========================================================= */
-
-const serviceData = {
+const service = {
 
 name:
-serviceName.value,
+document.getElementById(
+"serviceName"
+).value,
 
 category:
-serviceCategory.value,
-
-city:
-serviceCity.value,
-
-price:
-Number(servicePrice.value),
-
-oldPrice:
-Number(serviceOldPrice.value),
-
-time:
-serviceTime.value,
-
-rating:
-serviceRating.value,
-
-icon:
-serviceIcon.value,
-
-image:
-serviceImage.value,
+document.getElementById(
+"serviceCategory"
+).value,
 
 description:
-serviceDesc.value,
+document.getElementById(
+"serviceDescription"
+).value,
 
-orders:
-0,
+icon:
+document.getElementById(
+"serviceIcon"
+).value,
 
-revenue:
-0,
+city:
+document.getElementById(
+"serviceCity"
+).value,
+
+area:
+document.getElementById(
+"serviceArea"
+).value,
+
+price:Number(
+
+document.getElementById(
+"servicePrice"
+).value
+
+),
+
+deliveryCharge:Number(
+
+document.getElementById(
+"deliveryCharge"
+).value
+
+),
+
+minimumOrder:Number(
+
+document.getElementById(
+"minimumOrder"
+).value
+
+),
+
+urgentCharge:Number(
+
+document.getElementById(
+"urgentCharge"
+).value
+
+),
+
+status:
+document.getElementById(
+"serviceStatus"
+).value,
 
 createdAt:
-new Date()
+Date.now()
 
 };
 
 /* ========================================================= */
 
-if(editId){
-
-await updateDoc(
-
-doc(db,"services",editId),
-
-serviceData
-
-);
-
-showToast(
-"Service Updated"
-);
-
-editId = null;
-
-saveServiceBtn.innerHTML =
-"Save Service";
-
-/* ========================================================= */
-
-}else{
-
 await addDoc(
 
 collection(db,"services"),
 
-serviceData
+service
 
 );
 
-showToast(
+/* ========================================================= */
+
+alert(
 "Service Added"
 );
 
-}
-
-/* ========================================================= */
-
-clearForm();
-
-}
-);
+};
 
 /* =========================================================
-LOAD SERVICES
+REALTIME
 ========================================================= */
 
-const servicesQuery =
-query(
+onSnapshot(
 
 collection(db,"services"),
 
-orderBy("createdAt","desc")
-
-);
-
-/* ========================================================= */
-
-onSnapshot(
-servicesQuery,
 (snapshot)=>{
 
+servicesContainer.innerHTML = "";
+
 allServices = [];
+
+let cities = [];
 
 /* ========================================================= */
 
 snapshot.forEach(docSnap=>{
 
-allServices.push({
+const service =
+docSnap.data();
 
-id:docSnap.id,
-...docSnap.data()
+service.id =
+docSnap.id;
 
-});
+allServices.push(service);
+
+/* ========================================================= */
+
+if(!cities.includes(service.city)){
+
+cities.push(service.city);
+
+}
 
 });
 
 /* ========================================================= */
 
-renderServices();
-
-}
-);
-
-/* =========================================================
-RENDER SERVICES
-========================================================= */
-
-function renderServices(){
-
-servicesGrid.innerHTML = "";
+totalServices.innerHTML =
+allServices.length;
 
 /* ========================================================= */
 
-let filtered =
-allServices;
+cityFilter.innerHTML =
 
-/* =========================================================
-SEARCH FILTER
-========================================================= */
+`
+<option value="">
+All Cities
+</option>
+`;
 
-const keyword =
-searchInput?.value
-?.toLowerCase() || "";
+/* ========================================================= */
 
-if(keyword){
+cities.forEach(city=>{
 
-filtered =
-filtered.filter(item=>
+cityFilter.innerHTML += `
 
-(item.name || "")
-.toLowerCase()
-.includes(keyword)
-
-||
-
-(item.category || "")
-.toLowerCase()
-.includes(keyword)
-
-);
-
-}
-
-/* =========================================================
-CITY FILTER
-========================================================= */
-
-if(
-cityFilter &&
-cityFilter.value !== "All"
-){
-
-filtered =
-filtered.filter(item=>
-
-(item.city || "")
-.toLowerCase()
-
-===
-
-cityFilter.value
-.toLowerCase()
-
-);
-
-}
-
-/* =========================================================
-CATEGORY FILTER
-========================================================= */
-
-if(
-categoryFilter &&
-categoryFilter.value !== "All"
-){
-
-filtered =
-filtered.filter(item=>
-
-(item.category || "")
-.toLowerCase()
-
-===
-
-categoryFilter.value
-.toLowerCase()
-
-);
-
-}
-
-/* =========================================================
-EMPTY
-========================================================= */
-
-if(filtered.length === 0){
-
-servicesGrid.innerHTML = `
-
-<div
-style="
-grid-column:1/-1;
-padding:80px;
-background:#fff;
-border-radius:30px;
-text-align:center;
-">
-
-<i
-class="fa-solid fa-box-open"
-style="
-font-size:70px;
-color:#D1D5DB;
-margin-bottom:20px;
-display:block;
-"></i>
-
-<h2
-style="
-font-size:32px;
-font-weight:900;
-margin-bottom:10px;
-">
-
-No Services Found
-
-</h2>
-
-<p
-style="
-font-size:14px;
-font-weight:700;
-color:#6B7280;
-">
-
-Add services from admin panel
-
-</p>
-
-</div>
+<option value="${city}">
+${city}
+</option>
 
 `;
 
-return;
+});
+
+/* ========================================================= */
+
+renderServices(allServices);
 
 }
+);
 
 /* =========================================================
-RENDER CARDS
+RENDER
 ========================================================= */
 
-filtered.forEach(service=>{
+function renderServices(data){
 
-servicesGrid.innerHTML += `
+servicesContainer.innerHTML = "";
 
-<div class="serviceCard">
+/* ========================================================= */
 
-<div
-style="
-height:230px;
-background:#F9FAFB;
-display:flex;
-align-items:center;
-justify-content:center;
-position:relative;
-">
+data.forEach(service=>{
 
-<img
-src="${service.icon}"
-style="
-width:100px;
-height:100px;
-object-fit:contain;
-">
+servicesContainer.innerHTML += `
 
-<div
-style="
-position:absolute;
-top:18px;
-right:18px;
-background:#111827;
-color:#fff;
-padding:10px 14px;
-border-radius:999px;
-font-size:12px;
+<div class="tableRow">
+
+<div>
+
+<div class="serviceIcon">
+
+<i class="fa-solid ${service.icon}"></i>
+
+</div>
+
+</div>
+
+<div>
+
+<div style="
+font-size:16px;
 font-weight:900;
+margin-bottom:8px;
 ">
-
-${service.category}
-
-</div>
-
-</div>
-
-<div class="serviceBody">
-
-<div class="serviceTop">
-
-<div class="serviceName">
 
 ${service.name}
 
 </div>
 
-<div class="categoryTag">
-
-${service.city}
-
-</div>
-
-</div>
-
-<div class="serviceDesc">
+<div style="
+font-size:13px;
+color:#6B7280;
+">
 
 ${service.description}
 
 </div>
 
-<div class="serviceInfo">
+</div>
 
-<div class="infoBox">
+<div>
+${service.category}
+</div>
 
-<h5>
-Price
-</h5>
+<div>
 
-<h4>
+${service.city}
+
+<br>
+
+${service.area}
+
+</div>
+
+<div>
+
 ₹${service.price}
-</h4>
 
 </div>
 
-<div class="infoBox">
+<div>
 
-<h5>
-Old Price
-</h5>
-
-<h4>
-₹${service.oldPrice || 0}
-</h4>
-
-</div>
-
-<div class="infoBox">
-
-<h5>
-Orders
-</h5>
-
-<h4>
-${service.orders || 0}
-</h4>
-
-</div>
-
-<div class="infoBox">
-
-<h5>
-Revenue
-</h5>
-
-<h4>
-₹${service.revenue || 0}
-</h4>
-
-</div>
-
-<div class="infoBox">
-
-<h5>
-Delivery
-</h5>
-
-<h4>
-${service.time || "30 mins"}
-</h4>
-
-</div>
-
-<div class="infoBox">
-
-<h5>
-Rating
-</h5>
-
-<h4>
-⭐ ${service.rating || 5}
-</h4>
-
+<div class="status ${service.status}">
+${service.status}
 </div>
 
 </div>
 
-<div class="cardActions">
+<div class="rowActions">
 
 <button
-class="editBtn"
-onclick="editService('${service.id}')">
+class="rowBtn editBtn"
+onclick="toggleStatus('${service.id}','${service.status}')">
 
-Edit
+Toggle
 
 </button>
 
 <button
-class="deleteBtn"
+class="rowBtn deleteBtn"
 onclick="deleteService('${service.id}')">
 
 Delete
@@ -581,73 +312,7 @@ Delete
 
 </div>
 
-</div>
-
 `;
-
-});
-
-}
-
-/* =========================================================
-EDIT
-========================================================= */
-
-window.editService =
-function(id){
-
-const service =
-allServices.find(
-item=>item.id === id
-);
-
-if(!service){
-
-return;
-
-}
-
-editId = id;
-
-serviceName.value =
-service.name || "";
-
-serviceCategory.value =
-service.category || "";
-
-serviceCity.value =
-service.city || "";
-
-servicePrice.value =
-service.price || "";
-
-serviceOldPrice.value =
-service.oldPrice || "";
-
-serviceTime.value =
-service.time || "";
-
-serviceRating.value =
-service.rating || "";
-
-serviceIcon.value =
-service.icon || "";
-
-serviceImage.value =
-service.image || "";
-
-serviceDesc.value =
-service.description || "";
-
-saveServiceBtn.innerHTML =
-"Update Service";
-
-/* ========================================================= */
-
-window.scrollTo({
-
-top:0,
-behavior:"smooth"
 
 });
 
@@ -658,135 +323,160 @@ DELETE
 ========================================================= */
 
 window.deleteService =
-async function(id){
-
-const confirmDelete =
-confirm(
-"Delete service?"
-);
-
-if(!confirmDelete){
-
-return;
-
-}
-
-/* ========================================================= */
+async(id)=>{
 
 await deleteDoc(
 doc(db,"services",id)
 );
 
-showToast(
-"Service Deleted"
-);
-
-}
+};
 
 /* =========================================================
-FILTER EVENTS
+TOGGLE
 ========================================================= */
 
-if(searchInput){
+window.toggleStatus =
+async(id,current)=>{
 
-searchInput.addEventListener(
-"input",
-renderServices
-);
+let next = "active";
+
+/* ========================================================= */
+
+if(current === "active"){
+
+next = "inactive";
+
+}else{
+
+next = "active";
 
 }
 
-if(cityFilter){
+/* ========================================================= */
 
-cityFilter.addEventListener(
+await updateDoc(
+
+doc(db,"services",id),
+
+{
+
+status:next
+
+}
+
+);
+
+};
+
+/* =========================================================
+FILTERS
+========================================================= */
+
+document.getElementById(
+"searchInput"
+).addEventListener(
+"keyup",
+filterServices
+);
+
+document.getElementById(
+"categoryFilter"
+).addEventListener(
 "change",
-renderServices
+filterServices
 );
 
-}
-
-if(categoryFilter){
-
-categoryFilter.addEventListener(
+document.getElementById(
+"cityFilter"
+).addEventListener(
 "change",
-renderServices
+filterServices
 );
 
-}
-
-/* =========================================================
-CLEAR FORM
-========================================================= */
-
-function clearForm(){
-
-serviceName.value = "";
-
-servicePrice.value = "";
-
-serviceOldPrice.value = "";
-
-serviceTime.value = "";
-
-serviceRating.value = "";
-
-serviceIcon.value = "";
-
-serviceImage.value = "";
-
-serviceDesc.value = "";
-
-}
-
-/* =========================================================
-TOAST
-========================================================= */
-
-function showToast(message){
-
-const toast =
-document.createElement(
-"div"
+document.getElementById(
+"statusFilter"
+).addEventListener(
+"change",
+filterServices
 );
 
-toast.innerHTML =
-message;
+/* ========================================================= */
 
-toast.style.position =
-"fixed";
+function filterServices(){
 
-toast.style.bottom =
-"20px";
+const search =
 
-toast.style.right =
-"20px";
+document.getElementById(
+"searchInput"
+).value.toLowerCase();
 
-toast.style.background =
-"#111827";
+const category =
 
-toast.style.color =
-"#fff";
+document.getElementById(
+"categoryFilter"
+).value;
 
-toast.style.padding =
-"14px 20px";
+const city =
 
-toast.style.borderRadius =
-"16px";
+document.getElementById(
+"cityFilter"
+).value;
 
-toast.style.fontWeight =
-"800";
+const status =
 
-toast.style.zIndex =
-"99999";
+document.getElementById(
+"statusFilter"
+).value;
 
-document.body.appendChild(
-toast
+/* ========================================================= */
+
+const filtered =
+
+allServices.filter(service=>{
+
+const matchSearch =
+
+service.name
+.toLowerCase()
+.includes(search);
+
+const matchCategory =
+
+category
+?
+service.category === category
+:
+true;
+
+const matchCity =
+
+city
+?
+service.city === city
+:
+true;
+
+const matchStatus =
+
+status
+?
+service.status === status
+:
+true;
+
+return (
+
+matchSearch &&
+matchCategory &&
+matchCity &&
+matchStatus
+
 );
 
-setTimeout(()=>{
+});
 
-toast.remove();
+/* ========================================================= */
 
-},3000);
+renderServices(filtered);
 
 }
