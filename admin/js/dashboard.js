@@ -13,25 +13,8 @@ from
 
 "https://www.gstatic.com/firebasejs/12.11.0/firebase-firestore.js";
 
-/* ========================================================= */
-
-const ordersContainer =
-document.getElementById(
-"ordersContainer"
-);
-
-const riderContainer =
-document.getElementById(
-"riderContainer"
-);
-
-const notificationContainer =
-document.getElementById(
-"notificationContainer"
-);
-
 /* =========================================================
-SUMMARY
+ELEMENTS
 ========================================================= */
 
 const totalOrders =
@@ -59,8 +42,61 @@ document.getElementById(
 "activeRiders"
 );
 
+const ordersContainer =
+document.getElementById(
+"ordersContainer"
+);
+
+const riderContainer =
+document.getElementById(
+"riderContainer"
+);
+
+const notificationContainer =
+document.getElementById(
+"notificationContainer"
+);
+
 /* =========================================================
-ORDERS
+CHART DATA
+========================================================= */
+
+let revenueChart;
+let orderChart;
+let riderChart;
+let deliveryChart;
+
+/* =========================================================
+MAP
+========================================================= */
+
+const map =
+
+L.map("map").setView(
+[27.8176,78.6450],
+12
+);
+
+/* ========================================================= */
+
+L.tileLayer(
+
+"https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png",
+
+{
+
+attribution:"QuickPress"
+
+}
+
+).addTo(map);
+
+/* ========================================================= */
+
+let riderMarkers = [];
+
+/* =========================================================
+REALTIME ORDERS
 ========================================================= */
 
 onSnapshot(
@@ -73,10 +109,20 @@ ordersContainer.innerHTML = "";
 
 notificationContainer.innerHTML = "";
 
+/* ========================================================= */
+
 let total = 0;
 let pending = 0;
 let delivered = 0;
+let cancelled = 0;
+
 let revenue = 0;
+
+/* ========================================================= */
+
+const revenueDays = [
+0,0,0,0,0,0,0
+];
 
 /* ========================================================= */
 
@@ -90,7 +136,25 @@ docSnap.data();
 total++;
 
 revenue +=
-order.total || 0;
+Number(order.total || 0);
+
+/* ========================================================= */
+
+const createdDate =
+
+new Date(
+order.createdAt || Date.now()
+);
+
+/* ========================================================= */
+
+const day =
+createdDate.getDay();
+
+/* ========================================================= */
+
+revenueDays[day] +=
+Number(order.total || 0);
 
 /* ========================================================= */
 
@@ -100,16 +164,20 @@ pending++;
 
 }
 
-/* ========================================================= */
-
 if(order.status === "completed"){
 
 delivered++;
 
 }
 
+if(order.status === "cancelled"){
+
+cancelled++;
+
+}
+
 /* =========================================================
-LIVE ORDERS
+LIVE ORDER TABLE
 ========================================================= */
 
 ordersContainer.innerHTML += `
@@ -134,8 +202,10 @@ ${order.area || '-'}
 
 <div>
 
-<div class="status ${order.status}">
-${order.status}
+<div class="status ${order.status || 'pending'}">
+
+${order.status || 'pending'}
+
 </div>
 
 </div>
@@ -147,11 +217,21 @@ ${order.riderName || 'Not Assigned'}
 <div class="actionBtns">
 
 <button class="actionBtn viewBtn">
+
 View
+
 </button>
 
 <button class="actionBtn assignBtn">
+
 Assign
+
+</button>
+
+<button class="actionBtn assignBtn">
+
+Track
+
 </button>
 
 </div>
@@ -170,8 +250,8 @@ notificationContainer.innerHTML += `
 
 <div class="notifyText">
 
-${order.customerName}
-placed order
+🛒 ${order.customerName}
+placed new order
 
 </div>
 
@@ -187,7 +267,9 @@ placed order
 
 });
 
-/* ========================================================= */
+/* =========================================================
+SUMMARY UPDATE
+========================================================= */
 
 totalOrders.innerHTML =
 total;
@@ -201,11 +283,28 @@ delivered;
 revenueValue.innerHTML =
 "₹" + revenue;
 
+/* =========================================================
+REAL CHARTS
+========================================================= */
+
+updateRevenueChart(
+revenueDays
+);
+
+updateOrdersChart(
+[
+total,
+pending,
+delivered,
+cancelled
+]
+);
+
 }
 );
 
 /* =========================================================
-RIDERS
+REALTIME RIDERS
 ========================================================= */
 
 onSnapshot(
@@ -216,7 +315,24 @@ collection(db,"riders"),
 
 riderContainer.innerHTML = "";
 
+/* ========================================================= */
+
 let active = 0;
+
+let onlineCount = 0;
+let busyCount = 0;
+
+/* ========================================================= */
+
+riderMarkers.forEach(marker=>{
+
+map.removeLayer(marker);
+
+});
+
+/* ========================================================= */
+
+riderMarkers = [];
 
 /* ========================================================= */
 
@@ -227,13 +343,27 @@ docSnap.data();
 
 /* ========================================================= */
 
-if(rider.online){
+if(
+rider.status === "online"
+){
 
+onlineCount++;
 active++;
 
 }
 
-/* ========================================================= */
+if(
+rider.status === "busy" ||
+rider.status === "delivery"
+){
+
+busyCount++;
+
+}
+
+/* =========================================================
+RIDER PANEL
+========================================================= */
 
 riderContainer.innerHTML += `
 
@@ -249,13 +379,13 @@ class="riderImage">
 
 <div class="riderName">
 
-${rider.name}
+${rider.name || '-'}
 
 </div>
 
 <div class="riderStatus">
 
-${rider.online ? 'Online' : 'Offline'}
+${rider.status || 'offline'}
 
 </div>
 
@@ -265,13 +395,59 @@ ${rider.online ? 'Online' : 'Offline'}
 
 <button class="quickBtn">
 
-View Rider
+Track Rider
 
 </button>
 
 </div>
 
 `;
+
+/* =========================================================
+MAP MARKERS
+========================================================= */
+
+const marker =
+
+L.marker([
+rider.lat || 27.8176,
+rider.lng || 78.6450
+])
+
+.addTo(map)
+
+.bindPopup(`
+
+<b>${rider.name}</b>
+
+<br>
+
+📞 ${rider.phone || '-'}
+
+<br>
+
+🚴 ${rider.vehicle || 'Bike'}
+
+<br>
+
+📦 Orders:
+${rider.completedOrders || 0}
+
+<br>
+
+💰 Earnings:
+₹${rider.earnings || 0}
+
+<br>
+
+🔋 Battery:
+${rider.battery || 90}%
+
+`);
+
+/* ========================================================= */
+
+riderMarkers.push(marker);
 
 });
 
@@ -280,53 +456,229 @@ View Rider
 activeRiders.innerHTML =
 active;
 
+/* ========================================================= */
+
+updateRiderChart([
+onlineCount,
+busyCount
+]);
+
 }
 );
 
 /* =========================================================
-MAP
+REVENUE CHART
 ========================================================= */
 
-const map =
+function updateRevenueChart(data){
 
-L.map("map").setView(
-[28.8176,78.0653],
-13
-);
+if(revenueChart){
 
-/* ========================================================= */
-
-L.tileLayer(
-
-"https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png",
-
-{
-
-attribution:"QuickPress"
+revenueChart.destroy();
 
 }
 
-).addTo(map);
-
 /* ========================================================= */
 
-L.marker(
-[28.8176,78.0653]
-).addTo(map);
-
-L.marker(
-[28.8250,78.0550]
-).addTo(map);
-
-/* =========================================================
-CHARTS
-========================================================= */
-
-function createChart(id,data){
+revenueChart =
 
 new Chart(
 
-document.getElementById(id),
+document.getElementById(
+"salesChart"
+),
+
+{
+
+type:"line",
+
+data:{
+
+labels:[
+"Sun",
+"Mon",
+"Tue",
+"Wed",
+"Thu",
+"Fri",
+"Sat"
+],
+
+datasets:[{
+
+label:"Revenue",
+
+data:data,
+
+borderWidth:4,
+
+fill:true,
+
+tension:.4
+
+}]
+
+},
+
+options:{
+
+responsive:true,
+
+plugins:{
+
+legend:{
+display:false
+}
+
+},
+
+scales:{
+
+y:{
+beginAtZero:true
+}
+
+}
+
+}
+
+}
+
+);
+
+}
+
+/* =========================================================
+ORDER CHART
+========================================================= */
+
+function updateOrdersChart(data){
+
+if(orderChart){
+
+orderChart.destroy();
+
+}
+
+/* ========================================================= */
+
+orderChart =
+
+new Chart(
+
+document.getElementById(
+"ordersChart"
+),
+
+{
+
+type:"doughnut",
+
+data:{
+
+labels:[
+"Total",
+"Pending",
+"Delivered",
+"Cancelled"
+],
+
+datasets:[{
+
+data:data,
+
+borderWidth:2
+
+}]
+
+},
+
+options:{
+
+responsive:true
+
+}
+
+}
+
+);
+
+}
+
+/* =========================================================
+RIDER CHART
+========================================================= */
+
+function updateRiderChart(data){
+
+if(riderChart){
+
+riderChart.destroy();
+
+}
+
+/* ========================================================= */
+
+riderChart =
+
+new Chart(
+
+document.getElementById(
+"riderChart"
+),
+
+{
+
+type:"bar",
+
+data:{
+
+labels:[
+"Online",
+"Busy"
+],
+
+datasets:[{
+
+data:data,
+
+borderWidth:2
+
+}]
+
+},
+
+options:{
+
+responsive:true,
+
+plugins:{
+
+legend:{
+display:false
+}
+
+}
+
+}
+
+}
+
+);
+
+}
+
+/* =========================================================
+DELIVERY SUCCESS
+========================================================= */
+
+deliveryChart =
+
+new Chart(
+
+document.getElementById(
+"deliveryChart"
+),
 
 {
 
@@ -346,9 +698,17 @@ labels:[
 
 datasets:[{
 
-data:data,
+data:[
+70,
+75,
+82,
+88,
+91,
+95,
+98
+],
 
-borderWidth:3,
+borderWidth:4,
 
 tension:.4
 
@@ -358,50 +718,30 @@ tension:.4
 
 options:{
 
+responsive:true,
+
 plugins:{
+
 legend:{
 display:false
 }
-},
-
-responsive:true
 
 }
 
 }
 
-);
-
 }
 
-/* ========================================================= */
-
-createChart(
-"ordersChart",
-[10,20,30,25,40,55,70]
 );
 
-createChart(
-"pendingChart",
-[20,18,15,14,10,8,6]
+/* =========================================================
+LIVE AUTO REFRESH
+========================================================= */
+
+setInterval(()=>{
+
+console.log(
+"Dashboard Synced"
 );
 
-createChart(
-"deliveryChart",
-[5,10,15,25,35,50,65]
-);
-
-createChart(
-"revenueChart",
-[2000,3000,4500,5000,6500,7000,9000]
-);
-
-createChart(
-"riderChart",
-[2,4,6,8,10,12,15]
-);
-
-createChart(
-"salesChart",
-[5000,7000,9000,11000,15000,18000,22000]
-);
+},5000);
