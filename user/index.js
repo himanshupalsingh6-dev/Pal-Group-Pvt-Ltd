@@ -1,418 +1,41 @@
-/* =====================================================
-QUICKPRESS FINAL INDEX JS
-FILE NAME : index.js
-===================================================== */
+/* =========================================================
+IMPORTS
+========================================================= */
 
-/* =====================================================
-FIREBASE IMPORT
-===================================================== */
+import { db, auth }
 
-import { initializeApp }
-
-from "https://www.gstatic.com/firebasejs/10.12.2/firebase-app.js";
+from "./firebase.js";
 
 import {
 
-getFirestore,
 collection,
-query,
-limit,
-getDocs
+getDocs,
+onSnapshot
 
 }
 
-from "https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore.js";
+from
 
-/* =====================================================
-FIREBASE CONFIG
-===================================================== */
+"https://www.gstatic.com/firebasejs/12.11.0/firebase-firestore.js";
 
-const firebaseConfig = {
+import {
 
-apiKey: "YOUR_API_KEY",
-
-authDomain: "YOUR_PROJECT.firebaseapp.com",
-
-projectId: "YOUR_PROJECT_ID",
-
-storageBucket: "YOUR_PROJECT.appspot.com",
-
-messagingSenderId: "YOUR_SENDER_ID",
-
-appId: "YOUR_APP_ID"
-
-};
-
-/* =====================================================
-INITIALIZE FIREBASE
-===================================================== */
-
-const app =
-initializeApp(firebaseConfig);
-
-const db =
-getFirestore(app);
-
-/* =====================================================
-LIVE LOCATION
-===================================================== */
-
-const locationText =
-document.getElementById(
-"locationText"
-);
-
-function success(position){
-
-const latitude =
-position.coords.latitude;
-
-const longitude =
-position.coords.longitude;
-
-fetch(
-
-`https://nominatim.openstreetmap.org/reverse?format=jsonv2&lat=${latitude}&lon=${longitude}`
-
-)
-
-.then(response => response.json())
-
-.then(data => {
-
-const area =
-
-data.address.suburb ||
-
-data.address.neighbourhood ||
-
-data.address.city ||
-
-data.address.town ||
-
-data.address.village ||
-
-"Kasganj";
-
-/* ========================================= */
-
-locationText.innerHTML =
-
-`📍 ${area}`;
-
-/* ========================================= */
-
-})
-
-.catch(()=>{
-
-locationText.innerHTML =
-"📍 Kasganj";
-
-});
+onAuthStateChanged
 
 }
 
-function error(){
+from
 
-locationText.innerHTML =
-"📍 Kasganj";
+"https://www.gstatic.com/firebasejs/12.11.0/firebase-auth.js";
 
-}
-
-if(navigator.geolocation){
-
-navigator.geolocation.getCurrentPosition(
-success,
-error
-);
-
-}else{
-
-locationText.innerHTML =
-"📍 Kasganj";
-
-}
-
-/* =====================================================
-PROFILE BUTTON
-===================================================== */
-
-const profileBtn =
-document.querySelector(
-".profileBtn"
-);
-
-if(profileBtn){
-
-profileBtn.addEventListener(
-"click",
-()=>{
-
-window.location.href =
-"profile.html";
-
-}
-);
-
-}
-
-/* =====================================================
-MIC BUTTON
-===================================================== */
-
-const micBtn =
-document.querySelector(
-".micBtn"
-);
-
-micBtn.addEventListener(
-"click",
-()=>{
-
-showToast(
-"Voice Search Coming Soon 🎤"
-);
-
-}
-);
-
-/* =====================================================
-SEARCH EFFECT
-===================================================== */
-
-const searchBar =
-document.querySelector(
-".searchBar"
-);
-
-const searchInput =
-document.querySelector(
-".searchBar input"
-);
-
-searchInput.addEventListener(
-"focus",
-()=>{
-
-searchBar.style.transform =
-"scale(1.01)";
-
-searchBar.style.boxShadow =
-"0 12px 28px rgba(0,0,0,0.12)";
-
-}
-);
-
-searchInput.addEventListener(
-"blur",
-()=>{
-
-searchBar.style.transform =
-"scale(1)";
-
-searchBar.style.boxShadow =
-"0 8px 22px rgba(0,0,0,0.08)";
-
-}
-);
-
-/* =====================================================
-CATEGORY ACTIVE
-===================================================== */
-
-const categoryCards =
-document.querySelectorAll(
-".categoryCard"
-);
-
-categoryCards.forEach(card=>{
-
-card.addEventListener(
-"click",
-()=>{
-
-categoryCards.forEach(item=>{
-
-item.classList.remove(
-"activeCategory"
-);
-
-});
-
-card.classList.add(
-"activeCategory"
-);
-
-showToast(
-`${card.innerText} selected`
-);
-
-}
-);
-
-});
-
-/* =====================================================
-FIREBASE PRODUCTS
-===================================================== */
+/* =========================================================
+ELEMENTS
+========================================================= */
 
 const productGrid =
 document.getElementById(
 "productGrid"
 );
-
-async function loadTrendingServices(){
-
-productGrid.innerHTML = `
-
-<div style="
-grid-column:1/3;
-text-align:center;
-padding:40px 0;
-font-weight:700;
-color:#6B7280;
-">
-
-Loading Services...
-
-</div>
-
-`;
-
-try{
-
-const servicesQuery =
-query(
-
-collection(
-db,
-"services"
-),
-
-limit(6)
-
-);
-
-const querySnapshot =
-await getDocs(
-servicesQuery
-);
-
-productGrid.innerHTML = "";
-
-/* ========================================= */
-
-querySnapshot.forEach(doc=>{
-
-const product =
-doc.data();
-
-/* ========================================= */
-
-productGrid.innerHTML += `
-
-<div class="productCard">
-
-<div class="favoriteBtn">
-🤍
-</div>
-
-<div class="productImage">
-
-${product.icon || "🧺"}
-
-</div>
-
-<div class="productInfo">
-
-<h3>
-${product.name || "Service"}
-</h3>
-
-<p>
-${product.description || "Premium laundry service"}
-</p>
-
-<div class="productBottom">
-
-<div class="price">
-₹${product.price || 0}
-</div>
-
-<button class="addBtn">
-ADD
-</button>
-
-</div>
-
-</div>
-
-</div>
-
-`;
-
-});
-
-/* ========================================= */
-
-if(querySnapshot.empty){
-
-productGrid.innerHTML = `
-
-<div style="
-grid-column:1/3;
-text-align:center;
-padding:40px 0;
-font-weight:700;
-color:#6B7280;
-">
-
-No services found
-
-</div>
-
-`;
-
-}
-
-/* ========================================= */
-
-activateCartButtons();
-
-activateFavoriteButtons();
-
-}catch(error){
-
-console.log(error);
-
-productGrid.innerHTML = `
-
-<div style="
-grid-column:1/3;
-text-align:center;
-padding:40px 0;
-font-weight:700;
-color:red;
-">
-
-Failed to load services
-
-</div>
-
-`;
-
-}
-
-}
-
-loadTrendingServices();
-
-/* =====================================================
-POPUP CART
-===================================================== */
-
-let cart = [];
 
 const popupCart =
 document.getElementById(
@@ -429,120 +52,262 @@ document.getElementById(
 "cartTotal"
 );
 
-const walletAmount =
-document.getElementById(
-"walletAmount"
-);
-
-/* =====================================================
-OPEN CART
-===================================================== */
-
 const walletBtn =
 document.getElementById(
 "walletBtn"
 );
 
-walletBtn.addEventListener(
-"click",
-()=>{
-
-popupCart.style.display =
-"block";
-
-renderCart();
-
-}
+const walletAmount =
+document.getElementById(
+"walletAmount"
 );
-
-/* =====================================================
-CLOSE CART
-===================================================== */
 
 const closeCart =
 document.getElementById(
 "closeCart"
 );
 
-closeCart.addEventListener(
-"click",
-()=>{
+const locationText =
+document.getElementById(
+"locationText"
+);
 
-popupCart.style.display =
+/* =========================================================
+GLOBAL
+========================================================= */
+
+let currentUser = null;
+
+let services = [];
+
+let cart = [];
+
+/* =========================================================
+AUTH SYSTEM
+========================================================= */
+
+onAuthStateChanged(
+
+auth,
+
+async(user)=>{
+
+/* ========================================================= */
+
+if(user){
+
+currentUser = user;
+
+/* =========================================================
+SHOW WALLET
+========================================================= */
+
+walletBtn.style.display =
+"flex";
+
+/* =========================================================
+LOAD USER WALLET
+========================================================= */
+
+const walletSnapshot =
+await getDocs(
+collection(db,"wallets")
+);
+
+/* ========================================================= */
+
+walletSnapshot.forEach(doc=>{
+
+const data = doc.data();
+
+if(data.uid === user.uid){
+
+walletAmount.innerHTML =
+"₹" + (data.balance || 0);
+
+}
+
+});
+
+/* ========================================================= */
+
+}else{
+
+currentUser = null;
+
+/* =========================================================
+HIDE WALLET
+========================================================= */
+
+walletBtn.style.display =
 "none";
 
 }
+
+}
 );
 
-/* =====================================================
-ADD TO CART
-===================================================== */
+/* =========================================================
+GET LOCATION
+========================================================= */
 
-function activateCartButtons(){
+navigator.geolocation.getCurrentPosition(
 
-document.querySelectorAll(
-".addBtn"
-)
+(position)=>{
 
-.forEach(button=>{
+locationText.innerHTML =
 
-button.addEventListener(
-"click",
+`📍 Your Location Detected`;
+
+},
+
 ()=>{
 
-const card =
-button.closest(
-".productCard"
+locationText.innerHTML =
+"📍 Kasganj, Uttar Pradesh";
+
+}
+
 );
 
-const name =
-card.querySelector("h3")
-.innerText;
+/* =========================================================
+LOAD SERVICES REALTIME
+========================================================= */
 
-const price =
-card.querySelector(".price")
-.innerText;
+onSnapshot(
 
-const emoji =
-card.querySelector(".productImage")
-.innerText;
+collection(db,"services"),
 
-/* ========================================= */
+(snapshot)=>{
 
-cart.push({
+productGrid.innerHTML = "";
 
-name,
-price,
-emoji
+services = [];
+
+/* ========================================================= */
+
+snapshot.forEach(docSnap=>{
+
+const service =
+docSnap.data();
+
+service.id =
+docSnap.id;
+
+services.push(service);
 
 });
 
-/* ========================================= */
+/* =========================================================
+TRENDING SORT
+========================================================= */
 
-button.innerHTML =
-"Added ✓";
+services.sort(
 
-button.style.background =
-"#111827";
+(a,b)=>
 
-/* ========================================= */
+(b.orders || 0)
+-
+(a.orders || 0)
+
+);
+
+/* =========================================================
+RENDER SERVICES
+========================================================= */
+
+services.forEach(service=>{
+
+productGrid.innerHTML += `
+
+<div class="productCard">
+
+<div
+class="favoriteBtn">
+
+<i class="fa-regular fa-heart"></i>
+
+</div>
+
+<div class="productImage">
+
+${service.icon || '🧺'}
+
+</div>
+
+<div class="productInfo">
+
+<h3>
+${service.name || 'Laundry'}
+</h3>
+
+<p>
+${service.description || 'Premium Laundry Service'}
+</p>
+
+<div class="productBottom">
+
+<div class="price">
+
+₹${service.price || 0}
+
+</div>
+
+<button
+class="addBtn"
+onclick="addToCart('${service.id}')">
+
+Add
+
+</button>
+
+</div>
+
+</div>
+
+</div>
+
+`;
+
+});
+
+}
+);
+
+/* =========================================================
+ADD TO CART
+========================================================= */
+
+window.addToCart =
+(id)=>{
+
+const service =
+services.find(
+s=>s.id === id
+);
+
+/* ========================================================= */
+
+if(!service) return;
+
+/* ========================================================= */
+
+cart.push(service);
+
+/* ========================================================= */
 
 renderCart();
 
-showToast(
-`${name} added to cart`
-);
+/* ========================================================= */
 
-}
-);
+popupCart.style.display =
+"block";
 
-});
+};
 
-}
-
-/* =====================================================
+/* =========================================================
 RENDER CART
-===================================================== */
+========================================================= */
 
 function renderCart(){
 
@@ -550,79 +315,184 @@ cartItems.innerHTML = "";
 
 let total = 0;
 
-/* ========================================= */
-
-if(cart.length === 0){
-
-cartItems.innerHTML = `
-
-<div style="
-padding:25px;
-text-align:center;
-font-weight:700;
-color:#6B7280;
-">
-
-Cart is empty 🛒
-
-</div>
-
-`;
-
-}
-
-/* ========================================= */
+/* ========================================================= */
 
 cart.forEach(item=>{
 
-const numericPrice =
-parseInt(
-item.price.replace("₹","")
-);
+total += Number(item.price || 0);
 
-total += numericPrice;
-
-/* ========================================= */
+/* ========================================================= */
 
 cartItems.innerHTML += `
 
 <div class="cartItem">
 
-<div style="
-display:flex;
-align-items:center;
-gap:12px;
-">
+<div>
 
-<div style="
-font-size:32px;
-">
+<b>
+${item.name}
+</b>
 
-${item.emoji}
+<br>
+
+₹${item.price}
 
 </div>
 
 <div>
 
-<div style="
-font-size:15px;
-font-weight:800;
+<button
+onclick="removeCart('${item.id}')"
+style="
+width:34px;
+height:34px;
+border:none;
+border-radius:10px;
+background:#EF4444;
+color:#fff;
+cursor:pointer;
 ">
 
-${item.name}
+×
+
+</button>
 
 </div>
 
-<div style="
-font-size:14px;
-color:#16A34A;
-font-weight:700;
-margin-top:3px;
-">
+</div>
 
-${item.price}
+`;
+
+});
+
+/* ========================================================= */
+
+cartTotal.innerHTML =
+"₹" + total;
+
+}
+
+/* =========================================================
+REMOVE CART
+========================================================= */
+
+window.removeCart =
+(id)=>{
+
+cart =
+
+cart.filter(
+item=>item.id !== id
+);
+
+/* ========================================================= */
+
+renderCart();
+
+};
+
+/* =========================================================
+CLOSE CART
+========================================================= */
+
+closeCart.onclick = ()=>{
+
+popupCart.style.display =
+"none";
+
+};
+
+/* =========================================================
+CATEGORY FILTERS
+========================================================= */
+
+const categoryCards =
+
+document.querySelectorAll(
+".categoryCard"
+);
+
+/* ========================================================= */
+
+categoryCards.forEach(card=>{
+
+card.addEventListener(
+
+"click",
+
+()=>{
+
+const category =
+
+card.innerText
+.trim()
+.toLowerCase();
+
+/* ========================================================= */
+
+const filtered =
+
+services.filter(service=>{
+
+return (
+
+(service.category || '')
+.toLowerCase()
+.includes(category)
+
+);
+
+});
+
+/* ========================================================= */
+
+productGrid.innerHTML = "";
+
+/* ========================================================= */
+
+filtered.forEach(service=>{
+
+productGrid.innerHTML += `
+
+<div class="productCard">
+
+<div class="favoriteBtn">
+
+<i class="fa-regular fa-heart"></i>
 
 </div>
+
+<div class="productImage">
+
+${service.icon || '🧺'}
+
+</div>
+
+<div class="productInfo">
+
+<h3>
+${service.name}
+</h3>
+
+<p>
+${service.description}
+</p>
+
+<div class="productBottom">
+
+<div class="price">
+
+₹${service.price}
+
+</div>
+
+<button
+class="addBtn"
+onclick="addToCart('${service.id}')">
+
+Add
+
+</button>
 
 </div>
 
@@ -634,350 +504,309 @@ ${item.price}
 
 });
 
-/* ========================================= */
-
-cartTotal.innerText =
-`₹${total}`;
-
-walletAmount.innerText =
-`₹${total}`;
-
 }
 
-/* =====================================================
-CHECKOUT BUTTON
-===================================================== */
-
-const checkoutBtn =
-document.querySelector(
-".checkoutBtn"
 );
 
-checkoutBtn.addEventListener(
+});
+
+/* =========================================================
+BOTTOM NAV SECURITY
+========================================================= */
+
+const navItems =
+
+document.querySelectorAll(
+".navItem"
+);
+
+/* ========================================================= */
+
+navItems.forEach(item=>{
+
+item.addEventListener(
+
 "click",
+
 ()=>{
 
-if(cart.length === 0){
+const text =
 
-showToast(
-"Cart is empty"
-);
+item.innerText
+.trim()
+.toLowerCase();
+
+/* ========================================================= */
+
+if(
+
+(
+text === "orders" ||
+text === "wallet" ||
+text === "profile"
+)
+
+&&
+
+!currentUser
+
+){
+
+window.location.href =
+"./login.html";
 
 return;
 
 }
 
-showToast(
-"Opening checkout 🚀"
-);
+/* =========================================================
+ROUTES
+========================================================= */
 
-setTimeout(()=>{
+if(text === "home"){
 
 window.location.href =
-"checkout.html";
-
-},1200);
+"./index.html";
 
 }
+
+if(text === "orders"){
+
+window.location.href =
+"./orders.html";
+
+}
+
+if(text === "services"){
+
+window.location.href =
+"./services.html";
+
+}
+
+if(text === "wallet"){
+
+window.location.href =
+"./wallet.html";
+
+}
+
+if(text === "profile"){
+
+window.location.href =
+"./profile.html";
+
+}
+
+}
+
 );
 
-/* =====================================================
-BOOK PICKUP BUTTON
-===================================================== */
+});
 
-const bookBtn =
+/* =========================================================
+PROFILE BUTTON SECURITY
+========================================================= */
+
+const profileBtn =
+
 document.querySelector(
-".bookBtn"
+".profileBtn"
 );
 
-bookBtn.addEventListener(
+/* ========================================================= */
+
+profileBtn.addEventListener(
+
 "click",
+
 ()=>{
 
-showToast(
-"Pickup booked successfully 🚀"
-);
+if(!currentUser){
+
+window.location.href =
+"./login.html";
+
+return;
 
 }
+
+window.location.href =
+"./profile.html";
+
+}
+
 );
 
-/* =====================================================
-PARTNER BUTTON
-===================================================== */
+/* =========================================================
+WALLET BUTTON SECURITY
+========================================================= */
 
-const partnerBtn =
-document.querySelector(
-".partnerBtn"
-);
+walletBtn.addEventListener(
 
-partnerBtn.addEventListener(
 "click",
+
 ()=>{
 
-showToast(
-"Opening partners..."
-);
+if(!currentUser){
+
+window.location.href =
+"./login.html";
+
+return;
 
 }
+
+window.location.href =
+"./wallet.html";
+
+}
+
 );
 
-/* =====================================================
-FAVORITE BUTTON
-===================================================== */
+/* =========================================================
+SEARCH SYSTEM
+========================================================= */
 
-function activateFavoriteButtons(){
+const searchInput =
 
-document.querySelectorAll(
-".favoriteBtn"
+document.querySelector(
+".searchBar input"
+);
+
+/* ========================================================= */
+
+searchInput.addEventListener(
+
+"keyup",
+
+()=>{
+
+const value =
+
+searchInput.value
+.toLowerCase();
+
+/* ========================================================= */
+
+const filtered =
+
+services.filter(service=>{
+
+return (
+
+(service.name || '')
+.toLowerCase()
+.includes(value)
+
+);
+
+});
+
+/* ========================================================= */
+
+productGrid.innerHTML = "";
+
+/* ========================================================= */
+
+filtered.forEach(service=>{
+
+productGrid.innerHTML += `
+
+<div class="productCard">
+
+<div class="favoriteBtn">
+
+<i class="fa-regular fa-heart"></i>
+
+</div>
+
+<div class="productImage">
+
+${service.icon || '🧺'}
+
+</div>
+
+<div class="productInfo">
+
+<h3>
+${service.name}
+</h3>
+
+<p>
+${service.description}
+</p>
+
+<div class="productBottom">
+
+<div class="price">
+
+₹${service.price}
+
+</div>
+
+<button
+class="addBtn"
+onclick="addToCart('${service.id}')">
+
+Add
+
+</button>
+
+</div>
+
+</div>
+
+</div>
+
+`;
+
+});
+
+}
+
+);
+
+/* =========================================================
+CHECKOUT
+========================================================= */
+
+document.querySelector(
+".checkoutBtn"
 )
 
-.forEach(button=>{
+.addEventListener(
 
-button.addEventListener(
 "click",
+
 ()=>{
 
-if(button.innerHTML === "🤍"){
-
-button.innerHTML =
-"❤️";
-
-showToast(
-"Added to wishlist"
-);
-
-}else{
-
-button.innerHTML =
-"🤍";
-
-showToast(
-"Removed from wishlist"
-);
-
-}
-
-}
-);
-
-});
-
-}
-
-/* =====================================================
-BOTTOM NAV
-===================================================== */
-
-const navItems =
-document.querySelectorAll(
-".navItem"
-);
-
-navItems.forEach(item=>{
-
-item.addEventListener(
-"click",
-()=>{
-
-navItems.forEach(nav=>{
-
-nav.classList.remove(
-"activeNav"
-);
-
-});
-
-item.classList.add(
-"activeNav"
-);
-
-/* =========================================
-PAGE REDIRECT
-========================================= */
-
-const pageText =
-item.innerText.trim();
-
-/* ========================================= */
-
-if(pageText.includes("Home")){
+if(!currentUser){
 
 window.location.href =
-"index.html";
+"./login.html";
+
+return;
 
 }
 
-if(pageText.includes("Orders")){
+/* ========================================================= */
 
 window.location.href =
-"orders.html";
+"./checkout.html";
 
 }
 
-if(pageText.includes("Services")){
-
-window.location.href =
-"services.html";
-
-}
-
-if(pageText.includes("Wallet")){
-
-window.location.href =
-"wallet.html";
-
-}
-
-if(pageText.includes("Profile")){
-
-window.location.href =
-"profile.html";
-
-}
-
-}
 );
 
-});
-
-/* =====================================================
-AUTO REVIEW SLIDER
-===================================================== */
-
-const reviewTrack =
-document.querySelector(
-".reviewTrack"
-);
-
-let reviewScroll = 0;
+/* =========================================================
+AUTO REFRESH
+========================================================= */
 
 setInterval(()=>{
 
-if(reviewTrack){
-
-reviewScroll += 300;
-
-if(
-
-reviewScroll >=
-
-reviewTrack.scrollWidth -
-
-reviewTrack.clientWidth
-
-){
-
-reviewScroll = 0;
-
-}
-
-reviewTrack.scrollTo({
-
-left:reviewScroll,
-
-behavior:"smooth"
-
-});
-
-}
-
-},3200);
-
-/* =====================================================
-TOAST
-===================================================== */
-
-function showToast(message){
-
-const toast =
-document.createElement("div");
-
-toast.innerHTML = message;
-
-toast.style.position =
-"fixed";
-
-toast.style.bottom =
-"100px";
-
-toast.style.left =
-"50%";
-
-toast.style.transform =
-"translateX(-50%)";
-
-toast.style.background =
-"#111827";
-
-toast.style.color =
-"#fff";
-
-toast.style.padding =
-"14px 22px";
-
-toast.style.borderRadius =
-"18px";
-
-toast.style.fontWeight =
-"700";
-
-toast.style.fontSize =
-"14px";
-
-toast.style.zIndex =
-"99999";
-
-toast.style.boxShadow =
-"0 8px 24px rgba(0,0,0,0.18)";
-
-document.body.appendChild(
-toast
+console.log(
+"QuickPress Home Synced"
 );
 
-setTimeout(()=>{
-
-toast.remove();
-
-},2500);
-
-}
-
-/* =====================================================
-HEADER SCROLL EFFECT
-===================================================== */
-
-window.addEventListener(
-"scroll",
-()=>{
-
-const hero =
-document.querySelector(
-".hero"
-);
-
-if(window.scrollY > 10){
-
-hero.style.boxShadow =
-"0 8px 22px rgba(0,0,0,0.08)";
-
-}else{
-
-hero.style.boxShadow =
-"none";
-
-}
-
-});
-
-/* =====================================================
-PAGE LOAD
-===================================================== */
-
-window.addEventListener(
-"load",
-()=>{
-
-document.body.style.opacity =
-"1";
-
-});
+},5000);
