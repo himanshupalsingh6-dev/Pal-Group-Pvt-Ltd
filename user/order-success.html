@@ -1,0 +1,401 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>Order Success</title>
+
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;700;800;900&display=swap" rel="stylesheet">
+
+<style>
+
+*{
+margin:0;
+padding:0;
+box-sizing:border-box;
+font-family:'Inter',sans-serif;
+}
+
+body{
+
+background:
+linear-gradient(
+180deg,
+#F6F7FB,
+#FFFFFF
+);
+
+min-height:100vh;
+
+display:flex;
+align-items:center;
+justify-content:center;
+
+padding:20px;
+
+}
+
+.successCard{
+
+width:100%;
+max-width:500px;
+
+background:#fff;
+
+border-radius:36px;
+
+padding:32px;
+
+text-align:center;
+
+box-shadow:
+0 20px 40px rgba(0,0,0,.08);
+
+}
+
+.successIcon{
+
+width:120px;
+height:120px;
+
+margin:auto;
+
+border-radius:50%;
+
+display:flex;
+align-items:center;
+justify-content:center;
+
+font-size:60px;
+
+background:
+linear-gradient(
+135deg,
+#16A34A,
+#22C55E
+);
+
+color:#fff;
+
+animation:pop .6s ease;
+
+}
+
+@keyframes pop{
+
+0%{
+transform:scale(.5);
+opacity:0;
+}
+
+100%{
+transform:scale(1);
+opacity:1;
+}
+
+}
+
+h1{
+
+margin-top:24px;
+
+font-size:34px;
+
+font-weight:900;
+
+}
+
+.subText{
+
+margin-top:12px;
+
+font-size:15px;
+
+line-height:1.8;
+
+color:#6B7280;
+
+}
+
+.orderId{
+
+margin-top:22px;
+
+padding:16px;
+
+border-radius:18px;
+
+background:#F3F4F6;
+
+font-size:18px;
+
+font-weight:900;
+
+}
+
+.infoGrid{
+
+margin-top:22px;
+
+display:grid;
+
+grid-template-columns:
+1fr 1fr;
+
+gap:14px;
+
+}
+
+.infoCard{
+
+background:#F9FAFB;
+
+padding:18px;
+
+border-radius:20px;
+
+}
+
+.infoTitle{
+
+font-size:11px;
+
+font-weight:800;
+
+color:#6B7280;
+
+}
+
+.infoValue{
+
+margin-top:8px;
+
+font-size:18px;
+
+font-weight:900;
+
+}
+
+.statusCard{
+
+margin-top:20px;
+
+background:#DCFCE7;
+
+padding:18px;
+
+border-radius:20px;
+
+font-weight:800;
+
+color:#166534;
+
+}
+
+.btn{
+
+width:100%;
+
+height:56px;
+
+border:none;
+
+border-radius:18px;
+
+font-size:15px;
+
+font-weight:900;
+
+cursor:pointer;
+
+margin-top:16px;
+
+}
+
+.trackBtn{
+
+background:#16A34A;
+
+color:#fff;
+
+}
+
+.homeBtn{
+
+background:#111827;
+
+color:#fff;
+
+}
+
+.supportBtn{
+
+background:#25D366;
+
+color:#fff;
+
+}
+
+.watermark{
+
+margin-top:28px;
+
+font-size:13px;
+
+opacity:.7;
+
+}
+
+</style>
+
+</head>
+
+<body>
+
+<div class="successCard">
+
+<div class="successIcon">
+🎉
+</div>
+
+<h1>
+Order Placed Successfully
+</h1>
+
+<div class="subText">
+
+Your order has been received.
+Partner and Rider assignment will start shortly.
+
+</div>
+
+<div
+class="orderId"
+id="orderId">
+
+QP12345678
+
+</div>
+
+<div class="infoGrid">
+
+<div class="infoCard">
+
+<div class="infoTitle">
+
+PICKUP ETA
+
+</div>
+
+<div class="infoValue">
+
+10 Min
+
+</div>
+
+</div>
+
+<div class="infoCard">
+
+<div class="infoTitle">
+
+DELIVERY
+
+</div>
+
+<div class="infoValue">
+
+Same Day
+
+</div>
+
+</div>
+
+</div>
+
+<div class="statusCard">
+
+✅ Rider Assignment In Progress
+
+</div>
+
+<button
+class="btn trackBtn"
+onclick="trackOrder()">
+
+Track Order
+
+</button>
+
+<button
+class="btn supportBtn"
+onclick="openWhatsapp()">
+
+WhatsApp Support
+
+</button>
+
+<button
+class="btn homeBtn"
+onclick="goHome()">
+
+Back To Home
+
+</button>
+
+<div class="watermark">
+
+Made in Uttar Pradesh<br>
+Crafted by Himanshu Baghel 💗
+
+</div>
+
+</div>
+
+<script>
+
+const params =
+new URLSearchParams(
+window.location.search
+);
+
+const orderId =
+params.get("id");
+
+if(orderId){
+
+document.getElementById(
+"orderId"
+).innerHTML = orderId;
+
+}
+
+function trackOrder(){
+
+window.location.href =
+`track-order.html?id=${orderId}`;
+
+}
+
+function goHome(){
+
+window.location.href =
+"index.html";
+
+}
+
+function openWhatsapp(){
+
+window.open(
+"https://wa.me/919997874502",
+"_blank"
+);
+
+}
+
+</script>
+
+</body>
+</html>
