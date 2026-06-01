@@ -1,67 +1,32 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
 
 <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<meta
-name="viewport"
-content="width=device-width, initial-scale=1.0">
+<title>My Orders</title>
 
-<title>
-QuickPress Orders
-</title>
-
-<!-- =========================================
-FONT
-========================================= -->
-
-<link rel="preconnect"
-href="https://fonts.googleapis.com">
-
-<link rel="preconnect"
-href="https://fonts.gstatic.com"
-crossorigin>
-
-<link
-href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap"
-rel="stylesheet">
-
-<!-- =========================================
-ICONS
-========================================= -->
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
 
 <link rel="stylesheet"
 href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css"/>
 
 <style>
 
-/* =========================================
-RESET
-========================================= */
-
 *{
-
 margin:0;
 padding:0;
 box-sizing:border-box;
 font-family:'Inter',sans-serif;
--webkit-tap-highlight-color:transparent;
-
 }
 
 body{
-
-background:#F5F7FB;
-padding-bottom:110px;
-overflow-x:hidden;
-
+background:#F6F7FB;
+padding-bottom:100px;
 }
 
-/* =========================================
-HEADER
-========================================= */
+/* HEADER */
 
 .ordersHero{
 
@@ -72,72 +37,80 @@ linear-gradient(
 #FFE98A
 );
 
-padding:22px 18px 36px;
+padding:20px;
 
-border-bottom-left-radius:36px;
-border-bottom-right-radius:36px;
-
-position:sticky;
-
-top:0;
-
-z-index:999;
+border-bottom-left-radius:32px;
+border-bottom-right-radius:32px;
 
 }
 
-.topBar{
+.ordersHero h1{
 
-display:flex;
-
-justify-content:space-between;
-
-align-items:center;
-
-}
-
-.pageTitle{
-
-font-size:32px;
-
+font-size:30px;
 font-weight:900;
 
-color:#111827;
-
 }
 
-.pageSub{
+.ordersHero p{
 
 margin-top:6px;
 
 font-size:13px;
-
 font-weight:700;
 
 color:#374151;
 
 }
 
-/* =========================================
-FILTERS
-========================================= */
+/* SEARCH */
 
-.filterWrap{
+.searchWrap{
 
-display:flex;
-
-gap:12px;
-
-overflow-x:auto;
-
-margin-top:22px;
-
-scrollbar-width:none;
+padding:16px;
 
 }
 
-.filterWrap::-webkit-scrollbar{
+.searchBox{
 
-display:none;
+height:56px;
+
+background:#fff;
+
+border-radius:18px;
+
+display:flex;
+align-items:center;
+
+padding:0 16px;
+
+box-shadow:
+0 8px 24px rgba(0,0,0,.05);
+
+}
+
+.searchBox input{
+
+flex:1;
+
+border:none;
+outline:none;
+
+font-size:14px;
+
+padding-left:10px;
+
+}
+
+/* FILTERS */
+
+.filterWrap{
+
+padding:0 16px 16px;
+
+display:flex;
+gap:10px;
+
+overflow-x:auto;
 
 }
 
@@ -145,7 +118,7 @@ display:none;
 
 height:42px;
 
-padding:0 18px;
+padding:0 16px;
 
 border:none;
 
@@ -153,34 +126,26 @@ border-radius:999px;
 
 background:#fff;
 
-font-size:13px;
-
 font-weight:800;
-
-white-space:nowrap;
 
 cursor:pointer;
 
-box-shadow:
-0 4px 12px rgba(0,0,0,0.05);
+white-space:nowrap;
 
 }
 
 .activeFilter{
 
-background:#111827;
-
+background:#16A34A;
 color:#fff;
 
 }
 
-/* =========================================
-ORDERS
-========================================= */
+/* ORDER CARD */
 
-.ordersWrap{
+.ordersContainer{
 
-padding:18px 16px;
+padding:0 16px;
 
 }
 
@@ -188,28 +153,23 @@ padding:18px 16px;
 
 background:#fff;
 
-border-radius:30px;
+padding:18px;
 
-padding:20px;
+border-radius:24px;
 
-margin-bottom:18px;
+margin-bottom:14px;
 
 box-shadow:
-0 8px 24px rgba(0,0,0,0.05);
+0 8px 24px rgba(0,0,0,.05);
 
 }
-
-/* =========================================
-TOP
-========================================= */
 
 .orderTop{
 
 display:flex;
 
 justify-content:space-between;
-
-align-items:flex-start;
+align-items:center;
 
 }
 
@@ -219,383 +179,229 @@ font-size:15px;
 
 font-weight:900;
 
-color:#111827;
-
-}
-
-.orderDate{
-
-margin-top:6px;
-
-font-size:12px;
-
-font-weight:700;
-
-color:#6B7280;
-
 }
 
 .orderStatus{
 
-height:36px;
-
-padding:0 16px;
+padding:6px 12px;
 
 border-radius:999px;
 
-display:flex;
-
-align-items:center;
-
 font-size:11px;
 
 font-weight:900;
-
-}
-
-.statusActive{
 
 background:#DCFCE7;
 
-color:#16A34A;
+color:#166534;
 
 }
 
-.statusDone{
+.orderInfo{
 
-background:#DBEAFE;
+margin-top:12px;
 
-color:#2563EB;
+line-height:1.9;
+
+font-size:13px;
+
+color:#4B5563;
 
 }
 
-/* =========================================
-ITEMS
-========================================= */
+.badges{
 
-.orderItems{
-
-margin-top:18px;
+margin-top:10px;
 
 display:flex;
-
-flex-direction:column;
-
-gap:14px;
+gap:8px;
+flex-wrap:wrap;
 
 }
 
-.orderItem{
+.badge{
 
-display:flex;
+padding:6px 10px;
 
-justify-content:space-between;
-
-align-items:center;
-
-}
-
-.itemLeft{
-
-display:flex;
-
-align-items:center;
-
-gap:12px;
-
-}
-
-.itemImg{
-
-width:62px;
-height:62px;
-
-border-radius:20px;
-
-background:#F3F4F6;
-
-display:flex;
-
-align-items:center;
-justify-content:center;
-
-font-size:32px;
-
-}
-
-.itemInfo h3{
-
-font-size:15px;
-
-font-weight:800;
-
-}
-
-.itemInfo p{
-
-margin-top:4px;
-
-font-size:12px;
-
-color:#6B7280;
-
-}
-
-.itemPrice{
-
-font-size:16px;
-
-font-weight:900;
-
-}
-
-/* =========================================
-DETAILS
-========================================= */
-
-.detailsGrid{
-
-margin-top:20px;
-
-display:grid;
-
-grid-template-columns:1fr 1fr;
-
-gap:14px;
-
-}
-
-.detailBox{
-
-background:#F9FAFB;
-
-padding:16px;
-
-border-radius:20px;
-
-}
-
-.detailLabel{
+border-radius:999px;
 
 font-size:11px;
-
-font-weight:800;
-
-color:#6B7280;
-
-}
-
-.detailValue{
-
-margin-top:8px;
-
-font-size:15px;
-
-font-weight:900;
-
-color:#111827;
-
-}
-
-/* =========================================
-TRACKING
-========================================= */
-
-.trackCard{
-
-margin-top:20px;
-
-background:#F9FAFB;
-
-border-radius:24px;
-
-padding:18px;
-
-display:flex;
-
-align-items:center;
-
-justify-content:space-between;
-
-}
-
-.riderLeft{
-
-display:flex;
-
-align-items:center;
-
-gap:12px;
-
-}
-
-.riderImg{
-
-width:58px;
-height:58px;
-
-border-radius:20px;
-
-object-fit:cover;
-
-}
-
-.riderInfo h3{
-
-font-size:15px;
-
 font-weight:800;
 
 }
 
-.riderInfo p{
+.premium{
 
-margin-top:4px;
-
-font-size:12px;
-
-color:#6B7280;
+background:#F3E8FF;
+color:#6B21A8;
 
 }
 
-.callBtn{
+.urgent{
 
-width:52px;
-height:52px;
+background:#DBEAFE;
+color:#1E40AF;
+
+}
+
+/* ACTIONS */
+
+.actions{
+
+margin-top:14px;
+
+display:flex;
+gap:10px;
+flex-wrap:wrap;
+
+}
+
+.actionBtn{
+
+height:42px;
+
+padding:0 14px;
 
 border:none;
 
-border-radius:18px;
+border-radius:14px;
 
-background:#16A34A;
-
-color:#fff;
-
-font-size:18px;
+font-size:12px;
+font-weight:900;
 
 cursor:pointer;
-
-}
-
-/* =========================================
-BUTTONS
-========================================= */
-
-.orderBtns{
-
-margin-top:18px;
-
-display:grid;
-
-grid-template-columns:1fr 1fr;
-
-gap:12px;
 
 }
 
 .trackBtn{
 
-height:54px;
-
-border:none;
-
-border-radius:20px;
-
 background:#16A34A;
-
 color:#fff;
-
-font-size:14px;
-
-font-weight:900;
-
-cursor:pointer;
 
 }
 
-.invoiceBtn{
-
-height:54px;
-
-border:none;
-
-border-radius:20px;
+.detailsBtn{
 
 background:#111827;
-
 color:#fff;
 
-font-size:14px;
-
-font-weight:900;
-
-cursor:pointer;
-
 }
 
-/* =========================================
-EMPTY
-========================================= */
+.reorderBtn{
 
-.emptyOrders{
-
-padding:100px 20px;
-
-text-align:center;
-
-}
-
-.emptyOrders h2{
-
-margin-top:18px;
-
-font-size:30px;
-
-font-weight:900;
-
-color:#111827;
-
-}
-
-.emptyOrders p{
-
-margin-top:10px;
-
-font-size:14px;
-
-line-height:1.7;
-
-color:#6B7280;
-
-}
-
-.shopBtn{
-
-margin-top:24px;
-
-height:56px;
-
-padding:0 24px;
-
-border:none;
-
-border-radius:22px;
-
-background:#16A34A;
-
+background:#F59E0B;
 color:#fff;
 
-font-size:15px;
-
-font-weight:900;
-
-cursor:pointer;
-
 }
 
-/* =========================================
-BOTTOM NAV
-========================================= */
+</style>
+
+</head>
+
+<body>
+
+<!-- HEADER -->
+
+<div class="ordersHero">
+
+<h1>
+My Orders
+</h1>
+
+<p>
+Track all your laundry orders
+</p>
+
+</div>
+
+<!-- SEARCH -->
+
+<div class="searchWrap">
+
+<div class="searchBox">
+
+<i class="fa-solid fa-magnifying-glass"></i>
+
+<input
+type="text"
+id="searchInput"
+placeholder="Search Order ID">
+
+</div>
+
+</div>
+
+<!-- FILTERS -->
+
+<div class="filterWrap">
+
+<button class="filterBtn activeFilter">
+Active
+</button>
+
+<button class="filterBtn">
+Completed
+</button>
+
+<button class="filterBtn">
+Cancelled
+</button>
+
+</div>
+
+<!-- ORDERS -->
+
+<div
+class="ordersContainer"
+id="ordersContainer">
+
+<!-- Firebase Orders Here -->
+
+</div>
+<!-- =========================================
+BOTTOM NAVIGATION
+========================================= -->
+
+<div class="bottomNav">
+
+<button
+class="navItem"
+onclick="location.href='index.html'">
+
+🏠
+<span>Home</span>
+
+</button>
+
+<button
+class="navItem activeNav">
+
+📦
+<span>Orders</span>
+
+</button>
+
+<button
+class="navItem"
+onclick="location.href='wallet.html'">
+
+💰
+<span>Wallet</span>
+
+</button>
+
+<button
+class="navItem"
+onclick="location.href='profile.html'">
+
+👤
+<span>Profile</span>
+
+</button>
+
+</div>
+
+<style>
 
 .bottomNav{
 
@@ -605,7 +411,7 @@ left:0;
 right:0;
 bottom:0;
 
-height:76px;
+height:75px;
 
 background:#fff;
 
@@ -616,7 +422,7 @@ justify-content:space-around;
 align-items:center;
 
 box-shadow:
-0 -6px 20px rgba(0,0,0,0.08);
+0 -8px 20px rgba(0,0,0,.08);
 
 z-index:999;
 
@@ -636,9 +442,9 @@ display:flex;
 
 flex-direction:column;
 
-align-items:center;
-
 justify-content:center;
+
+align-items:center;
 
 gap:4px;
 
@@ -646,15 +452,9 @@ font-size:11px;
 
 font-weight:700;
 
-color:#6B7280;
-
 cursor:pointer;
 
-}
-
-.navItem i{
-
-font-size:20px;
+color:#6B7280;
 
 }
 
@@ -666,490 +466,441 @@ color:#16A34A;
 
 </style>
 
-</head>
-
-<body>
-
-<!-- =========================================
-HEADER
-========================================= -->
-
-<div class="ordersHero">
-
-<div class="topBar">
-
-<div>
-
-<div class="pageTitle">
-My Orders
-</div>
-
-<div class="pageSub">
-Track all QuickPress orders
-</div>
-
-</div>
-
-<i
-class="fa-solid fa-clock-rotate-left"
-style="
-font-size:24px;
-">
-</i>
-
-</div>
-
-<!-- FILTERS -->
-
-<div class="filterWrap">
-
-<button class="filterBtn activeFilter">
-All
-</button>
-
-<button class="filterBtn">
-Active
-</button>
-
-<button class="filterBtn">
-Completed
-</button>
-
-<button class="filterBtn">
-Cancelled
-</button>
-
-</div>
-
-</div>
-
-<!-- =========================================
-ORDERS
-========================================= -->
-
-<div
-class="ordersWrap"
-id="ordersWrap">
-
-</div>
-
-<!-- =========================================
-BOTTOM NAV
-========================================= -->
-
-<div class="bottomNav">
-
-<button
-class="navItem"
-onclick="goPage('index.html')">
-
-<i class="fa-solid fa-house"></i>
-
-<span>
-Home
-</span>
-
-</button>
-
-<button
-class="navItem activeNav">
-
-<i class="fa-solid fa-box"></i>
-
-<span>
-Orders
-</span>
-
-</button>
-
-<button
-class="navItem"
-onclick="goPage('services.html')">
-
-<i class="fa-solid fa-table-cells-large"></i>
-
-<span>
-Services
-</span>
-
-</button>
-
-<button
-class="navItem">
-
-<i class="fa-solid fa-wallet"></i>
-
-<span>
-Wallet
-</span>
-
-</button>
-
-<button
-class="navItem"
-onclick="goPage('profile.html')">
-
-<i class="fa-regular fa-user"></i>
-
-<span>
-Profile
-</span>
-
-</button>
-
-</div>
-
-<!-- =========================================
-SCRIPT
-========================================= -->
-
 <script type="module">
 
-/* =========================================
-IMPORT
-========================================= */
-
-import { auth, db }
-
-from "../firebase.js";
+import { db, auth }
+from "./firebase.js";
 
 import {
-
-onAuthStateChanged
-
-}
-
-from
-
-"https://www.gstatic.com/firebasejs/12.11.0/firebase-auth.js";
-
-import {
-
 collection,
 query,
 where,
-getDocs,
-orderBy
-
+onSnapshot
 }
-
 from
-
 "https://www.gstatic.com/firebasejs/12.11.0/firebase-firestore.js";
 
+import {
+onAuthStateChanged
+}
+from
+"https://www.gstatic.com/firebasejs/12.11.0/firebase-auth.js";
+
 /* =========================================
-ELEMENT
+GLOBAL
 ========================================= */
 
-const ordersWrap =
-document.getElementById(
-"ordersWrap"
-);
+let allOrders = [];
+
+let currentFilter =
+"Active";
 
 /* =========================================
-AUTH CHECK
+LOGIN CHECK
 ========================================= */
 
 onAuthStateChanged(
+
 auth,
-async(user)=>{
 
-if(user){
+(user)=>{
 
-loadOrders(
-user.uid
-);
-
-}else{
+if(!user){
 
 window.location.href =
 "login.html";
 
-}
+return;
 
 }
+
+loadOrders(user.uid);
+
+}
+
+);
+
+/* =========================================
+FILTER BUTTONS
+========================================= */
+
+document
+.querySelectorAll(
+".filterBtn"
+)
+
+.forEach(btn=>{
+
+btn.addEventListener(
+
+"click",
+
+()=>{
+
+document
+.querySelectorAll(
+".filterBtn"
+)
+
+.forEach(b=>
+b.classList.remove(
+"activeFilter"
+)
+);
+
+btn.classList.add(
+"activeFilter"
+);
+
+currentFilter =
+btn.innerText.trim();
+
+renderOrders();
+
+}
+
+);
+
+});
+
+/* =========================================
+SEARCH
+========================================= */
+
+document
+.getElementById(
+"searchInput"
+)
+
+.addEventListener(
+
+"keyup",
+
+renderOrders
+
 );
 
 /* =========================================
 LOAD ORDERS
 ========================================= */
 
-async function loadOrders(uid){
+function loadOrders(uid){
 
-ordersWrap.innerHTML = `
+const q = query(
 
-<div style="
-padding:100px 20px;
-text-align:center;
-font-weight:800;
-">
+collection(
+db,
+"orders"
+),
 
-Loading Orders...
-
-</div>
-
-`;
-
-try{
-
-const q =
-query(
-
-collection(db,"orders"),
-
-where("userId","==",uid),
-
-orderBy("createdAt","desc")
+where(
+"userId",
+"==",
+uid
+)
 
 );
 
-const snapshot =
-await getDocs(q);
+onSnapshot(
 
-/* ========================================= */
+q,
 
-ordersWrap.innerHTML = "";
+(snapshot)=>{
 
-/* ========================================= */
-
-if(snapshot.empty){
-
-ordersWrap.innerHTML = `
-
-<div class="emptyOrders">
-
-<div style="font-size:90px;">
-📦
-</div>
-
-<h2>
-No Orders Yet
-</h2>
-
-<p>
-Start your first QuickPress order now.
-</p>
-
-<button
-class="shopBtn"
-onclick="window.location.href='services.html'">
-
-Browse Services
-
-</button>
-
-</div>
-
-`;
-
-return;
-
-}
-
-/* ========================================= */
+allOrders = [];
 
 snapshot.forEach(doc=>{
 
 const order =
 doc.data();
 
+order.docId =
+doc.id;
+
+allOrders.push(order);
+
+});
+
+renderOrders();
+
+}
+
+);
+
+}
+
+/* =========================================
+RENDER
+========================================= */
+
+function renderOrders(){
+
+const container =
+document.getElementById(
+"ordersContainer"
+);
+
+container.innerHTML = "";
+
 /* ========================================= */
 
-ordersWrap.innerHTML += `
+const searchText =
+
+document
+.getElementById(
+"searchInput"
+)
+
+.value
+.toLowerCase();
+
+/* ========================================= */
+
+allOrders.forEach(order=>{
+
+/* =========================================
+SEARCH
+========================================= */
+
+if(
+
+searchText &&
+!order.orderId
+.toLowerCase()
+.includes(
+searchText
+)
+
+){
+
+return;
+
+}
+
+/* =========================================
+FILTER
+========================================= */
+
+if(
+
+currentFilter==="Active"
+
+&&
+
+(
+order.status==="Completed"
+||
+order.status==="Cancelled"
+)
+
+){
+
+return;
+
+}
+
+if(
+
+currentFilter==="Completed"
+
+&&
+
+order.status!=="Completed"
+
+){
+
+return;
+
+}
+
+if(
+
+currentFilter==="Cancelled"
+
+&&
+
+order.status!=="Cancelled"
+
+){
+
+return;
+
+}
+
+/* =========================================
+BADGES
+========================================= */
+
+let badges = "";
+
+/* ========================================= */
+
+if(
+order.premiumPackaging
+){
+
+badges +=
+
+`
+<div class="badge premium">
+
+👑 Premium Packaging
+
+</div>
+`;
+
+}
+
+/* ========================================= */
+
+if(
+order.urgentDelivery
+){
+
+badges +=
+
+`
+<div class="badge urgent">
+
+⚡ Urgent Delivery
+
+</div>
+`;
+
+}
+
+/* =========================================
+ITEMS
+========================================= */
+
+let itemsHtml = "";
+
+(order.items || [])
+.forEach(item=>{
+
+itemsHtml +=
+
+`
+${item.category || ""}
+ -
+${item.serviceName || ""}
+
+ × ${item.qty || 1}
+
+<br>
+`;
+
+});
+
+/* =========================================
+STATUS COLOR
+========================================= */
+
+let statusColor =
+"#166534";
+
+let statusBg =
+"#DCFCE7";
+
+if(
+order.status==="Cancelled"
+){
+
+statusColor =
+"#991B1B";
+
+statusBg =
+"#FEE2E2";
+
+}
+
+if(
+order.status==="Processing"
+){
+
+statusColor =
+"#1E40AF";
+
+statusBg =
+"#DBEAFE";
+
+}
+
+/* =========================================
+CARD
+========================================= */
+
+container.innerHTML +=
+
+`
 
 <div class="orderCard">
 
-<!-- TOP -->
-
 <div class="orderTop">
 
-<div>
-
 <div class="orderId">
-Order #${order.orderId || "QP45892"}
-</div>
 
-<div class="orderDate">
-${order.date || "Today"}
-</div>
+#${order.orderId}
 
 </div>
 
-<div class="orderStatus ${order.status === "Completed" ? "statusDone" : "statusActive"}">
+<div
+class="orderStatus"
 
-${order.status || "Active"}
+style="
+background:${statusBg};
+color:${statusColor};
+">
 
-</div>
-
-</div>
-
-<!-- ITEMS -->
-
-<div class="orderItems">
-
-<div class="orderItem">
-
-<div class="itemLeft">
-
-<div class="itemImg">
-👔
-</div>
-
-<div class="itemInfo">
-
-<h3>
-Shirt Iron
-</h3>
-
-<p>
-Qty 2
-</p>
+${order.status}
 
 </div>
 
 </div>
 
-<div class="itemPrice">
-₹58
-</div>
+<div class="orderInfo">
+
+📍 ${order.city}
+
+<br>
+
+💰 ₹${order.grandTotal}
+
+<br><br>
+
+${itemsHtml}
 
 </div>
 
-<div class="orderItem">
+<div class="badges">
 
-<div class="itemLeft">
-
-<div class="itemImg">
-👟
-</div>
-
-<div class="itemInfo">
-
-<h3>
-Sneaker Clean
-</h3>
-
-<p>
-Qty 1
-</p>
+${badges}
 
 </div>
 
-</div>
-
-<div class="itemPrice">
-₹199
-</div>
-
-</div>
-
-</div>
-
-<!-- DETAILS -->
-
-<div class="detailsGrid">
-
-<div class="detailBox">
-
-<div class="detailLabel">
-TOTAL
-</div>
-
-<div class="detailValue">
-₹${order.total || 257}
-</div>
-
-</div>
-
-<div class="detailBox">
-
-<div class="detailLabel">
-PAYMENT
-</div>
-
-<div class="detailValue">
-${order.payment || "UPI"}
-</div>
-
-</div>
-
-<div class="detailBox">
-
-<div class="detailLabel">
-DELIVERY
-</div>
-
-<div class="detailValue">
-${order.time || "12 mins"}
-</div>
-
-</div>
-
-<div class="detailBox">
-
-<div class="detailLabel">
-ADDRESS
-</div>
-
-<div class="detailValue">
-${order.city || "Kasganj"}
-</div>
-
-</div>
-
-</div>
-
-<!-- RIDER -->
-
-<div class="trackCard">
-
-<div class="riderLeft">
-
-<img
-src="https://randomuser.me/api/portraits/men/32.jpg"
-class="riderImg">
-
-<div class="riderInfo">
-
-<h3>
-${order.riderName || "Ravi Kumar"}
-</h3>
-
-<p>
-Pickup Partner • 4.9 ⭐
-</p>
-
-</div>
-
-</div>
+<div class="actions">
 
 <button
-class="callBtn"
-onclick="callPartner()">
+class="actionBtn trackBtn"
+onclick="trackOrder('${order.orderId}')">
 
-<i class="fa-solid fa-phone"></i>
-
-</button>
-
-</div>
-
-<!-- BUTTONS -->
-
-<div class="orderBtns">
-
-<button
-class="trackBtn"
-onclick="trackOrder()">
-
-Track Live
+Track Order
 
 </button>
 
 <button
-class="invoiceBtn"
-onclick="downloadInvoice()">
+class="actionBtn detailsBtn"
+onclick="viewDetails('${order.orderId}')">
 
-Invoice
+Details
+
+</button>
+
+<button
+class="actionBtn reorderBtn"
+onclick="reorder('${order.docId}')">
+
+Reorder
 
 </button>
 
@@ -1161,20 +912,32 @@ Invoice
 
 });
 
-}catch(error){
+/* ========================================= */
 
-console.log(error);
+if(
+container.innerHTML === ""
+){
 
-ordersWrap.innerHTML = `
+container.innerHTML =
 
-<div style="
-padding:100px 20px;
+`
+
+<div
+style="
 text-align:center;
-font-weight:800;
-color:red;
+padding:50px 20px;
+color:#6B7280;
 ">
 
-Failed to load orders
+📦
+
+<h3 style="
+margin-top:15px;
+">
+
+No Orders Found
+
+</h3>
 
 </div>
 
@@ -1189,49 +952,60 @@ TRACK
 ========================================= */
 
 window.trackOrder =
-function(){
+(orderId)=>{
 
 window.location.href =
-"tracking.html";
 
-}
+`track-order.html?id=${orderId}`;
+
+};
 
 /* =========================================
-CALL
+DETAILS
 ========================================= */
 
-window.callPartner =
-function(){
+window.viewDetails =
+(orderId)=>{
 
 window.location.href =
-"tel:+919999999999";
 
-}
+`order-details.html?id=${orderId}`;
+
+};
 
 /* =========================================
-INVOICE
+REORDER
 ========================================= */
 
-window.downloadInvoice =
-function(){
+window.reorder =
+(docId)=>{
 
-alert(
-"Invoice Download Started 📄"
+const order =
+
+allOrders.find(
+o=>o.docId===docId
 );
 
-}
+if(!order) return;
 
-/* =========================================
-NAVIGATION
-========================================= */
+/* ========================================= */
 
-window.goPage =
-function(page){
+localStorage.setItem(
+
+"cart",
+
+JSON.stringify(
+order.items
+)
+
+);
+
+/* ========================================= */
 
 window.location.href =
-page;
+"checkout.html";
 
-}
+};
 
 </script>
 
