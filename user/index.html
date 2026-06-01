@@ -668,3 +668,464 @@ id="productGrid">
 </div>
 
 </div>
+
+<!-- REVIEWS -->
+
+<div class="servicesSection">
+
+<div class="sectionHeading">
+Customer Reviews
+</div>
+
+<div class="reviewTrack">
+
+<div class="reviewCard">
+⭐ 4.9 Amazing ironing quality and express pickup.
+<b>- Rohit Sharma</b>
+</div>
+
+<div class="reviewCard">
+⭐ 5.0 Best laundry service experience.
+<b>- Anjali Verma</b>
+</div>
+
+<div class="reviewCard">
+⭐ 4.8 Premium packaging and fast delivery.
+<b>- Faizan Khan</b>
+</div>
+
+</div>
+
+</div>
+
+<!-- PARTNER SECTION -->
+
+<div class="partnerSection">
+
+<div class="partnerBanner">
+
+<h2>
+🏆 Become a QuickPress Partner
+</h2>
+
+<p>
+Grow your laundry business with QuickPress.
+Receive orders, manage customers and earn more.
+</p>
+
+<button class="partnerBtn">
+Join Now
+</button>
+
+</div>
+
+</div>
+
+<!-- CART -->
+
+<div
+class="popupCart"
+id="popupCart">
+
+<div class="popupCartTop">
+
+<h3>
+Your Cart
+</h3>
+
+<button
+class="closeCart"
+id="closeCart">
+
+×
+
+</button>
+
+</div>
+
+<div id="cartItems"></div>
+
+<div class="cartTotal">
+
+<span>Total</span>
+
+<span id="cartTotal">
+₹0
+</span>
+
+</div>
+
+<button class="checkoutBtn">
+Proceed Checkout
+</button>
+
+</div>
+
+<!-- WATERMARK -->
+
+<div class="footer">
+
+<div class="watermark">
+
+Made in Uttar Pradesh
+
+</div>
+
+<div class="watermarkSub">
+
+Crafted by Himanshu Baghel 💗
+
+</div>
+
+</div>
+
+<!-- BOTTOM NAV -->
+
+<div class="bottomNav">
+
+<button class="navItem activeNav">
+<i class="fa-solid fa-house"></i>
+<span>Home</span>
+</button>
+
+<button class="navItem">
+<i class="fa-solid fa-box"></i>
+<span>Orders</span>
+</button>
+
+<button class="navItem">
+<i class="fa-solid fa-table-cells-large"></i>
+<span>Services</span>
+</button>
+
+<button class="navItem">
+<i class="fa-solid fa-wallet"></i>
+<span>Wallet</span>
+</button>
+
+<button class="navItem">
+<i class="fa-regular fa-user"></i>
+<span>Profile</span>
+</button>
+
+</div>
+
+<style>
+
+.reviewTrack{
+display:flex;
+gap:14px;
+overflow-x:auto;
+padding-bottom:10px;
+}
+
+.reviewCard{
+min-width:260px;
+background:#fff;
+padding:18px;
+border-radius:24px;
+box-shadow:0 8px 20px rgba(0,0,0,.05);
+line-height:1.8;
+}
+
+.partnerSection{
+padding:0 16px 24px;
+}
+
+.partnerBanner{
+background:linear-gradient(
+135deg,
+#111827,
+#1F2937
+);
+padding:26px;
+border-radius:30px;
+color:#fff;
+}
+
+.partnerBanner h2{
+font-size:28px;
+font-weight:900;
+}
+
+.partnerBanner p{
+margin-top:12px;
+line-height:1.8;
+}
+
+.partnerBtn{
+margin-top:20px;
+height:52px;
+padding:0 22px;
+border:none;
+border-radius:18px;
+background:#FFD633;
+font-weight:900;
+cursor:pointer;
+}
+
+.popupCart{
+position:fixed;
+left:14px;
+right:14px;
+bottom:90px;
+background:#fff;
+border-radius:30px;
+padding:20px;
+display:none;
+z-index:9999;
+box-shadow:0 20px 40px rgba(0,0,0,.18);
+}
+
+.bottomNav{
+position:fixed;
+left:0;
+right:0;
+bottom:0;
+height:76px;
+background:#fff;
+display:flex;
+justify-content:space-around;
+align-items:center;
+box-shadow:0 -6px 20px rgba(0,0,0,.08);
+z-index:999;
+}
+
+.navItem{
+flex:1;
+height:100%;
+border:none;
+background:none;
+display:flex;
+flex-direction:column;
+align-items:center;
+justify-content:center;
+gap:4px;
+font-size:11px;
+font-weight:700;
+color:#6B7280;
+}
+
+.activeNav{
+color:#16A34A;
+}
+
+.footer{
+padding:20px;
+text-align:center;
+padding-bottom:130px;
+}
+
+.watermark{
+font-size:15px;
+font-weight:900;
+}
+
+.watermarkSub{
+margin-top:6px;
+font-size:13px;
+opacity:.75;
+}
+
+</style>
+
+<script type="module">
+
+import { db, auth } from "./firebase.js";
+
+import {
+collection,
+onSnapshot
+}
+from "https://www.gstatic.com/firebasejs/12.11.0/firebase-firestore.js";
+
+import {
+onAuthStateChanged
+}
+from "https://www.gstatic.com/firebasejs/12.11.0/firebase-auth.js";
+
+/* LOCATION SAVE */
+
+localStorage.setItem(
+"userLocation",
+JSON.stringify({
+city:"Kasganj"
+})
+);
+
+/* CATEGORY REDIRECT */
+
+document
+.querySelectorAll(".categoryCard")
+.forEach(card=>{
+
+card.addEventListener(
+"click",
+()=>{
+
+const category =
+card.querySelector("p")
+.innerText;
+
+localStorage.setItem(
+"selectedCategory",
+category
+);
+
+window.location.href =
+"services.html";
+
+});
+
+});
+
+/* LOGIN SYSTEM */
+
+let currentUser = null;
+
+onAuthStateChanged(
+auth,
+(user)=>{
+
+currentUser = user;
+
+}
+);
+
+/* FIREBASE SERVICES */
+
+const productGrid =
+document.getElementById(
+"productGrid"
+);
+
+let services = [];
+
+onSnapshot(
+
+collection(db,"services"),
+
+(snapshot)=>{
+
+productGrid.innerHTML = "";
+
+services = [];
+
+snapshot.forEach(doc=>{
+
+const service =
+doc.data();
+
+services.push(service);
+
+});
+
+services.sort(
+(a,b)=>
+(b.orders||0)
+-
+(a.orders||0)
+);
+
+services.forEach(service=>{
+
+productGrid.innerHTML += `
+
+<div class="productCard">
+
+<div class="productImage">
+${service.icon || "🧺"}
+</div>
+
+<div class="productInfo">
+
+<h3>
+${service.name}
+</h3>
+
+<p>
+${service.description}
+</p>
+
+<div class="productBottom">
+
+<div class="price">
+₹${service.price}
+</div>
+
+<button class="addBtn">
+Add
+</button>
+
+</div>
+
+</div>
+
+</div>
+
+`;
+
+});
+
+});
+
+/* NAVIGATION */
+
+document
+.querySelectorAll(".navItem")
+.forEach(item=>{
+
+item.addEventListener(
+"click",
+()=>{
+
+const text =
+item.innerText
+.trim()
+.toLowerCase();
+
+if(
+(
+text==="orders"||
+text==="wallet"||
+text==="profile"
+)
+&&
+!currentUser
+){
+
+window.location.href =
+"login.html";
+
+return;
+
+}
+
+if(text==="services"){
+window.location.href =
+"services.html";
+}
+
+if(text==="orders"){
+window.location.href =
+"orders.html";
+}
+
+if(text==="wallet"){
+window.location.href =
+"wallet.html";
+}
+
+if(text==="profile"){
+window.location.href =
+"profile.html";
+}
+
+});
+
+});
+
+</script>
+
+</body>
+</html>
