@@ -1,67 +1,32 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
 
 <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<meta
-name="viewport"
-content="width=device-width, initial-scale=1.0">
+<title>QuickPress Wallet</title>
 
-<title>
-QuickPress Wallet
-</title>
-
-<!-- =========================================
-FONT
-========================================= -->
-
-<link rel="preconnect"
-href="https://fonts.googleapis.com">
-
-<link rel="preconnect"
-href="https://fonts.gstatic.com"
-crossorigin>
-
-<link
-href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap"
-rel="stylesheet">
-
-<!-- =========================================
-ICONS
-========================================= -->
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
 
 <link rel="stylesheet"
 href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css"/>
 
 <style>
 
-/* =========================================
-RESET
-========================================= */
-
 *{
-
 margin:0;
 padding:0;
 box-sizing:border-box;
 font-family:'Inter',sans-serif;
--webkit-tap-highlight-color:transparent;
-
 }
 
 body{
-
-background:#F5F7FB;
-padding-bottom:110px;
-overflow-x:hidden;
-
+background:#F6F7FB;
+padding-bottom:100px;
 }
 
-/* =========================================
-HEADER
-========================================= */
+/* HEADER */
 
 .walletHero{
 
@@ -72,67 +37,40 @@ linear-gradient(
 #FFE98A
 );
 
-padding:22px 18px 38px;
+padding:22px;
 
-border-bottom-left-radius:36px;
-border-bottom-right-radius:36px;
-
-position:relative;
-
-overflow:hidden;
+border-bottom-left-radius:32px;
+border-bottom-right-radius:32px;
 
 }
 
-.walletHero::before{
+.walletHero h1{
 
-content:"";
-
-position:absolute;
-
-right:-60px;
-top:-60px;
-
-width:220px;
-height:220px;
-
-border-radius:50%;
-
-background:
-rgba(255,255,255,0.16);
-
-}
-
-.topBar{
-
-display:flex;
-
-justify-content:space-between;
-
-align-items:center;
-
-position:relative;
-
-z-index:2;
-
-}
-
-.pageTitle{
-
-font-size:32px;
-
+font-size:30px;
 font-weight:900;
 
-color:#111827;
+}
+
+.walletHero p{
+
+margin-top:6px;
+
+font-size:13px;
+font-weight:700;
+
+color:#374151;
 
 }
 
-/* =========================================
-WALLET CARD
-========================================= */
+/* BALANCE CARD */
 
-.walletCard{
+.balanceWrap{
 
-margin-top:26px;
+padding:16px;
+
+}
+
+.balanceCard{
 
 background:
 linear-gradient(
@@ -141,88 +79,125 @@ linear-gradient(
 #1F2937
 );
 
-border-radius:32px;
-
 padding:24px;
+
+border-radius:30px;
 
 color:#fff;
 
-position:relative;
-
-overflow:hidden;
-
-z-index:2;
-
 }
 
-.walletCard::before{
-
-content:"";
-
-position:absolute;
-
-right:-50px;
-top:-50px;
-
-width:180px;
-height:180px;
-
-border-radius:50%;
-
-background:
-rgba(255,255,255,0.06);
-
-}
-
-.walletLabel{
-
-font-size:14px;
-
-font-weight:700;
-
-opacity:0.8;
-
-position:relative;
-
-z-index:2;
-
-}
-
-.walletAmount{
-
-margin-top:10px;
-
-font-size:46px;
-
-font-weight:900;
-
-position:relative;
-
-z-index:2;
-
-}
-
-.walletNumber{
-
-margin-top:16px;
+.balanceLabel{
 
 font-size:13px;
 
-letter-spacing:3px;
-
-opacity:0.8;
-
-position:relative;
-
-z-index:2;
+opacity:.8;
 
 }
 
-/* =========================================
-ADD MONEY
-========================================= */
+.balanceAmount{
 
-.addMoneySection{
+margin-top:10px;
+
+font-size:42px;
+
+font-weight:900;
+
+}
+
+.balanceActions{
+
+margin-top:20px;
+
+display:flex;
+
+gap:12px;
+
+}
+
+.balanceBtn{
+
+flex:1;
+
+height:50px;
+
+border:none;
+
+border-radius:16px;
+
+font-size:14px;
+
+font-weight:900;
+
+cursor:pointer;
+
+}
+
+.addMoneyBtn{
+
+background:#16A34A;
+color:#fff;
+
+}
+
+.withdrawBtn{
+
+background:#fff;
+color:#111827;
+
+}
+
+/* MINI CARDS */
+
+.miniGrid{
+
+padding:0 16px;
+
+display:grid;
+
+grid-template-columns:
+1fr 1fr;
+
+gap:14px;
+
+}
+
+.miniCard{
+
+background:#fff;
+
+padding:20px;
+
+border-radius:24px;
+
+box-shadow:
+0 8px 24px rgba(0,0,0,.05);
+
+}
+
+.miniLabel{
+
+font-size:12px;
+
+font-weight:700;
+
+color:#6B7280;
+
+}
+
+.miniValue{
+
+margin-top:10px;
+
+font-size:26px;
+
+font-weight:900;
+
+}
+
+/* TRANSACTIONS */
+
+.section{
 
 padding:20px 16px;
 
@@ -234,188 +209,7 @@ font-size:22px;
 
 font-weight:900;
 
-color:#111827;
-
-}
-
-.amountGrid{
-
-margin-top:18px;
-
-display:grid;
-
-grid-template-columns:repeat(3,1fr);
-
-gap:14px;
-
-}
-
-.amountBtn{
-
-height:60px;
-
-border:none;
-
-border-radius:22px;
-
-background:#fff;
-
-font-size:18px;
-
-font-weight:900;
-
-color:#111827;
-
-cursor:pointer;
-
-box-shadow:
-0 6px 18px rgba(0,0,0,0.05);
-
-}
-
-.customAmount{
-
-margin-top:18px;
-
-height:62px;
-
-width:100%;
-
-border:none;
-
-outline:none;
-
-border-radius:24px;
-
-background:#fff;
-
-padding:0 20px;
-
-font-size:18px;
-
-font-weight:800;
-
-box-shadow:
-0 6px 18px rgba(0,0,0,0.05);
-
-}
-
-.payBtn{
-
-margin-top:20px;
-
-width:100%;
-
-height:60px;
-
-border:none;
-
-border-radius:24px;
-
-background:#16A34A;
-
-color:#fff;
-
-font-size:16px;
-
-font-weight:900;
-
-cursor:pointer;
-
-}
-
-/* =========================================
-PAYMENT METHODS
-========================================= */
-
-.paymentCard{
-
-margin-top:22px;
-
-background:#fff;
-
-border-radius:28px;
-
-padding:20px;
-
-box-shadow:
-0 6px 18px rgba(0,0,0,0.05);
-
-}
-
-.paymentItem{
-
-height:70px;
-
-display:flex;
-
-justify-content:space-between;
-
-align-items:center;
-
-border-bottom:1px solid #F3F4F6;
-
-}
-
-.paymentItem:last-child{
-
-border-bottom:none;
-
-}
-
-.paymentLeft{
-
-display:flex;
-
-align-items:center;
-
-gap:14px;
-
-}
-
-.paymentIcon{
-
-width:50px;
-height:50px;
-
-border-radius:18px;
-
-background:#F3F4F6;
-
-display:flex;
-
-align-items:center;
-justify-content:center;
-
-font-size:18px;
-
-}
-
-.paymentInfo h3{
-
-font-size:15px;
-
-font-weight:800;
-
-}
-
-.paymentInfo p{
-
-margin-top:4px;
-
-font-size:12px;
-
-color:#6B7280;
-
-}
-
-/* =========================================
-TRANSACTION
-========================================= */
-
-.transactionWrap{
-
-padding:0 16px 20px;
+margin-bottom:16px;
 
 }
 
@@ -423,16 +217,14 @@ padding:0 16px 20px;
 
 background:#fff;
 
-border-radius:28px;
+padding:18px;
 
-padding:20px;
+border-radius:22px;
+
+margin-bottom:12px;
 
 box-shadow:
-0 6px 18px rgba(0,0,0,0.05);
-
-}
-
-.transactionItem{
+0 8px 24px rgba(0,0,0,.05);
 
 display:flex;
 
@@ -440,57 +232,17 @@ justify-content:space-between;
 
 align-items:center;
 
-padding:14px 0;
-
-border-bottom:1px solid #F3F4F6;
-
 }
 
-.transactionItem:last-child{
+.transactionTitle{
 
-border-bottom:none;
-
-}
-
-.transactionLeft{
-
-display:flex;
-
-align-items:center;
-
-gap:14px;
-
-}
-
-.transactionIcon{
-
-width:52px;
-height:52px;
-
-border-radius:18px;
-
-background:#DCFCE7;
-
-display:flex;
-
-align-items:center;
-justify-content:center;
-
-font-size:18px;
-
-color:#16A34A;
-
-}
-
-.transactionInfo h3{
-
-font-size:15px;
+font-size:14px;
 
 font-weight:800;
 
 }
 
-.transactionInfo p{
+.transactionDate{
 
 margin-top:4px;
 
@@ -500,19 +252,212 @@ color:#6B7280;
 
 }
 
-.transactionAmount{
-
-font-size:16px;
-
-font-weight:900;
+.credit{
 
 color:#16A34A;
 
+font-weight:900;
+
 }
 
-/* =========================================
-BOTTOM NAV
-========================================= */
+.debit{
+
+color:#DC2626;
+
+font-weight:900;
+
+}
+
+</style>
+
+</head>
+
+<body>
+
+<!-- HEADER -->
+
+<div class="walletHero">
+
+<h1>
+My Wallet
+</h1>
+
+<p>
+Manage balance, cashback and rewards
+</p>
+
+</div>
+
+<!-- BALANCE -->
+
+<div class="balanceWrap">
+
+<div class="balanceCard">
+
+<div class="balanceLabel">
+
+Available Balance
+
+</div>
+
+<div
+class="balanceAmount"
+id="walletBalance">
+
+₹0
+
+</div>
+
+<div class="balanceActions">
+
+<button
+class="balanceBtn addMoneyBtn">
+
+Add Money
+
+</button>
+
+<button
+class="balanceBtn withdrawBtn">
+
+Withdraw
+
+</button>
+
+</div>
+
+</div>
+
+</div>
+
+<!-- MINI CARDS -->
+
+<div class="miniGrid">
+
+<div class="miniCard">
+
+<div class="miniLabel">
+
+Cashback
+
+</div>
+
+<div
+class="miniValue"
+id="cashbackBalance">
+
+₹0
+
+</div>
+
+</div>
+
+<div class="miniCard">
+
+<div class="miniLabel">
+
+Referral Earnings
+
+</div>
+
+<div
+class="miniValue"
+id="referralBalance">
+
+₹0
+
+</div>
+
+</div>
+
+</div>
+
+<!-- TRANSACTIONS -->
+
+<div class="section">
+
+<div class="sectionTitle">
+
+Transactions
+
+</div>
+
+<div
+id="transactionsContainer">
+
+<div class="transactionCard">
+
+<div>
+
+<div class="transactionTitle">
+
+Welcome Bonus
+
+</div>
+
+<div class="transactionDate">
+
+01 Jun 2026
+
+</div>
+
+</div>
+
+<div class="credit">
+
++ ₹50
+
+</div>
+
+</div>
+
+</div>
+
+</div>
+<!-- =========================================
+BOTTOM NAVIGATION
+========================================= -->
+
+<div class="bottomNav">
+
+<button
+class="navItem"
+onclick="location.href='index.html'">
+
+🏠
+<span>Home</span>
+
+</button>
+
+<button
+class="navItem"
+onclick="location.href='orders.html'">
+
+📦
+<span>Orders</span>
+
+</button>
+
+<button
+class="navItem activeNav">
+
+💰
+<span>Wallet</span>
+
+</button>
+
+<button
+class="navItem"
+onclick="location.href='profile.html'">
+
+👤
+<span>Profile</span>
+
+</button>
+
+</div>
+
+<style>
 
 .bottomNav{
 
@@ -533,7 +478,7 @@ justify-content:space-around;
 align-items:center;
 
 box-shadow:
-0 -6px 20px rgba(0,0,0,0.08);
+0 -8px 20px rgba(0,0,0,.08);
 
 z-index:999;
 
@@ -553,9 +498,9 @@ display:flex;
 
 flex-direction:column;
 
-align-items:center;
-
 justify-content:center;
+
+align-items:center;
 
 gap:4px;
 
@@ -563,15 +508,9 @@ font-size:11px;
 
 font-weight:700;
 
-color:#6B7280;
-
 cursor:pointer;
 
-}
-
-.navItem i{
-
-font-size:20px;
+color:#6B7280;
 
 }
 
@@ -583,340 +522,60 @@ color:#16A34A;
 
 </style>
 
-</head>
-
-<body>
-
-<!-- =========================================
-HEADER
-========================================= -->
-
-<div class="walletHero">
-
-<div class="topBar">
-
-<div class="pageTitle">
-Wallet
-</div>
-
-<i
-class="fa-solid fa-wallet"
-style="
-font-size:24px;
-color:#111827;
-">
-</i>
-
-</div>
-
-<!-- WALLET -->
-
-<div class="walletCard">
-
-<div class="walletLabel">
-Quick Wallet Balance
-</div>
-
-<div
-class="walletAmount"
-id="walletAmount">
-
-₹0
-
-</div>
-
-<div class="walletNumber">
-•••• •••• •••• 4582
-</div>
-
-</div>
-
-</div>
-
-<!-- =========================================
-ADD MONEY
-========================================= -->
-
-<div class="addMoneySection">
-
-<div class="sectionTitle">
-Add Funds
-</div>
-
-<div class="amountGrid">
-
-<button class="amountBtn">
-₹100
-</button>
-
-<button class="amountBtn">
-₹500
-</button>
-
-<button class="amountBtn">
-₹1000
-</button>
-
-</div>
-
-<input
-type="number"
-placeholder="Enter custom amount"
-class="customAmount"
-id="customAmount">
-
-<button
-class="payBtn"
-id="payBtn">
-
-Add Money Securely
-
-</button>
-
-<!-- PAYMENT METHODS -->
-
-<div class="paymentCard">
-
-<div class="paymentItem">
-
-<div class="paymentLeft">
-
-<div class="paymentIcon">
-💳
-</div>
-
-<div class="paymentInfo">
-
-<h3>
-UPI Payment
-</h3>
-
-<p>
-Google Pay, PhonePe, Paytm
-</p>
-
-</div>
-
-</div>
-
-<i class="fa-solid fa-circle-check"
-style="color:#16A34A;">
-</i>
-
-</div>
-
-<div class="paymentItem">
-
-<div class="paymentLeft">
-
-<div class="paymentIcon">
-🏦
-</div>
-
-<div class="paymentInfo">
-
-<h3>
-Bank Card
-</h3>
-
-<p>
-Visa, Mastercard
-</p>
-
-</div>
-
-</div>
-
-</div>
-
-</div>
-
-</div>
-
-<!-- =========================================
-TRANSACTIONS
-========================================= -->
-
-<div class="transactionWrap">
-
-<div class="sectionTitle">
-Transaction History
-</div>
-
-<div
-class="transactionCard"
-id="transactionCard">
-
-</div>
-
-</div>
-
-<!-- =========================================
-BOTTOM NAV
-========================================= -->
-
-<div class="bottomNav">
-
-<button
-class="navItem"
-onclick="goPage('index.html')">
-
-<i class="fa-solid fa-house"></i>
-
-<span>
-Home
-</span>
-
-</button>
-
-<button
-class="navItem"
-onclick="goPage('orders.html')">
-
-<i class="fa-solid fa-box"></i>
-
-<span>
-Orders
-</span>
-
-</button>
-
-<button
-class="navItem"
-onclick="goPage('services.html')">
-
-<i class="fa-solid fa-table-cells-large"></i>
-
-<span>
-Services
-</span>
-
-</button>
-
-<button
-class="navItem activeNav">
-
-<i class="fa-solid fa-wallet"></i>
-
-<span>
-Wallet
-</span>
-
-</button>
-
-<button
-class="navItem"
-onclick="goPage('profile.html')">
-
-<i class="fa-regular fa-user"></i>
-
-<span>
-Profile
-</span>
-
-</button>
-
-</div>
-
-<!-- =========================================
-SCRIPT
-========================================= -->
-
 <script type="module">
 
-/* =========================================
-IMPORT
-========================================= */
-
-import { auth, db }
-
-from "../firebase.js";
+import { db, auth }
+from "./firebase.js";
 
 import {
-
-onAuthStateChanged
-
-}
-
-from
-
-"https://www.gstatic.com/firebasejs/12.11.0/firebase-auth.js";
-
-import {
-
 doc,
 getDoc,
-updateDoc,
+setDoc,
 collection,
-addDoc,
 query,
 where,
-getDocs,
-orderBy,
+onSnapshot,
+addDoc,
 serverTimestamp
-
 }
-
 from
-
 "https://www.gstatic.com/firebasejs/12.11.0/firebase-firestore.js";
 
+import {
+onAuthStateChanged
+}
+from
+"https://www.gstatic.com/firebasejs/12.11.0/firebase-auth.js";
+
 /* =========================================
-ELEMENTS
+LOGIN CHECK
 ========================================= */
-
-const walletAmount =
-document.getElementById(
-"walletAmount"
-);
-
-const customAmount =
-document.getElementById(
-"customAmount"
-);
-
-const payBtn =
-document.getElementById(
-"payBtn"
-);
-
-const transactionCard =
-document.getElementById(
-"transactionCard"
-);
 
 let currentUser = null;
 
-let currentBalance = 0;
-
-/* =========================================
-AUTH
-========================================= */
-
 onAuthStateChanged(
+
 auth,
+
 async(user)=>{
 
-if(user){
-
-currentUser = user;
-
-/* ========================================= */
-
-loadWallet();
-
-/* ========================================= */
-
-loadTransactions();
-
-}else{
+if(!user){
 
 window.location.href =
 "login.html";
 
-}
+return;
 
 }
+
+currentUser = user;
+
+loadWallet();
+
+loadTransactions();
+
+}
+
 );
 
 /* =========================================
@@ -925,116 +584,172 @@ LOAD WALLET
 
 async function loadWallet(){
 
-const userRef =
+const walletRef =
+
 doc(
 db,
-"users",
+"wallets",
 currentUser.uid
 );
 
-const userSnap =
+const walletSnap =
+
 await getDoc(
-userRef
+walletRef
 );
 
-if(userSnap.exists()){
+/* ========================================= */
 
-const data =
-userSnap.data();
+if(!walletSnap.exists()){
 
-currentBalance =
-data.wallet || 0;
+await setDoc(
 
-walletAmount.innerHTML =
-`₹${currentBalance}`;
+walletRef,
+
+{
+
+balance:0,
+
+cashback:0,
+
+referral:0,
+
+createdAt:
+new Date()
 
 }
+
+);
+
+}
+
+/* ========================================= */
+
+onSnapshot(
+
+walletRef,
+
+(snapshot)=>{
+
+if(!snapshot.exists())
+return;
+
+const wallet =
+snapshot.data();
+
+document.getElementById(
+"walletBalance"
+)
+
+.innerHTML =
+`₹${wallet.balance || 0}`;
+
+document.getElementById(
+"cashbackBalance"
+)
+
+.innerHTML =
+`₹${wallet.cashback || 0}`;
+
+document.getElementById(
+"referralBalance"
+)
+
+.innerHTML =
+`₹${wallet.referral || 0}`;
+
+}
+
+);
 
 }
 
 /* =========================================
-LOAD TRANSACTIONS
+TRANSACTIONS
 ========================================= */
 
-async function loadTransactions(){
+function loadTransactions(){
 
-transactionCard.innerHTML =
-"";
+const q = query(
 
-/* ========================================= */
+collection(
+db,
+"walletTransactions"
+),
 
-const q =
-query(
-
-collection(db,"transactions"),
-
-where("userId","==",currentUser.uid)
+where(
+"userId",
+"==",
+currentUser.uid
+)
 
 );
 
-/* ========================================= */
+onSnapshot(
 
-const snapshot =
-await getDocs(q);
+q,
 
-/* ========================================= */
+(snapshot)=>{
 
-if(snapshot.empty){
+const container =
 
-transactionCard.innerHTML = `
+document.getElementById(
+"transactionsContainer"
+);
 
-<div style="
-padding:40px 20px;
-text-align:center;
-font-weight:700;
-color:#6B7280;
-">
-
-No Transactions Found
-
-</div>
-
-`;
-
-return;
-
-}
+container.innerHTML = "";
 
 /* ========================================= */
 
 snapshot.forEach(doc=>{
 
-const data =
+const txn =
 doc.data();
+
+const amountClass =
+
+txn.type === "credit"
+
+? "credit"
+
+: "debit";
+
+const sign =
+
+txn.type === "credit"
+
+? "+"
+
+: "-";
 
 /* ========================================= */
 
-transactionCard.innerHTML += `
+container.innerHTML +=
 
-<div class="transactionItem">
+`
 
-<div class="transactionLeft">
+<div class="transactionCard">
 
-<div class="transactionIcon">
-₹
-</div>
+<div>
 
-<div class="transactionInfo">
+<div class="transactionTitle">
 
-<h3>
-Wallet Topup
-</h3>
-
-<p>
-${new Date().toLocaleDateString()}
-</p>
+${txn.title}
 
 </div>
 
+<div class="transactionDate">
+
+${txn.date || ''}
+
 </div>
 
-<div class="transactionAmount">
-+₹${data.amount}
+</div>
+
+<div class="${amountClass}">
+
+${sign} ₹${txn.amount}
+
 </div>
 
 </div>
@@ -1043,104 +758,90 @@ ${new Date().toLocaleDateString()}
 
 });
 
+/* ========================================= */
+
+if(
+container.innerHTML === ""
+){
+
+container.innerHTML =
+
+`
+
+<div
+style="
+text-align:center;
+padding:40px;
+color:#6B7280;
+">
+
+No Transactions
+
+</div>
+
+`;
+
 }
 
-/* =========================================
-QUICK AMOUNT
-========================================= */
+}
 
-document.querySelectorAll(
-".amountBtn"
-)
-
-.forEach(btn=>{
-
-btn.addEventListener(
-"click",
-()=>{
-
-customAmount.value =
-btn.innerText.replace(
-"₹",
-""
 );
 
 }
-);
-
-});
 
 /* =========================================
 ADD MONEY
 ========================================= */
 
-payBtn.addEventListener(
+document
+.querySelector(
+".addMoneyBtn"
+)
+
+.addEventListener(
+
 "click",
+
 async()=>{
 
 const amount =
-parseInt(
-customAmount.value
+
+prompt(
+"Enter Amount"
 );
 
-/* ========================================= */
-
-if(!amount){
-
-alert(
-"Enter valid amount"
-);
-
+if(
+!amount ||
+isNaN(amount)
+)
 return;
 
-}
-
 /* ========================================= */
-
-payBtn.innerHTML =
-"Processing...";
-
-/* =========================================
-UPDATE WALLET
-========================================= */
-
-const newBalance =
-currentBalance + amount;
-
-/* ========================================= */
-
-await updateDoc(
-
-doc(
-db,
-"users",
-currentUser.uid
-),
-
-{
-
-wallet:newBalance
-
-}
-
-);
-
-/* =========================================
-SAVE TRANSACTION
-========================================= */
 
 await addDoc(
 
-collection(db,"transactions"),
+collection(
+db,
+"walletTransactions"
+),
 
 {
 
 userId:
 currentUser.uid,
 
-amount:amount,
+title:
+"Money Added",
 
-type:"credit",
+amount:
+Number(amount),
+
+type:
+"credit",
+
+date:
+new Date()
+.toLocaleDateString(),
 
 createdAt:
 serverTimestamp()
@@ -1149,48 +850,96 @@ serverTimestamp()
 
 );
 
-/* ========================================= */
-
-walletAmount.innerHTML =
-`₹${newBalance}`;
-
-currentBalance =
-newBalance;
-
-/* ========================================= */
-
-customAmount.value =
-"";
-
-/* ========================================= */
-
-payBtn.innerHTML =
-"Add Money Securely";
-
-/* ========================================= */
-
 alert(
-"Money Added Successfully 🚀"
+"Payment Gateway Connect Later"
 );
 
-/* ========================================= */
-
-loadTransactions();
-
 }
+
 );
 
 /* =========================================
-NAVIGATION
+WITHDRAW
 ========================================= */
 
-window.goPage =
-function(page){
+document
+.querySelector(
+".withdrawBtn"
+)
 
-window.location.href =
-page;
+.addEventListener(
+
+"click",
+
+async()=>{
+
+const amount =
+
+prompt(
+"Withdraw Amount"
+);
+
+if(
+!amount ||
+isNaN(amount)
+)
+return;
+
+/* ========================================= */
+
+await addDoc(
+
+collection(
+db,
+"withdrawRequests"
+),
+
+{
+
+userId:
+currentUser.uid,
+
+amount:
+Number(amount),
+
+status:
+"Pending",
+
+createdAt:
+serverTimestamp()
 
 }
+
+);
+
+alert(
+"Withdraw Request Submitted"
+);
+
+}
+
+);
+
+/* =========================================
+REFERRAL CODE
+========================================= */
+
+const referralCode =
+
+"QP"
+
++
+
+currentUser?.uid
+?.slice(0,6)
+?.toUpperCase();
+
+/* ========================================= */
+
+console.log(
+"Referral Code:",
+referralCode
+);
 
 </script>
 
