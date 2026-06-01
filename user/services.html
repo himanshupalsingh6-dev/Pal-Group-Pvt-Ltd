@@ -1,37 +1,24 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
 
 <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<meta
-name="viewport"
-content="width=device-width, initial-scale=1.0">
+<title>QuickPress Services</title>
 
-<title>
-QuickPress Services
-</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 
-<link rel="preconnect"
-href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
 
-<link rel="preconnect"
-href="https://fonts.gstatic.com"
-crossorigin>
-
-<link
-href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap"
-rel="stylesheet">
-
-<link rel="stylesheet"
-href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css"/>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css"/>
 
 <style>
 
-/* =====================================================
+/* =========================================
 RESET
-===================================================== */
+========================================= */
 
 *{
 margin:0;
@@ -44,32 +31,29 @@ font-family:'Inter',sans-serif;
 body{
 background:#F6F7FB;
 overflow-x:hidden;
-padding-bottom:110px;
+padding-bottom:120px;
 color:#111827;
 }
 
-/* =====================================================
+/* =========================================
 HEADER
-===================================================== */
+========================================= */
 
 .serviceHero{
 
 background:
 linear-gradient(
 135deg,
-#FFD633 0%,
-#FFE98A 100%
+#FFD633,
+#FFE98A
 );
 
-padding:18px 16px 24px;
-
-border-bottom-left-radius:30px;
-border-bottom-right-radius:30px;
+padding:18px;
+border-bottom-left-radius:34px;
+border-bottom-right-radius:34px;
 
 position:sticky;
-
 top:0;
-
 z-index:999;
 
 }
@@ -77,20 +61,15 @@ z-index:999;
 .topBar{
 
 display:flex;
-
 justify-content:space-between;
-
 align-items:center;
 
 }
 
 .pageTitle{
 
-font-size:30px;
-
+font-size:32px;
 font-weight:900;
-
-line-height:1;
 
 }
 
@@ -99,55 +78,46 @@ line-height:1;
 margin-top:6px;
 
 font-size:13px;
-
 font-weight:700;
 
 color:#374151;
 
 }
 
-/* =====================================================
-ACTION BUTTONS
-===================================================== */
-
 .topActions{
 
 display:flex;
-
-align-items:center;
-
 gap:10px;
 
 }
 
 .iconBtn{
 
-width:46px;
-height:46px;
+width:48px;
+height:48px;
 
 border:none;
 
-border-radius:16px;
+border-radius:18px;
 
 background:#fff;
 
 display:flex;
-
 align-items:center;
 justify-content:center;
 
 font-size:18px;
 
-box-shadow:
-0 6px 18px rgba(0,0,0,0.06);
-
 cursor:pointer;
+
+box-shadow:
+0 8px 20px rgba(0,0,0,.06);
 
 }
 
-/* =====================================================
+/* =========================================
 SEARCH
-===================================================== */
+========================================= */
 
 .searchWrap{
 
@@ -157,28 +127,19 @@ margin-top:18px;
 
 .searchBar{
 
-height:56px;
+height:58px;
 
 background:#fff;
 
-border-radius:18px;
+border-radius:20px;
 
 display:flex;
-
 align-items:center;
 
 padding:0 16px;
 
 box-shadow:
-0 8px 20px rgba(0,0,0,0.06);
-
-}
-
-.searchBar i{
-
-font-size:18px;
-
-color:#16A34A;
+0 10px 24px rgba(0,0,0,.06);
 
 }
 
@@ -187,46 +148,71 @@ color:#16A34A;
 flex:1;
 
 border:none;
-
 outline:none;
 
 padding:0 12px;
 
 font-size:15px;
-
 font-weight:600;
 
 background:none;
 
 }
 
-/* =====================================================
+.searchIcon{
+
+font-size:18px;
+color:#16A34A;
+
+}
+
+/* =========================================
+LOCATION BAR
+========================================= */
+
+.locationBar{
+
+margin-top:14px;
+
+display:flex;
+align-items:center;
+gap:8px;
+
+font-size:13px;
+font-weight:800;
+
+color:#374151;
+
+}
+
+/* =========================================
 FILTERS
-===================================================== */
+========================================= */
+
+.filterSection{
+
+padding:20px 16px;
+
+}
 
 .filterWrap{
 
 display:flex;
-
-overflow-x:auto;
-
 gap:12px;
 
-padding:20px 16px;
+overflow-x:auto;
 
 scrollbar-width:none;
 
 }
 
 .filterWrap::-webkit-scrollbar{
-
 display:none;
-
 }
 
 .filterBtn{
 
-height:42px;
+height:44px;
 
 padding:0 18px;
 
@@ -237,122 +223,144 @@ border-radius:999px;
 background:#fff;
 
 font-size:13px;
-
 font-weight:800;
 
 white-space:nowrap;
 
-box-shadow:
-0 4px 12px rgba(0,0,0,0.05);
-
 cursor:pointer;
+
+box-shadow:
+0 6px 18px rgba(0,0,0,.05);
 
 }
 
 .activeFilter{
 
 background:#16A34A;
-
 color:#fff;
 
 }
 
-/* =====================================================
+/* =========================================
 SERVICE GRID
-===================================================== */
+========================================= */
 
-.serviceGrid{
-
-display:grid;
-
-grid-template-columns:repeat(2,1fr);
-
-gap:14px;
+.serviceSection{
 
 padding:0 16px;
 
 }
 
-/* =====================================================
-CARD
-===================================================== */
+.serviceGrid{
+
+display:grid;
+
+grid-template-columns:
+repeat(2,1fr);
+
+gap:14px;
+
+}
 
 .serviceCard{
 
 background:#fff;
 
-border-radius:24px;
+border-radius:26px;
 
 overflow:hidden;
 
 position:relative;
 
 box-shadow:
-0 4px 14px rgba(0,0,0,0.05);
+0 8px 24px rgba(0,0,0,.05);
+
+cursor:pointer;
+
+transition:.3s;
 
 }
 
-.serviceBadge{
+.serviceCard:hover{
+
+transform:translateY(-4px);
+
+}
+
+/* =========================================
+BADGES
+========================================= */
+
+.badgeWrap{
 
 position:absolute;
 
 left:10px;
 top:10px;
 
-background:#16A34A;
+display:flex;
+flex-wrap:wrap;
+gap:6px;
 
-color:#fff;
+z-index:5;
 
-font-size:10px;
+}
 
-font-weight:900;
+.badge{
 
-padding:6px 10px;
+height:24px;
+
+padding:0 10px;
 
 border-radius:999px;
 
-z-index:2;
-
-}
-
-.favoriteBtn{
-
-position:absolute;
-
-right:10px;
-top:10px;
-
-width:32px;
-height:32px;
-
-border-radius:50%;
-
-background:#fff;
-
 display:flex;
-
 align-items:center;
-justify-content:center;
 
-font-size:14px;
-
-box-shadow:
-0 5px 12px rgba(0,0,0,0.06);
-
-z-index:2;
-
-cursor:pointer;
+font-size:10px;
+font-weight:900;
 
 }
+
+.trendingBadge{
+
+background:#FEF3C7;
+color:#92400E;
+
+}
+
+.bestBadge{
+
+background:#DCFCE7;
+color:#166534;
+
+}
+
+.sameDayBadge{
+
+background:#DBEAFE;
+color:#1E40AF;
+
+}
+
+.premiumBadge{
+
+background:#F3E8FF;
+color:#6B21A8;
+
+}
+
+/* =========================================
+IMAGE
+========================================= */
 
 .serviceImage{
 
-height:130px;
+height:150px;
 
 background:#F3F4F6;
 
 display:flex;
-
 align-items:center;
 justify-content:center;
 
@@ -360,23 +368,26 @@ font-size:58px;
 
 }
 
+/* =========================================
+INFO
+========================================= */
+
 .serviceInfo{
 
 padding:14px;
 
 }
 
-.serviceInfo h3{
+.serviceName{
 
 font-size:15px;
-
-font-weight:800;
-
-margin-bottom:4px;
+font-weight:900;
 
 }
 
-.serviceInfo p{
+.serviceDesc{
+
+margin-top:6px;
 
 font-size:12px;
 
@@ -386,21 +397,57 @@ color:#6B7280;
 
 }
 
-.rating{
+.ratingRow{
 
 margin-top:10px;
 
 display:flex;
-
 align-items:center;
-
-gap:6px;
+gap:8px;
 
 font-size:12px;
-
 font-weight:800;
 
+}
+
+.rating{
+
 color:#16A34A;
+
+}
+
+.reviewCount{
+
+color:#6B7280;
+
+}
+
+.deliveryTime{
+
+margin-top:8px;
+
+font-size:12px;
+font-weight:700;
+
+color:#2563EB;
+
+}
+
+.cityPrice{
+
+margin-top:12px;
+
+font-size:24px;
+font-weight:900;
+
+}
+
+.cityName{
+
+font-size:12px;
+font-weight:700;
+
+color:#6B7280;
 
 }
 
@@ -409,24 +456,35 @@ color:#16A34A;
 margin-top:14px;
 
 display:flex;
-
 justify-content:space-between;
-
 align-items:center;
 
 }
 
-.price{
+.viewBtn{
 
-font-size:20px;
+height:40px;
 
+padding:0 16px;
+
+border:none;
+
+border-radius:12px;
+
+background:#111827;
+
+color:#fff;
+
+font-size:12px;
 font-weight:900;
+
+cursor:pointer;
 
 }
 
 .addBtn{
 
-height:38px;
+height:40px;
 
 padding:0 16px;
 
@@ -439,196 +497,29 @@ background:#16A34A;
 color:#fff;
 
 font-size:12px;
-
 font-weight:900;
 
 cursor:pointer;
 
 }
-
-/* =====================================================
-OFFER BANNER
-===================================================== */
-
-.offerBanner{
-
-margin:24px 16px;
-
-background:
-linear-gradient(
-135deg,
-#111827,
-#1F2937
-);
-
-padding:24px;
-
-border-radius:24px;
-
-color:#fff;
-
-}
-
-.offerBanner h2{
-
-font-size:26px;
-
-font-weight:900;
-
-line-height:1.2;
-
-}
-
-.offerBanner p{
-
-margin-top:10px;
-
-font-size:14px;
-
-line-height:1.7;
-
-opacity:0.9;
-
-}
-
-.claimBtn{
-
-margin-top:18px;
-
-height:48px;
-
-padding:0 22px;
-
-border:none;
-
-border-radius:16px;
-
-background:#FFD633;
-
-font-size:14px;
-
-font-weight:900;
-
-cursor:pointer;
-
-}
-
-/* =====================================================
-BOTTOM NAV
-===================================================== */
-
-.bottomNav{
-
-position:fixed;
-
-left:0;
-right:0;
-bottom:0;
-
-height:74px;
-
-background:#fff;
-
-display:flex;
-
-justify-content:space-around;
-
-align-items:center;
-
-box-shadow:
-0 -4px 16px rgba(0,0,0,0.08);
-
-z-index:999;
-
-}
-
-.navItem{
-
-flex:1;
-
-height:100%;
-
-border:none;
-
-background:none;
-
-display:flex;
-
-flex-direction:column;
-
-align-items:center;
-
-justify-content:center;
-
-gap:4px;
-
-font-size:11px;
-
-font-weight:700;
-
-color:#6B7280;
-
-cursor:pointer;
-
-}
-
-.navItem i{
-
-font-size:20px;
-
-}
-
-.activeNav{
-
-color:#16A34A;
-
-}
-
-/* =====================================================
-DESKTOP
-===================================================== */
 
 @media(min-width:900px){
 
 .serviceGrid{
 
-grid-template-columns:repeat(4,1fr);
-
-padding:0 40px;
-
-}
-
-.filterWrap{
-
-padding-left:40px;
-padding-right:40px;
-
-}
-
-.offerBanner{
-
-margin-left:40px;
-margin-right:40px;
-
-}
-
-.serviceHero{
-
-padding:20px 40px 28px;
+grid-template-columns:
+repeat(4,1fr);
 
 }
 
 }
 
 </style>
-
 </head>
 
 <body>
 
-<!-- =====================================================
-HEADER
-===================================================== -->
+<!-- HEADER -->
 
 <div class="serviceHero">
 
@@ -641,7 +532,7 @@ Services
 </div>
 
 <div class="pageSub">
-Premium laundry & cleaning
+Premium Laundry & Cleaning
 </div>
 
 </div>
@@ -660,27 +551,34 @@ Premium laundry & cleaning
 
 </div>
 
-<!-- SEARCH -->
-
 <div class="searchWrap">
 
 <div class="searchBar">
 
-<i class="fa-solid fa-magnifying-glass"></i>
+<i class="fa-solid fa-magnifying-glass searchIcon"></i>
 
 <input
+id="searchInput"
 type="text"
-placeholder="Search services">
+placeholder="Search Services">
 
 </div>
 
 </div>
 
+<div
+class="locationBar"
+id="locationBar">
+
+📍 Kasganj, Uttar Pradesh
+
 </div>
 
-<!-- =====================================================
-FILTERS
-===================================================== -->
+</div>
+
+<!-- FILTERS -->
+
+<div class="filterSection">
 
 <div class="filterWrap">
 
@@ -689,468 +587,43 @@ All
 </button>
 
 <button class="filterBtn">
-Ironing
+Dry Cleaning
 </button>
 
 <button class="filterBtn">
-Wash
+Wash & Fold
 </button>
 
 <button class="filterBtn">
-Steam
+Steam Iron
 </button>
 
 <button class="filterBtn">
-Premium
+Shoe Care
 </button>
 
 <button class="filterBtn">
-Shoes
+Blanket Care
+</button>
+
+<button class="filterBtn">
+Premium Care
 </button>
 
 </div>
 
-<!-- =====================================================
-SERVICES
-===================================================== -->
+</div>
+
+<!-- SERVICES -->
+
+<div class="serviceSection">
 
 <div
 class="serviceGrid"
 id="serviceGrid">
 
-</div>
-
-<!-- =====================================================
-OFFER
-===================================================== -->
-
-<div class="offerBanner">
-
-<h2>
-Get Quick+ Membership
-</h2>
-
-<p>
-Free pickup, express delivery and premium support with Quick+.
-</p>
-
-<button class="claimBtn">
-Claim Now
-</button>
-
-</div>
-
-<!-- =====================================================
-BOTTOM NAV
-===================================================== -->
-
-<div class="bottomNav">
-
-<button class="navItem">
-<i class="fa-solid fa-house"></i>
-<span>Home</span>
-</button>
-
-<button class="navItem">
-<i class="fa-solid fa-box"></i>
-<span>Orders</span>
-</button>
-
-<button class="navItem activeNav">
-<i class="fa-solid fa-table-cells-large"></i>
-<span>Services</span>
-</button>
-
-<button class="navItem">
-<i class="fa-solid fa-wallet"></i>
-<span>Wallet</span>
-</button>
-
-<button class="navItem">
-<i class="fa-regular fa-user"></i>
-<span>Profile</span>
-</button>
-
-</div>
-
-<script type="module">
-
-/* =====================================================
-FIREBASE IMPORT
-===================================================== */
-
-import { initializeApp }
-
-from "https://www.gstatic.com/firebasejs/10.12.2/firebase-app.js";
-
-import {
-
-getFirestore,
-collection,
-getDocs
-
-}
-
-from "https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore.js";
-
-/* =====================================================
-CONFIG
-===================================================== */
-
-const firebaseConfig = {
-
-apiKey: "YOUR_API_KEY",
-
-authDomain: "YOUR_PROJECT.firebaseapp.com",
-
-projectId: "YOUR_PROJECT_ID",
-
-storageBucket: "YOUR_PROJECT.appspot.com",
-
-messagingSenderId: "YOUR_SENDER_ID",
-
-appId: "YOUR_APP_ID"
-
-};
-
-/* =====================================================
-INIT
-===================================================== */
-
-const app =
-initializeApp(firebaseConfig);
-
-const db =
-getFirestore(app);
-
-/* =====================================================
-GRID
-===================================================== */
-
-const serviceGrid =
-document.getElementById(
-"serviceGrid"
-);
-
-/* =====================================================
-LOAD SERVICES
-===================================================== */
-
-async function loadServices(){
-
-serviceGrid.innerHTML = `
-
-<div style="
-grid-column:1/3;
-padding:40px 0;
-text-align:center;
-font-weight:700;
-color:#6B7280;
-">
-
-Loading Services...
-
-</div>
-
-`;
-
-try{
-
-const snapshot =
-await getDocs(
-collection(db,"services")
-);
-
-serviceGrid.innerHTML = "";
-
-/* ========================================= */
-
-snapshot.forEach(doc=>{
-
-const service =
-doc.data();
-
-/* ========================================= */
-
-serviceGrid.innerHTML += `
-
-<div class="serviceCard">
-
-<div class="serviceBadge">
-FAST
-</div>
-
-<div class="favoriteBtn">
-🤍
-</div>
-
-<div class="serviceImage">
-${service.icon || "🧺"}
-</div>
-
-<div class="serviceInfo">
-
-<h3>
-${service.name || "Laundry"}
-</h3>
-
-<p>
-${service.description || "Premium cleaning"}
-</p>
-
-<div class="rating">
-⭐ 4.9 • 10 mins
-</div>
-
-<div class="serviceBottom">
-
-<div class="price">
-₹${service.price || 0}
-</div>
-
-<button class="addBtn">
-ADD
-</button>
+<!-- Firebase Services Here -->
 
 </div>
 
 </div>
-
-</div>
-
-`;
-
-});
-
-/* ========================================= */
-
-activateButtons();
-
-}catch(error){
-
-console.log(error);
-
-serviceGrid.innerHTML = `
-
-<div style="
-grid-column:1/3;
-padding:40px 0;
-text-align:center;
-font-weight:700;
-color:red;
-">
-
-Failed to load services
-
-</div>
-
-`;
-
-}
-
-}
-
-loadServices();
-
-/* =====================================================
-BUTTONS
-===================================================== */
-
-function activateButtons(){
-
-document.querySelectorAll(
-".addBtn"
-)
-
-.forEach(btn=>{
-
-btn.addEventListener(
-"click",
-()=>{
-
-btn.innerHTML =
-"Added ✓";
-
-btn.style.background =
-"#111827";
-
-showToast(
-"Added to cart"
-);
-
-}
-);
-
-});
-
-/* ========================================= */
-
-document.querySelectorAll(
-".favoriteBtn"
-)
-
-.forEach(btn=>{
-
-btn.addEventListener(
-"click",
-()=>{
-
-if(btn.innerHTML === "🤍"){
-
-btn.innerHTML = "❤️";
-
-}else{
-
-btn.innerHTML = "🤍";
-
-}
-
-}
-);
-
-});
-
-}
-
-/* =====================================================
-FILTERS
-===================================================== */
-
-const filterBtns =
-document.querySelectorAll(
-".filterBtn"
-);
-
-filterBtns.forEach(btn=>{
-
-btn.addEventListener(
-"click",
-()=>{
-
-filterBtns.forEach(item=>{
-
-item.classList.remove(
-"activeFilter"
-);
-
-});
-
-btn.classList.add(
-"activeFilter"
-);
-
-}
-);
-
-});
-
-/* =====================================================
-TOAST
-===================================================== */
-
-function showToast(message){
-
-const toast =
-document.createElement("div");
-
-toast.innerHTML = message;
-
-toast.style.position =
-"fixed";
-
-toast.style.bottom =
-"100px";
-
-toast.style.left =
-"50%";
-
-toast.style.transform =
-"translateX(-50%)";
-
-toast.style.background =
-"#111827";
-
-toast.style.color =
-"#fff";
-
-toast.style.padding =
-"14px 22px";
-
-toast.style.borderRadius =
-"18px";
-
-toast.style.fontWeight =
-"700";
-
-toast.style.zIndex =
-"99999";
-
-document.body.appendChild(
-toast
-);
-
-setTimeout(()=>{
-
-toast.remove();
-
-},2200);
-
-}
-
-/* =====================================================
-NAVIGATION
-===================================================== */
-
-const navItems =
-document.querySelectorAll(
-".navItem"
-);
-
-navItems.forEach(item=>{
-
-item.addEventListener(
-"click",
-()=>{
-
-const text =
-item.innerText;
-
-/* ========================================= */
-
-if(text.includes("Home")){
-
-window.location.href =
-"index.html";
-
-}
-
-if(text.includes("Orders")){
-
-window.location.href =
-"orders.html";
-
-}
-
-if(text.includes("Wallet")){
-
-window.location.href =
-"wallet.html";
-
-}
-
-if(text.includes("Profile")){
-
-window.location.href =
-"profile.html";
-
-}
-
-}
-);
-
-});
-
-</script>
-
-</body>
-</html>
