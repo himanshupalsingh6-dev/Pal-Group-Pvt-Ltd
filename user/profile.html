@@ -1,67 +1,32 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
 
 <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<meta
-name="viewport"
-content="width=device-width, initial-scale=1.0">
+<title>My Profile</title>
 
-<title>
-QuickPress Profile
-</title>
-
-<!-- =========================================
-FONTS
-========================================= -->
-
-<link rel="preconnect"
-href="https://fonts.googleapis.com">
-
-<link rel="preconnect"
-href="https://fonts.gstatic.com"
-crossorigin>
-
-<link
-href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap"
-rel="stylesheet">
-
-<!-- =========================================
-ICONS
-========================================= -->
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
 
 <link rel="stylesheet"
 href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css"/>
 
 <style>
 
-/* =========================================
-RESET
-========================================= */
-
 *{
-
 margin:0;
 padding:0;
 box-sizing:border-box;
 font-family:'Inter',sans-serif;
--webkit-tap-highlight-color:transparent;
-
 }
 
 body{
-
-background:#F5F7FB;
-padding-bottom:110px;
-overflow-x:hidden;
-
+background:#F6F7FB;
+padding-bottom:100px;
 }
 
-/* =========================================
-HEADER
-========================================= */
+/* HERO */
 
 .profileHero{
 
@@ -72,147 +37,128 @@ linear-gradient(
 #FFE98A
 );
 
-padding:22px 18px 38px;
+padding:24px;
 
-border-bottom-left-radius:36px;
-border-bottom-right-radius:36px;
-
-position:relative;
-
-overflow:hidden;
+border-bottom-left-radius:34px;
+border-bottom-right-radius:34px;
 
 }
 
-.profileHero::before{
+.profileHero h1{
 
-content:"";
-
-position:absolute;
-
-right:-60px;
-top:-60px;
-
-width:220px;
-height:220px;
-
-border-radius:50%;
-
-background:
-rgba(255,255,255,0.18);
-
-}
-
-.topBar{
-
-display:flex;
-
-justify-content:space-between;
-
-align-items:center;
-
-position:relative;
-
-z-index:2;
-
-}
-
-.pageTitle{
-
-font-size:32px;
-
+font-size:30px;
 font-weight:900;
 
-color:#111827;
+}
+
+.profileHero p{
+
+margin-top:6px;
+
+font-size:13px;
+font-weight:700;
+
+color:#374151;
 
 }
 
-/* =========================================
-PROFILE CARD
-========================================= */
+/* PROFILE CARD */
+
+.profileSection{
+
+padding:16px;
+
+}
 
 .profileCard{
 
-margin-top:28px;
-
 background:#fff;
 
-border-radius:32px;
+border-radius:30px;
 
-padding:22px;
+padding:24px;
 
-display:flex;
-
-align-items:center;
-
-gap:18px;
+text-align:center;
 
 box-shadow:
-0 10px 30px rgba(0,0,0,0.08);
-
-position:relative;
-
-z-index:2;
+0 8px 24px rgba(0,0,0,.05);
 
 }
 
-.profileImg{
+.profileImage{
 
-width:88px;
-height:88px;
+width:110px;
+height:110px;
 
-border-radius:28px;
+border-radius:50%;
 
-object-fit:cover;
+margin:auto;
+
+background:#F3F4F6;
+
+display:flex;
+align-items:center;
+justify-content:center;
+
+font-size:50px;
 
 }
 
-.profileInfo{
+.userName{
 
-flex:1;
-
-}
-
-.profileName{
+margin-top:16px;
 
 font-size:24px;
 
 font-weight:900;
 
-color:#111827;
-
 }
 
-.profileEmail{
+.userPhone{
 
 margin-top:6px;
 
 font-size:14px;
 
-font-weight:700;
+color:#6B7280;
+
+}
+
+.userEmail{
+
+margin-top:4px;
+
+font-size:13px;
 
 color:#6B7280;
 
 }
 
-.quickBadge{
+.referralBox{
 
-margin-top:14px;
+margin-top:18px;
 
-display:inline-flex;
+background:#F9FAFB;
 
-align-items:center;
+padding:14px;
 
-gap:8px;
+border-radius:18px;
 
-height:36px;
+}
 
-padding:0 16px;
-
-border-radius:999px;
-
-background:#DCFCE7;
+.referralLabel{
 
 font-size:12px;
+
+color:#6B7280;
+
+}
+
+.referralCode{
+
+margin-top:6px;
+
+font-size:18px;
 
 font-weight:900;
 
@@ -220,236 +166,423 @@ color:#16A34A;
 
 }
 
-/* =========================================
-WALLET
-========================================= */
+/* SHORTCUTS */
 
-.walletCard{
+.shortcutGrid{
 
-margin:20px 16px;
+padding:16px;
 
-background:
-linear-gradient(
-135deg,
-#111827,
-#1F2937
-);
+display:grid;
 
-border-radius:30px;
-
-padding:24px;
-
-color:#fff;
-
-position:relative;
-
-overflow:hidden;
-
-}
-
-.walletCard::before{
-
-content:"";
-
-position:absolute;
-
-right:-50px;
-top:-50px;
-
-width:180px;
-height:180px;
-
-border-radius:50%;
-
-background:
-rgba(255,255,255,0.06);
-
-}
-
-.walletTitle{
-
-font-size:14px;
-
-font-weight:700;
-
-opacity:0.8;
-
-position:relative;
-
-z-index:2;
-
-}
-
-.walletAmount{
-
-margin-top:10px;
-
-font-size:42px;
-
-font-weight:900;
-
-position:relative;
-
-z-index:2;
-
-}
-
-.addMoneyBtn{
-
-margin-top:22px;
-
-height:54px;
-
-padding:0 22px;
-
-border:none;
-
-border-radius:20px;
-
-background:#FFD633;
-
-font-size:15px;
-
-font-weight:900;
-
-color:#111827;
-
-cursor:pointer;
-
-position:relative;
-
-z-index:2;
-
-}
-
-/* =========================================
-MENU
-========================================= */
-
-.menuWrap{
-
-padding:0 16px;
-
-}
-
-.menuCard{
-
-background:#fff;
-
-border-radius:28px;
-
-overflow:hidden;
-
-box-shadow:
-0 6px 18px rgba(0,0,0,0.05);
-
-}
-
-.menuItem{
-
-height:78px;
-
-padding:0 18px;
-
-display:flex;
-
-align-items:center;
-
-justify-content:space-between;
-
-border-bottom:1px solid #F3F4F6;
-
-cursor:pointer;
-
-}
-
-.menuItem:last-child{
-
-border-bottom:none;
-
-}
-
-.menuLeft{
-
-display:flex;
-
-align-items:center;
+grid-template-columns:
+1fr 1fr;
 
 gap:14px;
 
 }
 
-.menuIcon{
+.shortcutCard{
 
-width:50px;
-height:50px;
+background:#fff;
 
-border-radius:18px;
+padding:20px;
 
-background:#F3F4F6;
+border-radius:24px;
 
-display:flex;
+text-align:center;
 
-align-items:center;
-justify-content:center;
+cursor:pointer;
 
-font-size:18px;
-
-color:#111827;
+box-shadow:
+0 8px 24px rgba(0,0,0,.05);
 
 }
 
-.menuText h3{
+.shortcutCard i{
+
+font-size:30px;
+
+color:#16A34A;
+
+}
+
+.shortcutCard h4{
+
+margin-top:12px;
 
 font-size:15px;
 
-font-weight:800;
-
-color:#111827;
+font-weight:900;
 
 }
 
-.menuText p{
+</style>
 
-margin-top:4px;
+</head>
 
-font-size:12px;
+<body>
 
-color:#6B7280;
+<div class="profileHero">
+
+<h1>
+My Profile
+</h1>
+
+<p>
+Manage your QuickPress account
+</p>
+
+</div>
+
+<div class="profileSection">
+
+<div class="profileCard">
+
+<div
+class="profileImage"
+id="profileImage">
+
+👤
+
+</div>
+
+<div
+class="userName"
+id="userName">
+
+Himanshu
+
+</div>
+
+<div
+class="userPhone"
+id="userPhone">
+
++91 9999999999
+
+</div>
+
+<div
+class="userEmail"
+id="userEmail">
+
+user@email.com
+
+</div>
+
+<div class="referralBox">
+
+<div class="referralLabel">
+
+Referral Code
+
+</div>
+
+<div
+class="referralCode"
+id="referralCode">
+
+QP123ABC
+
+</div>
+
+</div>
+
+</div>
+
+</div>
+
+<div class="shortcutGrid">
+
+<div
+class="shortcutCard"
+onclick="location.href='orders.html'">
+
+<i class="fa-solid fa-box"></i>
+
+<h4>
+My Orders
+</h4>
+
+</div>
+
+<div
+class="shortcutCard"
+onclick="location.href='wallet.html'">
+
+<i class="fa-solid fa-wallet"></i>
+
+<h4>
+Wallet
+</h4>
+
+</div>
+
+<div
+class="shortcutCard"
+onclick="location.href='addresses.html'">
+
+<i class="fa-solid fa-location-dot"></i>
+
+<h4>
+Addresses
+</h4>
+
+</div>
+
+<div
+class="shortcutCard"
+onclick="location.href='notifications.html'">
+
+<i class="fa-solid fa-bell"></i>
+
+<h4>
+Notifications
+</h4>
+
+</div>
+
+</div>
+<!-- =========================================
+ACCOUNT SETTINGS
+========================================= -->
+
+<div class="profileSection">
+
+<div class="profileCard">
+
+<div class="sectionTitle">
+
+Account Settings
+
+</div>
+
+<div class="settingsList">
+
+<div
+class="settingItem"
+onclick="editProfile()">
+
+<div>
+✏️ Edit Profile
+</div>
+
+<i class="fa-solid fa-chevron-right"></i>
+
+</div>
+
+<div
+class="settingItem"
+onclick="location.href='addresses.html'">
+
+<div>
+📍 Saved Addresses
+</div>
+
+<i class="fa-solid fa-chevron-right"></i>
+
+</div>
+
+<div
+class="settingItem"
+onclick="location.href='notifications.html'">
+
+<div>
+🔔 Notifications
+</div>
+
+<i class="fa-solid fa-chevron-right"></i>
+
+</div>
+
+<div
+class="settingItem"
+onclick="openWhatsapp()">
+
+<div>
+💬 WhatsApp Support
+</div>
+
+<i class="fa-solid fa-chevron-right"></i>
+
+</div>
+
+<div
+class="settingItem"
+onclick="shareReferral()">
+
+<div>
+🎁 Share Referral Code
+</div>
+
+<i class="fa-solid fa-chevron-right"></i>
+
+</div>
+
+</div>
+
+</div>
+
+</div>
+
+<!-- =========================================
+ACCOUNT ACTIONS
+========================================= -->
+
+<div class="profileSection">
+
+<button
+class="logoutBtn"
+onclick="logoutUser()">
+
+Logout
+
+</button>
+
+<button
+class="deleteBtn"
+onclick="deleteAccountRequest()">
+
+Delete Account Request
+
+</button>
+
+</div>
+
+<!-- =========================================
+BOTTOM NAVIGATION
+========================================= -->
+
+<div class="bottomNav">
+
+<button
+class="navItem"
+onclick="location.href='index.html'">
+
+🏠
+<span>Home</span>
+
+</button>
+
+<button
+class="navItem"
+onclick="location.href='orders.html'">
+
+📦
+<span>Orders</span>
+
+</button>
+
+<button
+class="navItem"
+onclick="location.href='wallet.html'">
+
+💰
+<span>Wallet</span>
+
+</button>
+
+<button
+class="navItem activeNav">
+
+👤
+<span>Profile</span>
+
+</button>
+
+</div>
+
+<style>
+
+.sectionTitle{
+
+font-size:18px;
+
+font-weight:900;
+
+margin-bottom:16px;
 
 }
 
-/* =========================================
-LOGOUT
-========================================= */
+.settingsList{
 
-.logoutBtn{
+display:flex;
 
-margin:24px 16px;
+flex-direction:column;
 
-width:calc(100% - 32px);
+gap:10px;
+
+}
+
+.settingItem{
 
 height:58px;
 
+background:#F9FAFB;
+
+border-radius:16px;
+
+padding:0 16px;
+
+display:flex;
+
+justify-content:space-between;
+
+align-items:center;
+
+font-size:14px;
+
+font-weight:800;
+
+cursor:pointer;
+
+}
+
+.logoutBtn{
+
+width:100%;
+
+height:54px;
+
 border:none;
 
-border-radius:24px;
+border-radius:18px;
+
+background:#111827;
+
+color:#fff;
+
+font-size:14px;
+
+font-weight:900;
+
+cursor:pointer;
+
+margin-bottom:12px;
+
+}
+
+.deleteBtn{
+
+width:100%;
+
+height:54px;
+
+border:none;
+
+border-radius:18px;
 
 background:#DC2626;
 
 color:#fff;
 
-font-size:16px;
+font-size:14px;
 
 font-weight:900;
 
 cursor:pointer;
 
 }
-
-/* =========================================
-BOTTOM NAV
-========================================= */
 
 .bottomNav{
 
@@ -470,7 +603,7 @@ justify-content:space-around;
 align-items:center;
 
 box-shadow:
-0 -6px 20px rgba(0,0,0,0.08);
+0 -8px 20px rgba(0,0,0,.08);
 
 z-index:999;
 
@@ -490,9 +623,9 @@ display:flex;
 
 flex-direction:column;
 
-align-items:center;
-
 justify-content:center;
+
+align-items:center;
 
 gap:4px;
 
@@ -500,15 +633,9 @@ font-size:11px;
 
 font-weight:700;
 
-color:#6B7280;
-
 cursor:pointer;
 
-}
-
-.navItem i{
-
-font-size:20px;
+color:#6B7280;
 
 }
 
@@ -520,409 +647,58 @@ color:#16A34A;
 
 </style>
 
-</head>
-
-<body>
-
-<!-- =========================================
-HEADER
-========================================= -->
-
-<div class="profileHero">
-
-<div class="topBar">
-
-<div class="pageTitle">
-Profile
-</div>
-
-<i
-class="fa-solid fa-gear"
-style="
-font-size:22px;
-color:#111827;
-">
-</i>
-
-</div>
-
-<!-- PROFILE CARD -->
-
-<div class="profileCard">
-
-<img
-src="https://ui-avatars.com/api/?name=QuickPress&background=111827&color=ffffff"
-class="profileImg">
-
-<div class="profileInfo">
-
-<div
-class="profileName"
-id="profileName">
-
-Loading...
-
-</div>
-
-<div
-class="profileEmail"
-id="profileEmail">
-
-Loading...
-
-</div>
-
-<div class="quickBadge">
-
-⚡ QUICK+ MEMBER
-
-</div>
-
-</div>
-
-</div>
-
-</div>
-
-<!-- =========================================
-WALLET
-========================================= -->
-
-<div class="walletCard">
-
-<div class="walletTitle">
-Quick Wallet Balance
-</div>
-
-<div
-class="walletAmount"
-id="walletAmount">
-
-₹0
-
-</div>
-
-<button class="addMoneyBtn">
-
-Add Funds
-
-</button>
-
-</div>
-
-<!-- =========================================
-MENU
-========================================= -->
-
-<div class="menuWrap">
-
-<div class="menuCard">
-
-<!-- ORDERS -->
-
-<div
-class="menuItem"
-onclick="goPage('orders.html')">
-
-<div class="menuLeft">
-
-<div class="menuIcon">
-📦
-</div>
-
-<div class="menuText">
-
-<h3>
-My Orders
-</h3>
-
-<p>
-Track your orders
-</p>
-
-</div>
-
-</div>
-
-<i class="fa-solid fa-chevron-right"></i>
-
-</div>
-
-<!-- ADDRESS -->
-
-<div class="menuItem">
-
-<div class="menuLeft">
-
-<div class="menuIcon">
-📍
-</div>
-
-<div class="menuText">
-
-<h3>
-Address Book
-</h3>
-
-<p>
-Manage saved addresses
-</p>
-
-</div>
-
-</div>
-
-<i class="fa-solid fa-chevron-right"></i>
-
-</div>
-
-<!-- PAYMENTS -->
-
-<div class="menuItem">
-
-<div class="menuLeft">
-
-<div class="menuIcon">
-💳
-</div>
-
-<div class="menuText">
-
-<h3>
-Saved Payments
-</h3>
-
-<p>
-Cards & UPI methods
-</p>
-
-</div>
-
-</div>
-
-<i class="fa-solid fa-chevron-right"></i>
-
-</div>
-
-<!-- COUPONS -->
-
-<div class="menuItem">
-
-<div class="menuLeft">
-
-<div class="menuIcon">
-🎁
-</div>
-
-<div class="menuText">
-
-<h3>
-Coupons
-</h3>
-
-<p>
-View all offers
-</p>
-
-</div>
-
-</div>
-
-<i class="fa-solid fa-chevron-right"></i>
-
-</div>
-
-<!-- SUPPORT -->
-
-<div class="menuItem">
-
-<div class="menuLeft">
-
-<div class="menuIcon">
-🎧
-</div>
-
-<div class="menuText">
-
-<h3>
-Help & Support
-</h3>
-
-<p>
-QuickPress customer help
-</p>
-
-</div>
-
-</div>
-
-<i class="fa-solid fa-chevron-right"></i>
-
-</div>
-
-</div>
-
-</div>
-
-<!-- =========================================
-LOGOUT
-========================================= -->
-
-<button
-class="logoutBtn"
-id="logoutBtn">
-
-Logout
-
-</button>
-
-<!-- =========================================
-BOTTOM NAV
-========================================= -->
-
-<div class="bottomNav">
-
-<button
-class="navItem"
-onclick="goPage('index.html')">
-
-<i class="fa-solid fa-house"></i>
-
-<span>
-Home
-</span>
-
-</button>
-
-<button
-class="navItem"
-onclick="goPage('orders.html')">
-
-<i class="fa-solid fa-box"></i>
-
-<span>
-Orders
-</span>
-
-</button>
-
-<button
-class="navItem"
-onclick="goPage('services.html')">
-
-<i class="fa-solid fa-table-cells-large"></i>
-
-<span>
-Services
-</span>
-
-</button>
-
-<button
-class="navItem">
-
-<i class="fa-solid fa-wallet"></i>
-
-<span>
-Wallet
-</span>
-
-</button>
-
-<button
-class="navItem activeNav">
-
-<i class="fa-regular fa-user"></i>
-
-<span>
-Profile
-</span>
-
-</button>
-
-</div>
-
-<!-- =========================================
-SCRIPT
-========================================= -->
-
 <script type="module">
 
-/* =========================================
-IMPORT
-========================================= */
-
-import { auth, db }
-
-from "../firebase.js";
+import { db, auth }
+from "./firebase.js";
 
 import {
-
-onAuthStateChanged,
-signOut
-
-}
-
-from
-
-"https://www.gstatic.com/firebasejs/12.11.0/firebase-auth.js";
-
-import {
-
 doc,
 getDoc,
-updateDoc
+setDoc,
+addDoc,
+collection,
+serverTimestamp
+}
+from
+"https://www.gstatic.com/firebasejs/12.11.0/firebase-firestore.js";
+
+import {
+onAuthStateChanged,
+signOut
+}
+from
+"https://www.gstatic.com/firebasejs/12.11.0/firebase-auth.js";
+
+/* =========================================
+LOGIN CHECK
+========================================= */
+
+let currentUser = null;
+
+onAuthStateChanged(
+
+auth,
+
+async(user)=>{
+
+if(!user){
+
+window.location.href =
+"login.html";
+
+return;
 
 }
 
-from
-
-"https://www.gstatic.com/firebasejs/12.11.0/firebase-firestore.js";
+currentUser = user;
 
 /* =========================================
-ELEMENTS
+LOAD PROFILE
 ========================================= */
-
-const profileName =
-document.getElementById(
-"profileName"
-);
-
-const profileEmail =
-document.getElementById(
-"profileEmail"
-);
-
-const walletAmount =
-document.getElementById(
-"walletAmount"
-);
-
-const logoutBtn =
-document.getElementById(
-"logoutBtn"
-);
-
-/* =========================================
-AUTH CHECK
-========================================= */
-
-onAuthStateChanged(
-auth,
-async(user)=>{
-
-if(user){
-
-/* =========================================
-SHOW USER
-========================================= */
-
-profileEmail.innerHTML =
-user.email;
-
-/* ========================================= */
 
 const userRef =
+
 doc(
 db,
 "users",
@@ -941,60 +717,201 @@ if(userSnap.exists()){
 const data =
 userSnap.data();
 
-/* ========================================= */
+document.getElementById(
+"userName"
+)
 
-profileName.innerHTML =
-data.name || "QuickPress User";
+.innerHTML =
 
-walletAmount.innerHTML =
-`₹${data.wallet || 0}`;
+data.name
+||
+"QuickPress User";
 
-/* ========================================= */
+document.getElementById(
+"userPhone"
+)
+
+.innerHTML =
+
+data.phone
+||
+"Not Added";
+
+document.getElementById(
+"userEmail"
+)
+
+.innerHTML =
+
+user.email
+||
+"";
+
+if(data.photo){
+
+document.getElementById(
+"profileImage"
+)
+
+innerHTML =
+
+`
+<img
+src="${data.photo}"
+style="
+width:100%;
+height:100%;
+border-radius:50%;
+object-fit:cover;
+">
+`;
 
 }
 
-/* ========================================= */
+}
 
-}else{
+/* =========================================
+REFERRAL
+========================================= */
 
-window.location.href =
-"login.html";
+document.getElementById(
+"referralCode"
+)
+
+.innerHTML =
+
+"QP"
+
++
+
+user.uid
+.slice(0,6)
+.toUpperCase();
 
 }
 
-}
 );
+
+/* =========================================
+EDIT PROFILE
+========================================= */
+
+window.editProfile =
+()=>{
+
+alert(
+"Edit Profile Page Connect Later"
+);
+
+};
+
+/* =========================================
+WHATSAPP
+========================================= */
+
+window.openWhatsapp =
+()=>{
+
+window.open(
+
+"https://wa.me/919997874502",
+
+"_blank"
+
+);
+
+};
+
+/* =========================================
+SHARE REFERRAL
+========================================= */
+
+window.shareReferral =
+()=>{
+
+const code =
+
+document.getElementById(
+"referralCode"
+)
+.innerText;
+
+navigator.share({
+
+title:
+"QuickPress",
+
+text:
+`Use my referral code ${code}`,
+
+url:
+window.location.origin
+
+});
+
+};
 
 /* =========================================
 LOGOUT
 ========================================= */
 
-logoutBtn.addEventListener(
-"click",
-()=>{
+window.logoutUser =
+async()=>{
 
-signOut(auth)
-.then(()=>{
+await signOut(auth);
+
+localStorage.clear();
 
 window.location.href =
 "login.html";
 
-});
-
-}
-);
+};
 
 /* =========================================
-PAGE NAVIGATION
+DELETE ACCOUNT
 ========================================= */
 
-window.goPage =
-function(page){
+window.deleteAccountRequest =
+async()=>{
 
-window.location.href =
-page;
+const confirmDelete =
+confirm(
+"Submit delete account request?"
+);
+
+if(!confirmDelete)
+return;
+
+await addDoc(
+
+collection(
+db,
+"deleteRequests"
+),
+
+{
+
+uid:
+currentUser.uid,
+
+email:
+currentUser.email,
+
+status:
+"Pending",
+
+createdAt:
+serverTimestamp()
 
 }
+
+);
+
+alert(
+"Request Submitted"
+);
+
+};
 
 </script>
 
