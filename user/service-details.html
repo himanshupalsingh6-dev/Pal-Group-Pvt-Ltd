@@ -1,0 +1,1693 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>Service Details</title>
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+
+<link rel="stylesheet"
+href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css"/>
+
+<style>
+
+*{
+margin:0;
+padding:0;
+box-sizing:border-box;
+font-family:'Inter',sans-serif;
+-webkit-tap-highlight-color:transparent;
+}
+
+body{
+background:#F6F7FB;
+color:#111827;
+padding-bottom:120px;
+}
+
+/* =========================
+HEADER
+========================= */
+
+.header{
+
+background:
+linear-gradient(
+135deg,
+#FFD633,
+#FFE98A
+);
+
+padding:18px;
+
+border-bottom-left-radius:32px;
+border-bottom-right-radius:32px;
+
+position:sticky;
+top:0;
+z-index:999;
+
+}
+
+.topBar{
+
+display:flex;
+justify-content:space-between;
+align-items:center;
+
+}
+
+.backBtn{
+
+width:46px;
+height:46px;
+
+border:none;
+
+border-radius:16px;
+
+background:#fff;
+
+font-size:18px;
+
+cursor:pointer;
+
+}
+
+.shareBtn{
+
+width:46px;
+height:46px;
+
+border:none;
+
+border-radius:16px;
+
+background:#fff;
+
+font-size:18px;
+
+cursor:pointer;
+
+}
+
+.pageTitle{
+
+font-size:18px;
+font-weight:900;
+
+}
+
+/* =========================
+SERVICE HERO
+========================= */
+
+.serviceHero{
+
+padding:20px 16px;
+
+}
+
+.serviceImage{
+
+height:260px;
+
+background:#fff;
+
+border-radius:30px;
+
+display:flex;
+align-items:center;
+justify-content:center;
+
+font-size:120px;
+
+box-shadow:
+0 10px 30px rgba(0,0,0,.06);
+
+}
+
+.serviceName{
+
+margin-top:20px;
+
+font-size:30px;
+
+font-weight:900;
+
+line-height:1.2;
+
+}
+
+.serviceDesc{
+
+margin-top:12px;
+
+font-size:14px;
+
+line-height:1.8;
+
+color:#6B7280;
+
+}
+
+/* =========================
+BADGES
+========================= */
+
+.badgeWrap{
+
+margin-top:18px;
+
+display:flex;
+flex-wrap:wrap;
+gap:8px;
+
+}
+
+.badge{
+
+height:30px;
+
+padding:0 14px;
+
+border-radius:999px;
+
+display:flex;
+align-items:center;
+
+font-size:11px;
+font-weight:900;
+
+}
+
+.trending{
+background:#FEF3C7;
+color:#92400E;
+}
+
+.bestseller{
+background:#DCFCE7;
+color:#166534;
+}
+
+.sameday{
+background:#DBEAFE;
+color:#1E40AF;
+}
+
+.premium{
+background:#F3E8FF;
+color:#6B21A8;
+}
+
+/* =========================
+RATING
+========================= */
+
+.ratingCard{
+
+margin-top:20px;
+
+background:#fff;
+
+border-radius:26px;
+
+padding:18px;
+
+box-shadow:
+0 8px 24px rgba(0,0,0,.05);
+
+}
+
+.ratingTop{
+
+display:flex;
+
+justify-content:space-between;
+align-items:center;
+
+}
+
+.ratingValue{
+
+font-size:34px;
+font-weight:900;
+
+color:#16A34A;
+
+}
+
+.reviewCount{
+
+font-size:13px;
+font-weight:700;
+
+color:#6B7280;
+
+}
+
+/* =========================
+PRICE CARD
+========================= */
+
+.priceCard{
+
+margin-top:20px;
+
+background:#fff;
+
+border-radius:26px;
+
+padding:20px;
+
+box-shadow:
+0 8px 24px rgba(0,0,0,.05);
+
+}
+
+.priceLabel{
+
+font-size:12px;
+
+font-weight:800;
+
+color:#6B7280;
+
+}
+
+.priceValue{
+
+margin-top:8px;
+
+font-size:42px;
+
+font-weight:900;
+
+}
+
+.cityName{
+
+margin-top:6px;
+
+font-size:13px;
+
+font-weight:700;
+
+color:#2563EB;
+
+}
+
+/* =========================
+DELIVERY
+========================= */
+
+.deliveryGrid{
+
+margin-top:20px;
+
+display:grid;
+
+grid-template-columns:
+1fr 1fr;
+
+gap:14px;
+
+}
+
+.infoCard{
+
+background:#fff;
+
+padding:18px;
+
+border-radius:22px;
+
+box-shadow:
+0 8px 24px rgba(0,0,0,.05);
+
+}
+
+.infoLabel{
+
+font-size:11px;
+
+font-weight:800;
+
+color:#6B7280;
+
+}
+
+.infoValue{
+
+margin-top:10px;
+
+font-size:18px;
+
+font-weight:900;
+
+}
+
+</style>
+
+</head>
+
+<body>
+
+<!-- HEADER -->
+
+<div class="header">
+
+<div class="topBar">
+
+<button
+class="backBtn"
+onclick="history.back()">
+
+<i class="fa-solid fa-arrow-left"></i>
+
+</button>
+
+<div class="pageTitle">
+
+Service Details
+
+</div>
+
+<button class="shareBtn">
+
+<i class="fa-solid fa-share-nodes"></i>
+
+</button>
+
+</div>
+
+</div>
+
+<!-- SERVICE -->
+
+<div class="serviceHero">
+
+<div
+class="serviceImage"
+id="serviceImage">
+
+👔
+
+</div>
+
+<div
+class="serviceName"
+id="serviceName">
+
+Premium Dry Cleaning
+
+</div>
+
+<div
+class="serviceDesc"
+id="serviceDesc">
+
+Steam finish, stain removal and
+premium garment protection.
+
+</div>
+
+<!-- BADGES -->
+
+<div class="badgeWrap">
+
+<div class="badge trending">
+🔥 Trending
+</div>
+
+<div class="badge bestseller">
+👑 Best Seller
+</div>
+
+<div class="badge sameday">
+⚡ Same Day
+</div>
+
+<div class="badge premium">
+💎 Premium
+</div>
+
+</div>
+
+<!-- RATING -->
+
+<div class="ratingCard">
+
+<div class="ratingTop">
+
+<div>
+
+<div
+class="ratingValue"
+id="ratingValue">
+
+4.9
+
+</div>
+
+<div class="reviewCount">
+
+324 Reviews
+
+</div>
+
+</div>
+
+<div style="
+font-size:28px;
+">
+
+⭐
+
+</div>
+
+</div>
+
+</div>
+
+<!-- PRICE -->
+
+<div class="priceCard">
+
+<div class="priceLabel">
+
+Current Price
+
+</div>
+
+<div
+class="priceValue"
+id="priceValue">
+
+₹89
+
+</div>
+
+<div
+class="cityName"
+id="cityName">
+
+Kasganj Pricing
+
+</div>
+
+</div>
+
+<!-- DELIVERY -->
+
+<div class="deliveryGrid">
+
+<div class="infoCard">
+
+<div class="infoLabel">
+
+PICKUP TIME
+
+</div>
+
+<div class="infoValue">
+
+10 mins
+
+</div>
+
+</div>
+
+<div class="infoCard">
+
+<div class="infoLabel">
+
+DELIVERY
+
+</div>
+
+<div class="infoValue">
+
+Same Day
+
+</div>
+
+</div>
+
+<div class="infoCard">
+
+<div class="infoLabel">
+
+CATEGORY
+
+</div>
+
+<div class="infoValue">
+
+Dry Cleaning
+
+</div>
+
+</div>
+
+<div class="infoCard">
+
+<div class="infoLabel">
+
+PARTNER
+
+</div>
+
+<div class="infoValue">
+
+QuickPress
+
+</div>
+
+</div>
+
+</div>
+
+</div>
+<!-- =========================
+SERVICE FEATURES
+========================= -->
+
+<div class="section">
+
+<div class="sectionTitle">
+
+Service Features
+
+</div>
+
+<div class="featureGrid">
+
+<div class="featureCard">
+✅ Premium Detergent
+</div>
+
+<div class="featureCard">
+✅ Stain Removal
+</div>
+
+<div class="featureCard">
+✅ Steam Finish
+</div>
+
+<div class="featureCard">
+✅ Fabric Protection
+</div>
+
+<div class="featureCard">
+✅ Same Day Delivery
+</div>
+
+<div class="featureCard">
+✅ Express Pickup
+</div>
+
+</div>
+
+</div>
+
+<!-- =========================
+CUSTOMER REVIEWS
+========================= -->
+
+<div class="section">
+
+<div class="sectionTitle">
+
+Customer Reviews
+
+</div>
+
+<div
+class="reviewList"
+id="reviewList">
+
+<div class="reviewCard">
+
+<div class="reviewTop">
+
+<b>Rohit Sharma</b>
+
+<span>
+⭐ 5.0
+</span>
+
+</div>
+
+<p>
+Amazing service and premium packaging.
+</p>
+
+</div>
+
+<div class="reviewCard">
+
+<div class="reviewTop">
+
+<b>Anjali Verma</b>
+
+<span>
+⭐ 4.9
+</span>
+
+</div>
+
+<p>
+Fast pickup and delivery.
+</p>
+
+</div>
+
+<div class="reviewCard">
+
+<div class="reviewTop">
+
+<b>Faizan Khan</b>
+
+<span>
+⭐ 4.8
+</span>
+
+</div>
+
+<p>
+Best dry cleaning service.
+</p>
+
+</div>
+
+</div>
+
+</div>
+
+<!-- =========================
+RELATED SERVICES
+========================= -->
+
+<div class="section">
+
+<div class="sectionTitle">
+
+Related Services
+
+</div>
+
+<div
+class="relatedGrid"
+id="relatedGrid">
+
+<div class="relatedCard">
+
+<div class="relatedIcon">
+👕
+</div>
+
+<h4>
+Wash & Fold
+</h4>
+
+<p>
+₹69
+</p>
+
+</div>
+
+<div class="relatedCard">
+
+<div class="relatedIcon">
+✨
+</div>
+
+<h4>
+Steam Iron
+</h4>
+
+<p>
+₹49
+</p>
+
+</div>
+
+<div class="relatedCard">
+
+<div class="relatedIcon">
+👟
+</div>
+
+<h4>
+Shoe Care
+</h4>
+
+<p>
+₹149
+</p>
+
+</div>
+
+</div>
+
+</div>
+
+<!-- =========================
+WHATSAPP SUPPORT
+========================= -->
+
+<div class="section">
+
+<div class="supportCard">
+
+<div>
+
+<h3>
+Need Help?
+</h3>
+
+<p>
+Talk to QuickPress Support
+</p>
+
+</div>
+
+<button
+class="whatsappBtn"
+onclick="openWhatsapp()">
+
+<i class="fa-brands fa-whatsapp"></i>
+
+WhatsApp
+
+</button>
+
+</div>
+
+</div>
+
+<!-- =========================
+STICKY CART
+========================= -->
+
+<div class="stickyCart">
+
+<div>
+
+<div class="stickyLabel">
+Current Price
+</div>
+
+<div
+class="stickyPrice"
+id="stickyPrice">
+
+₹89
+
+</div>
+
+</div>
+
+<button
+class="addCartBtn"
+id="addCartBtn">
+
+Add To Cart
+
+</button>
+
+</div>
+
+<style>
+
+/* =========================
+COMMON
+========================= */
+
+.section{
+
+padding:0 16px 24px;
+
+}
+
+.sectionTitle{
+
+font-size:22px;
+
+font-weight:900;
+
+margin-bottom:16px;
+
+}
+
+/* =========================
+FEATURES
+========================= */
+
+.featureGrid{
+
+display:grid;
+
+grid-template-columns:
+1fr 1fr;
+
+gap:12px;
+
+}
+
+.featureCard{
+
+background:#fff;
+
+padding:18px;
+
+border-radius:20px;
+
+font-size:14px;
+
+font-weight:800;
+
+box-shadow:
+0 8px 20px rgba(0,0,0,.05);
+
+}
+
+/* =========================
+REVIEWS
+========================= */
+
+.reviewList{
+
+display:flex;
+
+flex-direction:column;
+
+gap:14px;
+
+}
+
+.reviewCard{
+
+background:#fff;
+
+padding:18px;
+
+border-radius:24px;
+
+box-shadow:
+0 8px 22px rgba(0,0,0,.05);
+
+}
+
+.reviewTop{
+
+display:flex;
+
+justify-content:space-between;
+
+margin-bottom:10px;
+
+}
+
+/* =========================
+RELATED
+========================= */
+
+.relatedGrid{
+
+display:grid;
+
+grid-template-columns:
+repeat(3,1fr);
+
+gap:12px;
+
+}
+
+.relatedCard{
+
+background:#fff;
+
+padding:16px;
+
+border-radius:22px;
+
+text-align:center;
+
+box-shadow:
+0 8px 22px rgba(0,0,0,.05);
+
+cursor:pointer;
+
+}
+
+.relatedIcon{
+
+font-size:36px;
+
+margin-bottom:10px;
+
+}
+
+/* =========================
+SUPPORT
+========================= */
+
+.supportCard{
+
+background:
+linear-gradient(
+135deg,
+#111827,
+#1F2937
+);
+
+padding:24px;
+
+border-radius:28px;
+
+display:flex;
+
+justify-content:space-between;
+
+align-items:center;
+
+color:#fff;
+
+}
+
+.whatsappBtn{
+
+height:48px;
+
+padding:0 18px;
+
+border:none;
+
+border-radius:16px;
+
+background:#16A34A;
+
+color:#fff;
+
+font-size:14px;
+
+font-weight:900;
+
+cursor:pointer;
+
+}
+
+/* =========================
+STICKY CART
+========================= */
+
+.stickyCart{
+
+position:fixed;
+
+left:0;
+right:0;
+bottom:0;
+
+height:84px;
+
+background:#fff;
+
+display:flex;
+
+justify-content:space-between;
+
+align-items:center;
+
+padding:0 18px;
+
+box-shadow:
+0 -8px 24px rgba(0,0,0,.08);
+
+z-index:9999;
+
+}
+
+.stickyLabel{
+
+font-size:12px;
+
+font-weight:700;
+
+color:#6B7280;
+
+}
+
+.stickyPrice{
+
+margin-top:4px;
+
+font-size:24px;
+
+font-weight:900;
+
+}
+
+.addCartBtn{
+
+height:52px;
+
+padding:0 24px;
+
+border:none;
+
+border-radius:18px;
+
+background:#16A34A;
+
+color:#fff;
+
+font-size:14px;
+
+font-weight:900;
+
+cursor:pointer;
+
+}
+
+</style>
+
+<script>
+
+function openWhatsapp(){
+
+window.open(
+"https://wa.me/919997874502",
+"_blank"
+);
+
+}
+
+</script>
+<script type="module">
+
+/* =========================================
+IMPORTS
+========================================= */
+
+import { db, auth }
+from "./firebase.js";
+
+import {
+doc,
+getDoc,
+collection,
+query,
+where,
+getDocs,
+addDoc,
+serverTimestamp
+}
+from
+"https://www.gstatic.com/firebasejs/12.11.0/firebase-firestore.js";
+
+import {
+onAuthStateChanged
+}
+from
+"https://www.gstatic.com/firebasejs/12.11.0/firebase-auth.js";
+
+/* =========================================
+GLOBAL
+========================================= */
+
+let currentUser = null;
+
+let currentService = null;
+
+/* =========================================
+GET SERVICE ID
+========================================= */
+
+const params =
+new URLSearchParams(
+window.location.search
+);
+
+const serviceId =
+params.get("id");
+
+/* =========================================
+AUTH
+========================================= */
+
+onAuthStateChanged(
+
+auth,
+
+(user)=>{
+
+currentUser = user;
+
+}
+
+);
+
+/* =========================================
+LOAD SERVICE
+========================================= */
+
+async function loadService(){
+
+if(!serviceId) return;
+
+/* ========================================= */
+
+const serviceRef =
+doc(
+db,
+"services",
+serviceId
+);
+
+const serviceSnap =
+await getDoc(
+serviceRef
+);
+
+/* ========================================= */
+
+if(!serviceSnap.exists()){
+
+alert(
+"Service Not Found"
+);
+
+return;
+
+}
+
+/* ========================================= */
+
+currentService =
+serviceSnap.data();
+
+currentService.id =
+serviceSnap.id;
+
+/* =========================================
+LOCATION
+========================================= */
+
+const userLocation =
+
+JSON.parse(
+localStorage.getItem(
+"userLocation"
+)
+)
+
+||
+
+{
+city:"Kasganj"
+};
+
+/* =========================================
+CITY PRICE
+========================================= */
+
+const cityPrice =
+
+currentService.pricing?.[
+userLocation.city
+]
+
+||
+
+currentService.price
+
+||
+
+0;
+
+/* =========================================
+BASIC INFO
+========================================= */
+
+document.getElementById(
+"serviceImage"
+)
+
+.innerHTML =
+
+currentService.icon
+||
+"🧺";
+
+document.getElementById(
+"serviceName"
+)
+
+.innerHTML =
+
+currentService.name
+||
+"QuickPress Service";
+
+document.getElementById(
+"serviceDesc"
+)
+
+.innerHTML =
+
+currentService.description
+||
+"Premium Laundry Service";
+
+document.getElementById(
+"ratingValue"
+)
+
+.innerHTML =
+
+currentService.rating
+||
+"4.5";
+
+document.querySelector(
+".reviewCount"
+)
+
+.innerHTML =
+
+`${currentService.reviews || 0}
+Reviews`;
+
+document.getElementById(
+"priceValue"
+)
+
+.innerHTML =
+
+`₹${cityPrice}`;
+
+document.getElementById(
+"stickyPrice"
+)
+
+.innerHTML =
+
+`₹${cityPrice}`;
+
+document.getElementById(
+"cityName"
+)
+
+.innerHTML =
+
+`${userLocation.city}
+Pricing`;
+
+/* =========================================
+LOAD REVIEWS
+========================================= */
+
+loadReviews();
+
+/* =========================================
+LOAD RELATED
+========================================= */
+
+loadRelated();
+
+}
+
+/* =========================================
+LOAD REVIEWS
+========================================= */
+
+async function loadReviews(){
+
+const reviewList =
+document.getElementById(
+"reviewList"
+);
+
+reviewList.innerHTML = "";
+
+/* ========================================= */
+
+const q =
+query(
+
+collection(db,"reviews"),
+
+where(
+"serviceId",
+"==",
+serviceId
+)
+
+);
+
+const snapshot =
+await getDocs(q);
+
+/* ========================================= */
+
+if(snapshot.empty){
+
+reviewList.innerHTML =
+
+`
+<div class="reviewCard">
+
+No Reviews Yet
+
+</div>
+`;
+
+return;
+
+}
+
+/* ========================================= */
+
+snapshot.forEach(doc=>{
+
+const review =
+doc.data();
+
+reviewList.innerHTML +=
+
+`
+
+<div class="reviewCard">
+
+<div class="reviewTop">
+
+<b>
+${review.userName}
+</b>
+
+<span>
+
+⭐ ${review.rating}
+
+</span>
+
+</div>
+
+<p>
+
+${review.comment}
+
+</p>
+
+</div>
+
+`;
+
+});
+
+}
+
+/* =========================================
+LOAD RELATED SERVICES
+========================================= */
+
+async function loadRelated(){
+
+const relatedGrid =
+document.getElementById(
+"relatedGrid"
+);
+
+relatedGrid.innerHTML = "";
+
+/* ========================================= */
+
+const q =
+query(
+collection(db,"services")
+);
+
+const snapshot =
+await getDocs(q);
+
+/* ========================================= */
+
+snapshot.forEach(doc=>{
+
+const service =
+doc.data();
+
+if(
+doc.id === serviceId
+)
+return;
+
+/* ========================================= */
+
+relatedGrid.innerHTML +=
+
+`
+
+<div
+class="relatedCard"
+onclick="openRelated('${doc.id}')">
+
+<div class="relatedIcon">
+
+${service.icon || '🧺'}
+
+</div>
+
+<h4>
+
+${service.name}
+
+</h4>
+
+<p>
+
+₹${service.price}
+
+</p>
+
+</div>
+
+`;
+
+});
+
+}
+
+/* =========================================
+OPEN RELATED
+========================================= */
+
+window.openRelated =
+
+(id)=>{
+
+window.location.href =
+
+`service-details.html?id=${id}`;
+
+};
+
+/* =========================================
+ADD TO CART
+========================================= */
+
+document
+.getElementById(
+"addCartBtn"
+)
+
+.addEventListener(
+
+"click",
+
+()=>{
+
+let cart =
+
+JSON.parse(
+localStorage.getItem(
+"cart"
+)
+)
+
+||
+
+[];
+
+cart.push(
+currentService
+);
+
+localStorage.setItem(
+
+"cart",
+
+JSON.stringify(cart)
+
+);
+
+alert(
+"Added To Cart ✅"
+);
+
+}
+
+);
+
+/* =========================================
+SUBMIT REVIEW
+========================================= */
+
+window.submitReview =
+async()=>{
+
+if(!currentUser){
+
+window.location.href =
+"login.html";
+
+return;
+
+}
+
+/* ========================================= */
+
+const rating =
+parseFloat(
+document.getElementById(
+"userRating"
+).value
+);
+
+const comment =
+document.getElementById(
+"userComment"
+).value;
+
+/* ========================================= */
+
+if(!comment){
+
+alert(
+"Write Review"
+);
+
+return;
+
+}
+
+/* ========================================= */
+
+await addDoc(
+
+collection(db,"reviews"),
+
+{
+
+serviceId:
+serviceId,
+
+userId:
+currentUser.uid,
+
+userName:
+currentUser.email,
+
+rating:
+rating,
+
+comment:
+comment,
+
+createdAt:
+serverTimestamp()
+
+}
+
+);
+
+/* ========================================= */
+
+alert(
+"Review Submitted 🚀"
+);
+
+loadReviews();
+
+};
+
+/* =========================================
+WHATSAPP
+========================================= */
+
+window.openWhatsapp =
+
+()=>{
+
+window.open(
+
+"https://wa.me/919997874502",
+
+"_blank"
+
+);
+
+};
+
+/* =========================================
+SHARE
+========================================= */
+
+document
+.querySelector(
+".shareBtn"
+)
+
+.addEventListener(
+
+"click",
+
+()=>{
+
+navigator.share({
+
+title:
+currentService.name,
+
+text:
+currentService.description,
+
+url:
+window.location.href
+
+});
+
+}
+
+);
+
+/* =========================================
+START
+========================================= */
+
+loadService();
+
+</script>
+
+</body>
+</html>
