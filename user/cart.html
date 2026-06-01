@@ -1,209 +1,95 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
 
 <meta charset="UTF-8">
-
-<meta
-name="viewport"
+<meta name="viewport"
 content="width=device-width, initial-scale=1.0">
 
-<title>
-QuickPress Cart
-</title>
+<title>My Cart</title>
 
-<link rel="preconnect"
-href="https://fonts.googleapis.com">
-
-<link rel="preconnect"
-href="https://fonts.gstatic.com"
-crossorigin>
-
-<link
-href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap"
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;700;800;900&display=swap"
 rel="stylesheet">
 
-<link rel="stylesheet"
-href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css"/>
-
 <style>
-
-/* =====================================================
-RESET
-===================================================== */
 
 *{
 margin:0;
 padding:0;
 box-sizing:border-box;
 font-family:'Inter',sans-serif;
--webkit-tap-highlight-color:transparent;
 }
 
 body{
 background:#F6F7FB;
 padding-bottom:120px;
-overflow-x:hidden;
-color:#111827;
 }
 
-/* =====================================================
-HEADER
-===================================================== */
-
-.cartHeader{
+.header{
 
 background:
 linear-gradient(
 135deg,
-#FFD633 0%,
-#FFE98A 100%
+#FFD633,
+#FFE98A
 );
 
-padding:18px 16px 26px;
+padding:22px;
 
 border-bottom-left-radius:30px;
 border-bottom-right-radius:30px;
 
-position:sticky;
+}
 
-top:0;
+.header h1{
 
-z-index:999;
+font-size:30px;
+font-weight:900;
 
 }
 
-.topBar{
-
-display:flex;
-
-align-items:center;
-
-justify-content:space-between;
-
+.cartContainer{
+padding:16px;
 }
 
-.backBtn{
-
-width:46px;
-height:46px;
-
-border:none;
-
-border-radius:16px;
+.cartCard{
 
 background:#fff;
 
-font-size:18px;
+padding:18px;
+
+border-radius:24px;
+
+margin-bottom:14px;
 
 box-shadow:
-0 6px 18px rgba(0,0,0,0.06);
-
-cursor:pointer;
+0 8px 24px rgba(0,0,0,.05);
 
 }
 
-.cartTitle{
+.serviceName{
 
-font-size:28px;
+font-size:16px;
 
 font-weight:900;
 
 }
 
-.cartSub{
+.category{
 
 margin-top:6px;
 
-font-size:13px;
+font-size:12px;
 
 font-weight:700;
-
-color:#374151;
-
-}
-
-/* =====================================================
-CART ITEMS
-===================================================== */
-
-.cartContainer{
-
-padding:18px 16px;
-
-}
-
-.cartItem{
-
-background:#fff;
-
-border-radius:24px;
-
-padding:16px;
-
-display:flex;
-
-align-items:center;
-
-justify-content:space-between;
-
-margin-bottom:14px;
-
-box-shadow:
-0 4px 14px rgba(0,0,0,0.05);
-
-}
-
-.itemLeft{
-
-display:flex;
-
-align-items:center;
-
-gap:14px;
-
-}
-
-.itemImage{
-
-width:74px;
-height:74px;
-
-border-radius:20px;
-
-background:#F3F4F6;
-
-display:flex;
-
-align-items:center;
-justify-content:center;
-
-font-size:40px;
-
-}
-
-.itemInfo h3{
-
-font-size:16px;
-
-font-weight:800;
-
-margin-bottom:4px;
-
-}
-
-.itemInfo p{
-
-font-size:13px;
 
 color:#6B7280;
 
 }
 
-.itemPrice{
+.price{
 
-margin-top:8px;
+margin-top:10px;
 
 font-size:20px;
 
@@ -211,46 +97,40 @@ font-weight:900;
 
 }
 
-.itemActions{
+.qtyRow{
+
+margin-top:14px;
 
 display:flex;
 
-flex-direction:column;
+justify-content:space-between;
 
 align-items:center;
-
-gap:12px;
 
 }
 
 .qtyBox{
 
 display:flex;
-
 align-items:center;
-
 gap:10px;
-
-background:#F3F4F6;
-
-padding:6px 10px;
-
-border-radius:14px;
 
 }
 
 .qtyBtn{
 
-width:28px;
-height:28px;
+width:34px;
+height:34px;
 
 border:none;
 
 border-radius:10px;
 
-background:#fff;
+background:#16A34A;
 
-font-size:16px;
+color:#fff;
+
+font-size:18px;
 
 font-weight:900;
 
@@ -258,112 +138,42 @@ cursor:pointer;
 
 }
 
-.deleteBtn{
+.removeBtn{
 
-width:36px;
 height:36px;
+
+padding:0 14px;
 
 border:none;
 
 border-radius:12px;
 
-background:#FFE4E6;
-
-color:#DC2626;
-
-font-size:16px;
-
-cursor:pointer;
-
-}
-
-/* =====================================================
-EMPTY CART
-===================================================== */
-
-.emptyCart{
-
-padding:80px 20px;
-
-text-align:center;
-
-}
-
-.emptyCartIcon{
-
-font-size:80px;
-
-margin-bottom:18px;
-
-}
-
-.emptyCart h2{
-
-font-size:26px;
-
-font-weight:900;
-
-}
-
-.emptyCart p{
-
-margin-top:10px;
-
-font-size:14px;
-
-line-height:1.7;
-
-color:#6B7280;
-
-}
-
-.shopBtn{
-
-margin-top:22px;
-
-height:52px;
-
-padding:0 24px;
-
-border:none;
-
-border-radius:18px;
-
-background:#16A34A;
+background:#DC2626;
 
 color:#fff;
 
-font-size:15px;
+font-size:12px;
 
-font-weight:900;
+font-weight:800;
 
 cursor:pointer;
 
 }
 
-/* =====================================================
-BILL SECTION
-===================================================== */
+/* BILL */
 
-.billSection{
-
-position:fixed;
-
-left:0;
-right:0;
-bottom:0;
+.billCard{
 
 background:#fff;
 
-padding:18px 16px calc(18px + env(safe-area-inset-bottom));
+padding:20px;
 
-border-top-left-radius:28px;
-border-top-right-radius:28px;
+border-radius:24px;
+
+margin:16px;
 
 box-shadow:
-0 -8px 30px rgba(0,0,0,0.08);
-
-z-index:999;
+0 8px 24px rgba(0,0,0,.05);
 
 }
 
@@ -373,29 +183,40 @@ display:flex;
 
 justify-content:space-between;
 
-margin-bottom:12px;
-
-font-size:14px;
-
-font-weight:700;
+padding:10px 0;
 
 }
 
 .totalRow{
 
-display:flex;
-
-justify-content:space-between;
-
-margin-top:14px;
-
-padding-top:14px;
-
-border-top:1px solid #F3F4F6;
-
-font-size:22px;
-
 font-weight:900;
+
+font-size:18px;
+
+border-top:1px solid #E5E7EB;
+
+padding-top:15px;
+
+margin-top:10px;
+
+}
+
+/* CHECKOUT */
+
+.checkoutBar{
+
+position:fixed;
+
+left:0;
+right:0;
+bottom:0;
+
+background:#fff;
+
+padding:15px;
+
+box-shadow:
+0 -8px 20px rgba(0,0,0,.08);
 
 }
 
@@ -403,9 +224,7 @@ font-weight:900;
 
 width:100%;
 
-height:54px;
-
-margin-top:18px;
+height:58px;
 
 border:none;
 
@@ -423,33 +242,13 @@ cursor:pointer;
 
 }
 
-/* =====================================================
-DESKTOP
-===================================================== */
+.emptyCart{
 
-@media(min-width:900px){
+padding:80px 20px;
 
-.cartContainer{
+text-align:center;
 
-max-width:900px;
-
-margin:auto;
-
-}
-
-.billSection{
-
-left:50%;
-
-transform:translateX(-50%);
-
-width:450px;
-
-bottom:20px;
-
-border-radius:28px;
-
-}
+color:#6B7280;
 
 }
 
@@ -459,103 +258,87 @@ border-radius:28px;
 
 <body>
 
-<!-- =====================================================
-HEADER
-===================================================== -->
+<div class="header">
 
-<div class="cartHeader">
-
-<div class="topBar">
-
-<button
-class="backBtn"
-onclick="history.back()">
-
-<i class="fa-solid fa-arrow-left"></i>
-
-</button>
-
-<div>
-
-<div class="cartTitle">
-Your Cart
-</div>
-
-<div class="cartSub">
-QuickPress Premium Checkout
-</div>
+<h1>
+My Cart
+</h1>
 
 </div>
-
-<div style="width:46px;"></div>
-
-</div>
-
-</div>
-
-<!-- =====================================================
-CART ITEMS
-===================================================== -->
 
 <div
-class="cartContainer"
-id="cartContainer">
+id="cartContainer"
+class="cartContainer">
 
 </div>
 
-<!-- =====================================================
-BILL
-===================================================== -->
-
-<div
-class="billSection"
-id="billSection">
+<div class="billCard">
 
 <div class="billRow">
 
-<span>Item Total</span>
+<span>
+Services Total
+</span>
 
-<span id="itemTotal">
+<span id="servicesTotal">
+
 ₹0
+
 </span>
 
 </div>
 
 <div class="billRow">
 
-<span>Delivery Fee</span>
+<span>
+Delivery Charges
+</span>
 
 <span>
-₹29
+
+₹20
+
 </span>
 
 </div>
 
 <div class="billRow">
 
-<span>Platform Fee</span>
+<span>
+Platform Fee
+</span>
 
 <span>
+
 ₹5
+
 </span>
 
 </div>
 
-<div class="totalRow">
+<div class="billRow totalRow">
 
-<span>Total</span>
+<span>
+Grand Total
+</span>
 
 <span id="grandTotal">
+
 ₹0
+
 </span>
 
 </div>
+
+</div>
+
+<div class="checkoutBar">
 
 <button
 class="checkoutBtn"
-id="checkoutBtn">
+onclick="goCheckout()">
 
-Proceed Checkout
+Proceed To Checkout
 
 </button>
 
@@ -563,145 +346,94 @@ Proceed Checkout
 
 <script>
 
-/* =====================================================
-DEMO CART DATA
-===================================================== */
+let cart =
 
-let cart = [
+JSON.parse(
+localStorage.getItem(
+"cart"
+)
+)
 
-{
-emoji:"👔",
-name:"Shirt Iron",
-desc:"Premium steam ironing",
-price:29,
-qty:1
-},
+|| [];
 
-{
-emoji:"👟",
-name:"Sneaker Clean",
-desc:"Deep sneaker wash",
-price:199,
-qty:1
-}
+function renderCart(){
 
-];
+const container =
 
-/* =====================================================
-ELEMENTS
-===================================================== */
-
-const cartContainer =
 document.getElementById(
 "cartContainer"
 );
 
-const itemTotal =
-document.getElementById(
-"itemTotal"
-);
+container.innerHTML = "";
 
-const grandTotal =
-document.getElementById(
-"grandTotal"
-);
+if(cart.length===0){
 
-const billSection =
-document.getElementById(
-"billSection"
-);
+container.innerHTML=
 
-/* =====================================================
-RENDER CART
-===================================================== */
-
-function renderCart(){
-
-cartContainer.innerHTML = "";
-
-let total = 0;
-
-/* ========================================= */
-
-if(cart.length === 0){
-
-billSection.style.display =
-"none";
-
-cartContainer.innerHTML = `
+`
 
 <div class="emptyCart">
 
-<div class="emptyCartIcon">
-🛒
-</div>
-
 <h2>
-Cart is Empty
+🛒 Cart Empty
 </h2>
 
-<p>
-Looks like you haven't added any services yet.
+<p style="margin-top:10px;">
+
+Add services to continue
+
 </p>
-
-<button
-class="shopBtn"
-onclick="window.location.href='services.html'">
-
-Browse Services
-
-</button>
 
 </div>
 
 `;
 
+document.getElementById(
+"servicesTotal"
+).innerHTML="₹0";
+
+document.getElementById(
+"grandTotal"
+).innerHTML="₹0";
+
 return;
 
 }
 
-/* ========================================= */
-
-billSection.style.display =
-"block";
-
-/* ========================================= */
+let total = 0;
 
 cart.forEach((item,index)=>{
 
-total += item.price * item.qty;
+const itemTotal =
+item.price * item.qty;
 
-/* ========================================= */
+total += itemTotal;
 
-cartContainer.innerHTML += `
+container.innerHTML +=
 
-<div class="cartItem">
+`
 
-<div class="itemLeft">
+<div class="cartCard">
 
-<div class="itemImage">
-${item.emoji}
-</div>
+<div class="serviceName">
 
-<div class="itemInfo">
-
-<h3>
-${item.name}
-</h3>
-
-<p>
-${item.desc}
-</p>
-
-<div class="itemPrice">
-₹${item.price}
-</div>
+${item.serviceName}
 
 </div>
 
+<div class="category">
+
+${item.category}
+
 </div>
 
-<div class="itemActions">
+<div class="price">
+
+₹${itemTotal}
+
+</div>
+
+<div class="qtyRow">
 
 <div class="qtyBox">
 
@@ -714,7 +446,9 @@ onclick="decreaseQty(${index})">
 </button>
 
 <span>
+
 ${item.qty}
+
 </span>
 
 <button
@@ -728,10 +462,10 @@ onclick="increaseQty(${index})">
 </div>
 
 <button
-class="deleteBtn"
+class="removeBtn"
 onclick="removeItem(${index})">
 
-<i class="fa-solid fa-trash"></i>
+Remove
 
 </button>
 
@@ -743,85 +477,88 @@ onclick="removeItem(${index})">
 
 });
 
-/* ========================================= */
+document.getElementById(
+"servicesTotal"
+)
 
-itemTotal.innerText =
+.innerHTML =
 `₹${total}`;
 
-grandTotal.innerText =
-`₹${total + 29 + 5}`;
+document.getElementById(
+"grandTotal"
+)
+
+.innerHTML =
+`₹${total+20+5}`;
 
 }
 
-/* =====================================================
-INCREASE
-===================================================== */
+/* QTY */
 
 function increaseQty(index){
 
 cart[index].qty++;
 
-renderCart();
+saveCart();
 
 }
-
-/* =====================================================
-DECREASE
-===================================================== */
 
 function decreaseQty(index){
 
-if(cart[index].qty > 1){
+if(cart[index].qty>1){
 
 cart[index].qty--;
 
-}else{
-
-cart.splice(index,1);
+saveCart();
 
 }
 
-renderCart();
-
 }
 
-/* =====================================================
-REMOVE
-===================================================== */
+/* REMOVE */
 
 function removeItem(index){
 
 cart.splice(index,1);
 
+saveCart();
+
+}
+
+/* SAVE */
+
+function saveCart(){
+
+localStorage.setItem(
+
+"cart",
+
+JSON.stringify(cart)
+
+);
+
 renderCart();
 
 }
 
-/* =====================================================
-CHECKOUT
-===================================================== */
+/* CHECKOUT */
 
-document.getElementById(
-"checkoutBtn"
-)
+function goCheckout(){
 
-.addEventListener(
-"click",
-()=>{
+if(cart.length===0){
 
 alert(
-"Proceeding to Checkout 🚀"
+"Cart Empty"
 );
+
+return;
+
+}
 
 window.location.href =
 "checkout.html";
 
 }
-);
-
-/* =====================================================
-START
-===================================================== */
 
 renderCart();
 
