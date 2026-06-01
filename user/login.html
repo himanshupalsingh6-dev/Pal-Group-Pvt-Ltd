@@ -1,268 +1,135 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
 
 <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<meta
-name="viewport"
-content="width=device-width, initial-scale=1.0">
+<title>QuickPress Login</title>
 
-<title>
-QuickPress Login
-</title>
-
-<!-- =====================================================
-GOOGLE FONT
-===================================================== -->
-
-<link rel="preconnect"
-href="https://fonts.googleapis.com">
-
-<link rel="preconnect"
-href="https://fonts.gstatic.com"
-crossorigin>
-
-<link
-href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap"
-rel="stylesheet">
-
-<!-- =====================================================
-ICONS
-===================================================== -->
-
-<link rel="stylesheet"
-href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css"/>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
 
 <style>
 
-/* =====================================================
-RESET
-===================================================== */
-
 *{
-
 margin:0;
 padding:0;
 box-sizing:border-box;
 font-family:'Inter',sans-serif;
--webkit-tap-highlight-color:transparent;
-
 }
 
 body{
 
 background:
 linear-gradient(
-180deg,
-#FFD633 0%,
-#FFE98A 35%,
-#F4F5F9 35%
+135deg,
+#FFD633,
+#FFF4B8
 );
 
 min-height:100vh;
 
 display:flex;
-
 align-items:center;
-
 justify-content:center;
 
 padding:20px;
 
-overflow-x:hidden;
-
 }
-
-/* =====================================================
-CARD
-===================================================== */
 
 .loginCard{
 
 width:100%;
-
-max-width:430px;
+max-width:420px;
 
 background:#fff;
 
-border-radius:40px;
+padding:30px;
 
-padding:34px 26px;
+border-radius:34px;
 
 box-shadow:
-0 20px 50px rgba(0,0,0,0.08);
-
-position:relative;
-
-overflow:hidden;
+0 20px 40px rgba(0,0,0,.08);
 
 }
-
-/* =====================================================
-TOP SHAPE
-===================================================== */
-
-.loginCard::before{
-
-content:"";
-
-position:absolute;
-
-right:-70px;
-top:-70px;
-
-width:220px;
-height:220px;
-
-background:
-rgba(255,214,51,0.16);
-
-border-radius:50%;
-
-}
-
-/* =====================================================
-LOGO
-===================================================== */
 
 .logo{
 
-width:88px;
-height:88px;
-
-border-radius:28px;
-
-background:
-linear-gradient(
-135deg,
-#111827,
-#1F2937
-);
-
-display:flex;
-
-align-items:center;
-
-justify-content:center;
-
-margin:auto;
-
-font-size:38px;
-
-font-weight:900;
-
-color:#FFD633;
-
-position:relative;
-
-z-index:2;
-
-}
-
-/* =====================================================
-TITLE
-===================================================== */
-
-.title{
-
-margin-top:24px;
-
 text-align:center;
 
-font-size:38px;
+font-size:34px;
 
 font-weight:900;
 
-line-height:1.1;
-
-position:relative;
-
-z-index:2;
-
 }
 
-.subtitle{
+.subText{
 
-margin-top:12px;
+margin-top:10px;
 
 text-align:center;
 
 font-size:14px;
 
-line-height:1.7;
-
 color:#6B7280;
 
-position:relative;
-
-z-index:2;
+line-height:1.8;
 
 }
 
-/* =====================================================
-FORM
-===================================================== */
+.inputGroup{
 
-.formGroup{
-
-margin-top:24px;
-
-position:relative;
-
-z-index:2;
+margin-top:25px;
 
 }
 
 .label{
 
-margin-bottom:10px;
-
 font-size:13px;
 
 font-weight:800;
 
-color:#111827;
+margin-bottom:8px;
+
+display:block;
 
 }
 
-.inputBox{
+.phoneBox{
 
-height:62px;
-
-background:#F3F4F6;
-
-border-radius:22px;
+height:58px;
 
 display:flex;
 
 align-items:center;
 
-padding:0 18px;
+border:2px solid #E5E7EB;
 
-transition:0.3s;
+border-radius:18px;
 
-}
-
-.inputBox:focus-within{
-
-background:#fff;
-
-box-shadow:
-0 0 0 3px rgba(22,163,74,0.12);
+overflow:hidden;
 
 }
 
-.inputBox i{
+.countryCode{
 
-font-size:18px;
+width:80px;
 
-color:#16A34A;
+height:100%;
+
+display:flex;
+
+align-items:center;
+
+justify-content:center;
+
+font-weight:900;
+
+background:#F9FAFB;
 
 }
 
-.inputBox input{
+.phoneInput{
 
 flex:1;
 
@@ -274,135 +141,65 @@ outline:none;
 
 padding:0 14px;
 
-background:none;
-
-font-size:15px;
+font-size:16px;
 
 font-weight:700;
 
-color:#111827;
-
 }
 
-.inputBox input::placeholder{
-
-color:#9CA3AF;
-
-}
-
-/* =====================================================
-BUTTON
-===================================================== */
-
-.loginBtn{
+.sendOtpBtn{
 
 width:100%;
 
-height:62px;
+height:58px;
 
-margin-top:32px;
+margin-top:20px;
 
 border:none;
 
-border-radius:22px;
+border-radius:18px;
 
 background:#16A34A;
 
 color:#fff;
 
-font-size:17px;
+font-size:15px;
 
 font-weight:900;
 
 cursor:pointer;
 
-transition:0.3s;
+}
 
-position:relative;
+#recaptcha-container{
 
-z-index:2;
+margin-top:18px;
 
 }
 
-.loginBtn:active{
+.terms{
 
-transform:scale(0.98);
-
-}
-
-/* =====================================================
-OTP
-===================================================== */
-
-.demoOtp{
-
-margin-top:16px;
+margin-top:18px;
 
 text-align:center;
 
-font-size:13px;
-
-font-weight:700;
+font-size:12px;
 
 color:#6B7280;
 
-position:relative;
-
-z-index:2;
+line-height:1.8;
 
 }
 
-.demoOtp span{
+.watermark{
 
-color:#111827;
-
-font-weight:900;
-
-}
-
-/* =====================================================
-BOTTOM
-===================================================== */
-
-.bottomText{
-
-margin-top:28px;
+margin-top:20px;
 
 text-align:center;
 
-font-size:14px;
+font-size:12px;
 
-font-weight:700;
-
-color:#6B7280;
-
-position:relative;
-
-z-index:2;
-
-}
-
-.bottomText a{
-
-color:#16A34A;
-
-font-weight:900;
-
-text-decoration:none;
-
-}
-
-/* =====================================================
-DESKTOP
-===================================================== */
-
-@media(min-width:900px){
-
-.loginCard{
-
-padding:42px 34px;
-
-}
+opacity:.7;
 
 }
 
@@ -412,125 +209,71 @@ padding:42px 34px;
 
 <body>
 
-<!-- =====================================================
-LOGIN CARD
-===================================================== -->
-
 <div class="loginCard">
 
-<!-- =====================================================
-LOGO
-===================================================== -->
-
 <div class="logo">
-Q
+
+QuickPress
+
 </div>
 
-<!-- =====================================================
-TITLE
-===================================================== -->
+<div class="subText">
 
-<div class="title">
-Welcome Back
+Laundry & Dry Cleaning Service
+
 </div>
 
-<div class="subtitle">
-Login into your QuickPress account
-for premium laundry experience.
-</div>
+<div class="inputGroup">
 
-<!-- =====================================================
-FORM
-===================================================== -->
+<label class="label">
 
-<form id="loginForm">
-
-<!-- PHONE -->
-
-<div class="formGroup">
-
-<div class="label">
 Mobile Number
+
+</label>
+
+<div class="phoneBox">
+
+<div class="countryCode">
+
++91
+
 </div>
-
-<div class="inputBox">
-
-<i class="fa-solid fa-phone"></i>
 
 <input
 type="tel"
-id="phone"
-placeholder="Enter mobile number"
-required>
+id="phoneNumber"
+class="phoneInput"
+placeholder="99999 99999">
 
 </div>
 
 </div>
 
-<!-- PASSWORD -->
-
-<div class="formGroup">
-
-<div class="label">
-Password
-</div>
-
-<div class="inputBox">
-
-<i class="fa-solid fa-lock"></i>
-
-<input
-type="password"
-id="password"
-placeholder="Enter password"
-required>
-
-</div>
-
-</div>
-
-<!-- BUTTON -->
+<div id="recaptcha-container"></div>
 
 <button
-class="loginBtn"
-id="loginBtn">
+id="sendOtpBtn"
+class="sendOtpBtn">
 
-Login Now
+Send OTP
 
 </button>
 
-</form>
+<div class="terms">
 
-<!-- DEMO -->
+By continuing you agree to
+Terms & Privacy Policy
 
-<div class="demoOtp">
-QuickPress Secure Login
 </div>
 
-<!-- BOTTOM -->
+<div class="watermark">
 
-<div class="bottomText">
-
-Don't have account?
-
-<a href="signup.html">
-
-Create Account
-
-</a>
+Made in Uttar Pradesh<br>
+Crafted by Himanshu Baghel 💗
 
 </div>
 
 </div>
-
-<!-- =====================================================
-SCRIPT
-===================================================== -->
-
-<script
-type="module"
-src="login.js">
-</script>
 
 </body>
 </html>
