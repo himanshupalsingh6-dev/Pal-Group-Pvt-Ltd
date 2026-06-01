@@ -274,6 +274,325 @@ Crafted by Himanshu Baghel 💗
 </div>
 
 </div>
+  <!-- OTP SECTION -->
+
+<div
+id="otpSection"
+style="
+display:none;
+margin-top:20px;
+">
+
+<label class="label">
+
+Enter OTP
+
+</label>
+
+<input
+type="text"
+id="otpInput"
+class="phoneInput"
+style="
+border:2px solid #E5E7EB;
+border-radius:18px;
+width:100%;
+height:58px;
+"
+placeholder="Enter 6 Digit OTP">
+
+<button
+id="verifyOtpBtn"
+class="sendOtpBtn">
+
+Verify OTP
+
+</button>
+
+</div>
+
+<script type="module">
+
+import { auth, db }
+from "./firebase.js";
+
+import {
+
+RecaptchaVerifier,
+signInWithPhoneNumber,
+onAuthStateChanged
+
+}
+from
+"https://www.gstatic.com/firebasejs/12.11.0/firebase-auth.js";
+
+import {
+
+doc,
+getDoc,
+setDoc,
+serverTimestamp
+
+}
+from
+"https://www.gstatic.com/firebasejs/12.11.0/firebase-firestore.js";
+
+/* =========================================
+AUTO LOGIN CHECK
+========================================= */
+
+onAuthStateChanged(
+
+auth,
+
+(user)=>{
+
+if(user){
+
+window.location.href =
+"index.html";
+
+}
+
+});
+
+/* =========================================
+RECAPTCHA
+========================================= */
+
+window.recaptchaVerifier =
+
+new RecaptchaVerifier(
+
+auth,
+
+"recaptcha-container",
+
+{
+size:"normal"
+}
+
+);
+
+/* =========================================
+SEND OTP
+========================================= */
+
+let confirmationResultGlobal;
+
+document
+.getElementById(
+"sendOtpBtn"
+)
+
+.addEventListener(
+
+"click",
+
+async()=>{
+
+const phone =
+
+document
+.getElementById(
+"phoneNumber"
+)
+
+.value
+.trim();
+
+/* ========================================= */
+
+if(phone.length !== 10){
+
+alert(
+"Enter Valid Mobile Number"
+);
+
+return;
+
+}
+
+/* ========================================= */
+
+const fullPhone =
+"+91" + phone;
+
+/* ========================================= */
+
+try{
+
+const appVerifier =
+window.recaptchaVerifier;
+
+const confirmationResult =
+
+await signInWithPhoneNumber(
+
+auth,
+fullPhone,
+appVerifier
+
+);
+
+confirmationResultGlobal =
+confirmationResult;
+
+/* ========================================= */
+
+document
+.getElementById(
+"otpSection"
+)
+
+.style.display =
+"block";
+
+alert(
+"OTP Sent Successfully"
+);
+
+}catch(error){
+
+console.error(error);
+
+alert(
+error.message
+);
+
+}
+
+}
+
+);
+
+/* =========================================
+VERIFY OTP
+========================================= */
+
+document
+.getElementById(
+"verifyOtpBtn"
+)
+
+.addEventListener(
+
+"click",
+
+async()=>{
+
+const otp =
+
+document
+.getElementById(
+"otpInput"
+)
+
+.value
+.trim();
+
+/* ========================================= */
+
+if(!otp){
+
+alert(
+"Enter OTP"
+);
+
+return;
+
+}
+
+try{
+
+const result =
+
+await
+confirmationResultGlobal.confirm(
+otp
+);
+
+const user =
+result.user;
+
+/* =========================================
+CHECK USER
+========================================= */
+
+const userRef =
+
+doc(
+db,
+"users",
+user.uid
+);
+
+const userSnap =
+
+await getDoc(
+userRef
+);
+
+/* =========================================
+NEW USER
+========================================= */
+
+if(!userSnap.exists()){
+
+await setDoc(
+
+userRef,
+
+{
+
+uid:user.uid,
+
+name:"",
+
+phone:
+user.phoneNumber,
+
+email:"",
+
+photo:"",
+
+city:"",
+
+walletBalance:0,
+
+createdAt:
+serverTimestamp()
+
+}
+
+);
+
+}
+
+/* ========================================= */
+
+alert(
+"Login Successful"
+);
+
+window.location.href =
+"index.html";
+
+}catch(error){
+
+console.error(error);
+
+alert(
+"Invalid OTP"
+);
+
+}
+
+}
+
+);
+
+</script>
 
 </body>
 </html>
