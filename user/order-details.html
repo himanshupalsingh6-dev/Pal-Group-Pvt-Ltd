@@ -1,0 +1,1014 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>Order Details</title>
+
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+
+<style>
+
+*{
+margin:0;
+padding:0;
+box-sizing:border-box;
+font-family:'Inter',sans-serif;
+}
+
+body{
+background:#F6F7FB;
+padding-bottom:120px;
+}
+
+.header{
+
+background:
+linear-gradient(
+135deg,
+#FFD633,
+#FFE98A
+);
+
+padding:20px;
+
+border-bottom-left-radius:32px;
+border-bottom-right-radius:32px;
+
+}
+
+.header h1{
+
+font-size:28px;
+font-weight:900;
+
+}
+
+.header p{
+
+margin-top:6px;
+
+font-size:13px;
+font-weight:700;
+
+color:#374151;
+
+}
+
+.section{
+padding:16px;
+}
+
+.card{
+
+background:#fff;
+
+padding:20px;
+
+border-radius:24px;
+
+margin-bottom:16px;
+
+box-shadow:
+0 8px 24px rgba(0,0,0,.05);
+
+}
+
+.orderId{
+
+font-size:20px;
+font-weight:900;
+
+}
+
+.orderStatus{
+
+margin-top:10px;
+
+display:inline-flex;
+
+padding:8px 14px;
+
+border-radius:999px;
+
+background:#DBEAFE;
+
+color:#1E40AF;
+
+font-size:12px;
+font-weight:900;
+
+}
+
+.infoRow{
+
+display:flex;
+
+justify-content:space-between;
+
+padding:12px 0;
+
+border-bottom:1px solid #F3F4F6;
+
+}
+
+.infoRow:last-child{
+border:none;
+}
+
+.label{
+
+font-size:13px;
+font-weight:700;
+
+color:#6B7280;
+
+}
+
+.value{
+
+font-size:14px;
+font-weight:900;
+
+}
+
+.badges{
+
+margin-top:14px;
+
+display:flex;
+gap:8px;
+flex-wrap:wrap;
+
+}
+
+.badge{
+
+padding:6px 12px;
+
+border-radius:999px;
+
+font-size:11px;
+font-weight:900;
+
+}
+
+.premium{
+
+background:#F3E8FF;
+color:#6B21A8;
+
+}
+
+.urgent{
+
+background:#DBEAFE;
+color:#1E40AF;
+
+}
+
+.sectionTitle{
+
+font-size:20px;
+
+font-weight:900;
+
+margin-bottom:14px;
+
+}
+
+.itemCard{
+
+background:#F9FAFB;
+
+padding:16px;
+
+border-radius:18px;
+
+margin-bottom:10px;
+
+}
+
+.itemName{
+
+font-size:15px;
+font-weight:900;
+
+}
+
+.itemMeta{
+
+margin-top:6px;
+
+font-size:13px;
+
+color:#6B7280;
+
+}
+
+</style>
+
+</head>
+
+<body>
+
+<div class="header">
+
+<h1>
+Order Details
+</h1>
+
+<p>
+Track complete order information
+</p>
+
+</div>
+
+<!-- ORDER INFO -->
+
+<div class="section">
+
+<div class="card">
+
+<div
+class="orderId"
+id="orderId">
+
+#QP12345
+
+</div>
+
+<div
+class="orderStatus"
+id="orderStatus">
+
+Processing
+
+</div>
+
+<div class="badges">
+
+<div
+id="premiumBadge"
+class="badge premium">
+
+👑 Premium Packaging
+
+</div>
+
+<div
+id="urgentBadge"
+class="badge urgent">
+
+⚡ Urgent Delivery
+
+</div>
+
+</div>
+
+</div>
+
+<!-- BASIC INFO -->
+
+<div class="card">
+
+<div class="infoRow">
+
+<div class="label">
+Order Date
+</div>
+
+<div
+class="value"
+id="orderDate">
+
+01 Jun 2026
+
+</div>
+
+</div>
+
+<div class="infoRow">
+
+<div class="label">
+City
+</div>
+
+<div
+class="value"
+id="orderCity">
+
+Kasganj
+
+</div>
+
+</div>
+
+<div class="infoRow">
+
+<div class="label">
+Payment Method
+</div>
+
+<div
+class="value"
+id="paymentMethod">
+
+UPI
+
+</div>
+
+</div>
+
+</div>
+
+<!-- ITEMS -->
+
+<div class="sectionTitle">
+
+Ordered Services
+
+</div>
+
+<div
+id="itemsContainer">
+
+<div class="itemCard">
+
+<div class="itemName">
+
+Shirt Dry Cleaning
+
+</div>
+
+<div class="itemMeta">
+
+Category:
+Dry Cleaning
+
+<br>
+
+Qty:
+2
+
+<br>
+
+Price:
+₹89
+
+</div>
+
+</div>
+
+</div>
+
+<!-- PARTNER -->
+
+<div class="card">
+
+<div class="sectionTitle">
+
+🏪 Partner Details
+
+</div>
+
+<div
+id="partnerInfo">
+
+QuickPress Kasganj
+
+</div>
+
+</div>
+
+<!-- RIDER -->
+
+<div class="card">
+
+<div class="sectionTitle">
+
+🛵 Rider Details
+
+</div>
+
+<div
+id="riderInfo">
+
+Waiting For Assignment
+
+</div>
+
+</div>
+<!-- =========================================
+BILL SUMMARY
+========================================= -->
+
+<div class="card">
+
+<div class="sectionTitle">
+
+💳 Bill Summary
+
+</div>
+
+<div class="infoRow">
+
+<div class="label">
+Services Total
+</div>
+
+<div
+class="value"
+id="servicesTotal">
+
+₹214
+
+</div>
+
+</div>
+
+<div class="infoRow">
+
+<div class="label">
+Delivery Charge
+</div>
+
+<div
+class="value"
+id="deliveryCharge">
+
+₹20
+
+</div>
+
+</div>
+
+<div class="infoRow">
+
+<div class="label">
+Premium Packaging
+</div>
+
+<div
+class="value"
+id="premiumCharge">
+
+₹9
+
+</div>
+
+</div>
+
+<div class="infoRow">
+
+<div class="label">
+Fabric Protection
+</div>
+
+<div
+class="value"
+id="fabricCharge">
+
+₹19
+
+</div>
+
+</div>
+
+<div class="infoRow">
+
+<div class="label">
+Urgent Delivery
+</div>
+
+<div
+class="value"
+id="urgentCharge">
+
+₹29
+
+</div>
+
+</div>
+
+<div class="infoRow">
+
+<div class="label">
+Coupon Discount
+</div>
+
+<div
+class="value"
+id="couponDiscount">
+
+- ₹50
+
+</div>
+
+</div>
+
+<div class="infoRow">
+
+<div class="label">
+
+Grand Total
+
+</div>
+
+<div
+class="value"
+id="grandTotal"
+style="
+font-size:20px;
+color:#16A34A;
+">
+
+₹241
+
+</div>
+
+</div>
+
+</div>
+
+<!-- =========================================
+ACTION BUTTONS
+========================================= -->
+
+<div class="section">
+
+<button
+class="actionBtn trackBtn"
+onclick="trackOrder()">
+
+📍 Track Order
+
+</button>
+
+<button
+class="actionBtn invoiceBtn"
+onclick="downloadInvoice()">
+
+📄 Download Invoice
+
+</button>
+
+<button
+class="actionBtn reorderBtn"
+onclick="reorderOrder()">
+
+🔄 Reorder
+
+</button>
+
+<button
+class="actionBtn cancelBtn"
+id="cancelOrderBtn"
+onclick="cancelOrder()">
+
+❌ Cancel Order
+
+</button>
+
+</div>
+
+<style>
+
+.actionBtn{
+
+width:100%;
+
+height:54px;
+
+border:none;
+
+border-radius:18px;
+
+font-size:14px;
+
+font-weight:900;
+
+cursor:pointer;
+
+margin-bottom:12px;
+
+}
+
+.trackBtn{
+background:#16A34A;
+color:#fff;
+}
+
+.invoiceBtn{
+background:#2563EB;
+color:#fff;
+}
+
+.reorderBtn{
+background:#F59E0B;
+color:#fff;
+}
+
+.cancelBtn{
+background:#DC2626;
+color:#fff;
+}
+
+</style>
+
+<script type="module">
+
+import { db }
+from "./firebase.js";
+
+import {
+doc,
+onSnapshot,
+updateDoc
+}
+from
+"https://www.gstatic.com/firebasejs/12.11.0/firebase-firestore.js";
+
+/* =========================================
+GET ORDER ID
+========================================= */
+
+const params =
+new URLSearchParams(
+window.location.search
+);
+
+const orderId =
+params.get("id");
+
+/* =========================================
+LOAD ORDER
+========================================= */
+
+const orderRef =
+doc(
+db,
+"orders",
+orderId
+);
+
+let currentOrder = null;
+
+onSnapshot(
+
+orderRef,
+
+(snapshot)=>{
+
+if(!snapshot.exists())
+return;
+
+const order =
+snapshot.data();
+
+currentOrder = order;
+
+/* =========================================
+BASIC INFO
+========================================= */
+
+document.getElementById(
+"orderId"
+)
+
+.innerHTML =
+`#${order.orderId}`;
+
+document.getElementById(
+"orderStatus"
+)
+
+.innerHTML =
+order.status;
+
+document.getElementById(
+"orderCity"
+)
+
+.innerHTML =
+order.city;
+
+document.getElementById(
+"paymentMethod"
+)
+
+.innerHTML =
+order.paymentMethod;
+
+/* =========================================
+DATE
+========================================= */
+
+if(order.createdAt){
+
+const date =
+order.createdAt
+.toDate();
+
+document.getElementById(
+"orderDate"
+)
+
+.innerHTML =
+
+date.toLocaleDateString();
+
+}
+
+/* =========================================
+BADGES
+========================================= */
+
+document.getElementById(
+"premiumBadge"
+)
+
+.style.display =
+
+order.premiumPackaging
+? "inline-flex"
+: "none";
+
+document.getElementById(
+"urgentBadge"
+)
+
+.style.display =
+
+order.urgentDelivery
+? "inline-flex"
+: "none";
+
+/* =========================================
+ITEMS
+========================================= */
+
+let itemsHtml = "";
+
+(order.items || [])
+.forEach(item=>{
+
+itemsHtml +=
+
+`
+
+<div class="itemCard">
+
+<div class="itemName">
+
+${item.serviceName}
+
+</div>
+
+<div class="itemMeta">
+
+Category:
+${item.category}
+
+<br>
+
+Qty:
+${item.qty}
+
+<br>
+
+Price:
+₹${item.price}
+
+</div>
+
+</div>
+
+`;
+
+});
+
+document.getElementById(
+"itemsContainer"
+)
+
+.innerHTML =
+itemsHtml;
+
+/* =========================================
+PARTNER
+========================================= */
+
+document.getElementById(
+"partnerInfo"
+)
+
+.innerHTML =
+
+`
+${order.partnerName || "Not Assigned"}
+
+<br>
+
+${order.partnerCity || ""}
+`;
+
+/* =========================================
+RIDER
+========================================= */
+
+document.getElementById(
+"riderInfo"
+)
+
+.innerHTML =
+
+order.riderAssigned
+
+?
+
+`
+${order.riderName}
+
+<br>
+
+📞 ${order.riderPhone}
+`
+
+:
+
+"Waiting For Assignment";
+
+/* =========================================
+BILL
+========================================= */
+
+document.getElementById(
+"servicesTotal"
+)
+
+.innerHTML =
+`₹${order.servicesTotal || 0}`;
+
+document.getElementById(
+"deliveryCharge"
+)
+
+.innerHTML =
+`₹${order.deliveryCharge || 0}`;
+
+document.getElementById(
+"premiumCharge"
+)
+
+.innerHTML =
+`₹${order.premiumPackagingCharge || 0}`;
+
+document.getElementById(
+"fabricCharge"
+)
+
+.innerHTML =
+`₹${order.fabricProtectionCharge || 0}`;
+
+document.getElementById(
+"urgentCharge"
+)
+
+.innerHTML =
+`₹${order.urgentDeliveryCharge || 0}`;
+
+document.getElementById(
+"couponDiscount"
+)
+
+.innerHTML =
+`- ₹${order.discount || 0}`;
+
+document.getElementById(
+"grandTotal"
+)
+
+.innerHTML =
+`₹${order.grandTotal || 0}`;
+
+/* =========================================
+CANCEL CONTROL
+========================================= */
+
+if(
+
+order.status==="Processing"
+||
+order.status==="Ready"
+||
+order.status==="Completed"
+
+){
+
+document.getElementById(
+"cancelOrderBtn"
+)
+
+style.display =
+"none";
+
+}
+
+}
+
+/* =========================================
+END SNAPSHOT
+========================================= */
+
+);
+
+/* =========================================
+TRACK
+========================================= */
+
+window.trackOrder =
+()=>{
+
+window.location.href =
+
+`track-order.html?id=${orderId}`;
+
+};
+
+/* =========================================
+REORDER
+========================================= */
+
+window.reorderOrder =
+()=>{
+
+if(!currentOrder)
+return;
+
+localStorage.setItem(
+
+"cart",
+
+JSON.stringify(
+currentOrder.items
+)
+
+);
+
+window.location.href =
+"checkout.html";
+
+};
+
+/* =========================================
+CANCEL
+========================================= */
+
+window.cancelOrder =
+async()=>{
+
+const confirmCancel =
+
+confirm(
+"Cancel this order?"
+);
+
+if(!confirmCancel)
+return;
+
+await updateDoc(
+
+orderRef,
+
+{
+status:"Cancelled"
+}
+
+);
+
+alert(
+"Order Cancelled"
+);
+
+};
+
+/* =========================================
+INVOICE
+========================================= */
+
+window.downloadInvoice =
+()=>{
+
+alert(
+"Invoice PDF Module Connected Later"
+);
+
+};
+
+</script>
+
+</body>
+</html>
