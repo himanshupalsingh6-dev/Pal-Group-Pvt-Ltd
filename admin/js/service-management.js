@@ -33,9 +33,15 @@ editingServiceId: null,
 
 editingCategoryId: null,
 
+editingCityId: null,
+
 services: [],
+
 categories: [],
-cities: []
+
+cities: [],
+
+pricing: []
 
 };
 
