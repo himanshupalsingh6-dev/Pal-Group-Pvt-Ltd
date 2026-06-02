@@ -8,6 +8,7 @@ getDoc,
 doc,
 updateDoc,
 deleteDoc,
+setDoc,
 query,
 where,
 orderBy,
@@ -15,7 +16,6 @@ limit,
 serverTimestamp
 }
 from "https://www.gstatic.com/firebasejs/12.11.0/firebase-firestore.js";
-
 import {
 ref,
 uploadBytes,
