@@ -10,14 +10,16 @@ content="width=device-width, initial-scale=1.0">
 
 <title>
 
-My Profile
+QuickPress Profile
 
 </title>
 
-<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap"
+<link
+href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap"
 rel="stylesheet">
 
-<link rel="stylesheet"
+<link
+rel="stylesheet"
 href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
 
 <style>
@@ -35,7 +37,7 @@ background:#F6F7FB;
 
 color:#111827;
 
-padding-bottom:120px;
+padding-bottom:100px;
 
 }
 
@@ -43,71 +45,24 @@ padding-bottom:120px;
 HEADER
 =================================== */
 
-.profileHeader{
+.profileHero{
 
-position:sticky;
+background:
+linear-gradient(
+135deg,
+#16A34A,
+#22C55E
+);
 
-top:0;
+padding:
 
-background:#fff;
+30px 20px 90px;
 
-padding:12px 16px;
+border-radius:
 
-z-index:999;
+0 0 32px 32px;
 
-box-shadow:
-0 2px 15px rgba(0,0,0,.05);
-
-}
-
-.headerRow{
-
-display:flex;
-
-align-items:center;
-
-justify-content:space-between;
-
-}
-
-.backBtn{
-
-width:42px;
-height:42px;
-
-border:none;
-
-border-radius:12px;
-
-background:#F3F4F6;
-
-cursor:pointer;
-
-}
-
-.headerCenter{
-
-flex:1;
-
-text-align:center;
-
-}
-
-.brandText{
-
-font-size:12px;
-
-font-weight:700;
-
-color:#16A34A;
-
-}
-
-.pageTitle{
-
-font-size:22px;
-
-font-weight:900;
+position:relative;
 
 }
 
@@ -115,33 +70,94 @@ font-weight:900;
 PROFILE CARD
 =================================== */
 
-.profileSection{
-
-padding:16px;
-
-}
-
 .profileCard{
 
 background:#fff;
 
-border-radius:24px;
+margin:
+
+-65px 16px 0;
+
+border-radius:28px;
 
 padding:24px;
 
 text-align:center;
 
 box-shadow:
-0 4px 14px rgba(0,0,0,.05);
+
+0 10px 30px
+rgba(0,0,0,.08);
+
+position:relative;
+
+z-index:5;
+
+}
+
+/* ===================================
+AVATAR
+=================================== */
+
+.avatarWrapper{
+
+position:relative;
+
+width:110px;
+
+margin:auto;
 
 }
 
 .profileAvatar{
 
-width:90px;
-height:90px;
+width:110px;
+height:110px;
 
-margin:auto;
+border-radius:50%;
+
+background:#E5E7EB;
+
+border:5px solid #fff;
+
+display:flex;
+
+align-items:center;
+justify-content:center;
+
+font-size:42px;
+
+font-weight:900;
+
+color:#16A34A;
+
+overflow:hidden;
+
+box-shadow:
+
+0 10px 25px
+rgba(0,0,0,.15);
+
+}
+
+.profileAvatar img{
+
+width:100%;
+height:100%;
+
+object-fit:cover;
+
+}
+
+.editAvatar{
+
+position:absolute;
+
+bottom:4px;
+right:4px;
+
+width:34px;
+height:34px;
 
 border-radius:50%;
 
@@ -149,30 +165,36 @@ background:#16A34A;
 
 color:#fff;
 
+border:3px solid #fff;
+
 display:flex;
 
 align-items:center;
 justify-content:center;
 
-font-size:34px;
+font-size:14px;
 
-font-weight:900;
+cursor:pointer;
 
 }
+
+/* ===================================
+USER INFO
+=================================== */
 
 .profileName{
 
-margin-top:14px;
+margin-top:18px;
 
-font-size:22px;
+font-size:28px;
 
 font-weight:900;
 
 }
 
-.profilePhone{
+.profileEmail{
 
-margin-top:6px;
+margin-top:8px;
 
 font-size:14px;
 
@@ -180,7 +202,7 @@ color:#6B7280;
 
 }
 
-.profileEmail{
+.profilePhone{
 
 margin-top:4px;
 
@@ -190,55 +212,103 @@ color:#9CA3AF;
 
 }
 
+.viewProfileBtn{
+
+margin-top:18px;
+
+border:none;
+
+background:#16A34A;
+
+color:#fff;
+
+height:44px;
+
+padding:0 22px;
+
+border-radius:999px;
+
+font-weight:800;
+
+cursor:pointer;
+
+}
+
+/* ===================================
+HEADER TEXT
+=================================== */
+
+.heroTitle{
+
+color:#fff;
+
+font-size:22px;
+
+font-weight:900;
+
+}
+
+.heroSubtitle{
+
+margin-top:6px;
+
+font-size:13px;
+
+color:
+
+rgba(255,255,255,.9);
+
+}
+
 </style>
 
 </head>
 
 <body>
 
-<div class="profileHeader">
+<!-- ===================================
+GREEN HEADER
+=================================== -->
 
-<div class="headerRow">
+<div class="profileHero">
 
-<button
-class="backBtn"
-onclick="history.back()">
+<div class="heroTitle">
 
-<i class="fa-solid fa-arrow-left"></i>
-
-</button>
-
-<div class="headerCenter">
-
-<div class="brandText">
-
-QuickPress
+My Account
 
 </div>
 
-<div class="pageTitle">
+<div class="heroSubtitle">
 
-My Profile
+Manage your QuickPress account
 
 </div>
 
 </div>
 
-<div style="width:42px"></div>
-
-</div>
-
-</div>
-
-<div class="profileSection">
+<!-- ===================================
+PROFILE CARD
+=================================== -->
 
 <div class="profileCard">
+
+<div class="avatarWrapper">
 
 <div
 class="profileAvatar"
 id="profileAvatar">
 
 H
+
+</div>
+
+<div
+class="editAvatar"
+onclick="window.location.href='edit-profile.html'">
+
+<i class="fa-solid fa-pen"></i>
+
+</div>
 
 </div>
 
@@ -251,14 +321,6 @@ Loading...
 </div>
 
 <div
-class="profilePhone"
-id="profilePhone">
-
-+91 XXXXX XXXXX
-
-</div>
-
-<div
 class="profileEmail"
 id="profileEmail">
 
@@ -266,7 +328,21 @@ user@email.com
 
 </div>
 
+<div
+class="profilePhone"
+id="profilePhone">
+
++91 XXXXX XXXXX
+
 </div>
+
+<button
+class="viewProfileBtn"
+onclick="window.location.href='edit-profile.html'">
+
+View Profile
+
+</button>
 
 </div>
 
@@ -296,30 +372,53 @@ return;
 
 }
 
+/* NAME */
+
 document.getElementById(
 "profileName"
 ).innerHTML =
 
 user.displayName ||
+
 "QuickPress User";
 
-document.getElementById(
-"profilePhone"
-).innerHTML =
-
-user.phoneNumber ||
-"Not Available";
+/* EMAIL */
 
 document.getElementById(
 "profileEmail"
 ).innerHTML =
 
 user.email ||
+
 "";
+
+/* PHONE */
+
+document.getElementById(
+"profilePhone"
+).innerHTML =
+
+user.phoneNumber ||
+
+"Not Available";
+
+/* AVATAR */
+
+const avatar =
 
 document.getElementById(
 "profileAvatar"
-).innerHTML =
+);
+
+if(user.photoURL){
+
+avatar.innerHTML =
+
+`<img src="${user.photoURL}">`;
+
+}else{
+
+avatar.innerHTML =
 
 (user.displayName || "U")
 .charAt(0)
@@ -327,69 +426,83 @@ document.getElementById(
 
 }
 
-);
+});
 
 </script>
 
 <!-- ===================================
-DASHBOARD CARDS
+QUICK ACTIONS
 =================================== -->
 
-<div class="dashboardSection">
+<div class="quickActions">
 
-<!-- WALLET -->
+<div
+class="actionCard"
+onclick="window.location.href='orders.html'">
 
-<div class="dashboardCard walletCard">
+<div class="actionIcon">
 
-<div class="cardIcon">
+📦
+
+</div>
+
+<div class="actionText">
+
+Orders
+
+</div>
+
+</div>
+
+<div
+class="actionCard"
+onclick="window.location.href='addresses.html'">
+
+<div class="actionIcon">
+
+📍
+
+</div>
+
+<div class="actionText">
+
+Addresses
+
+</div>
+
+</div>
+
+<div
+class="actionCard"
+onclick="window.location.href='wallet.html'">
+
+<div class="actionIcon">
 
 💰
 
 </div>
 
-<div class="cardContent">
+<div class="actionText">
 
-<div class="cardTitle">
+Wallet
 
-Quick Wallet
+</div>
 
 </div>
 
 <div
-class="cardValue"
-id="walletBalance">
+class="actionCard"
+onclick="window.location.href='support.html'">
 
-₹0
+<div class="actionIcon">
 
-</div>
-
-</div>
+🆘
 
 </div>
 
-<!-- REFER -->
+<div class="actionText">
 
-<div class="dashboardCard referCard">
-
-<div class="cardIcon">
-
-🎁
-
-</div>
-
-<div class="cardContent">
-
-<div class="cardTitle">
-
-Refer & Earn
-
-</div>
-
-<div class="cardValue">
-
-Earn ₹100
-
-</div>
+Support
 
 </div>
 
@@ -398,7 +511,7 @@ Earn ₹100
 </div>
 
 <!-- ===================================
-MENU SECTION
+ACCOUNT MENU
 =================================== -->
 
 <div class="menuSection">
@@ -435,7 +548,26 @@ onclick="window.location.href='addresses.html'">
 
 <span>
 
-Saved Addresses
+Delivery Addresses
+
+</span>
+
+</div>
+
+<i class="fa-solid fa-chevron-right"></i>
+
+</button>
+
+<button
+class="menuItem">
+
+<div class="menuLeft">
+
+<i class="fa-solid fa-credit-card"></i>
+
+<span>
+
+Payment Methods
 
 </span>
 
@@ -455,9 +587,9 @@ onclick="window.location.href='wallet.html'">
 
 <span>
 
-Wallet History
+Wallet
 
-</span>
+span>
 
 </div>
 
@@ -475,7 +607,27 @@ onclick="shareReferral()">
 
 <span>
 
-Refer Friends
+Refer & Earn
+
+</span>
+
+</div>
+
+<i class="fa-solid fa-chevron-right"></i>
+
+</button>
+
+<button
+class="menuItem"
+onclick="rateQuickPress()">
+
+<div class="menuLeft">
+
+<i class="fa-solid fa-star"></i>
+
+<span>
+
+Rate QuickPress
 
 </span>
 
@@ -492,83 +644,63 @@ Refer Friends
 <style>
 
 /* ===================================
-DASHBOARD
+QUICK ACTIONS
 =================================== */
 
-.dashboardSection{
+.quickActions{
 
-padding:0 16px 16px;
+padding:18px 16px;
 
 display:grid;
 
 grid-template-columns:
-1fr 1fr;
+repeat(4,1fr);
 
 gap:12px;
 
 }
 
-.dashboardCard{
+.actionCard{
+
+background:#fff;
 
 border-radius:20px;
 
-padding:18px;
+padding:16px 10px;
 
-display:flex;
+text-align:center;
 
-align-items:center;
+cursor:pointer;
 
-gap:14px;
+box-shadow:
 
-color:#fff;
+0 4px 14px
+rgba(0,0,0,.05);
 
-}
-
-.walletCard{
-
-background:
-linear-gradient(
-135deg,
-#16A34A,
-#22C55E
-);
+transition:.25s;
 
 }
 
-.referCard{
+.actionCard:hover{
 
-background:
-linear-gradient(
-135deg,
-#F59E0B,
-#FBBF24
-);
+transform:
+translateY(-2px);
 
 }
 
-.cardIcon{
+.actionIcon{
 
 font-size:28px;
 
 }
 
-.cardTitle{
+.actionText{
 
-font-size:13px;
+margin-top:10px;
 
-font-weight:700;
+font-size:12px;
 
-opacity:.9;
-
-}
-
-.cardValue{
-
-margin-top:4px;
-
-font-size:20px;
-
-font-weight:900;
+font-weight:800;
 
 }
 
@@ -586,12 +718,14 @@ padding:0 16px 20px;
 
 background:#fff;
 
-border-radius:20px;
+border-radius:24px;
 
 overflow:hidden;
 
 box-shadow:
-0 4px 14px rgba(0,0,0,.05);
+
+0 4px 14px
+rgba(0,0,0,.05);
 
 }
 
@@ -616,6 +750,7 @@ padding:0 18px;
 cursor:pointer;
 
 border-bottom:
+
 1px solid #F3F4F6;
 
 }
@@ -638,6 +773,8 @@ gap:14px;
 
 .menuLeft i{
 
+width:20px;
+
 font-size:18px;
 
 color:#16A34A;
@@ -652,30 +789,31 @@ font-weight:800;
 
 }
 
+.menuItem .fa-chevron-right{
+
+font-size:12px;
+
+color:#9CA3AF;
+
+}
+
+@media(max-width:480px){
+
+.quickActions{
+
+grid-template-columns:
+repeat(2,1fr);
+
+}
+
+}
+
 </style>
 
 <script>
 
 /* ===================================
-WALLET BALANCE
-=================================== */
-
-const wallet =
-
-localStorage.getItem(
-"walletBalance"
-)
-
-|| 0;
-
-document.getElementById(
-"walletBalance"
-).innerHTML =
-
-"₹" + wallet;
-
-/* ===================================
-REFER
+REFER & EARN
 =================================== */
 
 window.shareReferral =
@@ -683,23 +821,18 @@ function(){
 
 const referralCode =
 
-"QP" +
-
-(localStorage.getItem(
+localStorage.getItem(
 "userReferral"
 )
 
-|| "1001");
+|| "QP1001";
 
 const text =
 
 `Join QuickPress 🚀
 
-Use my referral code:
-
-${referralCode}
-
-and earn ₹100 cashback!`;
+Referral Code:
+${referralCode}`;
 
 if(navigator.share){
 
@@ -725,6 +858,19 @@ alert(
 
 };
 
+/* ===================================
+RATE APP
+=================================== */
+
+window.rateQuickPress =
+function(){
+
+alert(
+"Thanks for using QuickPress ❤️"
+);
+
+};
+
 </script>
 
 <!-- ===================================
@@ -733,322 +879,9 @@ SETTINGS SECTION
 
 <div class="settingsSection">
 
-<div class="sectionHeading">
+<div class="sectionTitle">
 
-Help & Support
-
-</div>
-
-<div class="settingsCard">
-
-<button
-class="settingItem"
-onclick="window.location.href='support.html'">
-
-<div class="settingLeft">
-
-<i class="fa-solid fa-headset"></i>
-
-<span>
-
-Help Center
-
-</span>
-
-</div>
-
-<i class="fa-solid fa-chevron-right"></i>
-
-</button>
-
-<button
-class="settingItem"
-onclick="window.location.href='contact.html'">
-
-<div class="settingLeft">
-
-<i class="fa-solid fa-phone"></i>
-
-<span>
-
-Contact Us
-
-</span>
-
-</div>
-
-<i class="fa-solid fa-chevron-right"></i>
-
-</button>
-
-<button
-class="settingItem"
-onclick="window.location.href='faq.html'">
-
-<div class="settingLeft">
-
-<i class="fa-solid fa-circle-question"></i>
-
-<span>
-
-FAQs
-
-</span>
-
-</div>
-
-<i class="fa-solid fa-chevron-right"></i>
-
-</button>
-
-</div>
-
-</div>
-
-<!-- ===================================
-APP SECTION
-=================================== -->
-
-<div class="settingsSection">
-
-<div class="sectionHeading">
-
-QuickPress
-
-</div>
-
-<div class="settingsCard">
-
-<button
-class="settingItem"
-onclick="window.location.href='about.html'">
-
-<div class="settingLeft">
-
-<i class="fa-solid fa-circle-info"></i>
-
-<span>
-
-About Us
-
-</span>
-
-</div>
-
-<i class="fa-solid fa-chevron-right"></i>
-
-</button>
-
-<button
-class="settingItem"
-onclick="window.location.href='privacy.html'">
-
-<div class="settingLeft">
-
-<i class="fa-solid fa-shield-halved"></i>
-
-<span>
-
-Privacy Policy
-
-</span>
-
-</div>
-
-<i class="fa-solid fa-chevron-right"></i>
-
-</button>
-
-<button
-class="settingItem"
-onclick="window.location.href='terms.html'">
-
-<div class="settingLeft">
-
-<i class="fa-solid fa-file-contract"></i>
-
-<span>
-
-Terms & Conditions
-
-</span>
-
-</div>
-
-<i class="fa-solid fa-chevron-right"></i>
-
-</button>
-
-<button
-class="settingItem"
-onclick="rateApp()">
-
-<div class="settingLeft">
-
-<i class="fa-solid fa-star"></i>
-
-<span>
-
-Rate QuickPress
-
-</span>
-
-</div>
-
-<i class="fa-solid fa-chevron-right"></i>
-
-</button>
-
-</div>
-
-</div>
-
-<style>
-
-/* ===================================
-SETTINGS
-=================================== */
-
-.settingsSection{
-
-padding:0 16px 18px;
-
-}
-
-.sectionHeading{
-
-font-size:15px;
-
-font-weight:900;
-
-margin-bottom:10px;
-
-padding-left:4px;
-
-color:#111827;
-
-}
-
-.settingsCard{
-
-background:#fff;
-
-border-radius:20px;
-
-overflow:hidden;
-
-box-shadow:
-0 4px 14px rgba(0,0,0,.05);
-
-}
-
-.settingItem{
-
-width:100%;
-
-height:60px;
-
-border:none;
-
-background:#fff;
-
-display:flex;
-
-align-items:center;
-
-justify-content:space-between;
-
-padding:0 18px;
-
-cursor:pointer;
-
-border-bottom:
-1px solid #F3F4F6;
-
-}
-
-.settingItem:last-child{
-
-border-bottom:none;
-
-}
-
-.settingLeft{
-
-display:flex;
-
-align-items:center;
-
-gap:14px;
-
-}
-
-.settingLeft i{
-
-width:20px;
-
-font-size:18px;
-
-color:#16A34A;
-
-}
-
-.settingLeft span{
-
-font-size:14px;
-
-font-weight:800;
-
-}
-
-.settingItem .fa-chevron-right{
-
-font-size:12px;
-
-color:#9CA3AF;
-
-}
-
-</style>
-
-<script>
-
-/* ===================================
-RATE APP
-=================================== */
-
-window.rateApp =
-function(){
-
-alert(
-"Thanks for using QuickPress ❤️"
-);
-
-/*
-
-Future:
-
-Play Store Link
-
-window.open(
-'https://play.google.com/...'
-)
-
-*/
-
-};
-
-</script>
-
-<!-- ===================================
-ACCOUNT SETTINGS
-=================================== -->
-
-<div class="settingsSection">
-
-<div class="sectionHeading">
-
-Account Settings
+Settings
 
 </div>
 
@@ -1107,30 +940,6 @@ class="settingItem">
 
 <div class="settingLeft">
 
-<i class="fa-solid fa-language"></i>
-
-<span>
-
-Language
-
-</span>
-
-</div>
-
-<span
-class="settingValue">
-
-English
-
-</span>
-
-</button>
-
-<button
-class="settingItem">
-
-<div class="settingLeft">
-
 <i class="fa-solid fa-moon"></i>
 
 <span>
@@ -1153,73 +962,88 @@ id="darkModeToggle">
 
 </button>
 
-</div>
+<button
+class="settingItem">
 
-</div>
+<div class="settingLeft">
 
-<!-- ===================================
-ACCOUNT INFO
-=================================== -->
-
-<div class="settingsSection">
-
-<div class="sectionHeading">
-
-Account Information
-
-</div>
-
-<div class="settingsCard">
-
-<div class="infoItem">
+<i class="fa-solid fa-language"></i>
 
 <span>
 
-Account Type
+Language
 
 </span>
 
-<b>
+</div>
 
-Customer
+<div class="settingValue">
 
-</b>
+English
 
 </div>
 
-<div class="infoItem">
+</button>
+
+<button
+class="settingItem"
+onclick="window.location.href='support.html'">
+
+<div class="settingLeft">
+
+<i class="fa-solid fa-headset"></i>
 
 <span>
 
-Member Since
+Contact Us
 
 </span>
 
-<b
-id="memberSince">
-
-2026
-
-</b>
-
 </div>
 
-<div class="infoItem">
+<i class="fa-solid fa-chevron-right"></i>
+
+</button>
+
+<button
+class="settingItem"
+onclick="window.location.href='privacy.html'">
+
+<div class="settingLeft">
+
+<i class="fa-solid fa-shield-halved"></i>
 
 <span>
 
-Referral Code
+Privacy Policy
 
 </span>
 
-<b
-id="referralCode">
+</div>
 
-QP1001
+<i class="fa-solid fa-chevron-right"></i>
 
-</b>
+</button>
+
+<button
+class="settingItem"
+onclick="window.location.href='terms.html'">
+
+<div class="settingLeft">
+
+<i class="fa-solid fa-file-contract"></i>
+
+<span>
+
+Terms & Conditions
+
+</span>
 
 </div>
+
+<i class="fa-solid fa-chevron-right"></i>
+
+</button>
 
 </div>
 
@@ -1228,12 +1052,51 @@ QP1001
 <style>
 
 /* ===================================
-INFO ITEM
+SETTINGS
 =================================== */
 
-.infoItem{
+.settingsSection{
 
-height:56px;
+padding:0 16px 20px;
+
+}
+
+.sectionTitle{
+
+font-size:18px;
+
+font-weight:900;
+
+margin-bottom:12px;
+
+padding-left:4px;
+
+}
+
+.settingsCard{
+
+background:#fff;
+
+border-radius:24px;
+
+overflow:hidden;
+
+box-shadow:
+
+0 4px 14px
+rgba(0,0,0,.05);
+
+}
+
+.settingItem{
+
+width:100%;
+
+height:62px;
+
+border:none;
+
+background:#fff;
 
 display:flex;
 
@@ -1243,28 +1106,47 @@ justify-content:space-between;
 
 padding:0 18px;
 
-border-bottom:
-1px solid #F3F4F6;
+cursor:pointer;
 
-font-size:14px;
+border-bottom:
+
+1px solid #F3F4F6;
 
 }
 
-.infoItem:last-child{
+.settingItem:last-child{
 
 border-bottom:none;
 
 }
 
-.infoItem span{
+.settingLeft{
 
-color:#6B7280;
+display:flex;
+
+align-items:center;
+
+gap:14px;
 
 }
 
-/* ===================================
-SETTING VALUE
-=================================== */
+.settingLeft i{
+
+width:20px;
+
+font-size:18px;
+
+color:#16A34A;
+
+}
+
+.settingLeft span{
+
+font-size:14px;
+
+font-weight:800;
+
+}
 
 .settingValue{
 
@@ -1311,9 +1193,9 @@ background:#D1D5DB;
 
 border-radius:50px;
 
-cursor:pointer;
-
 transition:.3s;
+
+cursor:pointer;
 
 }
 
@@ -1355,16 +1237,16 @@ translateX(22px);
 <script>
 
 /* ===================================
-NOTIFICATION SETTING
+NOTIFICATIONS
 =================================== */
 
-const notifyToggle =
+const notificationToggle =
 
 document.getElementById(
 "notificationToggle"
 );
 
-notifyToggle.checked =
+notificationToggle.checked =
 
 localStorage.getItem(
 "notifications"
@@ -1372,8 +1254,10 @@ localStorage.getItem(
 
 !== "false";
 
-notifyToggle.addEventListener(
+notificationToggle.addEventListener(
+
 "change",
+
 function(){
 
 localStorage.setItem(
@@ -1385,19 +1269,20 @@ this.checked
 );
 
 }
+
 );
 
 /* ===================================
-DARK MODE READY
+DARK MODE
 =================================== */
 
-const darkToggle =
+const darkModeToggle =
 
 document.getElementById(
 "darkModeToggle"
 );
 
-darkToggle.checked =
+darkModeToggle.checked =
 
 localStorage.getItem(
 "darkMode"
@@ -1405,8 +1290,10 @@ localStorage.getItem(
 
 === "true";
 
-darkToggle.addEventListener(
+darkModeToggle.addEventListener(
+
 "change",
+
 function(){
 
 localStorage.setItem(
@@ -1418,25 +1305,12 @@ this.checked
 );
 
 alert(
-"Dark Mode module ready. Theme integration pending."
+"Dark Mode Ready. Theme integration later."
 );
 
 }
+
 );
-
-/* ===================================
-REFERRAL CODE
-=================================== */
-
-document.getElementById(
-"referralCode"
-).innerHTML =
-
-localStorage.getItem(
-"userReferral"
-)
-
-|| "QP1001";
 
 </script>
 
@@ -1446,9 +1320,9 @@ ACCOUNT ACTIONS
 
 <div class="settingsSection">
 
-<div class="sectionHeading">
+<div class="sectionTitle">
 
-Account Actions
+Account
 
 </div>
 
@@ -1592,7 +1466,7 @@ class="navItem activeNav">
 <style>
 
 /* ===================================
-LOGOUT
+LOGOUT / DELETE
 =================================== */
 
 .logoutItem .settingLeft i{
@@ -1625,6 +1499,8 @@ font-size:22px;
 
 font-weight:900;
 
+color:#111827;
+
 }
 
 .footerText{
@@ -1648,7 +1524,7 @@ color:#9CA3AF;
 }
 
 /* ===================================
-BOTTOM NAVBAR
+BOTTOM NAV
 =================================== */
 
 .bottomNav{
@@ -1736,6 +1612,7 @@ background:#EF4444;
 color:#fff;
 
 display:flex;
+
 align-items:center;
 justify-content:center;
 
@@ -1811,17 +1688,11 @@ LOGOUT
 window.logoutUser =
 async function(){
 
-const confirmLogout =
-
-confirm(
-"Are you sure you want to logout?"
+const ok = confirm(
+"Logout from QuickPress?"
 );
 
-if(!confirmLogout){
-
-return;
-
-}
+if(!ok) return;
 
 try{
 
@@ -1860,7 +1731,7 @@ function(){
 
 alert(
 
-"Delete Account API pending.\n\nConnect Firebase Account Deletion later."
+"Delete Account API pending.\nConnect Firebase account deletion later."
 
 );
 
