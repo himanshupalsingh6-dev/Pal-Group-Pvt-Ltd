@@ -3,104 +3,148 @@
 <head>
 
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>QuickPress Services</title>
+<meta name="viewport"
+content="width=device-width, initial-scale=1.0">
 
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<title>
 
-<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+QuickPress Services
 
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css"/>
+</title>
+
+<link rel="preconnect"
+href="https://fonts.googleapis.com">
+
+<link rel="preconnect"
+href="https://fonts.gstatic.com"
+crossorigin>
+
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap"
+rel="stylesheet">
+
+<link rel="stylesheet"
+href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css"/>
 
 <style>
-
-/* =========================================
-RESET
-========================================= */
 
 *{
 margin:0;
 padding:0;
 box-sizing:border-box;
 font-family:'Inter',sans-serif;
--webkit-tap-highlight-color:transparent;
 }
 
 body{
+
 background:#F6F7FB;
-overflow-x:hidden;
-padding-bottom:120px;
+
 color:#111827;
+
+padding-bottom:100px;
+
+overflow-x:hidden;
+
 }
 
-/* =========================================
+.appContainer{
+
+max-width:1400px;
+
+margin:auto;
+
+}
+
+/* ===================================
 HEADER
-========================================= */
+=================================== */
 
-.serviceHero{
-
-background:
-linear-gradient(
-135deg,
-#FFD633,
-#FFE98A
-);
-
-padding:18px;
-border-bottom-left-radius:34px;
-border-bottom-right-radius:34px;
+.header{
 
 position:sticky;
+
 top:0;
+
 z-index:999;
+
+background:#fff;
+
+padding:14px 16px;
+
+box-shadow:
+0 4px 18px rgba(0,0,0,.05);
 
 }
 
 .topBar{
 
 display:flex;
+
 justify-content:space-between;
-align-items:center;
+align-items:flex-start;
 
 }
 
-.pageTitle{
+/* ===================================
+BRAND
+=================================== */
 
-font-size:32px;
+.brandName{
+
+font-size:24px;
+
 font-weight:900;
 
-}
-
-.pageSub{
-
-margin-top:6px;
-
-font-size:13px;
-font-weight:700;
-
-color:#374151;
+line-height:1;
 
 }
 
-.topActions{
+.deliveryTitle{
+
+margin-top:4px;
+
+font-size:14px;
+
+font-weight:800;
+
+color:#4B5563;
+
+}
+
+.location{
+
+margin-top:8px;
 
 display:flex;
-gap:10px;
+
+align-items:center;
+
+gap:6px;
+
+font-size:13px;
+
+font-weight:700;
+
+color:#16A34A;
+
+cursor:pointer;
 
 }
 
-.iconBtn{
+/* ===================================
+PROFILE
+=================================== */
+
+.profileBtn{
 
 width:48px;
 height:48px;
 
 border:none;
 
-border-radius:18px;
+border-radius:14px;
 
-background:#fff;
+background:#F3F4F6;
 
 display:flex;
 align-items:center;
@@ -110,36 +154,39 @@ font-size:18px;
 
 cursor:pointer;
 
-box-shadow:
-0 8px 20px rgba(0,0,0,.06);
-
 }
 
-/* =========================================
+/* ===================================
 SEARCH
-========================================= */
+=================================== */
 
 .searchWrap{
 
-margin-top:18px;
+margin-top:14px;
 
 }
 
 .searchBar{
 
-height:58px;
+height:56px;
 
-background:#fff;
+background:#F6F7FB;
 
-border-radius:20px;
+border-radius:18px;
 
 display:flex;
+
 align-items:center;
 
 padding:0 16px;
 
-box-shadow:
-0 10px 24px rgba(0,0,0,.06);
+}
+
+.searchBar i{
+
+color:#16A34A;
+
+font-size:18px;
 
 }
 
@@ -148,796 +195,32 @@ box-shadow:
 flex:1;
 
 border:none;
+
 outline:none;
-
-padding:0 12px;
-
-font-size:15px;
-font-weight:600;
 
 background:none;
 
-}
+padding-left:12px;
 
-.searchIcon{
+font-size:15px;
 
-font-size:18px;
-color:#16A34A;
-
-}
-
-/* =========================================
-LOCATION BAR
-========================================= */
-
-.locationBar{
-
-margin-top:14px;
-
-display:flex;
-align-items:center;
-gap:8px;
-
-font-size:13px;
-font-weight:800;
-
-color:#374151;
+font-weight:600;
 
 }
 
-/* =========================================
-FILTERS
-========================================= */
+/* ===================================
+CATEGORY SLIDER
+=================================== */
 
-.filterSection{
+.categorySection{
 
 padding:20px 16px;
 
 }
 
-.filterWrap{
-
-display:flex;
-gap:12px;
-
-overflow-x:auto;
-
-scrollbar-width:none;
-
-}
-
-.filterWrap::-webkit-scrollbar{
-display:none;
-}
-
-.filterBtn{
-
-height:44px;
-
-padding:0 18px;
-
-border:none;
-
-border-radius:999px;
-
-background:#fff;
-
-font-size:13px;
-font-weight:800;
-
-white-space:nowrap;
-
-cursor:pointer;
-
-box-shadow:
-0 6px 18px rgba(0,0,0,.05);
-
-}
-
-.activeFilter{
-
-background:#16A34A;
-color:#fff;
-
-}
-
-/* =========================================
-SERVICE GRID
-========================================= */
-
-.serviceSection{
-
-padding:0 16px;
-
-}
-
-.serviceGrid{
-
-display:grid;
-
-grid-template-columns:
-repeat(2,1fr);
-
-gap:14px;
-
-}
-
-.serviceCard{
-
-background:#fff;
-
-border-radius:26px;
-
-overflow:hidden;
-
-position:relative;
-
-box-shadow:
-0 8px 24px rgba(0,0,0,.05);
-
-cursor:pointer;
-
-transition:.3s;
-
-}
-
-.serviceCard:hover{
-
-transform:translateY(-4px);
-
-}
-
-/* =========================================
-BADGES
-========================================= */
-
-.badgeWrap{
-
-position:absolute;
-
-left:10px;
-top:10px;
-
-display:flex;
-flex-wrap:wrap;
-gap:6px;
-
-z-index:5;
-
-}
-
-.badge{
-
-height:24px;
-
-padding:0 10px;
-
-border-radius:999px;
-
-display:flex;
-align-items:center;
-
-font-size:10px;
-font-weight:900;
-
-}
-
-.trendingBadge{
-
-background:#FEF3C7;
-color:#92400E;
-
-}
-
-.bestBadge{
-
-background:#DCFCE7;
-color:#166534;
-
-}
-
-.sameDayBadge{
-
-background:#DBEAFE;
-color:#1E40AF;
-
-}
-
-.premiumBadge{
-
-background:#F3E8FF;
-color:#6B21A8;
-
-}
-
-/* =========================================
-IMAGE
-========================================= */
-
-.serviceImage{
-
-height:150px;
-
-background:#F3F4F6;
-
-display:flex;
-align-items:center;
-justify-content:center;
-
-font-size:58px;
-
-}
-
-/* =========================================
-INFO
-========================================= */
-
-.serviceInfo{
-
-padding:14px;
-
-}
-
-.serviceName{
-
-font-size:15px;
-font-weight:900;
-
-}
-
-.serviceDesc{
-
-margin-top:6px;
-
-font-size:12px;
-
-line-height:1.6;
-
-color:#6B7280;
-
-}
-
-.ratingRow{
-
-margin-top:10px;
-
-display:flex;
-align-items:center;
-gap:8px;
-
-font-size:12px;
-font-weight:800;
-
-}
-
-.rating{
-
-color:#16A34A;
-
-}
-
-.reviewCount{
-
-color:#6B7280;
-
-}
-
-.deliveryTime{
-
-margin-top:8px;
-
-font-size:12px;
-font-weight:700;
-
-color:#2563EB;
-
-}
-
-.cityPrice{
-
-margin-top:12px;
+.sectionHeading{
 
 font-size:24px;
-font-weight:900;
-
-}
-
-.cityName{
-
-font-size:12px;
-font-weight:700;
-
-color:#6B7280;
-
-}
-
-.serviceBottom{
-
-margin-top:14px;
-
-display:flex;
-justify-content:space-between;
-align-items:center;
-
-}
-
-.viewBtn{
-
-height:40px;
-
-padding:0 16px;
-
-border:none;
-
-border-radius:12px;
-
-background:#111827;
-
-color:#fff;
-
-font-size:12px;
-font-weight:900;
-
-cursor:pointer;
-
-}
-
-.addBtn{
-
-height:40px;
-
-padding:0 16px;
-
-border:none;
-
-border-radius:12px;
-
-background:#16A34A;
-
-color:#fff;
-
-font-size:12px;
-font-weight:900;
-
-cursor:pointer;
-
-}
-
-@media(min-width:900px){
-
-.serviceGrid{
-
-grid-template-columns:
-repeat(4,1fr);
-
-}
-
-}
-
-</style>
-</head>
-
-<body>
-
-<!-- HEADER -->
-
-<div class="serviceHero">
-
-<div class="topBar">
-
-<div>
-
-<div class="pageTitle">
-Services
-</div>
-
-<div class="pageSub">
-Premium Laundry & Cleaning
-</div>
-
-</div>
-
-<div class="topActions">
-
-<button class="iconBtn">
-<i class="fa-solid fa-wallet"></i>
-</button>
-
-<button class="iconBtn">
-<i class="fa-regular fa-user"></i>
-</button>
-
-</div>
-
-</div>
-
-<div class="searchWrap">
-
-<div class="searchBar">
-
-<i class="fa-solid fa-magnifying-glass searchIcon"></i>
-
-<input
-id="searchInput"
-type="text"
-placeholder="Search Services">
-
-</div>
-
-</div>
-
-<div
-class="locationBar"
-id="locationBar">
-
-📍 Kasganj, Uttar Pradesh
-
-</div>
-
-</div>
-
-<!-- FILTERS -->
-
-<div class="filterSection">
-
-<div class="filterWrap">
-
-<button class="filterBtn activeFilter">
-All
-</button>
-
-<button class="filterBtn">
-Dry Cleaning
-</button>
-
-<button class="filterBtn">
-Wash & Fold
-</button>
-
-<button class="filterBtn">
-Steam Iron
-</button>
-
-<button class="filterBtn">
-Shoe Care
-</button>
-
-<button class="filterBtn">
-Blanket Care
-</button>
-
-<button class="filterBtn">
-Premium Care
-</button>
-
-</div>
-
-</div>
-
-<!-- SERVICES -->
-
-<div class="serviceSection">
-
-<div
-class="serviceGrid"
-id="serviceGrid">
-
-<!-- Firebase Services Here -->
-
-</div>
-
-</div>
-<!-- =========================================
-QUICK+ MEMBERSHIP
-========================================= -->
-
-<div class="membershipSection">
-
-<div class="membershipCard">
-
-<div class="membershipBadge">
-⚡ QUICK+
-</div>
-
-<h2>
-Get Quick+ Membership
-</h2>
-
-<p>
-Free Pickup, Priority Cleaning,
-Premium Support and Same Day Delivery.
-</p>
-
-<button class="joinBtn">
-Join Quick+
-</button>
-
-</div>
-
-</div>
-
-<!-- =========================================
-CUSTOMER REVIEWS
-========================================= -->
-
-<div class="reviewSection">
-
-<div class="sectionTitle">
-Customer Reviews
-</div>
-
-<div class="reviewTrack">
-
-<div class="reviewCard">
-⭐ 5.0
-
-<p>
-Amazing Dry Cleaning service.
-Clothes looked brand new.
-</p>
-
-<b>
-Rohit Sharma
-</b>
-
-</div>
-
-<div class="reviewCard">
-⭐ 4.9
-
-<p>
-Very fast pickup and delivery.
-Highly recommended.
-</p>
-
-<b>
-Anjali Verma
-</b>
-
-</div>
-
-<div class="reviewCard">
-⭐ 4.8
-
-<p>
-Best laundry service in Kasganj.
-</p>
-
-<b>
-Faizan Khan
-</b>
-
-</div>
-
-</div>
-
-</div>
-
-<!-- =========================================
-FLOATING CART
-========================================= -->
-
-<div
-class="floatingCart"
-id="floatingCart">
-
-<div>
-
-<div class="cartTitle">
-0 Items
-</div>
-
-<div
-class="cartAmount"
-id="cartAmount">
-
-₹0
-
-</div>
-
-</div>
-
-<button
-class="checkoutBtn"
-id="checkoutBtn">
-
-Checkout →
-
-</button>
-
-</div>
-
-<!-- =========================================
-PREMIUM WATERMARK
-========================================= -->
-
-<div class="footer">
-
-<div class="watermark">
-
-Made in Uttar Pradesh
-
-</div>
-
-<div class="watermarkSub">
-
-Crafted by Himanshu Baghel 💗
-
-</div>
-
-</div>
-
-<!-- =========================================
-BOTTOM NAVIGATION
-========================================= -->
-
-<div class="bottomNav">
-
-<button
-class="navItem">
-
-<i class="fa-solid fa-house"></i>
-
-<span>
-Home
-</span>
-
-</button>
-
-<button
-class="navItem">
-
-<i class="fa-solid fa-box"></i>
-
-<span>
-Orders
-</span>
-
-</button>
-
-<button
-class="navItem activeNav">
-
-<i class="fa-solid fa-table-cells-large"></i>
-
-<span>
-Services
-</span>
-
-</button>
-
-<button
-class="navItem">
-
-<i class="fa-solid fa-wallet"></i>
-
-<span>
-Wallet
-</span>
-
-</button>
-
-<button
-class="navItem">
-
-<i class="fa-regular fa-user"></i>
-
-<span>
-Profile
-</span>
-
-</button>
-
-</div>
-
-<style>
-
-/* =========================================
-MEMBERSHIP
-========================================= */
-
-.membershipSection{
-
-padding:24px 16px;
-
-}
-
-.membershipCard{
-
-background:
-linear-gradient(
-135deg,
-#111827,
-#1F2937
-);
-
-border-radius:32px;
-
-padding:26px;
-
-color:#fff;
-
-}
-
-.membershipBadge{
-
-display:inline-flex;
-
-height:34px;
-
-padding:0 14px;
-
-align-items:center;
-
-border-radius:999px;
-
-background:#FFD633;
-
-color:#111827;
-
-font-size:11px;
-
-font-weight:900;
-
-}
-
-.membershipCard h2{
-
-margin-top:16px;
-
-font-size:30px;
-
-font-weight:900;
-
-}
-
-.membershipCard p{
-
-margin-top:10px;
-
-line-height:1.8;
-
-opacity:.9;
-
-}
-
-.joinBtn{
-
-margin-top:18px;
-
-height:52px;
-
-padding:0 22px;
-
-border:none;
-
-border-radius:18px;
-
-background:#16A34A;
-
-color:#fff;
-
-font-size:14px;
-
-font-weight:900;
-
-cursor:pointer;
-
-}
-
-/* =========================================
-REVIEWS
-========================================= */
-
-.reviewSection{
-
-padding:0 16px 24px;
-
-}
-
-.sectionTitle{
-
-font-size:22px;
 
 font-weight:900;
 
@@ -945,130 +228,182 @@ margin-bottom:16px;
 
 }
 
-.reviewTrack{
+.categorySlider{
 
 display:flex;
 
-gap:14px;
-
 overflow-x:auto;
+
+gap:12px;
+
+padding-bottom:8px;
 
 scrollbar-width:none;
 
 }
 
-.reviewTrack::-webkit-scrollbar{
+.categorySlider::-webkit-scrollbar{
 
 display:none;
 
 }
 
-.reviewCard{
+.categoryCard{
 
-min-width:260px;
+min-width:90px;
 
-background:#fff;
+flex-shrink:0;
 
-padding:18px;
-
-border-radius:26px;
-
-box-shadow:
-0 8px 22px rgba(0,0,0,.05);
-
-line-height:1.8;
-
-}
-
-/* =========================================
-FLOATING CART
-========================================= */
-
-.floatingCart{
-
-position:fixed;
-
-left:14px;
-right:14px;
-bottom:90px;
-
-height:70px;
-
-background:#111827;
-
-border-radius:24px;
-
-display:flex;
-
-align-items:center;
-
-justify-content:space-between;
-
-padding:0 18px;
-
-color:#fff;
-
-z-index:999;
-
-display:none;
-
-}
-
-.cartTitle{
-
-font-size:12px;
-
-font-weight:700;
-
-}
-
-.cartAmount{
-
-margin-top:4px;
-
-font-size:20px;
-
-font-weight:900;
-
-}
-
-.checkoutBtn{
-
-height:46px;
-
-padding:0 18px;
-
-border:none;
-
-border-radius:14px;
-
-background:#16A34A;
-
-color:#fff;
-
-font-size:13px;
-
-font-weight:900;
+text-align:center;
 
 cursor:pointer;
 
 }
 
-/* =========================================
-FOOTER
-========================================= */
+.categoryCard.active{
 
-.footer{
-
-padding:24px;
-
-padding-bottom:130px;
-
-text-align:center;
+transform:scale(1.05);
 
 }
 
-.watermark{
+.categoryIcon{
+
+width:56px;
+height:56px;
+
+margin:auto;
+
+border-radius:16px;
+
+display:flex;
+align-items:center;
+justify-content:center;
+
+font-size:24px;
+
+box-shadow:
+0 4px 12px rgba(0,0,0,.05);
+
+}
+
+.categoryCard h4{
+
+margin-top:8px;
+
+font-size:11px;
+
+font-weight:800;
+
+line-height:1.3;
+
+}
+
+.dryBg{
+background:
+linear-gradient(
+135deg,
+#DBEAFE,
+#EFF6FF
+);
+}
+
+.washBg{
+background:
+linear-gradient(
+135deg,
+#DCFCE7,
+#F0FDF4
+);
+}
+
+.ironBg{
+background:
+linear-gradient(
+135deg,
+#FEF3C7,
+#FFFBEB
+);
+}
+
+.shoeBg{
+background:
+linear-gradient(
+135deg,
+#F3E8FF,
+#FAF5FF
+);
+}
+
+.blanketBg{
+background:
+linear-gradient(
+135deg,
+#FCE7F3,
+#FDF2F8
+);
+}
+
+.premiumBg{
+background:
+linear-gradient(
+135deg,
+#FFE4B5,
+#FFF7ED
+);
+}
+
+/* ===================================
+CITY BANNER
+=================================== */
+
+.cityBanner{
+
+margin:0 16px;
+
+padding:16px;
+
+border-radius:18px;
+
+background:#fff;
+
+display:flex;
+
+justify-content:space-between;
+align-items:center;
+
+box-shadow:
+0 4px 12px rgba(0,0,0,.04);
+
+}
+
+.cityLeft{
+
+display:flex;
+
+align-items:center;
+
+gap:12px;
+
+}
+
+.cityIcon{
+
+width:46px;
+height:46px;
+
+border-radius:14px;
+
+background:#DCFCE7;
+
+display:flex;
+align-items:center;
+justify-content:center;
+
+font-size:18px;
+
+}
+
+.cityTitle{
 
 font-size:15px;
 
@@ -1076,19 +411,2084 @@ font-weight:900;
 
 }
 
-.watermarkSub{
+.citySub{
 
-margin-top:6px;
+font-size:12px;
 
-font-size:13px;
+color:#6B7280;
 
-opacity:.75;
+margin-top:3px;
 
 }
 
-/* =========================================
-BOTTOM NAV
-========================================= */
+.changeCity{
+
+border:none;
+
+background:#16A34A;
+
+color:#fff;
+
+height:40px;
+
+padding:0 14px;
+
+border-radius:12px;
+
+font-size:12px;
+
+font-weight:800;
+
+cursor:pointer;
+
+}
+
+</style>
+
+</head>
+
+<body>
+
+<div class="appContainer">
+
+<!-- ===================================
+HEADER
+=================================== -->
+
+<div class="header">
+
+<div class="topBar">
+
+<div>
+
+<div class="brandName">
+
+QuickPress
+
+</div>
+
+<div class="deliveryTitle">
+
+Express Delivery in 30 Minutes
+
+</div>
+
+<div
+class="location"
+id="locationText">
+
+Kasganj, Uttar Pradesh
+
+<i class="fa-solid fa-angle-down"></i>
+
+</div>
+
+</div>
+
+<button
+class="profileBtn"
+onclick="openProfile()">
+
+<i class="fa-regular fa-user"></i>
+
+</button>
+
+</div>
+
+<div class="searchWrap">
+
+<div class="searchBar">
+
+<i class="fa-solid fa-magnifying-glass"></i>
+
+<input
+id="serviceSearch"
+type="text"
+placeholder="Search services">
+
+</div>
+
+</div>
+
+</div>
+
+<!-- ===================================
+CITY BANNER
+=================================== -->
+
+<div class="cityBanner">
+
+<div class="cityLeft">
+
+<div class="cityIcon">
+
+📍
+
+</div>
+
+<div>
+
+<div
+class="cityTitle"
+id="currentCity">
+
+Kasganj
+
+</div>
+
+<div class="citySub">
+
+City Wise Pricing Enabled
+
+</div>
+
+</div>
+
+</div>
+
+<button
+class="changeCity">
+
+Change City
+
+</button>
+
+</div>
+
+<!-- ===================================
+CATEGORY SLIDER
+(FIREBASE LOAD)
+=================================== -->
+
+<div class="categorySection">
+
+<div class="sectionHeading">
+
+Services
+
+</div>
+
+<div
+class="categorySlider"
+id="categorySlider">
+
+<!-- Firebase Categories -->
+
+</div>
+
+</div>
+<!-- ===================================
+SUB CATEGORY SECTION
+=================================== -->
+
+<div class="subCategorySection">
+
+<div
+class="subCategoryTabs"
+id="subCategoryTabs">
+
+<!-- Firebase Sub Categories -->
+
+</div>
+
+</div>
+
+<style>
+
+/* ===================================
+SUB CATEGORY
+=================================== */
+
+.subCategorySection{
+
+padding:0 16px 20px;
+
+}
+
+.subCategoryTabs{
+
+display:flex;
+
+overflow-x:auto;
+
+gap:10px;
+
+scrollbar-width:none;
+
+padding-bottom:6px;
+
+}
+
+.subCategoryTabs::-webkit-scrollbar{
+
+display:none;
+
+}
+
+.subCategoryBtn{
+
+height:40px;
+
+padding:0 16px;
+
+border:none;
+
+border-radius:999px;
+
+background:#fff;
+
+color:#374151;
+
+font-size:13px;
+
+font-weight:800;
+
+cursor:pointer;
+
+white-space:nowrap;
+
+box-shadow:
+0 3px 10px rgba(0,0,0,.05);
+
+}
+
+.subCategoryBtn.active{
+
+background:#16A34A;
+
+color:#fff;
+
+}
+
+</style>
+
+<script type="module">
+
+import { db }
+from "./firebase.js";
+
+import {
+collection,
+query,
+where,
+orderBy,
+onSnapshot
+}
+from
+"https://www.gstatic.com/firebasejs/12.11.0/firebase-firestore.js";
+
+/* ===================================
+GLOBAL
+=================================== */
+
+window.selectedCategoryId = null;
+
+window.selectedSubCategoryId = null;
+
+/* ===================================
+LOAD CATEGORIES
+=================================== */
+
+const categorySlider =
+
+document.getElementById(
+"categorySlider"
+);
+
+const subCategoryTabs =
+
+document.getElementById(
+"subCategoryTabs"
+);
+
+onSnapshot(
+
+query(
+collection(db,"categories"),
+orderBy("position","asc")
+),
+
+(snapshot)=>{
+
+categorySlider.innerHTML = "";
+
+let firstCategory = null;
+
+snapshot.forEach(doc=>{
+
+const category = {
+
+id:doc.id,
+
+...doc.data()
+
+};
+
+if(!firstCategory){
+
+firstCategory = category.id;
+
+}
+
+/* =================================== */
+
+categorySlider.innerHTML +=
+
+`
+
+<div
+class="categoryCard"
+data-id="${category.id}"
+
+onclick="selectCategory('${category.id}')">
+
+<div class="categoryIcon">
+
+${category.icon || "🧺"}
+
+</div>
+
+<h4>
+
+${category.name}
+
+</h4>
+
+</div>
+
+`;
+
+});
+
+/* ===================================
+AUTO SELECT FIRST CATEGORY
+=================================== */
+
+if(
+
+!window.selectedCategoryId &&
+firstCategory
+
+){
+
+window.selectCategory(
+firstCategory
+);
+
+}
+
+}
+
+);
+
+/* ===================================
+CATEGORY SELECT
+=================================== */
+
+window.selectCategory =
+function(categoryId){
+
+window.selectedCategoryId =
+categoryId;
+
+/* ACTIVE UI */
+
+document
+.querySelectorAll(
+".categoryCard"
+)
+
+.forEach(card=>{
+
+card.classList.remove(
+"active"
+);
+
+if(
+
+card.dataset.id ===
+categoryId
+
+){
+
+card.classList.add(
+"active"
+);
+
+}
+
+});
+
+/* ===================================
+LOAD SUB CATEGORY
+=================================== */
+
+loadSubCategories(
+categoryId
+);
+
+};
+
+/* ===================================
+LOAD SUB CATEGORIES
+=================================== */
+
+function loadSubCategories(
+
+categoryId
+
+){
+
+onSnapshot(
+
+query(
+
+collection(
+db,
+"subcategories"
+),
+
+where(
+"categoryId",
+"==",
+categoryId
+),
+
+orderBy(
+"position",
+"asc"
+)
+
+),
+
+(snapshot)=>{
+
+subCategoryTabs.innerHTML =
+"";
+
+let firstSub = null;
+
+snapshot.forEach(doc=>{
+
+const sub = {
+
+id:doc.id,
+
+...doc.data()
+
+};
+
+if(!firstSub){
+
+firstSub = sub.id;
+
+}
+
+/* =================================== */
+
+subCategoryTabs.innerHTML +=
+
+`
+
+<button
+
+class="subCategoryBtn"
+
+data-id="${sub.id}"
+
+onclick="selectSubCategory(
+
+'${sub.id}'
+
+)">
+
+${sub.icon || "👕"}
+
+${sub.name}
+
+</button>
+
+`;
+
+});
+
+/* ===================================
+AUTO FIRST SUB
+=================================== */
+
+if(
+
+firstSub
+
+){
+
+selectSubCategory(
+firstSub
+);
+
+}
+
+}
+
+);
+
+}
+
+/* ===================================
+SUB CATEGORY SELECT
+=================================== */
+
+window.selectSubCategory =
+function(subCategoryId){
+
+window.selectedSubCategoryId =
+subCategoryId;
+
+/* ACTIVE */
+
+document
+.querySelectorAll(
+".subCategoryBtn"
+)
+
+.forEach(btn=>{
+
+btn.classList.remove(
+"active"
+);
+
+if(
+
+btn.dataset.id ===
+subCategoryId
+
+){
+
+btn.classList.add(
+"active"
+);
+
+}
+
+});
+
+/* ===================================
+LOAD SERVICES
+=================================== */
+
+if(window.loadServices){
+
+window.loadServices(
+subCategoryId
+);
+
+}
+
+};
+
+</script>
+
+<!-- ===================================
+FIREBASE STRUCTURE
+===================================
+
+categories
+
+{
+ name:"Ironing",
+ icon:"👔",
+ position:1
+}
+
+subcategories
+
+{
+ categoryId:"IRONING_ID",
+ name:"Shirt",
+ icon:"👕",
+ position:1
+}
+
+{
+ categoryId:"IRONING_ID",
+ name:"Pant",
+ icon:"👖",
+ position:2
+}
+
+{
+ categoryId:"IRONING_ID",
+ name:"Suit",
+ icon:"🤵",
+ position:3
+}
+
+=================================== -->
+  <!-- ===================================
+SERVICES GRID
+=================================== -->
+
+<div class="servicesContainer">
+
+<div
+class="serviceGrid"
+id="serviceGrid">
+
+<!-- Firebase Services -->
+
+</div>
+
+</div>
+
+<!-- ===================================
+ADD TO CART TOAST
+=================================== -->
+
+<div
+class="cartToast"
+id="cartToast">
+
+<div class="toastIcon">
+
+✅
+
+</div>
+
+<div>
+
+<div class="toastTitle">
+
+Added To Cart
+
+</div>
+
+<div
+class="toastText"
+id="toastText">
+
+Service Added
+
+</div>
+
+</div>
+
+</div>
+
+<style>
+
+/* ===================================
+SERVICES
+=================================== */
+
+.servicesContainer{
+
+padding:0 16px 20px;
+
+}
+
+/* ===================================
+3 COLUMN MOBILE
+=================================== */
+
+.serviceGrid{
+
+display:grid;
+
+grid-template-columns:
+repeat(3,1fr);
+
+gap:10px;
+
+}
+
+/* ===================================
+SERVICE CARD
+=================================== */
+
+.serviceCard{
+
+background:#fff;
+
+padding:10px;
+
+border-radius:18px;
+
+text-align:center;
+
+box-shadow:
+0 4px 14px rgba(0,0,0,.05);
+
+}
+
+.serviceIcon{
+
+font-size:34px;
+
+margin-bottom:8px;
+
+}
+
+.serviceName{
+
+font-size:11px;
+
+font-weight:800;
+
+line-height:1.3;
+
+min-height:30px;
+
+}
+
+.servicePrice{
+
+margin-top:6px;
+
+font-size:14px;
+
+font-weight:900;
+
+color:#111827;
+
+}
+
+.addBtn{
+
+width:100%;
+
+height:32px;
+
+margin-top:8px;
+
+border:none;
+
+border-radius:10px;
+
+background:#16A34A;
+
+color:#fff;
+
+font-size:11px;
+
+font-weight:900;
+
+cursor:pointer;
+
+}
+
+/* ===================================
+DESKTOP
+=================================== */
+
+@media(min-width:1200px){
+
+.serviceGrid{
+
+grid-template-columns:
+repeat(5,1fr);
+
+gap:18px;
+
+}
+
+.serviceCard{
+
+padding:14px;
+
+}
+
+.serviceIcon{
+
+font-size:42px;
+
+}
+
+.serviceName{
+
+font-size:13px;
+
+}
+
+.servicePrice{
+
+font-size:18px;
+
+}
+
+.addBtn{
+
+height:38px;
+
+font-size:12px;
+
+}
+
+}
+
+/* ===================================
+TOAST
+=================================== */
+
+.cartToast{
+
+display:none;
+
+position:fixed;
+
+left:50%;
+bottom:90px;
+
+transform:
+translateX(-50%);
+
+background:#111827;
+
+color:#fff;
+
+padding:14px 18px;
+
+border-radius:16px;
+
+align-items:center;
+gap:12px;
+
+box-shadow:
+0 12px 30px rgba(0,0,0,.25);
+
+z-index:99999;
+
+}
+
+.showToast{
+
+display:flex;
+
+}
+
+.toastIcon{
+
+font-size:22px;
+
+}
+
+.toastTitle{
+
+font-size:13px;
+
+font-weight:900;
+
+}
+
+.toastText{
+
+font-size:12px;
+
+opacity:.85;
+
+margin-top:3px;
+
+}
+
+</style>
+
+<script type="module">
+
+import { db }
+from "./firebase.js";
+
+import {
+collection,
+query,
+where,
+onSnapshot
+}
+from
+"https://www.gstatic.com/firebasejs/12.11.0/firebase-firestore.js";
+
+/* ===================================
+LOAD SERVICES
+=================================== */
+
+window.loadServices =
+function(subCategoryId){
+
+const serviceGrid =
+
+document.getElementById(
+"serviceGrid"
+);
+
+onSnapshot(
+
+query(
+
+collection(
+db,
+"services"
+),
+
+where(
+"subcategoryId",
+"==",
+subCategoryId
+)
+
+),
+
+(snapshot)=>{
+
+serviceGrid.innerHTML = "";
+
+/* ===================================
+NO DATA
+=================================== */
+
+if(snapshot.empty){
+
+serviceGrid.innerHTML =
+
+`
+
+<div style="
+grid-column:1/-1;
+text-align:center;
+padding:30px;
+">
+
+No Services Found
+
+</div>
+
+`;
+
+return;
+
+}
+
+/* ===================================
+SERVICES
+=================================== */
+
+snapshot.forEach(doc=>{
+
+const service = {
+
+id:doc.id,
+
+...doc.data()
+
+};
+
+const price =
+
+getServicePrice(
+service
+);
+
+serviceGrid.innerHTML +=
+
+`
+
+<div class="serviceCard">
+
+<div
+class="serviceIcon">
+
+${service.icon || "👕"}
+
+</div>
+
+<div
+class="serviceName">
+
+${service.name}
+
+</div>
+
+<div
+class="servicePrice">
+
+₹${price}
+
+</div>
+
+<button
+class="addBtn"
+
+onclick="addToCart(
+
+'${service.id}',
+
+'${service.name}',
+
+${price},
+
+'${service.categoryId}',
+
+'${service.subcategoryId}'
+
+)">
+
+Add
+
+</button>
+
+</div>
+
+`;
+
+});
+
+}
+
+);
+
+};
+
+/* ===================================
+CITY WISE PRICE
+=================================== */
+
+window.getServicePrice =
+function(service){
+
+const city =
+
+localStorage.getItem(
+"userCity"
+)
+
+|| "Kasganj";
+
+/* =================================== */
+
+if(
+
+service.cityPricing &&
+service.cityPricing[city]
+
+){
+
+return service.cityPricing[
+city
+];
+
+}
+
+/* =================================== */
+
+return service.basePrice ||
+service.price ||
+0;
+
+};
+
+/* ===================================
+EXAMPLE DATA
+
+Ironing
+ └ Shirt
+    ├ Formal Shirt ₹12
+    ├ Denim Shirt ₹15
+    ├ Cotton Shirt ₹10
+
+Ironing
+ └ Pant
+    ├ Formal Pant ₹15
+    ├ Casual Pant ₹12
+    ├ Jeans ₹20
+
+=================================== */
+
+</script>
+<script>
+
+/* ===================================
+CART SYSTEM
+=================================== */
+
+window.addToCart =
+function(
+
+serviceId,
+serviceName,
+price,
+categoryId,
+subcategoryId
+
+){
+
+let cart =
+
+JSON.parse(
+localStorage.getItem(
+"cart"
+)
+)
+
+|| [];
+
+/* ===================================
+CHECK EXISTING
+=================================== */
+
+const existing =
+
+cart.find(
+
+item=>
+
+item.serviceId ===
+serviceId
+
+);
+
+/* =================================== */
+
+if(existing){
+
+existing.qty++;
+
+}else{
+
+cart.push({
+
+serviceId,
+
+serviceName,
+
+price,
+
+categoryId,
+
+subcategoryId,
+
+qty:1,
+
+city:
+
+localStorage.getItem(
+"userCity"
+)
+
+|| "Kasganj",
+
+addedAt:
+Date.now()
+
+});
+
+}
+
+/* ===================================
+SAVE CART
+=================================== */
+
+localStorage.setItem(
+
+"cart",
+
+JSON.stringify(cart)
+
+);
+
+/* ===================================
+UPDATE NAVBAR
+=================================== */
+
+if(window.updateNavbarCartCount){
+
+window.updateNavbarCartCount();
+
+}
+
+/* ===================================
+SHOW TOAST
+=================================== */
+
+showToast(
+serviceName
+);
+
+};
+
+/* ===================================
+TOAST
+=================================== */
+
+function showToast(name){
+
+const toast =
+
+document.getElementById(
+"cartToast"
+);
+
+const toastText =
+
+document.getElementById(
+"toastText"
+);
+
+toastText.innerHTML =
+
+name + " added";
+
+toast.style.display =
+"flex";
+
+toast.classList.add(
+"showToast"
+);
+
+/* AUTO HIDE */
+
+setTimeout(()=>{
+
+toast.classList.remove(
+"showToast"
+);
+
+setTimeout(()=>{
+
+toast.style.display =
+"none";
+
+},300);
+
+},2000);
+
+}
+
+/* ===================================
+SERVICE DETAILS
+=================================== */
+
+window.openService =
+function(serviceId){
+
+window.location.href =
+
+`service-details.html?id=${serviceId}`;
+
+};
+
+/* ===================================
+CART TOTAL
+=================================== */
+
+window.getCartTotal =
+function(){
+
+const cart =
+
+JSON.parse(
+localStorage.getItem(
+"cart"
+)
+)
+
+|| [];
+
+let total = 0;
+
+cart.forEach(item=>{
+
+total +=
+
+(item.price || 0)
+*
+(item.qty || 1);
+
+});
+
+return total;
+
+};
+
+/* ===================================
+CART COUNT
+=================================== */
+
+window.getCartCount =
+function(){
+
+const cart =
+
+JSON.parse(
+localStorage.getItem(
+"cart"
+)
+)
+
+|| [];
+
+let count = 0;
+
+cart.forEach(item=>{
+
+count += item.qty || 1;
+
+});
+
+return count;
+
+};
+
+/* ===================================
+CLEAR CART
+=================================== */
+
+window.clearCart =
+function(){
+
+localStorage.removeItem(
+"cart"
+);
+
+if(window.updateNavbarCartCount){
+
+window.updateNavbarCartCount();
+
+}
+
+};
+
+/* ===================================
+CART STRUCTURE
+
+{
+ serviceId:"123",
+ serviceName:"Formal Shirt",
+ categoryId:"IRONING",
+ subcategoryId:"SHIRT",
+ price:12,
+ qty:1,
+ city:"Kasganj"
+}
+
+=================================== */
+
+</script>
+
+<!-- ===================================
+SERVICE CLICKABLE CARD
+(Replace service card in Part 3)
+=================================== -->
+
+<!--
+
+<div
+class="serviceCard"
+onclick="openService('${service.id}')">
+
+<div class="serviceIcon">
+
+${service.icon || "👕"}
+
+</div>
+
+<div class="serviceName">
+
+${service.name}
+
+</div>
+
+<div class="servicePrice">
+
+₹${price}
+
+</div>
+
+<button
+class="addBtn"
+
+onclick="event.stopPropagation();
+
+addToCart(
+
+'${service.id}',
+
+'${service.name}',
+
+${price},
+
+'${service.categoryId}',
+
+'${service.subcategoryId}'
+
+)">
+
+Add
+
+</button>
+
+</div>
+
+-->
+
+<!-- ===================================
+ADMIN FRIENDLY DATA
+
+Category
+ Ironing
+
+Sub Category
+ Shirt
+
+Services
+ Formal Shirt
+ Denim Shirt
+ Cotton Shirt
+
+Category
+ Ironing
+
+Sub Category
+ Pant
+
+Services
+ Formal Pant
+ Casual Pant
+ Jeans
+
+All controlled from Firebase
+=================================== -->
+  <script type="module">
+
+import { db }
+from "./firebase.js";
+
+import {
+collection,
+query,
+where,
+orderBy,
+onSnapshot
+}
+from
+"https://www.gstatic.com/firebasejs/12.11.0/firebase-firestore.js";
+
+/* ===================================
+GLOBAL CACHE
+=================================== */
+
+window.allServices = [];
+
+window.filteredServices = [];
+
+/* ===================================
+SEARCH
+=================================== */
+
+const searchInput =
+
+document.getElementById(
+"serviceSearch"
+);
+
+if(searchInput){
+
+searchInput.addEventListener(
+
+"input",
+
+(e)=>{
+
+searchServices(
+e.target.value
+);
+
+}
+
+);
+
+}
+
+/* ===================================
+SEARCH FUNCTION
+=================================== */
+
+window.searchServices =
+function(keyword){
+
+keyword =
+keyword.toLowerCase();
+
+const services =
+
+window.allServices.filter(
+
+service=>{
+
+const name =
+
+(service.name || "")
+.toLowerCase();
+
+return name.includes(
+keyword
+);
+
+}
+
+);
+
+renderServices(
+services
+);
+
+};
+
+/* ===================================
+RENDER SERVICES
+=================================== */
+
+window.renderServices =
+function(services){
+
+const serviceGrid =
+
+document.getElementById(
+"serviceGrid"
+);
+
+if(!serviceGrid)
+return;
+
+serviceGrid.innerHTML = "";
+
+/* EMPTY */
+
+if(services.length===0){
+
+serviceGrid.innerHTML =
+
+`
+
+<div style="
+grid-column:1/-1;
+text-align:center;
+padding:30px;
+">
+
+No Services Found
+
+</div>
+
+`;
+
+return;
+
+}
+
+/* ===================================
+RENDER
+=================================== */
+
+services.forEach(service=>{
+
+const price =
+
+getServicePrice(
+service
+);
+
+serviceGrid.innerHTML +=
+
+`
+
+<div
+class="serviceCard"
+onclick="openService('${service.id}')">
+
+<div
+class="serviceIcon">
+
+${service.icon || "👕"}
+
+</div>
+
+<div
+class="serviceName">
+
+${service.name}
+
+</div>
+
+<div
+class="servicePrice">
+
+₹${price}
+
+</div>
+
+<button
+class="addBtn"
+
+onclick="event.stopPropagation();
+
+addToCart(
+
+'${service.id}',
+
+'${service.name}',
+
+${price},
+
+'${service.categoryId}',
+
+'${service.subcategoryId}'
+
+)">
+
+Add
+
+</button>
+
+</div>
+
+`;
+
+});
+
+};
+
+/* ===================================
+LOAD SERVICES
+OVERRIDE PART-3 FUNCTION
+=================================== */
+
+window.loadServices =
+function(subCategoryId){
+
+const city =
+
+localStorage.getItem(
+"userCity"
+)
+
+|| "Kasganj";
+
+onSnapshot(
+
+query(
+
+collection(
+db,
+"services"
+),
+
+where(
+"subcategoryId",
+"==",
+subCategoryId
+)
+
+),
+
+(snapshot)=>{
+
+window.allServices = [];
+
+/* ===================================
+ACTIVE SERVICES ONLY
+=================================== */
+
+snapshot.forEach(doc=>{
+
+const service = {
+
+id:doc.id,
+
+...doc.data()
+
+};
+
+/* INACTIVE */
+
+if(
+service.active === false
+)
+return;
+
+/* CITY FILTER */
+
+if(
+
+service.city &&
+service.city !== city
+
+){
+
+return;
+
+}
+
+window.allServices.push(
+service
+);
+
+});
+
+/* ===================================
+RENDER
+=================================== */
+
+window.filteredServices =
+window.allServices;
+
+renderServices(
+window.filteredServices
+);
+
+}
+
+);
+
+};
+
+/* ===================================
+REALTIME CATEGORY UPDATE
+=================================== */
+
+window.reloadCategories =
+function(){
+
+const categorySlider =
+
+document.getElementById(
+"categorySlider"
+);
+
+if(!categorySlider)
+return;
+
+onSnapshot(
+
+query(
+
+collection(
+db,
+"categories"
+),
+
+where(
+"active",
+"!=",
+false
+),
+
+orderBy(
+"position",
+"asc"
+)
+
+),
+
+(snapshot)=>{
+
+categorySlider.innerHTML = "";
+
+let firstCategory = null;
+
+snapshot.forEach(doc=>{
+
+const category = {
+
+id:doc.id,
+
+...doc.data()
+
+};
+
+if(!firstCategory){
+
+firstCategory = category.id;
+
+}
+
+categorySlider.innerHTML +=
+
+`
+
+<div
+class="categoryCard"
+
+data-id="${category.id}"
+
+onclick="selectCategory(
+
+'${category.id}'
+
+)">
+
+<div
+class="categoryIcon">
+
+${category.icon || "🧺"}
+
+</div>
+
+<h4>
+
+${category.name}
+
+</h4>
+
+</div>
+
+`;
+
+});
+
+/* AUTO */
+
+if(
+
+!window.selectedCategoryId &&
+firstCategory
+
+){
+
+selectCategory(
+firstCategory
+);
+
+}
+
+}
+
+);
+
+};
+
+/* ===================================
+CITY CHANGE REFRESH
+=================================== */
+
+window.refreshServicesByCity =
+function(){
+
+if(
+
+window.selectedSubCategoryId
+
+){
+
+loadServices(
+
+window.selectedSubCategoryId
+
+);
+
+}
+
+};
+
+/* ===================================
+AUTO RELOAD ON CITY CHANGE
+=================================== */
+
+window.addEventListener(
+
+"storage",
+
+(e)=>{
+
+if(
+
+e.key ===
+"userCity"
+
+){
+
+refreshServicesByCity();
+
+}
+
+}
+
+);
+
+/* ===================================
+ADMIN PANEL READY
+
+categories
+{
+ name:"Ironing",
+ icon:"👔",
+ active:true,
+ position:1
+}
+
+subcategories
+{
+ categoryId:"IRONING",
+ name:"Shirt",
+ active:true
+}
+
+services
+{
+ name:"Formal Shirt",
+
+ categoryId:"IRONING",
+
+ subcategoryId:"SHIRT",
+
+ active:true,
+
+ cityPricing:{
+  Kasganj:12,
+  Aligarh:15,
+  Delhi:25
+ }
+}
+
+=================================== */
+
+</script>
+<!-- ===================================
+FOOTER
+=================================== -->
+
+<div class="footer">
+
+<div class="footerLogo">
+
+⚡ QuickPress
+
+</div>
+
+<div class="footerText">
+
+Premium Laundry • Fast Delivery • Trusted Service
+
+</div>
+
+<div class="footerCopy">
+
+© 2026 QuickPress. All Rights Reserved.
+
+</div>
+
+</div>
+
+<!-- ===================================
+BOTTOM NAVBAR
+(SAME AS INDEX)
+=================================== -->
+
+<div class="bottomNav">
+
+<button
+class="navItem"
+data-page="home">
+
+<i class="fa-solid fa-house"></i>
+
+<span>Home</span>
+
+</button>
+
+<button
+class="navItem"
+data-page="orders">
+
+<i class="fa-solid fa-box"></i>
+
+<span>Orders</span>
+
+</button>
+
+<button
+class="navItem activeNav"
+data-page="services">
+
+<i class="fa-solid fa-table-cells-large"></i>
+
+<span>Services</span>
+
+</button>
+
+<button
+class="navItem"
+data-page="cart">
+
+<i class="fa-solid fa-cart-shopping"></i>
+
+<span>Cart</span>
+
+<div
+class="navCartBadge"
+id="navCartBadge">
+
+0
+
+</div>
+
+</button>
+
+<button
+class="navItem"
+data-page="profile">
+
+<i class="fa-regular fa-user"></i>
+
+<span>Profile</span>
+
+</button>
+
+</div>
+
+<style>
+
+/* ===================================
+FOOTER
+=================================== */
+
+.footer{
+
+padding:35px 20px 120px;
+
+text-align:center;
+
+}
+
+.footerLogo{
+
+font-size:22px;
+
+font-weight:900;
+
+color:#111827;
+
+}
+
+.footerText{
+
+margin-top:8px;
+
+font-size:13px;
+
+color:#6B7280;
+
+}
+
+.footerCopy{
+
+margin-top:10px;
+
+font-size:12px;
+
+color:#9CA3AF;
+
+}
+
+/* ===================================
+NAVBAR
+=================================== */
 
 .bottomNav{
 
@@ -1098,14 +2498,13 @@ left:0;
 right:0;
 bottom:0;
 
-height:76px;
+height:74px;
 
 background:#fff;
 
 display:flex;
 
 justify-content:space-around;
-
 align-items:center;
 
 box-shadow:
@@ -1117,6 +2516,8 @@ z-index:999;
 
 .navItem{
 
+position:relative;
+
 flex:1;
 
 height:100%;
@@ -1126,14 +2527,14 @@ border:none;
 background:none;
 
 display:flex;
-
 flex-direction:column;
 
 align-items:center;
-
 justify-content:center;
 
 gap:4px;
+
+cursor:pointer;
 
 font-size:11px;
 
@@ -1141,13 +2542,11 @@ font-weight:700;
 
 color:#6B7280;
 
-cursor:pointer;
-
 }
 
 .navItem i{
 
-font-size:20px;
+font-size:18px;
 
 }
 
@@ -1157,17 +2556,57 @@ color:#16A34A;
 
 }
 
+.navCartBadge{
+
+position:absolute;
+
+top:8px;
+right:22px;
+
+min-width:18px;
+height:18px;
+
+padding:0 4px;
+
+border-radius:999px;
+
+background:#EF4444;
+
+color:#fff;
+
+display:flex;
+align-items:center;
+justify-content:center;
+
+font-size:10px;
+
+font-weight:900;
+
+}
+
+@media(min-width:1200px){
+
+.bottomNav{
+
+max-width:600px;
+
+left:50%;
+
+transform:
+translateX(-50%);
+
+border-radius:24px 24px 0 0;
+
+}
+
+}
+
 </style>
+
 <script type="module">
 
-import { db, auth } from "./firebase.js";
-
-import {
-collection,
-onSnapshot
-}
-from
-"https://www.gstatic.com/firebasejs/12.11.0/firebase-firestore.js";
+import { auth }
+from "./firebase.js";
 
 import {
 onAuthStateChanged
@@ -1175,52 +2614,11 @@ onAuthStateChanged
 from
 "https://www.gstatic.com/firebasejs/12.11.0/firebase-auth.js";
 
-/* =========================================
-ELEMENTS
-========================================= */
-
-const serviceGrid =
-document.getElementById(
-"serviceGrid"
-);
-
-const searchInput =
-document.getElementById(
-"searchInput"
-);
-
-const locationBar =
-document.getElementById(
-"locationBar"
-);
-
-const floatingCart =
-document.getElementById(
-"floatingCart"
-);
-
-const cartAmount =
-document.getElementById(
-"cartAmount"
-);
-
-/* =========================================
-GLOBAL
-========================================= */
+/* ===================================
+AUTH
+=================================== */
 
 let currentUser = null;
-
-let services = [];
-
-let filteredServices = [];
-
-let cart = [];
-
-let activeCategory = "All";
-
-/* =========================================
-AUTH
-========================================= */
 
 onAuthStateChanged(
 
@@ -1234,552 +2632,77 @@ currentUser = user;
 
 );
 
-/* =========================================
-LOCATION
-========================================= */
+/* ===================================
+PROFILE
+=================================== */
 
-const userLocation =
+window.openProfile =
+function(){
+
+if(currentUser){
+
+window.location.href =
+"profile.html";
+
+}else{
+
+window.location.href =
+"login.html";
+
+}
+
+};
+
+/* ===================================
+CART BADGE
+=================================== */
+
+window.updateNavbarCartCount =
+function(){
+
+const cart =
 
 JSON.parse(
 localStorage.getItem(
-"userLocation"
+"cart"
 )
 )
 
-||
-
-{
-city:"Kasganj"
-};
-
-locationBar.innerHTML =
-`📍 ${userLocation.city}`;
-
-/* =========================================
-AUTO CATEGORY OPEN
-========================================= */
-
-const selectedCategory =
-
-localStorage.getItem(
-"selectedCategory"
-);
-
-if(selectedCategory){
-
-activeCategory =
-selectedCategory;
-
-}
-
-/* =========================================
-FILTER BUTTONS
-========================================= */
-
-const filterBtns =
-
-document.querySelectorAll(
-".filterBtn"
-);
-
-filterBtns.forEach(btn=>{
-
-if(
-btn.innerText.trim() ===
-activeCategory
-){
-
-btn.classList.add(
-"activeFilter"
-);
-
-}
-
-btn.addEventListener(
-
-"click",
-
-()=>{
-
-document
-.querySelectorAll(
-".filterBtn"
-)
-.forEach(b=>
-b.classList.remove(
-"activeFilter"
-)
-);
-
-btn.classList.add(
-"activeFilter"
-);
-
-activeCategory =
-btn.innerText.trim();
-
-renderServices();
-
-}
-
-);
-
-});
-
-/* =========================================
-REALTIME FIREBASE
-========================================= */
-
-onSnapshot(
-
-collection(db,"services"),
-
-(snapshot)=>{
-
-services = [];
-
-snapshot.forEach(doc=>{
-
-const service =
-doc.data();
-
-service.id =
-doc.id;
-
-/* =========================================
-CITY FILTER
-========================================= */
-
-if(
-
-service.city &&
-Array.isArray(service.city)
-
-){
-
-if(
-
-!service.city.includes(
-userLocation.city
-)
-
-){
-
-return;
-
-}
-
-}
-
-/* ========================================= */
-
-services.push(service);
-
-});
-
-/* =========================================
-TRENDING SORT
-========================================= */
-
-services.sort(
-
-(a,b)=>
-
-(b.orders||0)
--
-(a.orders||0)
-
-);
-
-renderServices();
-
-}
-
-);
-
-/* =========================================
-SEARCH
-========================================= */
-
-searchInput.addEventListener(
-
-"keyup",
-
-()=>{
-
-renderServices();
-
-}
-
-);
-
-/* =========================================
-RENDER
-========================================= */
-
-function renderServices(){
-
-serviceGrid.innerHTML = "";
-
-/* ========================================= */
-
-let searchValue =
-
-searchInput.value
-.toLowerCase();
-
-/* ========================================= */
-
-filteredServices =
-
-services.filter(service=>{
-
-const categoryMatch =
-
-activeCategory === "All"
-
-||
-
-(service.category || "")
-.toLowerCase()
-
-===
-
-activeCategory
-.toLowerCase();
-
-const searchMatch =
-
-(service.name || "")
-.toLowerCase()
-.includes(searchValue)
-
-||
-
-(service.description || "")
-.toLowerCase()
-.includes(searchValue);
-
-return (
-categoryMatch &&
-searchMatch
-);
-
-});
-
-/* ========================================= */
-
-filteredServices.forEach(service=>{
-
-const cityPrice =
-
-service.pricing?.[
-userLocation.city
-]
-
-||
-
-service.price
-
-||
-
-0;
-
-/* ========================================= */
-
-let badges = "";
-
-/* ========================================= */
-
-if(
-(service.orders||0)
-> 100
-){
-
-badges +=
-
-`<div class="badge trendingBadge">
-🔥 Trending
-</div>`;
-
-}
-
-/* ========================================= */
-
-if(
-(service.rating||0)
->= 4.8
-){
-
-badges +=
-
-`<div class="badge bestBadge">
-👑 Best Seller
-</div>`;
-
-}
-
-/* ========================================= */
-
-if(
-service.sameDay
-){
-
-badges +=
-
-`<div class="badge sameDayBadge">
-⚡ Same Day
-</div>`;
-
-}
-
-/* ========================================= */
-
-if(
-service.premium
-){
-
-badges +=
-
-`<div class="badge premiumBadge">
-💎 Premium
-</div>`;
-
-}
-
-/* ========================================= */
-
-serviceGrid.innerHTML += `
-
-<div
-class="serviceCard">
-
-<div class="badgeWrap">
-
-${badges}
-
-</div>
-
-<div
-class="serviceImage"
-onclick="openService('${service.id}')">
-
-${service.icon || '🧺'}
-
-</div>
-
-<div class="serviceInfo">
-
-<div class="serviceName">
-
-${service.name}
-
-</div>
-
-<div class="serviceDesc">
-
-${service.description || ''}
-
-</div>
-
-<div class="ratingRow">
-
-<div class="rating">
-
-⭐ ${service.rating || 4.5}
-
-</div>
-
-<div class="reviewCount">
-
-(${service.reviews || 0}
-Reviews)
-
-</div>
-
-</div>
-
-<div class="deliveryTime">
-
-⏱
-${service.time || '25 mins'}
-
-</div>
-
-<div class="cityPrice">
-
-₹${cityPrice}
-
-</div>
-
-<div class="cityName">
-
-${userLocation.city}
-
-Price
-
-</div>
-
-<div class="serviceBottom">
-
-<button
-class="viewBtn"
-onclick="openService('${service.id}')">
-
-Details
-
-</button>
-
-<button
-class="addBtn"
-onclick="addToCart('${service.id}')">
-
-Add
-
-</button>
-
-</div>
-
-</div>
-
-</div>
-
-`;
-
-});
-
-}
-
-/* =========================================
-DETAIL PAGE
-========================================= */
-
-window.openService =
-
-(id)=>{
-
-window.location.href =
-
-`service-details.html?id=${id}`;
-
-};
-
-/* =========================================
-CART
-========================================= */
-
-window.addToCart =
-
-(id)=>{
-
-const service =
-
-services.find(
-s=>s.id === id
-);
-
-if(!service) return;
-
-cart.push(service);
-
-updateCart();
-
-};
-
-/* ========================================= */
-
-function updateCart(){
-
-if(cart.length === 0){
-
-floatingCart.style.display =
-"none";
-
-return;
-
-}
-
-floatingCart.style.display =
-"flex";
-
-/* ========================================= */
+|| [];
 
 let total = 0;
 
 cart.forEach(item=>{
 
-const price =
-
-item.pricing?.[
-userLocation.city
-]
-
-||
-
-item.price
-
-||
-
-0;
-
-total += Number(price);
+total += item.qty || 1;
 
 });
 
-/* ========================================= */
+const badge =
 
-document.querySelector(
-".cartTitle"
-)
-
-.innerHTML =
-
-`${cart.length} Items`;
-
-cartAmount.innerHTML =
-`₹${total}`;
-
-}
-
-/* =========================================
-CHECKOUT
-========================================= */
-
-document
-.getElementById(
-"checkoutBtn"
-)
-
-.addEventListener(
-
-"click",
-
-()=>{
-
-if(!currentUser){
-
-window.location.href =
-"login.html";
-
-return;
-
-}
-
-localStorage.setItem(
-"cart",
-JSON.stringify(cart)
+document.getElementById(
+"navCartBadge"
 );
 
-window.location.href =
-"checkout.html";
+if(!badge) return;
 
-}
+badge.innerHTML = total;
 
-);
+badge.style.display =
 
-/* =========================================
+total > 0
+
+? "flex"
+
+: "none";
+
+};
+
+updateNavbarCartCount();
+
+/* ===================================
 NAVIGATION
-========================================= */
+=================================== */
 
 document
 .querySelectorAll(
@@ -1794,29 +2717,41 @@ item.addEventListener(
 
 ()=>{
 
-const text =
+const page =
+item.dataset.page;
 
-item.innerText
-.trim()
-.toLowerCase();
+/* HOME */
 
-/* ========================================= */
+if(page==="home"){
 
-if(
+window.location.href =
+"index.html";
 
-(
-text==="wallet"
-||
-text==="orders"
-||
-text==="profile"
-)
+}
 
-&&
+/* SERVICES */
 
-!currentUser
+if(page==="services"){
 
-){
+window.location.href =
+"services.html";
+
+}
+
+/* CART */
+
+if(page==="cart"){
+
+window.location.href =
+"cart.html";
+
+}
+
+/* ORDERS */
+
+if(page==="orders"){
+
+if(!currentUser){
 
 window.location.href =
 "login.html";
@@ -1825,26 +2760,27 @@ return;
 
 }
 
-/* ========================================= */
-
-if(text==="home"){
-window.location.href =
-"index.html";
-}
-
-if(text==="orders"){
 window.location.href =
 "orders.html";
+
 }
 
-if(text==="wallet"){
+/* PROFILE */
+
+if(page==="profile"){
+
+if(!currentUser){
+
 window.location.href =
-"wallet.html";
+"login.html";
+
+return;
+
 }
 
-if(text==="profile"){
 window.location.href =
 "profile.html";
+
 }
 
 }
@@ -1853,25 +2789,104 @@ window.location.href =
 
 });
 
-/* =========================================
-WHATSAPP SUPPORT
-========================================= */
+/* ===================================
+RESTORE CITY
+=================================== */
 
-window.openWhatsapp =
+const savedLocation =
+
+localStorage.getItem(
+"userLocation"
+);
+
+if(savedLocation){
+
+const data =
+
+JSON.parse(
+savedLocation
+);
+
+const cityTitle =
+
+document.getElementById(
+"currentCity"
+);
+
+const locationText =
+
+document.getElementById(
+"locationText"
+);
+
+if(cityTitle){
+
+cityTitle.innerHTML =
+data.city;
+
+}
+
+if(locationText){
+
+locationText.innerHTML =
+
+`${data.city},
+Uttar Pradesh
+<i class="fa-solid fa-angle-down"></i>`;
+
+}
+
+}
+
+/* ===================================
+LOAD CATEGORIES
+=================================== */
+
+if(window.reloadCategories){
+
+window.reloadCategories();
+
+}
+
+/* ===================================
+PROFILE BUTTON
+=================================== */
+
+const profileBtn =
+
+document.querySelector(
+".profileBtn"
+);
+
+if(profileBtn){
+
+profileBtn.addEventListener(
+
+"click",
 
 ()=>{
 
-window.open(
+if(currentUser){
 
-"https://wa.me/919997874502",
+window.location.href =
+"profile.html";
 
-"_blank"
+}else{
+
+window.location.href =
+"login.html";
+
+}
+
+}
 
 );
 
-};
+}
 
 </script>
+
+</div>
 
 </body>
 </html>
