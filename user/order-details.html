@@ -3,11 +3,22 @@
 <head>
 
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Order Details</title>
+<meta
+name="viewport"
+content="width=device-width, initial-scale=1.0">
 
-<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+<title>
+
+Order Details
+
+</title>
+
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap"
+rel="stylesheet">
+
+<link rel="stylesheet"
+href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
 
 <style>
 
@@ -19,75 +30,123 @@ font-family:'Inter',sans-serif;
 }
 
 body{
+
 background:#F6F7FB;
+
+color:#111827;
+
 padding-bottom:120px;
-}
-
-.header{
-
-background:
-linear-gradient(
-135deg,
-#FFD633,
-#FFE98A
-);
-
-padding:20px;
-
-border-bottom-left-radius:32px;
-border-bottom-right-radius:32px;
 
 }
 
-.header h1{
+/* ===================================
+HEADER
+=================================== */
 
-font-size:28px;
+.detailsHeader{
+
+position:sticky;
+
+top:0;
+
+background:#fff;
+
+padding:12px 16px;
+
+z-index:999;
+
+box-shadow:
+0 2px 15px rgba(0,0,0,.05);
+
+}
+
+.headerRow{
+
+display:flex;
+
+align-items:center;
+
+justify-content:space-between;
+
+}
+
+.backBtn{
+
+width:42px;
+height:42px;
+
+border:none;
+
+border-radius:12px;
+
+background:#F3F4F6;
+
+cursor:pointer;
+
+}
+
+.headerCenter{
+
+flex:1;
+
+text-align:center;
+
+}
+
+.brandText{
+
+font-size:12px;
+
+font-weight:700;
+
+color:#16A34A;
+
+}
+
+.pageTitle{
+
+font-size:22px;
+
 font-weight:900;
 
 }
 
-.header p{
+/* ===================================
+ORDER INFO
+=================================== */
 
-margin-top:6px;
+.orderSection{
 
-font-size:13px;
-font-weight:700;
-
-color:#374151;
-
-}
-
-.section{
 padding:16px;
+
 }
 
-.card{
+.orderCard{
 
 background:#fff;
 
-padding:20px;
+padding:18px;
 
-border-radius:24px;
-
-margin-bottom:16px;
+border-radius:20px;
 
 box-shadow:
-0 8px 24px rgba(0,0,0,.05);
+0 4px 14px rgba(0,0,0,.05);
 
 }
 
 .orderId{
 
 font-size:20px;
+
 font-weight:900;
 
 }
 
 .orderStatus{
 
-margin-top:10px;
+display:inline-block;
 
-display:inline-flex;
+margin-top:10px;
 
 padding:8px 14px;
 
@@ -95,112 +154,17 @@ border-radius:999px;
 
 background:#DBEAFE;
 
-color:#1E40AF;
+color:#1D4ED8;
 
 font-size:12px;
-font-weight:900;
-
-}
-
-.infoRow{
-
-display:flex;
-
-justify-content:space-between;
-
-padding:12px 0;
-
-border-bottom:1px solid #F3F4F6;
-
-}
-
-.infoRow:last-child{
-border:none;
-}
-
-.label{
-
-font-size:13px;
-font-weight:700;
-
-color:#6B7280;
-
-}
-
-.value{
-
-font-size:14px;
-font-weight:900;
-
-}
-
-.badges{
-
-margin-top:14px;
-
-display:flex;
-gap:8px;
-flex-wrap:wrap;
-
-}
-
-.badge{
-
-padding:6px 12px;
-
-border-radius:999px;
-
-font-size:11px;
-font-weight:900;
-
-}
-
-.premium{
-
-background:#F3E8FF;
-color:#6B21A8;
-
-}
-
-.urgent{
-
-background:#DBEAFE;
-color:#1E40AF;
-
-}
-
-.sectionTitle{
-
-font-size:20px;
 
 font-weight:900;
 
-margin-bottom:14px;
-
 }
 
-.itemCard{
+.orderDate{
 
-background:#F9FAFB;
-
-padding:16px;
-
-border-radius:18px;
-
-margin-bottom:10px;
-
-}
-
-.itemName{
-
-font-size:15px;
-font-weight:900;
-
-}
-
-.itemMeta{
-
-margin-top:6px;
+margin-top:10px;
 
 font-size:13px;
 
@@ -214,29 +178,49 @@ color:#6B7280;
 
 <body>
 
-<div class="header">
+<div class="detailsHeader">
 
-<h1>
-Order Details
-</h1>
+<div class="headerRow">
 
-<p>
-Track complete order information
-</p>
+<button
+class="backBtn"
+onclick="history.back()">
+
+<i class="fa-solid fa-arrow-left"></i>
+
+</button>
+
+<div class="headerCenter">
+
+<div class="brandText">
+
+QuickPress
 
 </div>
 
-<!-- ORDER INFO -->
+<div class="pageTitle">
 
-<div class="section">
+Order Details
 
-<div class="card">
+</div>
+
+</div>
+
+<div style="width:42px"></div>
+
+</div>
+
+</div>
+
+<div class="orderSection">
+
+<div class="orderCard">
 
 <div
 class="orderId"
 id="orderId">
 
-#QP12345
+QP123456
 
 </div>
 
@@ -244,25 +228,302 @@ id="orderId">
 class="orderStatus"
 id="orderStatus">
 
+Confirmed
+
+</div>
+
+<div
+class="orderDate"
+id="orderDate">
+
+01 Jan 2026
+
+</div>
+
+</div>
+
+</div>
+
+<script type="module">
+
+import { db }
+from "./firebase.js";
+
+import {
+doc,
+getDoc
+}
+from
+"https://www.gstatic.com/firebasejs/12.11.0/firebase-firestore.js";
+
+let currentOrder = null;
+
+async function loadOrder(){
+
+const docId =
+
+localStorage.getItem(
+"selectedOrderDocId"
+)
+
+||
+
+localStorage.getItem(
+"lastOrderDocId"
+);
+
+if(!docId) return;
+
+const snap =
+
+await getDoc(
+doc(
+db,
+"orders",
+docId
+)
+);
+
+if(!snap.exists()) return;
+
+currentOrder = {
+
+id:snap.id,
+
+...snap.data()
+
+};
+
+document.getElementById(
+"orderId"
+).innerHTML =
+
+currentOrder.orderId;
+
+document.getElementById(
+"orderStatus"
+).innerHTML =
+
+currentOrder.orderStatus;
+
+}
+
+loadOrder();
+
+</script>
+<!-- ===================================
+ORDER TRACKING
+=================================== -->
+
+<div class="trackingSection">
+
+<div class="trackingCard">
+
+<div class="cardTitle">
+
+Order Tracking
+
+</div>
+
+<div class="timeline">
+
+<div class="timelineItem">
+
+<div
+class="timelineDot activeDot"
+id="dotPending">
+
+</div>
+
+<div class="timelineContent">
+
+<div class="timelineTitle">
+
+Order Placed
+
+</div>
+
+<div class="timelineText">
+
+Your order has been received
+
+</div>
+
+</div>
+
+</div>
+
+<div class="timelineItem">
+
+<div
+class="timelineDot"
+id="dotConfirmed">
+
+</div>
+
+<div class="timelineContent">
+
+<div class="timelineTitle">
+
+Confirmed
+
+</div>
+
+<div class="timelineText">
+
+Order accepted by QuickPress
+
+</div>
+
+</div>
+
+</div>
+
+<div class="timelineItem">
+
+<div
+class="timelineDot"
+id="dotPickup">
+
+</div>
+
+<div class="timelineContent">
+
+<div class="timelineTitle">
+
+Picked Up
+
+</div>
+
+<div class="timelineText">
+
+Laundry collected from customer
+
+</div>
+
+</div>
+
+</div>
+
+<div class="timelineItem">
+
+<div
+class="timelineDot"
+id="dotProcessing">
+
+</div>
+
+<div class="timelineContent">
+
+<div class="timelineTitle">
+
 Processing
 
 </div>
 
-<div class="badges">
+<div class="timelineText">
+
+Laundry cleaning in progress
+
+</div>
+
+</div>
+
+</div>
+
+<div class="timelineItem">
 
 <div
-id="premiumBadge"
-class="badge premium">
+class="timelineDot"
+id="dotDelivery">
 
-👑 Premium Packaging
+</div>
+
+<div class="timelineContent">
+
+<div class="timelineTitle">
+
+Out For Delivery
+
+</div>
+
+<div class="timelineText">
+
+Rider is on the way
+
+</div>
+
+</div>
+
+</div>
+
+<div class="timelineItem">
+
+<div
+class="timelineDot"
+id="dotDelivered">
+
+</div>
+
+<div class="timelineContent">
+
+<div class="timelineTitle">
+
+Delivered
+
+</div>
+
+<div class="timelineText">
+
+Order completed successfully
+
+</div>
+
+</div>
+
+</div>
+
+</div>
+
+</div>
+
+</div>
+
+<!-- ===================================
+ADDRESS
+=================================== -->
+
+<div class="detailsSection">
+
+<div class="detailsCard">
+
+<div class="cardTitle">
+
+Pickup Address
 
 </div>
 
 <div
-id="urgentBadge"
-class="badge urgent">
+class="addressName"
+id="customerName">
 
-⚡ Urgent Delivery
+Customer
+
+</div>
+
+<div
+class="addressText"
+id="customerAddress">
+
+Address Loading...
+
+</div>
+
+<div
+class="phoneText"
+id="customerPhone">
+
++91 XXXXX XXXXX
 
 </div>
 
@@ -270,53 +531,67 @@ class="badge urgent">
 
 </div>
 
-<!-- BASIC INFO -->
+<!-- ===================================
+SCHEDULE
+=================================== -->
 
-<div class="card">
+<div class="detailsSection">
+
+<div class="detailsCard">
+
+<div class="cardTitle">
+
+Pickup Schedule
+
+</div>
 
 <div class="infoRow">
 
-<div class="label">
-Order Date
-</div>
+<span>
 
-<div
-class="value"
-id="orderDate">
+Pickup Date
 
-01 Jun 2026
+</span>
 
-</div>
+<span
+id="pickupDate">
 
-</div>
+Today
 
-<div class="infoRow">
-
-<div class="label">
-City
-</div>
-
-<div
-class="value"
-id="orderCity">
-
-Kasganj
-
-</div>
+</span>
 
 </div>
 
 <div class="infoRow">
 
-<div class="label">
-Payment Method
+<span>
+
+Pickup Time
+
+</span>
+
+<span
+id="pickupTime">
+
+09:00 AM - 12:00 PM
+
+</span>
+
 </div>
 
-<div
-class="value"
-id="paymentMethod">
+<div class="infoRow">
 
-UPI
+<span>
+
+Estimated Delivery
+
+</span>
+
+<span>
+
+24 - 48 Hours
+
+</span>
 
 </div>
 
@@ -324,39 +599,300 @@ UPI
 
 </div>
 
-<!-- ITEMS -->
+<style>
 
-<div class="sectionTitle">
+/* ===================================
+TRACKING
+=================================== */
+
+.trackingSection,
+.detailsSection{
+
+padding:0 16px 16px;
+
+}
+
+.trackingCard,
+.detailsCard{
+
+background:#fff;
+
+padding:18px;
+
+border-radius:20px;
+
+box-shadow:
+0 4px 14px rgba(0,0,0,.05);
+
+}
+
+.cardTitle{
+
+font-size:18px;
+
+font-weight:900;
+
+margin-bottom:16px;
+
+}
+
+.timelineItem{
+
+display:flex;
+
+gap:14px;
+
+margin-bottom:20px;
+
+}
+
+.timelineItem:last-child{
+
+margin-bottom:0;
+
+}
+
+.timelineDot{
+
+width:18px;
+height:18px;
+
+border-radius:50%;
+
+background:#D1D5DB;
+
+margin-top:4px;
+
+flex-shrink:0;
+
+}
+
+.activeDot{
+
+background:#16A34A;
+
+}
+
+.timelineTitle{
+
+font-size:14px;
+
+font-weight:900;
+
+}
+
+.timelineText{
+
+font-size:12px;
+
+color:#6B7280;
+
+margin-top:4px;
+
+}
+
+.addressName{
+
+font-size:15px;
+
+font-weight:900;
+
+}
+
+.addressText{
+
+margin-top:8px;
+
+font-size:13px;
+
+line-height:1.6;
+
+color:#6B7280;
+
+}
+
+.phoneText{
+
+margin-top:10px;
+
+font-size:13px;
+
+font-weight:700;
+
+}
+
+.infoRow{
+
+display:flex;
+
+justify-content:space-between;
+
+margin-bottom:14px;
+
+font-size:14px;
+
+font-weight:700;
+
+}
+
+.infoRow:last-child{
+
+margin-bottom:0;
+
+}
+
+</style>
+
+<script>
+
+/* ===================================
+TIMELINE UPDATE
+=================================== */
+
+function updateTimeline(status){
+
+const steps = {
+
+"Pending":[
+"dotPending"
+],
+
+"Confirmed":[
+"dotPending",
+"dotConfirmed"
+],
+
+"Picked Up":[
+"dotPending",
+"dotConfirmed",
+"dotPickup"
+],
+
+"Processing":[
+"dotPending",
+"dotConfirmed",
+"dotPickup",
+"dotProcessing"
+],
+
+"Out For Delivery":[
+"dotPending",
+"dotConfirmed",
+"dotPickup",
+"dotProcessing",
+"dotDelivery"
+],
+
+"Delivered":[
+"dotPending",
+"dotConfirmed",
+"dotPickup",
+"dotProcessing",
+"dotDelivery",
+"dotDelivered"
+]
+
+};
+
+document
+.querySelectorAll(
+".timelineDot"
+)
+
+.forEach(dot=>{
+
+dot.classList.remove(
+"activeDot"
+);
+
+});
+
+if(steps[status]){
+
+steps[status].forEach(id=>{
+
+document
+.getElementById(id)
+?.classList.add(
+"activeDot"
+);
+
+});
+
+}
+
+}
+
+/* ===================================
+LOAD ORDER DATA
+=================================== */
+
+setTimeout(()=>{
+
+if(currentOrder){
+
+updateTimeline(
+currentOrder.orderStatus
+);
+
+document.getElementById(
+"customerName"
+).innerHTML =
+
+currentOrder.customerName ||
+"Customer";
+
+document.getElementById(
+"customerAddress"
+).innerHTML =
+
+currentOrder.customerAddress ||
+"Address";
+
+document.getElementById(
+"customerPhone"
+).innerHTML =
+
+currentOrder.customerPhone ||
+"";
+
+document.getElementById(
+"pickupDate"
+).innerHTML =
+
+currentOrder.pickupDate ||
+"Today";
+
+document.getElementById(
+"pickupTime"
+).innerHTML =
+
+currentOrder.pickupTime ||
+"09:00 AM - 12:00 PM";
+
+}
+
+},1000);
+
+</script>
+<!-- ===================================
+ORDER ITEMS
+=================================== -->
+
+<div class="detailsSection">
+
+<div class="detailsCard">
+
+<div class="cardTitle">
 
 Ordered Services
 
 </div>
 
 <div
-id="itemsContainer">
+id="orderItemsContainer">
 
-<div class="itemCard">
-
-<div class="itemName">
-
-Shirt Dry Cleaning
-
-</div>
-
-<div class="itemMeta">
-
-Category:
-Dry Cleaning
-
-<br>
-
-Qty:
-2
-
-<br>
-
-Price:
-₹89
+<!-- Dynamic Items -->
 
 </div>
 
@@ -364,219 +900,441 @@ Price:
 
 </div>
 
-<!-- PARTNER -->
+<!-- ===================================
+PAYMENT SUMMARY
+=================================== -->
 
-<div class="card">
+<div class="detailsSection">
 
-<div class="sectionTitle">
+<div class="detailsCard">
 
-🏪 Partner Details
+<div class="cardTitle">
 
-</div>
-
-<div
-id="partnerInfo">
-
-QuickPress Kasganj
-
-</div>
-
-</div>
-
-<!-- RIDER -->
-
-<div class="card">
-
-<div class="sectionTitle">
-
-🛵 Rider Details
-
-</div>
-
-<div
-id="riderInfo">
-
-Waiting For Assignment
-
-</div>
-
-</div>
-<!-- =========================================
-BILL SUMMARY
-========================================= -->
-
-<div class="card">
-
-<div class="sectionTitle">
-
-💳 Bill Summary
+Payment Summary
 
 </div>
 
 <div class="infoRow">
 
-<div class="label">
-Services Total
-</div>
+<span>
 
-<div
-class="value"
-id="servicesTotal">
+Subtotal
 
-₹214
+</span>
 
-</div>
+<span
+id="subtotalAmount">
 
-</div>
+₹0
 
-<div class="infoRow">
-
-<div class="label">
-Delivery Charge
-</div>
-
-<div
-class="value"
-id="deliveryCharge">
-
-₹20
-
-</div>
+</span>
 
 </div>
 
 <div class="infoRow">
 
-<div class="label">
-Premium Packaging
-</div>
+<span>
 
-<div
-class="value"
-id="premiumCharge">
+Delivery Charges
 
-₹9
+</span>
 
-</div>
+<span
+id="deliveryAmount">
 
-</div>
+₹0
 
-<div class="infoRow">
-
-<div class="label">
-Fabric Protection
-</div>
-
-<div
-class="value"
-id="fabricCharge">
-
-₹19
-
-</div>
+</span>
 
 </div>
 
 <div class="infoRow">
 
-<div class="label">
-Urgent Delivery
-</div>
+<span>
 
-<div
-class="value"
-id="urgentCharge">
+Payment Method
 
-₹29
+</span>
 
-</div>
+<span
+id="paymentMethod">
 
-</div>
+COD
 
-<div class="infoRow">
-
-<div class="label">
-Coupon Discount
-</div>
-
-<div
-class="value"
-id="couponDiscount">
-
-- ₹50
-
-</div>
+</span>
 
 </div>
 
 <div class="infoRow">
 
-<div class="label">
+<span>
+
+Transaction ID
+
+</span>
+
+<span
+id="transactionId">
+
+N/A
+
+</span>
+
+</div>
+
+<div class="infoRow totalRow">
+
+<span>
 
 Grand Total
 
-</div>
+</span>
 
-<div
-class="value"
-id="grandTotal"
-style="
-font-size:20px;
-color:#16A34A;
-">
+<span
+id="grandTotal">
 
-₹241
+₹0
+
+</span>
 
 </div>
 
 </div>
-
-</div>
-
-<!-- =========================================
-ACTION BUTTONS
-========================================= -->
-
-<div class="section">
-
-<button
-class="actionBtn trackBtn"
-onclick="trackOrder()">
-
-📍 Track Order
-
-</button>
-
-<button
-class="actionBtn invoiceBtn"
-onclick="downloadInvoice()">
-
-📄 Download Invoice
-
-</button>
-
-<button
-class="actionBtn reorderBtn"
-onclick="reorderOrder()">
-
-🔄 Reorder
-
-</button>
-
-<button
-class="actionBtn cancelBtn"
-id="cancelOrderBtn"
-onclick="cancelOrder()">
-
-❌ Cancel Order
-
-</button>
 
 </div>
 
 <style>
 
-.actionBtn{
+/* ===================================
+ORDER ITEMS
+=================================== */
+
+.orderItemCard{
+
+padding:14px;
+
+background:#F9FAFB;
+
+border-radius:14px;
+
+margin-bottom:12px;
+
+}
+
+.orderCategory{
+
+font-size:12px;
+
+font-weight:900;
+
+color:#16A34A;
+
+}
+
+.orderSubCategory{
+
+margin-top:4px;
+
+font-size:12px;
+
+color:#6B7280;
+
+font-weight:700;
+
+}
+
+.orderService{
+
+margin-top:8px;
+
+font-size:15px;
+
+font-weight:900;
+
+}
+
+.orderBottom{
+
+margin-top:10px;
+
+display:flex;
+
+justify-content:space-between;
+
+align-items:center;
+
+}
+
+.orderQty{
+
+font-size:13px;
+
+font-weight:700;
+
+color:#6B7280;
+
+}
+
+.orderPrice{
+
+font-size:15px;
+
+font-weight:900;
+
+color:#111827;
+
+}
+
+/* ===================================
+TOTAL
+=================================== */
+
+.totalRow{
+
+padding-top:14px;
+
+margin-top:14px;
+
+border-top:
+1px solid #E5E7EB;
+
+font-size:17px;
+
+font-weight:900;
+
+}
+
+</style>
+
+<script>
+
+/* ===================================
+RENDER ORDER ITEMS
+=================================== */
+
+function renderOrderItems(){
+
+if(!currentOrder) return;
+
+const container =
+
+document.getElementById(
+"orderItemsContainer"
+);
+
+container.innerHTML = "";
+
+/* ITEMS */
+
+(currentOrder.items || [])
+
+.forEach(item=>{
+
+const total =
+
+(item.price || 0)
+
+*
+
+(item.qty || 1);
+
+container.innerHTML +=
+
+`
+
+<div class="orderItemCard">
+
+<div class="orderCategory">
+
+${item.categoryName || "Ironing"}
+
+</div>
+
+<div class="orderSubCategory">
+
+${item.subcategoryName || "Shirt"}
+
+</div>
+
+<div class="orderService">
+
+${item.serviceName}
+
+</div>
+
+<div class="orderBottom">
+
+<div class="orderQty">
+
+Qty: ${item.qty || 1}
+
+</div>
+
+<div class="orderPrice">
+
+₹${total}
+
+</div>
+
+</div>
+
+</div>
+
+`;
+
+});
+
+/* PAYMENT INFO */
+
+document.getElementById(
+"subtotalAmount"
+).innerHTML =
+
+"₹" +
+
+(currentOrder.subtotal || 0);
+
+document.getElementById(
+"deliveryAmount"
+).innerHTML =
+
+(currentOrder.delivery || 0) === 0
+
+? "FREE"
+
+: "₹" +
+
+(currentOrder.delivery || 0);
+
+document.getElementById(
+"paymentMethod"
+).innerHTML =
+
+currentOrder.paymentMethod ||
+
+"COD";
+
+document.getElementById(
+"transactionId"
+).innerHTML =
+
+currentOrder.transactionId ||
+
+localStorage.getItem(
+"lastTransactionId"
+)
+
+|| "N/A";
+
+document.getElementById(
+"grandTotal"
+).innerHTML =
+
+"₹" +
+
+(currentOrder.grandTotal || 0);
+
+}
+
+/* ===================================
+LOAD AFTER ORDER
+=================================== */
+
+setTimeout(()=>{
+
+renderOrderItems();
+
+},1200);
+
+</script>
+<!-- ===================================
+ORDER ACTIONS
+=================================== -->
+
+<div class="detailsSection">
+
+<div class="actionButtons">
+
+<button
+class="reorderBtn"
+onclick="reorderOrder()">
+
+<i class="fa-solid fa-rotate-right"></i>
+
+Reorder
+
+</button>
+
+<button
+class="invoiceBtn"
+onclick="downloadInvoice()">
+
+<i class="fa-solid fa-file-pdf"></i>
+
+Invoice
+
+</button>
+
+<button
+class="cancelBtn"
+id="cancelBtn"
+onclick="cancelOrder()">
+
+<i class="fa-solid fa-xmark"></i>
+
+Cancel Order
+
+</button>
+
+</div>
+
+</div>
+
+<!-- ===================================
+FOOTER
+=================================== -->
+
+<div class="footer">
+
+<div class="footerBrand">
+
+⚡ QuickPress
+
+</div>
+
+<div class="footerText">
+
+Premium Laundry • Fast Pickup • Fast Delivery
+
+</div>
+
+<div class="footerCopy">
+
+© 2026 QuickPress. All Rights Reserved.
+
+</div>
+
+</div>
+
+<style>
+
+/* ===================================
+ACTION BUTTONS
+=================================== */
+
+.actionButtons{
+
+display:flex;
+
+flex-direction:column;
+
+gap:12px;
+
+}
+
+.reorderBtn,
+.invoiceBtn,
+.cancelBtn{
 
 width:100%;
 
@@ -584,7 +1342,7 @@ height:54px;
 
 border:none;
 
-border-radius:18px;
+border-radius:16px;
 
 font-size:14px;
 
@@ -592,28 +1350,86 @@ font-weight:900;
 
 cursor:pointer;
 
-margin-bottom:12px;
+display:flex;
 
-}
+align-items:center;
 
-.trackBtn{
-background:#16A34A;
-color:#fff;
-}
+justify-content:center;
 
-.invoiceBtn{
-background:#2563EB;
-color:#fff;
+gap:10px;
+
 }
 
 .reorderBtn{
-background:#F59E0B;
+
+background:#16A34A;
+
 color:#fff;
+
+}
+
+.invoiceBtn{
+
+background:#111827;
+
+color:#fff;
+
 }
 
 .cancelBtn{
-background:#DC2626;
-color:#fff;
+
+background:#FEE2E2;
+
+color:#DC2626;
+
+}
+
+.cancelBtn:disabled{
+
+opacity:.5;
+
+cursor:not-allowed;
+
+}
+
+/* ===================================
+FOOTER
+=================================== */
+
+.footer{
+
+padding:30px 20px 40px;
+
+text-align:center;
+
+}
+
+.footerBrand{
+
+font-size:20px;
+
+font-weight:900;
+
+}
+
+.footerText{
+
+margin-top:8px;
+
+font-size:13px;
+
+color:#6B7280;
+
+}
+
+.footerCopy{
+
+margin-top:10px;
+
+font-size:12px;
+
+color:#9CA3AF;
+
 }
 
 </style>
@@ -625,386 +1441,197 @@ from "./firebase.js";
 
 import {
 doc,
-onSnapshot,
 updateDoc
 }
 from
 "https://www.gstatic.com/firebasejs/12.11.0/firebase-firestore.js";
 
-/* =========================================
-GET ORDER ID
-========================================= */
+/* ===================================
+SHOW/HIDE CANCEL BUTTON
+=================================== */
 
-const params =
-new URLSearchParams(
-window.location.search
+setTimeout(()=>{
+
+if(!currentOrder) return;
+
+const cancelBtn =
+
+document.getElementById(
+"cancelBtn"
 );
 
-const orderId =
-params.get("id");
+const allowedStatus = [
 
-/* =========================================
-LOAD ORDER
-========================================= */
+"Pending",
+"Confirmed"
 
-const orderRef =
-doc(
-db,
-"orders",
-orderId
-);
-
-let currentOrder = null;
-
-onSnapshot(
-
-orderRef,
-
-(snapshot)=>{
-
-if(!snapshot.exists())
-return;
-
-const order =
-snapshot.data();
-
-currentOrder = order;
-
-/* =========================================
-BASIC INFO
-========================================= */
-
-document.getElementById(
-"orderId"
-)
-
-.innerHTML =
-`#${order.orderId}`;
-
-document.getElementById(
-"orderStatus"
-)
-
-.innerHTML =
-order.status;
-
-document.getElementById(
-"orderCity"
-)
-
-.innerHTML =
-order.city;
-
-document.getElementById(
-"paymentMethod"
-)
-
-.innerHTML =
-order.paymentMethod;
-
-/* =========================================
-DATE
-========================================= */
-
-if(order.createdAt){
-
-const date =
-order.createdAt
-.toDate();
-
-document.getElementById(
-"orderDate"
-)
-
-.innerHTML =
-
-date.toLocaleDateString();
-
-}
-
-/* =========================================
-BADGES
-========================================= */
-
-document.getElementById(
-"premiumBadge"
-)
-
-.style.display =
-
-order.premiumPackaging
-? "inline-flex"
-: "none";
-
-document.getElementById(
-"urgentBadge"
-)
-
-.style.display =
-
-order.urgentDelivery
-? "inline-flex"
-: "none";
-
-/* =========================================
-ITEMS
-========================================= */
-
-let itemsHtml = "";
-
-(order.items || [])
-.forEach(item=>{
-
-itemsHtml +=
-
-`
-
-<div class="itemCard">
-
-<div class="itemName">
-
-${item.serviceName}
-
-</div>
-
-<div class="itemMeta">
-
-Category:
-${item.category}
-
-<br>
-
-Qty:
-${item.qty}
-
-<br>
-
-Price:
-₹${item.price}
-
-</div>
-
-</div>
-
-`;
-
-});
-
-document.getElementById(
-"itemsContainer"
-)
-
-.innerHTML =
-itemsHtml;
-
-/* =========================================
-PARTNER
-========================================= */
-
-document.getElementById(
-"partnerInfo"
-)
-
-.innerHTML =
-
-`
-${order.partnerName || "Not Assigned"}
-
-<br>
-
-${order.partnerCity || ""}
-`;
-
-/* =========================================
-RIDER
-========================================= */
-
-document.getElementById(
-"riderInfo"
-)
-
-.innerHTML =
-
-order.riderAssigned
-
-?
-
-`
-${order.riderName}
-
-<br>
-
-📞 ${order.riderPhone}
-`
-
-:
-
-"Waiting For Assignment";
-
-/* =========================================
-BILL
-========================================= */
-
-document.getElementById(
-"servicesTotal"
-)
-
-.innerHTML =
-`₹${order.servicesTotal || 0}`;
-
-document.getElementById(
-"deliveryCharge"
-)
-
-.innerHTML =
-`₹${order.deliveryCharge || 0}`;
-
-document.getElementById(
-"premiumCharge"
-)
-
-.innerHTML =
-`₹${order.premiumPackagingCharge || 0}`;
-
-document.getElementById(
-"fabricCharge"
-)
-
-.innerHTML =
-`₹${order.fabricProtectionCharge || 0}`;
-
-document.getElementById(
-"urgentCharge"
-)
-
-.innerHTML =
-`₹${order.urgentDeliveryCharge || 0}`;
-
-document.getElementById(
-"couponDiscount"
-)
-
-.innerHTML =
-`- ₹${order.discount || 0}`;
-
-document.getElementById(
-"grandTotal"
-)
-
-.innerHTML =
-`₹${order.grandTotal || 0}`;
-
-/* =========================================
-CANCEL CONTROL
-========================================= */
+];
 
 if(
 
-order.status==="Processing"
-||
-order.status==="Ready"
-||
-order.status==="Completed"
+!allowedStatus.includes(
+currentOrder.orderStatus
+)
 
 ){
 
-document.getElementById(
-"cancelOrderBtn"
-)
-
-style.display =
+cancelBtn.style.display =
 "none";
 
 }
 
-}
+},1500);
 
-/* =========================================
-END SNAPSHOT
-========================================= */
-
-);
-
-/* =========================================
-TRACK
-========================================= */
-
-window.trackOrder =
-()=>{
-
-window.location.href =
-
-`track-order.html?id=${orderId}`;
-
-};
-
-/* =========================================
+/* ===================================
 REORDER
-========================================= */
+=================================== */
 
 window.reorderOrder =
-()=>{
+function(){
 
-if(!currentOrder)
-return;
+if(!currentOrder) return;
+
+const cart = [];
+
+(currentOrder.items || [])
+
+.forEach(item=>{
+
+cart.push({
+
+serviceId:
+
+item.serviceId ||
+
+Date.now(),
+
+categoryName:
+
+item.categoryName,
+
+subcategoryName:
+
+item.subcategoryName,
+
+serviceName:
+
+item.serviceName,
+
+price:
+
+item.price,
+
+qty:
+
+item.qty
+
+});
+
+});
 
 localStorage.setItem(
 
 "cart",
 
-JSON.stringify(
-currentOrder.items
-)
+JSON.stringify(cart)
 
 );
 
+alert(
+"Items added to cart"
+);
+
 window.location.href =
-"checkout.html";
+"cart.html";
 
 };
 
-/* =========================================
-CANCEL
-========================================= */
+/* ===================================
+DOWNLOAD INVOICE
+=================================== */
+
+window.downloadInvoice =
+function(){
+
+alert(
+"Invoice download module connect karna baki hai"
+);
+
+/*
+Future:
+
+invoice.html?id=123
+
+or
+
+Generate PDF
+
+*/
+
+};
+
+/* ===================================
+CANCEL ORDER
+=================================== */
 
 window.cancelOrder =
-async()=>{
+async function(){
+
+if(!currentOrder){
+
+return;
+
+}
 
 const confirmCancel =
 
 confirm(
-"Cancel this order?"
+
+"Are you sure you want to cancel this order?"
+
 );
 
-if(!confirmCancel)
+if(!confirmCancel){
+
 return;
+
+}
+
+try{
 
 await updateDoc(
 
-orderRef,
+doc(
+db,
+"orders",
+currentOrder.id
+),
 
 {
-status:"Cancelled"
+
+orderStatus:
+"Cancelled"
+
 }
 
 );
 
 alert(
-"Order Cancelled"
+"Order Cancelled Successfully"
 );
 
-};
+location.reload();
 
-/* =========================================
-INVOICE
-========================================= */
+}
+catch(error){
 
-window.downloadInvoice =
-()=>{
+console.error(error);
 
 alert(
-"Invoice PDF Module Connected Later"
+"Unable to cancel order"
 );
+
+}
 
 };
 
