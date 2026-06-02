@@ -63,7 +63,7 @@ z-index:999;
 
 background:#fff;
 
-padding:16px;
+padding:14px 16px;
 
 box-shadow:
 0 4px 20px rgba(0,0,0,.06);
@@ -79,22 +79,46 @@ align-items:center;
 
 }
 
-.headerLeft{
+/* ===================================
+BRAND
+=================================== */
+
+.brandRow{
 
 display:flex;
-flex-direction:column;
+align-items:center;
+gap:12px;
+
+}
+
+.logo{
+
+width:42px;
+height:42px;
+
+object-fit:contain;
+
+}
+
+.brandName{
+
+font-size:22px;
+
+font-weight:900;
+
+line-height:1;
 
 }
 
 .deliveryTitle{
 
-font-size:28px;
+margin-top:4px;
 
-font-weight:900;
+font-size:15px;
 
-line-height:1.1;
+font-weight:800;
 
-color:#111827;
+color:#374151;
 
 }
 
@@ -104,41 +128,92 @@ margin-top:6px;
 
 display:flex;
 align-items:center;
-gap:8px;
+gap:6px;
 
 font-size:13px;
+
 font-weight:700;
 
 cursor:pointer;
 
-color:#374151;
+color:#16A34A;
 
 }
 
 .address i{
 
-font-size:12px;
+font-size:11px;
+
+}
+
+/* ===================================
+RIGHT ACTIONS
+=================================== */
+
+.rightActions{
+
+display:flex;
+align-items:center;
+gap:10px;
+
+}
+
+.loginBtn{
+
+display:none;
+
+height:46px;
+
+padding:0 18px;
+
+border:none;
+
+border-radius:14px;
+
+background:#16A34A;
+
+color:#fff;
+
+font-size:13px;
+
+font-weight:900;
+
+cursor:pointer;
 
 }
 
 .profileBtn{
 
-width:50px;
-height:50px;
+width:48px;
+height:48px;
 
 border:none;
 
-border-radius:16px;
+border-radius:14px;
 
-background:#F9FAFB;
+background:#F3F4F6;
 
 display:flex;
 align-items:center;
 justify-content:center;
 
-font-size:20px;
+font-size:18px;
 
 cursor:pointer;
+
+}
+
+/* ===================================
+DESKTOP LOGIN
+=================================== */
+
+@media(min-width:992px){
+
+.loginBtn{
+
+display:block;
+
+}
 
 }
 
@@ -148,13 +223,13 @@ SEARCH
 
 .searchWrap{
 
-margin-top:16px;
+margin-top:14px;
 
 }
 
 .searchBar{
 
-height:58px;
+height:56px;
 
 background:#F6F7FB;
 
@@ -193,7 +268,7 @@ font-weight:600;
 }
 
 /* ===================================
-LOCATION POPUP
+LOCATION MODAL
 =================================== */
 
 .locationModal{
@@ -221,7 +296,7 @@ max-width:520px;
 
 background:#fff;
 
-border-radius:26px;
+border-radius:24px;
 
 padding:20px;
 
@@ -328,7 +403,7 @@ SECTION TITLE
 
 .sectionHeading{
 
-font-size:24px;
+font-size:22px;
 
 font-weight:900;
 
@@ -350,12 +425,29 @@ HEADER
 
 <div class="topBar">
 
-<div class="headerLeft">
+<div>
+
+<div class="brandRow">
+
+<img
+src="assets/logo.png"
+class="logo">
+
+<div>
+
+<div class="brandName">
+
+QuickPress
+
+</div>
 
 <div class="deliveryTitle">
 
-Express Delivery
-in 30 Minutes
+Express Delivery in 30 Minutes
+
+</div>
+
+</div>
 
 </div>
 
@@ -375,6 +467,16 @@ Kasganj, Uttar Pradesh
 
 </div>
 
+<div class="rightActions">
+
+<button
+id="desktopLoginBtn"
+class="loginBtn">
+
+Login
+
+</button>
+
 <button
 class="profileBtn"
 onclick="openProfile()">
@@ -382,6 +484,8 @@ onclick="openProfile()">
 <i class="fa-regular fa-user"></i>
 
 </button>
+
+</div>
 
 </div>
 
@@ -517,13 +621,14 @@ Categories
 
 </div>
 
-<div class="categoryGrid">
+<div class="categorySlider">
 
 <div
 class="categoryCard"
 data-category="Dry Cleaning">
 
-<div class="categoryIcon dryBg">
+<div
+class="categoryIcon dryBg">
 
 🧺
 
@@ -541,7 +646,8 @@ Dry Cleaning
 class="categoryCard"
 data-category="Wash & Fold">
 
-<div class="categoryIcon washBg">
+<div
+class="categoryIcon washBg">
 
 🫧
 
@@ -559,7 +665,8 @@ Wash & Fold
 class="categoryCard"
 data-category="Steam Iron">
 
-<div class="categoryIcon ironBg">
+<div
+class="categoryIcon ironBg">
 
 👔
 
@@ -577,7 +684,8 @@ Steam Iron
 class="categoryCard"
 data-category="Shoe Care">
 
-<div class="categoryIcon shoeBg">
+<div
+class="categoryIcon shoeBg">
 
 👟
 
@@ -595,7 +703,8 @@ Shoe Care
 class="categoryCard"
 data-category="Blanket Care">
 
-<div class="categoryIcon blanketBg">
+<div
+class="categoryIcon blanketBg">
 
 🛏️
 
@@ -613,7 +722,8 @@ Blanket Care
 class="categoryCard"
 data-category="Premium Care">
 
-<div class="categoryIcon premiumBg">
+<div
+class="categoryIcon premiumBg">
 
 ✨
 
@@ -627,44 +737,45 @@ Premium Care
 
 </div>
 
-</div>
+<div
+class="categoryCard"
+data-category="Curtain Care">
+
+<div
+class="categoryIcon dryBg">
+
+🪟
 
 </div>
 
-<!-- ===================================
-PREMIUM HERO BANNER
-=================================== -->
+<h4>
 
-<div class="heroBanner">
+Curtain Care
 
-<div class="heroBadge">
-
-⚡ EXPRESS PICKUP
+</h4>
 
 </div>
 
-<h2>
+<div
+class="categoryCard"
+data-category="Dry Clean Express">
 
-Premium Laundry
-Delivered Fast
+<div
+class="categoryIcon washBg">
 
-</h2>
+⚡
 
-<p>
+</div>
 
-Dry Cleaning, Wash & Fold,
-Steam Iron, Shoe Care
-and Premium Garment Care.
+<h4>
 
-</p>
+Express
 
-<button
-class="bookBtn"
-onclick="window.location.href='services.html'">
+</h4>
 
-Book Pickup
+</div>
 
-</button>
+</div>
 
 </div>
 
@@ -676,75 +787,101 @@ CATEGORY SECTION
 
 .categorySection{
 
-padding:22px 16px;
+padding:20px 16px;
 
 }
 
-.categoryGrid{
+/* ===================================
+HORIZONTAL SLIDER
+=================================== */
 
-display:grid;
+.categorySlider{
 
-grid-template-columns:
-repeat(3,1fr);
+display:flex;
 
-gap:14px;
+overflow-x:auto;
+
+gap:12px;
+
+padding-bottom:8px;
+
+scrollbar-width:none;
+
+-webkit-overflow-scrolling:touch;
 
 }
+
+.categorySlider::-webkit-scrollbar{
+
+display:none;
+
+}
+
+/* ===================================
+CATEGORY CARD
+=================================== */
 
 .categoryCard{
 
-background:#fff;
+min-width:90px;
 
-padding:16px;
-
-border-radius:22px;
+flex-shrink:0;
 
 cursor:pointer;
 
 text-align:center;
 
-box-shadow:
-0 8px 22px rgba(0,0,0,.05);
-
-transition:.25s;
-
 }
 
 .categoryCard:hover{
 
-transform:translateY(-4px);
+transform:translateY(-3px);
 
 }
 
+/* ===================================
+SMALL ICONS
+=================================== */
+
 .categoryIcon{
 
-width:68px;
-height:68px;
+width:56px;
+height:56px;
 
 margin:auto;
 
-border-radius:18px;
+border-radius:16px;
 
 display:flex;
 align-items:center;
 justify-content:center;
 
-font-size:30px;
+font-size:24px;
+
+box-shadow:
+0 4px 12px rgba(0,0,0,.05);
 
 }
+
+/* ===================================
+CATEGORY TEXT
+=================================== */
 
 .categoryCard h4{
 
-margin-top:10px;
+margin-top:8px;
 
-font-size:12px;
+font-size:11px;
+
 font-weight:800;
 
-line-height:1.4;
+line-height:1.3;
 
 }
 
-/* CATEGORY COLORS */
+/* ===================================
+CATEGORY COLORS
+=================================== */
 
 .dryBg{
 
@@ -813,160 +950,29 @@ linear-gradient(
 }
 
 /* ===================================
-HERO BANNER
+DESKTOP
 =================================== */
 
-.heroBanner{
+@media(min-width:992px){
 
-margin:0 16px;
+.categorySlider{
 
-padding:26px;
+justify-content:center;
 
-border-radius:30px;
-
-background:
-linear-gradient(
-135deg,
-#111827,
-#1F2937
-);
-
-color:#fff;
-
-position:relative;
-
-overflow:hidden;
-
-}
-
-.heroBanner::before{
-
-content:"";
-
-position:absolute;
-
-right:-70px;
-top:-70px;
-
-width:180px;
-height:180px;
-
-border-radius:50%;
-
-background:
-rgba(255,255,255,.06);
-
-}
-
-.heroBadge{
-
-display:inline-flex;
-
-align-items:center;
-
-height:34px;
-
-padding:0 14px;
-
-border-radius:999px;
-
-background:#FFD633;
-
-color:#111827;
-
-font-size:11px;
-font-weight:900;
-
-}
-
-.heroBanner h2{
-
-margin-top:16px;
-
-font-size:34px;
-font-weight:900;
-
-line-height:1.1;
-
-}
-
-.heroBanner p{
-
-margin-top:12px;
-
-font-size:14px;
-
-line-height:1.8;
-
-opacity:.9;
-
-max-width:420px;
-
-}
-
-.bookBtn{
-
-margin-top:18px;
-
-height:54px;
-
-padding:0 24px;
-
-border:none;
-
-border-radius:18px;
-
-background:#16A34A;
-
-color:#fff;
-
-font-size:14px;
-font-weight:900;
-
-cursor:pointer;
-
-box-shadow:
-0 10px 20px rgba(22,163,74,.25);
-
-}
-
-/* ===================================
-RESPONSIVE
-=================================== */
-
-@media(max-width:480px){
-
-.categoryGrid{
-
-grid-template-columns:
-repeat(3,1fr);
-
-gap:10px;
+gap:20px;
 
 }
 
 .categoryCard{
 
-padding:12px;
+min-width:110px;
 
 }
 
 .categoryIcon{
 
-width:60px;
-height:60px;
-
-font-size:26px;
-
-}
-
-.categoryCard h4{
-
-font-size:11px;
-
-}
-
-.heroBanner h2{
+width:64px;
+height:64px;
 
 font-size:28px;
 
@@ -1029,7 +1035,9 @@ Trending Services
 
 </h2>
 
-<span class="viewAll">
+<span
+class="viewAll"
+onclick="window.location.href='services.html'">
 
 View All
 
@@ -1044,6 +1052,44 @@ id="productGrid">
 <!-- Firebase Services -->
 
 </div>
+
+</div>
+
+<!-- ===================================
+EXPRESS PICKUP BANNER
+(TRENDING KE NICHE)
+=================================== -->
+
+<div class="heroBanner">
+
+<div class="heroBadge">
+
+⚡ EXPRESS PICKUP
+
+</div>
+
+<h2>
+
+Premium Laundry
+Delivered Fast
+
+</h2>
+
+<p>
+
+Dry Cleaning, Steam Iron,
+Wash & Fold, Shoe Care
+and Premium Care.
+
+</p>
+
+<button
+class="bookBtn"
+onclick="window.location.href='services.html'">
+
+Book Pickup
+
+</button>
 
 </div>
 
@@ -1065,7 +1111,7 @@ id="cartToast">
 
 <div class="toastTitle">
 
-Added to Cart
+Added To Cart
 
 </div>
 
@@ -1084,12 +1130,12 @@ Service Added
 <style>
 
 /* ===================================
-SERVICES
+TRENDING
 =================================== */
 
 .servicesSection{
 
-padding:26px 16px;
+padding:24px 16px;
 
 }
 
@@ -1107,6 +1153,7 @@ margin-bottom:18px;
 .viewAll{
 
 font-size:13px;
+
 font-weight:800;
 
 color:#16A34A;
@@ -1115,102 +1162,65 @@ cursor:pointer;
 
 }
 
+/* ===================================
+MOBILE = 3 COLUMN
+=================================== */
+
 .productGrid{
 
 display:grid;
 
 grid-template-columns:
-repeat(2,1fr);
+repeat(3,1fr);
 
-gap:14px;
+gap:10px;
 
 }
+
+/* ===================================
+SERVICE CARD
+=================================== */
 
 .productCard{
 
 background:#fff;
 
-border-radius:24px;
+padding:10px;
 
-overflow:hidden;
+border-radius:18px;
 
-position:relative;
+text-align:center;
 
 box-shadow:
-0 8px 22px rgba(0,0,0,.05);
+0 4px 14px rgba(0,0,0,.05);
 
 }
 
 .productImage{
 
-height:130px;
+font-size:34px;
 
-background:#F3F4F6;
-
-display:flex;
-align-items:center;
-justify-content:center;
-
-font-size:56px;
+margin-bottom:8px;
 
 }
 
-.productInfo{
+.productName{
 
-padding:14px;
-
-}
-
-.productInfo h3{
-
-font-size:15px;
+font-size:11px;
 
 font-weight:800;
 
-}
+line-height:1.3;
 
-.productInfo p{
-
-margin-top:5px;
-
-font-size:12px;
-
-line-height:1.6;
-
-color:#6B7280;
-
-}
-
-.ratingRow{
-
-margin-top:8px;
-
-display:flex;
-align-items:center;
-gap:6px;
-
-font-size:12px;
-
-font-weight:700;
-
-color:#F59E0B;
-
-}
-
-.productBottom{
-
-margin-top:12px;
-
-display:flex;
-
-justify-content:space-between;
-align-items:center;
+min-height:30px;
 
 }
 
 .price{
 
-font-size:20px;
+margin-top:6px;
+
+font-size:14px;
 
 font-weight:900;
 
@@ -1218,19 +1228,21 @@ font-weight:900;
 
 .addBtn{
 
-height:40px;
+width:100%;
 
-padding:0 16px;
+height:32px;
+
+margin-top:8px;
 
 border:none;
 
-border-radius:12px;
+border-radius:10px;
 
 background:#16A34A;
 
 color:#fff;
 
-font-size:12px;
+font-size:11px;
 
 font-weight:900;
 
@@ -1239,58 +1251,51 @@ cursor:pointer;
 }
 
 /* ===================================
-BADGES
+DESKTOP
 =================================== */
 
-.badge{
+@media(min-width:1200px){
 
-position:absolute;
+.productGrid{
 
-left:10px;
+grid-template-columns:
+repeat(4,1fr);
 
-padding:6px 10px;
-
-border-radius:999px;
-
-font-size:10px;
-
-font-weight:900;
-
-color:#fff;
-
-z-index:5;
+gap:18px;
 
 }
 
-.trendingBadge{
+.productCard{
 
-top:10px;
-
-background:#EF4444;
+padding:14px;
 
 }
 
-.bestBadge{
+.productImage{
 
-top:44px;
-
-background:#F59E0B;
+font-size:42px;
 
 }
 
-.premiumBadge{
+.productName{
 
-top:78px;
-
-background:#8B5CF6;
+font-size:13px;
 
 }
 
-.sameDayBadge{
+.price{
 
-top:112px;
+font-size:18px;
 
-background:#16A34A;
+}
+
+.addBtn{
+
+height:38px;
+
+font-size:12px;
+
+}
 
 }
 
@@ -1300,14 +1305,15 @@ TOAST
 
 .cartToast{
 
+display:none;
+
 position:fixed;
 
-bottom:90px;
 left:50%;
+bottom:90px;
 
 transform:
-translateX(-50%)
-translateY(120px);
+translateX(-50%);
 
 background:#111827;
 
@@ -1315,32 +1321,27 @@ color:#fff;
 
 padding:14px 18px;
 
-border-radius:18px;
+border-radius:16px;
 
-display:flex;
 align-items:center;
 gap:12px;
 
 box-shadow:
-0 10px 30px rgba(0,0,0,.25);
+0 12px 30px rgba(0,0,0,.25);
 
 z-index:99999;
-
-transition:.35s;
 
 }
 
 .showToast{
 
-transform:
-translateX(-50%)
-translateY(0);
+display:flex;
 
 }
 
 .toastIcon{
 
-font-size:24px;
+font-size:22px;
 
 }
 
@@ -1356,20 +1357,125 @@ font-weight:900;
 
 font-size:12px;
 
-opacity:.8;
+opacity:.85;
 
 margin-top:3px;
 
 }
 
-@media(min-width:900px){
+/* ===================================
+EXPRESS BANNER
+=================================== */
 
-.productGrid{
+.heroBanner{
 
-grid-template-columns:
-repeat(4,1fr);
+margin:0 16px;
+
+padding:24px;
+
+border-radius:28px;
+
+background:
+linear-gradient(
+135deg,
+#111827,
+#1F2937
+);
+
+color:#fff;
+
+overflow:hidden;
+
+position:relative;
 
 }
+
+.heroBanner::before{
+
+content:"";
+
+position:absolute;
+
+right:-70px;
+top:-70px;
+
+width:180px;
+height:180px;
+
+border-radius:50%;
+
+background:
+rgba(255,255,255,.06);
+
+}
+
+.heroBadge{
+
+display:inline-flex;
+
+align-items:center;
+
+height:34px;
+
+padding:0 14px;
+
+border-radius:999px;
+
+background:#FFD633;
+
+color:#111827;
+
+font-size:11px;
+
+font-weight:900;
+
+}
+
+.heroBanner h2{
+
+margin-top:14px;
+
+font-size:28px;
+
+font-weight:900;
+
+line-height:1.1;
+
+}
+
+.heroBanner p{
+
+margin-top:10px;
+
+font-size:13px;
+
+line-height:1.8;
+
+opacity:.9;
+
+}
+
+.bookBtn{
+
+margin-top:16px;
+
+height:50px;
+
+padding:0 20px;
+
+border:none;
+
+border-radius:16px;
+
+background:#16A34A;
+
+color:#fff;
+
+font-size:13px;
+
+font-weight:900;
+
+cursor:pointer;
 
 }
 
@@ -1388,7 +1494,7 @@ from
 "https://www.gstatic.com/firebasejs/12.11.0/firebase-firestore.js";
 
 /* ===================================
-SERVICES
+FIREBASE SERVICES
 =================================== */
 
 const productGrid =
@@ -1430,65 +1536,11 @@ id:doc.id,
 
 };
 
-/* =================================== */
-
 productGrid.innerHTML +=
 
 `
 
 <div class="productCard">
-
-${service.trending ?
-
-`
-<div class="badge trendingBadge">
-
-🔥 Trending
-
-</div>
-`
-:
-""
-}
-
-${service.bestSeller ?
-
-`
-<div class="badge bestBadge">
-
-🏆 Best Seller
-
-</div>
-`
-:
-""
-}
-
-${service.premium ?
-
-`
-<div class="badge premiumBadge">
-
-💎 Premium
-
-</div>
-`
-:
-""
-}
-
-${service.sameDay ?
-
-`
-<div class="badge sameDayBadge">
-
-⚡ Same Day
-
-</div>
-`
-:
-""
-}
 
 <div class="productImage">
 
@@ -1496,27 +1548,11 @@ ${service.icon || "🧺"}
 
 </div>
 
-<div class="productInfo">
-
-<h3>
+<div class="productName">
 
 ${service.name}
 
-</h3>
-
-<p>
-
-${service.description || ""}
-
-</p>
-
-<div class="ratingRow">
-
-⭐ ${service.rating || 4.8}
-
 </div>
-
-<div class="productBottom">
 
 <div class="price">
 
@@ -1545,23 +1581,20 @@ Add
 
 </div>
 
-</div>
-
-</div>
-
 `;
 
 });
 
 }
 
-/);
+);
 
 /* ===================================
 ADD TO CART
 =================================== */
 
-window.addToCart = function(
+window.addToCart =
+function(
 
 id,
 name,
@@ -1610,49 +1643,19 @@ JSON.stringify(cart)
 
 );
 
-/* ===================================
-UPDATE COUNTER
-=================================== */
+/* NAV COUNTER */
 
-updateCartCount();
+if(window.updateNavbarCartCount){
 
-/* ===================================
-SHOW TOAST
-=================================== */
+window.updateNavbarCartCount();
+
+}
+
+/* TOAST */
 
 showToast(name);
 
 };
-
-/* ===================================
-COUNTER
-=================================== */
-
-function updateCartCount(){
-
-let total = 0;
-
-cart.forEach(item=>{
-
-total += item.qty || 1;
-
-});
-
-const counter =
-
-document.getElementById(
-"cartCount"
-);
-
-if(counter){
-
-counter.innerHTML = total;
-
-}
-
-}
-
-updateCartCount();
 
 /* ===================================
 TOAST
@@ -1660,20 +1663,22 @@ TOAST
 
 function showToast(name){
 
+const toast =
+
+document.getElementById(
+"cartToast"
+);
+
 document.getElementById(
 "toastText"
 )
 
 .innerHTML =
 
-name +
-" added successfully";
+name + " added";
 
-const toast =
-
-document.getElementById(
-"cartToast"
-);
+toast.style.display =
+"flex";
 
 toast.classList.add(
 "showToast"
@@ -1685,26 +1690,39 @@ toast.classList.remove(
 "showToast"
 );
 
-},2200);
+setTimeout(()=>{
+
+toast.style.display =
+"none";
+
+},300);
+
+},2000);
 
 }
 
 </script>
 <!-- ===================================
-FOOTER BRANDING
+FOOTER
 =================================== -->
 
 <div class="footer">
 
-<div class="footerBrand">
+<div class="footerLogo">
 
-Made in Uttar Pradesh 🇮🇳
+⚡ QuickPress
 
 </div>
 
-<div class="footerSub">
+<div class="footerText">
 
-Crafted by Himanshu Baghel 💗
+Premium Laundry • Fast Delivery • Trusted Service
+
+</div>
+
+<div class="footerCopy">
+
+© 2026 QuickPress. All Rights Reserved.
 
 </div>
 
@@ -1784,15 +1802,15 @@ FOOTER
 
 .footer{
 
-padding:30px 20px 130px;
+padding:35px 20px 120px;
 
 text-align:center;
 
 }
 
-.footerBrand{
+.footerLogo{
 
-font-size:15px;
+font-size:22px;
 
 font-weight:900;
 
@@ -1800,9 +1818,9 @@ color:#111827;
 
 }
 
-.footerSub{
+.footerText{
 
-margin-top:6px;
+margin-top:8px;
 
 font-size:13px;
 
@@ -1810,8 +1828,18 @@ color:#6B7280;
 
 }
 
+.footerCopy{
+
+margin-top:10px;
+
+font-size:12px;
+
+color:#9CA3AF;
+
+}
+
 /* ===================================
-NAVBAR
+BOTTOM NAV
 =================================== */
 
 .bottomNav{
@@ -1822,7 +1850,7 @@ left:0;
 right:0;
 bottom:0;
 
-height:76px;
+height:74px;
 
 background:#fff;
 
@@ -1832,7 +1860,7 @@ justify-content:space-around;
 align-items:center;
 
 box-shadow:
-0 -8px 24px rgba(0,0,0,.08);
+0 -6px 20px rgba(0,0,0,.08);
 
 z-index:999;
 
@@ -1858,15 +1886,13 @@ justify-content:center;
 
 gap:4px;
 
+cursor:pointer;
+
 font-size:11px;
 
 font-weight:700;
 
 color:#6B7280;
-
-cursor:pointer;
-
-transition:.25s;
 
 }
 
@@ -1886,8 +1912,8 @@ color:#16A34A;
 
 position:absolute;
 
-top:10px;
-right:22px;
+top:8px;
+right:24px;
 
 min-width:18px;
 height:18px;
@@ -1898,22 +1924,23 @@ border-radius:999px;
 
 background:#EF4444;
 
+color:#fff;
+
 display:flex;
 align-items:center;
 justify-content:center;
 
 font-size:10px;
-font-weight:900;
 
-color:#fff;
+font-weight:900;
 
 }
 
-@media(min-width:900px){
+@media(min-width:1200px){
 
 .bottomNav{
 
-max-width:550px;
+max-width:600px;
 
 left:50%;
 
@@ -1940,10 +1967,16 @@ from
 "https://www.gstatic.com/firebasejs/12.11.0/firebase-auth.js";
 
 /* ===================================
-LOGIN STATUS
+AUTH STATE
 =================================== */
 
 let currentUser = null;
+
+const loginBtn =
+
+document.getElementById(
+"desktopLoginBtn"
+);
 
 onAuthStateChanged(
 
@@ -1953,12 +1986,55 @@ auth,
 
 currentUser = user;
 
+/* LOGIN BUTTON */
+
+if(loginBtn){
+
+if(user){
+
+loginBtn.style.display =
+"none";
+
+}else{
+
+if(window.innerWidth >= 992){
+
+loginBtn.style.display =
+"block";
+
+}
+
+}
+
+}
+
 }
 
 );
 
 /* ===================================
-PROFILE OPEN
+DESKTOP LOGIN
+=================================== */
+
+if(loginBtn){
+
+loginBtn.addEventListener(
+
+"click",
+
+()=>{
+
+window.location.href =
+"login.html";
+
+}
+
+);
+
+}
+
+/* ===================================
+PROFILE
 =================================== */
 
 window.openProfile =
@@ -1979,15 +2055,18 @@ window.location.href =
 };
 
 /* ===================================
-CART COUNT
+LIVE CART COUNT
 =================================== */
 
-function updateNavbarCartCount(){
+window.updateNavbarCartCount =
+function(){
 
 const cart =
 
 JSON.parse(
-localStorage.getItem("cart")
+localStorage.getItem(
+"cart"
+)
 )
 
 || [];
@@ -2006,7 +2085,7 @@ document.getElementById(
 "navCartBadge"
 );
 
-if(badge){
+if(!badge) return;
 
 badge.innerHTML = total;
 
@@ -2022,9 +2101,7 @@ badge.style.display =
 
 }
 
-}
-
-}
+};
 
 updateNavbarCartCount();
 
@@ -2046,7 +2123,6 @@ item.addEventListener(
 ()=>{
 
 const page =
-
 item.dataset.page;
 
 /* HOME */
@@ -2118,104 +2194,6 @@ window.location.href =
 
 });
 
-/* ===================================
-HEADER PROFILE BUTTON
-=================================== */
-
-const profileBtn =
-
-document.querySelector(
-".profileBtn"
-);
-
-if(profileBtn){
-
-profileBtn.addEventListener(
-
-"click",
-
-()=>{
-
-if(currentUser){
-
-window.location.href =
-"profile.html";
-
-}else{
-
-window.location.href =
-"login.html";
-
-}
-
-}
-
-);
-
-}
-
-/* ===================================
-LOCATION RESTORE
-=================================== */
-
-const savedLocation =
-
-localStorage.getItem(
-"userLocation"
-);
-
-if(savedLocation){
-
-const data =
-
-JSON.parse(
-savedLocation
-);
-
-const locationText =
-
-document.getElementById(
-"locationText"
-);
-
-if(locationText){
-
-locationText.innerHTML =
-
-`${data.city},
-Uttar Pradesh`;
-
-}
-
-}
-
-/* ===================================
-VIEW ALL
-=================================== */
-
-const viewAll =
-
-document.querySelector(
-".viewAll"
-);
-
-if(viewAll){
-
-viewAll.addEventListener(
-
-"click",
-
-()=>{
-
-window.location.href =
-"services.html";
-
-}
-
-);
-
-}
-
 </script>
 <script type="module">
 
@@ -2224,11 +2202,11 @@ from "./firebase.js";
 
 import {
 doc,
-setDoc,
 updateDoc,
 serverTimestamp
 }
-from "https://www.gstatic.com/firebasejs/12.11.0/firebase-firestore.js";
+from
+"https://www.gstatic.com/firebasejs/12.11.0/firebase-firestore.js";
 
 /* ===================================
 LOCATION MODAL
@@ -2274,6 +2252,8 @@ savedAt:Date.now()
 
 };
 
+/* LOCAL SAVE */
+
 localStorage.setItem(
 
 "userLocation",
@@ -2289,7 +2269,7 @@ localStorage.setItem(
 city
 );
 
-/* UPDATE HEADER */
+/* HEADER UPDATE */
 
 const locationText =
 
@@ -2306,7 +2286,7 @@ city +
 
 }
 
-/* SAVE FIREBASE */
+/* FIREBASE SAVE */
 
 if(auth.currentUser){
 
@@ -2346,14 +2326,23 @@ closeLocationModal();
 };
 
 /* ===================================
-GPS DETECTION
+GPS LOCATION DETECTION
 =================================== */
 
 window.startLocationDetection =
 function(){
 
-navigator.geolocation
-.getCurrentPosition(
+if(!navigator.geolocation){
+
+alert(
+"Geolocation Not Supported"
+);
+
+return;
+
+}
+
+navigator.geolocation.getCurrentPosition(
 
 async(position)=>{
 
@@ -2363,11 +2352,11 @@ position.coords.latitude;
 const lng =
 position.coords.longitude;
 
-/* ===================================
-OPENSTREETMAP REVERSE GEOCODING
-=================================== */
-
 try{
+
+/* ===================================
+OPENSTREETMAP REVERSE GEOCODE
+=================================== */
 
 const response =
 
@@ -2379,8 +2368,6 @@ await fetch(
 
 const data =
 await response.json();
-
-/* =================================== */
 
 const city =
 
@@ -2394,7 +2381,9 @@ data.address.state_district ||
 
 "Kasganj";
 
-/* =================================== */
+/* ===================================
+SAVE LOCAL
+=================================== */
 
 localStorage.setItem(
 
@@ -2404,7 +2393,8 @@ JSON.stringify({
 
 city,
 lat,
-lng
+lng,
+savedAt:Date.now()
 
 })
 
@@ -2415,16 +2405,24 @@ localStorage.setItem(
 city
 );
 
-/* HEADER UPDATE */
+/* ===================================
+UPDATE HEADER
+=================================== */
+
+const locationText =
 
 document.getElementById(
 "locationText"
-)
+);
 
-.innerHTML =
+if(locationText){
+
+locationText.innerHTML =
 
 city +
 ", Uttar Pradesh";
+
+}
 
 /* ===================================
 SAVE FIREBASE
@@ -2459,8 +2457,6 @@ serverTimestamp()
 
 }
 
-/* =================================== */
-
 alert(
 "Location Saved Successfully"
 );
@@ -2492,7 +2488,7 @@ alert(
 };
 
 /* ===================================
-RESTORE LOCATION
+RESTORE SAVED LOCATION
 =================================== */
 
 const savedLocation =
@@ -2531,7 +2527,7 @@ CITY WISE FILTER
 =================================== */
 
 window.filterServicesByCity =
-function(allServices){
+function(services){
 
 const city =
 
@@ -2541,11 +2537,11 @@ localStorage.getItem(
 
 if(!city){
 
-return allServices;
+return services;
 
 }
 
-return allServices.filter(
+return services.filter(
 
 service=>{
 
@@ -2555,7 +2551,9 @@ return true;
 
 }
 
-return service.city === city;
+return (
+service.city === city
+);
 
 }
 
@@ -2649,8 +2647,160 @@ localStorage.getItem(
 
 };
 
+</script>
+
+<!-- ===================================
+LEAFLET MAP SUPPORT
+=================================== -->
+
+<script
+src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js">
+</script>
+<script type="module">
+
+import { db }
+from "./firebase.js";
+
+import {
+collection,
+onSnapshot
+}
+from
+"https://www.gstatic.com/firebasejs/12.11.0/firebase-firestore.js";
+
 /* ===================================
-SERVICE PAGE REDIRECT
+CITY WISE FIREBASE SERVICES
+=================================== */
+
+const productGrid =
+
+document.getElementById(
+"productGrid"
+);
+
+if(productGrid){
+
+onSnapshot(
+
+collection(
+db,
+"services"
+),
+
+(snapshot)=>{
+
+let services = [];
+
+snapshot.forEach(doc=>{
+
+services.push({
+
+id:doc.id,
+
+...doc.data()
+
+});
+
+});
+
+/* ===================================
+CITY FILTER
+=================================== */
+
+if(window.filterServicesByCity){
+
+services =
+
+window.filterServicesByCity(
+services
+);
+
+}
+
+/* ===================================
+RENDER
+=================================== */
+
+productGrid.innerHTML = "";
+
+services.forEach(service=>{
+
+const price =
+
+window.getServicePrice
+
+?
+
+window.getServicePrice(
+service
+)
+
+:
+
+service.price;
+
+/* =================================== */
+
+productGrid.innerHTML +=
+
+`
+
+<div class="productCard">
+
+<div
+class="productImage">
+
+${service.icon || "🧺"}
+
+</div>
+
+<div
+class="productName">
+
+${service.name}
+
+</div>
+
+<div
+class="price">
+
+₹${price}
+
+</div>
+
+<button
+class="addBtn"
+
+onclick="addToCart(
+
+'${service.id}',
+
+'${service.name}',
+
+${price},
+
+'${service.category || "Laundry"}'
+
+)">
+
+Add
+
+</button>
+
+</div>
+
+`;
+
+});
+
+}
+
+);
+
+}
+
+/* ===================================
+SERVICE DETAILS
 =================================== */
 
 window.openService =
@@ -2663,7 +2813,7 @@ window.location.href =
 };
 
 /* ===================================
-CHECKOUT ROUTING
+CHECKOUT
 =================================== */
 
 window.goCheckout =
@@ -2682,7 +2832,7 @@ localStorage.getItem(
 if(cart.length===0){
 
 alert(
-"Cart Empty"
+"Your Cart Is Empty"
 );
 
 return;
@@ -2695,6 +2845,58 @@ window.location.href =
 };
 
 /* ===================================
+CART TOTAL
+=================================== */
+
+window.getCartTotal =
+function(){
+
+const cart =
+
+JSON.parse(
+localStorage.getItem(
+"cart"
+)
+)
+
+|| [];
+
+let total = 0;
+
+cart.forEach(item=>{
+
+total +=
+
+(item.price || 0)
+*
+(item.qty || 1);
+
+});
+
+return total;
+
+};
+
+/* ===================================
+CLEAR CART
+=================================== */
+
+window.clearCart =
+function(){
+
+localStorage.removeItem(
+"cart"
+);
+
+if(window.updateNavbarCartCount){
+
+window.updateNavbarCartCount();
+
+}
+
+};
+
+/* ===================================
 PRODUCTION READY
 ===================================
 
@@ -2702,7 +2904,15 @@ Firestore Structure
 
 services
 {
+  name:"Shirt Dry Cleaning",
+
+  icon:"🧺",
+
+  category:"Dry Cleaning",
+
   city:"Kasganj",
+
+  price:79,
 
   cityPricing:{
     Kasganj:79,
@@ -2711,26 +2921,28 @@ services
   }
 }
 
-orders
-{
-  city:"Kasganj",
-  partnerCity:"Kasganj",
-  riderCity:"Kasganj"
-}
-
 users
 {
   city:"Kasganj",
+
   latitude:27.89,
+
   longitude:78.65
+}
+
+orders
+{
+  city:"Kasganj",
+
+  partnerCity:"Kasganj",
+
+  riderCity:"Kasganj",
+
+  status:"Pending"
 }
 
 =================================== */
 
-</script>
-
-<script
-src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js">
 </script>
 
 </body>
