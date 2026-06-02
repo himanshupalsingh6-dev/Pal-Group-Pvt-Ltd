@@ -1,0 +1,3258 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+<meta charset="UTF-8">
+
+<meta
+name="viewport"
+content="width=device-width, initial-scale=1.0">
+
+<title>
+
+Service Management
+
+</title>
+
+<link
+href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap"
+rel="stylesheet">
+
+<link
+rel="stylesheet"
+href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+
+<link
+rel="stylesheet"
+href="css/sidebar.css">
+
+<link
+rel="stylesheet"
+href="css/topbar.css">
+
+<script
+type="module"
+src="js/admin-auth.js">
+
+</script>
+
+<style>
+
+:root{
+
+--primary:#16A34A;
+--bg:#F5F7FB;
+--white:#FFFFFF;
+--text:#111827;
+--gray:#6B7280;
+
+}
+
+*{
+
+margin:0;
+padding:0;
+box-sizing:border-box;
+font-family:'Inter',sans-serif;
+
+}
+
+body{
+
+background:var(--bg);
+
+overflow:hidden;
+
+}
+
+.adminLayout{
+
+display:flex;
+
+height:100vh;
+
+}
+
+.mainContent{
+
+flex:1;
+
+margin-left:280px;
+
+display:flex;
+
+flex-direction:column;
+
+}
+
+.contentArea{
+
+flex:1;
+
+padding:24px;
+
+overflow:auto;
+
+}
+
+/* ==========================
+HEADER
+========================== */
+
+.pageHeader{
+
+display:flex;
+
+justify-content:space-between;
+
+align-items:center;
+
+margin-bottom:24px;
+
+}
+
+.pageTitle{
+
+font-size:34px;
+
+font-weight:900;
+
+color:#111827;
+
+}
+
+.pageSubTitle{
+
+margin-top:5px;
+
+font-size:14px;
+
+color:#6B7280;
+
+}
+
+/* ==========================
+ADD BUTTON
+========================== */
+
+.addBtn{
+
+height:54px;
+
+padding:0 24px;
+
+border:none;
+
+border-radius:14px;
+
+background:#16A34A;
+
+color:#fff;
+
+font-size:14px;
+
+font-weight:900;
+
+cursor:pointer;
+
+display:flex;
+
+align-items:center;
+
+gap:10px;
+
+}
+
+</style>
+
+</head>
+
+<body>
+
+<div class="adminLayout">
+
+<!-- SIDEBAR -->
+
+<div id="sidebarContainer"></div>
+
+<!-- MAIN -->
+
+<div class="mainContent">
+
+<div id="topbarContainer"></div>
+
+<div class="contentArea">
+
+<!-- PAGE HEADER -->
+
+<div class="pageHeader">
+
+<div>
+
+<div class="pageTitle">
+
+Service Management
+
+</div>
+
+<div class="pageSubTitle">
+
+Manage services, categories, pricing and availability
+
+</div>
+
+</div>
+
+<button
+class="addBtn"
+id="addServiceBtn">
+
+<i class="fa-solid fa-plus"></i>
+
+Add Service
+
+</button>
+
+</div>
+<!-- ==========================
+TAB NAVIGATION
+========================== -->
+
+<div class="tabsWrapper">
+
+<button
+class="tabBtn activeTab"
+data-tab="overview">
+
+<i class="fa-solid fa-layer-group"></i>
+
+Overview
+
+</button>
+
+<button
+class="tabBtn"
+data-tab="categories">
+
+<i class="fa-solid fa-tags"></i>
+
+Categories
+
+</button>
+
+<button
+class="tabBtn"
+data-tab="pricing">
+
+<i class="fa-solid fa-indian-rupee-sign"></i>
+
+Pricing
+
+</button>
+
+<button
+class="tabBtn"
+data-tab="availability">
+
+<i class="fa-solid fa-location-dot"></i>
+
+Availability
+
+</button>
+
+<button
+class="tabBtn"
+data-tab="analytics">
+
+<i class="fa-solid fa-chart-line"></i>
+
+Analytics
+
+</button>
+
+</div>
+
+<!-- ==========================
+TAB CONTENTS
+========================== -->
+
+<div class="tabContainer">
+
+<!-- OVERVIEW -->
+
+<div
+class="tabContent activeContent"
+id="overview">
+
+</div>
+
+<!-- CATEGORIES -->
+
+<div
+class="tabContent"
+id="categories">
+
+</div>
+
+<!-- PRICING -->
+
+<div
+class="tabContent"
+id="pricing">
+
+</div>
+
+<!-- AVAILABILITY -->
+
+<div
+class="tabContent"
+id="availability">
+
+</div>
+
+<!-- ANALYTICS -->
+
+<div
+class="tabContent"
+id="analytics">
+
+</div>
+
+</div>
+
+<style>
+
+/* ==========================
+TABS
+========================== */
+
+.tabsWrapper{
+
+display:flex;
+
+gap:12px;
+
+margin-bottom:24px;
+
+flex-wrap:wrap;
+
+}
+
+.tabBtn{
+
+height:50px;
+
+padding:0 20px;
+
+border:none;
+
+border-radius:14px;
+
+background:#fff;
+
+font-size:14px;
+
+font-weight:800;
+
+cursor:pointer;
+
+display:flex;
+
+align-items:center;
+
+gap:10px;
+
+box-shadow:
+0 4px 14px rgba(0,0,0,.05);
+
+transition:.2s;
+
+}
+
+.tabBtn:hover{
+
+transform:
+translateY(-1px);
+
+}
+
+.activeTab{
+
+background:#16A34A;
+
+color:#fff;
+
+}
+
+/* ==========================
+TAB CONTENT
+========================== */
+
+.tabContent{
+
+display:none;
+
+animation:
+fadeIn .25s ease;
+
+}
+
+.activeContent{
+
+display:block;
+
+}
+
+@keyframes fadeIn{
+
+from{
+
+opacity:0;
+
+transform:
+translateY(5px);
+
+}
+
+to{
+
+opacity:1;
+
+transform:
+translateY(0);
+
+}
+
+}
+
+</style>
+
+<script>
+
+/* ==========================
+TAB SWITCHING
+========================== */
+
+const tabButtons =
+
+document.querySelectorAll(
+".tabBtn"
+);
+
+const tabContents =
+
+document.querySelectorAll(
+".tabContent"
+);
+
+tabButtons.forEach(btn=>{
+
+btn.addEventListener(
+
+"click",
+
+()=>{
+
+const target =
+
+btn.dataset.tab;
+
+/* Remove Active */
+
+tabButtons.forEach(b=>{
+
+b.classList.remove(
+"activeTab"
+);
+
+});
+
+tabContents.forEach(c=>{
+
+c.classList.remove(
+"activeContent"
+);
+
+});
+
+/* Add Active */
+
+btn.classList.add(
+"activeTab"
+);
+
+document
+.getElementById(
+target
+)
+
+.classList.add(
+"activeContent"
+);
+
+}
+
+);
+
+});
+
+</script>
+<!-- ==========================
+OVERVIEW TAB
+========================== -->
+
+<div
+class="overviewWrapper"
+id="overview">
+
+<!-- KPI CARDS -->
+
+<div class="kpiGrid">
+
+    <div class="kpiCard">
+
+        <div class="kpiIcon">
+
+            <i class="fa-solid fa-shirt"></i>
+
+        </div>
+
+        <div class="kpiInfo">
+
+            <div class="kpiLabel">
+
+                Total Services
+
+            </div>
+
+            <div
+            class="kpiValue"
+            id="totalServices">
+
+                0
+
+            </div>
+
+        </div>
+
+    </div>
+
+    <div class="kpiCard">
+
+        <div class="kpiIcon">
+
+            <i class="fa-solid fa-tags"></i>
+
+        </div>
+
+        <div class="kpiInfo">
+
+            <div class="kpiLabel">
+
+                Categories
+
+            </div>
+
+            <div
+            class="kpiValue"
+            id="totalCategories">
+
+                0
+
+            </div>
+
+        </div>
+
+    </div>
+
+    <div class="kpiCard">
+
+        <div class="kpiIcon">
+
+            <i class="fa-solid fa-city"></i>
+
+        </div>
+
+        <div class="kpiInfo">
+
+            <div class="kpiLabel">
+
+                Active Cities
+
+            </div>
+
+            <div
+            class="kpiValue"
+            id="activeCities">
+
+                0
+
+            </div>
+
+        </div>
+
+    </div>
+
+    <div class="kpiCard">
+
+        <div class="kpiIcon">
+
+            <i class="fa-solid fa-indian-rupee-sign"></i>
+
+        </div>
+
+        <div class="kpiInfo">
+
+            <div class="kpiLabel">
+
+                Revenue Month
+
+            </div>
+
+            <div
+            class="kpiValue"
+            id="monthlyRevenue">
+
+                ₹0
+
+            </div>
+
+        </div>
+
+    </div>
+
+</div>
+
+<!-- QUICK ACTIONS -->
+
+<div class="quickActionsCard">
+
+    <div class="sectionTitle">
+
+        Quick Actions
+
+    </div>
+
+    <div class="quickActionsGrid">
+
+        <button class="actionBtn">
+
+            <i class="fa-solid fa-plus"></i>
+
+            Add Service
+
+        </button>
+
+        <button class="actionBtn">
+
+            <i class="fa-solid fa-tags"></i>
+
+            Add Category
+
+        </button>
+
+        <button class="actionBtn">
+
+            <i class="fa-solid fa-location-dot"></i>
+
+            Add City
+
+        </button>
+
+        <button class="actionBtn">
+
+            <i class="fa-solid fa-indian-rupee-sign"></i>
+
+            Update Pricing
+
+        </button>
+
+    </div>
+
+</div>
+
+<!-- RECENT SERVICES -->
+
+<div class="recentServicesCard">
+
+    <div class="sectionTitle">
+
+        Recent Services
+
+    </div>
+
+    <div
+    class="servicesTable"
+    id="recentServices">
+
+        <div class="loadingBox">
+
+            Loading Services...
+
+        </div>
+
+    </div>
+
+</div>
+
+</div>
+
+<style>
+
+/* ==========================
+KPI GRID
+========================== */
+
+.kpiGrid{
+
+display:grid;
+
+grid-template-columns:
+repeat(4,1fr);
+
+gap:20px;
+
+margin-bottom:24px;
+
+}
+
+.kpiCard{
+
+background:#fff;
+
+border-radius:20px;
+
+padding:24px;
+
+display:flex;
+
+align-items:center;
+
+gap:18px;
+
+box-shadow:
+0 4px 14px rgba(0,0,0,.05);
+
+}
+
+.kpiIcon{
+
+width:60px;
+height:60px;
+
+border-radius:16px;
+
+background:#DCFCE7;
+
+display:flex;
+
+align-items:center;
+justify-content:center;
+
+font-size:22px;
+
+color:#16A34A;
+
+}
+
+.kpiLabel{
+
+font-size:13px;
+
+font-weight:700;
+
+color:#6B7280;
+
+}
+
+.kpiValue{
+
+margin-top:6px;
+
+font-size:28px;
+
+font-weight:900;
+
+color:#111827;
+
+}
+
+/* ==========================
+COMMON CARDS
+========================== */
+
+.quickActionsCard,
+.recentServicesCard{
+
+background:#fff;
+
+border-radius:20px;
+
+padding:24px;
+
+margin-bottom:24px;
+
+box-shadow:
+0 4px 14px rgba(0,0,0,.05);
+
+}
+
+.sectionTitle{
+
+font-size:18px;
+
+font-weight:900;
+
+margin-bottom:18px;
+
+}
+
+/* ==========================
+QUICK ACTIONS
+========================== */
+
+.quickActionsGrid{
+
+display:grid;
+
+grid-template-columns:
+repeat(4,1fr);
+
+gap:15px;
+
+}
+
+.actionBtn{
+
+height:55px;
+
+border:none;
+
+border-radius:14px;
+
+background:#F3F4F6;
+
+cursor:pointer;
+
+font-size:14px;
+
+font-weight:800;
+
+display:flex;
+
+align-items:center;
+
+justify-content:center;
+
+gap:10px;
+
+}
+
+.actionBtn:hover{
+
+background:#16A34A;
+
+color:#fff;
+
+}
+
+/* ==========================
+TABLE
+========================== */
+
+.servicesTable{
+
+overflow-x:auto;
+
+}
+
+.loadingBox{
+
+padding:30px;
+
+text-align:center;
+
+font-weight:700;
+
+color:#6B7280;
+
+}
+
+</style>
+<script type="module">
+
+/* ==========================
+FIREBASE
+========================== */
+
+import { db }
+from "../js/firebase.js";
+
+import {
+
+collection,
+getDocs,
+query,
+orderBy,
+limit
+
+}
+from
+"https://www.gstatic.com/firebasejs/12.11.0/firebase-firestore.js";
+
+/* ==========================
+LOAD DASHBOARD
+========================== */
+
+window.loadOverview =
+async function(){
+
+try{
+
+/* ==========================
+SERVICES
+========================== */
+
+const servicesSnap =
+
+await getDocs(
+
+collection(
+db,
+"services"
+)
+
+);
+
+/* ==========================
+CATEGORIES
+========================== */
+
+const categoriesSnap =
+
+await getDocs(
+
+collection(
+db,
+"categories"
+)
+
+);
+
+/* ==========================
+CITIES
+========================== */
+
+const citiesSnap =
+
+await getDocs(
+
+collection(
+db,
+"cities"
+)
+
+);
+
+/* ==========================
+UPDATE KPIs
+========================== */
+
+document.getElementById(
+"totalServices"
+).innerHTML =
+
+servicesSnap.size;
+
+document.getElementById(
+"totalCategories"
+).innerHTML =
+
+categoriesSnap.size;
+
+document.getElementById(
+"activeCities"
+).innerHTML =
+
+citiesSnap.size;
+
+/* TEMP REVENUE */
+
+document.getElementById(
+"monthlyRevenue"
+).innerHTML =
+
+"₹0";
+
+/* ==========================
+LOAD RECENT SERVICES
+========================== */
+
+loadRecentServices();
+
+}
+catch(error){
+
+console.error(error);
+
+}
+
+};
+
+/* ==========================
+RECENT SERVICES
+========================== */
+
+window.loadRecentServices =
+async function(){
+
+try{
+
+const recentBox =
+
+document.getElementById(
+"recentServices"
+);
+
+const q = query(
+
+collection(
+db,
+"services"
+),
+
+orderBy(
+"createdAt",
+"desc"
+),
+
+limit(10)
+
+);
+
+const snapshot =
+
+await getDocs(q);
+
+if(snapshot.empty){
+
+recentBox.innerHTML =
+
+`
+
+<div class="loadingBox">
+
+No Services Found
+
+</div>
+
+`;
+
+return;
+
+}
+
+let html =
+
+`
+
+<table class="dataTable">
+
+<thead>
+
+<tr>
+
+<th>
+
+Service
+
+</th>
+
+<th>
+
+Status
+
+</th>
+
+<th>
+
+Created
+
+</th>
+
+</tr>
+
+</thead>
+
+<tbody>
+
+`;
+
+snapshot.forEach(doc=>{
+
+const data =
+doc.data();
+
+html +=
+
+`
+
+<tr>
+
+<td>
+
+${data.name || "-"}
+
+</td>
+
+<td>
+
+<span class="tableStatus
+
+${data.active
+
+? "statusActive"
+
+: "statusInactive"}
+
+">
+
+${data.active
+
+? "Active"
+
+: "Inactive"}
+
+</span>
+
+</td>
+
+<td>
+
+${
+
+data.createdAt
+
+?
+
+new Date(
+data.createdAt.seconds
+*1000
+)
+
+.toLocaleDateString()
+
+:
+
+"-"
+
+}
+
+</td>
+
+</tr>
+
+`;
+
+});
+
+html +=
+
+`
+
+</tbody>
+
+</table>
+
+`;
+
+recentBox.innerHTML =
+html;
+
+}
+catch(error){
+
+console.error(error);
+
+}
+
+};
+
+/* ==========================
+INIT
+========================== */
+
+setTimeout(()=>{
+
+loadOverview();
+
+},500);
+
+</script>
+
+<style>
+
+/* ==========================
+TABLE
+========================== */
+
+.dataTable{
+
+width:100%;
+
+border-collapse:collapse;
+
+}
+
+.dataTable th{
+
+background:#F9FAFB;
+
+padding:14px;
+
+text-align:left;
+
+font-size:13px;
+
+font-weight:800;
+
+border-bottom:
+1px solid #E5E7EB;
+
+}
+
+.dataTable td{
+
+padding:16px 14px;
+
+border-bottom:
+1px solid #F3F4F6;
+
+font-size:14px;
+
+}
+
+.tableStatus{
+
+padding:6px 12px;
+
+border-radius:999px;
+
+font-size:12px;
+
+font-weight:800;
+
+}
+
+.statusActive{
+
+background:#DCFCE7;
+
+color:#15803D;
+
+}
+
+.statusInactive{
+
+background:#FEE2E2;
+
+color:#B91C1C;
+
+}
+
+</style>
+<!-- ==========================
+CATEGORIES TAB
+========================== -->
+
+<div class="categoriesWrapper">
+
+    <!-- HEADER -->
+
+    <div class="tabHeader">
+
+        <div>
+
+            <h3>
+
+                Categories Management
+
+            </h3>
+
+            <p>
+
+                Manage service categories and item types
+
+            </p>
+
+        </div>
+
+        <button
+        class="primaryBtn"
+        id="addCategoryBtn">
+
+            <i class="fa-solid fa-plus"></i>
+
+            Add Category
+
+        </button>
+
+    </div>
+
+    <!-- CATEGORY TABLE -->
+
+    <div class="tableCard">
+
+        <table class="dataTable">
+
+            <thead>
+
+                <tr>
+
+                    <th>
+
+                        Category Name
+
+                    </th>
+
+                    <th>
+
+                        Service
+
+                    </th>
+
+                    <th>
+
+                        Status
+
+                    </th>
+
+                    <th>
+
+                        Actions
+
+                    </th>
+
+                </tr>
+
+            </thead>
+
+            <tbody
+            id="categoriesTableBody">
+
+                <tr>
+
+                    <td colspan="4">
+
+                        Loading Categories...
+
+                    </td>
+
+                </tr>
+
+            </tbody>
+
+        </table>
+
+    </div>
+
+</div>
+
+<!-- ==========================
+ADD CATEGORY MODAL
+========================== -->
+
+<div
+class="modalOverlay"
+id="categoryModal">
+
+    <div class="modalCard">
+
+        <div class="modalHeader">
+
+            <h3
+            id="categoryModalTitle">
+
+                Add Category
+
+            </h3>
+
+            <button
+            class="closeBtn"
+            onclick="closeCategoryModal()">
+
+                <i class="fa-solid fa-xmark"></i>
+
+            </button>
+
+        </div>
+
+        <!-- CATEGORY NAME -->
+
+        <div class="formGroup">
+
+            <label>
+
+                Category Name
+
+            </label>
+
+            <input
+            type="text"
+            id="categoryName"
+            placeholder="Formal Shirt">
+
+        </div>
+
+        <!-- SERVICE -->
+
+        <div class="formGroup">
+
+            <label>
+
+                Select Service
+
+            </label>
+
+            <select
+            id="categoryService">
+
+                <option>
+
+                    Loading Services...
+
+                </option>
+
+            </select>
+
+        </div>
+
+        <!-- STATUS -->
+
+        <div class="formGroup">
+
+            <label>
+
+                Status
+
+            </label>
+
+            <select
+            id="categoryStatus">
+
+                <option value="true">
+
+                    Active
+
+                </option>
+
+                <option value="false">
+
+                    Inactive
+
+                </option>
+
+            </select>
+
+        </div>
+
+        <!-- SAVE -->
+
+        <button
+        class="saveBtn"
+        id="saveCategoryBtn">
+
+            Save Category
+
+        </button>
+
+    </div>
+
+</div>
+
+<style>
+
+/* ==========================
+TAB HEADER
+========================== */
+
+.tabHeader{
+
+display:flex;
+
+justify-content:space-between;
+
+align-items:center;
+
+margin-bottom:20px;
+
+}
+
+.tabHeader h3{
+
+font-size:24px;
+
+font-weight:900;
+
+}
+
+.tabHeader p{
+
+margin-top:5px;
+
+color:#6B7280;
+
+font-size:14px;
+
+}
+
+/* ==========================
+BUTTON
+========================== */
+
+.primaryBtn{
+
+height:50px;
+
+padding:0 20px;
+
+border:none;
+
+border-radius:14px;
+
+background:#16A34A;
+
+color:#fff;
+
+font-weight:800;
+
+cursor:pointer;
+
+display:flex;
+
+align-items:center;
+
+gap:10px;
+
+}
+
+/* ==========================
+TABLE CARD
+========================== */
+
+.tableCard{
+
+background:#fff;
+
+border-radius:20px;
+
+padding:20px;
+
+box-shadow:
+0 4px 14px rgba(0,0,0,.05);
+
+}
+
+/* ==========================
+MODAL
+========================== */
+
+.modalOverlay{
+
+position:fixed;
+
+inset:0;
+
+background:
+rgba(0,0,0,.5);
+
+display:none;
+
+justify-content:center;
+
+align-items:center;
+
+z-index:9999;
+
+}
+
+.modalCard{
+
+width:550px;
+
+background:#fff;
+
+border-radius:24px;
+
+padding:24px;
+
+}
+
+.modalHeader{
+
+display:flex;
+
+justify-content:space-between;
+
+align-items:center;
+
+margin-bottom:20px;
+
+}
+
+.closeBtn{
+
+width:40px;
+
+height:40px;
+
+border:none;
+
+border-radius:10px;
+
+background:#F3F4F6;
+
+cursor:pointer;
+
+}
+
+.formGroup{
+
+margin-bottom:16px;
+
+}
+
+.formGroup label{
+
+display:block;
+
+margin-bottom:8px;
+
+font-weight:700;
+
+font-size:13px;
+
+}
+
+.formGroup input,
+.formGroup select{
+
+width:100%;
+
+height:52px;
+
+border:none;
+
+outline:none;
+
+background:#F3F4F6;
+
+border-radius:12px;
+
+padding:0 14px;
+
+}
+
+.saveBtn{
+
+width:100%;
+
+height:55px;
+
+border:none;
+
+border-radius:14px;
+
+background:#16A34A;
+
+color:#fff;
+
+font-size:15px;
+
+font-weight:900;
+
+cursor:pointer;
+
+}
+
+</style>
+
+<script>
+
+/* ==========================
+OPEN MODAL
+========================== */
+
+document
+.getElementById(
+"addCategoryBtn"
+)
+
+.addEventListener(
+
+"click",
+
+()=>{
+
+document.getElementById(
+"categoryModal"
+).style.display =
+
+"flex";
+
+}
+
+);
+
+/* ==========================
+CLOSE MODAL
+========================== */
+
+function closeCategoryModal(){
+
+document.getElementById(
+"categoryModal"
+).style.display =
+
+"none";
+
+}
+
+</script>
+
+<script type="module">
+
+import { db }
+from "../js/firebase.js";
+
+import {
+
+collection,
+addDoc,
+getDocs,
+getDoc,
+doc,
+updateDoc,
+deleteDoc,
+serverTimestamp
+
+}
+from
+"https://www.gstatic.com/firebasejs/12.11.0/firebase-firestore.js";
+
+/* ==========================
+GLOBAL
+========================== */
+
+let editingCategoryId = null;
+
+/* ==========================
+LOAD SERVICES DROPDOWN
+========================== */
+
+window.loadServicesDropdown =
+async function(){
+
+try{
+
+const select =
+
+document.getElementById(
+"categoryService"
+);
+
+select.innerHTML = "";
+
+const snapshot =
+
+await getDocs(
+
+collection(
+db,
+"services"
+)
+
+);
+
+if(snapshot.empty){
+
+select.innerHTML =
+
+`
+<option value="">
+
+No Services Found
+
+</option>
+`;
+
+return;
+
+}
+
+snapshot.forEach(doc=>{
+
+const data =
+doc.data();
+
+select.innerHTML +=
+
+`
+<option value="${doc.id}">
+
+${data.name}
+
+</option>
+`;
+
+});
+
+}
+catch(error){
+
+console.error(error);
+
+}
+
+};
+
+/* ==========================
+SAVE CATEGORY
+========================== */
+
+document
+.getElementById(
+"saveCategoryBtn"
+)
+
+.addEventListener(
+
+"click",
+
+async()=>{
+
+try{
+
+const name =
+
+document.getElementById(
+"categoryName"
+).value.trim();
+
+const serviceId =
+
+document.getElementById(
+"categoryService"
+).value;
+
+const active =
+
+document.getElementById(
+"categoryStatus"
+).value === "true";
+
+if(!name){
+
+alert(
+"Category name required"
+);
+
+return;
+
+}
+
+if(editingCategoryId){
+
+await updateCategory();
+
+return;
+
+}
+
+await addDoc(
+
+collection(
+db,
+"categories"
+),
+
+{
+
+name,
+
+serviceId,
+
+active,
+
+createdAt:
+serverTimestamp()
+
+}
+
+);
+
+alert(
+"Category Added Successfully"
+);
+
+closeCategoryModal();
+
+loadCategories();
+
+}
+catch(error){
+
+console.error(error);
+
+alert(
+"Failed to add category"
+);
+
+}
+
+});
+
+/* ==========================
+LOAD CATEGORIES
+========================== */
+
+window.loadCategories =
+async function(){
+
+try{
+
+const tbody =
+
+document.getElementById(
+"categoriesTableBody"
+);
+
+tbody.innerHTML =
+
+`
+<tr>
+
+<td colspan="4">
+
+Loading...
+
+</td>
+
+</tr>
+`;
+
+const categoriesSnap =
+
+await getDocs(
+
+collection(
+db,
+"categories"
+)
+
+);
+
+const servicesSnap =
+
+await getDocs(
+
+collection(
+db,
+"services"
+)
+
+);
+
+const servicesMap = {};
+
+servicesSnap.forEach(doc=>{
+
+servicesMap[doc.id] =
+
+doc.data().name;
+
+});
+
+if(categoriesSnap.empty){
+
+tbody.innerHTML =
+
+`
+<tr>
+
+<td colspan="4">
+
+No Categories Found
+
+</td>
+
+</tr>
+`;
+
+return;
+
+}
+
+tbody.innerHTML = "";
+
+categoriesSnap.forEach(docSnap=>{
+
+const data =
+docSnap.data();
+
+tbody.innerHTML +=
+
+`
+
+<tr>
+
+<td>
+
+${data.name}
+
+</td>
+
+<td>
+
+${servicesMap[data.serviceId] || "-"}
+
+</td>
+
+<td>
+
+<span class="tableStatus
+
+${data.active
+
+? "statusActive"
+
+: "statusInactive"}
+
+">
+
+${data.active
+
+? "Active"
+
+: "Inactive"}
+
+</span>
+
+</td>
+
+<td>
+
+<button
+class="editBtn"
+onclick="editCategory('${docSnap.id}')">
+
+Edit
+
+</button>
+
+<button
+class="deleteBtn"
+onclick="deleteCategory('${docSnap.id}')">
+
+Delete
+
+</button>
+
+</td>
+
+</tr>
+
+`;
+
+});
+
+}
+catch(error){
+
+console.error(error);
+
+}
+
+};
+
+/* ==========================
+EDIT CATEGORY
+========================== */
+
+window.editCategory =
+async function(id){
+
+try{
+
+const snap =
+
+await getDoc(
+
+doc(
+db,
+"categories",
+id
+)
+
+);
+
+if(!snap.exists()) return;
+
+const data =
+snap.data();
+
+editingCategoryId = id;
+
+document.getElementById(
+"categoryName"
+).value =
+
+data.name;
+
+document.getElementById(
+"categoryService"
+).value =
+
+data.serviceId;
+
+document.getElementById(
+"categoryStatus"
+).value =
+
+data.active
+? "true"
+: "false";
+
+document.getElementById(
+"categoryModalTitle"
+).innerHTML =
+
+"Edit Category";
+
+document.getElementById(
+"saveCategoryBtn"
+).innerHTML =
+
+"Update Category";
+
+document.getElementById(
+"categoryModal"
+).style.display =
+
+"flex";
+
+}
+catch(error){
+
+console.error(error);
+
+}
+
+};
+
+/* ==========================
+UPDATE CATEGORY
+========================== */
+
+window.updateCategory =
+async function(){
+
+try{
+
+await updateDoc(
+
+doc(
+db,
+"categories",
+editingCategoryId
+),
+
+{
+
+name:
+
+document.getElementById(
+"categoryName"
+).value.trim(),
+
+serviceId:
+
+document.getElementById(
+"categoryService"
+).value,
+
+active:
+
+document.getElementById(
+"categoryStatus"
+).value === "true"
+
+}
+
+);
+
+alert(
+"Category Updated"
+);
+
+editingCategoryId = null;
+
+closeCategoryModal();
+
+loadCategories();
+
+}
+catch(error){
+
+console.error(error);
+
+}
+
+};
+
+/* ==========================
+DELETE CATEGORY
+========================== */
+
+window.deleteCategory =
+async function(id){
+
+const confirmDelete =
+
+confirm(
+"Delete this category?"
+);
+
+if(!confirmDelete) return;
+
+try{
+
+await deleteDoc(
+
+doc(
+db,
+"categories",
+id
+)
+
+);
+
+alert(
+"Category Deleted"
+);
+
+loadCategories();
+
+}
+catch(error){
+
+console.error(error);
+
+}
+
+};
+
+/* ==========================
+RESET MODAL
+========================== */
+
+window.closeCategoryModal =
+function(){
+
+editingCategoryId = null;
+
+document.getElementById(
+"categoryModal"
+).style.display =
+
+"none";
+
+document.getElementById(
+"categoryName"
+).value = "";
+
+document.getElementById(
+"categoryModalTitle"
+).innerHTML =
+
+"Add Category";
+
+document.getElementById(
+"saveCategoryBtn"
+).innerHTML =
+
+"Save Category";
+
+};
+
+/* ==========================
+INIT
+========================== */
+
+setTimeout(()=>{
+
+loadServicesDropdown();
+
+loadCategories();
+
+},500);
+
+</script>
+<!-- ==========================
+PRICING TAB
+========================== -->
+
+<div class="pricingWrapper">
+
+    <div class="tabHeader">
+
+        <div>
+
+            <h3>
+
+                Multi City Pricing
+
+            </h3>
+
+            <p>
+
+                Manage category pricing city wise
+
+            </p>
+
+        </div>
+
+        <button
+        class="primaryBtn"
+        id="savePricingBtn">
+
+            <i class="fa-solid fa-floppy-disk"></i>
+
+            Save Pricing
+
+        </button>
+
+    </div>
+
+    <!-- FILTERS -->
+
+    <div class="pricingFilters">
+
+        <select id="pricingCity">
+
+            <option value="">
+
+                Select City
+
+            </option>
+
+        </select>
+
+        <select id="pricingService">
+
+            <option value="">
+
+                Select Service
+
+            </option>
+
+        </select>
+
+    </div>
+
+    <!-- TABLE -->
+
+    <div class="tableCard">
+
+        <table class="dataTable">
+
+            <thead>
+
+                <tr>
+
+                    <th>
+
+                        Category
+
+                    </th>
+
+                    <th>
+
+                        Price (₹)
+
+                    </th>
+
+                </tr>
+
+            </thead>
+
+            <tbody
+            id="pricingTableBody">
+
+                <tr>
+
+                    <td colspan="2">
+
+                        Select City & Service
+
+                    </td>
+
+                </tr>
+
+            </tbody>
+
+        </table>
+
+    </div>
+
+</div>
+
+<style>
+
+/* ==========================
+PRICING
+========================== */
+
+.pricingFilters{
+
+display:flex;
+
+gap:15px;
+
+margin-bottom:20px;
+
+}
+
+.pricingFilters select{
+
+width:250px;
+
+height:52px;
+
+border:none;
+
+outline:none;
+
+background:#fff;
+
+border-radius:14px;
+
+padding:0 14px;
+
+box-shadow:
+0 4px 14px rgba(0,0,0,.05);
+
+}
+
+.priceInput{
+
+width:120px;
+
+height:40px;
+
+border:none;
+
+outline:none;
+
+background:#F3F4F6;
+
+border-radius:10px;
+
+padding:0 10px;
+
+font-weight:700;
+
+}
+
+</style>
+
+<script type="module">
+
+import { db }
+from "../js/firebase.js";
+
+import {
+
+collection,
+getDocs,
+query,
+where,
+doc,
+setDoc
+
+}
+from
+"https://www.gstatic.com/firebasejs/12.11.0/firebase-firestore.js";
+
+/* ==========================
+LOAD CITIES
+========================== */
+
+window.loadPricingCities =
+async function(){
+
+const citySelect =
+
+document.getElementById(
+"pricingCity"
+);
+
+const snapshot =
+
+await getDocs(
+
+collection(
+db,
+"cities"
+)
+
+);
+
+snapshot.forEach(doc=>{
+
+const data =
+doc.data();
+
+citySelect.innerHTML +=
+
+`
+<option value="${doc.id}">
+
+${data.name}
+
+</option>
+`;
+
+});
+
+};
+
+/* ==========================
+LOAD SERVICES
+========================== */
+
+window.loadPricingServices =
+async function(){
+
+const serviceSelect =
+
+document.getElementById(
+"pricingService"
+);
+
+const snapshot =
+
+await getDocs(
+
+collection(
+db,
+"services"
+)
+
+);
+
+snapshot.forEach(doc=>{
+
+const data =
+doc.data();
+
+serviceSelect.innerHTML +=
+
+`
+<option value="${doc.id}">
+
+${data.name}
+
+</option>
+`;
+
+});
+
+};
+
+/* ==========================
+LOAD CATEGORY PRICING
+========================== */
+
+window.loadPricingTable =
+async function(){
+
+const cityId =
+
+document.getElementById(
+"pricingCity"
+).value;
+
+const serviceId =
+
+document.getElementById(
+"pricingService"
+).value;
+
+if(!cityId || !serviceId) return;
+
+const tbody =
+
+document.getElementById(
+"pricingTableBody"
+);
+
+tbody.innerHTML = "";
+
+const categoryQuery =
+
+query(
+
+collection(
+db,
+"categories"
+),
+
+where(
+"serviceId",
+"==",
+serviceId
+)
+
+);
+
+const categoriesSnap =
+
+await getDocs(
+categoryQuery
+);
+
+categoriesSnap.forEach(docSnap=>{
+
+const data =
+docSnap.data();
+
+tbody.innerHTML +=
+
+`
+
+<tr>
+
+<td>
+
+${data.name}
+
+</td>
+
+<td>
+
+<input
+type="number"
+min="0"
+class="priceInput"
+data-category="${docSnap.id}"
+placeholder="0">
+
+</td>
+
+</tr>
+
+`;
+
+});
+
+};
+
+/* ==========================
+SAVE PRICING
+========================== */
+
+document
+.getElementById(
+"savePricingBtn"
+)
+
+.addEventListener(
+
+"click",
+
+async()=>{
+
+try{
+
+const cityId =
+
+document.getElementById(
+"pricingCity"
+).value;
+
+const serviceId =
+
+document.getElementById(
+"pricingService"
+).value;
+
+if(!cityId || !serviceId){
+
+alert(
+"Select City & Service"
+);
+
+return;
+
+}
+
+const inputs =
+
+document.querySelectorAll(
+".priceInput"
+);
+
+for(const input of inputs){
+
+const categoryId =
+
+input.dataset.category;
+
+const price =
+
+Number(
+input.value || 0
+);
+
+await setDoc(
+
+doc(
+
+db,
+
+"city_pricing",
+
+`${cityId}_${categoryId}`
+
+),
+
+{
+
+cityId,
+
+serviceId,
+
+categoryId,
+
+price,
+
+updatedAt:
+new Date()
+
+}
+
+);
+
+}
+
+alert(
+"Pricing Saved Successfully"
+);
+
+}
+catch(error){
+
+console.error(error);
+
+alert(
+"Failed to save pricing"
+);
+
+}
+
+}
+
+);
+
+/* ==========================
+EVENTS
+========================== */
+
+document
+.getElementById(
+"pricingCity"
+)
+
+.addEventListener(
+"change",
+loadPricingTable
+);
+
+document
+.getElementById(
+"pricingService"
+)
+
+.addEventListener(
+"change",
+loadPricingTable
+);
+
+/* ==========================
+INIT
+========================== */
+
+setTimeout(()=>{
+
+loadPricingCities();
+
+loadPricingServices();
+
+},500);
+
+</script>
+<!-- ==========================
+AVAILABILITY TAB
+========================== -->
+
+<div class="availabilityWrapper">
+
+<div class="tabHeader">
+
+<div>
+
+<h3>
+
+Service Availability
+
+</h3>
+
+<p>
+
+Enable or disable services city wise
+
+</p>
+
+</div>
+
+</div>
+
+<div class="tableCard">
+
+<table class="dataTable">
+
+<thead>
+
+<tr>
+
+<th>City</th>
+
+<th>Service</th>
+
+<th>Status</th>
+
+</tr>
+
+</thead>
+
+<tbody id="availabilityTableBody">
+
+<tr>
+
+<td colspan="3">
+
+Availability Module Ready
+
+</td>
+
+</tr>
+
+</tbody>
+
+</table>
+
+</div>
+
+</div>
+
+<!-- ==========================
+ANALYTICS TAB
+========================== -->
+
+<div class="analyticsWrapper">
+
+<!-- KPI -->
+
+<div class="kpiGrid">
+
+<div class="kpiCard">
+
+<div class="kpiLabel">
+
+Today's Orders
+
+</div>
+
+<div
+class="kpiValue"
+id="todayOrders">
+
+0
+
+</div>
+
+</div>
+
+<div class="kpiCard">
+
+<div class="kpiLabel">
+
+Today's Revenue
+
+</div>
+
+<div
+class="kpiValue"
+id="todayRevenue">
+
+₹0
+
+</div>
+
+</div>
+
+<div class="kpiCard">
+
+<div class="kpiLabel">
+
+Monthly Revenue
+
+</div>
+
+<div
+class="kpiValue"
+id="analyticsRevenue">
+
+₹0
+
+</div>
+
+</div>
+
+<div class="kpiCard">
+
+<div class="kpiLabel">
+
+Top Services
+
+</div>
+
+<div
+class="kpiValue"
+id="topServiceCount">
+
+0
+
+</div>
+
+</div>
+
+</div>
+
+<!-- TOP SERVICES -->
+
+<div class="tableCard">
+
+<h3
+style="margin-bottom:20px;">
+
+Top Services
+
+</h3>
+
+<table class="dataTable">
+
+<thead>
+
+<tr>
+
+<th>
+
+Service
+
+</th>
+
+<th>
+
+Orders
+
+</th>
+
+<th>
+
+Revenue
+
+</th>
+
+</tr>
+
+</thead>
+
+<tbody
+id="topServicesTable">
+
+<tr>
+
+<td colspan="3">
+
+No Data Found
+
+</td>
+
+</tr>
+
+</tbody>
+
+</table>
+
+</div>
+
+</div>
+
+<style>
+
+/* ==========================
+FOOTER
+========================== */
+
+.adminFooter{
+
+margin-top:25px;
+
+background:#fff;
+
+padding:20px;
+
+border-radius:20px;
+
+display:flex;
+
+justify-content:space-between;
+
+align-items:center;
+
+box-shadow:
+0 4px 14px rgba(0,0,0,.05);
+
+}
+
+.footerTitle{
+
+font-size:18px;
+
+font-weight:900;
+
+}
+
+.footerText{
+
+font-size:13px;
+
+color:#6B7280;
+
+}
+
+</style>
+
+<script type="module">
+
+import { db }
+from "../js/firebase.js";
+
+import {
+collection,
+getDocs
+}
+from
+"https://www.gstatic.com/firebasejs/12.11.0/firebase-firestore.js";
+
+/* ==========================
+ANALYTICS
+========================== */
+
+window.loadAnalytics =
+async function(){
+
+try{
+
+const ordersSnap =
+
+await getDocs(
+
+collection(
+db,
+"orders"
+)
+
+);
+
+let totalRevenue = 0;
+
+ordersSnap.forEach(doc=>{
+
+const data =
+doc.data();
+
+totalRevenue +=
+
+Number(
+data.totalAmount || 0
+);
+
+});
+
+document.getElementById(
+"analyticsRevenue"
+).innerHTML =
+
+"₹" +
+totalRevenue;
+
+document.getElementById(
+"todayRevenue"
+).innerHTML =
+
+"₹" +
+totalRevenue;
+
+document.getElementById(
+"todayOrders"
+).innerHTML =
+
+ordersSnap.size;
+
+}
+catch(error){
+
+console.error(error);
+
+}
+
+};
+
+/* ==========================
+INIT
+========================== */
+
+setTimeout(()=>{
+
+loadAnalytics();
+
+},1000);
+
+</script>
+
+<!-- ==========================
+FOOTER
+========================== -->
+
+<div class="adminFooter">
+
+<div>
+
+<div class="footerTitle">
+
+QuickPress Admin
+
+</div>
+
+<div class="footerText">
+
+Enterprise Multi-City Laundry Management System
+
+</div>
+
+</div>
+
+<div class="footerText">
+
+Version 2.0.0
+
+</div>
+
+</div>
+
+</div>
+<!-- contentArea -->
+
+</div>
+<!-- mainContent -->
+
+</div>
+<!-- adminLayout -->
+
+<!-- ==========================
+SIDEBAR
+========================== -->
+
+<script>
+
+fetch(
+"includes/sidebar.html"
+)
+
+.then(r=>r.text())
+
+.then(data=>{
+
+document.getElementById(
+"sidebarContainer"
+).innerHTML = data;
+
+});
+
+</script>
+
+<!-- ==========================
+TOPBAR
+========================== -->
+
+<script>
+
+fetch(
+"includes/topbar.html"
+)
+
+.then(r=>r.text())
+
+.then(data=>{
+
+document.getElementById(
+"topbarContainer"
+).innerHTML = data;
+
+});
+
+</script>
+
+<!-- ==========================
+PAGE TITLE
+========================== -->
+
+<script>
+
+setTimeout(()=>{
+
+const title =
+
+document.getElementById(
+"pageTitle"
+);
+
+if(title){
+
+title.innerHTML =
+
+"Service Management";
+
+}
+
+},500);
+
+</script>
+
+</body>
+
+</html>
