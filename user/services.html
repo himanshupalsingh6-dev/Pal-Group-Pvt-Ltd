@@ -461,3 +461,2241 @@ total > 0
 updateCartBadge();
 
 </script>
+<!-- ===================================
+CATEGORY SECTION
+=================================== -->
+
+<div class="categorySection">
+
+<div class="categorySlider"
+id="categorySlider">
+
+<!-- Firebase Categories -->
+
+</div>
+
+</div>
+
+<style>
+
+/* ===================================
+CATEGORY SECTION
+=================================== */
+
+.categorySection{
+
+padding:16px;
+
+}
+
+/* ===================================
+CATEGORY SLIDER
+=================================== */
+
+.categorySlider{
+
+display:flex;
+
+overflow-x:auto;
+
+gap:12px;
+
+padding-bottom:8px;
+
+scrollbar-width:none;
+
+-webkit-overflow-scrolling:touch;
+
+}
+
+.categorySlider::-webkit-scrollbar{
+
+display:none;
+
+}
+
+/* ===================================
+CATEGORY CARD
+=================================== */
+
+.categoryCard{
+
+min-width:90px;
+
+flex-shrink:0;
+
+text-align:center;
+
+cursor:pointer;
+
+transition:.25s;
+
+}
+
+.categoryCard.active{
+
+transform:translateY(-3px);
+
+}
+
+.categoryCard.active .categoryIcon{
+
+border:2px solid #16A34A;
+
+}
+
+.categoryCard.active h4{
+
+color:#16A34A;
+
+}
+
+/* ===================================
+ICON
+=================================== */
+
+.categoryIcon{
+
+width:56px;
+height:56px;
+
+margin:auto;
+
+border-radius:16px;
+
+display:flex;
+align-items:center;
+justify-content:center;
+
+font-size:24px;
+
+background:#fff;
+
+box-shadow:
+0 4px 12px rgba(0,0,0,.05);
+
+}
+
+/* ===================================
+TEXT
+=================================== */
+
+.categoryCard h4{
+
+margin-top:8px;
+
+font-size:11px;
+
+font-weight:800;
+
+line-height:1.3;
+
+color:#111827;
+
+}
+
+/* ===================================
+DESKTOP
+=================================== */
+
+@media(min-width:1200px){
+
+.categorySlider{
+
+gap:18px;
+
+}
+
+.categoryCard{
+
+min-width:110px;
+
+}
+
+.categoryIcon{
+
+width:64px;
+height:64px;
+
+font-size:28px;
+
+}
+
+.categoryCard h4{
+
+font-size:13px;
+
+}
+
+}
+
+</style>
+
+<script type="module">
+
+import { db }
+from "./firebase.js";
+
+import {
+collection,
+query,
+where,
+orderBy,
+onSnapshot
+}
+from
+"https://www.gstatic.com/firebasejs/12.11.0/firebase-firestore.js";
+
+/* ===================================
+GLOBAL
+=================================== */
+
+window.selectedCategoryId = null;
+
+/* ===================================
+LOAD CATEGORIES
+=================================== */
+
+const categorySlider =
+
+document.getElementById(
+"categorySlider"
+);
+
+onSnapshot(
+
+query(
+
+collection(
+db,
+"categories"
+),
+
+where(
+"active",
+"!=",
+false
+),
+
+orderBy(
+"position",
+"asc"
+)
+
+),
+
+(snapshot)=>{
+
+categorySlider.innerHTML = "";
+
+let firstCategory = null;
+
+snapshot.forEach(doc=>{
+
+const category = {
+
+id:doc.id,
+
+...doc.data()
+
+};
+
+if(!firstCategory){
+
+firstCategory =
+category.id;
+
+}
+
+/* ===================================
+CATEGORY CARD
+=================================== */
+
+categorySlider.innerHTML +=
+
+`
+
+<div
+
+class="categoryCard"
+
+data-id="${category.id}"
+
+onclick="selectCategory(
+
+'${category.id}'
+
+)">
+
+<div
+class="categoryIcon">
+
+${category.icon || "🧺"}
+
+</div>
+
+<h4>
+
+${category.name}
+
+</h4>
+
+</div>
+
+`;
+
+});
+
+/* ===================================
+AUTO SELECT FIRST
+=================================== */
+
+if(
+
+!window.selectedCategoryId &&
+firstCategory
+
+){
+
+selectCategory(
+firstCategory
+);
+
+}
+
+}
+
+/* ===================================
+ERROR SAFE
+=================================== */
+
+,console.error
+
+);
+
+/* ===================================
+SELECT CATEGORY
+=================================== */
+
+window.selectCategory =
+function(categoryId){
+
+window.selectedCategoryId =
+categoryId;
+
+/* ACTIVE STATE */
+
+document
+.querySelectorAll(
+".categoryCard"
+)
+
+.forEach(card=>{
+
+card.classList.remove(
+"active"
+);
+
+if(
+
+card.dataset.id ===
+categoryId
+
+){
+
+card.classList.add(
+"active"
+);
+
+}
+
+});
+
+/* LOAD SUB CATEGORY */
+
+if(window.loadSubCategories){
+
+window.loadSubCategories(
+categoryId
+);
+
+}
+
+};
+
+</script>
+
+<!-- ===================================
+FIREBASE STRUCTURE
+
+categories
+{
+  name:"Ironing",
+  icon:"👔",
+  position:1,
+  active:true
+}
+
+categories
+{
+  name:"Dry Cleaning",
+  icon:"🧺",
+  position:2,
+  active:true
+}
+
+categories
+{
+  name:"Wash & Fold",
+  icon:"🫧",
+  position:3,
+  active:true
+}
+
+=================================== -->
+  <!-- ===================================
+SUB CATEGORY SECTION
+=================================== -->
+
+<div class="subCategorySection">
+
+<div
+class="subCategoryTabs"
+id="subCategoryTabs">
+
+<!-- Firebase Sub Categories -->
+
+</div>
+
+</div>
+
+<style>
+
+/* ===================================
+SUB CATEGORY
+=================================== */
+
+.subCategorySection{
+
+padding:0 16px 18px;
+
+}
+
+.subCategoryTabs{
+
+display:flex;
+
+overflow-x:auto;
+
+gap:10px;
+
+padding-bottom:6px;
+
+scrollbar-width:none;
+
+-webkit-overflow-scrolling:touch;
+
+}
+
+.subCategoryTabs::-webkit-scrollbar{
+
+display:none;
+
+}
+
+/* ===================================
+TAB
+=================================== */
+
+.subCategoryBtn{
+
+height:40px;
+
+padding:0 16px;
+
+border:none;
+
+border-radius:999px;
+
+background:#fff;
+
+color:#374151;
+
+font-size:13px;
+
+font-weight:800;
+
+cursor:pointer;
+
+white-space:nowrap;
+
+box-shadow:
+0 3px 10px rgba(0,0,0,.05);
+
+transition:.25s;
+
+}
+
+.subCategoryBtn.active{
+
+background:#16A34A;
+
+color:#fff;
+
+}
+
+/* ===================================
+DESKTOP
+=================================== */
+
+@media(min-width:1200px){
+
+.subCategoryBtn{
+
+height:44px;
+
+padding:0 18px;
+
+font-size:14px;
+
+}
+
+}
+
+</style>
+
+<script type="module">
+
+import { db }
+from "./firebase.js";
+
+import {
+collection,
+query,
+where,
+orderBy,
+onSnapshot
+}
+from
+"https://www.gstatic.com/firebasejs/12.11.0/firebase-firestore.js";
+
+/* ===================================
+GLOBAL
+=================================== */
+
+window.selectedSubCategoryId =
+null;
+
+/* ===================================
+LOAD SUB CATEGORIES
+=================================== */
+
+window.loadSubCategories =
+function(categoryId){
+
+const subCategoryTabs =
+
+document.getElementById(
+"subCategoryTabs"
+);
+
+onSnapshot(
+
+query(
+
+collection(
+db,
+"subcategories"
+),
+
+where(
+"categoryId",
+"==",
+categoryId
+),
+
+orderBy(
+"position",
+"asc"
+)
+
+),
+
+(snapshot)=>{
+
+subCategoryTabs.innerHTML =
+"";
+
+let firstSubCategory =
+null;
+
+snapshot.forEach(doc=>{
+
+const subCategory = {
+
+id:doc.id,
+
+...doc.data()
+
+};
+
+if(
+subCategory.active === false
+)
+return;
+
+if(!firstSubCategory){
+
+firstSubCategory =
+subCategory.id;
+
+}
+
+/* ===================================
+TAB
+=================================== */
+
+subCategoryTabs.innerHTML +=
+
+`
+
+<button
+
+class="subCategoryBtn"
+
+data-id="${subCategory.id}"
+
+onclick="selectSubCategory(
+
+'${subCategory.id}'
+
+)">
+
+${subCategory.icon || "👕"}
+
+&nbsp;
+
+${subCategory.name}
+
+</button>
+
+`;
+
+});
+
+/* ===================================
+AUTO SELECT FIRST
+=================================== */
+
+if(firstSubCategory){
+
+selectSubCategory(
+firstSubCategory
+);
+
+}
+
+}
+
+);
+
+};
+
+/* ===================================
+SELECT SUB CATEGORY
+=================================== */
+
+window.selectSubCategory =
+function(subCategoryId){
+
+window.selectedSubCategoryId =
+subCategoryId;
+
+/* ACTIVE STATE */
+
+document
+.querySelectorAll(
+".subCategoryBtn"
+)
+
+.forEach(btn=>{
+
+btn.classList.remove(
+"active"
+);
+
+if(
+
+btn.dataset.id ===
+subCategoryId
+
+){
+
+btn.classList.add(
+"active"
+);
+
+}
+
+});
+
+/* ===================================
+LOAD SERVICES
+=================================== */
+
+if(window.loadServices){
+
+window.loadServices(
+subCategoryId
+);
+
+}
+
+};
+
+</script>
+
+<!-- ===================================
+FIREBASE STRUCTURE
+
+subcategories
+{
+ categoryId:"IRONING_ID",
+
+ name:"Shirt",
+
+ icon:"👕",
+
+ position:1,
+
+ active:true
+}
+
+subcategories
+{
+ categoryId:"IRONING_ID",
+
+ name:"Pant",
+
+ icon:"👖",
+
+ position:2,
+
+ active:true
+}
+
+subcategories
+{
+ categoryId:"IRONING_ID",
+
+ name:"Suit",
+
+ icon:"🤵",
+
+ position:3,
+
+ active:true
+}
+
+subcategories
+{
+ categoryId:"DRYCLEAN_ID",
+
+ name:"Saree",
+
+ icon:"🥻",
+
+ position:1,
+
+ active:true
+}
+
+=================================== -->
+  <!-- ===================================
+SERVICES GRID
+=================================== -->
+
+<div class="servicesSection">
+
+<div
+class="serviceGrid"
+id="serviceGrid">
+
+<!-- Firebase Services -->
+
+</div>
+
+</div>
+
+<!-- ===================================
+ADD TO CART TOAST
+=================================== -->
+
+<div
+class="cartToast"
+id="cartToast">
+
+<div class="toastIcon">
+
+✅
+
+</div>
+
+<div>
+
+<div class="toastTitle">
+
+Added To Cart
+
+</div>
+
+<div
+class="toastText"
+id="toastText">
+
+Service Added
+
+</div>
+
+</div>
+
+</div>
+
+<style>
+
+/* ===================================
+SERVICES
+=================================== */
+
+.servicesSection{
+
+padding:0 16px 20px;
+
+}
+
+/* ===================================
+3 COLUMN MOBILE
+=================================== */
+
+.serviceGrid{
+
+display:grid;
+
+grid-template-columns:
+repeat(3,1fr);
+
+gap:10px;
+
+}
+
+/* ===================================
+SERVICE CARD
+=================================== */
+
+.serviceCard{
+
+background:#fff;
+
+border-radius:18px;
+
+padding:10px;
+
+text-align:center;
+
+box-shadow:
+0 4px 14px rgba(0,0,0,.05);
+
+cursor:pointer;
+
+transition:.25s;
+
+}
+
+.serviceCard:hover{
+
+transform:translateY(-2px);
+
+}
+
+.serviceIcon{
+
+font-size:34px;
+
+margin-bottom:8px;
+
+}
+
+.serviceName{
+
+font-size:11px;
+
+font-weight:800;
+
+line-height:1.3;
+
+min-height:30px;
+
+}
+
+.servicePrice{
+
+margin-top:6px;
+
+font-size:14px;
+
+font-weight:900;
+
+color:#111827;
+
+}
+
+.addBtn{
+
+width:100%;
+
+height:32px;
+
+margin-top:8px;
+
+border:none;
+
+border-radius:10px;
+
+background:#16A34A;
+
+color:#fff;
+
+font-size:11px;
+
+font-weight:900;
+
+cursor:pointer;
+
+}
+
+/* ===================================
+DESKTOP
+=================================== */
+
+@media(min-width:1200px){
+
+.serviceGrid{
+
+grid-template-columns:
+repeat(5,1fr);
+
+gap:18px;
+
+}
+
+.serviceCard{
+
+padding:14px;
+
+}
+
+.serviceIcon{
+
+font-size:42px;
+
+}
+
+.serviceName{
+
+font-size:13px;
+
+}
+
+.servicePrice{
+
+font-size:18px;
+
+}
+
+.addBtn{
+
+height:38px;
+
+font-size:12px;
+
+}
+
+}
+
+/* ===================================
+TOAST
+=================================== */
+
+.cartToast{
+
+display:none;
+
+position:fixed;
+
+left:50%;
+bottom:90px;
+
+transform:
+translateX(-50%);
+
+background:#111827;
+
+color:#fff;
+
+padding:14px 18px;
+
+border-radius:16px;
+
+align-items:center;
+
+gap:12px;
+
+box-shadow:
+0 12px 30px rgba(0,0,0,.25);
+
+z-index:99999;
+
+}
+
+.showToast{
+
+display:flex;
+
+}
+
+.toastIcon{
+
+font-size:22px;
+
+}
+
+.toastTitle{
+
+font-size:13px;
+
+font-weight:900;
+
+}
+
+.toastText{
+
+font-size:12px;
+
+opacity:.85;
+
+margin-top:3px;
+
+}
+
+</style>
+
+<script type="module">
+
+import { db }
+from "./firebase.js";
+
+import {
+collection,
+query,
+where,
+onSnapshot
+}
+from
+"https://www.gstatic.com/firebasejs/12.11.0/firebase-firestore.js";
+
+/* ===================================
+LOAD SERVICES
+=================================== */
+
+window.loadServices =
+function(subCategoryId){
+
+const serviceGrid =
+
+document.getElementById(
+"serviceGrid"
+);
+
+const city =
+
+localStorage.getItem(
+"userCity"
+)
+
+|| "Kasganj";
+
+onSnapshot(
+
+query(
+
+collection(
+db,
+"services"
+),
+
+where(
+"subcategoryId",
+"==",
+subCategoryId
+)
+
+),
+
+(snapshot)=>{
+
+serviceGrid.innerHTML = "";
+
+if(snapshot.empty){
+
+serviceGrid.innerHTML =
+
+`
+
+<div style="
+grid-column:1/-1;
+text-align:center;
+padding:40px;
+font-weight:700;
+">
+
+No Services Found
+
+</div>
+
+`;
+
+return;
+
+}
+
+snapshot.forEach(doc=>{
+
+const service = {
+
+id:doc.id,
+
+...doc.data()
+
+};
+
+/* ACTIVE CHECK */
+
+if(
+service.active === false
+)
+return;
+
+/* CITY PRICE */
+
+let price =
+
+service.basePrice ||
+service.price ||
+0;
+
+if(
+
+service.cityPricing &&
+service.cityPricing[city]
+
+){
+
+price =
+
+service.cityPricing[
+city
+];
+
+}
+
+/* CARD */
+
+serviceGrid.innerHTML +=
+
+`
+
+<div
+class="serviceCard"
+
+onclick="openService(
+
+'${service.id}'
+
+)">
+
+<div
+class="serviceIcon">
+
+${service.icon || "👕"}
+
+</div>
+
+<div
+class="serviceName">
+
+${service.name}
+
+</div>
+
+<div
+class="servicePrice">
+
+₹${price}
+
+</div>
+
+<button
+class="addBtn"
+
+onclick="event.stopPropagation();
+
+addToCart(
+
+'${service.id}',
+
+'${service.name}',
+
+${price},
+
+'${service.categoryId}',
+
+'${service.subcategoryId}'
+
+)">
+
+Add
+
+</button>
+
+</div>
+
+`;
+
+});
+
+}
+
+);
+
+};
+
+/* ===================================
+SERVICE DETAILS
+=================================== */
+
+window.openService =
+function(serviceId){
+
+window.location.href =
+
+`service-details.html?id=${serviceId}`;
+
+};
+
+/* ===================================
+TOAST
+=================================== */
+
+window.showToast =
+function(name){
+
+const toast =
+
+document.getElementById(
+"cartToast"
+);
+
+document.getElementById(
+"toastText"
+)
+
+.innerHTML =
+
+name + " added";
+
+toast.style.display =
+"flex";
+
+toast.classList.add(
+"showToast"
+);
+
+setTimeout(()=>{
+
+toast.classList.remove(
+"showToast"
+);
+
+setTimeout(()=>{
+
+toast.style.display =
+"none";
+
+},300);
+
+},2000);
+
+};
+
+</script>
+
+<!-- ===================================
+FIREBASE EXAMPLE
+
+services
+{
+ name:"Formal Shirt",
+
+ icon:"👔",
+
+ categoryId:"IRONING",
+
+ subcategoryId:"SHIRT",
+
+ active:true,
+
+ basePrice:12,
+
+ cityPricing:{
+   Kasganj:12,
+   Aligarh:15,
+   Delhi:25
+ }
+}
+
+services
+{
+ name:"Denim Shirt",
+
+ icon:"👕
+
+",
+
+ categoryId:"IRONING",
+
+ subcategoryId:"SHIRT",
+
+ active:true,
+
+ basePrice:18
+}
+
+services
+{
+ name:"Formal Pant",
+
+ icon:"👖",
+
+ categoryId:"IRONING",
+
+ subcategoryId:"PANT",
+
+ active:true,
+
+ basePrice:15
+}
+
+=================================== -->
+  <script>
+
+/* ===================================
+ADD TO CART
+=================================== */
+
+window.addToCart =
+function(
+
+serviceId,
+serviceName,
+price,
+categoryId,
+subcategoryId
+
+){
+
+let cart =
+
+JSON.parse(
+localStorage.getItem(
+"cart"
+)
+)
+
+|| [];
+
+/* ===================================
+CHECK EXISTING
+=================================== */
+
+const existing =
+
+cart.find(
+
+item=>
+
+item.serviceId ===
+serviceId
+
+);
+
+if(existing){
+
+existing.qty++;
+
+}else{
+
+cart.push({
+
+serviceId,
+
+serviceName,
+
+price,
+
+categoryId,
+
+subcategoryId,
+
+qty:1,
+
+city:
+
+localStorage.getItem(
+"userCity"
+)
+
+|| "Kasganj",
+
+addedAt:
+Date.now()
+
+});
+
+}
+
+/* ===================================
+SAVE
+=================================== */
+
+localStorage.setItem(
+
+"cart",
+
+JSON.stringify(cart)
+
+);
+
+/* ===================================
+UPDATE BADGE
+=================================== */
+
+updateCartBadge();
+
+/* ===================================
+TOAST
+=================================== */
+
+showToast(
+serviceName
+);
+
+};
+
+/* ===================================
+UPDATE CART BADGE
+=================================== */
+
+window.updateCartBadge =
+function(){
+
+const cart =
+
+JSON.parse(
+localStorage.getItem(
+"cart"
+)
+)
+
+|| [];
+
+let total = 0;
+
+cart.forEach(item=>{
+
+total +=
+item.qty || 1;
+
+});
+
+const badge =
+
+document.getElementById(
+"cartBadge"
+);
+
+if(!badge)
+return;
+
+badge.innerHTML =
+total;
+
+badge.style.display =
+
+total > 0
+
+? "flex"
+
+: "none";
+
+};
+
+updateCartBadge();
+
+/* ===================================
+SEARCH SERVICES
+=================================== */
+
+const searchInput =
+
+document.getElementById(
+"serviceSearch"
+);
+
+if(searchInput){
+
+searchInput.addEventListener(
+
+"input",
+
+function(){
+
+const keyword =
+
+this.value
+.toLowerCase()
+.trim();
+
+document
+.querySelectorAll(
+".serviceCard"
+)
+
+.forEach(card=>{
+
+const name =
+
+card.innerText
+.toLowerCase();
+
+if(
+
+name.includes(
+keyword
+)
+
+){
+
+card.style.display =
+"block";
+
+}else{
+
+card.style.display =
+"none";
+
+}
+
+});
+
+}
+
+);
+
+}
+
+/* ===================================
+GO CART
+=================================== */
+
+window.goCart =
+function(){
+
+window.location.href =
+"cart.html";
+
+};
+
+/* ===================================
+CART TOTAL
+=================================== */
+
+window.getCartTotal =
+function(){
+
+const cart =
+
+JSON.parse(
+localStorage.getItem(
+"cart"
+)
+)
+
+|| [];
+
+let total = 0;
+
+cart.forEach(item=>{
+
+total +=
+
+(item.price || 0)
+
+*
+
+(item.qty || 1);
+
+});
+
+return total;
+
+};
+
+/* ===================================
+CLEAR CART
+=================================== */
+
+window.clearCart =
+function(){
+
+localStorage.removeItem(
+"cart"
+);
+
+updateCartBadge();
+
+};
+
+/* ===================================
+CITY LOCKED PRICE
+
+User Added Item
+Price Will Stay Same
+
+Even If Admin Changes
+Price Later
+
+=================================== */
+
+/*
+
+Cart Structure
+
+{
+
+serviceId:"123",
+
+serviceName:
+"Formal Shirt",
+
+categoryId:
+"IRONING",
+
+subcategoryId:
+"SHIRT",
+
+price:12,
+
+qty:1,
+
+city:"Kasganj"
+
+}
+
+*/
+
+/* ===================================
+SERVICE DETAILS
+=================================== */
+
+window.openService =
+function(serviceId){
+
+window.location.href =
+
+`service-details.html?id=${serviceId}`;
+
+};
+
+</script>
+
+<!-- ===================================
+SEARCH READY
+
+Search By
+
+Formal Shirt
+
+Denim Shirt
+
+Cotton Shirt
+
+Formal Pant
+
+Casual Pant
+
+Jeans
+
+=================================== -->
+
+<!-- ===================================
+CITY PRICE READY
+
+Kasganj
+
+Formal Shirt
+₹12
+
+Aligarh
+
+Formal Shirt
+₹15
+
+Delhi
+
+Formal Shirt
+₹25
+
+=================================== -->
+
+<!-- ===================================
+ADMIN PANEL READY
+
+Add Service
+
+Enable/Disable Service
+
+Update Price
+
+Update City Price
+
+Add Category
+
+Add Subcategory
+
+No Code Change Required
+
+=================================== -->
+  <!-- ===================================
+FOOTER
+=================================== -->
+
+<div class="footer">
+
+<div class="footerBrand">
+
+⚡ QuickPress
+
+</div>
+
+<div class="footerText">
+
+Premium Laundry • Fast Pickup • Fast Delivery
+
+</div>
+
+<div class="footerCopy">
+
+© 2026 QuickPress. All Rights Reserved.
+
+</div>
+
+</div>
+
+<!-- ===================================
+BOTTOM NAVBAR
+=================================== -->
+
+<div class="bottomNav">
+
+<button
+class="navItem"
+data-page="home">
+
+<i class="fa-solid fa-house"></i>
+
+<span>Home</span>
+
+</button>
+
+<button
+class="navItem"
+data-page="orders">
+
+<i class="fa-solid fa-box"></i>
+
+<span>Orders</span>
+
+</button>
+
+<button
+class="navItem activeNav"
+data-page="services">
+
+<i class="fa-solid fa-table-cells-large"></i>
+
+<span>Services</span>
+
+</button>
+
+<button
+class="navItem"
+data-page="cart">
+
+<i class="fa-solid fa-cart-shopping"></i>
+
+<span>Cart</span>
+
+<div
+class="navCartBadge"
+id="navCartBadge">
+
+0
+
+</div>
+
+</button>
+
+<button
+class="navItem"
+data-page="profile">
+
+<i class="fa-regular fa-user"></i>
+
+<span>Profile</span>
+
+</button>
+
+</div>
+
+<style>
+
+/* ===================================
+FOOTER
+=================================== */
+
+.footer{
+
+padding:40px 20px 120px;
+
+text-align:center;
+
+}
+
+.footerBrand{
+
+font-size:22px;
+
+font-weight:900;
+
+color:#111827;
+
+}
+
+.footerText{
+
+margin-top:8px;
+
+font-size:13px;
+
+color:#6B7280;
+
+}
+
+.footerCopy{
+
+margin-top:10px;
+
+font-size:12px;
+
+color:#9CA3AF;
+
+}
+
+/* ===================================
+BOTTOM NAVBAR
+=================================== */
+
+.bottomNav{
+
+position:fixed;
+
+left:0;
+right:0;
+bottom:0;
+
+height:74px;
+
+background:#fff;
+
+display:flex;
+
+justify-content:space-around;
+align-items:center;
+
+box-shadow:
+0 -6px 20px rgba(0,0,0,.08);
+
+z-index:999;
+
+}
+
+.navItem{
+
+position:relative;
+
+flex:1;
+
+height:100%;
+
+border:none;
+
+background:none;
+
+display:flex;
+flex-direction:column;
+
+align-items:center;
+justify-content:center;
+
+gap:4px;
+
+font-size:11px;
+
+font-weight:700;
+
+color:#6B7280;
+
+cursor:pointer;
+
+}
+
+.navItem i{
+
+font-size:18px;
+
+}
+
+.activeNav{
+
+color:#16A34A;
+
+}
+
+.navCartBadge{
+
+position:absolute;
+
+top:8px;
+right:22px;
+
+min-width:18px;
+height:18px;
+
+padding:0 4px;
+
+border-radius:999px;
+
+background:#EF4444;
+
+color:#fff;
+
+display:flex;
+align-items:center;
+justify-content:center;
+
+font-size:10px;
+
+font-weight:900;
+
+}
+
+@media(min-width:1200px){
+
+.bottomNav{
+
+max-width:600px;
+
+left:50%;
+
+transform:
+translateX(-50%);
+
+border-radius:24px 24px 0 0;
+
+}
+
+}
+
+</style>
+
+<script type="module">
+
+import { auth }
+from "./firebase.js";
+
+import {
+onAuthStateChanged
+}
+from
+"https://www.gstatic.com/firebasejs/12.11.0/firebase-auth.js";
+
+/* ===================================
+AUTH
+=================================== */
+
+let currentUser = null;
+
+onAuthStateChanged(
+
+auth,
+
+(user)=>{
+
+currentUser = user;
+
+}
+
+/* error callback */
+,console.error
+
+);
+
+/* ===================================
+LIVE CART BADGE
+=================================== */
+
+window.updateNavbarCartCount =
+function(){
+
+const cart =
+
+JSON.parse(
+localStorage.getItem(
+"cart"
+)
+)
+
+|| [];
+
+let total = 0;
+
+cart.forEach(item=>{
+
+total += item.qty || 1;
+
+});
+
+const badge =
+
+document.getElementById(
+"navCartBadge"
+);
+
+if(!badge)
+return;
+
+badge.innerHTML = total;
+
+badge.style.display =
+
+total > 0
+
+? "flex"
+
+: "none";
+
+};
+
+updateNavbarCartCount();
+
+/* ===================================
+SYNC TOP CART
+=================================== */
+
+function syncTopCart(){
+
+const cart =
+
+JSON.parse(
+localStorage.getItem(
+"cart"
+)
+)
+
+|| [];
+
+let total = 0;
+
+cart.forEach(item=>{
+
+total += item.qty || 1;
+
+});
+
+const badge =
+
+document.getElementById(
+"cartBadge"
+);
+
+if(!badge)
+return;
+
+badge.innerHTML = total;
+
+badge.style.display =
+
+total > 0
+
+? "flex"
+
+: "none";
+
+}
+
+syncTopCart();
+
+/* ===================================
+NAVIGATION
+=================================== */
+
+document
+.querySelectorAll(
+".navItem"
+)
+
+.forEach(item=>{
+
+item.addEventListener(
+
+"click",
+
+()=>{
+
+const page =
+item.dataset.page;
+
+if(page==="home"){
+
+window.location.href =
+"index.html";
+
+}
+
+if(page==="services"){
+
+window.location.href =
+"services.html";
+
+}
+
+if(page==="cart"){
+
+window.location.href =
+"cart.html";
+
+}
+
+if(page==="orders"){
+
+if(!currentUser){
+
+window.location.href =
+"login.html";
+
+return;
+
+}
+
+window.location.href =
+"orders.html";
+
+}
+
+if(page==="profile"){
+
+if(!currentUser){
+
+window.location.href =
+"login.html";
+
+return;
+
+}
+
+window.location.href =
+"profile.html";
+
+}
+
+}
+
+);
+
+});
+
+/* ===================================
+PROFILE BUTTON
+=================================== */
+
+window.openProfile =
+function(){
+
+if(currentUser){
+
+window.location.href =
+"profile.html";
+
+}else{
+
+window.location.href =
+"login.html";
+
+}
+
+};
+
+/* ===================================
+AUTO REFRESH BADGE
+=================================== */
+
+window.addEventListener(
+
+"storage",
+
+()=>{
+
+updateNavbarCartCount();
+
+syncTopCart();
+
+}
+
+);
+
+/* ===================================
+PAGE READY
+=================================== */
+
+console.log(
+
+"QuickPress Services V2 Ready"
+
+);
+
+</script>
+
+</div>
+
+</body>
+</html>
