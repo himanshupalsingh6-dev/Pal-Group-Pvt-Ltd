@@ -3,17 +3,29 @@
 <head>
 
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>QuickPress Checkout</title>
+<meta
+name="viewport"
+content="width=device-width, initial-scale=1.0">
 
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<title>
 
-<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+QuickPress Checkout
+
+</title>
+
+<link rel="preconnect"
+href="https://fonts.googleapis.com">
+
+<link rel="preconnect"
+href="https://fonts.gstatic.com"
+crossorigin>
+
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap"
+rel="stylesheet">
 
 <link rel="stylesheet"
-href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css"/>
+href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
 
 <style>
 
@@ -25,102 +37,131 @@ font-family:'Inter',sans-serif;
 }
 
 body{
+
 background:#F6F7FB;
+
 color:#111827;
+
 padding-bottom:120px;
+
+overflow-x:hidden;
+
 }
 
-/* =========================
+/* ===================================
 HEADER
-========================= */
+=================================== */
 
-.checkoutHero{
-
-background:
-linear-gradient(
-135deg,
-#FFD633,
-#FFE98A
-);
-
-padding:18px;
-
-border-bottom-left-radius:34px;
-border-bottom-right-radius:34px;
+.checkoutHeader{
 
 position:sticky;
+
 top:0;
+
 z-index:999;
+
+background:#fff;
+
+padding:12px 16px;
+
+box-shadow:
+0 2px 15px rgba(0,0,0,.05);
 
 }
 
-.topBar{
+.headerRow{
 
 display:flex;
-justify-content:space-between;
+
 align-items:center;
+
+justify-content:space-between;
 
 }
 
 .backBtn{
 
-width:48px;
-height:48px;
+width:42px;
+height:42px;
 
 border:none;
 
-border-radius:18px;
+background:#F3F4F6;
 
-background:#fff;
+border-radius:12px;
 
-font-size:18px;
+font-size:16px;
 
 cursor:pointer;
 
 }
 
-.pageTitle{
+.headerCenter{
 
-font-size:20px;
-font-weight:900;
+flex:1;
+
+text-align:center;
 
 }
 
-.secureBadge{
-
-height:38px;
-
-padding:0 14px;
-
-border-radius:999px;
-
-background:#fff;
-
-display:flex;
-align-items:center;
+.brandText{
 
 font-size:12px;
-font-weight:900;
+
+font-weight:700;
+
+color:#16A34A;
 
 }
 
-/* =========================
-ADDRESS
-========================= */
-
-.section{
-
-padding:20px 16px;
-
-}
-
-.sectionTitle{
+.pageTitle{
 
 font-size:22px;
 
 font-weight:900;
 
-margin-bottom:16px;
+margin-top:2px;
+
+}
+
+.checkoutIcon{
+
+width:42px;
+height:42px;
+
+border:none;
+
+border-radius:12px;
+
+background:#16A34A;
+
+color:#fff;
+
+font-size:16px;
+
+}
+
+/* ===================================
+SECTION TITLE
+=================================== */
+
+.sectionTitle{
+
+padding:18px 16px 12px;
+
+font-size:24px;
+
+font-weight:900;
+
+}
+
+/* ===================================
+ADDRESS CARD
+=================================== */
+
+.addressSection{
+
+padding:0 16px 18px;
 
 }
 
@@ -128,24 +169,12 @@ margin-bottom:16px;
 
 background:#fff;
 
-padding:20px;
+border-radius:20px;
 
-border-radius:28px;
+padding:16px;
 
 box-shadow:
-0 8px 24px rgba(0,0,0,.05);
-
-margin-bottom:14px;
-
-cursor:pointer;
-
-border:2px solid transparent;
-
-}
-
-.addressCard.active{
-
-border-color:#16A34A;
+0 4px 14px rgba(0,0,0,.05);
 
 }
 
@@ -157,9 +186,11 @@ justify-content:space-between;
 
 align-items:center;
 
+margin-bottom:14px;
+
 }
 
-.addressName{
+.addressHeading{
 
 font-size:16px;
 
@@ -167,89 +198,536 @@ font-weight:900;
 
 }
 
-.addressType{
-
-height:28px;
-
-padding:0 12px;
-
-border-radius:999px;
-
-background:#DCFCE7;
-
-display:flex;
-align-items:center;
-
-font-size:11px;
-font-weight:900;
-
-color:#16A34A;
-
-}
-
-.addressText{
-
-margin-top:10px;
-
-font-size:13px;
-
-line-height:1.8;
-
-color:#6B7280;
-
-}
-
-.addAddressBtn{
-
-width:100%;
-
-height:54px;
+.changeBtn{
 
 border:none;
 
-border-radius:18px;
+background:#ECFDF5;
 
-background:#111827;
+color:#16A34A;
 
-color:#fff;
+height:34px;
 
-font-size:14px;
-font-weight:900;
+padding:0 14px;
+
+border-radius:10px;
+
+font-size:12px;
+
+font-weight:800;
 
 cursor:pointer;
 
 }
 
-/* =========================
-ORDER SUMMARY
-========================= */
+.addressType{
 
-.summaryCard{
+display:inline-flex;
 
-background:#fff;
+align-items:center;
 
-border-radius:30px;
+gap:6px;
 
-padding:20px;
+padding:6px 10px;
 
-box-shadow:
-0 8px 24px rgba(0,0,0,.05);
+border-radius:999px;
+
+background:#F3F4F6;
+
+font-size:12px;
+
+font-weight:800;
 
 }
 
-.categoryTitle{
+.addressName{
+
+margin-top:12px;
 
 font-size:15px;
 
 font-weight:900;
 
-margin-bottom:14px;
+}
 
-color:#16A34A;
+.addressText{
+
+margin-top:6px;
+
+font-size:13px;
+
+line-height:1.6;
+
+color:#6B7280;
 
 }
 
-.orderItem{
+.phoneText{
+
+margin-top:8px;
+
+font-size:13px;
+
+font-weight:700;
+
+color:#111827;
+
+}
+
+</style>
+
+</head>
+
+<body>
+
+<!-- ===================================
+HEADER
+=================================== -->
+
+<div class="checkoutHeader">
+
+<div class="headerRow">
+
+<button
+class="backBtn"
+onclick="history.back()">
+
+<i class="fa-solid fa-arrow-left"></i>
+
+</button>
+
+<div class="headerCenter">
+
+<div class="brandText">
+
+QuickPress
+
+</div>
+
+<div class="pageTitle">
+
+Checkout
+
+</div>
+
+</div>
+
+<button
+class="checkoutIcon">
+
+<i class="fa-solid fa-credit-card"></i>
+
+</button>
+
+</div>
+
+</div>
+
+<!-- ===================================
+TITLE
+=================================== -->
+
+<h2 class="sectionTitle">
+
+Delivery Address
+
+</h2>
+
+<!-- ===================================
+ADDRESS
+=================================== -->
+
+<div class="addressSection">
+
+<div class="addressCard">
+
+<div class="addressTop">
+
+<div class="addressHeading">
+
+Pickup & Delivery Address
+
+</div>
+
+<button
+class="changeBtn"
+onclick="window.location.href='addresses.html'">
+
+Change
+
+</button>
+
+</div>
+
+<div class="addressType">
+
+🏠 Home
+
+</div>
+
+<div
+class="addressName"
+id="customerName">
+
+Customer Name
+
+</div>
+
+<div
+class="addressText"
+id="customerAddress">
+
+No Address Selected
+
+</div>
+
+<div
+class="phoneText"
+id="customerPhone">
+
++91 XXXXXXXXXX
+
+</div>
+
+</div>
+
+</div>
+
+<script>
+
+/* ===================================
+LOAD ADDRESS
+=================================== */
+
+const savedAddress =
+
+JSON.parse(
+localStorage.getItem(
+"defaultAddress"
+)
+);
+
+if(savedAddress){
+
+document.getElementById(
+"customerName"
+).innerHTML =
+
+savedAddress.name ||
+"Customer";
+
+document.getElementById(
+"customerAddress"
+).innerHTML =
+
+savedAddress.address ||
+"No Address";
+
+document.getElementById(
+"customerPhone"
+).innerHTML =
+
+savedAddress.phone ||
+"";
+
+}
+
+</script>
+<!-- ===================================
+PICKUP DATE & TIME
+=================================== -->
+
+<h2 class="sectionTitle">
+
+Pickup Schedule
+
+</h2>
+
+<div class="pickupSection">
+
+<!-- DATE CARD -->
+
+<div class="pickupCard">
+
+<div class="pickupHeading">
+
+Pickup Date
+
+</div>
+
+<div class="dateOptions">
+
+<button
+class="dateBtn activeDate"
+id="todayBtn"
+onclick="selectDate('Today')">
+
+Today
+
+</button>
+
+<button
+class="dateBtn"
+id="tomorrowBtn"
+onclick="selectDate('Tomorrow')">
+
+Tomorrow
+
+</button>
+
+</div>
+
+</div>
+
+<!-- TIME SLOT -->
+
+<div class="pickupCard">
+
+<div class="pickupHeading">
+
+Pickup Time
+
+</div>
+
+<div class="timeGrid">
+
+<button
+class="timeBtn activeTime"
+onclick="selectTime(this,'09:00 AM - 12:00 PM')">
+
+09:00 AM
+<br>
+12:00 PM
+
+</button>
+
+<button
+class="timeBtn"
+onclick="selectTime(this,'12:00 PM - 03:00 PM')">
+
+12:00 PM
+<br>
+03:00 PM
+
+</button>
+
+<button
+class="timeBtn"
+onclick="selectTime(this,'03:00 PM - 06:00 PM')">
+
+03:00 PM
+<br>
+06:00 PM
+
+</button>
+
+<button
+class="timeBtn"
+onclick="selectTime(this,'06:00 PM - 09:00 PM')">
+
+06:00 PM
+<br>
+09:00 PM
+
+</button>
+
+</div>
+
+</div>
+
+<!-- EXPRESS PICKUP -->
+
+<div class="pickupCard expressCard">
+
+<div class="expressTop">
+
+<div>
+
+<div class="expressTitle">
+
+⚡ Express Pickup
+
+</div>
+
+<div class="expressText">
+
+Pickup within 30 minutes
+
+</div>
+
+</div>
+
+<label class="switch">
+
+<input
+type="checkbox"
+id="expressPickup">
+
+<span class="slider"></span>
+
+</label>
+
+</div>
+
+</div>
+
+<!-- NOTES -->
+
+<div class="pickupCard">
+
+<div class="pickupHeading">
+
+Notes For Rider
+
+</div>
+
+<textarea
+id="pickupNotes"
+class="notesBox"
+placeholder="Example: Gate number 2 se pickup karna, call before arrival..."></textarea>
+
+</div>
+
+</div>
+
+<style>
+
+/* ===================================
+PICKUP SECTION
+=================================== */
+
+.pickupSection{
+
+padding:0 16px 20px;
+
+}
+
+.pickupCard{
+
+background:#fff;
+
+border-radius:20px;
+
+padding:16px;
+
+margin-bottom:14px;
+
+box-shadow:
+0 4px 14px rgba(0,0,0,.05);
+
+}
+
+.pickupHeading{
+
+font-size:16px;
+
+font-weight:900;
+
+margin-bottom:14px;
+
+}
+
+/* ===================================
+DATE
+=================================== */
+
+.dateOptions{
+
+display:flex;
+
+gap:10px;
+
+}
+
+.dateBtn{
+
+flex:1;
+
+height:46px;
+
+border:none;
+
+border-radius:14px;
+
+background:#F3F4F6;
+
+font-size:14px;
+
+font-weight:800;
+
+cursor:pointer;
+
+}
+
+.activeDate{
+
+background:#16A34A;
+
+color:#fff;
+
+}
+
+/* ===================================
+TIME
+=================================== */
+
+.timeGrid{
+
+display:grid;
+
+grid-template-columns:
+repeat(2,1fr);
+
+gap:10px;
+
+}
+
+.timeBtn{
+
+height:64px;
+
+border:none;
+
+border-radius:14px;
+
+background:#F3F4F6;
+
+font-size:12px;
+
+font-weight:800;
+
+cursor:pointer;
+
+line-height:1.5;
+
+}
+
+.activeTime{
+
+background:#16A34A;
+
+color:#fff;
+
+}
+
+/* ===================================
+EXPRESS
+=================================== */
+
+.expressCard{
+
+background:
+linear-gradient(
+135deg,
+#16A34A,
+#22C55E
+);
+
+color:#fff;
+
+}
+
+.expressTop{
 
 display:flex;
 
@@ -257,65 +735,9 @@ justify-content:space-between;
 
 align-items:center;
 
-padding:14px 0;
-
-border-bottom:1px solid #F3F4F6;
-
 }
 
-.orderItem:last-child{
-
-border-bottom:none;
-
-}
-
-.itemLeft{
-
-display:flex;
-
-align-items:center;
-
-gap:12px;
-
-}
-
-.itemIcon{
-
-width:52px;
-height:52px;
-
-border-radius:18px;
-
-background:#F3F4F6;
-
-display:flex;
-
-align-items:center;
-justify-content:center;
-
-font-size:24px;
-
-}
-
-.itemInfo h4{
-
-font-size:14px;
-
-font-weight:800;
-
-}
-
-.itemInfo p{
-
-margin-top:4px;
-
-font-size:12px;
-
-color:#6B7280;
-
-}
-
-.itemPrice{
+.expressTitle{
 
 font-size:16px;
 
@@ -323,48 +745,95 @@ font-weight:900;
 
 }
 
-/* =========================
-CATEGORY TOTAL
-========================= */
+.expressText{
 
-.categoryTotal{
+font-size:13px;
 
-display:flex;
+margin-top:4px;
 
-justify-content:space-between;
-
-margin-top:14px;
-
-padding-top:14px;
-
-border-top:1px dashed #E5E7EB;
-
-font-size:15px;
-
-font-weight:900;
+opacity:.9;
 
 }
 
-/* =========================
-ORDER NOTE
-========================= */
+/* ===================================
+SWITCH
+=================================== */
 
-.noteCard{
+.switch{
 
-margin-top:16px;
+position:relative;
 
-background:#fff;
+display:inline-block;
 
-border-radius:24px;
+width:52px;
 
-padding:18px;
-
-box-shadow:
-0 8px 24px rgba(0,0,0,.05);
+height:28px;
 
 }
 
-.noteInput{
+.switch input{
+
+display:none;
+
+}
+
+.slider{
+
+position:absolute;
+
+cursor:pointer;
+
+top:0;
+left:0;
+right:0;
+bottom:0;
+
+background:#ddd;
+
+border-radius:50px;
+
+transition:.3s;
+
+}
+
+.slider:before{
+
+position:absolute;
+
+content:"";
+
+height:22px;
+width:22px;
+
+left:3px;
+bottom:3px;
+
+background:white;
+
+border-radius:50%;
+
+transition:.3s;
+
+}
+
+input:checked + .slider{
+
+background:#111827;
+
+}
+
+input:checked + .slider:before{
+
+transform:
+translateX(24px);
+
+}
+
+/* ===================================
+NOTES
+=================================== */
+
+.notesBox{
 
 width:100%;
 
@@ -376,258 +845,170 @@ outline:none;
 
 resize:none;
 
+padding:12px;
+
+border-radius:14px;
+
+background:#F3F4F6;
+
 font-size:14px;
-
-background:none;
-
-}
-
-/* =========================
-CITY INFO
-========================= */
-
-.cityInfo{
-
-margin-top:16px;
-
-background:#DBEAFE;
-
-padding:16px;
-
-border-radius:20px;
-
-font-size:13px;
-
-font-weight:800;
-
-color:#1E40AF;
 
 }
 
 </style>
 
-</head>
+<script>
 
-<body>
+/* ===================================
+DEFAULT VALUES
+=================================== */
 
-<!-- HEADER -->
+let selectedDate =
+"Today";
 
-<div class="checkoutHero">
+let selectedTime =
+"09:00 AM - 12:00 PM";
 
-<div class="topBar">
+/* ===================================
+DATE
+=================================== */
 
-<button
-class="backBtn"
-onclick="history.back()">
+function selectDate(date){
 
-<i class="fa-solid fa-arrow-left"></i>
+selectedDate = date;
 
-</button>
+document
+.querySelectorAll(".dateBtn")
+.forEach(btn=>{
 
-<div class="pageTitle">
-Checkout
-</div>
+btn.classList.remove(
+"activeDate"
+);
 
-<div class="secureBadge">
-🔒 Secure
-</div>
+});
 
-</div>
+if(date==="Today"){
 
-</div>
+document
+.getElementById("todayBtn")
+.classList.add(
+"activeDate"
+);
 
-<!-- ADDRESS -->
+}else{
 
-<div class="section">
+document
+.getElementById("tomorrowBtn")
+.classList.add(
+"activeDate"
+);
 
-<div class="sectionTitle">
-Delivery Address
-</div>
+}
+
+}
+
+/* ===================================
+TIME
+=================================== */
+
+function selectTime(
+button,
+time
+){
+
+selectedTime = time;
+
+document
+.querySelectorAll(".timeBtn")
+.forEach(btn=>{
+
+btn.classList.remove(
+"activeTime"
+);
+
+});
+
+button.classList.add(
+"activeTime"
+);
+
+}
+
+/* ===================================
+SAVE PICKUP INFO
+=================================== */
+
+function getPickupData(){
+
+return{
+
+pickupDate:
+selectedDate,
+
+pickupTime:
+selectedTime,
+
+expressPickup:
+
+document.getElementById(
+"expressPickup"
+).checked,
+
+notes:
+
+document.getElementById(
+"pickupNotes"
+).value
+
+};
+
+}
+
+window.getPickupData =
+getPickupData;
+
+</script>
+<!-- ===================================
+ORDER SUMMARY
+=================================== -->
+
+<h2 class="sectionTitle">
+
+Order Summary
+
+</h2>
+
+<div class="summaryWrapper">
+
+<!-- CART ITEMS -->
 
 <div
-class="addressCard active">
+class="checkoutItems"
+id="checkoutItems">
 
-<div class="addressTop">
-
-<div class="addressName">
-Himanshu Baghel
-</div>
-
-<div class="addressType">
-HOME
-</div>
+<!-- Dynamic -->
 
 </div>
 
-<div class="addressText">
-
-Kasganj,
-Uttar Pradesh
-
-</div>
-
-</div>
-
-<button class="addAddressBtn">
-
-+ Add New Address
-
-</button>
-
-</div>
-
-<!-- ORDER SUMMARY -->
-
-<div class="section">
-
-<div class="sectionTitle">
-Order Summary
-</div>
-
-<div class="summaryCard">
-
-<div class="categoryTitle">
-
-Dry Cleaning
-
-</div>
-
-<div class="orderItem">
-
-<div class="itemLeft">
-
-<div class="itemIcon">
-👔
-</div>
-
-<div class="itemInfo">
-
-<h4>
-Shirt Dry Cleaning
-</h4>
-
-<p>
-Qty 2
-</p>
-
-</div>
-
-</div>
-
-<div class="itemPrice">
-₹178
-</div>
-
-</div>
-
-<div class="categoryTotal">
-
-<span>
-Dry Cleaning Total
-</span>
-
-<span>
-₹178
-</span>
-
-</div>
-
-</div>
-
-<div class="summaryCard"
-style="margin-top:16px;">
-
-<div class="categoryTitle">
-
-Ironing
-
-</div>
-
-<div class="orderItem">
-
-<div class="itemLeft">
-
-<div class="itemIcon">
-✨
-</div>
-
-<div class="itemInfo">
-
-<h4>
-Shirt Ironing
-</h4>
-
-<p>
-Qty 3
-</p>
-
-</div>
-
-</div>
-
-<div class="itemPrice">
-₹36
-</div>
-
-</div>
-
-<div class="categoryTotal">
-
-<span>
-Ironing Total
-</span>
-
-<span>
-₹36
-</span>
-
-</div>
-
-</div>
-
-<div class="cityInfo">
-
-📍 Location:
-Kasganj
-
-Delivery charges,
-partner assignment and rider assignment
-will be based on this city.
-
-</div>
-
-<div class="noteCard">
-
-<textarea
-class="noteInput"
-placeholder="Special Instructions..."></textarea>
-
-</div>
-
-</div>
-<!-- =========================
-COUPON SECTION
-========================= -->
-
-<div class="section">
-
-<div class="sectionTitle">
-Offers & Coupons
-</div>
+<!-- COUPON -->
 
 <div class="couponCard">
 
-<div class="couponTop">
+<div class="couponTitle">
+
+🎁 Apply Coupon
+
+</div>
+
+<div class="couponRow">
 
 <input
 type="text"
-id="couponInput"
-class="couponInput"
-placeholder="Enter Coupon Code">
+id="couponCode"
+placeholder="Enter coupon code">
 
 <button
-id="applyCouponBtn"
-class="applyCouponBtn">
+onclick="applyCoupon()">
 
 Apply
 
@@ -635,233 +1016,31 @@ Apply
 
 </div>
 
-<div
-id="couponMessage"
-class="couponMessage">
-
-Available:
-QUICK50
-
 </div>
 
-</div>
-
-</div>
-
-<!-- =========================
-WALLET
-========================= -->
-
-<div class="section">
-
-<div class="sectionTitle">
-Wallet Payment
-</div>
-
-<div class="walletCard">
-
-<div>
-
-<div class="walletLabel">
-Available Balance
-</div>
-
-<div
-class="walletAmount"
-id="walletAmount">
-
-₹0
-
-</div>
-
-</div>
-
-<label class="switch">
-
-<input
-type="checkbox"
-id="walletToggle">
-
-<span class="slider"></span>
-
-</label>
-
-</div>
-
-</div>
-
-<!-- =========================
-EXTRA SERVICES
-========================= -->
-
-<div class="section">
-
-<div class="sectionTitle">
-Extra Services
-</div>
-
-<div class="extraCard">
-
-<label class="extraItem">
-
-<div>
-
-<h4>
-👑 Premium Packaging
-</h4>
-
-<p>
-Luxury garment cover &
-premium folding
-</p>
-
-</div>
-
-<div>
-
-+ ₹9
-
-<input
-type="checkbox"
-id="premiumPacking">
-
-</div>
-
-</label>
-
-<label class="extraItem">
-
-<div>
-
-<h4>
-🛡️ Fabric Protection
-</h4>
-
-<p>
-Extra care for delicate fabrics
-</p>
-
-</div>
-
-<div>
-
-+ ₹19
-
-<input
-type="checkbox"
-id="fabricProtection">
-
-</div>
-
-</label>
-
-<label class="extraItem">
-
-<div>
-
-<h4>
-⚡ Urgent Delivery
-</h4>
-
-<p>
-Priority processing
-and express delivery
-</p>
-
-</div>
-
-<div>
-
-+ ₹29
-
-<input
-type="checkbox"
-id="urgentDelivery">
-
-</div>
-
-</label>
-
-</div>
-
-</div>
-
-<!-- =========================
-PAYMENT METHODS
-========================= -->
-
-<div class="section">
-
-<div class="sectionTitle">
-Payment Method
-</div>
-
-<div class="paymentCard">
-
-<label class="paymentItem">
-
-<input
-type="radio"
-name="payment"
-value="UPI"
-checked>
-
-<span>
-📲 UPI
-</span>
-
-</label>
-
-<label class="paymentItem">
-
-<input
-type="radio"
-name="payment"
-value="Wallet">
-
-<span>
-💳 Wallet
-</span>
-
-</label>
-
-<label class="paymentItem">
-
-<input
-type="radio"
-name="payment"
-value="COD">
-
-<span>
-💵 Cash On Delivery
-</span>
-
-</label>
-
-</div>
-
-</div>
-
-<!-- =========================
-BILL DETAILS
-========================= -->
-
-<div class="section">
-
-<div class="sectionTitle">
-Bill Details
-</div>
+<!-- BILL SUMMARY -->
 
 <div class="billCard">
 
+<div class="billTitle">
+
+Bill Details
+
+</div>
+
 <div class="billRow">
 
 <span>
-Services Total
+
+Subtotal
+
 </span>
 
-<span id="servicesTotal">
-₹214
+<span
+id="checkoutSubtotal">
+
+₹0
+
 </span>
 
 </div>
@@ -869,11 +1048,16 @@ Services Total
 <div class="billRow">
 
 <span>
+
 Delivery Charges
+
 </span>
 
-<span id="deliveryCharge">
+<span
+id="checkoutDelivery">
+
 ₹20
+
 </span>
 
 </div>
@@ -881,62 +1065,32 @@ Delivery Charges
 <div class="billRow">
 
 <span>
-Premium Packaging
+
+Discount
+
 </span>
 
-<span id="packingCharge">
+<span
+id="checkoutDiscount">
+
 ₹0
-</span>
-
-</div>
-
-<div class="billRow">
-
-<span>
-Fabric Protection
-</span>
-
-<span id="fabricCharge">
-₹0
-</span>
-
-</div>
-
-<div class="billRow">
-
-<span>
-Urgent Delivery
-</span>
-
-<span id="urgentCharge">
-₹0
-</span>
-
-</div>
-
-<div class="billRow">
-
-<span>
-Coupon Discount
-</span>
-
-<span id="discountAmount">
-
-- ₹0
 
 </span>
 
 </div>
 
-<div class="billRow totalRow">
+<div class="billRow totalBill">
 
 <span>
+
 Grand Total
+
 </span>
 
-<span id="grandTotal">
+<span
+id="checkoutTotal">
 
-₹234
+₹0
 
 </span>
 
@@ -948,239 +1102,188 @@ Grand Total
 
 <style>
 
-/* =========================
-COUPON
-========================= */
+/* ===================================
+SUMMARY
+=================================== */
 
-.couponCard,
-.walletCard,
-.extraCard,
-.paymentCard,
-.billCard{
+.summaryWrapper{
 
-background:#fff;
-padding:20px;
-border-radius:28px;
-
-box-shadow:
-0 8px 24px rgba(0,0,0,.05);
+padding:0 16px 20px;
 
 }
 
-.couponTop{
+.checkoutItems{
 
 display:flex;
-gap:10px;
+
+flex-direction:column;
+
+gap:12px;
 
 }
 
-.couponInput{
+/* ===================================
+ITEM CARD
+=================================== */
 
-flex:1;
+.checkoutItem{
 
-height:54px;
+background:#fff;
 
-border:none;
-outline:none;
+padding:16px;
 
-background:#F3F4F6;
+border-radius:18px;
 
-border-radius:16px;
-
-padding:0 16px;
-
-font-size:14px;
+box-shadow:
+0 4px 14px rgba(0,0,0,.05);
 
 }
 
-.applyCouponBtn{
+.itemCategory{
 
-height:54px;
-
-padding:0 20px;
-
-border:none;
-
-border-radius:16px;
-
-background:#111827;
-
-color:#fff;
+font-size:12px;
 
 font-weight:900;
-
-cursor:pointer;
-
-}
-
-.couponMessage{
-
-margin-top:12px;
-
-font-size:13px;
-
-font-weight:700;
 
 color:#16A34A;
 
 }
 
-/* =========================
-WALLET
-========================= */
+.itemSubCategory{
 
-.walletCard{
-
-display:flex;
-justify-content:space-between;
-align-items:center;
-
-}
-
-.walletLabel{
+margin-top:5px;
 
 font-size:12px;
 
-font-weight:700;
-
 color:#6B7280;
+
+font-weight:700;
 
 }
 
-.walletAmount{
+.itemService{
 
-margin-top:6px;
+margin-top:8px;
 
-font-size:26px;
+font-size:16px;
 
 font-weight:900;
 
 }
 
-/* =========================
-SWITCH
-========================= */
+.itemPrice{
 
-.switch{
+margin-top:10px;
 
-position:relative;
+font-size:14px;
 
-width:54px;
-height:28px;
+font-weight:800;
 
 }
 
-.switch input{
-display:none;
+/* ===================================
+COUPON
+=================================== */
+
+.couponCard{
+
+background:#fff;
+
+padding:16px;
+
+border-radius:18px;
+
+margin-top:14px;
+
+box-shadow:
+0 4px 14px rgba(0,0,0,.05);
+
 }
 
-.slider{
+.couponTitle{
 
-position:absolute;
+font-size:16px;
 
-left:0;
-right:0;
-top:0;
-bottom:0;
+font-weight:900;
 
-background:#D1D5DB;
+margin-bottom:12px;
 
-border-radius:999px;
+}
+
+.couponRow{
+
+display:flex;
+
+gap:10px;
+
+}
+
+.couponRow input{
+
+flex:1;
+
+height:48px;
+
+border:none;
+
+outline:none;
+
+background:#F3F4F6;
+
+padding:0 14px;
+
+border-radius:12px;
+
+font-size:14px;
+
+}
+
+.couponRow button{
+
+width:90px;
+
+border:none;
+
+border-radius:12px;
+
+background:#16A34A;
+
+color:#fff;
+
+font-weight:800;
 
 cursor:pointer;
 
 }
 
-.slider:before{
+/* ===================================
+BILL
+=================================== */
 
-content:"";
-
-position:absolute;
-
-width:22px;
-height:22px;
-
-left:3px;
-top:3px;
+.billCard{
 
 background:#fff;
 
-border-radius:50%;
+padding:18px;
 
-transition:.3s;
+border-radius:18px;
 
-}
+margin-top:14px;
 
-.switch input:checked + .slider{
-
-background:#16A34A;
-
-}
-
-.switch input:checked + .slider:before{
-
-transform:translateX(26px);
+box-shadow:
+0 4px 14px rgba(0,0,0,.05);
 
 }
 
-/* =========================
-EXTRAS
-========================= */
+.billTitle{
 
-.extraItem{
+font-size:18px;
 
-display:flex;
-justify-content:space-between;
+font-weight:900;
 
-padding:14px 0;
-
-border-bottom:1px solid #F3F4F6;
+margin-bottom:14px;
 
 }
-
-.extraItem:last-child{
-border:none;
-}
-
-.extraItem h4{
-
-font-size:15px;
-font-weight:800;
-
-}
-
-.extraItem p{
-
-margin-top:4px;
-
-font-size:12px;
-
-color:#6B7280;
-
-}
-
-/* =========================
-PAYMENT
-========================= */
-
-.paymentItem{
-
-display:flex;
-align-items:center;
-
-gap:12px;
-
-padding:14px 0;
-
-font-size:15px;
-
-font-weight:800;
-
-}
-
-/* =========================
-BILL
-========================= */
 
 .billRow{
 
@@ -1188,19 +1291,20 @@ display:flex;
 
 justify-content:space-between;
 
-padding:12px 0;
+margin-bottom:12px;
 
 font-size:14px;
 
+font-weight:700;
+
 }
 
-.totalRow{
+.totalBill{
 
-margin-top:10px;
+padding-top:14px;
 
-padding-top:16px;
-
-border-top:2px dashed #E5E7EB;
+border-top:
+1px solid #E5E7EB;
 
 font-size:18px;
 
@@ -1209,31 +1313,356 @@ font-weight:900;
 }
 
 </style>
-<!-- =========================================
-STICKY PLACE ORDER BAR
-========================================= -->
 
-<div class="stickyCheckout">
+<script>
+
+/* ===================================
+DISCOUNT
+=================================== */
+
+let couponDiscount = 0;
+
+/* ===================================
+LOAD ORDER
+=================================== */
+
+function renderCheckoutSummary(){
+
+const draft =
+
+JSON.parse(
+localStorage.getItem(
+"checkoutDraft"
+)
+);
+
+if(!draft) return;
+
+const container =
+
+document.getElementById(
+"checkoutItems"
+);
+
+container.innerHTML = "";
+
+/* ITEMS */
+
+draft.items.forEach(item=>{
+
+container.innerHTML +=
+
+`
+
+<div class="checkoutItem">
+
+<div class="itemCategory">
+
+👔 ${item.categoryName || "Ironing"}
+
+</div>
+
+<div class="itemSubCategory">
+
+${item.subcategoryName || "Shirt"}
+
+</div>
+
+<div class="itemService">
+
+${item.serviceName}
+
+</div>
+
+<div class="itemPrice">
+
+₹${item.price}
+×
+${item.qty}
+
+=
+₹${item.price * item.qty}
+
+</div>
+
+</div>
+
+`;
+
+});
+
+/* BILL */
+
+updateCheckoutBill();
+
+}
+
+/* ===================================
+COUPON
+=================================== */
+
+function applyCoupon(){
+
+const code =
+
+document.getElementById(
+"couponCode"
+)
+.value
+.trim()
+.toUpperCase();
+
+/* DEMO COUPONS */
+
+if(code === "WELCOME50"){
+
+couponDiscount = 50;
+
+alert(
+"₹50 Discount Applied"
+);
+
+}
+else if(
+code === "QUICK20"
+){
+
+couponDiscount = 20;
+
+alert(
+"₹20 Discount Applied"
+);
+
+}
+else{
+
+couponDiscount = 0;
+
+alert(
+"Invalid Coupon"
+);
+
+}
+
+updateCheckoutBill();
+
+}
+
+/* ===================================
+UPDATE BILL
+=================================== */
+
+function updateCheckoutBill(){
+
+const draft =
+
+JSON.parse(
+localStorage.getItem(
+"checkoutDraft"
+)
+);
+
+if(!draft) return;
+
+const subtotal =
+
+draft.subtotal || 0;
+
+const delivery =
+
+draft.delivery || 20;
+
+const total =
+
+subtotal +
+delivery -
+couponDiscount;
+
+document.getElementById(
+"checkoutSubtotal"
+).innerHTML =
+
+"₹" + subtotal;
+
+document.getElementById(
+"checkoutDelivery"
+).innerHTML =
+
+delivery === 0
+? "FREE"
+: "₹" + delivery;
+
+document.getElementById(
+"checkoutDiscount"
+).innerHTML =
+
+"- ₹" + couponDiscount;
+
+document.getElementById(
+"checkoutTotal"
+).innerHTML =
+
+"₹" + total;
+
+}
+
+/* ===================================
+INIT
+=================================== */
+
+renderCheckoutSummary();
+
+</script>
+<!-- ===================================
+PAYMENT SECTION
+=================================== -->
+
+<h2 class="sectionTitle">
+
+Payment Method
+
+</h2>
+
+<div class="paymentSection">
+
+<!-- COD -->
+
+<div
+class="paymentCard activePayment"
+data-payment="cod"
+onclick="selectPayment('cod',this)">
+
+<div class="paymentLeft">
+
+<div class="paymentIcon">
+
+💵
+
+</div>
 
 <div>
 
-<div class="payLabel">
-Payable Amount
+<div class="paymentTitle">
+
+Cash On Delivery
+
+</div>
+
+<div class="paymentDesc">
+
+Pay when your laundry is delivered
+
+</div>
+
+</div>
+
+</div>
+
+<div class="radioCircle">
+
+<div class="radioDot"></div>
+
+</div>
+
+</div>
+
+<!-- UPI -->
+
+<div
+class="paymentCard"
+data-payment="upi"
+onclick="selectPayment('upi',this)">
+
+<div class="paymentLeft">
+
+<div class="paymentIcon">
+
+📱
+
+</div>
+
+<div>
+
+<div class="paymentTitle">
+
+UPI Payment
+
+</div>
+
+<div class="paymentDesc">
+
+PhonePe, Google Pay, Paytm
+
+</div>
+
+</div>
+
+</div>
+
+<div class="radioCircle"></div>
+
+</div>
+
+<!-- CARD -->
+
+<div
+class="paymentCard"
+data-payment="card"
+onclick="selectPayment('card',this)">
+
+<div class="paymentLeft">
+
+<div class="paymentIcon">
+
+💳
+
+</div>
+
+<div>
+
+<div class="paymentTitle">
+
+Card Payment
+
+</div>
+
+<div class="paymentDesc">
+
+Debit / Credit Card
+
+</div>
+
+</div>
+
+</div>
+
+<div class="radioCircle"></div>
+
+</div>
+
+</div>
+
+<!-- PAYMENT SUMMARY -->
+
+<div class="paymentSummary">
+
+<div class="summaryHead">
+
+Selected Payment
+
 </div>
 
 <div
-id="payableAmount"
-class="payableAmount">
+class="selectedPayment"
+id="selectedPayment">
 
-₹234
-
-</div>
+Cash On Delivery
 
 </div>
 
 <button
-id="placeOrderBtn"
-class="placeOrderBtn">
+class="placeOrderBtn"
+onclick="placeOrder()">
 
 Place Order
 
@@ -1243,67 +1672,164 @@ Place Order
 
 <style>
 
-.stickyCheckout{
+/* ===================================
+PAYMENT
+=================================== */
 
-position:fixed;
+.paymentSection{
 
-left:0;
-right:0;
-bottom:0;
+padding:0 16px 20px;
 
-height:84px;
+}
+
+.paymentCard{
 
 background:#fff;
 
+border-radius:18px;
+
+padding:16px;
+
+margin-bottom:12px;
+
 display:flex;
 
-justify-content:space-between;
 align-items:center;
 
-padding:0 18px;
+justify-content:space-between;
+
+cursor:pointer;
 
 box-shadow:
-0 -8px 24px rgba(0,0,0,.08);
+0 4px 14px rgba(0,0,0,.05);
 
-z-index:9999;
+border:2px solid transparent;
 
-}
-
-.payLabel{
-
-font-size:12px;
-
-font-weight:700;
-
-color:#6B7280;
+transition:.25s;
 
 }
 
-.payableAmount{
+.activePayment{
 
-margin-top:4px;
+border-color:#16A34A;
+
+}
+
+.paymentLeft{
+
+display:flex;
+
+align-items:center;
+
+gap:14px;
+
+}
+
+.paymentIcon{
 
 font-size:24px;
+
+}
+
+.paymentTitle{
+
+font-size:15px;
 
 font-weight:900;
 
 }
 
+.paymentDesc{
+
+font-size:12px;
+
+margin-top:4px;
+
+color:#6B7280;
+
+}
+
+.radioCircle{
+
+width:22px;
+height:22px;
+
+border-radius:50%;
+
+border:2px solid #16A34A;
+
+display:flex;
+
+align-items:center;
+justify-content:center;
+
+}
+
+.radioDot{
+
+width:10px;
+height:10px;
+
+border-radius:50%;
+
+background:#16A34A;
+
+}
+
+/* ===================================
+SUMMARY
+=================================== */
+
+.paymentSummary{
+
+padding:0 16px 20px;
+
+}
+
+.summaryHead{
+
+font-size:14px;
+
+font-weight:800;
+
+margin-bottom:8px;
+
+color:#6B7280;
+
+}
+
+.selectedPayment{
+
+background:#fff;
+
+padding:14px;
+
+border-radius:14px;
+
+font-weight:900;
+
+margin-bottom:14px;
+
+box-shadow:
+0 4px 14px rgba(0,0,0,.05);
+
+}
+
 .placeOrderBtn{
 
-height:54px;
+width:100%;
 
-padding:0 28px;
+height:58px;
 
 border:none;
 
-border-radius:18px;
+border-radius:16px;
 
 background:#16A34A;
 
 color:#fff;
 
-font-size:15px;
+font-size:16px;
 
 font-weight:900;
 
@@ -1313,6 +1839,139 @@ cursor:pointer;
 
 </style>
 
+<script>
+
+/* ===================================
+PAYMENT METHOD
+=================================== */
+
+let selectedPaymentMethod =
+"cod";
+
+/* ===================================
+SELECT PAYMENT
+=================================== */
+
+function selectPayment(
+method,
+element
+){
+
+selectedPaymentMethod =
+method;
+
+document
+.querySelectorAll(
+".paymentCard"
+)
+
+.forEach(card=>{
+
+card.classList.remove(
+"activePayment"
+);
+
+const radio =
+card.querySelector(
+".radioCircle"
+);
+
+radio.innerHTML = "";
+
+});
+
+element.classList.add(
+"activePayment"
+);
+
+element.querySelector(
+".radioCircle"
+).innerHTML =
+
+'<div class="radioDot"></div>';
+
+let label =
+"Cash On Delivery";
+
+if(method==="upi"){
+
+label =
+"UPI Payment";
+
+}
+
+if(method==="card"){
+
+label =
+"Card Payment";
+
+}
+
+document.getElementById(
+"selectedPayment"
+).innerHTML =
+label;
+
+}
+
+/* ===================================
+GET PAYMENT METHOD
+=================================== */
+
+window.getPaymentMethod =
+function(){
+
+return selectedPaymentMethod;
+
+};
+
+/* ===================================
+PLACE ORDER
+=================================== */
+
+window.placeOrder =
+function(){
+
+const draft =
+
+JSON.parse(
+localStorage.getItem(
+"checkoutDraft"
+)
+);
+
+if(!draft){
+
+alert(
+"No order found"
+);
+
+return;
+
+}
+
+/* Part 5 me Firebase save hoga */
+
+if(
+selectedPaymentMethod ===
+"cod"
+){
+
+window.location.href =
+"order-success.html";
+
+return;
+
+}
+
+/* UPI / CARD */
+
+window.location.href =
+"payment.html";
+
+};
+
+</script>
 <script type="module">
 
 import { db, auth }
@@ -1321,411 +1980,215 @@ from "./firebase.js";
 import {
 collection,
 addDoc,
-doc,
-getDoc,
 serverTimestamp
 }
 from
 "https://www.gstatic.com/firebasejs/12.11.0/firebase-firestore.js";
 
-/* =========================================
-TOTALS
-========================================= */
-
-let servicesTotal = 214;
-let deliveryCharge = 20;
-let platformFee = 5;
-
-let discount = 0;
-
-let premiumPackingCharge = 0;
-let fabricProtectionCharge = 0;
-let urgentDeliveryCharge = 0;
-
-/* =========================================
-CITY WISE DELIVERY
-========================================= */
-
-const userLocation =
-
-JSON.parse(
-localStorage.getItem(
-"userLocation"
-)
-)
-
-||
-{
-city:"Kasganj"
-};
-
-const cityCharges = {
-
-Kasganj:20,
-Aligarh:30,
-Delhi:50
-
-};
-
-deliveryCharge =
-
-cityCharges[
-userLocation.city
-]
-
-|| 20;
-
-document.getElementById(
-"deliveryCharge"
-)
-
-.innerHTML =
-
-`₹${deliveryCharge}`;
-
-/* =========================================
-EXTRAS
-========================================= */
-
-document
-.getElementById(
-"premiumPacking"
-)
-
-.addEventListener(
-"change",
-calculateTotal
-);
-
-document
-.getElementById(
-"fabricProtection"
-)
-
-.addEventListener(
-"change",
-calculateTotal
-);
-
-document
-.getElementById(
-"urgentDelivery"
-)
-
-.addEventListener(
-"change",
-calculateTotal
-);
-
-/* =========================================
-COUPON
-========================================= */
-
-document
-.getElementById(
-"applyCouponBtn"
-)
-
-.addEventListener(
-
-"click",
-
-()=>{
-
-const code =
-
-document
-.getElementById(
-"couponInput"
-)
-.value
-.trim()
-.toUpperCase();
-
-if(code==="QUICK50"){
-
-discount = 50;
-
-document
-.getElementById(
-"couponMessage"
-)
-
-.innerHTML =
-
-"✅ QUICK50 Applied";
-
-}else{
-
-discount = 0;
-
-document
-.getElementById(
-"couponMessage"
-)
-
-.innerHTML =
-
-"❌ Invalid Coupon";
-
-}
-
-calculateTotal();
-
-}
-
-);
-
-/* =========================================
-CALCULATE
-========================================= */
-
-function calculateTotal(){
-
-premiumPackingCharge =
-
-document.getElementById(
-"premiumPacking"
-).checked
-
-? 9 : 0;
-
-fabricProtectionCharge =
-
-document.getElementById(
-"fabricProtection"
-).checked
-
-? 19 : 0;
-
-urgentDeliveryCharge =
-
-document.getElementById(
-"urgentDelivery"
-).checked
-
-? 29 : 0;
-
-/* ========================================= */
-
-document.getElementById(
-"packingCharge"
-)
-
-.innerHTML =
-`₹${premiumPackingCharge}`;
-
-document.getElementById(
-"fabricCharge"
-)
-
-.innerHTML =
-`₹${fabricProtectionCharge}`;
-
-document.getElementById(
-"urgentCharge"
-)
-
-.innerHTML =
-`₹${urgentDeliveryCharge}`;
-
-document.getElementById(
-"discountAmount"
-)
-
-.innerHTML =
-`- ₹${discount}`;
-
-/* ========================================= */
-
-let grandTotal =
-
-servicesTotal
-+
-deliveryCharge
-+
-platformFee
-+
-premiumPackingCharge
-+
-fabricProtectionCharge
-+
-urgentDeliveryCharge
--
-discount;
-
-/* ========================================= */
-
-document.getElementById(
-"grandTotal"
-)
-
-.innerHTML =
-`₹${grandTotal}`;
-
-document.getElementById(
-"payableAmount"
-)
-
-.innerHTML =
-`₹${grandTotal}`;
-
-}
-
-/* =========================================
+/* ===================================
 ORDER ID
-========================================= */
+=================================== */
 
 function generateOrderId(){
 
+const random =
+
+Math.floor(
+
+1000 +
+
+Math.random() * 9000
+
+);
+
 return
 
-"QP"
+"QP" +
+
+Date.now()
+
+.toString()
+
+.slice(-6)
 
 +
 
-Date.now()
-.toString()
-.slice(-8);
+random;
 
 }
 
-/* =========================================
-PLACE ORDER
-========================================= */
+/* ===================================
+CREATE ORDER OBJECT
+=================================== */
 
-document
-.getElementById(
-"placeOrderBtn"
-)
+window.createFinalOrder =
+function(){
 
-.addEventListener(
-
-"click",
-
-async()=>{
-
-const user = auth.currentUser;
-
-if(!user){
-
-window.location.href =
-"login.html";
-
-return;
-
-}
-
-/* =========================================
-PAYMENT
-========================================= */
-
-const paymentMethod =
-
-document.querySelector(
-'input[name="payment"]:checked'
-).value;
-
-/* =========================================
-CART
-========================================= */
-
-const cart =
+const draft =
 
 JSON.parse(
 localStorage.getItem(
-"cart"
+"checkoutDraft"
 )
-)
+);
 
-|| [];
+if(!draft){
 
-/* ========================================= */
+return null;
 
-const orderId =
-generateOrderId();
+}
 
-/* =========================================
-ORDER OBJECT
-========================================= */
+const pickupData =
+
+window.getPickupData
+?
+
+getPickupData()
+
+:
+
+{};
 
 const order = {
 
-orderId,
+orderId:
+generateOrderId(),
 
 userId:
-user.uid,
+
+auth.currentUser
+
+?
+
+auth.currentUser.uid
+
+:
+
+null,
+
+customerName:
+
+document.getElementById(
+"customerName"
+)?.innerText ||
+
+"Customer",
+
+customerPhone:
+
+document.getElementById(
+"customerPhone"
+)?.innerText ||
+
+"",
+
+customerAddress:
+
+document.getElementById(
+"customerAddress"
+)?.innerText ||
+
+"",
 
 city:
-userLocation.city,
 
-partnerCity:
-userLocation.city,
+draft.city ||
 
-riderCity:
-userLocation.city,
+"Kasganj",
 
 items:
-cart,
 
-servicesTotal,
+draft.items || [],
 
-deliveryCharge,
+subtotal:
 
-platformFee,
+draft.subtotal || 0,
 
-premiumPackaging:
+delivery:
 
-document.getElementById(
-"premiumPacking"
-).checked,
-
-premiumPackagingCharge:
-premiumPackingCharge,
-
-fabricProtection:
-
-document.getElementById(
-"fabricProtection"
-).checked,
-
-fabricProtectionCharge:
-fabricProtectionCharge,
-
-urgentDelivery:
-
-document.getElementById(
-"urgentDelivery"
-).checked,
-
-urgentDeliveryCharge:
-urgentDeliveryCharge,
-
-discount,
+draft.delivery || 20,
 
 grandTotal:
 
-Number(
-document.getElementById(
-"payableAmount"
-)
-.innerText
-.replace("₹","")
-),
+draft.grandTotal || 0,
 
-paymentMethod,
+paymentMethod:
 
-status:
+window.getPaymentMethod
+?
+
+getPaymentMethod()
+
+:
+
+"cod",
+
+paymentStatus:
+
 "Pending",
 
+orderStatus:
+
+"Pending",
+
+pickupDate:
+
+pickupData.pickupDate ||
+
+"Today",
+
+pickupTime:
+
+pickupData.pickupTime ||
+
+"09:00 AM - 12:00 PM",
+
+expressPickup:
+
+pickupData.expressPickup ||
+
+false,
+
+riderNotes:
+
+pickupData.notes ||
+
+"",
+
 createdAt:
+
 serverTimestamp()
 
 };
 
-/* =========================================
-SAVE ORDER
-========================================= */
+return order;
+
+};
+
+/* ===================================
+SAVE ORDER FIREBASE
+=================================== */
+
+window.saveOrder =
+async function(){
+
+try{
+
+const order =
+
+createFinalOrder();
+
+if(!order){
+
+alert(
+"Order not found"
+);
+
+return false;
+
+}
+
+const docRef =
 
 await addDoc(
 
@@ -1738,39 +2201,591 @@ order
 
 );
 
-/* =========================================
-WHATSAPP
-========================================= */
+/* SAVE ORDER ID */
 
-window.open(
+localStorage.setItem(
 
-`https://wa.me/919997874502?text=
-Order%20Placed%20
-${orderId}`,
+"lastOrderId",
 
-"_blank"
+order.orderId
 
 );
 
-/* ========================================= */
+localStorage.setItem(
+
+"lastOrderDocId",
+
+docRef.id
+
+);
+
+/* CLEAR CART */
 
 localStorage.removeItem(
 "cart"
 );
 
-/* ========================================= */
+localStorage.removeItem(
+"checkoutDraft"
+);
+
+return true;
+
+}
+catch(error){
+
+console.error(error);
+
+alert(
+"Order save failed"
+);
+
+return false;
+
+}
+
+};
+
+/* ===================================
+PLACE ORDER
+=================================== */
+
+window.placeOrder =
+async function(){
+
+const btn =
+
+document.querySelector(
+".placeOrderBtn"
+);
+
+btn.disabled = true;
+
+btn.innerHTML =
+"Processing...";
+
+/* COD */
+
+if(
+
+getPaymentMethod() ===
+"cod"
+
+){
+
+const success =
+
+await saveOrder();
+
+if(success){
 
 window.location.href =
 
-`order-success.html?id=${orderId}`;
+"order-success.html";
+
+}
+
+btn.disabled = false;
+
+btn.innerHTML =
+"Place Order";
+
+return;
+
+}
+
+/* ===================================
+ONLINE PAYMENT
+
+Razorpay
+PhonePe
+Paytm
+
+Part 6 Integration
+
+=================================== */
+
+localStorage.setItem(
+
+"pendingOrder",
+
+JSON.stringify(
+
+createFinalOrder()
+
+)
+
+);
+
+window.location.href =
+"payment.html";
+
+};
+
+/* ===================================
+ORDER STRUCTURE
+
+orders
+{
+ orderId:"QP123456",
+
+ customerName:"Himanshu",
+
+ customerPhone:"+91xxxx",
+
+ city:"Kasganj",
+
+ items:[
+  {
+   categoryName:"Ironing",
+   subcategoryName:"Shirt",
+   serviceName:"Formal Shirt",
+   qty:2,
+   price:12
+  }
+ ],
+
+ subtotal:24,
+
+ delivery:20,
+
+ grandTotal:44,
+
+ paymentMethod:"cod",
+
+ orderStatus:"Pending"
+}
+
+=================================== */
+
+</script>
+<!-- ===================================
+FOOTER
+=================================== -->
+
+<div class="footer">
+
+<div class="footerBrand">
+
+⚡ QuickPress
+
+</div>
+
+<div class="footerText">
+
+Premium Laundry • Fast Pickup • Fast Delivery
+
+</div>
+
+<div class="footerCopy">
+
+© 2026 QuickPress. All Rights Reserved.
+
+</div>
+
+</div>
+
+<!-- ===================================
+BOTTOM NAVBAR
+=================================== -->
+
+<div class="bottomNav">
+
+<button
+class="navItem"
+onclick="window.location.href='index.html'">
+
+<i class="fa-solid fa-house"></i>
+
+<span>Home</span>
+
+</button>
+
+<button
+class="navItem"
+onclick="openOrders()">
+
+<i class="fa-solid fa-box"></i>
+
+<span>Orders</span>
+
+</button>
+
+<button
+class="navItem"
+onclick="window.location.href='services.html'">
+
+<i class="fa-solid fa-table-cells-large"></i>
+
+<span>Services</span>
+
+</button>
+
+<button
+class="navItem"
+onclick="window.location.href='cart.html'">
+
+<i class="fa-solid fa-cart-shopping"></i>
+
+<span>Cart</span>
+
+<div
+class="navCartBadge"
+id="navCartBadge">
+
+0
+
+</div>
+
+</button>
+
+<button
+class="navItem activeNav"
+onclick="openProfile()">
+
+<i class="fa-regular fa-user"></i>
+
+<span>Profile</span>
+
+</button>
+
+</div>
+
+<style>
+
+/* ===================================
+FOOTER
+=================================== */
+
+.footer{
+
+padding:40px 20px 120px;
+
+text-align:center;
+
+}
+
+.footerBrand{
+
+font-size:22px;
+
+font-weight:900;
+
+color:#111827;
+
+}
+
+.footerText{
+
+margin-top:8px;
+
+font-size:13px;
+
+color:#6B7280;
+
+}
+
+.footerCopy{
+
+margin-top:10px;
+
+font-size:12px;
+
+color:#9CA3AF;
+
+}
+
+/* ===================================
+BOTTOM NAVBAR
+=================================== */
+
+.bottomNav{
+
+position:fixed;
+
+left:0;
+right:0;
+bottom:0;
+
+height:72px;
+
+background:#fff;
+
+display:flex;
+
+justify-content:space-around;
+align-items:center;
+
+box-shadow:
+0 -6px 20px rgba(0,0,0,.08);
+
+z-index:999;
+
+}
+
+.navItem{
+
+position:relative;
+
+flex:1;
+
+height:100%;
+
+border:none;
+
+background:none;
+
+display:flex;
+flex-direction:column;
+
+align-items:center;
+justify-content:center;
+
+gap:4px;
+
+cursor:pointer;
+
+font-size:11px;
+
+font-weight:700;
+
+color:#6B7280;
+
+}
+
+.navItem i{
+
+font-size:18px;
+
+}
+
+.activeNav{
+
+color:#16A34A;
+
+}
+
+.navCartBadge{
+
+position:absolute;
+
+top:8px;
+right:22px;
+
+min-width:18px;
+height:18px;
+
+padding:0 4px;
+
+border-radius:999px;
+
+background:#EF4444;
+
+color:#fff;
+
+display:flex;
+align-items:center;
+justify-content:center;
+
+font-size:10px;
+
+font-weight:900;
+
+}
+
+@media(min-width:1200px){
+
+.bottomNav{
+
+max-width:600px;
+
+left:50%;
+
+transform:
+translateX(-50%);
+
+border-radius:24px 24px 0 0;
+
+}
+
+}
+
+</style>
+
+<script type="module">
+
+import { auth }
+from "./firebase.js";
+
+import {
+onAuthStateChanged
+}
+from
+"https://www.gstatic.com/firebasejs/12.11.0/firebase-auth.js";
+
+/* ===================================
+AUTH
+=================================== */
+
+let currentUser = null;
+
+onAuthStateChanged(
+
+auth,
+
+(user)=>{
+
+currentUser = user;
 
 }
 
 );
 
-/* ========================================= */
+/* ===================================
+PROFILE
+=================================== */
 
-calculateTotal();
+window.openProfile =
+function(){
+
+if(currentUser){
+
+window.location.href =
+"profile.html";
+
+}else{
+
+window.location.href =
+"login.html";
+
+}
+
+};
+
+/* ===================================
+ORDERS
+=================================== */
+
+window.openOrders =
+function(){
+
+if(currentUser){
+
+window.location.href =
+"orders.html";
+
+}else{
+
+window.location.href =
+"login.html";
+
+}
+
+};
+
+/* ===================================
+CART BADGE
+=================================== */
+
+window.updateNavbarCartCount =
+function(){
+
+const cart =
+
+JSON.parse(
+localStorage.getItem(
+"cart"
+)
+)
+
+|| [];
+
+let total = 0;
+
+cart.forEach(item=>{
+
+total += item.qty || 1;
+
+});
+
+const badge =
+
+document.getElementById(
+"navCartBadge"
+);
+
+if(!badge)
+return;
+
+badge.innerHTML = total;
+
+badge.style.display =
+
+total > 0
+
+? "flex"
+
+: "none";
+
+};
+
+updateNavbarCartCount();
+
+/* ===================================
+LOGIN CHECK
+=================================== */
+
+window.addEventListener(
+
+"load",
+
+()=>{
+
+if(!auth.currentUser){
+
+console.log(
+"Guest Checkout Enabled"
+);
+
+/*
+If you want compulsory login:
+
+window.location.href =
+"login.html";
+
+*/
+
+}
+
+}
+
+);
+
+/* ===================================
+AUTO SYNC
+=================================== */
+
+window.addEventListener(
+
+"storage",
+
+()=>{
+
+updateNavbarCartCount();
+
+}
+
+);
+
+/* ===================================
+CHECKOUT READY
+=================================== */
+
+console.log(
+
+"QuickPress Checkout V1 Ready"
+
+);
 
 </script>
 
