@@ -3,11 +3,24 @@
 <head>
 
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Saved Addresses</title>
+<meta
+name="viewport"
+content="width=device-width, initial-scale=1.0">
 
-<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+<title>
+
+My Addresses
+
+</title>
+
+<link
+href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap"
+rel="stylesheet">
+
+<link
+rel="stylesheet"
+href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
 
 <style>
 
@@ -19,183 +32,102 @@ font-family:'Inter',sans-serif;
 }
 
 body{
+
 background:#F6F7FB;
+
 padding-bottom:120px;
+
 }
+
+/* ===================================
+HEADER
+=================================== */
 
 .header{
 
 background:
 linear-gradient(
 135deg,
-#FFD633,
-#FFE98A
+#16A34A,
+#22C55E
 );
-
-padding:24px;
-
-border-bottom-left-radius:34px;
-border-bottom-right-radius:34px;
-
-}
-
-.header h1{
-
-font-size:30px;
-font-weight:900;
-
-}
-
-.header p{
-
-margin-top:6px;
-
-font-size:13px;
-font-weight:700;
-
-color:#374151;
-
-}
-
-.addressesWrap{
-
-padding:16px;
-
-}
-
-.addressCard{
-
-background:#fff;
 
 padding:20px;
 
-border-radius:24px;
+padding-bottom:90px;
 
-margin-bottom:14px;
+border-radius:
+0 0 32px 32px;
 
-box-shadow:
-0 8px 24px rgba(0,0,0,.05);
+color:#fff;
 
 }
 
-.addressTop{
+.headerRow{
 
 display:flex;
 
-justify-content:space-between;
 align-items:center;
 
-}
-
-.addressTag{
-
-padding:6px 12px;
-
-border-radius:999px;
-
-background:#DCFCE7;
-
-color:#166534;
-
-font-size:11px;
-
-font-weight:900;
+gap:12px;
 
 }
 
-.defaultBadge{
+.backBtn{
 
-padding:6px 12px;
-
-border-radius:999px;
-
-background:#FEF3C7;
-
-color:#92400E;
-
-font-size:11px;
-
-font-weight:900;
-
-}
-
-.addressName{
-
-margin-top:12px;
-
-font-size:17px;
-
-font-weight:900;
-
-}
-
-.addressText{
-
-margin-top:8px;
-
-font-size:13px;
-
-line-height:1.8;
-
-color:#6B7280;
-
-}
-
-.addressActions{
-
-margin-top:16px;
-
-display:flex;
-
-gap:10px;
-
-}
-
-.actionBtn{
-
-flex:1;
-
-height:44px;
+width:42px;
+height:42px;
 
 border:none;
 
-border-radius:14px;
+border-radius:12px;
 
-font-size:13px;
+background:
+rgba(255,255,255,.2);
 
-font-weight:900;
+color:#fff;
 
 cursor:pointer;
 
 }
 
-.editBtn{
+.pageTitle{
 
-background:#2563EB;
-color:#fff;
+font-size:22px;
+
+font-weight:900;
 
 }
 
-.deleteBtn{
+/* ===================================
+ADD BUTTON
+=================================== */
 
-background:#DC2626;
-color:#fff;
+.addAddressCard{
+
+background:#fff;
+
+margin:
+-55px 16px 20px;
+
+border-radius:24px;
+
+padding:20px;
+
+box-shadow:
+0 10px 25px rgba(0,0,0,.08);
 
 }
 
 .addAddressBtn{
 
-position:fixed;
+width:100%;
 
-left:16px;
-right:16px;
-bottom:20px;
-
-height:58px;
+height:56px;
 
 border:none;
 
-border-radius:18px;
+border-radius:16px;
 
 background:#16A34A;
 
@@ -209,254 +141,417 @@ cursor:pointer;
 
 }
 
+/* ===================================
+ADDRESS LIST
+=================================== */
+
+.addressContainer{
+
+padding:0 16px;
+
+}
+
 </style>
+
 </head>
 
 <body>
 
 <div class="header">
 
-<h1>
-Saved Addresses
-</h1>
+<div class="headerRow">
 
-<p>
-Manage pickup & delivery locations
-</p>
+<button
+class="backBtn"
+onclick="history.back()">
+
+<i class="fa-solid fa-arrow-left"></i>
+
+</button>
+
+<div class="pageTitle">
+
+My Addresses
+
+</div>
+
+</div>
+
+</div>
+
+<div class="addAddressCard">
+
+<button
+class="addAddressBtn"
+onclick="openAddressModal()">
+
+<i class="fa-solid fa-plus"></i>
+
+Add New Address
+
+</button>
 
 </div>
 
 <div
-class="addressesWrap"
-id="addressesContainer">
+class="addressContainer"
+id="addressContainer">
 
-<!-- Firebase Addresses -->
-
-<div class="addressCard">
-
-<div class="addressTop">
-
-<div class="addressTag">
-
-🏠 Home
+<!-- Addresses Here -->
 
 </div>
+<!DOCTYPE html>
+<html lang="en">
+<head>
 
-<div class="defaultBadge">
+<meta charset="UTF-8">
 
-Default
+<meta
+name="viewport"
+content="width=device-width, initial-scale=1.0">
 
-</div>
+<title>
 
-</div>
+My Addresses
 
-<div class="addressName">
+</title>
 
-Home Address
+<link
+href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap"
+rel="stylesheet">
 
-</div>
-
-<div class="addressText">
-
-Near Bus Stand,
-Kasganj,
-Uttar Pradesh
-
-</div>
-
-<div class="addressActions">
-
-<button class="actionBtn editBtn">
-
-Edit
-
-</button>
-
-<button class="actionBtn deleteBtn">
-
-Delete
-
-</button>
-
-</div>
-
-</div>
-
-</div>
-
-<button
-class="addAddressBtn"
-id="addAddressBtn">
-
-+ Add New Address
-
-</button>
-<!-- =========================================
-BOTTOM NAVIGATION
-========================================= -->
-
-<div class="bottomNav">
-
-<button
-class="navItem"
-onclick="location.href='index.html'">
-
-🏠
-<span>Home</span>
-
-</button>
-
-<button
-class="navItem"
-onclick="location.href='orders.html'">
-
-📦
-<span>Orders</span>
-
-</button>
-
-<button
-class="navItem"
-onclick="location.href='wallet.html'">
-
-💰
-<span>Wallet</span>
-
-</button>
-
-<button
-class="navItem"
-onclick="location.href='profile.html'">
-
-👤
-<span>Profile</span>
-
-</button>
-
-</div>
+<link
+rel="stylesheet"
+href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
 
 <style>
 
-.bottomNav{
+*{
+margin:0;
+padding:0;
+box-sizing:border-box;
+font-family:'Inter',sans-serif;
+}
 
-position:fixed;
+body{
 
-left:0;
-right:0;
-bottom:0;
+background:#F6F7FB;
 
-height:76px;
-
-background:#fff;
-
-display:flex;
-
-justify-content:space-around;
-
-align-items:center;
-
-box-shadow:
-0 -8px 20px rgba(0,0,0,.08);
-
-z-index:999;
+padding-bottom:120px;
 
 }
 
-.navItem{
+/* ===================================
+HEADER
+=================================== */
 
-flex:1;
+.header{
 
-height:100%;
+background:
+linear-gradient(
+135deg,
+#16A34A,
+#22C55E
+);
 
-border:none;
+padding:20px;
 
-background:none;
+padding-bottom:90px;
+
+border-radius:
+0 0 32px 32px;
+
+color:#fff;
+
+}
+
+.headerRow{
 
 display:flex;
 
-flex-direction:column;
-
-justify-content:center;
-
 align-items:center;
 
-gap:4px;
+gap:12px;
 
-font-size:11px;
+}
 
-font-weight:700;
+.backBtn{
+
+width:42px;
+height:42px;
+
+border:none;
+
+border-radius:12px;
+
+background:
+rgba(255,255,255,.2);
+
+color:#fff;
 
 cursor:pointer;
 
-color:#6B7280;
+}
+
+.pageTitle{
+
+font-size:22px;
+
+font-weight:900;
+
+}
+
+/* ===================================
+ADD BUTTON
+=================================== */
+
+.addAddressCard{
+
+background:#fff;
+
+margin:
+-55px 16px 20px;
+
+border-radius:24px;
+
+padding:20px;
+
+box-shadow:
+0 10px 25px rgba(0,0,0,.08);
+
+}
+
+.addAddressBtn{
+
+width:100%;
+
+height:56px;
+
+border:none;
+
+border-radius:16px;
+
+background:#16A34A;
+
+color:#fff;
+
+font-size:15px;
+
+font-weight:900;
+
+cursor:pointer;
+
+}
+
+/* ===================================
+ADDRESS LIST
+=================================== */
+
+.addressContainer{
+
+padding:0 16px;
 
 }
 
 </style>
 
+</head>
+
+<body>
+
+<div class="header">
+
+<div class="headerRow">
+
+<button
+class="backBtn"
+onclick="history.back()">
+
+<i class="fa-solid fa-arrow-left"></i>
+
+</button>
+
+<div class="pageTitle">
+
+My Addresses
+
+</div>
+
+</div>
+
+</div>
+
+<div class="addAddressCard">
+
+<button
+class="addAddressBtn"
+onclick="openAddressModal()">
+
+<i class="fa-solid fa-plus"></i>
+
+Add New Address
+
+</button>
+
+</div>
+
+<div
+class="addressContainer"
+id="addressContainer">
+
+<!-- Addresses Here -->
+
+</div>
+
 <script type="module">
 
-import { db, auth }
+import { auth, db }
 from "./firebase.js";
 
 import {
 collection,
 addDoc,
+getDocs,
 deleteDoc,
 doc,
-query,
-where,
-onSnapshot,
 updateDoc,
-serverTimestamp
+query,
+where
 }
 from
 "https://www.gstatic.com/firebasejs/12.11.0/firebase-firestore.js";
 
-import {
-onAuthStateChanged
-}
-from
-"https://www.gstatic.com/firebasejs/12.11.0/firebase-auth.js";
+/* ===================================
+SAVE ADDRESS
+=================================== */
 
-/* =========================================
-GLOBAL
-========================================= */
+window.saveAddress =
+async function(){
 
-let currentUser = null;
+try{
 
-/* =========================================
-LOGIN CHECK
-========================================= */
-
-onAuthStateChanged(
-
-auth,
-
-(user)=>{
+const user = auth.currentUser;
 
 if(!user){
 
-window.location.href =
-"login.html";
+alert(
+"Please login first"
+);
 
 return;
 
 }
 
-currentUser = user;
+const fullName =
 
-loadAddresses();
+document.getElementById(
+"addressName"
+).value.trim();
+
+const phone =
+
+document.getElementById(
+"addressPhone"
+).value.trim();
+
+const houseNo =
+
+document.getElementById(
+"houseNumber"
+).value.trim();
+
+const address =
+
+document.getElementById(
+"fullAddress"
+).value.trim();
+
+const city =
+
+document.getElementById(
+"city"
+).value;
+
+if(
+!fullName ||
+!phone ||
+!houseNo ||
+!address
+){
+
+alert(
+"Please fill all fields"
+);
+
+return;
+
+}
+
+await addDoc(
+
+collection(
+db,
+"addresses"
+),
+
+{
+
+userId:user.uid,
+
+fullName,
+
+phone,
+
+houseNo,
+
+address,
+
+city,
+
+type:selectedType,
+
+isDefault:false,
+
+createdAt:
+Date.now()
 
 }
 
 );
 
-/* =========================================
-LOAD ADDRESSES
-========================================= */
+closeAddressModal();
 
-function loadAddresses(){
+loadAddresses();
+
+alert(
+"Address Saved ✅"
+);
+
+}
+catch(error){
+
+console.error(error);
+
+alert(
+"Failed to save address"
+);
+
+}
+
+};
+
+/* ===================================
+LOAD ADDRESSES
+=================================== */
+
+window.loadAddresses =
+async function(){
+
+try{
+
+const user = auth.currentUser;
+
+if(!user) return;
 
 const q = query(
 
@@ -468,36 +563,26 @@ db,
 where(
 "userId",
 "==",
-currentUser.uid
+user.uid
 )
 
 );
 
-onSnapshot(
-
-q,
-
-(snapshot)=>{
+const snapshot =
+await getDocs(q);
 
 const container =
 
 document.getElementById(
-"addressesContainer"
+"addressContainer"
 );
 
 container.innerHTML = "";
 
-/* ========================================= */
-
 snapshot.forEach(docSnap=>{
 
-const address =
+const data =
 docSnap.data();
-
-const addressId =
-docSnap.id;
-
-/* ========================================= */
 
 container.innerHTML +=
 
@@ -507,59 +592,68 @@ container.innerHTML +=
 
 <div class="addressTop">
 
-<div class="addressTag">
+<div>
 
-${address.tag}
+<div class="addressType">
 
-</div>
+${data.type}
 
-${address.isDefault ?
-
-`
-<div class="defaultBadge">
-
-Default
-
-</div>
-`
-
-: ""}
+${data.isDefault
+? '<span class="defaultBadge">Default</span>'
+: ''
+}
 
 </div>
 
 <div class="addressName">
 
-${address.name}
+${data.fullName}
 
 </div>
-
-<div class="addressText">
-
-${address.address}
-
-<br>
-
-${address.city}
 
 </div>
 
 <div class="addressActions">
 
 <button
-class="actionBtn editBtn"
-onclick="setDefaultAddress('${addressId}')">
+onclick="setDefaultAddress('${docSnap.id}')">
 
-Default
+<i class="fa-solid fa-star"></i>
 
 </button>
 
 <button
-class="actionBtn deleteBtn"
-onclick="deleteAddress('${addressId}')">
+onclick="deleteAddress('${docSnap.id}')">
 
-Delete
+<i class="fa-solid fa-trash"></i>
 
 </button>
+
+</div>
+
+</div>
+
+<div class="addressLine">
+
+${data.houseNo}
+
+</div>
+
+<div class="addressLine">
+
+${data.address}
+
+</div>
+
+<div class="addressLine">
+
+${data.city}
+
+</div>
+
+<div class="addressPhone">
+
+${data.phone}
 
 </div>
 
@@ -569,161 +663,27 @@ Delete
 
 });
 
-/* ========================================= */
+}
+catch(error){
 
-if(
-container.innerHTML === ""
-){
-
-container.innerHTML =
-
-`
-
-<div
-style="
-text-align:center;
-padding:50px;
-color:#6B7280;
-">
-
-📍
-
-<h3 style="margin-top:15px;">
-
-No Saved Address
-
-</h3>
-
-</div>
-
-`;
+console.error(error);
 
 }
 
-}
+};
 
-);
-
-}
-
-/* =========================================
-ADD ADDRESS
-========================================= */
-
-document
-.getElementById(
-"addAddressBtn"
-)
-
-.addEventListener(
-
-"click",
-
-async()=>{
-
-const name =
-prompt(
-"Address Name"
-);
-
-if(!name)
-return;
-
-const address =
-prompt(
-"Full Address"
-);
-
-if(!address)
-return;
-
-const tag =
-prompt(
-"Tag: Home / Office"
-)
-||
-"Home";
-
-/* =========================================
-GPS
-========================================= */
-
-navigator.geolocation.getCurrentPosition(
-
-async(position)=>{
-
-const lat =
-position.coords.latitude;
-
-const lng =
-position.coords.longitude;
-
-/* ========================================= */
-
-await addDoc(
-
-collection(
-db,
-"addresses"
-),
-
-{
-
-userId:
-currentUser.uid,
-
-name,
-
-address,
-
-tag,
-
-city:
-localStorage.getItem(
-"userCity"
-)
-||
-"Kasganj",
-
-lat,
-
-lng,
-
-isDefault:false,
-
-createdAt:
-serverTimestamp()
-
-}
-
-);
-
-alert(
-"Address Added"
-);
-
-}
-
-);
-
-}
-
-);
-
-/* =========================================
+/* ===================================
 DELETE
-========================================= */
+=================================== */
 
 window.deleteAddress =
-async(id)=>{
+async function(id){
 
-const confirmDelete =
-confirm(
-"Delete Address?"
+const ok = confirm(
+"Delete this address?"
 );
 
-if(!confirmDelete)
-return;
+if(!ok) return;
 
 await deleteDoc(
 
@@ -735,14 +695,20 @@ id
 
 );
 
+loadAddresses();
+
 };
 
-/* =========================================
-SET DEFAULT
-========================================= */
+/* ===================================
+DEFAULT ADDRESS
+=================================== */
 
 window.setDefaultAddress =
-async(id)=>{
+async function(id){
+
+const user = auth.currentUser;
+
+if(!user) return;
 
 const q = query(
 
@@ -754,25 +720,24 @@ db,
 where(
 "userId",
 "==",
-currentUser.uid
+user.uid
 )
 
 );
 
-onSnapshot(
+const snapshot =
+await getDocs(q);
 
-q,
+/* RESET ALL */
 
-async(snapshot)=>{
-
-for(const d of snapshot.docs){
+for(const item of snapshot.docs){
 
 await updateDoc(
 
 doc(
 db,
 "addresses",
-d.id
+item.id
 ),
 
 {
@@ -782,6 +747,8 @@ isDefault:false
 );
 
 }
+
+/* SET NEW */
 
 await updateDoc(
 
@@ -797,11 +764,649 @@ isDefault:true
 
 );
 
+loadAddresses();
+
+};
+
+setTimeout(()=>{
+
+loadAddresses();
+
+},500);
+
+</script>
+
+<style>
+
+/* ===================================
+ADDRESS CARD
+=================================== */
+
+.addressCard{
+
+background:#fff;
+
+border-radius:20px;
+
+padding:18px;
+
+margin-bottom:14px;
+
+box-shadow:
+0 4px 14px rgba(0,0,0,.05);
+
+}
+
+.addressTop{
+
+display:flex;
+
+justify-content:space-between;
+
+align-items:flex-start;
+
+}
+
+.addressType{
+
+font-size:13px;
+
+font-weight:900;
+
+color:#16A34A;
+
+}
+
+.defaultBadge{
+
+margin-left:8px;
+
+background:#DCFCE7;
+
+color:#15803D;
+
+padding:4px 8px;
+
+border-radius:999px;
+
+font-size:10px;
+
+}
+
+.addressName{
+
+margin-top:6px;
+
+font-size:16px;
+
+font-weight:900;
+
+}
+
+.addressLine{
+
+margin-top:6px;
+
+font-size:13px;
+
+color:#6B7280;
+
+}
+
+.addressPhone{
+
+margin-top:10px;
+
+font-size:13px;
+
+font-weight:800;
+
+}
+
+.addressActions{
+
+display:flex;
+
+gap:8px;
+
+}
+
+.addressActions button{
+
+width:38px;
+height:38px;
+
+border:none;
+
+border-radius:12px;
+
+background:#F3F4F6;
+
+cursor:pointer;
+
+}
+
+.addressActions i{
+
+font-size:14px;
+
+}
+
+</style>
+
+<script type="module">
+
+import { db }
+from "./firebase.js";
+
+import {
+doc,
+updateDoc,
+getDoc
+}
+from
+"https://www.gstatic.com/firebasejs/12.11.0/firebase-firestore.js";
+
+/* ===================================
+EDIT ADDRESS
+=================================== */
+
+window.editAddress =
+async function(id){
+
+try{
+
+const snap =
+
+await getDoc(
+doc(
+db,
+"addresses",
+id
+)
+);
+
+if(!snap.exists()) return;
+
+const data =
+snap.data();
+
+/* FILL FORM */
+
+document.getElementById(
+"addressName"
+).value =
+
+data.fullName || "";
+
+document.getElementById(
+"addressPhone"
+).value =
+
+data.phone || "";
+
+document.getElementById(
+"houseNumber"
+).value =
+
+data.houseNo || "";
+
+document.getElementById(
+"fullAddress"
+).value =
+
+data.address || "";
+
+document.getElementById(
+"city"
+).value =
+
+data.city || "";
+
+selectedType =
+data.type || "Home";
+
+/* STORE EDIT ID */
+
+window.editingAddressId =
+id;
+
+openAddressModal();
+
+}
+catch(error){
+
+console.error(error);
+
+}
+
+};
+
+/* ===================================
+SAVE EDIT
+=================================== */
+
+/*
+SAVE ADDRESS FUNCTION UPDATE:
+
+if(window.editingAddressId){
+
+await updateDoc(
+
+doc(
+db,
+"addresses",
+window.editingAddressId
+),
+
+{
+fullName,
+phone,
+houseNo,
+address,
+city,
+type:selectedType
 }
 
 );
 
+window.editingAddressId = null;
+
+}else{
+
+addDoc(...)
+
+}
+
+*/
+
+/* ===================================
+SELECT ADDRESS FOR CHECKOUT
+=================================== */
+
+window.selectAddress =
+async function(id){
+
+try{
+
+localStorage.setItem(
+
+"defaultAddressId",
+
+id
+
+);
+
+alert(
+"Address Selected ✅"
+);
+
+window.location.href =
+"checkout.html";
+
+}
+catch(error){
+
+console.error(error);
+
+}
+
 };
+
+</script>
+
+<style>
+
+/* ===================================
+SELECT BUTTON
+=================================== */
+
+.selectAddressBtn{
+
+margin-top:14px;
+
+width:100%;
+
+height:48px;
+
+border:none;
+
+border-radius:14px;
+
+background:#16A34A;
+
+color:#fff;
+
+font-size:14px;
+
+font-weight:900;
+
+cursor:pointer;
+
+}
+
+</style>
+
+<!-- ===================================
+UPDATE ADDRESS CARD
+ADD INSIDE loadAddresses()
+
+AFTER PHONE SECTION:
+
+<button
+class="selectAddressBtn"
+onclick="selectAddress('${docSnap.id}')">
+
+Deliver Here
+
+</button>
+
+AND ADD:
+
+<button
+onclick="editAddress('${docSnap.id}')">
+
+<i class="fa-solid fa-pen"></i>
+
+</button>
+
+INSIDE addressActions
+
+=================================== -->
+
+<!-- ===================================
+FOOTER
+=================================== -->
+
+<div class="footer">
+
+<div class="footerBrand">
+
+⚡ QuickPress
+
+</div>
+
+<div class="footerText">
+
+Manage your delivery addresses
+
+</div>
+
+<div class="footerCopy">
+
+© 2026 QuickPress. All Rights Reserved.
+
+</div>
+
+</div>
+
+<!-- ===================================
+BOTTOM NAVBAR
+=================================== -->
+
+<div class="bottomNav">
+
+<button
+class="navItem"
+onclick="window.location.href='index.html'">
+
+<i class="fa-solid fa-house"></i>
+
+<span>Home</span>
+
+</button>
+
+<button
+class="navItem"
+onclick="window.location.href='orders.html'">
+
+<i class="fa-solid fa-box"></i>
+
+<span>Orders</span>
+
+</button>
+
+<button
+class="navItem"
+onclick="window.location.href='services.html'">
+
+<i class="fa-solid fa-table-cells-large"></i>
+
+<span>Services</span>
+
+</button>
+
+<button
+class="navItem"
+onclick="window.location.href='cart.html'">
+
+<i class="fa-solid fa-cart-shopping"></i>
+
+<span>Cart</span>
+
+<div
+class="navCartBadge"
+id="navCartBadge">
+
+0
+
+</div>
+
+</button>
+
+<button
+class="navItem activeNav"
+onclick="window.location.href='profile.html'">
+
+<i class="fa-solid fa-user"></i>
+
+<span>Profile</span>
+
+</button>
+
+</div>
+
+<style>
+
+/* ===================================
+FOOTER
+=================================== */
+
+.footer{
+
+padding:30px 20px 120px;
+
+text-align:center;
+
+}
+
+.footerBrand{
+
+font-size:22px;
+
+font-weight:900;
+
+}
+
+.footerText{
+
+margin-top:8px;
+
+font-size:13px;
+
+color:#6B7280;
+
+}
+
+.footerCopy{
+
+margin-top:10px;
+
+font-size:12px;
+
+color:#9CA3AF;
+
+}
+
+/* ===================================
+BOTTOM NAV
+=================================== */
+
+.bottomNav{
+
+position:fixed;
+
+left:0;
+right:0;
+bottom:0;
+
+height:72px;
+
+background:#fff;
+
+display:flex;
+
+justify-content:space-around;
+align-items:center;
+
+box-shadow:
+0 -6px 20px rgba(0,0,0,.08);
+
+z-index:999;
+
+}
+
+.navItem{
+
+position:relative;
+
+flex:1;
+
+height:100%;
+
+border:none;
+
+background:none;
+
+display:flex;
+flex-direction:column;
+
+align-items:center;
+justify-content:center;
+
+gap:4px;
+
+font-size:11px;
+
+font-weight:700;
+
+color:#6B7280;
+
+cursor:pointer;
+
+}
+
+.navItem i{
+
+font-size:18px;
+
+}
+
+.activeNav{
+
+color:#16A34A;
+
+}
+
+.navCartBadge{
+
+position:absolute;
+
+top:8px;
+right:22px;
+
+min-width:18px;
+height:18px;
+
+padding:0 4px;
+
+border-radius:999px;
+
+background:#EF4444;
+
+color:#fff;
+
+display:flex;
+align-items:center;
+justify-content:center;
+
+font-size:10px;
+
+font-weight:900;
+
+}
+
+</style>
+
+<script>
+
+/* ===================================
+CART BADGE
+=================================== */
+
+function updateNavbarCartCount(){
+
+const cart =
+
+JSON.parse(
+localStorage.getItem(
+"cart"
+)
+)
+
+|| [];
+
+let total = 0;
+
+cart.forEach(item=>{
+
+total += item.qty || 1;
+
+});
+
+const badge =
+
+document.getElementById(
+"navCartBadge"
+);
+
+if(!badge) return;
+
+badge.innerHTML = total;
+
+badge.style.display =
+
+total > 0
+
+? "flex"
+
+: "none";
+
+}
+
+updateNavbarCartCount();
+
+window.addEventListener(
+
+"storage",
+
+()=>{
+
+updateNavbarCartCount();
+
+}
+
+);
 
 </script>
 
