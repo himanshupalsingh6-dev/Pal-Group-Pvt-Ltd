@@ -424,34 +424,15 @@ let html = "";
 
 orders.forEach(order=>{
 
-html += `
+html +=
 
-<div class="orderCard">
+getTimelineHTML(
 
-<div class="orderHeaderRow">
+order.status ||
 
-<div class="orderNumber">
+"Pending"
 
-${order.orderNumber || 'QP000'}
-
-</div>
-
-<div class="statusBadge
-${(order.status || 'pending').toLowerCase()}">
-
-${order.status || 'Pending'}
-
-</div>
-
-</div>
-
-<div class="orderCity">
-
-📍 ${order.city || 'Kasganj'}
-
-</div>
-
-`;
+);
 
 if(order.items){
 
