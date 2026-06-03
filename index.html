@@ -1,0 +1,406 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>QuickPress | Premium Laundry Marketplace</title>
+
+    <meta name="description"
+        content="QuickPress - Fast Pickup, Premium Laundry, Real Time Tracking">
+
+    <link rel="stylesheet" href="css/index.css">
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap"
+        rel="stylesheet">
+
+    <script type="module" src="js/index.js" defer></script>
+</head>
+
+<body>
+
+    <!-- NAVBAR -->
+
+    <nav class="navbar">
+
+        <div class="logo">
+            QuickPress
+        </div>
+
+        <ul class="nav-links">
+            <li><a href="#">Home</a></li>
+            <li><a href="#categories">Services</a></li>
+            <li><a href="#stores">Stores</a></li>
+            <li><a href="#plans">Plans</a></li>
+            <li><a href="#tracking">Track Order</a></li>
+            <li><a href="#franchise">Franchise</a></li>
+        </ul>
+
+        <div class="nav-actions">
+            <button class="wallet-btn">Wallet</button>
+            <button class="login-btn">Login</button>
+        </div>
+
+    </nav>
+
+    <!-- HERO -->
+
+    <section class="hero">
+
+        <div class="hero-content">
+
+            <span class="badge">
+                India's Fastest Laundry Marketplace
+            </span>
+
+            <h1>
+                Premium Laundry &
+                Dry Cleaning Delivered
+                To Your Doorstep
+            </h1>
+
+            <p>
+                Book pickup, track orders live,
+                get fresh clothes delivered.
+            </p>
+
+            <div class="hero-buttons">
+
+                <button class="primary-btn">
+                    Book Pickup
+                </button>
+
+                <button class="secondary-btn">
+                    Explore Services
+                </button>
+
+            </div>
+
+        </div>
+
+    </section>
+
+    <!-- SEARCH -->
+
+    <section class="search-section">
+
+        <div class="search-container">
+
+            <input
+                type="text"
+                id="globalSearch"
+                placeholder="Search services, stores, city..." />
+
+            <button id="searchBtn">
+                Search
+            </button>
+
+        </div>
+
+    </section>
+
+    <!-- CATEGORIES -->
+
+    <section id="categories" class="section">
+
+        <div class="section-header">
+
+            <h2>Popular Services</h2>
+
+            <p>
+                Real-time services loaded from Firebase
+            </p>
+
+        </div>
+
+        <div id="categoryContainer"
+            class="category-grid">
+
+        </div>
+
+    </section>
+
+    <!-- STORES -->
+
+    <section id="stores" class="section">
+
+        <div class="section-header">
+
+            <h2>Featured Laundry Stores</h2>
+
+            <p>
+                Verified stores with premium ratings
+            </p>
+
+        </div>
+
+        <div id="storeContainer"
+            class="store-grid">
+
+        </div>
+
+    </section>
+
+    <!-- QUICK PICKUP -->
+
+    <section class="pickup-section">
+
+        <div class="pickup-card">
+
+            <h2>Book Quick Pickup</h2>
+
+            <form id="pickupForm">
+
+                <input
+                    type="text"
+                    id="pickupAddress"
+                    placeholder="Pickup Address"
+                    required>
+
+                <input
+                    type="date"
+                    id="pickupDate"
+                    required>
+
+                <input
+                    type="time"
+                    id="pickupTime"
+                    required>
+
+                <select id="serviceType">
+
+                    <option>
+                        Wash & Fold
+                    </option>
+
+                    <option>
+                        Dry Cleaning
+                    </option>
+
+                    <option>
+                        Steam Iron
+                    </option>
+
+                </select>
+
+                <textarea
+                    id="instructions"
+                    placeholder="Special Instructions"></textarea>
+
+                <button type="submit"
+                    class="primary-btn">
+
+                    Book Pickup
+
+                </button>
+
+            </form>
+
+        </div>
+
+    </section>
+
+    <!-- TRACKING -->
+
+    <section id="tracking"
+        class="section">
+
+        <div class="section-header">
+
+            <h2>Track Your Order</h2>
+
+        </div>
+
+        <div class="tracking-box">
+
+            <input
+                type="text"
+                id="trackOrderId"
+                placeholder="Enter Order ID">
+
+            <button id="trackBtn">
+                Track Order
+            </button>
+
+            <div id="trackingResult">
+
+            </div>
+
+        </div>
+
+    </section>
+
+    <!-- PLANS -->
+
+    <section id="plans"
+        class="section">
+
+        <div class="section-header">
+
+            <h2>Membership Plans</h2>
+
+        </div>
+
+        <div id="planContainer"
+            class="plan-grid">
+
+        </div>
+
+    </section>
+
+    <!-- COUPONS -->
+
+    <section class="section">
+
+        <div class="section-header">
+
+            <h2>Offers & Coupons</h2>
+
+        </div>
+
+        <div id="couponContainer"
+            class="coupon-grid">
+
+        </div>
+
+    </section>
+
+    <!-- REVIEWS -->
+
+    <section class="section">
+
+        <div class="section-header">
+
+            <h2>Customer Reviews</h2>
+
+        </div>
+
+        <div id="reviewContainer"
+            class="review-grid">
+
+        </div>
+
+    </section>
+
+    <!-- REFERRAL -->
+
+    <section class="referral-section">
+
+        <div class="referral-card">
+
+            <h2>Invite Friends</h2>
+
+            <p>
+                Earn rewards for every successful referral.
+            </p>
+
+            <div id="referralCode">
+
+                REF-CODE
+
+            </div>
+
+        </div>
+
+    </section>
+
+    <!-- FRANCHISE -->
+
+    <section id="franchise"
+        class="section">
+
+        <div class="section-header">
+
+            <h2>Apply For Franchise</h2>
+
+        </div>
+
+        <form id="franchiseForm"
+            class="franchise-form">
+
+            <input
+                type="text"
+                id="fullName"
+                placeholder="Full Name">
+
+            <input
+                type="email"
+                id="email"
+                placeholder="Email">
+
+            <input
+                type="tel"
+                id="phone"
+                placeholder="Phone Number">
+
+            <input
+                type="text"
+                id="city"
+                placeholder="City">
+
+            <input
+                type="text"
+                id="state"
+                placeholder="State">
+
+            <input
+                type="text"
+                id="investment"
+                placeholder="Investment Capacity">
+
+            <textarea
+                id="experience"
+                placeholder="Business Experience"></textarea>
+
+            <button
+                type="submit"
+                class="primary-btn">
+
+                Submit Application
+
+            </button>
+
+        </form>
+
+    </section>
+
+    <!-- FOOTER -->
+
+    <footer class="footer">
+
+        <div class="footer-logo">
+
+            QuickPress
+
+        </div>
+
+        <p>
+            Fast Pickup.
+            Premium Laundry.
+            Delivered Fresh.
+        </p>
+
+        <div class="footer-links">
+
+            <a href="#">Privacy</a>
+
+            <a href="#">Terms</a>
+
+            <a href="#">Support</a>
+
+            <a href="#">Contact</a>
+
+        </div>
+
+        <div class="copyright">
+
+            © 2026 QuickPress.
+            All Rights Reserved.
+
+        </div>
+
+    </footer>
+
+</body>
+</html>
