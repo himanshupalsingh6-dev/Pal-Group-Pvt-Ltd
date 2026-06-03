@@ -1008,7 +1008,19 @@ alt="${service.name}"
 
 <div class="serviceCategory">
 
-${service.category || "Laundry"}
+${service.category || ""}
+
+${
+service.subCategory
+
+?
+
+" > " + service.subCategory
+
+:
+
+""
+}
 
 </div>
 
@@ -1041,15 +1053,11 @@ ${service.description || "Premium Laundry Service"}
 class="addBtn"
 
 onclick="addToCart(
-
-'${service.id}',
-
-'${service.name}',
-
-${price},
-
-'${service.category}'
-
+ '${service.id}',
+ '${service.name}',
+ ${price},
+ '${service.category}',
+ '${service.subCategory || ""}'
 )">
 
 Add
