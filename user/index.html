@@ -2134,3 +2134,2420 @@ font-size:44px;
 }
 
 </style>
+<!-- ===================================
+FOOTER
+=================================== -->
+
+<footer class="footer">
+
+<div class="footerBrand">
+
+<h2>
+
+QuickPress
+
+</h2>
+
+<p>
+
+Premium Laundry Marketplace
+
+</p>
+
+</div>
+
+<div class="footerLinks">
+
+<a href="services.html">
+
+Services
+
+</a>
+
+<a href="orders.html">
+
+Orders
+
+</a>
+
+<a href="profile.html">
+
+Profile
+
+</a>
+
+<a href="contact.html">
+
+Contact
+
+</a>
+
+</div>
+
+<div class="footerBottom">
+
+© 2026 QuickPress.
+All Rights Reserved.
+
+</div>
+
+</footer>
+
+<!-- ===================================
+BOTTOM NAVIGATION
+=================================== -->
+
+<nav class="bottomNav">
+
+<button
+class="navItem activeNav"
+data-page="home">
+
+<i class="fa-solid fa-house"></i>
+
+<span>
+
+Home
+
+</span>
+
+</button>
+
+<button
+class="navItem"
+data-page="services">
+
+<i class="fa-solid fa-table-cells-large"></i>
+
+<span>
+
+Services
+
+</span>
+
+</button>
+
+<button
+class="navItem"
+data-page="cart">
+
+<i class="fa-solid fa-cart-shopping"></i>
+
+<span>
+
+Cart
+
+</span>
+
+<div
+class="navCartBadge"
+id="navCartBadge">
+
+0
+
+</div>
+
+</button>
+
+<button
+class="navItem"
+data-page="orders">
+
+<i class="fa-solid fa-box"></i>
+
+<span>
+
+Orders
+
+</span>
+
+</button>
+
+<button
+class="navItem"
+data-page="profile">
+
+<i class="fa-regular fa-user"></i>
+
+<span>
+
+Profile
+
+</span>
+
+</button>
+
+</nav>
+
+<style>
+
+/* ===================================
+FOOTER
+=================================== */
+
+.footer{
+
+padding:40px 20px 120px;
+
+text-align:center;
+
+}
+
+.footerBrand h2{
+
+font-size:28px;
+
+font-weight:900;
+
+color:#111827;
+
+}
+
+.footerBrand p{
+
+margin-top:6px;
+
+font-size:14px;
+
+font-weight:700;
+
+color:#6B7280;
+
+}
+
+.footerLinks{
+
+margin-top:22px;
+
+display:flex;
+
+justify-content:center;
+
+gap:20px;
+
+flex-wrap:wrap;
+
+}
+
+.footerLinks a{
+
+text-decoration:none;
+
+font-size:13px;
+
+font-weight:800;
+
+color:#16A34A;
+
+}
+
+.footerBottom{
+
+margin-top:24px;
+
+font-size:12px;
+
+color:#9CA3AF;
+
+}
+
+/* ===================================
+BOTTOM NAV
+=================================== */
+
+.bottomNav{
+
+position:fixed;
+
+left:0;
+right:0;
+bottom:0;
+
+height:74px;
+
+background:#fff;
+
+display:flex;
+
+justify-content:space-around;
+
+align-items:center;
+
+box-shadow:
+0 -8px 24px rgba(0,0,0,.08);
+
+z-index:9999;
+
+}
+
+.navItem{
+
+position:relative;
+
+flex:1;
+
+height:100%;
+
+border:none;
+
+background:none;
+
+display:flex;
+
+flex-direction:column;
+
+align-items:center;
+
+justify-content:center;
+
+gap:4px;
+
+cursor:pointer;
+
+font-size:11px;
+
+font-weight:700;
+
+color:#6B7280;
+
+}
+
+.navItem i{
+
+font-size:18px;
+
+}
+
+.activeNav{
+
+color:#16A34A;
+
+}
+
+.navCartBadge{
+
+position:absolute;
+
+top:10px;
+
+right:22px;
+
+min-width:18px;
+
+height:18px;
+
+padding:0 4px;
+
+border-radius:999px;
+
+background:#EF4444;
+
+color:#fff;
+
+display:flex;
+
+align-items:center;
+
+justify-content:center;
+
+font-size:10px;
+
+font-weight:900;
+
+}
+
+@media(min-width:1200px){
+
+.bottomNav{
+
+max-width:650px;
+
+left:50%;
+
+transform:
+translateX(-50%);
+
+border-radius:24px 24px 0 0;
+
+}
+
+}
+
+</style>
+
+<script>
+
+/* ===================================
+ACTIVE NAVBAR
+=================================== */
+
+const currentPage =
+
+window.location.pathname
+.split("/")
+.pop();
+
+document
+.querySelectorAll(".navItem")
+.forEach(item=>{
+
+item.classList.remove(
+"activeNav"
+);
+
+const page =
+item.dataset.page;
+
+if(
+
+(currentPage === "" && page==="home")
+
+||
+
+(currentPage === "index.html" && page==="home")
+
+||
+
+(currentPage.includes(page))
+
+){
+
+item.classList.add(
+"activeNav"
+);
+
+}
+
+});
+
+/* ===================================
+NAVIGATION
+=================================== */
+
+document
+.querySelectorAll(".navItem")
+.forEach(item=>{
+
+item.addEventListener(
+
+"click",
+
+()=>{
+
+const page =
+item.dataset.page;
+
+if(page==="home"){
+
+window.location.href =
+"index.html";
+
+}
+
+if(page==="services"){
+
+window.location.href =
+"services.html";
+
+}
+
+if(page==="cart"){
+
+window.location.href =
+"cart.html";
+
+}
+
+if(page==="orders"){
+
+window.location.href =
+"orders.html";
+
+}
+
+if(page==="profile"){
+
+window.location.href =
+"profile.html";
+
+}
+
+}
+
+);
+
+});
+
+/* ===================================
+CART BADGE
+=================================== */
+
+window.updateNavbarCartCount =
+function(){
+
+const cart =
+
+JSON.parse(
+localStorage.getItem(
+"cart"
+)
+)
+
+|| [];
+
+let total = 0;
+
+cart.forEach(item=>{
+
+total +=
+item.qty || 1;
+
+});
+
+const badge =
+
+document.getElementById(
+"navCartBadge"
+);
+
+if(!badge) return;
+
+badge.innerHTML = total;
+
+badge.style.display =
+
+total > 0
+
+? "flex"
+
+: "none";
+
+};
+
+updateNavbarCartCount();
+
+</script><script type="module">
+
+/* ===================================
+FIREBASE AUTH
+=================================== */
+
+import { auth }
+from "./firebase.js";
+
+import {
+
+onAuthStateChanged,
+signOut
+
+}
+
+from
+
+"https://www.gstatic.com/firebasejs/12.11.0/firebase-auth.js";
+
+/* ===================================
+GLOBAL USER
+=================================== */
+
+let currentUser = null;
+
+/* ===================================
+BUTTONS
+=================================== */
+
+const loginBtn =
+
+document.getElementById(
+"desktopLoginBtn"
+);
+
+/* ===================================
+AUTH STATE
+=================================== */
+
+onAuthStateChanged(
+
+auth,
+
+(user)=>{
+
+currentUser = user;
+
+/* ===================================
+LOGIN BUTTON
+=================================== */
+
+if(loginBtn){
+
+if(user){
+
+loginBtn.style.display =
+"none";
+
+}else{
+
+if(window.innerWidth >= 992){
+
+loginBtn.style.display =
+"block";
+
+}
+
+}
+
+}
+
+/* ===================================
+PROFILE ICON
+=================================== */
+
+const profileBtn =
+
+document.querySelector(
+".profileBtn"
+);
+
+if(profileBtn){
+
+if(user){
+
+profileBtn.innerHTML =
+
+`<i class="fa-solid fa-user-check"></i>`;
+
+}else{
+
+profileBtn.innerHTML =
+
+`<i class="fa-regular fa-user"></i>`;
+
+}
+
+}
+
+});
+
+/* ===================================
+LOGIN CLICK
+=================================== */
+
+if(loginBtn){
+
+loginBtn.addEventListener(
+
+"click",
+
+()=>{
+
+window.location.href =
+"login.html";
+
+}
+
+);
+
+}
+
+/* ===================================
+PROFILE OPEN
+=================================== */
+
+window.openProfile =
+function(){
+
+if(currentUser){
+
+window.location.href =
+"profile.html";
+
+}else{
+
+window.location.href =
+"login.html";
+
+}
+
+};
+
+/* ===================================
+LOGOUT
+=================================== */
+
+window.logoutUser =
+async function(){
+
+try{
+
+await signOut(auth);
+
+localStorage.removeItem(
+"cart"
+);
+
+window.location.href =
+"login.html";
+
+}catch(error){
+
+console.log(error);
+
+alert(
+"Logout Failed"
+);
+
+}
+
+};
+
+/* ===================================
+CHECK LOGIN
+=================================== */
+
+window.requireLogin =
+function(){
+
+if(!currentUser){
+
+window.location.href =
+"login.html";
+
+return false;
+
+}
+
+return true;
+
+};
+
+/* ===================================
+PROTECTED PAGE
+=================================== */
+
+window.openOrders =
+function(){
+
+if(!requireLogin()){
+
+return;
+
+}
+
+window.location.href =
+"orders.html";
+
+};
+
+window.openCart =
+function(){
+
+window.location.href =
+"cart.html";
+
+};
+
+window.openServices =
+function(){
+
+window.location.href =
+"services.html";
+
+};
+
+window.openHome =
+function(){
+
+window.location.href =
+"index.html";
+
+};
+
+/* ===================================
+SESSION STORAGE
+=================================== */
+
+window.getCurrentUser =
+function(){
+
+return currentUser;
+
+};
+
+window.isLoggedIn =
+function(){
+
+return currentUser !== null;
+
+};
+
+/* ===================================
+USER DISPLAY NAME
+=================================== */
+
+window.getUserName =
+function(){
+
+if(!currentUser){
+
+return "Guest";
+
+}
+
+return (
+
+currentUser.displayName
+
+||
+
+currentUser.phoneNumber
+
+||
+
+currentUser.email
+
+||
+
+"User"
+
+);
+
+};
+
+/* ===================================
+USER PHOTO
+=================================== */
+
+window.getUserPhoto =
+function(){
+
+if(
+
+currentUser &&
+currentUser.photoURL
+
+){
+
+return currentUser.photoURL;
+
+}
+
+return null;
+
+};
+
+/* ===================================
+AUTH READY
+=================================== */
+
+console.log(
+"QuickPress Auth Loaded"
+);
+
+</script><script type="module">
+
+/* ===================================
+IMPORTS
+=================================== */
+
+import { db, auth }
+from "./firebase.js";
+
+import {
+
+doc,
+updateDoc,
+serverTimestamp
+
+}
+
+from
+
+"https://www.gstatic.com/firebasejs/12.11.0/firebase-firestore.js";
+
+/* ===================================
+OPEN MODAL
+=================================== */
+
+window.openLocationModal =
+function(){
+
+document
+.getElementById(
+"locationModal"
+)
+.style.display =
+"flex";
+
+};
+
+/* ===================================
+CLOSE MODAL
+=================================== */
+
+window.closeLocationModal =
+function(){
+
+document
+.getElementById(
+"locationModal"
+)
+.style.display =
+"none";
+
+};
+
+/* ===================================
+SELECT CITY
+=================================== */
+
+window.selectCity =
+async function(city){
+
+const locationData = {
+
+city,
+savedAt:Date.now()
+
+};
+
+localStorage.setItem(
+
+"userLocation",
+
+JSON.stringify(
+locationData
+)
+
+);
+
+localStorage.setItem(
+"userCity",
+city
+);
+
+/* ===================================
+HEADER UPDATE
+=================================== */
+
+const locationText =
+
+document.getElementById(
+"locationText"
+);
+
+if(locationText){
+
+locationText.innerHTML =
+
+city +
+", Uttar Pradesh";
+
+}
+
+/* ===================================
+FIRESTORE SAVE
+=================================== */
+
+if(auth.currentUser){
+
+try{
+
+await updateDoc(
+
+doc(
+db,
+"users",
+auth.currentUser.uid
+),
+
+{
+
+city,
+
+locationSaved:true,
+
+updatedAt:
+serverTimestamp()
+
+}
+
+);
+
+}catch(error){
+
+console.log(error);
+
+}
+
+}
+
+closeLocationModal();
+
+};
+
+/* ===================================
+DETECT LOCATION
+=================================== */
+
+window.startLocationDetection =
+function(){
+
+if(!navigator.geolocation){
+
+alert(
+"Geolocation Not Supported"
+);
+
+return;
+
+}
+
+navigator.geolocation.getCurrentPosition(
+
+async(position)=>{
+
+const lat =
+position.coords.latitude;
+
+const lng =
+position.coords.longitude;
+
+try{
+
+const response =
+
+await fetch(
+
+`https://nominatim.openstreetmap.org/reverse?format=json&lat=${lat}&lon=${lng}`
+
+);
+
+const data =
+await response.json();
+
+const city =
+
+data.address.city ||
+
+data.address.town ||
+
+data.address.county ||
+
+data.address.state_district ||
+
+"Kasganj";
+
+/* ===================================
+LOCAL STORAGE
+=================================== */
+
+localStorage.setItem(
+
+"userLocation",
+
+JSON.stringify({
+
+city,
+lat,
+lng,
+savedAt:Date.now()
+
+})
+
+);
+
+localStorage.setItem(
+"userCity",
+city
+);
+
+/* ===================================
+HEADER
+=================================== */
+
+const locationText =
+
+document.getElementById(
+"locationText"
+);
+
+if(locationText){
+
+locationText.innerHTML =
+
+city +
+", Uttar Pradesh";
+
+}
+
+/* ===================================
+FIRESTORE
+=================================== */
+
+if(auth.currentUser){
+
+await updateDoc(
+
+doc(
+db,
+"users",
+auth.currentUser.uid
+),
+
+{
+
+city,
+
+latitude:lat,
+
+longitude:lng,
+
+locationSaved:true,
+
+updatedAt:
+serverTimestamp()
+
+}
+
+);
+
+}
+
+alert(
+"Location Saved Successfully"
+);
+
+closeLocationModal();
+
+}catch(error){
+
+console.log(error);
+
+alert(
+"Location Detection Failed"
+);
+
+}
+
+},
+
+()=>{
+
+alert(
+"Location Permission Denied"
+);
+
+}
+
+);
+
+};
+
+/* ===================================
+RESTORE LOCATION
+=================================== */
+
+const savedLocation =
+
+localStorage.getItem(
+"userLocation"
+);
+
+if(savedLocation){
+
+const data =
+
+JSON.parse(
+savedLocation
+);
+
+const locationText =
+
+document.getElementById(
+"locationText"
+);
+
+if(locationText){
+
+locationText.innerHTML =
+
+data.city +
+", Uttar Pradesh";
+
+}
+
+}
+
+/* ===================================
+CITY SEARCH
+=================================== */
+
+const locationSearch =
+
+document.getElementById(
+"locationSearch"
+);
+
+if(locationSearch){
+
+locationSearch.addEventListener(
+
+"keyup",
+
+function(){
+
+const value =
+
+this.value.toLowerCase();
+
+document
+.querySelectorAll(
+".locationItem"
+)
+
+.forEach(item=>{
+
+item.style.display =
+
+item.innerText
+.toLowerCase()
+.includes(value)
+
+? "block"
+
+: "none";
+
+});
+
+}
+
+);
+
+}
+
+/* ===================================
+CITY FILTER
+=================================== */
+
+window.filterServicesByCity =
+function(services){
+
+const city =
+
+localStorage.getItem(
+"userCity"
+);
+
+if(!city){
+
+return services;
+
+}
+
+return services.filter(
+
+service=>{
+
+if(!service.city){
+
+return true;
+
+}
+
+return (
+service.city === city
+);
+
+}
+
+);
+
+};
+
+/* ===================================
+CITY PRICE
+=================================== */
+
+window.getServicePrice =
+function(service){
+
+const city =
+
+localStorage.getItem(
+"userCity"
+);
+
+if(
+
+service.cityPricing &&
+service.cityPricing[city]
+
+){
+
+return service.cityPricing[
+city
+];
+
+}
+
+return service.price || 0;
+
+};
+
+/* ===================================
+ORDER ROUTING
+=================================== */
+
+window.createOrderRouting =
+function(order){
+
+const city =
+
+localStorage.getItem(
+"userCity"
+)
+
+|| "Kasganj";
+
+return{
+
+...order,
+
+city,
+
+partnerCity:city,
+
+riderCity:city,
+
+assigned:false,
+
+status:"Pending",
+
+createdAt:Date.now()
+
+};
+
+};
+
+/* ===================================
+NOTIFICATION ROUTING
+=================================== */
+
+window.notificationRouting =
+function(){
+
+return{
+
+city:
+
+localStorage.getItem(
+"userCity"
+)
+
+|| "Kasganj"
+
+};
+
+};
+
+console.log(
+"QuickPress Location Loaded"
+);
+
+</script><script type="module">
+
+/* ===================================
+IMPORTS
+=================================== */
+
+import { db }
+from "./firebase.js";
+
+import {
+
+collection,
+onSnapshot
+
+}
+
+from
+
+"https://www.gstatic.com/firebasejs/12.11.0/firebase-firestore.js";
+
+/* ===================================
+ELEMENTS
+=================================== */
+
+const productGrid =
+
+document.getElementById(
+"productGrid"
+);
+
+const globalSearch =
+
+document.getElementById(
+"globalSearch"
+);
+
+/* ===================================
+GLOBAL DATA
+=================================== */
+
+let allServices = [];
+
+/* ===================================
+RENDER SERVICES
+=================================== */
+
+function renderServices(
+services
+){
+
+if(!productGrid) return;
+
+productGrid.innerHTML = "";
+
+/* ===================================
+NO DATA
+=================================== */
+
+if(services.length===0){
+
+productGrid.innerHTML =
+
+`
+
+<div
+style="grid-column:1/-1;
+text-align:center;
+padding:40px;">
+
+<h3>
+
+No Services Found
+
+</h3>
+
+</div>
+
+`;
+
+return;
+
+}
+
+/* ===================================
+CARDS
+=================================== */
+
+services.forEach(service=>{
+
+const price =
+
+window.getServicePrice
+
+?
+
+window.getServicePrice(
+service
+)
+
+:
+
+service.price;
+
+productGrid.innerHTML +=
+
+`
+
+<div class="productCard">
+
+<div class="productTop">
+
+<i class="fa-solid fa-shirt"></i>
+
+</div>
+
+<div class="productBody">
+
+<div class="productName">
+
+${service.name}
+
+</div>
+
+<div class="productCategory">
+
+${service.category || "Laundry"}
+
+</div>
+
+<div class="productBottom">
+
+<div class="price">
+
+₹${price}
+
+</div>
+
+<button
+class="addBtn"
+
+onclick="addToCart(
+
+'${service.id}',
+
+'${service.name}',
+
+${price},
+
+'${service.category || "Laundry"}'
+
+)">
+
+Add
+
+</button>
+
+</div>
+
+</div>
+
+</div>
+
+`;
+
+});
+
+}
+
+/* ===================================
+LOAD SERVICES
+=================================== */
+
+onSnapshot(
+
+collection(
+db,
+"services"
+),
+
+(snapshot)=>{
+
+let services = [];
+
+snapshot.forEach(doc=>{
+
+services.push({
+
+id:doc.id,
+
+...doc.data()
+
+});
+
+});
+
+/* ===================================
+CITY FILTER
+=================================== */
+
+if(
+window.filterServicesByCity
+){
+
+services =
+
+window.filterServicesByCity(
+services
+);
+
+}
+
+allServices = services;
+
+renderServices(
+services
+);
+
+});
+
+/* ===================================
+SEARCH FILTER
+=================================== */
+
+if(globalSearch){
+
+globalSearch.addEventListener(
+
+"keyup",
+
+function(){
+
+const value =
+
+this.value
+.toLowerCase()
+.trim();
+
+const filtered =
+
+allServices.filter(
+
+service=>{
+
+return (
+
+(service.name || "")
+.toLowerCase()
+.includes(value)
+
+||
+
+(service.category || "")
+.toLowerCase()
+.includes(value)
+
+);
+
+}
+
+);
+
+renderServices(
+filtered
+);
+
+}
+
+);
+
+}
+
+/* ===================================
+CATEGORY FILTER
+=================================== */
+
+window.filterCategory =
+function(category){
+
+if(!category){
+
+renderServices(
+allServices
+);
+
+return;
+
+}
+
+const filtered =
+
+allServices.filter(
+
+service=>
+
+service.category ===
+category
+
+);
+
+renderServices(
+filtered
+);
+
+};
+
+/* ===================================
+URL CATEGORY
+=================================== */
+
+const params =
+
+new URLSearchParams(
+window.location.search
+);
+
+const selectedCategory =
+
+params.get(
+"category"
+);
+
+if(selectedCategory){
+
+setTimeout(()=>{
+
+filterCategory(
+selectedCategory
+);
+
+},500);
+
+}
+
+/* ===================================
+LIVE REFRESH
+=================================== */
+
+window.refreshServices =
+function(){
+
+renderServices(
+allServices
+);
+
+};
+
+/* ===================================
+SERVICE DETAILS
+=================================== */
+
+window.openService =
+function(serviceId){
+
+window.location.href =
+
+`service-details.html?id=${serviceId}`;
+
+};
+
+console.log(
+"QuickPress Services Loaded"
+);
+
+</script><script>
+
+/* ===================================
+GET CART
+=================================== */
+
+window.getCart =
+function(){
+
+return JSON.parse(
+
+localStorage.getItem(
+"cart"
+)
+
+|| "[]"
+
+);
+
+};
+
+/* ===================================
+SAVE CART
+=================================== */
+
+window.saveCart =
+function(cart){
+
+localStorage.setItem(
+
+"cart",
+
+JSON.stringify(cart)
+
+);
+
+if(
+window.updateNavbarCartCount
+){
+
+window.updateNavbarCartCount();
+
+}
+
+};
+
+/* ===================================
+ADD TO CART
+=================================== */
+
+window.addToCart =
+function(
+
+id,
+name,
+price,
+category
+
+){
+
+let cart =
+
+getCart();
+
+const existing =
+
+cart.find(
+
+item=>
+
+item.serviceId === id
+
+);
+
+if(existing){
+
+existing.qty++;
+
+}else{
+
+cart.push({
+
+serviceId:id,
+
+serviceName:name,
+
+price,
+category,
+
+qty:1
+
+});
+
+}
+
+saveCart(cart);
+
+if(window.showToast){
+
+showToast(
+
+name +
+" added"
+
+);
+
+}
+
+};
+
+/* ===================================
+INCREASE QTY
+=================================== */
+
+window.increaseQty =
+function(serviceId){
+
+let cart =
+
+getCart();
+
+const item =
+
+cart.find(
+
+item=>
+
+item.serviceId===serviceId
+
+);
+
+if(item){
+
+item.qty++;
+
+}
+
+saveCart(cart);
+
+if(window.renderCart){
+
+renderCart();
+
+}
+
+};
+
+/* ===================================
+DECREASE QTY
+=================================== */
+
+window.decreaseQty =
+function(serviceId){
+
+let cart =
+
+getCart();
+
+const item =
+
+cart.find(
+
+item=>
+
+item.serviceId===serviceId
+
+);
+
+if(!item) return;
+
+item.qty--;
+
+if(item.qty <= 0){
+
+cart = cart.filter(
+
+x=>
+
+x.serviceId !== serviceId
+
+);
+
+}
+
+saveCart(cart);
+
+if(window.renderCart){
+
+renderCart();
+
+}
+
+};
+
+/* ===================================
+REMOVE ITEM
+=================================== */
+
+window.removeCartItem =
+function(serviceId){
+
+let cart =
+
+getCart();
+
+cart =
+
+cart.filter(
+
+item=>
+
+item.serviceId !== serviceId
+
+);
+
+saveCart(cart);
+
+if(window.renderCart){
+
+renderCart();
+
+}
+
+};
+
+/* ===================================
+CLEAR CART
+=================================== */
+
+window.clearCart =
+function(){
+
+localStorage.removeItem(
+"cart"
+);
+
+if(
+window.updateNavbarCartCount
+){
+
+updateNavbarCartCount();
+
+}
+
+if(window.renderCart){
+
+renderCart();
+
+}
+
+};
+
+/* ===================================
+TOTAL ITEMS
+=================================== */
+
+window.getCartItemsCount =
+function(){
+
+const cart =
+getCart();
+
+let total = 0;
+
+cart.forEach(item=>{
+
+total +=
+
+item.qty || 1;
+
+});
+
+return total;
+
+};
+
+/* ===================================
+TOTAL PRICE
+=================================== */
+
+window.getCartTotal =
+function(){
+
+const cart =
+getCart();
+
+let total = 0;
+
+cart.forEach(item=>{
+
+total +=
+
+(item.price || 0)
+
+*
+
+(item.qty || 1);
+
+});
+
+return total;
+
+};
+
+/* ===================================
+CHECKOUT
+=================================== */
+
+window.goCheckout =
+function(){
+
+const cart =
+getCart();
+
+if(cart.length===0){
+
+alert(
+"Your Cart Is Empty"
+);
+
+return;
+
+}
+
+window.location.href =
+"checkout.html";
+
+};
+
+/* ===================================
+ORDER SUMMARY
+=================================== */
+
+window.getOrderSummary =
+function(){
+
+const cart =
+getCart();
+
+const subtotal =
+
+getCartTotal();
+
+const deliveryFee =
+
+subtotal >= 299
+
+? 0
+
+: 49;
+
+const tax =
+
+Math.round(
+subtotal * 0.05
+);
+
+const grandTotal =
+
+subtotal +
+deliveryFee +
+tax;
+
+return{
+
+subtotal,
+
+deliveryFee,
+
+tax,
+
+grandTotal,
+
+items:
+
+getCartItemsCount()
+
+};
+
+};
+
+/* ===================================
+APPLY COUPON
+=================================== */
+
+window.applyCoupon =
+function(code){
+
+const summary =
+
+getOrderSummary();
+
+let discount = 0;
+
+if(code==="WELCOME50"){
+
+discount =
+
+Math.round(
+
+summary.subtotal * 0.50
+
+);
+
+}
+
+if(code==="QUICK20"){
+
+discount =
+
+Math.round(
+
+summary.subtotal * 0.20
+
+);
+
+}
+
+return discount;
+
+};
+
+/* ===================================
+CREATE CHECKOUT DATA
+=================================== */
+
+window.createCheckoutData =
+function(){
+
+const cart =
+getCart();
+
+const summary =
+
+getOrderSummary();
+
+return{
+
+items:cart,
+
+summary,
+
+createdAt:
+Date.now(),
+
+city:
+
+localStorage.getItem(
+"userCity"
+)
+
+|| "Kasganj"
+
+};
+
+};
+
+console.log(
+"QuickPress Cart Loaded"
+);
+
+</script><script>
+
+/* ===================================
+TOAST NOTIFICATION
+=================================== */
+
+window.showToast =
+function(message){
+
+const toast =
+
+document.getElementById(
+"cartToast"
+);
+
+const text =
+
+document.getElementById(
+"toastText"
+);
+
+if(!toast || !text) return;
+
+text.innerHTML = message;
+
+toast.classList.add(
+"showToast"
+);
+
+setTimeout(()=>{
+
+toast.classList.remove(
+"showToast"
+);
+
+},2000);
+
+};
+
+/* ===================================
+SUCCESS ALERT
+=================================== */
+
+window.successMessage =
+function(message){
+
+showToast(
+message
+);
+
+};
+
+/* ===================================
+ERROR ALERT
+=================================== */
+
+window.errorMessage =
+function(message){
+
+alert(
+message
+);
+
+};
+
+/* ===================================
+LOCAL STORAGE SAFE
+=================================== */
+
+window.safeSet =
+function(key,value){
+
+try{
+
+localStorage.setItem(
+
+key,
+
+JSON.stringify(
+value
+)
+
+);
+
+}catch(error){
+
+console.log(error);
+
+}
+
+};
+
+window.safeGet =
+function(key){
+
+try{
+
+return JSON.parse(
+
+localStorage.getItem(
+key
+)
+
+);
+
+}catch(error){
+
+return null;
+
+}
+
+};
+
+/* ===================================
+NETWORK CHECK
+=================================== */
+
+window.isOnline =
+function(){
+
+return navigator.onLine;
+
+};
+
+window.addEventListener(
+
+"offline",
+
+()=>{
+
+console.log(
+"Offline Mode"
+);
+
+}
+
+);
+
+window.addEventListener(
+
+"online",
+
+()=>{
+
+console.log(
+"Online Mode"
+);
+
+}
+
+);
+
+/* ===================================
+FORMAT PRICE
+=================================== */
+
+window.formatPrice =
+function(price){
+
+return
+
+"₹" +
+
+Number(price || 0)
+.toLocaleString(
+"en-IN"
+);
+
+};
+
+/* ===================================
+DATE FORMAT
+=================================== */
+
+window.formatDate =
+function(timestamp){
+
+return new Date(
+timestamp
+)
+
+.toLocaleDateString(
+"en-IN"
+);
+
+};
+
+/* ===================================
+TIME FORMAT
+=================================== */
+
+window.formatTime =
+function(timestamp){
+
+return new Date(
+timestamp
+)
+
+.toLocaleTimeString(
+"en-IN"
+);
+
+};
+
+/* ===================================
+ORDER ID
+=================================== */
+
+window.generateOrderId =
+function(){
+
+return
+
+"QP" +
+
+Date.now()
+
+.toString()
+
+.slice(-8);
+
+};
+
+/* ===================================
+APP READY
+=================================== */
+
+window.appReady =
+function(){
+
+console.log(
+"QuickPress Ready"
+);
+
+if(
+window.updateNavbarCartCount
+){
+
+updateNavbarCartCount();
+
+}
+
+};
+
+/* ===================================
+INIT
+=================================== */
+
+document.addEventListener(
+
+"DOMContentLoaded",
+
+()=>{
+
+appReady();
+
+}
+
+);
+
+</script>
+
+<!-- ===================================
+LEAFLET
+=================================== -->
+
+<script
+src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js">
+</script>
+
+</body>
+
+</html>
