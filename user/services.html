@@ -359,61 +359,17 @@ All
 
 </button>
 
-<button
-class="categoryChip"
-data-category="Dry Cleaning">
+<div class="categoryScroller" id="categoryScroller">
 
-Dry Cleaning
+<button
+class="categoryChip activeChip"
+data-category="All">
+
+All
 
 </button>
 
-<button
-class="categoryChip"
-data-category="Wash & Fold">
-
-Wash & Fold
-
-</button>
-
-<button
-class="categoryChip"
-data-category="Steam Iron">
-
-Steam Iron
-
-</button>
-
-<button
-class="categoryChip"
-data-category="Shoe Care">
-
-Shoe Care
-
-</button>
-
-<button
-class="categoryChip"
-data-category="Blanket Care">
-
-Blanket Care
-
-</button>
-
-<button
-class="categoryChip"
-data-category="Premium Care">
-
-Premium Care
-
-</button>
-
-<button
-class="categoryChip"
-data-category="Curtain Care">
-
-Curtain Care
-
-</button>
+</div>
 
 </div>
 
@@ -1298,6 +1254,92 @@ id:doc.id,
 ...doc.data()
 
 });
+
+});
+const categories = new Set();
+
+allServices.forEach(service=>{
+
+if(service.category){
+
+categories.add(
+service.category
+);
+
+}
+
+});
+
+let categoryHtml = `
+
+<button
+class="categoryChip activeChip"
+data-category="All">
+
+All
+
+</button>
+
+`;
+
+categories.forEach(category=>{
+
+categoryHtml += `
+
+<button
+class="categoryChip"
+data-category="${category}">
+
+${category}
+
+</button>
+
+`;
+
+});
+
+document.getElementById(
+"categoryScroller"
+).innerHTML =
+categoryHtml;
+
+document
+.querySelectorAll(
+".categoryChip"
+)
+
+.forEach(chip=>{
+
+chip.addEventListener(
+
+"click",
+
+()=>{
+
+document
+.querySelectorAll(
+".categoryChip"
+)
+
+.forEach(item=>{
+
+item.classList.remove(
+"activeChip"
+);
+
+});
+
+chip.classList.add(
+"activeChip"
+);
+
+filterCategory(
+chip.dataset.category
+);
+
+}
+
+);
 
 });
 
