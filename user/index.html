@@ -1,33 +1,53 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
 
 <meta charset="UTF-8">
+
 <meta name="viewport"
 content="width=device-width, initial-scale=1.0">
 
-<title>QuickPress</title>
+<title>
+QuickPress | Premium Laundry Marketplace
+</title>
 
-<link rel="preconnect"
+<meta
+name="theme-color"
+content="#16A34A">
+
+<meta
+name="description"
+content="Premium Laundry Marketplace">
+
+<!-- Fonts -->
+
+<link
+rel="preconnect"
 href="https://fonts.googleapis.com">
 
-<link rel="preconnect"
+<link
+rel="preconnect"
 href="https://fonts.gstatic.com"
 crossorigin>
 
-<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap"
+<link
+href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap"
 rel="stylesheet">
 
-<link rel="stylesheet"
+<!-- Icons -->
+
+<link
+rel="stylesheet"
 href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css"/>
+
+<!-- Leaflet -->
 
 <link
 rel="stylesheet"
 href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"/>
 
-<style>
-
-*{
+<style>*{
 margin:0;
 padding:0;
 box-sizing:border-box;
@@ -39,10 +59,29 @@ html{
 scroll-behavior:smooth;
 }
 
+:root{
+
+--primary:#F4B400;
+--secondary:#16A34A;
+
+--dark:#111827;
+--light:#6B7280;
+
+--bg:#F6F7FB;
+--white:#FFFFFF;
+
+--radius:20px;
+
+--shadow:
+0 8px 24px rgba(0,0,0,.06);
+
+}
+
 body{
 
-background:#F6F7FB;
-color:#111827;
+background:var(--bg);
+
+color:var(--dark);
 
 overflow-x:hidden;
 
@@ -50,23 +89,83 @@ padding-bottom:100px;
 
 }
 
-/* ===================================
+/* Scrollbar */
+
+::-webkit-scrollbar{
+width:8px;
+}
+
+::-webkit-scrollbar-thumb{
+background:#E5E7EB;
+border-radius:999px;
+}
+
+/* Sections */
+
+.sectionHeading{
+
+font-size:22px;
+
+font-weight:900;
+
+color:#111827;
+
+margin-bottom:18px;
+
+}
+
+/* Buttons */
+
+.primaryBtn{
+
+height:52px;
+
+padding:0 22px;
+
+border:none;
+
+border-radius:16px;
+
+background:#16A34A;
+
+color:#fff;
+
+font-size:14px;
+
+font-weight:900;
+
+cursor:pointer;
+
+}
+
+/* Card */
+
+.card{
+
+background:#fff;
+
+border-radius:24px;
+
+box-shadow:var(--shadow);
+
+}/* ===================================
 HEADER
 =================================== */
 
 .hero{
 
 position:sticky;
+
 top:0;
 
-z-index:999;
+z-index:9999;
 
 background:#fff;
 
-padding:14px 16px;
+padding:16px;
 
 box-shadow:
-0 4px 20px rgba(0,0,0,.06);
+0 4px 20px rgba(0,0,0,.05);
 
 }
 
@@ -75,38 +174,22 @@ box-shadow:
 display:flex;
 
 justify-content:space-between;
+
 align-items:center;
-
-}
-
-/* ===================================
-BRAND
-=================================== */
-
-.brandRow{
-
-display:flex;
-align-items:center;
-gap:12px;
-
-}
-
-.logo{
-
-width:42px;
-height:42px;
-
-object-fit:contain;
 
 }
 
 .brandName{
 
-font-size:22px;
+font-size:30px;
 
 font-weight:900;
 
 line-height:1;
+
+letter-spacing:-1px;
+
+color:#111827;
 
 }
 
@@ -114,46 +197,40 @@ line-height:1;
 
 margin-top:4px;
 
-font-size:15px;
+font-size:14px;
 
 font-weight:800;
 
-color:#374151;
+color:#6B7280;
 
 }
 
 .address{
 
-margin-top:6px;
+margin-top:8px;
 
 display:flex;
+
 align-items:center;
+
 gap:6px;
+
+cursor:pointer;
 
 font-size:13px;
 
-font-weight:700;
-
-cursor:pointer;
+font-weight:800;
 
 color:#16A34A;
 
 }
 
-.address i{
-
-font-size:11px;
-
-}
-
-/* ===================================
-RIGHT ACTIONS
-=================================== */
-
 .rightActions{
 
 display:flex;
+
 align-items:center;
+
 gap:10px;
 
 }
@@ -162,9 +239,9 @@ gap:10px;
 
 display:none;
 
-height:46px;
+height:48px;
 
-padding:0 18px;
+padding:0 20px;
 
 border:none;
 
@@ -173,8 +250,6 @@ border-radius:14px;
 background:#16A34A;
 
 color:#fff;
-
-font-size:13px;
 
 font-weight:900;
 
@@ -185,6 +260,7 @@ cursor:pointer;
 .profileBtn{
 
 width:48px;
+
 height:48px;
 
 border:none;
@@ -194,7 +270,9 @@ border-radius:14px;
 background:#F3F4F6;
 
 display:flex;
+
 align-items:center;
+
 justify-content:center;
 
 font-size:18px;
@@ -202,24 +280,6 @@ font-size:18px;
 cursor:pointer;
 
 }
-
-/* ===================================
-DESKTOP LOGIN
-=================================== */
-
-@media(min-width:992px){
-
-.loginBtn{
-
-display:block;
-
-}
-
-}
-
-/* ===================================
-SEARCH
-=================================== */
 
 .searchWrap{
 
@@ -229,24 +289,19 @@ margin-top:14px;
 
 .searchBar{
 
-height:56px;
+height:58px;
 
 background:#F6F7FB;
+
+border:1px solid #ECEFF3;
 
 border-radius:18px;
 
 display:flex;
+
 align-items:center;
 
 padding:0 16px;
-
-}
-
-.searchIcon{
-
-font-size:18px;
-
-color:#16A34A;
 
 }
 
@@ -255,163 +310,38 @@ color:#16A34A;
 flex:1;
 
 border:none;
+
 outline:none;
 
 background:none;
 
 padding-left:12px;
 
-font-size:15px;
+font-size:14px;
 
 font-weight:600;
 
 }
 
-/* ===================================
-LOCATION MODAL
-=================================== */
+.searchIcon{
 
-.locationModal{
+color:#16A34A;
 
-position:fixed;
-
-inset:0;
-
-background:
-rgba(0,0,0,.45);
-
-display:none;
-
-justify-content:center;
-align-items:center;
-
-z-index:99999;
+font-size:18px;
 
 }
 
-.locationBox{
+@media(min-width:992px){
 
-width:92%;
-max-width:520px;
-
-background:#fff;
-
-border-radius:24px;
-
-padding:20px;
-
+.loginBtn{
+display:block;
 }
 
-.locationHeader{
-
-display:flex;
-
-justify-content:space-between;
-align-items:center;
-
-margin-bottom:15px;
-
+.brandName{
+font-size:34px;
 }
 
-.locationHeader h3{
-
-font-size:22px;
-
-font-weight:900;
-
-}
-
-.closeLocation{
-
-width:42px;
-height:42px;
-
-border:none;
-
-border-radius:12px;
-
-background:#F3F4F6;
-
-cursor:pointer;
-
-}
-
-.detectBtn{
-
-width:100%;
-
-height:54px;
-
-border:none;
-
-border-radius:16px;
-
-background:#16A34A;
-
-color:#fff;
-
-font-weight:900;
-
-cursor:pointer;
-
-}
-
-.locationSearch{
-
-width:100%;
-
-height:54px;
-
-margin-top:12px;
-
-border:1px solid #E5E7EB;
-
-border-radius:16px;
-
-padding:0 14px;
-
-outline:none;
-
-}
-
-.locationList{
-
-margin-top:12px;
-
-max-height:260px;
-
-overflow:auto;
-
-}
-
-.locationItem{
-
-padding:14px;
-
-border-bottom:
-1px solid #F3F4F6;
-
-cursor:pointer;
-
-font-weight:700;
-
-}
-
-/* ===================================
-SECTION TITLE
-=================================== */
-
-.sectionHeading{
-
-font-size:22px;
-
-font-weight:900;
-
-margin-bottom:18px;
-
-}
-
-</style>
+}</style>
 
 </head>
 
@@ -427,14 +357,6 @@ HEADER
 
 <div>
 
-<div class="brandRow">
-
-<img
-src="assets/logo.png"
-class="logo">
-
-<div>
-
 <div class="brandName">
 
 QuickPress
@@ -444,10 +366,6 @@ QuickPress
 <div class="deliveryTitle">
 
 Express Delivery in 30 Minutes
-
-</div>
-
-</div>
 
 </div>
 
@@ -496,16 +414,15 @@ onclick="openProfile()">
 <i class="fa-solid fa-magnifying-glass searchIcon"></i>
 
 <input
+id="globalSearch"
 type="text"
-placeholder='Search "Dry Cleaning"'>
+placeholder="Search Dry Cleaning, Steam Iron, Shoe Care">
 
 </div>
 
 </div>
 
-</div>
-
-<!-- ===================================
+</div><!-- ===================================
 LOCATION MODAL
 =================================== -->
 
@@ -527,7 +444,7 @@ Select Location
 class="closeLocation"
 onclick="closeLocationModal()">
 
-✕
+<i class="fa-solid fa-xmark"></i>
 
 </button>
 
@@ -537,38 +454,27 @@ onclick="closeLocationModal()">
 class="detectBtn"
 onclick="startLocationDetection()">
 
-📍 Detect My Location
+<i class="fa-solid fa-location-crosshairs"></i>
+
+Detect My Location
 
 </button>
 
 <input
 type="text"
 class="locationSearch"
+id="locationSearch"
 placeholder="Search City">
 
-<div class="locationList">
+<div
+class="locationList"
+id="locationList">
 
 <div
 class="locationItem"
 onclick="selectCity('Kasganj')">
 
 Kasganj
-
-</div>
-
-<div
-class="locationItem"
-onclick="selectCity('Bilram')">
-
-Bilram
-
-</div>
-
-<div
-class="locationItem"
-onclick="selectCity('Soron')">
-
-Soron
 
 </div>
 
@@ -608,20 +514,33 @@ Delhi
 
 </div>
 
-</div>
-<!-- ===================================
+</div><!-- ===================================
 PREMIUM CATEGORIES
 =================================== -->
 
-<div class="categorySection">
+<section class="categorySection">
 
-<div class="sectionHeading">
+<div class="sectionTop">
+
+<h2 class="sectionHeading">
 
 Categories
 
+</h2>
+
+<button
+class="viewAllBtn"
+onclick="window.location.href='services.html'">
+
+View All
+
+</button>
+
 </div>
 
-<div class="categorySlider">
+<div
+class="categorySlider"
+id="categorySlider">
 
 <div
 class="categoryCard"
@@ -630,15 +549,11 @@ data-category="Dry Cleaning">
 <div
 class="categoryIcon dryBg">
 
-🧺
+<i class="fa-solid fa-shirt"></i>
 
 </div>
 
-<h4>
-
-Dry Cleaning
-
-</h4>
+<h4>Dry Cleaning</h4>
 
 </div>
 
@@ -649,15 +564,11 @@ data-category="Wash & Fold">
 <div
 class="categoryIcon washBg">
 
-🫧
+<i class="fa-solid fa-soap"></i>
 
 </div>
 
-<h4>
-
-Wash & Fold
-
-</h4>
+<h4>Wash & Fold</h4>
 
 </div>
 
@@ -668,15 +579,11 @@ data-category="Steam Iron">
 <div
 class="categoryIcon ironBg">
 
-👔
+<i class="fa-solid fa-fire-flame-curved"></i>
 
 </div>
 
-<h4>
-
-Steam Iron
-
-</h4>
+<h4>Steam Iron</h4>
 
 </div>
 
@@ -687,15 +594,11 @@ data-category="Shoe Care">
 <div
 class="categoryIcon shoeBg">
 
-👟
+<i class="fa-solid fa-shoe-prints"></i>
 
 </div>
 
-<h4>
-
-Shoe Care
-
-</h4>
+<h4>Shoe Care</h4>
 
 </div>
 
@@ -706,15 +609,11 @@ data-category="Blanket Care">
 <div
 class="categoryIcon blanketBg">
 
-🛏️
+<i class="fa-solid fa-bed"></i>
 
 </div>
 
-<h4>
-
-Blanket Care
-
-</h4>
+<h4>Blanket Care</h4>
 
 </div>
 
@@ -725,2225 +624,14 @@ data-category="Premium Care">
 <div
 class="categoryIcon premiumBg">
 
-✨
+<i class="fa-solid fa-gem"></i>
 
 </div>
 
-<h4>
-
-Premium Care
-
-</h4>
-
-</div>
-
-<div
-class="categoryCard"
-data-category="Curtain Care">
-
-<div
-class="categoryIcon dryBg">
-
-🪟
-
-</div>
-
-<h4>
-
-Curtain Care
-
-</h4>
-
-</div>
-
-<div
-class="categoryCard"
-data-category="Dry Clean Express">
-
-<div
-class="categoryIcon washBg">
-
-⚡
-
-</div>
-
-<h4>
-
-Express
-
-</h4>
+<h4>Premium Care</h4>
 
 </div>
 
 </div>
 
-</div>
-
-<style>
-
-/* ===================================
-CATEGORY SECTION
-=================================== */
-
-.categorySection{
-
-padding:20px 16px;
-
-}
-
-/* ===================================
-HORIZONTAL SLIDER
-=================================== */
-
-.categorySlider{
-
-display:flex;
-
-overflow-x:auto;
-
-gap:12px;
-
-padding-bottom:8px;
-
-scrollbar-width:none;
-
--webkit-overflow-scrolling:touch;
-
-}
-
-.categorySlider::-webkit-scrollbar{
-
-display:none;
-
-}
-
-/* ===================================
-CATEGORY CARD
-=================================== */
-
-.categoryCard{
-
-min-width:90px;
-
-flex-shrink:0;
-
-cursor:pointer;
-
-text-align:center;
-
-}
-
-.categoryCard:hover{
-
-transform:translateY(-3px);
-
-}
-
-/* ===================================
-SMALL ICONS
-=================================== */
-
-.categoryIcon{
-
-width:56px;
-height:56px;
-
-margin:auto;
-
-border-radius:16px;
-
-display:flex;
-align-items:center;
-justify-content:center;
-
-font-size:24px;
-
-box-shadow:
-0 4px 12px rgba(0,0,0,.05);
-
-}
-
-/* ===================================
-CATEGORY TEXT
-=================================== */
-
-.categoryCard h4{
-
-margin-top:8px;
-
-font-size:11px;
-
-font-weight:800;
-
-line-height:1.3;
-
-}
-
-/* ===================================
-CATEGORY COLORS
-=================================== */
-
-.dryBg{
-
-background:
-linear-gradient(
-135deg,
-#DBEAFE,
-#EFF6FF
-);
-
-}
-
-.washBg{
-
-background:
-linear-gradient(
-135deg,
-#DCFCE7,
-#F0FDF4
-);
-
-}
-
-.ironBg{
-
-background:
-linear-gradient(
-135deg,
-#FEF3C7,
-#FFFBEB
-);
-
-}
-
-.shoeBg{
-
-background:
-linear-gradient(
-135deg,
-#F3E8FF,
-#FAF5FF
-);
-
-}
-
-.blanketBg{
-
-background:
-linear-gradient(
-135deg,
-#FCE7F3,
-#FDF2F8
-);
-
-}
-
-.premiumBg{
-
-background:
-linear-gradient(
-135deg,
-#FFE4B5,
-#FFF7ED
-);
-
-}
-
-/* ===================================
-DESKTOP
-=================================== */
-
-@media(min-width:992px){
-
-.categorySlider{
-
-justify-content:center;
-
-gap:20px;
-
-}
-
-.categoryCard{
-
-min-width:110px;
-
-}
-
-.categoryIcon{
-
-width:64px;
-height:64px;
-
-font-size:28px;
-
-}
-
-}
-
-</style>
-
-<script>
-
-/* ===================================
-CATEGORY REDIRECT
-=================================== */
-
-document
-.querySelectorAll(
-".categoryCard"
-)
-
-.forEach(card=>{
-
-card.addEventListener(
-
-"click",
-
-()=>{
-
-const category =
-
-card.dataset.category;
-
-localStorage.setItem(
-"selectedCategory",
-category
-);
-
-window.location.href =
-
-`services.html?category=${encodeURIComponent(category)}`;
-
-}
-
-);
-
-});
-
-</script>
-<!-- ===================================
-TRENDING SERVICES
-=================================== -->
-
-<div class="servicesSection">
-
-<div class="sectionTop">
-
-<h2 class="sectionHeading">
-
-Trending Services
-
-</h2>
-
-<span
-class="viewAll"
-onclick="window.location.href='services.html'">
-
-View All
-
-</span>
-
-</div>
-
-<div
-class="productGrid"
-id="productGrid">
-
-<!-- Firebase Services -->
-
-</div>
-
-</div>
-
-<!-- ===================================
-EXPRESS PICKUP BANNER
-(TRENDING KE NICHE)
-=================================== -->
-
-<div class="heroBanner">
-
-<div class="heroBadge">
-
-⚡ EXPRESS PICKUP
-
-</div>
-
-<h2>
-
-Premium Laundry
-Delivered Fast
-
-</h2>
-
-<p>
-
-Dry Cleaning, Steam Iron,
-Wash & Fold, Shoe Care
-and Premium Care.
-
-</p>
-
-<button
-class="bookBtn"
-onclick="window.location.href='services.html'">
-
-Book Pickup
-
-</button>
-
-</div>
-
-<!-- ===================================
-ADD TO CART TOAST
-=================================== -->
-
-<div
-class="cartToast"
-id="cartToast">
-
-<div class="toastIcon">
-
-✅
-
-</div>
-
-<div>
-
-<div class="toastTitle">
-
-Added To Cart
-
-</div>
-
-<div
-class="toastText"
-id="toastText">
-
-Service Added
-
-</div>
-
-</div>
-
-</div>
-
-<style>
-
-/* ===================================
-TRENDING
-=================================== */
-
-.servicesSection{
-
-padding:24px 16px;
-
-}
-
-.sectionTop{
-
-display:flex;
-
-justify-content:space-between;
-align-items:center;
-
-margin-bottom:18px;
-
-}
-
-.viewAll{
-
-font-size:13px;
-
-font-weight:800;
-
-color:#16A34A;
-
-cursor:pointer;
-
-}
-
-/* ===================================
-MOBILE = 3 COLUMN
-=================================== */
-
-.productGrid{
-
-display:grid;
-
-grid-template-columns:
-repeat(3,1fr);
-
-gap:10px;
-
-}
-
-/* ===================================
-SERVICE CARD
-=================================== */
-
-.productCard{
-
-background:#fff;
-
-padding:10px;
-
-border-radius:18px;
-
-text-align:center;
-
-box-shadow:
-0 4px 14px rgba(0,0,0,.05);
-
-}
-
-.productImage{
-
-font-size:34px;
-
-margin-bottom:8px;
-
-}
-
-.productName{
-
-font-size:11px;
-
-font-weight:800;
-
-line-height:1.3;
-
-min-height:30px;
-
-}
-
-.price{
-
-margin-top:6px;
-
-font-size:14px;
-
-font-weight:900;
-
-}
-
-.addBtn{
-
-width:100%;
-
-height:32px;
-
-margin-top:8px;
-
-border:none;
-
-border-radius:10px;
-
-background:#16A34A;
-
-color:#fff;
-
-font-size:11px;
-
-font-weight:900;
-
-cursor:pointer;
-
-}
-
-/* ===================================
-DESKTOP
-=================================== */
-
-@media(min-width:1200px){
-
-.productGrid{
-
-grid-template-columns:
-repeat(4,1fr);
-
-gap:18px;
-
-}
-
-.productCard{
-
-padding:14px;
-
-}
-
-.productImage{
-
-font-size:42px;
-
-}
-
-.productName{
-
-font-size:13px;
-
-}
-
-.price{
-
-font-size:18px;
-
-}
-
-.addBtn{
-
-height:38px;
-
-font-size:12px;
-
-}
-
-}
-
-/* ===================================
-TOAST
-=================================== */
-
-.cartToast{
-
-display:none;
-
-position:fixed;
-
-left:50%;
-bottom:90px;
-
-transform:
-translateX(-50%);
-
-background:#111827;
-
-color:#fff;
-
-padding:14px 18px;
-
-border-radius:16px;
-
-align-items:center;
-gap:12px;
-
-box-shadow:
-0 12px 30px rgba(0,0,0,.25);
-
-z-index:99999;
-
-}
-
-.showToast{
-
-display:flex;
-
-}
-
-.toastIcon{
-
-font-size:22px;
-
-}
-
-.toastTitle{
-
-font-size:13px;
-
-font-weight:900;
-
-}
-
-.toastText{
-
-font-size:12px;
-
-opacity:.85;
-
-margin-top:3px;
-
-}
-
-/* ===================================
-EXPRESS BANNER
-=================================== */
-
-.heroBanner{
-
-margin:0 16px;
-
-padding:24px;
-
-border-radius:28px;
-
-background:
-linear-gradient(
-135deg,
-#111827,
-#1F2937
-);
-
-color:#fff;
-
-overflow:hidden;
-
-position:relative;
-
-}
-
-.heroBanner::before{
-
-content:"";
-
-position:absolute;
-
-right:-70px;
-top:-70px;
-
-width:180px;
-height:180px;
-
-border-radius:50%;
-
-background:
-rgba(255,255,255,.06);
-
-}
-
-.heroBadge{
-
-display:inline-flex;
-
-align-items:center;
-
-height:34px;
-
-padding:0 14px;
-
-border-radius:999px;
-
-background:#FFD633;
-
-color:#111827;
-
-font-size:11px;
-
-font-weight:900;
-
-}
-
-.heroBanner h2{
-
-margin-top:14px;
-
-font-size:28px;
-
-font-weight:900;
-
-line-height:1.1;
-
-}
-
-.heroBanner p{
-
-margin-top:10px;
-
-font-size:13px;
-
-line-height:1.8;
-
-opacity:.9;
-
-}
-
-.bookBtn{
-
-margin-top:16px;
-
-height:50px;
-
-padding:0 20px;
-
-border:none;
-
-border-radius:16px;
-
-background:#16A34A;
-
-color:#fff;
-
-font-size:13px;
-
-font-weight:900;
-
-cursor:pointer;
-
-}
-
-</style>
-
-<script type="module">
-
-import { db }
-from "./firebase.js";
-
-import {
-collection,
-onSnapshot
-}
-from
-"https://www.gstatic.com/firebasejs/12.11.0/firebase-firestore.js";
-
-/* ===================================
-FIREBASE SERVICES
-=================================== */
-
-const productGrid =
-
-document.getElementById(
-"productGrid"
-);
-
-let cart =
-
-JSON.parse(
-localStorage.getItem("cart")
-)
-
-|| [];
-
-/* ===================================
-LOAD SERVICES
-=================================== */
-
-onSnapshot(
-
-collection(
-db,
-"services"
-),
-
-(snapshot)=>{
-
-productGrid.innerHTML = "";
-
-snapshot.forEach(doc=>{
-
-const service = {
-
-id:doc.id,
-
-...doc.data()
-
-};
-
-productGrid.innerHTML +=
-
-`
-
-<div class="productCard">
-
-<div class="productImage">
-
-${service.icon || "🧺"}
-
-</div>
-
-<div class="productName">
-
-${service.name}
-
-</div>
-
-<div class="price">
-
-₹${service.price}
-
-</div>
-
-<button
-class="addBtn"
-
-onclick="addToCart(
-
-'${service.id}',
-
-'${service.name}',
-
-${service.price},
-
-'${service.category || "Laundry"}'
-
-)">
-
-Add
-
-</button>
-
-</div>
-
-`;
-
-});
-
-}
-
-);
-
-/* ===================================
-ADD TO CART
-=================================== */
-
-window.addToCart =
-function(
-
-id,
-name,
-price,
-category
-
-){
-
-const existing =
-
-cart.find(
-
-item=>
-
-item.serviceId===id
-
-);
-
-if(existing){
-
-existing.qty++;
-
-}else{
-
-cart.push({
-
-serviceId:id,
-
-serviceName:name,
-
-price,
-
-category,
-
-qty:1
-
-});
-
-}
-
-localStorage.setItem(
-
-"cart",
-
-JSON.stringify(cart)
-
-);
-
-/* NAV COUNTER */
-
-if(window.updateNavbarCartCount){
-
-window.updateNavbarCartCount();
-
-}
-
-/* TOAST */
-
-showToast(name);
-
-};
-
-/* ===================================
-TOAST
-=================================== */
-
-function showToast(name){
-
-const toast =
-
-document.getElementById(
-"cartToast"
-);
-
-document.getElementById(
-"toastText"
-)
-
-.innerHTML =
-
-name + " added";
-
-toast.style.display =
-"flex";
-
-toast.classList.add(
-"showToast"
-);
-
-setTimeout(()=>{
-
-toast.classList.remove(
-"showToast"
-);
-
-setTimeout(()=>{
-
-toast.style.display =
-"none";
-
-},300);
-
-},2000);
-
-}
-
-</script>
-<!-- ===================================
-FOOTER
-=================================== -->
-
-<div class="footer">
-
-<div class="footerLogo">
-
-⚡ QuickPress
-
-</div>
-
-<div class="footerText">
-
-Premium Laundry • Fast Delivery • Trusted Service
-
-</div>
-
-<div class="footerCopy">
-
-© 2026 QuickPress. All Rights Reserved.
-
-</div>
-
-</div>
-
-<!-- ===================================
-BOTTOM NAVBAR
-=================================== -->
-
-<div class="bottomNav">
-
-<button
-class="navItem activeNav"
-data-page="home">
-
-<i class="fa-solid fa-house"></i>
-
-<span>Home</span>
-
-</button>
-
-<button
-class="navItem"
-data-page="orders">
-
-<i class="fa-solid fa-box"></i>
-
-<span>Orders</span>
-
-</button>
-
-<button
-class="navItem"
-data-page="services">
-
-<i class="fa-solid fa-table-cells-large"></i>
-
-<span>Services</span>
-
-</button>
-
-<button
-class="navItem"
-data-page="cart">
-
-<i class="fa-solid fa-cart-shopping"></i>
-
-<span>Cart</span>
-
-<div
-class="navCartBadge"
-id="navCartBadge">
-
-0
-
-</div>
-
-</button>
-
-<button
-class="navItem"
-data-page="profile">
-
-<i class="fa-regular fa-user"></i>
-
-<span>Profile</span>
-
-</button>
-
-</div>
-
-<style>
-
-/* ===================================
-FOOTER
-=================================== */
-
-.footer{
-
-padding:35px 20px 120px;
-
-text-align:center;
-
-}
-
-.footerLogo{
-
-font-size:22px;
-
-font-weight:900;
-
-color:#111827;
-
-}
-
-.footerText{
-
-margin-top:8px;
-
-font-size:13px;
-
-color:#6B7280;
-
-}
-
-.footerCopy{
-
-margin-top:10px;
-
-font-size:12px;
-
-color:#9CA3AF;
-
-}
-
-/* ===================================
-BOTTOM NAV
-=================================== */
-
-.bottomNav{
-
-position:fixed;
-
-left:0;
-right:0;
-bottom:0;
-
-height:74px;
-
-background:#fff;
-
-display:flex;
-
-justify-content:space-around;
-align-items:center;
-
-box-shadow:
-0 -6px 20px rgba(0,0,0,.08);
-
-z-index:999;
-
-}
-
-.navItem{
-
-position:relative;
-
-flex:1;
-
-height:100%;
-
-border:none;
-
-background:none;
-
-display:flex;
-flex-direction:column;
-
-align-items:center;
-justify-content:center;
-
-gap:4px;
-
-cursor:pointer;
-
-font-size:11px;
-
-font-weight:700;
-
-color:#6B7280;
-
-}
-
-.navItem i{
-
-font-size:18px;
-
-}
-
-.activeNav{
-
-color:#16A34A;
-
-}
-
-.navCartBadge{
-
-position:absolute;
-
-top:8px;
-right:24px;
-
-min-width:18px;
-height:18px;
-
-padding:0 4px;
-
-border-radius:999px;
-
-background:#EF4444;
-
-color:#fff;
-
-display:flex;
-align-items:center;
-justify-content:center;
-
-font-size:10px;
-
-font-weight:900;
-
-}
-
-@media(min-width:1200px){
-
-.bottomNav{
-
-max-width:600px;
-
-left:50%;
-
-transform:
-translateX(-50%);
-
-border-radius:24px 24px 0 0;
-
-}
-
-}
-
-</style>
-
-<script type="module">
-
-import { auth }
-from "./firebase.js";
-
-import {
-onAuthStateChanged
-}
-from
-"https://www.gstatic.com/firebasejs/12.11.0/firebase-auth.js";
-
-/* ===================================
-AUTH STATE
-=================================== */
-
-let currentUser = null;
-
-const loginBtn =
-
-document.getElementById(
-"desktopLoginBtn"
-);
-
-onAuthStateChanged(
-
-auth,
-
-(user)=>{
-
-currentUser = user;
-
-/* LOGIN BUTTON */
-
-if(loginBtn){
-
-if(user){
-
-loginBtn.style.display =
-"none";
-
-}else{
-
-if(window.innerWidth >= 992){
-
-loginBtn.style.display =
-"block";
-
-}
-
-}
-
-}
-
-}
-
-);
-
-/* ===================================
-DESKTOP LOGIN
-=================================== */
-
-if(loginBtn){
-
-loginBtn.addEventListener(
-
-"click",
-
-()=>{
-
-window.location.href =
-"login.html";
-
-}
-
-);
-
-}
-
-/* ===================================
-PROFILE
-=================================== */
-
-window.openProfile =
-function(){
-
-if(currentUser){
-
-window.location.href =
-"profile.html";
-
-}else{
-
-window.location.href =
-"login.html";
-
-}
-
-};
-
-/* ===================================
-LIVE CART COUNT
-=================================== */
-
-window.updateNavbarCartCount =
-function(){
-
-const cart =
-
-JSON.parse(
-localStorage.getItem(
-"cart"
-)
-)
-
-|| [];
-
-let total = 0;
-
-cart.forEach(item=>{
-
-total += item.qty || 1;
-
-});
-
-const badge =
-
-document.getElementById(
-"navCartBadge"
-);
-
-if(!badge) return;
-
-badge.innerHTML = total;
-
-if(total===0){
-
-badge.style.display =
-"none";
-
-}else{
-
-badge.style.display =
-"flex";
-
-}
-
-};
-
-updateNavbarCartCount();
-
-/* ===================================
-NAVIGATION
-=================================== */
-
-document
-.querySelectorAll(
-".navItem"
-)
-
-.forEach(item=>{
-
-item.addEventListener(
-
-"click",
-
-()=>{
-
-const page =
-item.dataset.page;
-
-/* HOME */
-
-if(page==="home"){
-
-window.location.href =
-"index.html";
-
-}
-
-/* SERVICES */
-
-if(page==="services"){
-
-window.location.href =
-"services.html";
-
-}
-
-/* CART */
-
-if(page==="cart"){
-
-window.location.href =
-"cart.html";
-
-}
-
-/* ORDERS */
-
-if(page==="orders"){
-
-if(!currentUser){
-
-window.location.href =
-"login.html";
-
-return;
-
-}
-
-window.location.href =
-"orders.html";
-
-}
-
-/* PROFILE */
-
-if(page==="profile"){
-
-if(!currentUser){
-
-window.location.href =
-"login.html";
-
-return;
-
-}
-
-window.location.href =
-"profile.html";
-
-}
-
-}
-
-);
-
-});
-
-</script>
-<script type="module">
-
-import { db, auth }
-from "./firebase.js";
-
-import {
-doc,
-updateDoc,
-serverTimestamp
-}
-from
-"https://www.gstatic.com/firebasejs/12.11.0/firebase-firestore.js";
-
-/* ===================================
-LOCATION MODAL
-=================================== */
-
-window.openLocationModal =
-function(){
-
-document
-.getElementById(
-"locationModal"
-)
-
-.style.display =
-"flex";
-
-};
-
-window.closeLocationModal =
-function(){
-
-document
-.getElementById(
-"locationModal"
-)
-
-.style.display =
-"none";
-
-};
-
-/* ===================================
-CITY SELECT
-=================================== */
-
-window.selectCity =
-async function(city){
-
-const locationData = {
-
-city,
-savedAt:Date.now()
-
-};
-
-/* LOCAL SAVE */
-
-localStorage.setItem(
-
-"userLocation",
-
-JSON.stringify(
-locationData
-)
-
-);
-
-localStorage.setItem(
-"userCity",
-city
-);
-
-/* HEADER UPDATE */
-
-const locationText =
-
-document.getElementById(
-"locationText"
-);
-
-if(locationText){
-
-locationText.innerHTML =
-
-city +
-", Uttar Pradesh";
-
-}
-
-/* FIREBASE SAVE */
-
-if(auth.currentUser){
-
-try{
-
-await updateDoc(
-
-doc(
-db,
-"users",
-auth.currentUser.uid
-),
-
-{
-
-city,
-
-locationSaved:true,
-
-updatedAt:
-serverTimestamp()
-
-}
-
-);
-
-}catch(error){
-
-console.log(error);
-
-}
-
-}
-
-closeLocationModal();
-
-};
-
-/* ===================================
-GPS LOCATION DETECTION
-=================================== */
-
-window.startLocationDetection =
-function(){
-
-if(!navigator.geolocation){
-
-alert(
-"Geolocation Not Supported"
-);
-
-return;
-
-}
-
-navigator.geolocation.getCurrentPosition(
-
-async(position)=>{
-
-const lat =
-position.coords.latitude;
-
-const lng =
-position.coords.longitude;
-
-try{
-
-/* ===================================
-OPENSTREETMAP REVERSE GEOCODE
-=================================== */
-
-const response =
-
-await fetch(
-
-`https://nominatim.openstreetmap.org/reverse?format=json&lat=${lat}&lon=${lng}`
-
-);
-
-const data =
-await response.json();
-
-const city =
-
-data.address.city ||
-
-data.address.town ||
-
-data.address.county ||
-
-data.address.state_district ||
-
-"Kasganj";
-
-/* ===================================
-SAVE LOCAL
-=================================== */
-
-localStorage.setItem(
-
-"userLocation",
-
-JSON.stringify({
-
-city,
-lat,
-lng,
-savedAt:Date.now()
-
-})
-
-);
-
-localStorage.setItem(
-"userCity",
-city
-);
-
-/* ===================================
-UPDATE HEADER
-=================================== */
-
-const locationText =
-
-document.getElementById(
-"locationText"
-);
-
-if(locationText){
-
-locationText.innerHTML =
-
-city +
-", Uttar Pradesh";
-
-}
-
-/* ===================================
-SAVE FIREBASE
-=================================== */
-
-if(auth.currentUser){
-
-await updateDoc(
-
-doc(
-db,
-"users",
-auth.currentUser.uid
-),
-
-{
-
-city,
-
-latitude:lat,
-
-longitude:lng,
-
-locationSaved:true,
-
-updatedAt:
-serverTimestamp()
-
-}
-
-);
-
-}
-
-alert(
-"Location Saved Successfully"
-);
-
-closeLocationModal();
-
-}catch(error){
-
-console.log(error);
-
-alert(
-"Location Detection Failed"
-);
-
-}
-
-},
-
-()=>{
-
-alert(
-"Location Permission Denied"
-);
-
-}
-
-);
-
-};
-
-/* ===================================
-RESTORE SAVED LOCATION
-=================================== */
-
-const savedLocation =
-
-localStorage.getItem(
-"userLocation"
-);
-
-if(savedLocation){
-
-const data =
-
-JSON.parse(
-savedLocation
-);
-
-const locationText =
-
-document.getElementById(
-"locationText"
-);
-
-if(locationText){
-
-locationText.innerHTML =
-
-data.city +
-", Uttar Pradesh";
-
-}
-
-}
-
-/* ===================================
-CITY WISE FILTER
-=================================== */
-
-window.filterServicesByCity =
-function(services){
-
-const city =
-
-localStorage.getItem(
-"userCity"
-);
-
-if(!city){
-
-return services;
-
-}
-
-return services.filter(
-
-service=>{
-
-if(!service.city){
-
-return true;
-
-}
-
-return (
-service.city === city
-);
-
-}
-
-);
-
-};
-
-/* ===================================
-CITY WISE PRICE
-=================================== */
-
-window.getServicePrice =
-function(service){
-
-const city =
-
-localStorage.getItem(
-"userCity"
-);
-
-if(
-
-service.cityPricing &&
-service.cityPricing[city]
-
-){
-
-return service.cityPricing[
-city
-];
-
-}
-
-return service.price || 0;
-
-};
-
-/* ===================================
-ORDER ROUTING
-=================================== */
-
-window.createOrderRouting =
-function(order){
-
-const city =
-
-localStorage.getItem(
-"userCity"
-)
-
-|| "Kasganj";
-
-return{
-
-...order,
-
-city,
-
-partnerCity:city,
-
-riderCity:city,
-
-status:"Pending",
-
-assigned:false,
-
-createdAt:Date.now()
-
-};
-
-};
-
-/* ===================================
-NOTIFICATION ROUTING
-=================================== */
-
-window.notificationRouting =
-function(){
-
-return{
-
-city:
-
-localStorage.getItem(
-"userCity"
-)
-
-|| "Kasganj"
-
-};
-
-};
-
-</script>
-
-<!-- ===================================
-LEAFLET MAP SUPPORT
-=================================== -->
-
-<script
-src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js">
-</script>
-<script type="module">
-
-import { db }
-from "./firebase.js";
-
-import {
-collection,
-onSnapshot
-}
-from
-"https://www.gstatic.com/firebasejs/12.11.0/firebase-firestore.js";
-
-/* ===================================
-CITY WISE FIREBASE SERVICES
-=================================== */
-
-const productGrid =
-
-document.getElementById(
-"productGrid"
-);
-
-if(productGrid){
-
-onSnapshot(
-
-collection(
-db,
-"services"
-),
-
-(snapshot)=>{
-
-let services = [];
-
-snapshot.forEach(doc=>{
-
-services.push({
-
-id:doc.id,
-
-...doc.data()
-
-});
-
-});
-
-/* ===================================
-CITY FILTER
-=================================== */
-
-if(window.filterServicesByCity){
-
-services =
-
-window.filterServicesByCity(
-services
-);
-
-}
-
-/* ===================================
-RENDER
-=================================== */
-
-productGrid.innerHTML = "";
-
-services.forEach(service=>{
-
-const price =
-
-window.getServicePrice
-
-?
-
-window.getServicePrice(
-service
-)
-
-:
-
-service.price;
-
-/* =================================== */
-
-productGrid.innerHTML +=
-
-`
-
-<div class="productCard">
-
-<div
-class="productImage">
-
-${service.icon || "🧺"}
-
-</div>
-
-<div
-class="productName">
-
-${service.name}
-
-</div>
-
-<div
-class="price">
-
-₹${price}
-
-</div>
-
-<button
-class="addBtn"
-
-onclick="addToCart(
-
-'${service.id}',
-
-'${service.name}',
-
-${price},
-
-'${service.category || "Laundry"}'
-
-)">
-
-Add
-
-</button>
-
-</div>
-
-`;
-
-});
-
-}
-
-);
-
-}
-
-/* ===================================
-SERVICE DETAILS
-=================================== */
-
-window.openService =
-function(serviceId){
-
-window.location.href =
-
-`service-details.html?id=${serviceId}`;
-
-};
-
-/* ===================================
-CHECKOUT
-=================================== */
-
-window.goCheckout =
-function(){
-
-const cart =
-
-JSON.parse(
-localStorage.getItem(
-"cart"
-)
-)
-
-|| [];
-
-if(cart.length===0){
-
-alert(
-"Your Cart Is Empty"
-);
-
-return;
-
-}
-
-window.location.href =
-"checkout.html";
-
-};
-
-/* ===================================
-CART TOTAL
-=================================== */
-
-window.getCartTotal =
-function(){
-
-const cart =
-
-JSON.parse(
-localStorage.getItem(
-"cart"
-)
-)
-
-|| [];
-
-let total = 0;
-
-cart.forEach(item=>{
-
-total +=
-
-(item.price || 0)
-*
-(item.qty || 1);
-
-});
-
-return total;
-
-};
-
-/* ===================================
-CLEAR CART
-=================================== */
-
-window.clearCart =
-function(){
-
-localStorage.removeItem(
-"cart"
-);
-
-if(window.updateNavbarCartCount){
-
-window.updateNavbarCartCount();
-
-}
-
-};
-
-/* ===================================
-PRODUCTION READY
-===================================
-
-Firestore Structure
-
-services
-{
-  name:"Shirt Dry Cleaning",
-
-  icon:"🧺",
-
-  category:"Dry Cleaning",
-
-  city:"Kasganj",
-
-  price:79,
-
-  cityPricing:{
-    Kasganj:79,
-    Aligarh:89,
-    Delhi:99
-  }
-}
-
-users
-{
-  city:"Kasganj",
-
-  latitude:27.89,
-
-  longitude:78.65
-}
-
-orders
-{
-  city:"Kasganj",
-
-  partnerCity:"Kasganj",
-
-  riderCity:"Kasganj",
-
-  status:"Pending"
-}
-
-=================================== */
-
-</script>
-
-</body>
-</html>
+</section>
