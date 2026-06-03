@@ -678,8 +678,10 @@ appVerifier
 
 );
 
-window.confirmationResult =
-confirmationResult;
+sessionStorage.setItem(
+"verificationId",
+confirmationResult.verificationId
+);
 
 sessionStorage.setItem(
 "loginPhone",
