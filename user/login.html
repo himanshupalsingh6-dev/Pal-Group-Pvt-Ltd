@@ -33,167 +33,126 @@ font-family:'Inter',sans-serif;
 }
 
 :root{
+
 --primary:#F4B400;
 --secondary:#16A34A;
---dark:#111827;
---gray:#6B7280;
---bg:#F7F8FA;
+--dark:#0F172A;
+--gray:#64748B;
+--bg:#FFFFFF;
+
 }
 
 body{
 
-background:var(--bg);
+background:#fff;
 
-min-height:100vh;
+overflow-x:hidden;
+
+}
+
+.heroSlider{
+
+height:42vh;
+
+min-height:320px;
+
+background:
+linear-gradient(
+135deg,
+#16A34A,
+#0EA84B
+);
+
+position:relative;
+
+overflow:hidden;
 
 display:flex;
 
 justify-content:center;
 
 align-items:center;
+
+}
+
+.slide{
+
+position:absolute;
+
+text-align:center;
+
+color:white;
+
+opacity:0;
+
+transition:.5s;
 
 padding:20px;
 
 }
 
-.loginCard{
+.slide.active{
 
-width:100%;
-
-max-width:420px;
-
-background:#fff;
-
-padding:30px;
-
-border-radius:28px;
-
-box-shadow:
-0 10px 30px rgba(0,0,0,.08);
+opacity:1;
 
 }
 
-.logo{
+.slide h1{
+
+font-size:52px;
+
+font-weight:900;
+
+}
+
+.slide h2{
 
 font-size:34px;
 
-font-weight:900;
-
-text-align:center;
-
-margin-bottom:10px;
-
-}
-
-.logo span{
-
-color:var(--primary);
-
-}
-
-.subtitle{
-
-text-align:center;
-
-font-size:13px;
-
-color:#6B7280;
-
-margin-bottom:30px;
-
-}
-
-.inputGroup{
-
-margin-bottom:18px;
-
-}
-
-.inputGroup label{
-
-display:block;
-
-font-size:13px;
-
-font-weight:700;
-
-margin-bottom:8px;
-
-}
-
-.phoneInput{
-
-display:flex;
-
-align-items:center;
-
-height:58px;
-
-border:1px solid #E5E7EB;
-
-border-radius:16px;
-
-overflow:hidden;
-
-}
-
-.countryCode{
-
-width:80px;
-
-display:flex;
-
-justify-content:center;
-
 font-weight:800;
 
-background:#F9FAFB;
-
-height:100%;
-
-align-items:center;
+margin-top:8px;
 
 }
 
-.phoneInput input{
+.slide p{
 
-flex:1;
-
-border:none;
-
-outline:none;
-
-padding:0 16px;
-
-font-size:16px;
-
-}
-
-.loginBtn{
-
-width:100%;
-
-height:56px;
-
-border:none;
-
-border-radius:16px;
-
-background:var(--secondary);
-
-color:#fff;
+margin-top:10px;
 
 font-size:15px;
 
-font-weight:900;
-
-cursor:pointer;
+opacity:.9;
 
 }
 
-#recaptcha-container{
+.sliderDots{
 
-margin-top:16px;
+position:absolute;
+
+bottom:18px;
+
+display:flex;
+
+gap:8px;
+
+}
+
+.dot{
+
+width:10px;
+
+height:10px;
+
+border-radius:50%;
+
+background:
+rgba(255,255,255,.4);
+
+}
+
+.dot.active{
+
+background:white;
 
 }
 
@@ -203,56 +162,415 @@ margin-top:16px;
 
 <body>
 
-<div class="loginCard">
+<div class="heroSlider">
 
-<div class="logo">
+<div class="slide active">
 
-Quick<span>Press</span>
+<h1>
+
+50,000+
+
+</h1>
+
+<h2>
+
+Orders Delivered
+
+</h2>
+
+<p>
+
+Trusted Laundry Partner
+
+</p>
 
 </div>
 
-<div class="subtitle">
+<div class="slide">
 
-Premium Laundry Marketplace
+<h1>
+
+Steam Iron
+
+</h1>
+
+<h2>
+
+Premium Finish
+
+</h2>
+
+<p>
+
+Perfect Crease Every Time
+
+</p>
 
 </div>
 
-<div class="inputGroup">
+<div class="slide">
 
-<label>
+<h1>
 
-Mobile Number
+Same Day
 
-</label>
+</h1>
 
-<div class="phoneInput">
+<h2>
+
+Pickup & Delivery
+
+</h2>
+
+<p>
+
+Fast & Reliable
+
+</p>
+
+</div>
+
+<div class="slide">
+
+<h1>
+
+Dry Cleaning
+
+</h1>
+
+<h2>
+
+Expert Fabric Care
+
+</h2>
+
+<p>
+
+Premium Garment Treatment
+
+</p>
+
+</div>
+
+<div class="sliderDots">
+
+<span class="dot active"></span>
+
+<span class="dot"></span>
+
+<span class="dot"></span>
+
+<span class="dot"></span>
+
+</div>
+
+</div><div class="loginCard">
+
+<h2>
+
+Log in or Sign up
+
+</h2>
+
+<div class="phoneWrapper">
 
 <div class="countryCode">
 
-+91
+🇮🇳 +91
 
 </div>
 
 <input
+
 type="tel"
+
 id="phoneNumber"
-placeholder="9876543210">
+
+placeholder="Enter Phone Number"
+
+maxlength="10">
 
 </div>
+
+<style>
+
+.loginCard{
+
+background:#fff;
+
+margin-top:-30px;
+
+position:relative;
+
+z-index:10;
+
+border-radius:32px 32px 0 0;
+
+padding:28px 24px;
+
+min-height:58vh;
+
+}
+
+.loginCard h2{
+
+text-align:center;
+
+font-size:24px;
+
+font-weight:800;
+
+margin-bottom:25px;
+
+color:#0F172A;
+
+}
+
+.phoneWrapper{
+
+display:flex;
+
+gap:10px;
+
+margin-bottom:20px;
+
+}
+
+.countryCode{
+
+width:90px;
+
+height:58px;
+
+display:flex;
+
+justify-content:center;
+
+align-items:center;
+
+border:2px solid #E5E7EB;
+
+border-radius:18px;
+
+font-weight:700;
+
+}
+
+.phoneWrapper input{
+
+flex:1;
+
+height:58px;
+
+border:2px solid #E5E7EB;
+
+border-radius:18px;
+
+padding:0 18px;
+
+font-size:16px;
+
+outline:none;
+
+}
+
+</style><div class="rememberRow">
+
+<input
+type="checkbox"
+id="rememberMe"
+checked>
+
+<label
+for="rememberMe">
+
+Remember me for faster sign in
+
+</label>
 
 </div>
 
 <button
-class="loginBtn"
+class="continueBtn"
 onclick="sendOTP()">
 
 Continue
 
 </button>
 
-<div id="recaptcha-container"></div>
+<style>
 
-</div><script type="module">
+.rememberRow{
+
+display:flex;
+
+align-items:center;
+
+gap:10px;
+
+margin-bottom:24px;
+
+}
+
+.rememberRow input{
+
+width:18px;
+
+height:18px;
+
+accent-color:#16A34A;
+
+}
+
+.rememberRow label{
+
+font-size:14px;
+
+font-weight:600;
+
+color:#475569;
+
+}
+
+.continueBtn{
+
+width:100%;
+
+height:58px;
+
+border:none;
+
+border-radius:18px;
+
+background:#16A34A;
+
+color:white;
+
+font-size:18px;
+
+font-weight:800;
+
+cursor:pointer;
+
+}
+
+</style><div class="socialLogin">
+
+<button class="socialBtn">
+
+<i class="fa-brands fa-google"></i>
+
+</button>
+
+</div>
+
+<div class="termsText">
+
+By continuing you agree to our
+
+<br>
+
+Terms of Service · Privacy Policy
+
+</div>
+
+<style>
+
+.socialLogin{
+
+display:flex;
+
+justify-content:center;
+
+margin-top:30px;
+
+}
+
+.socialBtn{
+
+width:70px;
+
+height:70px;
+
+border-radius:50%;
+
+border:2px solid #E5E7EB;
+
+background:white;
+
+font-size:26px;
+
+cursor:pointer;
+
+}
+
+.termsText{
+
+margin-top:24px;
+
+text-align:center;
+
+font-size:13px;
+
+color:#64748B;
+
+line-height:1.8;
+
+}
+
+</style><script>
+
+const slides =
+
+document.querySelectorAll(
+".slide"
+);
+
+const dots =
+
+document.querySelectorAll(
+".dot"
+);
+
+let currentSlide = 0;
+
+setInterval(()=>{
+
+slides[currentSlide]
+.classList.remove(
+"active"
+);
+
+dots[currentSlide]
+.classList.remove(
+"active"
+);
+
+currentSlide++;
+
+if(
+currentSlide >= slides.length
+){
+
+currentSlide = 0;
+
+}
+
+slides[currentSlide]
+.classList.add(
+"active"
+);
+
+dots[currentSlide]
+.classList.add(
+"active"
+);
+
+},3000);
+
+</script><div id="recaptcha-container"></div>
+
+<script type="module">
 
 import { auth }
 from "./firebase.js";
@@ -260,13 +578,39 @@ from "./firebase.js";
 import {
 
 RecaptchaVerifier,
-signInWithPhoneNumber
+signInWithPhoneNumber,
+onAuthStateChanged
 
 }
 
 from
 
 "https://www.gstatic.com/firebasejs/12.11.0/firebase-auth.js";
+
+/* ==========================
+AUTO REDIRECT
+========================== */
+
+onAuthStateChanged(
+
+auth,
+
+(user)=>{
+
+if(user){
+
+window.location.href =
+"index.html";
+
+}
+
+}
+
+/* ==========================
+RECAPTCHA
+========================== */
+
+);
 
 window.recaptchaVerifier =
 
@@ -282,6 +626,21 @@ size:"normal"
 
 );
 
+</script><script type="module">
+
+import { auth }
+from "./firebase.js";
+
+import {
+
+signInWithPhoneNumber
+
+}
+
+from
+
+"https://www.gstatic.com/firebasejs/12.11.0/firebase-auth.js";
+
 window.sendOTP =
 async function(){
 
@@ -294,7 +653,7 @@ document.getElementById(
 if(phone.length !== 10){
 
 alert(
-"Enter valid mobile number"
+"Enter Valid Mobile Number"
 );
 
 return;
@@ -304,6 +663,7 @@ return;
 try{
 
 const appVerifier =
+
 window.recaptchaVerifier;
 
 const confirmationResult =
@@ -326,6 +686,11 @@ sessionStorage.setItem(
 phone
 );
 
+sessionStorage.setItem(
+"otpSent",
+"true"
+);
+
 window.location.href =
 "otp.html";
 
@@ -343,39 +708,7 @@ error.message
 
 };
 
-</script><script type="module">
-
-import { auth }
-from "./firebase.js";
-
-import {
-
-onAuthStateChanged
-
-}
-
-from
-
-"https://www.gstatic.com/firebasejs/12.11.0/firebase-auth.js";
-
-onAuthStateChanged(
-
-auth,
-
-(user)=>{
-
-if(user){
-
-window.location.href =
-"index.html";
-
-}
-
-}
-
-);
-
-</script>
+</script></div>
 
 </body>
 
