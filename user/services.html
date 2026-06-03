@@ -11,9 +11,22 @@ content="width=device-width, initial-scale=1.0">
 
 <title>
 
-QuickPress Services
+QuickPress | Services
 
 </title>
+
+<meta
+name="theme-color"
+content="#16A34A">
+
+<link
+rel="preconnect"
+href="https://fonts.googleapis.com">
+
+<link
+rel="preconnect"
+href="https://fonts.gstatic.com"
+crossorigin>
 
 <link
 href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap"
@@ -21,16 +34,36 @@ rel="stylesheet">
 
 <link
 rel="stylesheet"
-href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css"/>
 
 <style>
 
+/* ===================================
+RESET
+=================================== */
+
 *{
+
 margin:0;
 padding:0;
+
 box-sizing:border-box;
+
 font-family:'Inter',sans-serif;
+
+-webkit-tap-highlight-color:transparent;
+
 }
+
+html{
+
+scroll-behavior:smooth;
+
+}
+
+/* ===================================
+ROOT
+=================================== */
 
 :root{
 
@@ -38,32 +71,45 @@ font-family:'Inter',sans-serif;
 --secondary:#16A34A;
 
 --dark:#111827;
---gray:#6B7280;
+--light:#6B7280;
 
---bg:#F7F8FA;
+--bg:#F6F7FB;
 --white:#FFFFFF;
 
+--shadow:
+0 8px 24px rgba(0,0,0,.06);
+
 }
+
+/* ===================================
+BODY
+=================================== */
 
 body{
 
 background:var(--bg);
 
-padding-bottom:120px;
+color:var(--dark);
+
+overflow-x:hidden;
+
+padding-bottom:100px;
 
 }
 
-/* HEADER */
+/* ===================================
+HEADER
+=================================== */
 
-.servicesHeader{
+.hero{
 
 position:sticky;
 
 top:0;
 
-background:#fff;
+z-index:9999;
 
-z-index:999;
+background:#fff;
 
 padding:16px;
 
@@ -72,7 +118,11 @@ box-shadow:
 
 }
 
-.headerTop{
+/* ===================================
+TOP BAR
+=================================== */
+
+.topBar{
 
 display:flex;
 
@@ -82,29 +132,41 @@ align-items:center;
 
 }
 
-.brand{
+/* ===================================
+BRAND
+=================================== */
 
-font-size:28px;
+.brandName{
+
+font-size:30px;
 
 font-weight:900;
+
+line-height:1;
+
+letter-spacing:-1px;
 
 color:#111827;
 
 }
 
-.headerSub{
+.pageTitle{
 
-font-size:12px;
+margin-top:5px;
+
+font-size:14px;
+
+font-weight:800;
 
 color:#6B7280;
 
-margin-top:4px;
-
 }
 
-.cartBtn{
+/* ===================================
+PROFILE BUTTON
+=================================== */
 
-position:relative;
+.profileBtn{
 
 width:46px;
 
@@ -116,55 +178,37 @@ border-radius:14px;
 
 background:#F3F4F6;
 
-cursor:pointer;
-
-}
-
-.cartBadge{
-
-position:absolute;
-
-top:-4px;
-
-right:-4px;
-
-min-width:20px;
-
-height:20px;
-
-background:#EF4444;
-
-color:#fff;
-
-border-radius:999px;
-
 display:flex;
 
 align-items:center;
 
 justify-content:center;
 
-font-size:10px;
+font-size:18px;
 
-font-weight:900;
+cursor:pointer;
 
 }
 
-/* SEARCH */
+/* ===================================
+SEARCH
+=================================== */
 
 .searchWrap{
 
-margin-top:16px;
+margin-top:14px;
 
 }
 
-.searchBox{
+.searchBar{
 
-height:54px;
+height:56px;
 
-background:#F3F4F6;
+background:#F6F7FB;
 
-border-radius:16px;
+border:1px solid #ECEFF3;
+
+border-radius:18px;
 
 display:flex;
 
@@ -174,19 +218,73 @@ padding:0 16px;
 
 }
 
-.searchBox input{
+.searchBar i{
+
+font-size:18px;
+
+color:#16A34A;
+
+}
+
+.searchBar input{
 
 flex:1;
 
 border:none;
 
-background:none;
-
 outline:none;
 
-padding-left:10px;
+background:none;
+
+padding-left:12px;
 
 font-size:14px;
+
+font-weight:600;
+
+color:#111827;
+
+}
+
+.searchBar input::placeholder{
+
+color:#9CA3AF;
+
+}
+
+/* ===================================
+SECTION TITLE
+=================================== */
+
+.sectionHeading{
+
+font-size:22px;
+
+font-weight:900;
+
+color:#111827;
+
+margin-bottom:18px;
+
+}
+
+/* ===================================
+DESKTOP
+=================================== */
+
+@media(min-width:992px){
+
+.hero{
+
+padding:18px 24px;
+
+}
+
+.brandName{
+
+font-size:34px;
+
+}
 
 }
 
@@ -196,39 +294,35 @@ font-size:14px;
 
 <body>
 
-<div class="servicesHeader">
+<!-- ===================================
+HEADER
+=================================== -->
 
-<div class="headerTop">
+<div class="hero">
+
+<div class="topBar">
 
 <div>
 
-<div class="brand">
+<div class="brandName">
 
 QuickPress
 
 </div>
 
-<div class="headerSub">
+<div class="pageTitle">
 
-Laundry Services
+All Laundry Services
 
 </div>
 
 </div>
 
 <button
-class="cartBtn"
-onclick="location.href='cart.html'">
+class="profileBtn"
+onclick="openProfile()">
 
-<i class="fa-solid fa-cart-shopping"></i>
-
-<div
-id="cartBadge"
-class="cartBadge">
-
-0
-
-</div>
+<i class="fa-regular fa-user"></i>
 
 </button>
 
@@ -236,26 +330,90 @@ class="cartBadge">
 
 <div class="searchWrap">
 
-<div class="searchBox">
+<div class="searchBar">
 
 <i class="fa-solid fa-magnifying-glass"></i>
 
 <input
-id="serviceSearch"
+id="globalSearch"
 type="text"
-placeholder="Search Services">
+placeholder="Search services">
 
 </div>
 
 </div>
 
-</div><section>
+</div><!-- ===================================
+CATEGORY FILTERS
+=================================== -->
 
-<div
-class="categorySlider"
-id="categorySlider">
+<section class="categorySection">
 
-<!-- Dynamic -->
+<div class="categoryScroller">
+
+<button
+class="categoryChip activeChip"
+data-category="All">
+
+All
+
+</button>
+
+<button
+class="categoryChip"
+data-category="Dry Cleaning">
+
+Dry Cleaning
+
+</button>
+
+<button
+class="categoryChip"
+data-category="Wash & Fold">
+
+Wash & Fold
+
+</button>
+
+<button
+class="categoryChip"
+data-category="Steam Iron">
+
+Steam Iron
+
+</button>
+
+<button
+class="categoryChip"
+data-category="Shoe Care">
+
+Shoe Care
+
+</button>
+
+<button
+class="categoryChip"
+data-category="Blanket Care">
+
+Blanket Care
+
+</button>
+
+<button
+class="categoryChip"
+data-category="Premium Care">
+
+Premium Care
+
+</button>
+
+<button
+class="categoryChip"
+data-category="Curtain Care">
+
+Curtain Care
+
+</button>
 
 </div>
 
@@ -263,74 +421,21 @@ id="categorySlider">
 
 <style>
 
-.categorySlider{
+/* ===================================
+CATEGORY SECTION
+=================================== */
 
-display:flex;
-
-gap:12px;
-
-overflow-x:auto;
+.categorySection{
 
 padding:16px;
 
-scrollbar-width:none;
-
 }
 
-.categorySlider::-webkit-scrollbar{
+/* ===================================
+SCROLLER
+=================================== */
 
-display:none;
-
-}
-
-.categoryChip{
-
-flex-shrink:0;
-
-height:44px;
-
-padding:0 20px;
-
-border:none;
-
-border-radius:999px;
-
-background:#fff;
-
-font-size:13px;
-
-font-weight:800;
-
-cursor:pointer;
-
-box-shadow:
-0 4px 12px rgba(0,0,0,.05);
-
-}
-
-.categoryChip.active{
-
-background:#16A34A;
-
-color:#fff;
-
-}
-
-</style><section>
-
-<div
-class="subCategorySlider"
-id="subCategorySlider">
-
-<!-- Dynamic -->
-
-</div>
-
-</section>
-
-<style>
-
-.subCategorySlider{
+.categoryScroller{
 
 display:flex;
 
@@ -338,49 +443,528 @@ gap:10px;
 
 overflow-x:auto;
 
-padding:0 16px 16px;
-
 scrollbar-width:none;
+
+padding-bottom:6px;
 
 }
 
-.subCategorySlider::-webkit-scrollbar{
+.categoryScroller::-webkit-scrollbar{
 
 display:none;
 
 }
 
-.subChip{
+/* ===================================
+CHIPS
+=================================== */
 
-flex-shrink:0;
+.categoryChip{
 
-height:38px;
+height:42px;
 
-padding:0 16px;
+padding:0 18px;
 
 border:none;
 
 border-radius:999px;
 
-background:#F3F4F6;
+background:#fff;
 
-font-size:12px;
+color:#111827;
 
-font-weight:700;
+font-size:13px;
+
+font-weight:800;
+
+white-space:nowrap;
 
 cursor:pointer;
 
+box-shadow:
+0 4px 12px rgba(0,0,0,.05);
+
+transition:.25s;
+
 }
 
-.subChip.active{
+.categoryChip:hover{
 
-background:#F4B400;
+transform:translateY(-2px);
+
+}
+
+/* ===================================
+ACTIVE CHIP
+=================================== */
+
+.activeChip{
+
+background:#16A34A;
+
+color:#fff;
+
+box-shadow:
+0 8px 20px rgba(22,163,74,.25);
+
+}
+
+/* ===================================
+DESKTOP
+=================================== */
+
+@media(min-width:992px){
+
+.categorySection{
+
+padding:20px 24px;
+
+}
+
+.categoryScroller{
+
+justify-content:center;
+
+flex-wrap:wrap;
+
+}
+
+}
+
+</style>
+
+<script>
+
+/* ===================================
+CATEGORY ACTIVE STATE
+=================================== */
+
+document
+.querySelectorAll(
+".categoryChip"
+)
+
+.forEach(chip=>{
+
+chip.addEventListener(
+
+"click",
+
+()=>{
+
+document
+.querySelectorAll(
+".categoryChip"
+)
+
+.forEach(item=>{
+
+item.classList.remove(
+"activeChip"
+);
+
+});
+
+chip.classList.add(
+"activeChip"
+);
+
+const category =
+
+chip.dataset.category;
+
+/* Call Loader */
+
+if(
+window.filterCategory
+){
+
+window.filterCategory(
+category
+);
+
+}
+
+}
+
+);
+
+});
+
+</script><!-- ===================================
+TOP ACTION BAR
+=================================== -->
+
+<section class="actionSection">
+
+<div class="actionBar">
+
+<div
+class="resultCount"
+id="resultCount">
+
+0 Services
+
+</div>
+
+<select
+id="sortServices"
+class="sortSelect">
+
+<option value="popular">
+
+Popular
+
+</option>
+
+<option value="lowToHigh">
+
+Price Low → High
+
+</option>
+
+<option value="highToLow">
+
+Price High → Low
+
+</option>
+
+<option value="newest">
+
+Newest
+
+</option>
+
+</select>
+
+</div>
+
+</section>
+
+<!-- ===================================
+SERVICES GRID
+=================================== -->
+
+<section class="servicesSection">
+
+<div
+class="servicesGrid"
+id="servicesGrid">
+
+<!-- Firebase Services -->
+
+</div>
+
+</section>
+
+<!-- ===================================
+EMPTY STATE
+=================================== -->
+
+<div
+class="emptyState"
+id="emptyState">
+
+<i class="fa-solid fa-magnifying-glass"></i>
+
+<h3>
+
+No Services Found
+
+</h3>
+
+<p>
+
+Try changing search or category.
+
+</p>
+
+</div>
+
+<!-- ===================================
+LOADING STATE
+=================================== -->
+
+<div
+class="skeletonGrid"
+id="skeletonGrid">
+
+<div class="skeletonCard"></div>
+<div class="skeletonCard"></div>
+<div class="skeletonCard"></div>
+<div class="skeletonCard"></div>
+
+</div>
+
+<style>
+
+/* ===================================
+ACTION BAR
+=================================== */
+
+.actionSection{
+
+padding:0 16px 12px;
+
+}
+
+.actionBar{
+
+display:flex;
+
+justify-content:space-between;
+
+align-items:center;
+
+gap:10px;
+
+}
+
+.resultCount{
+
+font-size:13px;
+
+font-weight:800;
+
+color:#6B7280;
+
+}
+
+.sortSelect{
+
+height:42px;
+
+padding:0 12px;
+
+border:none;
+
+border-radius:12px;
+
+background:#fff;
+
+font-size:13px;
+
+font-weight:700;
+
+box-shadow:
+0 4px 12px rgba(0,0,0,.05);
+
+outline:none;
+
+}
+
+/* ===================================
+SERVICES GRID
+=================================== */
+
+.servicesSection{
+
+padding:0 16px 20px;
+
+}
+
+.servicesGrid{
+
+display:grid;
+
+grid-template-columns:
+repeat(2,1fr);
+
+gap:14px;
+
+}
+
+/* ===================================
+EMPTY STATE
+=================================== */
+
+.emptyState{
+
+display:none;
+
+padding:60px 20px;
+
+text-align:center;
+
+}
+
+.emptyState i{
+
+font-size:42px;
+
+color:#D1D5DB;
+
+margin-bottom:14px;
+
+}
+
+.emptyState h3{
+
+font-size:20px;
+
+font-weight:900;
 
 color:#111827;
 
 }
 
-</style><script type="module">
+.emptyState p{
+
+margin-top:8px;
+
+font-size:13px;
+
+color:#6B7280;
+
+}
+
+/* ===================================
+LOADING
+=================================== */
+
+.skeletonGrid{
+
+display:grid;
+
+grid-template-columns:
+repeat(2,1fr);
+
+gap:14px;
+
+padding:0 16px 20px;
+
+}
+
+.skeletonCard{
+
+height:210px;
+
+border-radius:22px;
+
+background:
+linear-gradient(
+90deg,
+#F3F4F6 25%,
+#E5E7EB 50%,
+#F3F4F6 75%
+);
+
+background-size:
+400% 100%;
+
+animation:
+loading 1.4s infinite;
+
+}
+
+@keyframes loading{
+
+0%{
+background-position:
+100% 0;
+}
+
+100%{
+background-position:
+-100% 0;
+}
+
+}
+
+/* ===================================
+DESKTOP
+=================================== */
+
+@media(min-width:992px){
+
+.servicesGrid{
+
+grid-template-columns:
+repeat(4,1fr);
+
+gap:20px;
+
+}
+
+.skeletonGrid{
+
+grid-template-columns:
+repeat(4,1fr);
+
+}
+
+}
+
+</style>
+
+<script>
+
+/* ===================================
+HELPERS
+=================================== */
+
+window.showLoading =
+function(){
+
+document.getElementById(
+"skeletonGrid"
+).style.display="grid";
+
+document.getElementById(
+"servicesGrid"
+).style.display="none";
+
+};
+
+window.hideLoading =
+function(){
+
+document.getElementById(
+"skeletonGrid"
+).style.display="none";
+
+document.getElementById(
+"servicesGrid"
+).style.display="grid";
+
+};
+
+window.updateResultCount =
+function(count){
+
+document.getElementById(
+"resultCount"
+).innerHTML =
+
+count + " Services";
+
+};
+
+window.showEmptyState =
+function(){
+
+document.getElementById(
+"emptyState"
+).style.display="block";
+
+};
+
+window.hideEmptyState =
+function(){
+
+document.getElementById(
+"emptyState"
+).style.display="none";
+
+};
+
+showLoading();
+
+</script><script type="module">
+
+/* ===================================
+IMPORTS
+=================================== */
 
 import { db }
 from "./firebase.js";
@@ -398,474 +982,118 @@ from
 
 "https://www.gstatic.com/firebasejs/12.11.0/firebase-firestore.js";
 
-window.servicesCollection =
+/* ===================================
+GLOBAL DATA
+=================================== */
 
-collection(
-db,
-"services"
-);
+let allServices = [];
 
-</script><script type="module">
+let currentCategory = "All";
 
-window.selectedCategory = "";
-window.selectedSubCategory = "";
+let currentSearch = "";
 
-window.loadCategories =
-function(){
+let currentSort = "popular";
 
-onSnapshot(
+/* ===================================
+ELEMENTS
+=================================== */
 
-servicesCollection,
-
-(snapshot)=>{
-
-const categories =
-new Set();
-
-snapshot.forEach(doc=>{
-
-const data =
-doc.data();
-
-if(data.active){
-
-categories.add(
-data.category
-);
-
-}
-
-});
-
-let html="";
-
-Array.from(categories)
-
-.forEach((category,index)=>{
-
-html += `
-
-<button
-
-class="categoryChip
-${index===0?'active':''}"
-
-onclick="selectCategory('${category}')">
-
-${category}
-
-</button>
-
-`;
-
-});
+const servicesGrid =
 
 document.getElementById(
-"categorySlider"
-).innerHTML =
-html;
-
-if(categories.size>0){
-
-selectedCategory =
-
-Array.from(categories)[0];
-
-loadSubCategories();
-
-}
-
-}
-
+"servicesGrid"
 );
 
-};
-
-</script><script type="module">
-
-window.loadSubCategories =
-function(){
-
-onSnapshot(
-
-servicesCollection,
-
-(snapshot)=>{
-
-const subs =
-new Set();
-
-snapshot.forEach(doc=>{
-
-const data =
-doc.data();
-
-if(
-
-data.category ===
-selectedCategory
-
-){
-
-subs.add(
-data.subCategory
-);
-
-}
-
-});
-
-let html="";
-
-Array.from(subs)
-
-.forEach((sub,index)=>{
-
-html += `
-
-<button
-
-class="subChip
-${index===0?'active':''}"
-
-onclick="selectSubCategory('${sub}')">
-
-${sub}
-
-</button>
-
-`;
-
-});
+const globalSearch =
 
 document.getElementById(
-"subCategorySlider"
-).innerHTML =
-html;
-
-if(subs.size>0){
-
-selectedSubCategory =
-
-Array.from(subs)[0];
-
-loadServices();
-
-}
-
-}
-
+"globalSearch"
 );
 
-};
-
-window.selectCategory =
-function(category){
-
-selectedCategory =
-category;
-
-document
-.querySelectorAll(
-".categoryChip"
-)
-
-.forEach(btn=>{
-
-btn.classList.remove(
-"active"
-);
-
-if(btn.innerText===category){
-
-btn.classList.add(
-"active"
-);
-
-}
-
-});
-
-loadSubCategories();
-
-};
-
-</script><section style="padding:0 16px;">
-
-<div
-id="servicesContainer">
-
-</div>
-
-</section>
-
-<script type="module">
-
-window.allServices = [];
-
-window.loadServices =
-function(){
-
-onSnapshot(
-
-servicesCollection,
-
-(snapshot)=>{
-
-allServices = [];
-
-snapshot.forEach(doc=>{
-
-const data =
-doc.data();
-
-if(
-
-data.active === true
-
-&&
-
-data.category ===
-selectedCategory
-
-&&
-
-data.subCategory ===
-selectedSubCategory
-
-){
-
-allServices.push({
-
-id:doc.id,
-
-...data
-
-});
-
-}
-
-});
-
-renderServices(
-allServices
-);
-
-}
-
-);
-
-};
-
-window.selectSubCategory =
-function(sub){
-
-selectedSubCategory = sub;
-
-document
-.querySelectorAll(
-".subChip"
-)
-
-.forEach(btn=>{
-
-btn.classList.remove(
-"active"
-);
-
-if(btn.innerText===sub){
-
-btn.classList.add(
-"active"
-);
-
-}
-
-});
-
-loadServices();
-
-};
-
-loadCategories();
-
-</script><style>
-
-.serviceCard{
-
-background:#fff;
-
-border-radius:22px;
-
-padding:16px;
-
-margin-bottom:14px;
-
-display:flex;
-
-gap:14px;
-
-align-items:center;
-
-box-shadow:
-0 8px 24px rgba(0,0,0,.05);
-
-}
-
-.serviceImage{
-
-width:80px;
-
-height:80px;
-
-border-radius:16px;
-
-object-fit:cover;
-
-background:#F3F4F6;
-
-}
-
-.serviceContent{
-
-flex:1;
-
-}
-
-.serviceName{
-
-font-size:15px;
-
-font-weight:900;
-
-color:#111827;
-
-}
-
-.serviceMeta{
-
-font-size:12px;
-
-color:#6B7280;
-
-margin-top:5px;
-
-}
-
-.serviceDescription{
-
-font-size:12px;
-
-color:#9CA3AF;
-
-margin-top:4px;
-
-}
-
-.servicePrice{
-
-margin-top:10px;
-
-font-size:18px;
-
-font-weight:900;
-
-color:#16A34A;
-
-}
-
-</style>
-
-<script>
-
-window.renderServices =
-function(services){
-
-const container =
+const sortServices =
 
 document.getElementById(
-"servicesContainer"
+"sortServices"
 );
 
-if(services.length===0){
+/* ===================================
+SERVICE CARD
+=================================== */
 
-container.innerHTML =
+function createServiceCard(service){
 
-`
+const price =
 
-<div style="
-background:#fff;
-padding:30px;
-border-radius:20px;
-text-align:center;
-">
+service.price || 0;
 
-No Services Found
-
-</div>
-
-`;
-
-return;
-
-}
-
-let html = "";
-
-services.forEach(service=>{
-
-html += `
+return `
 
 <div class="serviceCard">
+
+<div class="serviceTop">
 
 <img
 
 src="${
 service.image ||
-'https://via.placeholder.com/80'
+
+'https://images.unsplash.com/photo-1517677208171-0bc6725a3e60?w=500'
 }"
 
-class="serviceImage">
+loading="lazy"
 
-<div class="serviceContent">
+alt="${service.name}"
 
-<div class="serviceName">
-
-${service.serviceName}
-
-</div>
-
-<div class="serviceMeta">
-
-${service.category}
 >
 
-${service.subCategory}
+</div>
+
+<div class="serviceBody">
+
+<div class="serviceCategory">
+
+${service.category || "Laundry"}
 
 </div>
 
-<div class="serviceDescription">
+<h3>
 
-${service.description || ''}
+${service.name}
 
-</div>
+</h3>
 
-<div class="servicePrice">
+<p>
 
-₹${service.price}
+${service.description || "Premium Laundry Service"}
 
-</div>
+</p>
 
-</div>
+<div class="serviceBottom">
 
 <div>
 
+<div class="servicePrice">
+
+₹${price}
+
+</div>
+
+</div>
+
 <button
 
-class="addServiceBtn"
+class="addBtn"
 
-onclick="addServiceToCart(
-'${service.id}'
+onclick="addToCart(
+
+'${service.id}',
+
+'${service.name}',
+
+${price},
+
+'${service.category}'
+
 )">
 
 Add
@@ -876,21 +1104,391 @@ Add
 
 </div>
 
+</div>
+
 `;
+
+}
+
+/* ===================================
+RENDER
+=================================== */
+
+function renderServices(data){
+
+hideLoading();
+
+servicesGrid.innerHTML = "";
+
+if(data.length===0){
+
+showEmptyState();
+
+updateResultCount(0);
+
+return;
+
+}
+
+hideEmptyState();
+
+updateResultCount(
+data.length
+);
+
+data.forEach(service=>{
+
+servicesGrid.innerHTML +=
+
+createServiceCard(
+service
+);
 
 });
 
-container.innerHTML = html;
+}
+
+/* ===================================
+FILTERS
+=================================== */
+
+function applyFilters(){
+
+let filtered =
+
+[...allServices];
+
+/* Category */
+
+if(
+currentCategory !== "All"
+){
+
+filtered =
+
+filtered.filter(
+
+service=>
+
+service.category ===
+currentCategory
+
+);
+
+}
+
+/* Search */
+
+if(currentSearch){
+
+filtered =
+
+filtered.filter(
+
+service=>
+
+(service.name || "")
+.toLowerCase()
+.includes(
+currentSearch
+)
+
+||
+
+(service.category || "")
+.toLowerCase()
+.includes(
+currentSearch
+)
+
+);
+
+}
+
+/* Sort */
+
+if(
+currentSort==="lowToHigh"
+){
+
+filtered.sort(
+
+(a,b)=>
+
+(a.price||0)-
+(b.price||0)
+
+);
+
+}
+
+if(
+currentSort==="highToLow"
+){
+
+filtered.sort(
+
+(a,b)=>
+
+(b.price||0)-
+(a.price||0)
+
+);
+
+}
+
+if(
+currentSort==="newest"
+){
+
+filtered.sort(
+
+(a,b)=>
+
+(b.createdAt||0)-
+(a.createdAt||0)
+
+);
+
+}
+
+renderServices(
+filtered
+);
+
+}
+
+/* ===================================
+FIREBASE LOAD
+=================================== */
+
+showLoading();
+
+const serviceQuery =
+
+query(
+
+collection(
+db,
+"services"
+),
+
+where(
+"active",
+"==",
+true
+)
+
+);
+
+onSnapshot(
+
+serviceQuery,
+
+(snapshot)=>{
+
+allServices = [];
+
+snapshot.forEach(doc=>{
+
+allServices.push({
+
+id:doc.id,
+
+...doc.data()
+
+});
+
+});
+
+applyFilters();
+
+}
+
+);
+
+/* ===================================
+SEARCH
+=================================== */
+
+if(globalSearch){
+
+globalSearch.addEventListener(
+
+"keyup",
+
+e=>{
+
+currentSearch =
+
+e.target.value
+.toLowerCase()
+.trim();
+
+applyFilters();
+
+}
+
+);
+
+}
+
+/* ===================================
+SORT
+=================================== */
+
+if(sortServices){
+
+sortServices.addEventListener(
+
+"change",
+
+e=>{
+
+currentSort =
+e.target.value;
+
+applyFilters();
+
+}
+
+);
+
+}
+
+/* ===================================
+CATEGORY
+=================================== */
+
+window.filterCategory =
+function(category){
+
+currentCategory =
+category;
+
+applyFilters();
 
 };
 
-</script><style>
+</script>
 
-.addServiceBtn{
+<style>
 
-width:80px;
+/* ===================================
+SERVICE CARD
+=================================== */
 
-height:42px;
+.serviceCard{
+
+background:#fff;
+
+border-radius:22px;
+
+overflow:hidden;
+
+box-shadow:
+0 8px 24px rgba(0,0,0,.05);
+
+transition:.25s;
+
+}
+
+.serviceCard:hover{
+
+transform:
+translateY(-4px);
+
+}
+
+.serviceTop{
+
+height:140px;
+
+overflow:hidden;
+
+background:#F9FAFB;
+
+}
+
+.serviceTop img{
+
+width:100%;
+
+height:100%;
+
+object-fit:cover;
+
+}
+
+.serviceBody{
+
+padding:14px;
+
+}
+
+.serviceCategory{
+
+font-size:11px;
+
+font-weight:800;
+
+color:#16A34A;
+
+margin-bottom:6px;
+
+}
+
+.serviceBody h3{
+
+font-size:14px;
+
+font-weight:900;
+
+line-height:1.4;
+
+color:#111827;
+
+}
+
+.serviceBody p{
+
+margin-top:6px;
+
+font-size:12px;
+
+line-height:1.5;
+
+color:#6B7280;
+
+}
+
+.serviceBottom{
+
+margin-top:14px;
+
+display:flex;
+
+justify-content:space-between;
+
+align-items:center;
+
+}
+
+.servicePrice{
+
+font-size:18px;
+
+font-weight:900;
+
+color:#111827;
+
+}
+
+.addBtn{
+
+height:36px;
+
+padding:0 16px;
 
 border:none;
 
@@ -900,68 +1498,130 @@ background:#16A34A;
 
 color:#fff;
 
+font-size:12px;
+
 font-weight:900;
 
 cursor:pointer;
 
 }
 
-.qtyBox{
+</style><!-- ===================================
+CART TOAST
+=================================== -->
 
-display:flex;
+<div
+class="cartToast"
+id="cartToast">
 
-align-items:center;
+<div class="toastIcon">
 
-gap:8px;
+<i class="fa-solid fa-circle-check"></i>
 
-}
+</div>
 
-.qtyBtn{
+<div>
 
-width:32px;
+<div class="toastTitle">
 
-height:32px;
+Added To Cart
 
-border:none;
+</div>
 
-border-radius:10px;
+<div
+class="toastText"
+id="toastText">
 
-background:#16A34A;
+Service Added
+
+</div>
+
+</div>
+
+</div>
+
+<style>
+
+/* ===================================
+TOAST
+=================================== */
+
+.cartToast{
+
+display:none;
+
+position:fixed;
+
+left:50%;
+
+bottom:90px;
+
+transform:
+translateX(-50%);
+
+background:#111827;
 
 color:#fff;
 
-font-weight:900;
+padding:14px 18px;
 
-cursor:pointer;
+border-radius:18px;
+
+align-items:center;
+
+gap:12px;
+
+box-shadow:
+0 12px 30px rgba(0,0,0,.25);
+
+z-index:99999;
 
 }
 
-.qtyCount{
+.showToast{
 
-font-size:14px;
+display:flex;
+
+}
+
+.toastIcon{
+
+font-size:22px;
+
+color:#22C55E;
+
+}
+
+.toastTitle{
+
+font-size:13px;
 
 font-weight:900;
 
 }
 
-</style><script>
+.toastText{
 
-window.addServiceToCart =
-function(serviceId){
+font-size:12px;
 
-const service =
+opacity:.9;
 
-allServices.find(
+margin-top:3px;
 
-s=>s.id===serviceId
+}
 
-);
+</style>
 
-if(!service) return;
+<script>
 
-let cart =
+/* ===================================
+GET CART
+=================================== */
 
-JSON.parse(
+window.getCart =
+function(){
+
+return JSON.parse(
 
 localStorage.getItem(
 "cart"
@@ -971,13 +1631,58 @@ localStorage.getItem(
 
 );
 
+};
+
+/* ===================================
+SAVE CART
+=================================== */
+
+window.saveCart =
+function(cart){
+
+localStorage.setItem(
+
+"cart",
+
+JSON.stringify(cart)
+
+);
+
+if(
+window.updateNavbarCartCount
+){
+
+updateNavbarCartCount();
+
+}
+
+};
+
+/* ===================================
+ADD TO CART
+=================================== */
+
+window.addToCart =
+function(
+
+id,
+name,
+price,
+category
+
+){
+
+let cart =
+
+getCart();
+
 const existing =
 
 cart.find(
 
 item=>
 
-item.serviceId===serviceId
+item.serviceId===id
 
 );
 
@@ -989,357 +1694,35 @@ existing.qty++;
 
 cart.push({
 
-serviceId:service.id,
+serviceId:id,
 
-serviceName:
-service.serviceName,
+serviceName:name,
 
-category:
-service.category,
+price,
 
-subCategory:
-service.subCategory,
+category,
 
-price:
-service.price,
+qty:1,
 
-qty:1
+addedAt:Date.now()
 
 });
 
 }
 
-localStorage.setItem(
-
-"cart",
-
-JSON.stringify(cart)
-
-);
-
-updateCartBadge();
+saveCart(cart);
 
 showToast(
-"Added To Cart"
-);
 
-};
-
-</script><script>
-
-document.getElementById(
-"serviceSearch"
-)
-
-.addEventListener(
-
-"input",
-
-function(){
-
-const query =
-
-this.value
-.toLowerCase();
-
-const filtered =
-
-allServices.filter(
-
-service=>
-
-service.serviceName
-
-.toLowerCase()
-
-.includes(query)
-
-||
-
-service.subCategory
-
-.toLowerCase()
-
-.includes(query)
-
-||
-
-service.category
-
-.toLowerCase()
-
-.includes(query)
-
-);
-
-renderServices(
-filtered
-);
-
-}
-
-);
-
-</script><section
-style="padding:16px;">
-
-<h3
-style="
-font-size:20px;
-font-weight:900;
-margin-bottom:12px;
-">
-
-Popular Services
-
-</h3>
-
-<div
-id="popularServices">
-
-</div>
-
-</section>
-
-<script>
-
-window.loadPopularServices =
-function(){
-
-onSnapshot(
-
-servicesCollection,
-
-(snapshot)=>{
-
-let html="";
-
-snapshot.forEach(doc=>{
-
-const data =
-doc.data();
-
-if(
-data.popular === true
-){
-
-html += `
-
-<div
-class="serviceCard">
-
-<img
-
-src="${
-data.image ||
-'https://via.placeholder.com/80'
-}"
-
-class="serviceImage">
-
-<div
-class="serviceContent">
-
-<div
-class="serviceName">
-
-${data.serviceName}
-
-</div>
-
-<div
-class="serviceMeta">
-
-${data.category}
->
-
-${data.subCategory}
-
-</div>
-
-<div
-class="servicePrice">
-
-₹${data.price}
-
-</div>
-
-</div>
-
-</div>
-
-`;
-
-}
-
-});
-
-document.getElementById(
-"popularServices"
-).innerHTML = html;
-
-}
+name +
+" added successfully"
 
 );
 
 };
-
-loadPopularServices();
-
-</script><script>
-
-window.updateCartBadge =
-function(){
-
-const cart =
-
-JSON.parse(
-
-localStorage.getItem(
-"cart"
-)
-
-|| "[]"
-
-);
-
-let total = 0;
-
-cart.forEach(item=>{
-
-total +=
-
-item.qty || 1;
-
-});
-
-document.getElementById(
-"cartBadge"
-).innerHTML =
-total;
-
-};
-
-document.addEventListener(
-
-"DOMContentLoaded",
-
-()=>{
-
-updateCartBadge();
-
-}
-
-);
-
-</script><!-- ===================================
-TOAST
-=================================== -->
-
-<div
-id="serviceToast"
-class="serviceToast">
-
-Added To Cart
-
-</div>
-
-<style>
-
-.serviceToast{
-
-position:fixed;
-
-left:50%;
-
-bottom:100px;
-
-transform:
-translateX(-50%);
-
-background:#111827;
-
-color:#fff;
-
-padding:14px 20px;
-
-border-radius:14px;
-
-font-size:13px;
-
-font-weight:700;
-
-opacity:0;
-
-visibility:hidden;
-
-transition:.3s;
-
-z-index:99999;
-
-}
-
-.serviceToast.show{
-
-opacity:1;
-
-visibility:visible;
-
-}
-
-/* EMPTY STATE */
-
-.emptyServices{
-
-background:#fff;
-
-padding:40px 20px;
-
-border-radius:24px;
-
-text-align:center;
-
-box-shadow:
-0 8px 24px rgba(0,0,0,.05);
-
-}
-
-.emptyServices i{
-
-font-size:48px;
-
-color:#D1D5DB;
-
-margin-bottom:12px;
-
-}
-
-.emptyServices h3{
-
-font-size:18px;
-
-font-weight:900;
-
-color:#111827;
-
-}
-
-.emptyServices p{
-
-margin-top:8px;
-
-font-size:13px;
-
-color:#6B7280;
-
-}
-
-</style>
-
-<script>
 
 /* ===================================
-TOAST
+SHOW TOAST
 =================================== */
 
 window.showToast =
@@ -1348,25 +1731,113 @@ function(message){
 const toast =
 
 document.getElementById(
-"serviceToast"
+"cartToast"
 );
 
-toast.innerHTML =
+const text =
+
+document.getElementById(
+"toastText"
+);
+
+if(!toast || !text) return;
+
+text.innerHTML =
 message;
 
 toast.classList.add(
-"show"
+"showToast"
 );
 
 setTimeout(()=>{
 
 toast.classList.remove(
-"show"
+"showToast"
 );
 
 },2000);
 
 };
+
+/* ===================================
+TOTAL ITEMS
+=================================== */
+
+window.getCartItemsCount =
+function(){
+
+const cart =
+getCart();
+
+let total = 0;
+
+cart.forEach(item=>{
+
+total +=
+item.qty || 1;
+
+});
+
+return total;
+
+};
+
+/* ===================================
+TOTAL PRICE
+=================================== */
+
+window.getCartTotal =
+function(){
+
+const cart =
+getCart();
+
+let total = 0;
+
+cart.forEach(item=>{
+
+total +=
+
+(item.price || 0)
+
+*
+
+(item.qty || 1);
+
+});
+
+return total;
+
+};
+
+/* ===================================
+OPEN SERVICE
+=================================== */
+
+window.openService =
+function(serviceId){
+
+window.location.href =
+
+`service-details.html?id=${serviceId}`;
+
+};
+
+/* ===================================
+OPEN CART
+=================================== */
+
+window.goCart =
+function(){
+
+window.location.href =
+"cart.html";
+
+};
+
+console.log(
+"QuickPress Cart Ready"
+);
 
 </script><!-- ===================================
 BOTTOM NAVIGATION
@@ -1376,7 +1847,7 @@ BOTTOM NAVIGATION
 
 <button
 class="navItem"
-onclick="window.location.href='index.html'">
+data-page="home">
 
 <i class="fa-solid fa-house"></i>
 
@@ -1389,7 +1860,8 @@ Home
 </button>
 
 <button
-class="navItem activeNav">
+class="navItem activeNav"
+data-page="services">
 
 <i class="fa-solid fa-table-cells-large"></i>
 
@@ -1403,7 +1875,7 @@ Services
 
 <button
 class="navItem"
-onclick="window.location.href='cart.html'">
+data-page="cart">
 
 <i class="fa-solid fa-cart-shopping"></i>
 
@@ -1413,11 +1885,19 @@ Cart
 
 </span>
 
+<div
+class="navCartBadge"
+id="navCartBadge">
+
+0
+
+</div>
+
 </button>
 
 <button
 class="navItem"
-onclick="window.location.href='orders.html'">
+data-page="orders">
 
 <i class="fa-solid fa-box"></i>
 
@@ -1431,9 +1911,9 @@ Orders
 
 <button
 class="navItem"
-onclick="window.location.href='profile.html'">
+data-page="profile">
 
-<i class="fa-solid fa-user"></i>
+<i class="fa-regular fa-user"></i>
 
 <span>
 
@@ -1446,6 +1926,10 @@ Profile
 </nav>
 
 <style>
+
+/* ===================================
+BOTTOM NAV
+=================================== */
 
 .bottomNav{
 
@@ -1474,6 +1958,8 @@ z-index:9999;
 
 .navItem{
 
+position:relative;
+
 flex:1;
 
 height:100%;
@@ -1486,17 +1972,17 @@ display:flex;
 
 flex-direction:column;
 
-justify-content:center;
-
 align-items:center;
 
+justify-content:center;
+
 gap:4px;
+
+cursor:pointer;
 
 font-size:11px;
 
 font-weight:700;
-
-cursor:pointer;
 
 color:#6B7280;
 
@@ -1511,6 +1997,38 @@ font-size:18px;
 .activeNav{
 
 color:#16A34A;
+
+}
+
+.navCartBadge{
+
+position:absolute;
+
+top:10px;
+
+right:22px;
+
+min-width:18px;
+
+height:18px;
+
+padding:0 4px;
+
+border-radius:999px;
+
+background:#EF4444;
+
+color:#fff;
+
+display:flex;
+
+align-items:center;
+
+justify-content:center;
+
+font-size:10px;
+
+font-weight:900;
 
 }
 
@@ -1536,7 +2054,1630 @@ border-radius:24px 24px 0 0;
 <script>
 
 /* ===================================
-APP READY
+NAVIGATION
+=================================== */
+
+document
+.querySelectorAll(".navItem")
+.forEach(item=>{
+
+item.addEventListener(
+
+"click",
+
+()=>{
+
+const page =
+item.dataset.page;
+
+if(page==="home"){
+
+window.location.href =
+"index.html";
+
+}
+
+if(page==="services"){
+
+window.location.href =
+"services.html";
+
+}
+
+if(page==="cart"){
+
+window.location.href =
+"cart.html";
+
+}
+
+if(page==="orders"){
+
+window.location.href =
+"orders.html";
+
+}
+
+if(page==="profile"){
+
+window.location.href =
+"profile.html";
+
+}
+
+}
+
+);
+
+});
+
+/* ===================================
+ACTIVE PAGE
+=================================== */
+
+const currentPage =
+
+window.location.pathname
+.split("/")
+.pop();
+
+document
+.querySelectorAll(".navItem")
+.forEach(item=>{
+
+item.classList.remove(
+"activeNav"
+);
+
+const page =
+item.dataset.page;
+
+if(
+
+(currentPage==="services.html" && page==="services")
+
+||
+
+(currentPage==="index.html" && page==="home")
+
+||
+
+(currentPage==="cart.html" && page==="cart")
+
+||
+
+(currentPage==="orders.html" && page==="orders")
+
+||
+
+(currentPage==="profile.html" && page==="profile")
+
+){
+
+item.classList.add(
+"activeNav"
+);
+
+}
+
+});
+
+/* ===================================
+CART BADGE
+=================================== */
+
+window.updateNavbarCartCount =
+function(){
+
+const cart =
+
+JSON.parse(
+localStorage.getItem(
+"cart"
+)
+)
+
+|| [];
+
+let total = 0;
+
+cart.forEach(item=>{
+
+total +=
+item.qty || 1;
+
+});
+
+const badge =
+
+document.getElementById(
+"navCartBadge"
+);
+
+if(!badge) return;
+
+badge.innerHTML = total;
+
+badge.style.display =
+
+total > 0
+
+? "flex"
+
+: "none";
+
+};
+
+updateNavbarCartCount();
+
+/* ===================================
+PROFILE
+=================================== */
+
+window.openProfile =
+function(){
+
+window.location.href =
+"profile.html";
+
+};
+
+</script><script type="module">
+
+/* ===================================
+FIREBASE AUTH
+=================================== */
+
+import { auth }
+from "./firebase.js";
+
+import {
+
+onAuthStateChanged,
+signOut
+
+}
+
+from
+
+"https://www.gstatic.com/firebasejs/12.11.0/firebase-auth.js";
+
+/* ===================================
+GLOBAL USER
+=================================== */
+
+let currentUser = null;
+
+/* ===================================
+AUTH STATE
+=================================== */
+
+onAuthStateChanged(
+
+auth,
+
+(user)=>{
+
+currentUser = user;
+
+/* ===================================
+PROFILE ICON
+=================================== */
+
+const profileBtn =
+
+document.querySelector(
+".profileBtn"
+);
+
+if(profileBtn){
+
+if(user){
+
+profileBtn.innerHTML =
+
+`<i class="fa-solid fa-user-check"></i>`;
+
+}else{
+
+profileBtn.innerHTML =
+
+`<i class="fa-regular fa-user"></i>`;
+
+}
+
+}
+
+});
+
+/* ===================================
+PROFILE PAGE
+=================================== */
+
+window.openProfile =
+function(){
+
+if(currentUser){
+
+window.location.href =
+"profile.html";
+
+}else{
+
+window.location.href =
+"login.html";
+
+}
+
+};
+
+/* ===================================
+LOGIN CHECK
+=================================== */
+
+window.requireLogin =
+function(){
+
+if(!currentUser){
+
+window.location.href =
+"login.html";
+
+return false;
+
+}
+
+return true;
+
+};
+
+/* ===================================
+ORDERS PAGE
+=================================== */
+
+window.openOrders =
+function(){
+
+if(!requireLogin()){
+
+return;
+
+}
+
+window.location.href =
+"orders.html";
+
+};
+
+/* ===================================
+CART PAGE
+=================================== */
+
+window.openCart =
+function(){
+
+window.location.href =
+"cart.html";
+
+};
+
+/* ===================================
+USER DATA
+=================================== */
+
+window.getCurrentUser =
+function(){
+
+return currentUser;
+
+};
+
+window.isLoggedIn =
+function(){
+
+return currentUser !== null;
+
+};
+
+window.getUserName =
+function(){
+
+if(!currentUser){
+
+return "Guest";
+
+}
+
+return (
+
+currentUser.displayName
+
+||
+
+currentUser.phoneNumber
+
+||
+
+currentUser.email
+
+||
+
+"User"
+
+);
+
+};
+
+/* ===================================
+USER PHOTO
+=================================== */
+
+window.getUserPhoto =
+function(){
+
+if(
+
+currentUser &&
+currentUser.photoURL
+
+){
+
+return currentUser.photoURL;
+
+}
+
+return null;
+
+};
+
+/* ===================================
+LOGOUT
+=================================== */
+
+window.logoutUser =
+async function(){
+
+try{
+
+await signOut(auth);
+
+window.location.href =
+"login.html";
+
+}catch(error){
+
+console.log(error);
+
+alert(
+"Logout Failed"
+);
+
+}
+
+};
+
+/* ===================================
+AUTH READY
+=================================== */
+
+console.log(
+"QuickPress Services Auth Loaded"
+);
+
+</script><script>
+
+/* ===================================
+FILTER ENGINE
+=================================== */
+
+let currentSearchText = "";
+
+let currentCategoryFilter = "All";
+
+let currentSortFilter = "popular";
+
+/* ===================================
+SEARCH SYSTEM
+=================================== */
+
+const searchInput =
+
+document.getElementById(
+"globalSearch"
+);
+
+if(searchInput){
+
+searchInput.addEventListener(
+
+"input",
+
+function(){
+
+currentSearchText =
+
+this.value
+.toLowerCase()
+.trim();
+
+applyAdvancedFilters();
+
+}
+
+);
+
+}
+
+/* ===================================
+CATEGORY FILTER
+=================================== */
+
+window.filterCategory =
+function(category){
+
+currentCategoryFilter =
+category;
+
+applyAdvancedFilters();
+
+};
+
+/* ===================================
+SORT FILTER
+=================================== */
+
+const sortSelect =
+
+document.getElementById(
+"sortServices"
+);
+
+if(sortSelect){
+
+sortSelect.addEventListener(
+
+"change",
+
+function(){
+
+currentSortFilter =
+this.value;
+
+applyAdvancedFilters();
+
+}
+
+);
+
+}
+
+/* ===================================
+MAIN FILTER ENGINE
+=================================== */
+
+window.applyAdvancedFilters =
+function(){
+
+if(!window.allServices){
+
+return;
+
+}
+
+let filtered =
+
+[...window.allServices];
+
+/* Search */
+
+if(currentSearchText){
+
+filtered =
+
+filtered.filter(
+
+service=>{
+
+const name =
+
+(service.name || "")
+.toLowerCase();
+
+const category =
+
+(service.category || "")
+.toLowerCase();
+
+const description =
+
+(service.description || "")
+.toLowerCase();
+
+return (
+
+name.includes(
+currentSearchText
+)
+
+||
+
+category.includes(
+currentSearchText
+)
+
+||
+
+description.includes(
+currentSearchText
+)
+
+);
+
+}
+
+);
+
+}
+
+/* Category */
+
+if(
+
+currentCategoryFilter !==
+"All"
+
+){
+
+filtered =
+
+filtered.filter(
+
+service=>
+
+service.category ===
+
+currentCategoryFilter
+
+);
+
+}
+
+/* Sorting */
+
+switch(
+
+currentSortFilter
+
+){
+
+case "lowToHigh":
+
+filtered.sort(
+
+(a,b)=>
+
+(a.price||0)
+
+-
+
+(b.price||0)
+
+);
+
+break;
+
+case "highToLow":
+
+filtered.sort(
+
+(a,b)=>
+
+(b.price||0)
+
+-
+
+(a.price||0)
+
+);
+
+break;
+
+case "newest":
+
+filtered.sort(
+
+(a,b)=>
+
+(b.createdAt||0)
+
+-
+
+(a.createdAt||0)
+
+);
+
+break;
+
+default:
+
+break;
+
+}
+
+/* Update Counter */
+
+if(
+window.updateResultCount
+){
+
+updateResultCount(
+
+filtered.length
+
+);
+
+}
+
+/* Render */
+
+if(
+window.renderServices
+){
+
+renderServices(
+filtered
+);
+
+}
+
+};
+
+/* ===================================
+SERVICE CACHE
+=================================== */
+
+window.saveServicesCache =
+function(data){
+
+try{
+
+localStorage.setItem(
+
+"servicesCache",
+
+JSON.stringify(
+data
+)
+
+);
+
+}catch(error){
+
+console.log(error);
+
+}
+
+};
+
+window.loadServicesCache =
+function(){
+
+try{
+
+return JSON.parse(
+
+localStorage.getItem(
+"servicesCache"
+)
+
+|| "[]"
+
+);
+
+}catch(error){
+
+return [];
+
+}
+
+};
+
+/* ===================================
+AUTO CACHE
+=================================== */
+
+window.cacheServices =
+function(){
+
+if(
+window.allServices
+){
+
+saveServicesCache(
+window.allServices
+);
+
+}
+
+};
+
+/* ===================================
+SEARCH CLEAR
+=================================== */
+
+window.clearSearch =
+function(){
+
+if(searchInput){
+
+searchInput.value = "";
+
+}
+
+currentSearchText = "";
+
+applyAdvancedFilters();
+
+};
+
+/* ===================================
+FILTER RESET
+=================================== */
+
+window.resetFilters =
+function(){
+
+currentSearchText = "";
+
+currentCategoryFilter =
+
+"All";
+
+currentSortFilter =
+
+"popular";
+
+if(searchInput){
+
+searchInput.value = "";
+
+}
+
+if(sortSelect){
+
+sortSelect.value =
+
+"popular";
+
+}
+
+document
+.querySelectorAll(
+".categoryChip"
+)
+
+.forEach(chip=>{
+
+chip.classList.remove(
+"activeChip"
+);
+
+if(
+
+chip.dataset.category
+=== "All"
+
+){
+
+chip.classList.add(
+"activeChip"
+);
+
+}
+
+});
+
+applyAdvancedFilters();
+
+};
+
+/* ===================================
+PERFORMANCE
+=================================== */
+
+window.debounce =
+function(callback,delay){
+
+let timer;
+
+return function(){
+
+clearTimeout(timer);
+
+timer = setTimeout(
+
+()=>{
+
+callback.apply(
+this,
+arguments
+);
+
+},
+
+delay
+
+);
+
+};
+
+};
+
+/* ===================================
+READY
+=================================== */
+
+console.log(
+"QuickPress Filter Engine Loaded"
+);
+
+</script><script>
+
+/* ===================================
+GET CART
+=================================== */
+
+window.getCart =
+function(){
+
+try{
+
+return JSON.parse(
+
+localStorage.getItem(
+"cart"
+)
+
+|| "[]"
+
+);
+
+}catch(error){
+
+return [];
+
+}
+
+};
+
+/* ===================================
+SAVE CART
+=================================== */
+
+window.saveCart =
+function(cart){
+
+localStorage.setItem(
+
+"cart",
+
+JSON.stringify(cart)
+
+);
+
+if(
+window.updateNavbarCartCount
+){
+
+updateNavbarCartCount();
+
+}
+
+};
+
+/* ===================================
+ADD TO CART
+=================================== */
+
+window.addToCart =
+function(
+
+id,
+name,
+price,
+category
+
+){
+
+let cart =
+getCart();
+
+const existing =
+
+cart.find(
+
+item=>
+
+item.serviceId === id
+
+);
+
+if(existing){
+
+existing.qty++;
+
+}else{
+
+cart.push({
+
+serviceId:id,
+
+serviceName:name,
+
+price,
+
+category,
+
+qty:1,
+
+addedAt:Date.now()
+
+});
+
+}
+
+saveCart(cart);
+
+if(window.showToast){
+
+showToast(
+
+name +
+" added to cart"
+
+);
+
+}
+
+};
+
+/* ===================================
+INCREASE QTY
+=================================== */
+
+window.increaseQty =
+function(serviceId){
+
+let cart =
+getCart();
+
+const item =
+
+cart.find(
+
+item=>
+
+item.serviceId === serviceId
+
+);
+
+if(item){
+
+item.qty++;
+
+}
+
+saveCart(cart);
+
+if(window.renderCart){
+
+renderCart();
+
+}
+
+};
+
+/* ===================================
+DECREASE QTY
+=================================== */
+
+window.decreaseQty =
+function(serviceId){
+
+let cart =
+getCart();
+
+const item =
+
+cart.find(
+
+item=>
+
+item.serviceId === serviceId
+
+);
+
+if(!item) return;
+
+item.qty--;
+
+if(item.qty <= 0){
+
+cart = cart.filter(
+
+x=>
+
+x.serviceId !== serviceId
+
+);
+
+}
+
+saveCart(cart);
+
+if(window.renderCart){
+
+renderCart();
+
+}
+
+};
+
+/* ===================================
+REMOVE ITEM
+=================================== */
+
+window.removeCartItem =
+function(serviceId){
+
+let cart =
+getCart();
+
+cart =
+
+cart.filter(
+
+item=>
+
+item.serviceId !== serviceId
+
+);
+
+saveCart(cart);
+
+if(window.renderCart){
+
+renderCart();
+
+}
+
+if(window.showToast){
+
+showToast(
+"Item Removed"
+);
+
+}
+
+};
+
+/* ===================================
+CLEAR CART
+=================================== */
+
+window.clearCart =
+function(){
+
+localStorage.removeItem(
+"cart"
+);
+
+if(
+window.updateNavbarCartCount
+){
+
+updateNavbarCartCount();
+
+}
+
+if(window.renderCart){
+
+renderCart();
+
+}
+
+};
+
+/* ===================================
+ITEM COUNT
+=================================== */
+
+window.getCartItemsCount =
+function(){
+
+const cart =
+getCart();
+
+let total = 0;
+
+cart.forEach(item=>{
+
+total +=
+item.qty || 1;
+
+});
+
+return total;
+
+};
+
+/* ===================================
+TOTAL PRICE
+=================================== */
+
+window.getCartTotal =
+function(){
+
+const cart =
+getCart();
+
+let total = 0;
+
+cart.forEach(item=>{
+
+total +=
+
+(item.price || 0)
+
+*
+
+(item.qty || 1);
+
+});
+
+return total;
+
+};
+
+/* ===================================
+ORDER SUMMARY
+=================================== */
+
+window.getOrderSummary =
+function(){
+
+const subtotal =
+
+getCartTotal();
+
+const deliveryFee =
+
+subtotal >= 299
+
+? 0
+
+: 49;
+
+const tax =
+
+Math.round(
+subtotal * 0.05
+);
+
+const grandTotal =
+
+subtotal +
+deliveryFee +
+tax;
+
+return{
+
+subtotal,
+
+deliveryFee,
+
+tax,
+
+grandTotal,
+
+items:
+
+getCartItemsCount()
+
+};
+
+};
+
+/* ===================================
+CHECKOUT
+=================================== */
+
+window.goCheckout =
+function(){
+
+const cart =
+getCart();
+
+if(cart.length===0){
+
+alert(
+"Your Cart Is Empty"
+);
+
+return;
+
+}
+
+window.location.href =
+"checkout.html";
+
+};
+
+/* ===================================
+COUPON SUPPORT
+=================================== */
+
+window.applyCoupon =
+function(code){
+
+const summary =
+
+getOrderSummary();
+
+let discount = 0;
+
+if(code==="WELCOME50"){
+
+discount =
+
+Math.round(
+
+summary.subtotal * 0.50
+
+);
+
+}
+
+if(code==="QUICK20"){
+
+discount =
+
+Math.round(
+
+summary.subtotal * 0.20
+
+);
+
+}
+
+return discount;
+
+};
+
+/* ===================================
+CHECKOUT DATA
+=================================== */
+
+window.createCheckoutData =
+function(){
+
+return{
+
+items:getCart(),
+
+summary:getOrderSummary(),
+
+createdAt:
+Date.now()
+
+};
+
+};
+
+console.log(
+"QuickPress Cart Engine Loaded"
+);
+
+</script><!-- ===================================
+GLOBAL TOAST
+=================================== -->
+
+<div
+class="globalToast"
+id="globalToast">
+
+<span
+id="globalToastText">
+
+Success
+
+</span>
+
+</div>
+
+<style>
+
+/* ===================================
+GLOBAL TOAST
+=================================== */
+
+.globalToast{
+
+position:fixed;
+
+left:50%;
+
+bottom:90px;
+
+transform:
+translateX(-50%);
+
+background:#111827;
+
+color:#fff;
+
+padding:14px 20px;
+
+border-radius:14px;
+
+font-size:13px;
+
+font-weight:700;
+
+opacity:0;
+
+visibility:hidden;
+
+transition:.3s;
+
+z-index:99999;
+
+}
+
+.globalToast.show{
+
+opacity:1;
+
+visibility:visible;
+
+}
+
+/* ===================================
+SMOOTH UI
+=================================== */
+
+.serviceCard,
+.categoryChip,
+.addBtn,
+.navItem{
+
+transition:.25s;
+
+}
+
+.addBtn:active{
+
+transform:scale(.95);
+
+}
+
+.categoryChip:active{
+
+transform:scale(.95);
+
+}
+
+</style>
+
+<script>
+
+/* ===================================
+GLOBAL TOAST
+=================================== */
+
+window.showToast =
+function(message){
+
+const toast =
+
+document.getElementById(
+"globalToast"
+);
+
+const text =
+
+document.getElementById(
+"globalToastText"
+);
+
+if(!toast || !text){
+
+return;
+
+}
+
+text.innerHTML =
+message;
+
+toast.classList.add(
+"show"
+);
+
+setTimeout(()=>{
+
+toast.classList.remove(
+"show"
+);
+
+},2000);
+
+};
+
+/* ===================================
+FORMAT PRICE
+=================================== */
+
+window.formatPrice =
+function(price){
+
+return "₹" +
+
+Number(price || 0)
+
+.toLocaleString(
+"en-IN"
+);
+
+};
+
+/* ===================================
+FORMAT DATE
+=================================== */
+
+window.formatDate =
+function(timestamp){
+
+if(!timestamp){
+
+return "";
+
+}
+
+return new Date(
+timestamp
+)
+
+.toLocaleDateString(
+"en-IN"
+
+);
+
+};
+
+/* ===================================
+GENERATE ID
+=================================== */
+
+window.generateOrderId =
+function(){
+
+return "QP" +
+
+Date.now()
+
+.toString()
+
+.slice(-8);
+
+};
+
+/* ===================================
+ONLINE STATUS
+=================================== */
+
+window.isOnline =
+function(){
+
+return navigator.onLine;
+
+};
+
+window.addEventListener(
+
+"offline",
+
+()=>{
+
+showToast(
+"Internet Disconnected"
+);
+
+}
+
+);
+
+window.addEventListener(
+
+"online",
+
+()=>{
+
+showToast(
+"Internet Connected"
+);
+
+}
+
+);
+
+/* ===================================
+CACHE RESTORE
+=================================== */
+
+window.restoreCachedServices =
+function(){
+
+try{
+
+const cache =
+
+JSON.parse(
+
+localStorage.getItem(
+"servicesCache"
+)
+
+|| "[]"
+
+);
+
+if(
+
+cache.length > 0
+
+&&
+
+window.renderServices
+
+){
+
+renderServices(
+cache
+);
+
+}
+
+}catch(error){
+
+console.log(error);
+
+}
+
+};
+
+/* ===================================
+PAGE READY
+=================================== */
+
+window.appReady =
+function(){
+
+console.log(
+"QuickPress Services Ready"
+);
+
+if(
+window.updateNavbarCartCount
+){
+
+updateNavbarCartCount();
+
+}
+
+};
+
+/* ===================================
+START APP
 =================================== */
 
 document.addEventListener(
@@ -1545,15 +3686,7 @@ document.addEventListener(
 
 ()=>{
 
-updateCartBadge();
-
-loadCategories();
-
-loadPopularServices();
-
-console.log(
-"QuickPress Services Ready"
-);
+appReady();
 
 }
 
