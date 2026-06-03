@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
 
 <meta charset="UTF-8">
@@ -10,7 +11,7 @@ content="width=device-width, initial-scale=1.0">
 
 <title>
 
-QuickPress Profile
+QuickPress | Profile
 
 </title>
 
@@ -20,7 +21,7 @@ rel="stylesheet">
 
 <link
 rel="stylesheet"
-href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css"/>
 
 <style>
 
@@ -31,232 +32,82 @@ box-sizing:border-box;
 font-family:'Inter',sans-serif;
 }
 
+:root{
+
+--primary:#F4B400;
+--secondary:#16A34A;
+
+--dark:#111827;
+--light:#6B7280;
+
+--bg:#F6F7FB;
+--white:#FFFFFF;
+
+}
+
 body{
 
 background:#F6F7FB;
 
-color:#111827;
-
-padding-bottom:100px;
+padding-bottom:120px;
 
 }
 
-/* ===================================
-HEADER
-=================================== */
+.hero{
 
-.profileHero{
+position:sticky;
 
-background:
-linear-gradient(
-135deg,
-#16A34A,
-#22C55E
-);
-
-padding:
-
-30px 20px 90px;
-
-border-radius:
-
-0 0 32px 32px;
-
-position:relative;
-
-}
-
-/* ===================================
-PROFILE CARD
-=================================== */
-
-.profileCard{
+top:0;
 
 background:#fff;
 
-margin:
+padding:16px;
 
--65px 16px 0;
-
-border-radius:28px;
-
-padding:24px;
-
-text-align:center;
+z-index:999;
 
 box-shadow:
-
-0 10px 30px
-rgba(0,0,0,.08);
-
-position:relative;
-
-z-index:5;
+0 4px 20px rgba(0,0,0,.05);
 
 }
 
-/* ===================================
-AVATAR
-=================================== */
+.brandName{
 
-.avatarWrapper{
-
-position:relative;
-
-width:110px;
-
-margin:auto;
-
-}
-
-.profileAvatar{
-
-width:110px;
-height:110px;
-
-border-radius:50%;
-
-background:#E5E7EB;
-
-border:5px solid #fff;
-
-display:flex;
-
-align-items:center;
-justify-content:center;
-
-font-size:42px;
+font-size:30px;
 
 font-weight:900;
 
-color:#16A34A;
-
-overflow:hidden;
-
-box-shadow:
-
-0 10px 25px
-rgba(0,0,0,.15);
+color:#111827;
 
 }
 
-.profileAvatar img{
+.pageTitle{
 
-width:100%;
-height:100%;
-
-object-fit:cover;
-
-}
-
-.editAvatar{
-
-position:absolute;
-
-bottom:4px;
-right:4px;
-
-width:34px;
-height:34px;
-
-border-radius:50%;
-
-background:#16A34A;
-
-color:#fff;
-
-border:3px solid #fff;
-
-display:flex;
-
-align-items:center;
-justify-content:center;
+margin-top:4px;
 
 font-size:14px;
 
-cursor:pointer;
-
-}
-
-/* ===================================
-USER INFO
-=================================== */
-
-.profileName{
-
-margin-top:18px;
-
-font-size:28px;
-
-font-weight:900;
-
-}
-
-.profileEmail{
-
-margin-top:8px;
-
-font-size:14px;
+font-weight:800;
 
 color:#6B7280;
 
 }
 
-.profilePhone{
+.section{
 
-margin-top:4px;
-
-font-size:13px;
-
-color:#9CA3AF;
+padding:16px;
 
 }
 
-.viewProfileBtn{
+.card{
 
-margin-top:18px;
+background:#fff;
 
-border:none;
+border-radius:24px;
 
-background:#16A34A;
+padding:20px;
 
-color:#fff;
-
-height:44px;
-
-padding:0 22px;
-
-border-radius:999px;
-
-font-weight:800;
-
-cursor:pointer;
-
-}
-
-/* ===================================
-HEADER TEXT
-=================================== */
-
-.heroTitle{
-
-color:#fff;
-
-font-size:22px;
-
-font-weight:900;
-
-}
-
-.heroSubtitle{
-
-margin-top:6px;
-
-font-size:13px;
-
-color:
-
-rgba(255,255,255,.9);
+box-shadow:
+0 8px 24px rgba(0,0,0,.05);
 
 }
 
@@ -266,263 +117,146 @@ rgba(255,255,255,.9);
 
 <body>
 
-<!-- ===================================
-GREEN HEADER
-=================================== -->
+<div class="hero">
 
-<div class="profileHero">
+<div class="brandName">
 
-<div class="heroTitle">
-
-My Account
+QuickPress
 
 </div>
 
-<div class="heroSubtitle">
+<div class="pageTitle">
 
-Manage your QuickPress account
-
-</div>
+My Profile
 
 </div>
 
-<!-- ===================================
-PROFILE CARD
-=================================== -->
+</div><section class="section">
 
-<div class="profileCard">
+<div class="card profileCard">
 
-<div class="avatarWrapper">
+<div class="profileAvatar">
 
-<div
-class="profileAvatar"
-id="profileAvatar">
-
-H
+<i class="fa-solid fa-user"></i>
 
 </div>
 
-<div
-class="editAvatar"
-onclick="window.location.href='edit-profile.html'">
+<h2
+id="userName">
 
-<i class="fa-solid fa-pen"></i>
+Guest User
 
-</div>
+</h2>
 
-</div>
+<p
+id="userEmail">
 
-<div
-class="profileName"
-id="profileName">
+Not Logged In
 
-Loading...
-
-</div>
-
-<div
-class="profileEmail"
-id="profileEmail">
-
-user@email.com
-
-</div>
-
-<div
-class="profilePhone"
-id="profilePhone">
-
-+91 XXXXX XXXXX
-
-</div>
+</p>
 
 <button
-class="viewProfileBtn"
-onclick="window.location.href='edit-profile.html'">
+class="editBtn">
 
-View Profile
+Edit Profile
 
 </button>
 
 </div>
 
-<script type="module">
+</section>
 
-import { auth }
-from "./firebase.js";
+<style>
 
-import {
-onAuthStateChanged
-}
-from
-"https://www.gstatic.com/firebasejs/12.11.0/firebase-auth.js";
+.profileCard{
 
-onAuthStateChanged(
-
-auth,
-
-(user)=>{
-
-if(!user){
-
-window.location.href =
-"login.html";
-
-return;
+text-align:center;
 
 }
 
-/* NAME */
+.profileAvatar{
 
-document.getElementById(
-"profileName"
-).innerHTML =
+width:90px;
 
-user.displayName ||
+height:90px;
 
-"QuickPress User";
+margin:auto;
 
-/* EMAIL */
+border-radius:50%;
 
-document.getElementById(
-"profileEmail"
-).innerHTML =
+background:#DCFCE7;
 
-user.email ||
+display:flex;
 
-"";
+align-items:center;
 
-/* PHONE */
+justify-content:center;
 
-document.getElementById(
-"profilePhone"
-).innerHTML =
+font-size:42px;
 
-user.phoneNumber ||
-
-"Not Available";
-
-/* AVATAR */
-
-const avatar =
-
-document.getElementById(
-"profileAvatar"
-);
-
-if(user.photoURL){
-
-avatar.innerHTML =
-
-`<img src="${user.photoURL}">`;
-
-}else{
-
-avatar.innerHTML =
-
-(user.displayName || "U")
-.charAt(0)
-.toUpperCase();
+color:#16A34A;
 
 }
 
-});
+.profileCard h2{
 
-</script>
+margin-top:14px;
 
-<!-- ===================================
-QUICK ACTIONS
-=================================== -->
+font-size:22px;
 
-<div class="quickActions">
+font-weight:900;
 
-<div
-class="actionCard"
-onclick="window.location.href='orders.html'">
+}
 
-<div class="actionIcon">
+.profileCard p{
 
-📦
+margin-top:6px;
 
-</div>
+font-size:13px;
 
-<div class="actionText">
+color:#6B7280;
 
-Orders
+}
 
-</div>
+.editBtn{
 
-</div>
+margin-top:18px;
 
-<div
-class="actionCard"
-onclick="window.location.href='addresses.html'">
+height:48px;
 
-<div class="actionIcon">
+padding:0 24px;
 
-📍
+border:none;
 
-</div>
+border-radius:14px;
 
-<div class="actionText">
+background:#16A34A;
 
-Addresses
+color:#fff;
 
-</div>
+font-weight:900;
 
-</div>
+cursor:pointer;
 
-<div
-class="actionCard"
-onclick="window.location.href='wallet.html'">
+}
 
-<div class="actionIcon">
+</style><section class="section">
 
-💰
+<div class="card">
 
-</div>
+<div class="menuItem">
 
-<div class="actionText">
+<i class="fa-solid fa-location-dot"></i>
 
-Wallet
+<span>
+
+Saved Addresses
+
+</span>
 
 </div>
 
-</div>
-
-<div
-class="actionCard"
-onclick="window.location.href='support.html'">
-
-<div class="actionIcon">
-
-🆘
-
-</div>
-
-<div class="actionText">
-
-Support
-
-</div>
-
-</div>
-
-</div>
-
-<!-- ===================================
-ACCOUNT MENU
-=================================== -->
-
-<div class="menuSection">
-
-<div class="menuCard">
-
-<button
-class="menuItem"
-onclick="window.location.href='orders.html'">
-
-<div class="menuLeft">
+<div class="menuItem">
 
 <i class="fa-solid fa-box"></i>
 
@@ -534,54 +268,7 @@ My Orders
 
 </div>
 
-<i class="fa-solid fa-chevron-right"></i>
-
-</button>
-
-<button
-class="menuItem"
-onclick="window.location.href='addresses.html'">
-
-<div class="menuLeft">
-
-<i class="fa-solid fa-location-dot"></i>
-
-<span>
-
-Delivery Addresses
-
-</span>
-
-</div>
-
-<i class="fa-solid fa-chevron-right"></i>
-
-</button>
-
-<button
-class="menuItem">
-
-<div class="menuLeft">
-
-<i class="fa-solid fa-credit-card"></i>
-
-<span>
-
-Payment Methods
-
-</span>
-
-</div>
-
-<i class="fa-solid fa-chevron-right"></i>
-
-</button>
-
-<button
-class="menuItem"
-onclick="window.location.href='wallet.html'">
-
-<div class="menuLeft">
+<div class="menuItem">
 
 <i class="fa-solid fa-wallet"></i>
 
@@ -593,165 +280,54 @@ Wallet
 
 </div>
 
-<i class="fa-solid fa-chevron-right"></i>
+<div class="menuItem">
 
-</button>
-
-<button
-class="menuItem"
-onclick="shareReferral()">
-
-<div class="menuLeft">
-
-<i class="fa-solid fa-gift"></i>
+<i class="fa-solid fa-headset"></i>
 
 <span>
 
-Refer & Earn
+Help & Support
 
 </span>
 
 </div>
 
-<i class="fa-solid fa-chevron-right"></i>
+<div class="menuItem">
 
-</button>
-
-<button
-class="menuItem"
-onclick="rateQuickPress()">
-
-<div class="menuLeft">
-
-<i class="fa-solid fa-star"></i>
+<i class="fa-solid fa-gear"></i>
 
 <span>
 
-Rate QuickPress
+Settings
 
 </span>
 
 </div>
 
-<i class="fa-solid fa-chevron-right"></i>
-
-</button>
-
 </div>
 
-</div>
+</section>
 
 <style>
 
-/* ===================================
-QUICK ACTIONS
-=================================== */
-
-.quickActions{
-
-padding:18px 16px;
-
-display:grid;
-
-grid-template-columns:
-repeat(4,1fr);
-
-gap:12px;
-
-}
-
-.actionCard{
-
-background:#fff;
-
-border-radius:20px;
-
-padding:16px 10px;
-
-text-align:center;
-
-cursor:pointer;
-
-box-shadow:
-
-0 4px 14px
-rgba(0,0,0,.05);
-
-transition:.25s;
-
-}
-
-.actionCard:hover{
-
-transform:
-translateY(-2px);
-
-}
-
-.actionIcon{
-
-font-size:28px;
-
-}
-
-.actionText{
-
-margin-top:10px;
-
-font-size:12px;
-
-font-weight:800;
-
-}
-
-/* ===================================
-MENU
-=================================== */
-
-.menuSection{
-
-padding:0 16px 20px;
-
-}
-
-.menuCard{
-
-background:#fff;
-
-border-radius:24px;
-
-overflow:hidden;
-
-box-shadow:
-
-0 4px 14px
-rgba(0,0,0,.05);
-
-}
-
 .menuItem{
-
-width:100%;
-
-height:62px;
-
-border:none;
-
-background:#fff;
 
 display:flex;
 
 align-items:center;
 
-justify-content:space-between;
+gap:14px;
 
-padding:0 18px;
-
-cursor:pointer;
+padding:16px 0;
 
 border-bottom:
-
 1px solid #F3F4F6;
+
+font-size:14px;
+
+font-weight:700;
+
+cursor:pointer;
 
 }
 
@@ -761,386 +337,94 @@ border-bottom:none;
 
 }
 
-.menuLeft{
+.menuItem i{
+
+width:36px;
+
+height:36px;
+
+border-radius:10px;
+
+background:#F3F4F6;
 
 display:flex;
 
 align-items:center;
 
-gap:14px;
-
-}
-
-.menuLeft i{
-
-width:20px;
-
-font-size:18px;
+justify-content:center;
 
 color:#16A34A;
 
 }
 
-.menuLeft span{
+</style><section class="section">
 
-font-size:14px;
+<div class="card">
 
-font-weight:800;
+<h3>
 
-}
+Saved Addresses
 
-.menuItem .fa-chevron-right{
+</h3>
 
-font-size:12px;
+<div class="addressCard">
 
-color:#9CA3AF;
+<h4>
 
-}
+Home
 
-@media(max-width:480px){
+</h4>
 
-.quickActions{
+<p>
 
-grid-template-columns:
-repeat(2,1fr);
+Kashipur, Uttarakhand
 
-}
-
-}
-
-</style>
-
-<script>
-
-/* ===================================
-REFER & EARN
-=================================== */
-
-window.shareReferral =
-function(){
-
-const referralCode =
-
-localStorage.getItem(
-"userReferral"
-)
-
-|| "QP1001";
-
-const text =
-
-`Join QuickPress 🚀
-
-Referral Code:
-${referralCode}`;
-
-if(navigator.share){
-
-navigator.share({
-
-title:"QuickPress",
-
-text:text
-
-});
-
-}else{
-
-navigator.clipboard.writeText(
-text
-);
-
-alert(
-"Referral code copied"
-);
-
-}
-
-};
-
-/* ===================================
-RATE APP
-=================================== */
-
-window.rateQuickPress =
-function(){
-
-alert(
-"Thanks for using QuickPress ❤️"
-);
-
-};
-
-</script>
-
-<!-- ===================================
-SETTINGS SECTION
-=================================== -->
-
-<div class="settingsSection">
-
-<div class="sectionTitle">
-
-Settings
+</p>
 
 </div>
 
-<div class="settingsCard">
+<div class="addressCard">
+
+<h4>
+
+Office
+
+</h4>
+
+<p>
+
+Add Office Address Here
+
+</p>
+
+</div>
 
 <button
-class="settingItem"
-onclick="window.location.href='edit-profile.html'">
+class="addAddressBtn">
 
-<div class="settingLeft">
-
-<i class="fa-solid fa-user-pen"></i>
-
-<span>
-
-Edit Profile
-
-</span>
-
-</div>
-
-<i class="fa-solid fa-chevron-right"></i>
-
-</button>
-
-<button
-class="settingItem">
-
-<div class="settingLeft">
-
-<i class="fa-solid fa-bell"></i>
-
-<span>
-
-Notifications
-
-</span>
-
-</div>
-
-<label class="switch">
-
-<input
-type="checkbox"
-id="notificationToggle"
-checked>
-
-<span class="slider"></span>
-
-</label>
-
-</button>
-
-<button
-class="settingItem">
-
-<div class="settingLeft">
-
-<i class="fa-solid fa-moon"></i>
-
-<span>
-
-Dark Mode
-
-</span>
-
-</div>
-
-<label class="switch">
-
-<input
-type="checkbox"
-id="darkModeToggle">
-
-<span class="slider"></span>
-
-</label>
-
-</button>
-
-<button
-class="settingItem">
-
-<div class="settingLeft">
-
-<i class="fa-solid fa-language"></i>
-
-<span>
-
-Language
-
-</span>
-
-</div>
-
-<div class="settingValue">
-
-English
-
-</div>
-
-</button>
-
-<button
-class="settingItem"
-onclick="window.location.href='support.html'">
-
-<div class="settingLeft">
-
-<i class="fa-solid fa-headset"></i>
-
-<span>
-
-Contact Us
-
-</span>
-
-</div>
-
-<i class="fa-solid fa-chevron-right"></i>
-
-</button>
-
-<button
-class="settingItem"
-onclick="window.location.href='privacy.html'">
-
-<div class="settingLeft">
-
-<i class="fa-solid fa-shield-halved"></i>
-
-<span>
-
-Privacy Policy
-
-</span>
-
-</div>
-
-<i class="fa-solid fa-chevron-right"></i>
-
-</button>
-
-<button
-class="settingItem"
-onclick="window.location.href='terms.html'">
-
-<div class="settingLeft">
-
-<i class="fa-solid fa-file-contract"></i>
-
-<span>
-
-Terms & Conditions
-
-</span>
-
-</div>
-
-<i class="fa-solid fa-chevron-right"></i>
+Add New Address
 
 </button>
 
 </div>
 
-</div>
+</section>
 
 <style>
 
-/* ===================================
-SETTINGS
-=================================== */
+.addressCard{
 
-.settingsSection{
+margin-top:14px;
 
-padding:0 16px 20px;
+padding:14px;
 
-}
+border-radius:14px;
 
-.sectionTitle{
-
-font-size:18px;
-
-font-weight:900;
-
-margin-bottom:12px;
-
-padding-left:4px;
+background:#F9FAFB;
 
 }
 
-.settingsCard{
-
-background:#fff;
-
-border-radius:24px;
-
-overflow:hidden;
-
-box-shadow:
-
-0 4px 14px
-rgba(0,0,0,.05);
-
-}
-
-.settingItem{
-
-width:100%;
-
-height:62px;
-
-border:none;
-
-background:#fff;
-
-display:flex;
-
-align-items:center;
-
-justify-content:space-between;
-
-padding:0 18px;
-
-cursor:pointer;
-
-border-bottom:
-
-1px solid #F3F4F6;
-
-}
-
-.settingItem:last-child{
-
-border-bottom:none;
-
-}
-
-.settingLeft{
-
-display:flex;
-
-align-items:center;
-
-gap:14px;
-
-}
-
-.settingLeft i{
-
-width:20px;
-
-font-size:18px;
-
-color:#16A34A;
-
-}
-
-.settingLeft span{
+.addressCard h4{
 
 font-size:14px;
 
@@ -1148,261 +432,289 @@ font-weight:800;
 
 }
 
-.settingValue{
+.addressCard p{
 
-font-size:13px;
+margin-top:6px;
 
-font-weight:800;
+font-size:12px;
 
-color:#16A34A;
-
-}
-
-/* ===================================
-SWITCH
-=================================== */
-
-.switch{
-
-position:relative;
-
-display:inline-block;
-
-width:50px;
-
-height:28px;
+color:#6B7280;
 
 }
 
-.switch input{
+.addAddressBtn{
 
-display:none;
+margin-top:16px;
 
-}
+height:48px;
 
-.slider{
+width:100%;
 
-position:absolute;
+border:none;
 
-top:0;
-left:0;
-right:0;
-bottom:0;
+border-radius:14px;
 
-background:#D1D5DB;
+background:#F4B400;
 
-border-radius:50px;
-
-transition:.3s;
+font-weight:900;
 
 cursor:pointer;
 
 }
 
-.slider:before{
-
-content:"";
-
-position:absolute;
-
-width:22px;
-height:22px;
-
-left:3px;
-top:3px;
-
-background:#fff;
-
-border-radius:50%;
-
-transition:.3s;
-
-}
-
-input:checked + .slider{
-
-background:#16A34A;
-
-}
-
-input:checked + .slider:before{
-
-transform:
-translateX(22px);
-
-}
-
-</style>
-
-<script>
-
-/* ===================================
-NOTIFICATIONS
-=================================== */
-
-const notificationToggle =
-
-document.getElementById(
-"notificationToggle"
-);
-
-notificationToggle.checked =
-
-localStorage.getItem(
-"notifications"
-)
-
-!== "false";
-
-notificationToggle.addEventListener(
-
-"change",
-
-function(){
-
-localStorage.setItem(
-
-"notifications",
-
-this.checked
-
-);
-
-}
-
-);
-
-/* ===================================
-DARK MODE
-=================================== */
-
-const darkModeToggle =
-
-document.getElementById(
-"darkModeToggle"
-);
-
-darkModeToggle.checked =
-
-localStorage.getItem(
-"darkMode"
-)
-
-=== "true";
-
-darkModeToggle.addEventListener(
-
-"change",
-
-function(){
-
-localStorage.setItem(
-
-"darkMode",
-
-this.checked
-
-);
-
-alert(
-"Dark Mode Ready. Theme integration later."
-);
-
-}
-
-);
-
-</script>
-
-<!-- ===================================
-ACCOUNT ACTIONS
-=================================== -->
-
-<div class="settingsSection">
-
-<div class="sectionTitle">
-
-Account
-
-</div>
-
-<div class="settingsCard">
+</style><section class="section">
 
 <button
-class="settingItem logoutItem"
+class="logoutBtn"
 onclick="logoutUser()">
-
-<div class="settingLeft">
 
 <i class="fa-solid fa-right-from-bracket"></i>
 
-<span>
-
 Logout
 
-</span>
-
-</div>
-
-<i class="fa-solid fa-chevron-right"></i>
-
 </button>
 
-<button
-class="settingItem deleteItem"
-onclick="deleteAccount()">
+</section>
 
-<div class="settingLeft">
+<style>
 
-<i class="fa-solid fa-trash"></i>
+.logoutBtn{
 
-<span>
+width:100%;
 
-Delete Account
+height:56px;
 
-</span>
+border:none;
 
-</div>
+border-radius:16px;
 
-<i class="fa-solid fa-chevron-right"></i>
+background:#EF4444;
 
-</button>
+color:#fff;
 
-</div>
+font-size:15px;
 
-</div>
+font-weight:900;
 
-<!-- ===================================
-FOOTER
-=================================== -->
+cursor:pointer;
 
-<div class="footer">
+}
 
-<div class="footerBrand">
+</style><script type="module">
 
-⚡ QuickPress
+import { auth }
+from "./firebase.js";
 
-</div>
+import {
 
-<div class="footerText">
+onAuthStateChanged
 
-Premium Laundry • Fast Pickup • Fast Delivery
+}
 
-</div>
+from
 
-<div class="footerCopy">
+"https://www.gstatic.com/firebasejs/12.11.0/firebase-auth.js";
 
-© 2026 QuickPress. All Rights Reserved.
+/* ===================================
+USER DATA
+=================================== */
 
-</div>
+window.currentUser = null;
 
-</div>
+onAuthStateChanged(
 
-<!-- ===================================
-BOTTOM NAVBAR
-=================================== -->
+auth,
 
-<div class="bottomNav">
+(user)=>{
+
+window.currentUser = user;
+
+if(!user){
+
+document.getElementById(
+"userName"
+).innerHTML =
+"Guest User";
+
+document.getElementById(
+"userEmail"
+).innerHTML =
+"Not Logged In";
+
+return;
+
+}
+
+document.getElementById(
+"userName"
+).innerHTML =
+
+user.displayName ||
+
+user.phoneNumber ||
+
+"QuickPress User";
+
+document.getElementById(
+"userEmail"
+).innerHTML =
+
+user.email ||
+
+user.phoneNumber ||
+
+"Authenticated User";
+
+}
+
+);
+
+</script><script type="module">
+
+import { auth }
+from "./firebase.js";
+
+import {
+
+signOut
+
+}
+
+from
+
+"https://www.gstatic.com/firebasejs/12.11.0/firebase-auth.js";
+
+/* ===================================
+LOGOUT
+=================================== */
+
+window.logoutUser =
+async function(){
+
+const confirmLogout =
+
+confirm(
+"Are you sure you want to logout?"
+);
+
+if(!confirmLogout){
+
+return;
+
+}
+
+try{
+
+await signOut(
+auth
+);
+
+localStorage.removeItem(
+"checkoutData"
+);
+
+window.location.href =
+"login.html";
+
+}
+
+catch(error){
+
+console.log(error);
+
+alert(
+"Logout Failed"
+);
+
+}
+
+};
+
+</script><script>
+
+/* ===================================
+MENU ACTIONS
+=================================== */
+
+const menuItems =
+
+document.querySelectorAll(
+".menuItem"
+);
+
+menuItems[0].onclick =
+function(){
+
+window.location.href =
+"addresses.html";
+
+};
+
+menuItems[1].onclick =
+function(){
+
+window.location.href =
+"orders.html";
+
+};
+
+menuItems[2].onclick =
+function(){
+
+window.location.href =
+"wallet.html";
+
+};
+
+menuItems[3].onclick =
+function(){
+
+window.location.href =
+"support.html";
+
+};
+
+menuItems[4].onclick =
+function(){
+
+window.location.href =
+"settings.html";
+
+};
+
+/* ===================================
+EDIT PROFILE
+=================================== */
+
+document
+.querySelector(
+".editBtn"
+)
+
+.onclick = function(){
+
+window.location.href =
+"edit-profile.html";
+
+};
+
+/* ===================================
+ADD ADDRESS
+=================================== */
+
+document
+.querySelector(
+".addAddressBtn"
+)
+
+.onclick = function(){
+
+window.location.href =
+"addresses.html";
+
+};
+
+</script><nav class="bottomNav">
 
 <button
 class="navItem"
@@ -1410,17 +722,11 @@ onclick="window.location.href='index.html'">
 
 <i class="fa-solid fa-house"></i>
 
-<span>Home</span>
+<span>
 
-</button>
+Home
 
-<button
-class="navItem"
-onclick="window.location.href='orders.html'">
-
-<i class="fa-solid fa-box"></i>
-
-<span>Orders</span>
+</span>
 
 </button>
 
@@ -1430,7 +736,11 @@ onclick="window.location.href='services.html'">
 
 <i class="fa-solid fa-table-cells-large"></i>
 
-<span>Services</span>
+<span>
+
+Services
+
+</span>
 
 </button>
 
@@ -1440,7 +750,11 @@ onclick="window.location.href='cart.html'">
 
 <i class="fa-solid fa-cart-shopping"></i>
 
-<span>Cart</span>
+<span>
+
+Cart
+
+</span>
 
 <div
 class="navCartBadge"
@@ -1453,79 +767,35 @@ id="navCartBadge">
 </button>
 
 <button
+class="navItem"
+onclick="window.location.href='orders.html'">
+
+<i class="fa-solid fa-box"></i>
+
+<span>
+
+Orders
+
+</span>
+
+</button>
+
+<button
 class="navItem activeNav">
 
 <i class="fa-solid fa-user"></i>
 
-<span>Profile</span>
+<span>
+
+Profile
+
+</span>
 
 </button>
 
-</div>
+</nav>
 
 <style>
-
-/* ===================================
-LOGOUT / DELETE
-=================================== */
-
-.logoutItem .settingLeft i{
-
-color:#F59E0B;
-
-}
-
-.deleteItem .settingLeft i{
-
-color:#DC2626;
-
-}
-
-/* ===================================
-FOOTER
-=================================== */
-
-.footer{
-
-padding:30px 20px 120px;
-
-text-align:center;
-
-}
-
-.footerBrand{
-
-font-size:22px;
-
-font-weight:900;
-
-color:#111827;
-
-}
-
-.footerText{
-
-margin-top:8px;
-
-font-size:13px;
-
-color:#6B7280;
-
-}
-
-.footerCopy{
-
-margin-top:10px;
-
-font-size:12px;
-
-color:#9CA3AF;
-
-}
-
-/* ===================================
-BOTTOM NAV
-=================================== */
 
 .bottomNav{
 
@@ -1535,19 +805,20 @@ left:0;
 right:0;
 bottom:0;
 
-height:72px;
+height:74px;
 
 background:#fff;
 
 display:flex;
 
 justify-content:space-around;
+
 align-items:center;
 
 box-shadow:
-0 -6px 20px rgba(0,0,0,.08);
+0 -8px 24px rgba(0,0,0,.08);
 
-z-index:999;
+z-index:9999;
 
 }
 
@@ -1564,20 +835,22 @@ border:none;
 background:none;
 
 display:flex;
+
 flex-direction:column;
 
-align-items:center;
 justify-content:center;
 
-gap:4px;
+align-items:center;
 
-cursor:pointer;
+gap:4px;
 
 font-size:11px;
 
 font-weight:700;
 
 color:#6B7280;
+
+cursor:pointer;
 
 }
 
@@ -1597,10 +870,12 @@ color:#16A34A;
 
 position:absolute;
 
-top:8px;
+top:10px;
+
 right:22px;
 
 min-width:18px;
+
 height:18px;
 
 padding:0 4px;
@@ -1614,6 +889,7 @@ color:#fff;
 display:flex;
 
 align-items:center;
+
 justify-content:center;
 
 font-size:10px;
@@ -1622,40 +898,34 @@ font-weight:900;
 
 }
 
-</style>
-
-<script type="module">
-
-import { auth }
-from "./firebase.js";
-
-import {
-signOut
-}
-from
-"https://www.gstatic.com/firebasejs/12.11.0/firebase-auth.js";
+</style><script>
 
 /* ===================================
 CART BADGE
 =================================== */
 
-function updateNavbarCartCount(){
+window.updateNavbarCartCount =
+function(){
 
 const cart =
 
 JSON.parse(
+
 localStorage.getItem(
 "cart"
 )
-)
 
-|| [];
+|| "[]"
+
+);
 
 let total = 0;
 
 cart.forEach(item=>{
 
-total += item.qty || 1;
+total +=
+
+item.qty || 1;
 
 });
 
@@ -1677,77 +947,66 @@ total > 0
 
 : "none";
 
-}
+};
+
+/* ===================================
+PROFILE READY
+=================================== */
+
+window.profileReady =
+function(){
 
 updateNavbarCartCount();
 
-/* ===================================
-LOGOUT
-=================================== */
-
-window.logoutUser =
-async function(){
-
-const ok = confirm(
-"Logout from QuickPress?"
-);
-
-if(!ok) return;
-
-try{
-
-await signOut(auth);
-
-localStorage.removeItem(
-"checkoutDraft"
-);
-
-localStorage.removeItem(
-"pendingOrder"
-);
-
-window.location.href =
-"login.html";
-
-}
-catch(error){
-
-console.error(error);
-
-alert(
-"Logout failed"
-);
-
-}
-
-};
-
-/* ===================================
-DELETE ACCOUNT
-=================================== */
-
-window.deleteAccount =
-function(){
-
-alert(
-
-"Delete Account API pending.\nConnect Firebase account deletion later."
-
+console.log(
+"QuickPress Profile Ready"
 );
 
 };
 
 /* ===================================
-SYNC
+AUTO LOAD
+=================================== */
+
+document.addEventListener(
+
+"DOMContentLoaded",
+
+()=>{
+
+profileReady();
+
+}
+
+);
+
+/* ===================================
+NETWORK STATUS
 =================================== */
 
 window.addEventListener(
 
-"storage",
+"offline",
 
 ()=>{
 
-updateNavbarCartCount();
+console.log(
+"Offline Mode"
+);
+
+}
+
+);
+
+window.addEventListener(
+
+"online",
+
+()=>{
+
+console.log(
+"Online Mode"
+);
 
 }
 
@@ -1756,4 +1015,5 @@ updateNavbarCartCount();
 </script>
 
 </body>
+
 </html>
