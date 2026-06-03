@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
 
 <meta charset="UTF-8">
@@ -10,12 +11,17 @@ content="width=device-width, initial-scale=1.0">
 
 <title>
 
-Order Success
+QuickPress | Order Success
 
 </title>
 
-<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap"
+<link
+href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap"
 rel="stylesheet">
+
+<link
+rel="stylesheet"
+href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css"/>
 
 <style>
 
@@ -26,17 +32,29 @@ box-sizing:border-box;
 font-family:'Inter',sans-serif;
 }
 
+:root{
+
+--primary:#F4B400;
+--secondary:#16A34A;
+
+--dark:#111827;
+--light:#6B7280;
+
+--bg:#F6F7FB;
+
+}
+
 body{
 
-background:#F6F7FB;
+background:var(--bg);
+
+min-height:100vh;
 
 display:flex;
 
 justify-content:center;
 
 align-items:center;
-
-min-height:100vh;
 
 padding:20px;
 
@@ -50,39 +68,41 @@ max-width:500px;
 
 background:#fff;
 
-border-radius:28px;
+border-radius:30px;
 
-padding:32px 24px;
+padding:40px 24px;
 
 text-align:center;
 
 box-shadow:
-0 10px 30px rgba(0,0,0,.08);
+0 12px 40px rgba(0,0,0,.08);
 
 }
 
 .successCircle{
 
 width:110px;
+
 height:110px;
 
 margin:auto;
 
 border-radius:50%;
 
-background:#16A34A;
+background:#DCFCE7;
 
 display:flex;
 
 align-items:center;
+
 justify-content:center;
 
-font-size:50px;
+font-size:54px;
 
-color:#fff;
+color:#16A34A;
 
 animation:
-pop .6s ease;
+pop .5s ease;
 
 }
 
@@ -90,17 +110,19 @@ pop .6s ease;
 
 0%{
 transform:scale(.5);
+opacity:0;
 }
 
 100%{
 transform:scale(1);
+opacity:1;
 }
 
 }
 
 .successTitle{
 
-margin-top:22px;
+margin-top:24px;
 
 font-size:30px;
 
@@ -112,226 +134,67 @@ color:#111827;
 
 .successText{
 
-margin-top:10px;
+margin-top:12px;
 
-font-size:15px;
+font-size:14px;
 
-line-height:1.7;
+line-height:1.8;
 
 color:#6B7280;
 
 }
 
-.orderInfo{
+.orderBox{
 
-margin-top:28px;
-
-background:#F9FAFB;
-
-border-radius:18px;
+margin-top:24px;
 
 padding:18px;
 
-text-align:left;
+border-radius:18px;
+
+background:#F9FAFB;
 
 }
 
-.infoRow{
+.orderLabel{
 
-display:flex;
-
-justify-content:space-between;
-
-margin-bottom:12px;
-
-font-size:14px;
+font-size:12px;
 
 font-weight:700;
 
-}
-
-.infoRow:last-child{
-
-margin-bottom:0;
+color:#6B7280;
 
 }
 
-.infoValue{
+.orderId{
+
+margin-top:8px;
+
+font-size:20px;
 
 font-weight:900;
 
 color:#111827;
 
+word-break:break-all;
+
 }
 
-</style>
+.actionGrid{
 
-</head>
+margin-top:28px;
 
-<body>
+display:grid;
 
-<div class="successCard">
+grid-template-columns:1fr;
 
-<div class="successCircle">
+gap:12px;
 
-✓
+}
 
-</div>
+.primaryBtn{
 
-<h1 class="successTitle">
-
-Order Confirmed
-
-</h1>
-
-<p class="successText">
-
-Your laundry order has been placed successfully.
-
-</p>
-
-<div class="orderInfo">
-
-<div class="infoRow">
-
-<span>Order ID</span>
-
-<span
-class="infoValue"
-id="orderId">
-
-QP123456
-
-</span>
-
-</div>
-
-<div class="infoRow">
-
-<span>Transaction</span>
-
-<span
-class="infoValue"
-id="transactionId">
-
-TXN12345
-
-</span>
-
-</div>
-
-<div class="infoRow">
-
-<span>Status</span>
-
-<span
-class="infoValue">
-
-Confirmed
-
-</span>
-
-</div>
-
-</div>
-<!-- ===================================
-ORDER DETAILS
-=================================== -->
-
-<div class="orderInfo" style="margin-top:16px;">
-
-<div class="infoRow">
-
-<span>Grand Total</span>
-
-<span
-class="infoValue"
-id="grandTotal">
-
-₹0
-
-</span>
-
-</div>
-
-<div class="infoRow">
-
-<span>Pickup Date</span>
-
-<span
-class="infoValue"
-id="pickupDate">
-
-Today
-
-</span>
-
-</div>
-
-<div class="infoRow">
-
-<span>Pickup Time</span>
-
-<span
-class="infoValue"
-id="pickupTime">
-
-09:00 AM - 12:00 PM
-
-</span>
-
-</div>
-
-<div class="infoRow">
-
-<span>Estimated Delivery</span>
-
-<span
-class="infoValue">
-
-24-48 Hours
-
-</span>
-
-</div>
-
-</div>
-
-<!-- ===================================
-ACTION BUTTONS
-=================================== -->
-
-<div style="margin-top:24px;">
-
-<button
-class="trackBtn"
-onclick="window.location.href='orders.html'">
-
-Track Order
-
-</button>
-
-<button
-class="homeBtn"
-onclick="window.location.href='index.html'">
-
-Back To Home
-
-</button>
-
-</div>
-
-<style>
-
-/* ===================================
-BUTTONS
-=================================== */
-
-.trackBtn{
-
-width:100%;
-
-height:56px;
+height:54px;
 
 border:none;
 
@@ -341,21 +204,17 @@ background:#16A34A;
 
 color:#fff;
 
-font-size:15px;
+font-size:14px;
 
 font-weight:900;
 
 cursor:pointer;
 
-margin-bottom:12px;
-
 }
 
-.homeBtn{
+.secondaryBtn{
 
-width:100%;
-
-height:56px;
+height:54px;
 
 border:none;
 
@@ -365,7 +224,7 @@ background:#F3F4F6;
 
 color:#111827;
 
-font-size:15px;
+font-size:14px;
 
 font-weight:900;
 
@@ -373,299 +232,187 @@ cursor:pointer;
 
 }
 
-</style>
+.infoCard{
 
-<script>
+margin-top:24px;
 
-/* ===================================
-LOAD ORDER DATA
-=================================== */
+padding:18px;
 
-const orderId =
+border-radius:18px;
 
-localStorage.getItem(
-"lastOrderId"
-)
+background:#FFF8E1;
 
-|| "QP000000";
-
-const transactionId =
-
-localStorage.getItem(
-"lastTransactionId"
-)
-
-|| "COD";
-
-document.getElementById(
-"orderId"
-).innerHTML = orderId;
-
-document.getElementById(
-"transactionId"
-).innerHTML = transactionId;
-
-/* ===================================
-LOAD LAST ORDER
-=================================== */
-
-const pendingOrder =
-
-JSON.parse(
-localStorage.getItem(
-"pendingOrder"
-)
-);
-
-if(pendingOrder){
-
-document.getElementById(
-"grandTotal"
-).innerHTML =
-
-"₹" +
-
-(pendingOrder.grandTotal || 0);
+text-align:left;
 
 }
 
-/* ===================================
-LOAD PICKUP DATA
-=================================== */
+.infoCard h4{
 
-const checkoutDraft =
-
-JSON.parse(
-localStorage.getItem(
-"checkoutDraft"
-)
-);
-
-if(checkoutDraft){
-
-if(checkoutDraft.pickupDate){
-
-document.getElementById(
-"pickupDate"
-).innerHTML =
-
-checkoutDraft.pickupDate;
-
-}
-
-if(checkoutDraft.pickupTime){
-
-document.getElementById(
-"pickupTime"
-).innerHTML =
-
-checkoutDraft.pickupTime;
-
-}
-
-}
-
-</script>
-
-<!-- ===================================
-CONFETTI
-=================================== -->
-
-<div class="confetti"></div>
-
-<!-- ===================================
-FOOTER
-=================================== -->
-
-<div class="footer">
-
-<div class="footerBrand">
-
-⚡ QuickPress
-
-</div>
-
-<div class="footerText">
-
-Premium Laundry • Fast Pickup • Fast Delivery
-
-</div>
-
-<div class="footerCopy">
-
-© 2026 QuickPress. All Rights Reserved.
-
-</div>
-
-</div>
-
-<style>
-
-/* ===================================
-CONFETTI
-=================================== */
-
-.confetti{
-
-position:fixed;
-
-top:0;
-left:0;
-
-width:100%;
-height:100%;
-
-pointer-events:none;
-
-background-image:
-
-radial-gradient(circle,#16A34A 3px,transparent 3px),
-radial-gradient(circle,#22C55E 3px,transparent 3px),
-radial-gradient(circle,#FACC15 3px,transparent 3px),
-radial-gradient(circle,#3B82F6 3px,transparent 3px);
-
-background-size:
-120px 120px;
-
-animation:
-confettiFall 5s linear;
-
-opacity:.4;
-
-}
-
-@keyframes confettiFall{
-
-0%{
-
-transform:
-translateY(-100%);
-
-}
-
-100%{
-
-transform:
-translateY(100%);
-
-opacity:0;
-
-}
-
-}
-
-/* ===================================
-FOOTER
-=================================== */
-
-.footer{
-
-margin-top:30px;
-
-text-align:center;
-
-padding-top:20px;
-
-border-top:
-1px solid #E5E7EB;
-
-}
-
-.footerBrand{
-
-font-size:20px;
+font-size:14px;
 
 font-weight:900;
 
-color:#111827;
+margin-bottom:10px;
 
 }
 
-.footerText{
-
-margin-top:8px;
+.infoCard p{
 
 font-size:13px;
+
+line-height:1.7;
 
 color:#6B7280;
 
 }
 
-.footerCopy{
-
-margin-top:10px;
-
-font-size:12px;
-
-color:#9CA3AF;
-
-}
-
 </style>
 
-<script>
+</head>
+
+<body><div class="successCard">
+
+<div class="successCircle">
+
+<i class="fa-solid fa-check"></i>
+
+</div>
+
+<h1 class="successTitle">
+
+Order Placed Successfully
+
+</h1>
+
+<p class="successText">
+
+Thank you for choosing QuickPress.
+Your laundry pickup request has been submitted successfully.
+
+</p>
+
+<div class="orderBox">
+
+<div class="orderLabel">
+
+ORDER ID
+
+</div>
+
+<div
+class="orderId"
+id="orderId">
+
+Loading...
+
+</div>
+
+</div>
+
+<div class="infoCard">
+
+<h4>
+
+What's Next?
+
+</h4>
+
+<p>
+
+• Pickup partner will be assigned shortly.<br>
+
+• Pickup confirmation will appear in Orders page.<br>
+
+• Live order tracking available after pickup.<br>
+
+• Delivery updates will be shared automatically.
+
+</p>
+
+</div>
+
+<div class="actionGrid">
+
+<button
+class="primaryBtn"
+onclick="window.location.href='orders.html'">
+
+Track Order
+
+</button>
+
+<button
+class="secondaryBtn"
+onclick="window.location.href='services.html'">
+
+Book Another Service
+
+</button>
+
+<button
+class="secondaryBtn"
+onclick="window.location.href='index.html'">
+
+Back To Home
+
+</button>
+
+</div>
+
+</div><script>
 
 /* ===================================
-SUCCESS SOUND
+GET ORDER ID
 =================================== */
 
-function playSuccessSound(){
+const params =
 
-try{
-
-const audio = new Audio(
-
-"https://actions.google.com/sounds/v1/cartoon/clang_and_wobble.ogg"
-
+new URLSearchParams(
+window.location.search
 );
 
-audio.play();
+const orderId =
 
-}catch(e){
+params.get(
+"id"
+)
 
-console.log(
-"Sound blocked by browser"
-);
+||
 
-}
+localStorage.getItem(
+"lastOrderId"
+)
 
-}
+||
+
+"QP000000";
+
+/* ===================================
+SHOW ORDER
+=================================== */
+
+document.getElementById(
+"orderId"
+).innerHTML = orderId;
 
 /* ===================================
 CLEAR TEMP DATA
 =================================== */
 
-setTimeout(()=>{
-
 localStorage.removeItem(
-"checkoutDraft"
+"checkoutData"
 );
-
-localStorage.removeItem(
-"pendingOrder"
-);
-
-},1000);
 
 /* ===================================
-AUTO PLAY
+READY
 =================================== */
 
-window.addEventListener(
-
-"load",
-
-()=>{
-
-playSuccessSound();
-
-}
-
+console.log(
+"QuickPress Order Success Ready"
 );
 
 </script>
 
-</div>
-
 </body>
+
 </html>
