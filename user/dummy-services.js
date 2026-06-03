@@ -1,119 +1,288 @@
 import { db } from "./firebase.js";
 
 import {
-collection,
-addDoc
+  collection,
+  addDoc
 } from "https://www.gstatic.com/firebasejs/12.11.0/firebase-firestore.js";
 
-const services = [
-  {
-    category:"Ironing",
-    subCategory:"Shirt",
-    serviceName:"Formal Shirt",
-    cityPricing:{Kasganj:15,Noida:20,Delhi:25},
-    active:true,
-    popular:true,
-    isDummy:true,
-    batch:"QUICKPRESS_DUMMY_V1"
+const cities = [
+  "Kasganj",
+  "Noida",
+  "Delhi",
+  "Mumbai",
+  "Lucknow",
+  "Agra",
+  "Bareilly"
+];
+
+const services = [];
+
+/* ==========================
+CATEGORY MASTER
+========================== */
+
+const masterData = {
+
+  "Ironing": {
+    "Shirt": [
+      "Formal Shirt",
+      "Casual Shirt",
+      "Linen Shirt",
+      "Denim Shirt",
+      "Silk Shirt"
+    ],
+
+    "Pant": [
+      "Formal Pant",
+      "Jeans",
+      "Trouser",
+      "Cargo Pant",
+      "Cotton Pant"
+    ],
+
+    "Traditional": [
+      "Kurta",
+      "Kurta Pajama",
+      "Sherwani",
+      "Dhoti",
+      "Nehru Jacket"
+    ]
   },
 
-  {
-    category:"Ironing",
-    subCategory:"Shirt",
-    serviceName:"Casual Shirt",
-    cityPricing:{Kasganj:15,Noida:20,Delhi:25},
-    active:true,
-    popular:true,
-    isDummy:true,
-    batch:"QUICKPRESS_DUMMY_V1"
+  "Dry Cleaning": {
+    "Shirt": [
+      "Formal Shirt",
+      "Casual Shirt",
+      "Linen Shirt",
+      "Designer Shirt",
+      "Silk Shirt"
+    ],
+
+    "Pant": [
+      "Formal Pant",
+      "Jeans",
+      "Trouser",
+      "Designer Trouser",
+      "Cargo Pant"
+    ],
+
+    "Women Wear": [
+      "Saree",
+      "Silk Saree",
+      "Lehenga",
+      "Gown",
+      "Suit Set"
+    ],
+
+    "Blazer": [
+      "Single Blazer",
+      "Double Blazer",
+      "Designer Blazer"
+    ]
   },
 
-  {
-    category:"Ironing",
-    subCategory:"Pant",
-    serviceName:"Formal Pant",
-    cityPricing:{Kasganj:20,Noida:25,Delhi:30},
-    active:true,
-    popular:true,
-    isDummy:true,
-    batch:"QUICKPRESS_DUMMY_V1"
+  "Wash & Fold": {
+
+    "Daily Wear": [
+      "T-Shirt",
+      "Shirt",
+      "Pant",
+      "Jeans",
+      "Shorts"
+    ],
+
+    "Kids Wear": [
+      "Kids Shirt",
+      "Kids Pant",
+      "Kids Dress",
+      "Kids Uniform"
+    ]
   },
 
-  {
-    category:"Dry Cleaning",
-    subCategory:"Shirt",
-    serviceName:"Formal Shirt",
-    cityPricing:{Kasganj:80,Noida:100,Delhi:120},
-    active:true,
-    popular:true,
-    isDummy:true,
-    batch:"QUICKPRESS_DUMMY_V1"
+  "Premium Laundry": {
+
+    "Luxury": [
+      "Luxury Shirt",
+      "Luxury Pant",
+      "Luxury Suit",
+      "Luxury Saree",
+      "Luxury Lehenga"
+    ]
   },
 
-  {
-    category:"Dry Cleaning",
-    subCategory:"Women Wear",
-    serviceName:"Silk Saree",
-    cityPricing:{Kasganj:250,Noida:300,Delhi:350},
-    active:true,
-    popular:true,
-    isDummy:true,
-    batch:"QUICKPRESS_DUMMY_V1"
+  "Steam Press": {
+
+    "Garments": [
+      "Steam Shirt",
+      "Steam Pant",
+      "Steam Kurta",
+      "Steam Saree",
+      "Steam Blazer"
+    ]
+  },
+
+  "Curtain Cleaning": {
+
+    "Curtains": [
+      "Window Curtain",
+      "Door Curtain",
+      "Blackout Curtain",
+      "Premium Curtain"
+    ]
+  },
+
+  "Blanket Cleaning": {
+
+    "Home Linen": [
+      "Single Blanket",
+      "Double Blanket",
+      "Quilt",
+      "Comforter",
+      "Bedsheet"
+    ]
+  },
+
+  "Shoe Cleaning": {
+
+    "Shoes": [
+      "Sports Shoes",
+      "Leather Shoes",
+      "Sneakers",
+      "Formal Shoes"
+    ]
+  },
+
+  "Bag Cleaning": {
+
+    "Bags": [
+      "School Bag",
+      "Laptop Bag",
+      "Travel Bag",
+      "Hand Bag"
+    ]
   }
-];
 
-// Auto-generate additional dummy services
-const categories = [
-  "Ironing",
-  "Dry Cleaning",
-  "Wash & Fold",
-  "Premium Laundry",
-  "Steam Press"
-];
+};
 
-const subCategories = [
-  "Shirt",
-  "Pant",
-  "Traditional",
-  "Women Wear",
-  "Kids Wear",
-  "Home Linen"
-];
+/* ==========================
+CREATE SERVICES
+========================== */
 
-for(let i=1;i<=95;i++){
+let counter = 1;
+
+Object.keys(masterData).forEach(category=>{
+
+  Object.keys(masterData[category]).forEach(subCategory=>{
+
+    masterData[category][subCategory]
+
+    .forEach(serviceName=>{
+
+      const basePrice =
+
+      Math.floor(
+        Math.random()*100
+      ) + 20;
+
+      const cityPricing = {};
+
+      cities.forEach((city,index)=>{
+
+        cityPricing[city] =
+
+        basePrice +
+        (index * 15);
+
+      });
+
+      services.push({
+
+        serviceCode:
+        "QP-" + counter,
+
+        category,
+
+        subCategory,
+
+        serviceName,
+
+        description:
+        "QuickPress Premium Laundry Service",
+
+        cityPricing,
+
+        active:true,
+
+        popular:
+        counter <= 20,
+
+        image:
+        "https://via.placeholder.com/300",
+
+        isDummy:true,
+
+        batch:
+        "QUICKPRESS_DUMMY_V1"
+
+      });
+
+      counter++;
+
+    });
+
+  });
+
+});
+
+/* EXTRA DUMMY SERVICES */
+
+for(let i=1;i<=60;i++){
+
+  const cityPricing = {};
+
+  cities.forEach((city,index)=>{
+
+    cityPricing[city] =
+    50 + i + (index*10);
+
+  });
 
   services.push({
 
-    category:
-      categories[
-        i % categories.length
-      ],
+    serviceCode:
+    "DUMMY-" + i,
 
-    subCategory:
-      subCategories[
-        i % subCategories.length
-      ],
+    category:"Ironing",
+
+    subCategory:"Shirt",
 
     serviceName:
-      `Dummy Service ${i}`,
+    "Dummy Service " + i,
 
-    cityPricing:{
-      Kasganj:50+i,
-      Noida:70+i,
-      Delhi:90+i
-    },
+    description:
+    "Testing Service",
+
+    cityPricing,
 
     active:true,
 
-    popular:i<15,
+    popular:false,
+
+    image:
+    "https://via.placeholder.com/300",
 
     isDummy:true,
 
-    batch:"QUICKPRESS_DUMMY_V1"
+    batch:
+    "QUICKPRESS_DUMMY_V1"
 
   });
 
 }
+
+/* ==========================
+UPLOAD
+========================== */
 
 async function uploadServices(){
 
@@ -122,26 +291,34 @@ async function uploadServices(){
     for(const service of services){
 
       await addDoc(
-        collection(db,"services"),
+
+        collection(
+          db,
+          "services"
+        ),
+
         service
+
       );
 
     }
-
-    console.log(
-      `${services.length} services uploaded`
-    );
 
     alert(
       `${services.length} services uploaded successfully`
     );
 
-  }catch(error){
+    console.log(
+      `${services.length} services uploaded`
+    );
+
+  }
+
+  catch(error){
 
     console.error(error);
 
     alert(
-      "Upload failed"
+      "Upload Failed"
     );
 
   }
