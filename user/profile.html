@@ -357,52 +357,29 @@ color:#16A34A;
 
 }
 
-</style><section class="section">
+</style>
+<section class="section">
 
 <div class="card">
 
-<h3>
+<h3 style="
+font-size:18px;
+font-weight:900;
+margin-bottom:16px;
+">
 
 Saved Addresses
 
 </h3>
 
-<div class="addressCard">
-
-<h4>
-
-Home
-
-</h4>
-
-<p>
-
-Kashipur, Uttarakhand
-
-</p>
-
-</div>
-
-<div class="addressCard">
-
-<h4>
-
-Office
-
-</h4>
-
-<p>
-
-Add Office Address Here
-
-</p>
+<div id="profileAddresses">
 
 </div>
 
 <button
 class="addAddressBtn">
 
-Add New Address
+Manage Addresses
 
 </button>
 
@@ -414,13 +391,13 @@ Add New Address
 
 .addressCard{
 
-margin-top:14px;
+background:#F9FAFB;
 
 padding:14px;
 
 border-radius:14px;
 
-background:#F9FAFB;
+margin-bottom:12px;
 
 }
 
@@ -430,35 +407,37 @@ font-size:14px;
 
 font-weight:800;
 
+margin-bottom:6px;
+
 }
 
 .addressCard p{
 
-margin-top:6px;
-
 font-size:12px;
+
+line-height:1.6;
 
 color:#6B7280;
 
 }
 
-.addAddressBtn{
+.defaultBadge{
 
-margin-top:16px;
+display:inline-block;
 
-height:48px;
+margin-top:8px;
 
-width:100%;
+padding:4px 10px;
 
-border:none;
+border-radius:999px;
 
-border-radius:14px;
+background:#DCFCE7;
 
-background:#F4B400;
+color:#16A34A;
 
-font-weight:900;
+font-size:11px;
 
-cursor:pointer;
+font-weight:800;
 
 }
 
@@ -1013,7 +992,131 @@ console.log(
 );
 
 </script>
+<script>
 
+/* ===================================
+LOAD PROFILE ADDRESSES
+=================================== */
+
+window.loadProfileAddresses =
+function(){
+
+const container =
+
+document.getElementById(
+"profileAddresses"
+);
+
+if(!container) return;
+
+const addresses =
+
+JSON.parse(
+
+localStorage.getItem(
+"addresses"
+)
+
+|| "[]"
+
+);
+
+if(addresses.length===0){
+
+container.innerHTML =
+
+`
+
+<div class="addressCard">
+
+<p>No Address Found</p>
+
+</div>
+
+`;
+
+return;
+
+}
+
+let html = "";
+
+addresses.forEach(address=>{
+
+html += `
+
+<div class="addressCard">
+
+<h4>
+
+${address.type || "Address"}
+
+</h4>
+
+<p>
+
+${address.address || ""}
+
+</p>
+
+${
+address.isDefault
+
+?
+
+'<div class="defaultBadge">Default Address</div>'
+
+:
+
+''
+
+}
+
+</div>
+
+`;
+
+});
+
+container.innerHTML = html;
+
+};
+
+/* ===================================
+MANAGE ADDRESS
+=================================== */
+
+document.addEventListener(
+
+"DOMContentLoaded",
+
+()=>{
+
+const btn =
+
+document.querySelector(
+".addAddressBtn"
+);
+
+if(btn){
+
+btn.onclick = ()=>{
+
+window.location.href =
+"addresses.html";
+
+};
+
+}
+
+loadProfileAddresses();
+
+}
+
+);
+
+</script>
+  
 </body>
 
 </html>
