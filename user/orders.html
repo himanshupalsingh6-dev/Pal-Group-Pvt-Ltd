@@ -11,7 +11,7 @@ content="width=device-width, initial-scale=1.0">
 
 <title>
 
-QuickPress | Orders
+My Orders
 
 </title>
 
@@ -21,7 +21,7 @@ rel="stylesheet">
 
 <link
 rel="stylesheet"
-href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css"/>
+href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
 
 <style>
 
@@ -36,32 +36,29 @@ font-family:'Inter',sans-serif;
 
 --primary:#F4B400;
 --secondary:#16A34A;
-
+--bg:#F7F8FA;
 --dark:#111827;
---light:#6B7280;
-
---bg:#F6F7FB;
---white:#FFFFFF;
+--gray:#6B7280;
 
 }
 
 body{
 
-background:#F6F7FB;
+background:var(--bg);
 
 padding-bottom:120px;
 
 }
 
-.hero{
+.ordersHeader{
+
+background:#fff;
+
+padding:20px 16px;
 
 position:sticky;
 
 top:0;
-
-background:#fff;
-
-padding:16px;
 
 z-index:999;
 
@@ -70,42 +67,23 @@ box-shadow:
 
 }
 
-.brandName{
+.ordersTitle{
 
 font-size:30px;
 
 font-weight:900;
 
+color:#111827;
+
 }
 
-.pageTitle{
+.ordersSub{
 
-margin-top:4px;
-
-font-size:14px;
-
-font-weight:800;
+font-size:13px;
 
 color:#6B7280;
 
-}
-
-.section{
-
-padding:16px;
-
-}
-
-.card{
-
-background:#fff;
-
-border-radius:22px;
-
-padding:18px;
-
-box-shadow:
-0 8px 24px rgba(0,0,0,.05);
+margin-top:4px;
 
 }
 
@@ -115,241 +93,56 @@ box-shadow:
 
 <body>
 
-<div class="hero">
+<div class="ordersHeader">
 
-<div class="brandName">
-
-QuickPress
-
-</div>
-
-<div class="pageTitle">
+<div class="ordersTitle">
 
 My Orders
 
 </div>
 
-</div><section class="section">
+<div class="ordersSub">
 
-<div class="statsGrid">
-
-<div class="statCard">
-
-<div class="statIcon pending">
-
-<i class="fa-solid fa-clock"></i>
+Track all your laundry orders
 
 </div>
 
-<div class="statNumber"
-id="pendingCount">
+</div><section
+style="padding:16px;">
 
-0
-
-</div>
-
-<div class="statLabel">
-
-Pending
-
-</div>
-
-</div>
-
-<div class="statCard">
-
-<div class="statIcon processing">
-
-<i class="fa-solid fa-box"></i>
-
-</div>
-
-<div class="statNumber"
-id="processingCount">
-
-0
-
-</div>
-
-<div class="statLabel">
-
-Processing
-
-</div>
-
-</div>
-
-<div class="statCard">
-
-<div class="statIcon delivered">
-
-<i class="fa-solid fa-circle-check"></i>
-
-</div>
-
-<div class="statNumber"
-id="deliveredCount">
-
-0
-
-</div>
-
-<div class="statLabel">
-
-Delivered
-
-</div>
-
-</div>
-
-</div>
-
-</section>
-
-<style>
-
-.statsGrid{
-
-display:grid;
-
-grid-template-columns:
-repeat(3,1fr);
-
-gap:12px;
-
-}
-
-.statCard{
-
-background:#fff;
-
-padding:18px;
-
-border-radius:20px;
-
-text-align:center;
-
-box-shadow:
-0 8px 24px rgba(0,0,0,.05);
-
-}
-
-.statIcon{
-
-width:50px;
-
-height:50px;
-
-margin:auto;
-
-border-radius:14px;
-
-display:flex;
-
-align-items:center;
-
-justify-content:center;
-
-font-size:20px;
-
-margin-bottom:10px;
-
-}
-
-.pending{
-
-background:#FEF3C7;
-
-color:#D97706;
-
-}
-
-.processing{
-
-background:#DBEAFE;
-
-color:#2563EB;
-
-}
-
-.delivered{
-
-background:#DCFCE7;
-
-color:#16A34A;
-
-}
-
-.statNumber{
-
-font-size:24px;
-
-font-weight:900;
-
-}
-
-.statLabel{
-
-font-size:12px;
-
-font-weight:700;
-
-color:#6B7280;
-
-margin-top:4px;
-
-}
-
-</style><section class="section">
-
-<div class="card">
-
-<div class="searchBar">
-
-<i class="fa-solid fa-magnifying-glass"></i>
-
-<input
-id="orderSearch"
-type="text"
-placeholder="Search Order ID">
-
-</div>
-
-<div class="filterRow">
+<div class="orderTabs">
 
 <button
-class="filterBtn activeFilter"
-data-status="All">
+class="tabBtn activeTab"
+onclick="filterOrders('all')">
 
 All
 
 </button>
 
 <button
-class="filterBtn"
-data-status="Pending">
+class="tabBtn"
+onclick="filterOrders('active')">
 
-Pending
-
-</button>
-
-<button
-class="filterBtn"
-data-status="Processing">
-
-Processing
+Active
 
 </button>
 
 <button
-class="filterBtn"
-data-status="Delivered">
+class="tabBtn"
+onclick="filterOrders('completed')">
 
-Delivered
+Completed
 
 </button>
 
-</div>
+<button
+class="tabBtn"
+onclick="filterOrders('cancelled')">
+
+Cancelled
+
+</button>
 
 </div>
 
@@ -357,213 +150,45 @@ Delivered
 
 <style>
 
-.searchBar{
-
-height:54px;
-
-background:#F6F7FB;
-
-border-radius:14px;
-
-display:flex;
-
-align-items:center;
-
-padding:0 16px;
-
-}
-
-.searchBar input{
-
-flex:1;
-
-border:none;
-
-background:none;
-
-outline:none;
-
-padding-left:10px;
-
-}
-
-.filterRow{
+.orderTabs{
 
 display:flex;
 
 gap:10px;
 
-margin-top:14px;
+overflow-x:auto;
 
-overflow:auto;
+scrollbar-width:none;
 
 }
 
-.filterBtn{
+.orderTabs::-webkit-scrollbar{
 
-height:38px;
+display:none;
 
-padding:0 16px;
+}
+
+.tabBtn{
 
 border:none;
-
-border-radius:999px;
-
-background:#F3F4F6;
-
-font-size:12px;
-
-font-weight:800;
-
-cursor:pointer;
-
-white-space:nowrap;
-
-}
-
-.activeFilter{
-
-background:#16A34A;
-
-color:#fff;
-
-}
-
-</style><section class="section">
-
-<div
-id="ordersContainer">
-
-</div>
-
-</section>
-
-<style>
-
-.orderCard{
-
-background:#fff;
-
-border-radius:22px;
-
-padding:18px;
-
-margin-bottom:14px;
-
-box-shadow:
-0 8px 24px rgba(0,0,0,.05);
-
-}
-
-.orderTop{
-
-display:flex;
-
-justify-content:space-between;
-
-align-items:center;
-
-}
-
-.orderId{
-
-font-size:14px;
-
-font-weight:900;
-
-}
-
-.orderDate{
-
-font-size:12px;
-
-color:#6B7280;
-
-}
-
-.orderStatus{
-
-padding:6px 12px;
-
-border-radius:999px;
-
-font-size:11px;
-
-font-weight:800;
-
-}
-
-.statusPending{
-
-background:#FEF3C7;
-
-color:#D97706;
-
-}
-
-.statusProcessing{
-
-background:#DBEAFE;
-
-color:#2563EB;
-
-}
-
-.statusDelivered{
-
-background:#DCFCE7;
-
-color:#16A34A;
-
-}
-
-.orderAmount{
-
-margin-top:12px;
-
-font-size:22px;
-
-font-weight:900;
-
-}
-
-.orderActions{
-
-display:flex;
-
-gap:10px;
-
-margin-top:14px;
-
-}
-
-.actionBtn{
-
-flex:1;
 
 height:42px;
 
-border:none;
+padding:0 18px;
 
-border-radius:12px;
+border-radius:999px;
 
-font-size:12px;
+background:#fff;
 
 font-weight:800;
 
 cursor:pointer;
 
-}
-
-.detailsBtn{
-
-background:#111827;
-
-color:#fff;
+flex-shrink:0;
 
 }
 
-.repeatBtn{
+.activeTab{
 
 background:#16A34A;
 
@@ -571,131 +196,7 @@ color:#fff;
 
 }
 
-</style><style>
-
-.timeline{
-
-margin-top:18px;
-
-padding-top:18px;
-
-border-top:
-1px solid #E5E7EB;
-
-}
-
-.timelineItem{
-
-display:flex;
-
-gap:12px;
-
-margin-bottom:16px;
-
-}
-
-.timelineDot{
-
-width:14px;
-
-height:14px;
-
-border-radius:50%;
-
-background:#D1D5DB;
-
-margin-top:4px;
-
-}
-
-.timelineActive{
-
-background:#16A34A;
-
-}
-
-.timelineContent h4{
-
-font-size:13px;
-
-font-weight:800;
-
-}
-
-.timelineContent p{
-
-font-size:12px;
-
-color:#6B7280;
-
-margin-top:4px;
-
-}
-
-</style>
-
-<script>
-
-window.createTimeline =
-function(status){
-
-return `
-
-<div class="timeline">
-
-<div class="timelineItem">
-
-<div class="timelineDot timelineActive"></div>
-
-<div class="timelineContent">
-
-<h4>Order Placed</h4>
-
-<p>Your order has been received</p>
-
-</div>
-
-</div>
-
-<div class="timelineItem">
-
-<div class="timelineDot
-${status!=="Pending"?"timelineActive":""}">
-</div>
-
-<div class="timelineContent">
-
-<h4>Pickup Assigned</h4>
-
-<p>Partner assigned</p>
-
-</div>
-
-</div>
-
-<div class="timelineItem">
-
-<div class="timelineDot
-${status==="Delivered"?"timelineActive":""}">
-</div>
-
-<div class="timelineContent">
-
-<h4>Delivered</h4>
-
-<p>Order completed</p>
-
-</div>
-
-</div>
-
-</div>
-
-`;
-
-};
-
-</script><script type="module">
+</style><script type="module">
 
 import { db, auth }
 from "./firebase.js";
@@ -713,13 +214,10 @@ from
 
 "https://www.gstatic.com/firebasejs/12.11.0/firebase-firestore.js";
 
-let allOrders = [];
+window.allOrders = [];
 
-/* ===================================
-LOAD ORDERS
-=================================== */
-
-function loadOrders(){
+window.loadOrders =
+function(){
 
 if(!auth.currentUser){
 
@@ -727,11 +225,14 @@ return;
 
 }
 
-const ordersQuery =
+const orderQuery =
 
 query(
 
-collection(db,"orders"),
+collection(
+db,
+"orders"
+),
 
 where(
 "userId",
@@ -743,7 +244,7 @@ auth.currentUser.uid
 
 onSnapshot(
 
-ordersQuery,
+orderQuery,
 
 (snapshot)=>{
 
@@ -765,132 +266,40 @@ renderOrders(
 allOrders
 );
 
-updateStats();
-
 }
 
 );
 
-}
+};
 
-/* ===================================
-STATS
-=================================== */
-
-function updateStats(){
-
-const pending =
-
-allOrders.filter(
-
-o=>o.status==="Pending"
-
-).length;
-
-const processing =
-
-allOrders.filter(
-
-o=>o.status==="Processing"
-
-).length;
-
-const delivered =
-
-allOrders.filter(
-
-o=>o.status==="Delivered"
-
-).length;
-
-document.getElementById(
-"pendingCount"
-).innerHTML = pending;
-
-document.getElementById(
-"processingCount"
-).innerHTML = processing;
-
-document.getElementById(
-"deliveredCount"
-).innerHTML = delivered;
-
-}
-
-window.loadOrders = loadOrders;
-
-</script><div
-class="orderModal"
-id="orderModal">
-
-<div class="orderModalBox">
-
-<div class="modalHeader">
-
-<h3>
-
-Order Details
-
-</h3>
-
-<button
-onclick="closeOrderModal()">
-
-✕
-
-</button>
-
-</div>
+</script><section
+style="padding:0 16px;">
 
 <div
-id="orderModalContent">
+id="ordersContainer">
 
 </div>
 
-</div>
-
-</div>
+</section>
 
 <style>
 
-.orderModal{
-
-display:none;
-
-position:fixed;
-
-inset:0;
-
-background:
-rgba(0,0,0,.5);
-
-z-index:99999;
-
-justify-content:center;
-
-align-items:center;
-
-}
-
-.orderModalBox{
-
-width:92%;
-
-max-width:600px;
+.orderCard{
 
 background:#fff;
 
-border-radius:24px;
+border-radius:22px;
 
-padding:20px;
+padding:18px;
 
-max-height:80vh;
+margin-bottom:16px;
 
-overflow:auto;
+box-shadow:
+0 8px 24px rgba(0,0,0,.05);
 
 }
 
-.modalHeader{
+.orderHeaderRow{
 
 display:flex;
 
@@ -898,304 +307,73 @@ justify-content:space-between;
 
 align-items:center;
 
-margin-bottom:20px;
+margin-bottom:10px;
 
 }
 
-.modalHeader button{
+.orderNumber{
 
-border:none;
+font-size:15px;
 
-background:none;
-
-font-size:22px;
-
-cursor:pointer;
+font-weight:900;
 
 }
 
-</style>
+.orderCity{
 
-<script>
+font-size:12px;
 
-window.openOrderModal =
-function(orderId){
+color:#6B7280;
 
-const order =
-
-allOrders.find(
-
-o=>o.id===orderId
-
-);
-
-if(!order) return;
-
-let itemsHtml = "";
-
-(order.items || [])
-.forEach(item=>{
-
-itemsHtml += `
-
-<div
-style="display:flex;
-justify-content:space-between;
-margin-bottom:10px;">
-
-<span>
-
-${item.serviceName}
-
-</span>
-
-<span>
-
-${item.qty} x ₹${item.price}
-
-</span>
-
-</div>
-
-`;
-
-});
-
-document.getElementById(
-"orderModalContent"
-).innerHTML =
-
-`
-
-<p><b>Order ID:</b> ${order.id}</p>
-<p><b>Status:</b> ${order.status}</p>
-<p><b>Total:</b> ₹${order.total}</p>
-
-<hr style="margin:15px 0;">
-
-${itemsHtml}
-
-`;
-
-document.getElementById(
-"orderModal"
-).style.display =
-"flex";
-
-};
-
-window.closeOrderModal =
-function(){
-
-document.getElementById(
-"orderModal"
-).style.display =
-"none";
-
-};
-
-</script><script type="module">
-
-import { db }
-from "./firebase.js";
-
-import {
-
-doc,
-updateDoc
+margin-bottom:12px;
 
 }
 
-from
+.statusBadge{
 
-"https://www.gstatic.com/firebasejs/12.11.0/firebase-firestore.js";
+padding:7px 12px;
 
-/* ===================================
-CANCEL ORDER
-=================================== */
+border-radius:999px;
 
-window.cancelOrder =
-async function(orderId){
+font-size:11px;
 
-const confirmCancel =
-
-confirm(
-"Cancel this order?"
-);
-
-if(!confirmCancel){
-
-return;
+font-weight:900;
 
 }
 
-await updateDoc(
+.pending{
 
-doc(
-db,
-"orders",
-orderId
-),
+background:#FEF3C7;
 
-{
-
-status:"Cancelled"
+color:#D97706;
 
 }
 
-);
+.cleaning{
 
-showToast(
-"Order Cancelled"
-);
+background:#DBEAFE;
 
-};
-
-/* ===================================
-REPEAT ORDER
-=================================== */
-
-window.repeatOrder =
-function(orderId){
-
-const order =
-
-allOrders.find(
-
-o=>o.id===orderId
-
-);
-
-if(!order) return;
-
-localStorage.setItem(
-
-"cart",
-
-JSON.stringify(
-order.items
-)
-
-);
-
-showToast(
-"Items Added To Cart"
-);
-
-setTimeout(()=>{
-
-window.location.href =
-"cart.html";
-
-},1000);
-
-};
-
-</script><div
-id="ordersToast"
-class="ordersToast">
-
-Success
-
-</div>
-
-<div
-id="emptyOrders"
-class="emptyOrders">
-
-<i class="fa-solid fa-box-open"></i>
-
-<h2>
-
-No Orders Found
-
-</h2>
-
-<p>
-
-Place your first order to see it here.
-
-</p>
-
-</div>
-
-<style>
-
-.ordersToast{
-
-position:fixed;
-
-left:50%;
-
-bottom:100px;
-
-transform:
-translateX(-50%);
-
-background:#111827;
-
-color:#fff;
-
-padding:14px 20px;
-
-border-radius:14px;
-
-display:none;
-
-z-index:99999;
+color:#2563EB;
 
 }
 
-.emptyOrders{
+.delivered{
 
-display:none;
+background:#DCFCE7;
 
-text-align:center;
-
-padding:80px 20px;
+color:#16A34A;
 
 }
 
-.emptyOrders i{
+.cancelled{
 
-font-size:50px;
+background:#FEE2E2;
 
-color:#D1D5DB;
-
-margin-bottom:16px;
+color:#DC2626;
 
 }
 
-</style>
-
-<script>
-
-window.showToast =
-function(message){
-
-const toast =
-
-document.getElementById(
-"ordersToast"
-);
-
-toast.innerHTML = message;
-
-toast.style.display =
-"block";
-
-setTimeout(()=>{
-
-toast.style.display =
-"none";
-
-},2000);
-
-};
-
-/* ===================================
-RENDER ORDERS
-=================================== */
+</style><script>
 
 window.renderOrders =
 function(orders){
@@ -1206,25 +384,41 @@ document.getElementById(
 "ordersContainer"
 );
 
-const emptyState =
+if(!orders.length){
 
-document.getElementById(
-"emptyOrders"
-);
+container.innerHTML =
 
-if(orders.length===0){
+`
 
-container.innerHTML = "";
+<div style="
+background:#fff;
+padding:40px;
+border-radius:24px;
+text-align:center;
+">
 
-emptyState.style.display =
-"block";
+<h3>
+
+No Orders Found
+
+</h3>
+
+<p style="
+margin-top:8px;
+color:#6B7280;
+">
+
+Place your first order
+
+</p>
+
+</div>
+
+`;
 
 return;
 
 }
-
-emptyState.style.display =
-"none";
 
 let html = "";
 
@@ -1234,59 +428,115 @@ html += `
 
 <div class="orderCard">
 
-<div class="orderTop">
+<div class="orderHeaderRow">
 
-<div>
+<div class="orderNumber">
 
-<div class="orderId">
-
-#${order.id}
+${order.orderNumber || 'QP000'}
 
 </div>
 
-<div class="orderDate">
+<div class="statusBadge
+${(order.status || 'pending').toLowerCase()}">
 
-${new Date(
-order.createdAt?.seconds
-? order.createdAt.seconds*1000
-: Date.now()
-).toLocaleDateString()}
+${order.status || 'Pending'}
 
 </div>
 
 </div>
 
-<div class="orderStatus status${order.status}">
+<div class="orderCity">
 
-${order.status}
+📍 ${order.city || 'Kasganj'}
+
+</div>
+
+`;
+
+if(order.items){
+
+order.items.forEach(item=>{
+
+html += `
+
+<div style="
+padding:10px 0;
+border-top:1px solid #F3F4F6;
+">
+
+<div style="
+font-weight:800;
+">
+
+${item.serviceName}
+
+</div>
+
+<div style="
+font-size:12px;
+color:#6B7280;
+margin-top:4px;
+">
+
+${item.category}
+
+>
+
+${item.subCategory}
+
+</div>
+
+<div style="
+font-size:12px;
+margin-top:4px;
+">
+
+Qty ${item.qty}
 
 </div>
 
 </div>
 
-<div class="orderAmount">
+`;
+
+});
+
+}
+
+html += `
+
+<div style="
+display:flex;
+justify-content:space-between;
+align-items:center;
+margin-top:14px;
+padding-top:14px;
+border-top:1px solid #F3F4F6;
+">
+
+<div style="
+font-size:20px;
+font-weight:900;
+">
 
 ₹${order.total || 0}
 
 </div>
 
-${createTimeline(order.status)}
-
-<div class="orderActions">
-
 <button
-class="actionBtn detailsBtn"
-onclick="openOrderModal('${order.id}')">
+onclick="location.href='order-details.html?id=${order.id}'"
+style="
+height:42px;
+padding:0 16px;
+border:none;
+border-radius:12px;
+background:#16A34A;
+color:#fff;
+font-weight:800;
+cursor:pointer;
+">
 
-Details
-
-</button>
-
-<button
-class="actionBtn repeatBtn"
-onclick="repeatOrder('${order.id}')">
-
-Repeat
+Track Order
 
 </button>
 
@@ -1302,35 +552,285 @@ container.innerHTML = html;
 
 };
 
-/* ===================================
-START
-=================================== */
+</script><style>
 
-document.addEventListener(
+.timeline{
 
-"DOMContentLoaded",
+margin-top:14px;
 
-()=>{
+padding-top:14px;
 
-if(window.loadOrders){
-
-loadOrders();
+border-top:1px solid #F3F4F6;
 
 }
+
+.timelineStep{
+
+display:flex;
+
+align-items:center;
+
+gap:10px;
+
+margin-bottom:10px;
+
+font-size:12px;
+
+font-weight:700;
+
+}
+
+.timelineDot{
+
+width:12px;
+
+height:12px;
+
+border-radius:50%;
+
+background:#D1D5DB;
+
+}
+
+.timelineDone{
+
+background:#16A34A;
+
+}
+
+.timelineActive{
+
+background:#F4B400;
+
+}
+
+</style>
+
+<script>
+
+window.getTimelineHTML =
+function(status){
+
+const steps = [
+
+"Pending",
+"Pickup Assigned",
+"Picked Up",
+"Cleaning",
+"Out For Delivery",
+"Delivered"
+
+];
+
+let currentIndex =
+
+steps.indexOf(status);
+
+if(currentIndex < 0){
+
+currentIndex = 0;
+
+}
+
+let html =
+'<div class="timeline">';
+
+steps.forEach((step,index)=>{
+
+let dotClass =
+"timelineDot";
+
+if(index < currentIndex){
+
+dotClass +=
+" timelineDone";
+
+}else if(index === currentIndex){
+
+dotClass +=
+" timelineActive";
+
+}
+
+html += `
+
+<div class="timelineStep">
+
+<div class="${dotClass}"></div>
+
+<div>${step}</div>
+
+</div>
+
+`;
+
+});
+
+html += "</div>";
+
+return html;
+
+};
+
+</script><section
+style="padding:0 16px 16px;">
+
+<input
+
+id="orderSearch"
+
+placeholder="Search Order Number"
+
+style="
+width:100%;
+height:54px;
+border:none;
+border-radius:16px;
+padding:0 16px;
+outline:none;
+background:#fff;
+">
+
+</section>
+
+<script>
+
+document
+.getElementById(
+"orderSearch"
+)
+
+.addEventListener(
+
+"input",
+
+function(){
+
+const keyword =
+
+this.value
+.toLowerCase();
+
+const filtered =
+
+allOrders.filter(order=>{
+
+return (
+
+order.orderNumber ||
+
+""
+
+)
+
+.toLowerCase()
+
+.includes(keyword);
+
+});
+
+renderOrders(
+filtered
+);
 
 }
 
 );
 
-</script><!-- ===================================
-BOTTOM NAVBAR
-=================================== -->
+</script><script>
 
-<nav class="bottomNav">
+window.filterOrders =
+function(type){
+
+document
+.querySelectorAll(
+".tabBtn"
+)
+
+.forEach(btn=>{
+
+btn.classList.remove(
+"activeTab"
+);
+
+});
+
+event.target.classList.add(
+"activeTab"
+);
+
+if(type==="all"){
+
+renderOrders(
+allOrders
+);
+
+return;
+
+}
+
+if(type==="active"){
+
+const activeOrders =
+
+allOrders.filter(order=>
+
+order.status !==
+"Delivered"
+
+&&
+
+order.status !==
+"Cancelled"
+
+);
+
+renderOrders(
+activeOrders
+);
+
+return;
+
+}
+
+if(type==="completed"){
+
+renderOrders(
+
+allOrders.filter(order=>
+
+order.status ===
+"Delivered"
+
+)
+
+);
+
+return;
+
+}
+
+if(type==="cancelled"){
+
+renderOrders(
+
+allOrders.filter(order=>
+
+order.status ===
+"Cancelled"
+
+)
+
+);
+
+}
+
+};
+
+</script><nav class="bottomNav">
 
 <button
-class="navItem"
-onclick="window.location.href='index.html'">
+onclick="location.href='index.html'">
 
 <i class="fa-solid fa-house"></i>
 
@@ -1343,8 +843,7 @@ Home
 </button>
 
 <button
-class="navItem"
-onclick="window.location.href='services.html'">
+onclick="location.href='services.html'">
 
 <i class="fa-solid fa-table-cells-large"></i>
 
@@ -1357,8 +856,7 @@ Services
 </button>
 
 <button
-class="navItem"
-onclick="window.location.href='cart.html'">
+onclick="location.href='cart.html'">
 
 <i class="fa-solid fa-cart-shopping"></i>
 
@@ -1368,18 +866,10 @@ Cart
 
 </span>
 
-<div
-class="navCartBadge"
-id="navCartBadge">
-
-0
-
-</div>
-
 </button>
 
 <button
-class="navItem activeNav">
+class="activeNav">
 
 <i class="fa-solid fa-box"></i>
 
@@ -1392,10 +882,9 @@ Orders
 </button>
 
 <button
-class="navItem"
-onclick="openProfile()">
+onclick="location.href='profile.html'">
 
-<i class="fa-regular fa-user"></i>
+<i class="fa-solid fa-user"></i>
 
 <span>
 
@@ -1408,10 +897,6 @@ Profile
 </nav>
 
 <style>
-
-/* ===================================
-BOTTOM NAVBAR
-=================================== */
 
 .bottomNav{
 
@@ -1438,9 +923,7 @@ z-index:9999;
 
 }
 
-.navItem{
-
-position:relative;
+.bottomNav button{
 
 flex:1;
 
@@ -1460,17 +943,17 @@ align-items:center;
 
 gap:4px;
 
-cursor:pointer;
-
 font-size:11px;
 
 font-weight:700;
 
 color:#6B7280;
 
+cursor:pointer;
+
 }
 
-.navItem i{
+.bottomNav i{
 
 font-size:18px;
 
@@ -1478,260 +961,43 @@ font-size:18px;
 
 .activeNav{
 
-color:#16A34A;
-
-}
-
-.navCartBadge{
-
-position:absolute;
-
-top:10px;
-
-right:22px;
-
-min-width:18px;
-
-height:18px;
-
-padding:0 4px;
-
-border-radius:999px;
-
-background:#EF4444;
-
-color:#fff;
-
-display:flex;
-
-align-items:center;
-
-justify-content:center;
-
-font-size:10px;
-
-font-weight:900;
-
-}
-
-@media(min-width:1200px){
-
-.bottomNav{
-
-max-width:650px;
-
-left:50%;
-
-transform:
-translateX(-50%);
-
-border-radius:24px 24px 0 0;
-
-}
+color:#16A34A !important;
 
 }
 
 </style>
 
-<script>
+<script type="module">
 
-/* ===================================
-PROFILE
-=================================== */
+import { auth }
+from "./firebase.js";
 
-window.openProfile =
-function(){
+import {
 
-window.location.href =
-"profile.html";
-
-};
-
-/* ===================================
-CART BADGE
-=================================== */
-
-window.updateNavbarCartCount =
-function(){
-
-const cart =
-
-JSON.parse(
-
-localStorage.getItem(
-"cart"
-)
-
-|| "[]"
-
-);
-
-let total = 0;
-
-cart.forEach(item=>{
-
-total +=
-
-item.qty || 1;
-
-});
-
-const badge =
-
-document.getElementById(
-"navCartBadge"
-);
-
-if(!badge) return;
-
-badge.innerHTML = total;
-
-badge.style.display =
-
-total > 0
-
-? "flex"
-
-: "none";
-
-};
-
-updateNavbarCartCount();
-
-/* ===================================
-ORDER SEARCH
-=================================== */
-
-const searchInput =
-
-document.getElementById(
-"orderSearch"
-);
-
-if(searchInput){
-
-searchInput.addEventListener(
-
-"input",
-
-function(){
-
-const value =
-
-this.value
-.toLowerCase();
-
-const filtered =
-
-allOrders.filter(
-
-order=>
-
-order.id
-.toLowerCase()
-.includes(value)
-
-);
-
-renderOrders(
-filtered
-);
+onAuthStateChanged
 
 }
 
-);
+from
 
-}
+"https://www.gstatic.com/firebasejs/12.11.0/firebase-auth.js";
 
-/* ===================================
-ORDER FILTER
-=================================== */
+onAuthStateChanged(
 
-document
-.querySelectorAll(
-".filterBtn"
-)
+auth,
 
-.forEach(btn=>{
+(user)=>{
 
-btn.addEventListener(
-
-"click",
-
-()=>{
-
-document
-.querySelectorAll(
-".filterBtn"
-)
-
-.forEach(item=>{
-
-item.classList.remove(
-"activeFilter"
-);
-
-});
-
-btn.classList.add(
-"activeFilter"
-);
-
-const status =
-
-btn.dataset.status;
-
-if(status==="All"){
-
-renderOrders(
-allOrders
-);
-
-return;
-
-}
-
-const filtered =
-
-allOrders.filter(
-
-order=>
-
-order.status===status
-
-);
-
-renderOrders(
-filtered
-);
-
-}
-
-);
-
-});
-
-/* ===================================
-APP READY
-=================================== */
-
-document.addEventListener(
-
-"DOMContentLoaded",
-
-()=>{
-
-updateNavbarCartCount();
-
-if(window.loadOrders){
+if(user){
 
 loadOrders();
 
-}
+}else{
 
-console.log(
-"QuickPress Orders Ready"
-);
+window.location.href =
+"login.html";
+
+}
 
 }
 
