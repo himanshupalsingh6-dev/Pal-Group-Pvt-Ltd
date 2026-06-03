@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
 
 <meta charset="UTF-8">
@@ -9,40 +10,90 @@ name="viewport"
 content="width=device-width, initial-scale=1.0">
 
 <title>
-QuickPress Services
+
+QuickPress | Services
+
 </title>
 
-<link rel="preconnect"
+<meta
+name="theme-color"
+content="#16A34A">
+
+<link
+rel="preconnect"
 href="https://fonts.googleapis.com">
 
-<link rel="preconnect"
+<link
+rel="preconnect"
 href="https://fonts.gstatic.com"
 crossorigin>
 
-<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap"
+<link
+href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap"
 rel="stylesheet">
 
-<link rel="stylesheet"
-href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+<link
+rel="stylesheet"
+href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css"/>
 
 <style>
 
+/* ===================================
+RESET
+=================================== */
+
 *{
+
 margin:0;
 padding:0;
+
 box-sizing:border-box;
+
 font-family:'Inter',sans-serif;
+
+-webkit-tap-highlight-color:transparent;
+
 }
+
+html{
+
+scroll-behavior:smooth;
+
+}
+
+/* ===================================
+ROOT
+=================================== */
+
+:root{
+
+--primary:#F4B400;
+--secondary:#16A34A;
+
+--dark:#111827;
+--light:#6B7280;
+
+--bg:#F6F7FB;
+--white:#FFFFFF;
+
+--shadow:
+0 8px 24px rgba(0,0,0,.06);
+
+}
+
+/* ===================================
+BODY
+=================================== */
 
 body{
 
-background:#F6F7FB;
+background:var(--bg);
 
-color:#111827;
-
-padding-bottom:100px;
+color:var(--dark);
 
 overflow-x:hidden;
+
+padding-bottom:100px;
 
 }
 
@@ -50,140 +101,92 @@ overflow-x:hidden;
 HEADER
 =================================== */
 
-.serviceHeader{
+.hero{
 
 position:sticky;
 
 top:0;
 
-z-index:999;
+z-index:9999;
 
 background:#fff;
 
-padding:12px 16px;
+padding:16px;
 
 box-shadow:
-0 2px 15px rgba(0,0,0,.05);
+0 4px 20px rgba(0,0,0,.05);
 
 }
 
-.headerRow{
+/* ===================================
+TOP BAR
+=================================== */
+
+.topBar{
 
 display:flex;
 
-align-items:center;
-
 justify-content:space-between;
 
-}
-
-.backBtn{
-
-width:42px;
-height:42px;
-
-border:none;
-
-background:#F3F4F6;
-
-border-radius:12px;
-
-font-size:16px;
-
-cursor:pointer;
+align-items:center;
 
 }
 
-.headerCenter{
+/* ===================================
+BRAND
+=================================== */
 
-flex:1;
+.brandName{
 
-text-align:center;
+font-size:30px;
 
-}
+font-weight:900;
 
-.brandText{
+line-height:1;
 
-font-size:12px;
+letter-spacing:-1px;
 
-font-weight:700;
-
-color:#16A34A;
+color:#111827;
 
 }
 
 .pageTitle{
 
-font-size:20px;
+margin-top:5px;
 
-font-weight:900;
+font-size:14px;
+
+font-weight:800;
+
+color:#6B7280;
 
 }
 
 /* ===================================
-SMALL CART
+PROFILE BUTTON
 =================================== */
 
-.cartBtn{
+.profileBtn{
 
-position:relative;
+width:46px;
 
-width:42px;
-height:42px;
+height:46px;
 
 border:none;
 
-border-radius:12px;
+border-radius:14px;
 
-background:#16A34A;
-
-color:#fff;
-
-font-size:16px;
-
-cursor:pointer;
-
-animation:
-cartBounce 2s infinite;
-
-}
-
-@keyframes cartBounce{
-
-0%,100%{
-transform:translateY(0);
-}
-
-50%{
-transform:translateY(-3px);
-}
-
-}
-
-.cartBadge{
-
-position:absolute;
-
-top:-4px;
-right:-4px;
-
-width:18px;
-height:18px;
-
-border-radius:50%;
-
-background:#EF4444;
+background:#F3F4F6;
 
 display:flex;
 
 align-items:center;
+
 justify-content:center;
 
-font-size:10px;
+font-size:18px;
 
-font-weight:900;
-
-color:#fff;
+cursor:pointer;
 
 }
 
@@ -191,9 +194,9 @@ color:#fff;
 SEARCH
 =================================== */
 
-.searchSection{
+.searchWrap{
 
-padding:16px;
+margin-top:14px;
 
 }
 
@@ -201,7 +204,9 @@ padding:16px;
 
 height:56px;
 
-background:#fff;
+background:#F6F7FB;
+
+border:1px solid #ECEFF3;
 
 border-radius:18px;
 
@@ -210,9 +215,6 @@ display:flex;
 align-items:center;
 
 padding:0 16px;
-
-box-shadow:
-0 4px 12px rgba(0,0,0,.04);
 
 }
 
@@ -236,25 +238,53 @@ background:none;
 
 padding-left:12px;
 
-font-size:15px;
+font-size:14px;
 
 font-weight:600;
+
+color:#111827;
+
+}
+
+.searchBar input::placeholder{
+
+color:#9CA3AF;
 
 }
 
 /* ===================================
-TITLE
+SECTION TITLE
 =================================== */
 
-.sectionTitle{
+.sectionHeading{
 
-padding:0 16px;
-
-font-size:28px;
+font-size:22px;
 
 font-weight:900;
 
-margin-bottom:15px;
+color:#111827;
+
+margin-bottom:18px;
+
+}
+
+/* ===================================
+DESKTOP
+=================================== */
+
+@media(min-width:992px){
+
+.hero{
+
+padding:18px 24px;
+
+}
+
+.brandName{
+
+font-size:34px;
+
+}
 
 }
 
@@ -268,21 +298,13 @@ margin-bottom:15px;
 HEADER
 =================================== -->
 
-<div class="serviceHeader">
+<div class="hero">
 
-<div class="headerRow">
+<div class="topBar">
 
-<button
-class="backBtn"
-onclick="history.back()">
+<div>
 
-<i class="fa-solid fa-arrow-left"></i>
-
-</button>
-
-<div class="headerCenter">
-
-<div class="brandText">
+<div class="brandName">
 
 QuickPress
 
@@ -290,130 +312,112 @@ QuickPress
 
 <div class="pageTitle">
 
-Services
+All Laundry Services
 
 </div>
 
 </div>
 
 <button
-class="cartBtn"
-onclick="window.location.href='cart.html'">
+class="profileBtn"
+onclick="openProfile()">
 
-<i class="fa-solid fa-cart-shopping"></i>
-
-<div
-class="cartBadge"
-id="cartBadge">
-
-0
-
-</div>
+<i class="fa-regular fa-user"></i>
 
 </button>
 
 </div>
 
-</div>
-
-<!-- ===================================
-SEARCH
-=================================== -->
-
-<div class="searchSection">
+<div class="searchWrap">
 
 <div class="searchBar">
 
 <i class="fa-solid fa-magnifying-glass"></i>
 
 <input
-
-id="serviceSearch"
-
+id="globalSearch"
 type="text"
-
-placeholder="Search Shirt, Pant, Saree...">
-
-</div>
+placeholder="Search services">
 
 </div>
 
-<!-- ===================================
-TITLE
+</div>
+
+</div><!-- ===================================
+CATEGORY FILTERS
 =================================== -->
 
-<h2 class="sectionTitle">
+<section class="categorySection">
 
-Explore Services
+<div class="categoryScroller">
 
-</h2>
+<button
+class="categoryChip activeChip"
+data-category="All">
 
-<script>
+All
 
-/* ===================================
-CART BADGE
-=================================== */
+</button>
 
-function updateCartBadge(){
+<button
+class="categoryChip"
+data-category="Dry Cleaning">
 
-const cart =
+Dry Cleaning
 
-JSON.parse(
-localStorage.getItem(
-"cart"
-)
-)
+</button>
 
-|| [];
+<button
+class="categoryChip"
+data-category="Wash & Fold">
 
-let total = 0;
+Wash & Fold
 
-cart.forEach(item=>{
+</button>
 
-total += item.qty || 1;
+<button
+class="categoryChip"
+data-category="Steam Iron">
 
-});
+Steam Iron
 
-const badge =
+</button>
 
-document.getElementById(
-"cartBadge"
-);
+<button
+class="categoryChip"
+data-category="Shoe Care">
 
-if(badge){
+Shoe Care
 
-badge.innerHTML = total;
+</button>
 
-badge.style.display =
+<button
+class="categoryChip"
+data-category="Blanket Care">
 
-total > 0
+Blanket Care
 
-? "flex"
+</button>
 
-: "none";
+<button
+class="categoryChip"
+data-category="Premium Care">
 
-}
+Premium Care
 
-}
+</button>
 
-updateCartBadge();
+<button
+class="categoryChip"
+data-category="Curtain Care">
 
-</script>
-<!-- ===================================
-CATEGORIES
-=================================== -->
+Curtain Care
 
-<div class="categorySection">
-
-<div
-class="categorySlider"
-id="categorySlider">
-
-<!-- Categories Load Here -->
-
-</div>
+</button>
 
 </div>
+
+</section>
 
 <style>
 
@@ -423,406 +427,15 @@ CATEGORY SECTION
 
 .categorySection{
 
-padding:0 16px 20px;
-
-}
-
-.categorySlider{
-
-display:flex;
-
-gap:12px;
-
-overflow-x:auto;
-
-scrollbar-width:none;
-
--webkit-overflow-scrolling:touch;
-
-padding-bottom:8px;
-
-}
-
-.categorySlider::-webkit-scrollbar{
-
-display:none;
+padding:16px;
 
 }
 
 /* ===================================
-CATEGORY CARD
+SCROLLER
 =================================== */
 
-.categoryCard{
-
-min-width:90px;
-
-flex-shrink:0;
-
-text-align:center;
-
-cursor:pointer;
-
-}
-
-.categoryIcon{
-
-width:58px;
-height:58px;
-
-margin:auto;
-
-border-radius:16px;
-
-background:#fff;
-
-display:flex;
-
-align-items:center;
-justify-content:center;
-
-font-size:24px;
-
-box-shadow:
-0 4px 12px rgba(0,0,0,.05);
-
-border:2px solid transparent;
-
-transition:.25s;
-
-}
-
-.categoryCard h4{
-
-margin-top:8px;
-
-font-size:11px;
-
-font-weight:800;
-
-line-height:1.3;
-
-}
-
-.categoryCard.active .categoryIcon{
-
-border-color:#16A34A;
-
-transform:translateY(-2px);
-
-}
-
-.categoryCard.active h4{
-
-color:#16A34A;
-
-}
-
-@media(min-width:1200px){
-
-.categoryCard{
-
-min-width:110px;
-
-}
-
-.categoryIcon{
-
-width:64px;
-height:64px;
-
-font-size:28px;
-
-}
-
-.categoryCard h4{
-
-font-size:13px;
-
-}
-
-}
-
-</style>
-
-<script type="module">
-
-import { db }
-from "./firebase.js";
-
-import {
-collection,
-getDocs
-}
-from
-"https://www.gstatic.com/firebasejs/12.11.0/firebase-firestore.js";
-
-/* ===================================
-DUMMY CATEGORIES
-=================================== */
-
-const dummyCategories = [
-
-{
-id:"ironing",
-name:"Ironing",
-icon:"👔"
-},
-
-{
-id:"dryclean",
-name:"Dry Cleaning",
-icon:"🧺"
-},
-
-{
-id:"washfold",
-name:"Wash & Fold",
-icon:"🫧"
-},
-
-{
-id:"shoecare",
-name:"Shoe Care",
-icon:"👟"
-},
-
-{
-id:"blanket",
-name:"Blanket",
-icon:"🛏️"
-},
-
-{
-id:"premium",
-name:"Premium",
-icon:"✨"
-}
-
-];
-
-/* ===================================
-LOAD CATEGORIES
-=================================== */
-
-const categorySlider =
-
-document.getElementById(
-"categorySlider"
-);
-
-window.selectedCategoryId =
-null;
-
-async function loadCategories(){
-
-try{
-
-const snapshot =
-
-await getDocs(
-collection(
-db,
-"categories"
-)
-);
-
-let categories = [];
-
-/* FIREBASE DATA */
-
-snapshot.forEach(doc=>{
-
-categories.push({
-
-id:doc.id,
-
-...doc.data()
-
-});
-
-});
-
-/* FALLBACK */
-
-if(categories.length===0){
-
-categories =
-dummyCategories;
-
-}
-
-renderCategories(
-categories
-);
-
-}catch(error){
-
-console.log(
-"Using Dummy Categories"
-);
-
-/* DUMMY SHOW */
-
-renderCategories(
-dummyCategories
-);
-
-}
-
-}
-
-loadCategories();
-
-/* ===================================
-RENDER
-=================================== */
-
-function renderCategories(
-categories
-){
-
-categorySlider.innerHTML =
-"";
-
-categories.forEach(
-(category,index)=>{
-
-categorySlider.innerHTML +=
-
-`
-
-<div
-
-class="categoryCard
-
-${index===0 ? 'active' : ''}"
-
-data-id="${category.id}"
-
-onclick="selectCategory(
-
-'${category.id}'
-
-)">
-
-<div
-class="categoryIcon">
-
-${category.icon || "🧺"}
-
-</div>
-
-<h4>
-
-${category.name}
-
-</h4>
-
-</div>
-
-`;
-
-});
-
-/* AUTO SELECT */
-
-if(categories.length){
-
-window.selectedCategoryId =
-
-categories[0].id;
-
-if(window.loadSubCategories){
-
-window.loadSubCategories(
-
-categories[0].id
-
-);
-
-}
-
-}
-
-}
-
-/* ===================================
-CATEGORY SELECT
-=================================== */
-
-window.selectCategory =
-function(categoryId){
-
-window.selectedCategoryId =
-categoryId;
-
-document
-.querySelectorAll(
-".categoryCard"
-)
-
-.forEach(card=>{
-
-card.classList.remove(
-"active"
-);
-
-if(
-
-card.dataset.id ===
-categoryId
-
-){
-
-card.classList.add(
-"active"
-);
-
-}
-
-});
-
-if(window.loadSubCategories){
-
-window.loadSubCategories(
-categoryId
-);
-
-}
-
-};
-
-</script>
-<!-- ===================================
-SUB CATEGORIES
-=================================== -->
-
-<div class="subCategorySection">
-
-<div
-class="subCategoryTabs"
-id="subCategoryTabs">
-
-<!-- Sub Categories -->
-
-</div>
-
-</div>
-
-<style>
-
-/* ===================================
-SUB CATEGORY
-=================================== */
-
-.subCategorySection{
-
-padding:0 16px 20px;
-
-}
-
-.subCategoryTabs{
+.categoryScroller{
 
 display:flex;
 
@@ -832,23 +445,25 @@ overflow-x:auto;
 
 scrollbar-width:none;
 
--webkit-overflow-scrolling:touch;
-
 padding-bottom:6px;
 
 }
 
-.subCategoryTabs::-webkit-scrollbar{
+.categoryScroller::-webkit-scrollbar{
 
 display:none;
 
 }
 
-.subCategoryBtn{
+/* ===================================
+CHIPS
+=================================== */
 
-height:40px;
+.categoryChip{
 
-padding:0 16px;
+height:42px;
+
+padding:0 18px;
 
 border:none;
 
@@ -856,38 +471,61 @@ border-radius:999px;
 
 background:#fff;
 
+color:#111827;
+
 font-size:13px;
 
 font-weight:800;
 
-color:#374151;
+white-space:nowrap;
 
 cursor:pointer;
 
-white-space:nowrap;
-
 box-shadow:
-0 3px 10px rgba(0,0,0,.05);
+0 4px 12px rgba(0,0,0,.05);
+
+transition:.25s;
 
 }
 
-.subCategoryBtn.active{
+.categoryChip:hover{
+
+transform:translateY(-2px);
+
+}
+
+/* ===================================
+ACTIVE CHIP
+=================================== */
+
+.activeChip{
 
 background:#16A34A;
 
 color:#fff;
 
+box-shadow:
+0 8px 20px rgba(22,163,74,.25);
+
 }
 
-@media(min-width:1200px){
+/* ===================================
+DESKTOP
+=================================== */
 
-.subCategoryBtn{
+@media(min-width:992px){
 
-height:44px;
+.categorySection{
 
-padding:0 18px;
+padding:20px 24px;
 
-font-size:14px;
+}
+
+.categoryScroller{
+
+justify-content:center;
+
+flex-wrap:wrap;
 
 }
 
@@ -895,343 +533,981 @@ font-size:14px;
 
 </style>
 
-<script type="module">
+<script>
+
+/* ===================================
+CATEGORY ACTIVE STATE
+=================================== */
+
+document
+.querySelectorAll(
+".categoryChip"
+)
+
+.forEach(chip=>{
+
+chip.addEventListener(
+
+"click",
+
+()=>{
+
+document
+.querySelectorAll(
+".categoryChip"
+)
+
+.forEach(item=>{
+
+item.classList.remove(
+"activeChip"
+);
+
+});
+
+chip.classList.add(
+"activeChip"
+);
+
+const category =
+
+chip.dataset.category;
+
+/* Call Loader */
+
+if(
+window.filterCategory
+){
+
+window.filterCategory(
+category
+);
+
+}
+
+}
+
+);
+
+});
+
+</script><!-- ===================================
+TOP ACTION BAR
+=================================== -->
+
+<section class="actionSection">
+
+<div class="actionBar">
+
+<div
+class="resultCount"
+id="resultCount">
+
+0 Services
+
+</div>
+
+<select
+id="sortServices"
+class="sortSelect">
+
+<option value="popular">
+
+Popular
+
+</option>
+
+<option value="lowToHigh">
+
+Price Low → High
+
+</option>
+
+<option value="highToLow">
+
+Price High → Low
+
+</option>
+
+<option value="newest">
+
+Newest
+
+</option>
+
+</select>
+
+</div>
+
+</section>
+
+<!-- ===================================
+SERVICES GRID
+=================================== -->
+
+<section class="servicesSection">
+
+<div
+class="servicesGrid"
+id="servicesGrid">
+
+<!-- Firebase Services -->
+
+</div>
+
+</section>
+
+<!-- ===================================
+EMPTY STATE
+=================================== -->
+
+<div
+class="emptyState"
+id="emptyState">
+
+<i class="fa-solid fa-magnifying-glass"></i>
+
+<h3>
+
+No Services Found
+
+</h3>
+
+<p>
+
+Try changing search or category.
+
+</p>
+
+</div>
+
+<!-- ===================================
+LOADING STATE
+=================================== -->
+
+<div
+class="skeletonGrid"
+id="skeletonGrid">
+
+<div class="skeletonCard"></div>
+<div class="skeletonCard"></div>
+<div class="skeletonCard"></div>
+<div class="skeletonCard"></div>
+
+</div>
+
+<style>
+
+/* ===================================
+ACTION BAR
+=================================== */
+
+.actionSection{
+
+padding:0 16px 12px;
+
+}
+
+.actionBar{
+
+display:flex;
+
+justify-content:space-between;
+
+align-items:center;
+
+gap:10px;
+
+}
+
+.resultCount{
+
+font-size:13px;
+
+font-weight:800;
+
+color:#6B7280;
+
+}
+
+.sortSelect{
+
+height:42px;
+
+padding:0 12px;
+
+border:none;
+
+border-radius:12px;
+
+background:#fff;
+
+font-size:13px;
+
+font-weight:700;
+
+box-shadow:
+0 4px 12px rgba(0,0,0,.05);
+
+outline:none;
+
+}
+
+/* ===================================
+SERVICES GRID
+=================================== */
+
+.servicesSection{
+
+padding:0 16px 20px;
+
+}
+
+.servicesGrid{
+
+display:grid;
+
+grid-template-columns:
+repeat(2,1fr);
+
+gap:14px;
+
+}
+
+/* ===================================
+EMPTY STATE
+=================================== */
+
+.emptyState{
+
+display:none;
+
+padding:60px 20px;
+
+text-align:center;
+
+}
+
+.emptyState i{
+
+font-size:42px;
+
+color:#D1D5DB;
+
+margin-bottom:14px;
+
+}
+
+.emptyState h3{
+
+font-size:20px;
+
+font-weight:900;
+
+color:#111827;
+
+}
+
+.emptyState p{
+
+margin-top:8px;
+
+font-size:13px;
+
+color:#6B7280;
+
+}
+
+/* ===================================
+LOADING
+=================================== */
+
+.skeletonGrid{
+
+display:grid;
+
+grid-template-columns:
+repeat(2,1fr);
+
+gap:14px;
+
+padding:0 16px 20px;
+
+}
+
+.skeletonCard{
+
+height:210px;
+
+border-radius:22px;
+
+background:
+linear-gradient(
+90deg,
+#F3F4F6 25%,
+#E5E7EB 50%,
+#F3F4F6 75%
+);
+
+background-size:
+400% 100%;
+
+animation:
+loading 1.4s infinite;
+
+}
+
+@keyframes loading{
+
+0%{
+background-position:
+100% 0;
+}
+
+100%{
+background-position:
+-100% 0;
+}
+
+}
+
+/* ===================================
+DESKTOP
+=================================== */
+
+@media(min-width:992px){
+
+.servicesGrid{
+
+grid-template-columns:
+repeat(4,1fr);
+
+gap:20px;
+
+}
+
+.skeletonGrid{
+
+grid-template-columns:
+repeat(4,1fr);
+
+}
+
+}
+
+</style>
+
+<script>
+
+/* ===================================
+HELPERS
+=================================== */
+
+window.showLoading =
+function(){
+
+document.getElementById(
+"skeletonGrid"
+).style.display="grid";
+
+document.getElementById(
+"servicesGrid"
+).style.display="none";
+
+};
+
+window.hideLoading =
+function(){
+
+document.getElementById(
+"skeletonGrid"
+).style.display="none";
+
+document.getElementById(
+"servicesGrid"
+).style.display="grid";
+
+};
+
+window.updateResultCount =
+function(count){
+
+document.getElementById(
+"resultCount"
+).innerHTML =
+
+count + " Services";
+
+};
+
+window.showEmptyState =
+function(){
+
+document.getElementById(
+"emptyState"
+).style.display="block";
+
+};
+
+window.hideEmptyState =
+function(){
+
+document.getElementById(
+"emptyState"
+).style.display="none";
+
+};
+
+showLoading();
+
+</script><script type="module">
+
+/* ===================================
+IMPORTS
+=================================== */
 
 import { db }
 from "./firebase.js";
 
 import {
+
 collection,
-getDocs
+query,
+where,
+onSnapshot
+
 }
+
 from
+
 "https://www.gstatic.com/firebasejs/12.11.0/firebase-firestore.js";
 
 /* ===================================
-DUMMY SUB CATEGORIES
+GLOBAL DATA
 =================================== */
 
-const dummySubCategories = {
+let allServices = [];
 
-ironing:[
+let currentCategory = "All";
 
-{
-id:"shirt",
-name:"Shirt",
-icon:"👕"
-},
+let currentSearch = "";
 
-{
-id:"pant",
-name:"Pant",
-icon:"👖"
-},
-
-{
-id:"blazer",
-name:"Blazer",
-icon:"🤵"
-},
-
-{
-id:"suit",
-name:"Suit",
-icon:"🧥"
-}
-
-],
-
-dryclean:[
-
-{
-id:"dcshirt",
-name:"Shirt",
-icon:"👕"
-},
-
-{
-id:"dcsaree",
-name:"Saree",
-icon:"🥻"
-},
-
-{
-id:"dcjacket",
-name:"Jacket",
-icon:"🧥"
-}
-
-],
-
-washfold:[
-
-{
-id:"wfcloth",
-name:"Clothes",
-icon:"🫧"
-}
-
-],
-
-shoecare:[
-
-{
-id:"shoe",
-name:"Shoes",
-icon:"👟"
-}
-
-]
-
-};
+let currentSort = "popular";
 
 /* ===================================
-LOAD SUB CATEGORIES
+ELEMENTS
 =================================== */
 
-window.selectedSubCategoryId =
-null;
-
-window.loadSubCategories =
-async function(categoryId){
-
-const container =
+const servicesGrid =
 
 document.getElementById(
-"subCategoryTabs"
+"servicesGrid"
 );
 
-try{
+const globalSearch =
 
-const snapshot =
-
-await getDocs(
-collection(
-db,
-"subcategories"
-)
+document.getElementById(
+"globalSearch"
 );
 
-let subCategories = [];
+const sortServices =
 
-snapshot.forEach(doc=>{
-
-const item = {
-
-id:doc.id,
-
-...doc.data()
-
-};
-
-if(
-
-item.categoryId ===
-categoryId
-
-){
-
-subCategories.push(
-item
+document.getElementById(
+"sortServices"
 );
+
+/* ===================================
+SERVICE CARD
+=================================== */
+
+function createServiceCard(service){
+
+const price =
+
+service.price || 0;
+
+return `
+
+<div class="serviceCard">
+
+<div class="serviceTop">
+
+<img
+
+src="${
+service.image ||
+
+'https://images.unsplash.com/photo-1517677208171-0bc6725a3e60?w=500'
+}"
+
+loading="lazy"
+
+alt="${service.name}"
+
+>
+
+</div>
+
+<div class="serviceBody">
+
+<div class="serviceCategory">
+
+${service.category || "Laundry"}
+
+</div>
+
+<h3>
+
+${service.name}
+
+</h3>
+
+<p>
+
+${service.description || "Premium Laundry Service"}
+
+</p>
+
+<div class="serviceBottom">
+
+<div>
+
+<div class="servicePrice">
+
+₹${price}
+
+</div>
+
+</div>
+
+<button
+
+class="addBtn"
+
+onclick="addToCart(
+
+'${service.id}',
+
+'${service.name}',
+
+${price},
+
+'${service.category}'
+
+)">
+
+Add
+
+</button>
+
+</div>
+
+</div>
+
+</div>
+
+`;
 
 }
-
-});
-
-/* FALLBACK */
-
-if(
-
-subCategories.length===0 &&
-dummySubCategories[
-categoryId
-]
-
-){
-
-subCategories =
-
-dummySubCategories[
-categoryId
-];
-
-}
-
-renderSubCategories(
-subCategories
-);
-
-}catch(error){
-
-console.log(
-"Using Dummy Sub Categories"
-);
-
-renderSubCategories(
-
-dummySubCategories[
-categoryId
-] || []
-
-);
-
-}
-
-};
 
 /* ===================================
 RENDER
 =================================== */
 
-function renderSubCategories(
-subCategories
-){
+function renderServices(data){
 
-const container =
+hideLoading();
 
-document.getElementById(
-"subCategoryTabs"
+servicesGrid.innerHTML = "";
+
+if(data.length===0){
+
+showEmptyState();
+
+updateResultCount(0);
+
+return;
+
+}
+
+hideEmptyState();
+
+updateResultCount(
+data.length
 );
 
-container.innerHTML = "";
+data.forEach(service=>{
 
-subCategories.forEach(
-(sub,index)=>{
+servicesGrid.innerHTML +=
 
-container.innerHTML +=
-
-`
-
-<button
-
-class="subCategoryBtn
-
-${index===0 ? 'active' : ''}"
-
-data-id="${sub.id}"
-
-onclick="selectSubCategory(
-
-'${sub.id}'
-
-)">
-
-${sub.icon || "👕"}
-
-&nbsp;
-
-${sub.name}
-
-</button>
-
-`;
+createServiceCard(
+service
+);
 
 });
-
-/* AUTO LOAD */
-
-if(subCategories.length){
-
-window.selectedSubCategoryId =
-
-subCategories[0].id;
-
-if(window.loadServices){
-
-window.loadServices(
-
-subCategories[0].id
-
-);
-
-}
-
-}
 
 }
 
 /* ===================================
-SELECT SUB CATEGORY
+FILTERS
 =================================== */
 
-window.selectSubCategory =
-function(subCategoryId){
+function applyFilters(){
 
-window.selectedSubCategoryId =
-subCategoryId;
+let filtered =
 
-document
-.querySelectorAll(
-".subCategoryBtn"
-)
+[...allServices];
 
-.forEach(btn=>{
-
-btn.classList.remove(
-"active"
-);
+/* Category */
 
 if(
-
-btn.dataset.id ===
-subCategoryId
-
+currentCategory !== "All"
 ){
 
-btn.classList.add(
-"active"
+filtered =
+
+filtered.filter(
+
+service=>
+
+service.category ===
+currentCategory
+
 );
 
 }
+
+/* Search */
+
+if(currentSearch){
+
+filtered =
+
+filtered.filter(
+
+service=>
+
+(service.name || "")
+.toLowerCase()
+.includes(
+currentSearch
+)
+
+||
+
+(service.category || "")
+.toLowerCase()
+.includes(
+currentSearch
+)
+
+);
+
+}
+
+/* Sort */
+
+if(
+currentSort==="lowToHigh"
+){
+
+filtered.sort(
+
+(a,b)=>
+
+(a.price||0)-
+(b.price||0)
+
+);
+
+}
+
+if(
+currentSort==="highToLow"
+){
+
+filtered.sort(
+
+(a,b)=>
+
+(b.price||0)-
+(a.price||0)
+
+);
+
+}
+
+if(
+currentSort==="newest"
+){
+
+filtered.sort(
+
+(a,b)=>
+
+(b.createdAt||0)-
+(a.createdAt||0)
+
+);
+
+}
+
+renderServices(
+filtered
+);
+
+}
+
+/* ===================================
+FIREBASE LOAD
+=================================== */
+
+showLoading();
+
+const serviceQuery =
+
+query(
+
+collection(
+db,
+"services"
+),
+
+where(
+"active",
+"==",
+true
+)
+
+);
+
+onSnapshot(
+
+serviceQuery,
+
+(snapshot)=>{
+
+allServices = [];
+
+snapshot.forEach(doc=>{
+
+allServices.push({
+
+id:doc.id,
+
+...doc.data()
 
 });
 
-if(window.loadServices){
+});
 
-window.loadServices(
-subCategoryId
+applyFilters();
+
+}
+
+);
+
+/* ===================================
+SEARCH
+=================================== */
+
+if(globalSearch){
+
+globalSearch.addEventListener(
+
+"keyup",
+
+e=>{
+
+currentSearch =
+
+e.target.value
+.toLowerCase()
+.trim();
+
+applyFilters();
+
+}
+
 );
 
 }
+
+/* ===================================
+SORT
+=================================== */
+
+if(sortServices){
+
+sortServices.addEventListener(
+
+"change",
+
+e=>{
+
+currentSort =
+e.target.value;
+
+applyFilters();
+
+}
+
+);
+
+}
+
+/* ===================================
+CATEGORY
+=================================== */
+
+window.filterCategory =
+function(category){
+
+currentCategory =
+category;
+
+applyFilters();
 
 };
 
 </script>
 
-<!-- ===================================
-DUMMY STRUCTURE
+<style>
 
-Ironing
- ├ Shirt
- ├ Pant
- ├ Blazer
- └ Suit
+/* ===================================
+SERVICE CARD
+=================================== */
 
-Dry Cleaning
- ├ Shirt
- ├ Saree
- └ Jacket
+.serviceCard{
 
-=================================== -->
-  <!-- ===================================
-SERVICES GRID
-=================================== -->
+background:#fff;
 
-<div class="servicesWrapper">
+border-radius:22px;
 
-<div
-class="serviceGrid"
-id="serviceGrid">
+overflow:hidden;
 
-<!-- Services -->
+box-shadow:
+0 8px 24px rgba(0,0,0,.05);
 
-</div>
+transition:.25s;
 
-</div>
+}
 
-<!-- ===================================
-TOAST
+.serviceCard:hover{
+
+transform:
+translateY(-4px);
+
+}
+
+.serviceTop{
+
+height:140px;
+
+overflow:hidden;
+
+background:#F9FAFB;
+
+}
+
+.serviceTop img{
+
+width:100%;
+
+height:100%;
+
+object-fit:cover;
+
+}
+
+.serviceBody{
+
+padding:14px;
+
+}
+
+.serviceCategory{
+
+font-size:11px;
+
+font-weight:800;
+
+color:#16A34A;
+
+margin-bottom:6px;
+
+}
+
+.serviceBody h3{
+
+font-size:14px;
+
+font-weight:900;
+
+line-height:1.4;
+
+color:#111827;
+
+}
+
+.serviceBody p{
+
+margin-top:6px;
+
+font-size:12px;
+
+line-height:1.5;
+
+color:#6B7280;
+
+}
+
+.serviceBottom{
+
+margin-top:14px;
+
+display:flex;
+
+justify-content:space-between;
+
+align-items:center;
+
+}
+
+.servicePrice{
+
+font-size:18px;
+
+font-weight:900;
+
+color:#111827;
+
+}
+
+.addBtn{
+
+height:36px;
+
+padding:0 16px;
+
+border:none;
+
+border-radius:12px;
+
+background:#16A34A;
+
+color:#fff;
+
+font-size:12px;
+
+font-weight:900;
+
+cursor:pointer;
+
+}
+
+</style><!-- ===================================
+CART TOAST
 =================================== -->
 
 <div
@@ -1240,7 +1516,7 @@ id="cartToast">
 
 <div class="toastIcon">
 
-✅
+<i class="fa-solid fa-circle-check"></i>
 
 </div>
 
@@ -1267,159 +1543,6 @@ Service Added
 <style>
 
 /* ===================================
-SERVICES
-=================================== */
-
-.servicesWrapper{
-
-padding:0 16px 20px;
-
-}
-
-/* ===================================
-MOBILE = 3 COLUMN
-=================================== */
-
-.serviceGrid{
-
-display:grid;
-
-grid-template-columns:
-repeat(3,1fr);
-
-gap:10px;
-
-}
-
-/* ===================================
-CARD
-=================================== */
-
-.serviceCard{
-
-background:#fff;
-
-border-radius:18px;
-
-padding:10px;
-
-text-align:center;
-
-cursor:pointer;
-
-box-shadow:
-0 4px 14px rgba(0,0,0,.05);
-
-transition:.25s;
-
-}
-
-.serviceCard:hover{
-
-transform:translateY(-2px);
-
-}
-
-.serviceIcon{
-
-font-size:34px;
-
-margin-bottom:8px;
-
-}
-
-.serviceName{
-
-font-size:11px;
-
-font-weight:800;
-
-line-height:1.3;
-
-min-height:30px;
-
-}
-
-.servicePrice{
-
-margin-top:6px;
-
-font-size:14px;
-
-font-weight:900;
-
-color:#111827;
-
-}
-
-.addBtn{
-
-width:100%;
-
-height:32px;
-
-margin-top:8px;
-
-border:none;
-
-border-radius:10px;
-
-background:#16A34A;
-
-color:#fff;
-
-font-size:11px;
-
-font-weight:900;
-
-cursor:pointer;
-
-}
-
-/* ===================================
-DESKTOP
-=================================== */
-
-@media(min-width:1200px){
-
-.serviceGrid{
-
-grid-template-columns:
-repeat(5,1fr);
-
-gap:18px;
-
-}
-
-.serviceIcon{
-
-font-size:42px;
-
-}
-
-.serviceName{
-
-font-size:13px;
-
-}
-
-.servicePrice{
-
-font-size:18px;
-
-}
-
-.addBtn{
-
-height:38px;
-
-font-size:12px;
-
-}
-
-}
-
-/* ===================================
 TOAST
 =================================== */
 
@@ -1430,6 +1553,7 @@ display:none;
 position:fixed;
 
 left:50%;
+
 bottom:90px;
 
 transform:
@@ -1441,7 +1565,7 @@ color:#fff;
 
 padding:14px 18px;
 
-border-radius:16px;
+border-radius:18px;
 
 align-items:center;
 
@@ -1464,6 +1588,8 @@ display:flex;
 
 font-size:22px;
 
+color:#22C55E;
+
 }
 
 .toastTitle{
@@ -1478,7 +1604,7 @@ font-weight:900;
 
 font-size:12px;
 
-opacity:.85;
+opacity:.9;
 
 margin-top:3px;
 
@@ -1486,353 +1612,51 @@ margin-top:3px;
 
 </style>
 
-<script type="module">
-
-import { db }
-from "./firebase.js";
-
-import {
-collection,
-getDocs
-}
-from
-"https://www.gstatic.com/firebasejs/12.11.0/firebase-firestore.js";
+<script>
 
 /* ===================================
-DUMMY SERVICES
+GET CART
 =================================== */
 
-const dummyServices = {
+window.getCart =
+function(){
 
-shirt:[
-
-{
-id:"1",
-name:"Formal Shirt",
-price:12,
-icon:"👔"
-},
-
-{
-id:"2",
-name:"Denim Shirt",
-price:15,
-icon:"👕"
-},
-
-{
-id:"3",
-name:"Cotton Shirt",
-price:10,
-icon:"👔"
-}
-
-],
-
-pant:[
-
-{
-id:"4",
-name:"Formal Pant",
-price:18,
-icon:"👖"
-},
-
-{
-id:"5",
-name:"Casual Pant",
-price:14,
-icon:"👖"
-},
-
-{
-id:"6",
-name:"Jeans",
-price:20,
-icon:"👖"
-}
-
-],
-
-blazer:[
-
-{
-id:"7",
-name:"Premium Blazer",
-price:40,
-icon:"🤵"
-}
-
-],
-
-suit:[
-
-{
-id:"8",
-name:"2 Piece Suit",
-price:50,
-icon:"🧥"
-}
-
-]
-
-};
-
-/* ===================================
-LOAD SERVICES
-=================================== */
-
-window.loadServices =
-async function(subCategoryId){
-
-try{
-
-const snapshot =
-
-await getDocs(
-collection(
-db,
-"services"
-)
-);
-
-let services = [];
-
-snapshot.forEach(doc=>{
-
-const service = {
-
-id:doc.id,
-
-...doc.data()
-
-};
-
-if(
-
-service.subcategoryId ===
-subCategoryId
-
-){
-
-services.push(
-service
-);
-
-}
-
-});
-
-/* FALLBACK */
-
-if(
-
-services.length===0 &&
-dummyServices[
-subCategoryId
-]
-
-){
-
-services =
-
-dummyServices[
-subCategoryId
-];
-
-}
-
-renderServices(
-services
-);
-
-}catch(error){
-
-console.log(
-"Using Dummy Services"
-);
-
-renderServices(
-
-dummyServices[
-subCategoryId
-] || []
-
-);
-
-}
-
-};
-
-/* ===================================
-RENDER
-=================================== */
-
-function renderServices(
-services
-){
-
-const grid =
-
-document.getElementById(
-"serviceGrid"
-);
-
-grid.innerHTML = "";
-
-if(services.length===0){
-
-grid.innerHTML =
-
-`
-
-<div style="
-grid-column:1/-1;
-text-align:center;
-padding:40px;
-font-weight:700;
-">
-
-No Services Found
-
-</div>
-
-`;
-
-return;
-
-}
-
-const city =
+return JSON.parse(
 
 localStorage.getItem(
-"userCity"
+"cart"
 )
 
-|| "Kasganj";
+|| "[]"
 
-services.forEach(service=>{
-
-let price =
-
-service.price ||
-service.basePrice ||
-0;
-
-/* CITY PRICE */
-
-if(
-
-service.cityPricing &&
-service.cityPricing[city]
-
-){
-
-price =
-
-service.cityPricing[
-city
-];
-
-}
-
-grid.innerHTML +=
-
-`
-
-<div
-
-class="serviceCard"
-
-data-name="${service.name}"
-
-onclick="openService(
-
-'${service.id}'
-
-)">
-
-<div
-class="serviceIcon">
-
-${service.icon || "👕"}
-
-</div>
-
-<div
-class="serviceName">
-
-${service.name}
-
-</div>
-
-<div
-class="servicePrice">
-
-₹${price}
-
-</div>
-
-<button
-
-class="addBtn"
-
-onclick="event.stopPropagation();
-
-addToCart(
-
-'${service.id}',
-
-'${service.name}',
-
-${price}
-
-)">
-
-Add
-
-</button>
-
-</div>
-
-`;
-
-});
-
-}
-
-/* ===================================
-SERVICE DETAILS
-=================================== */
-
-window.openService =
-function(serviceId){
-
-window.location.href =
-
-`service-details.html?id=${serviceId}`;
+);
 
 };
 
-</script>
+/* ===================================
+SAVE CART
+=================================== */
 
-<!-- ===================================
-EXAMPLE
+window.saveCart =
+function(cart){
 
-Ironing
- └ Shirt
-    ├ Formal Shirt
-    ├ Denim Shirt
-    └ Cotton Shirt
+localStorage.setItem(
 
-Ironing
- └ Pant
-    ├ Formal Pant
-    ├ Casual Pant
-    └ Jeans
+"cart",
 
-=================================== -->
-<script>
+JSON.stringify(cart)
+
+);
+
+if(
+window.updateNavbarCartCount
+){
+
+updateNavbarCartCount();
+
+}
+
+};
 
 /* ===================================
 ADD TO CART
@@ -1841,25 +1665,16 @@ ADD TO CART
 window.addToCart =
 function(
 
-serviceId,
-serviceName,
-price
+id,
+name,
+price,
+category
 
 ){
 
 let cart =
 
-JSON.parse(
-localStorage.getItem(
-"cart"
-)
-)
-
-|| [];
-
-/* ===================================
-CHECK EXISTING
-=================================== */
+getCart();
 
 const existing =
 
@@ -1867,8 +1682,7 @@ cart.find(
 
 item=>
 
-item.serviceId ===
-serviceId
+item.serviceId===id
 
 );
 
@@ -1880,73 +1694,39 @@ existing.qty++;
 
 cart.push({
 
-serviceId,
+serviceId:id,
 
-serviceName,
+serviceName:name,
 
 price,
 
+category,
+
 qty:1,
 
-city:
-
-localStorage.getItem(
-"userCity"
-)
-
-|| "Kasganj",
-
-addedAt:
-Date.now()
+addedAt:Date.now()
 
 });
 
 }
 
-/* ===================================
-SAVE CART
-=================================== */
-
-localStorage.setItem(
-
-"cart",
-
-JSON.stringify(cart)
-
-);
-
-/* ===================================
-UPDATE BADGE
-=================================== */
-
-if(window.updateCartBadge){
-
-window.updateCartBadge();
-
-}
-
-if(window.updateNavbarCartCount){
-
-window.updateNavbarCartCount();
-
-}
-
-/* ===================================
-TOAST
-=================================== */
+saveCart(cart);
 
 showToast(
-serviceName
+
+name +
+" added successfully"
+
 );
 
 };
 
 /* ===================================
-TOAST
+SHOW TOAST
 =================================== */
 
 window.showToast =
-function(name){
+function(message){
 
 const toast =
 
@@ -1960,12 +1740,10 @@ document.getElementById(
 "toastText"
 );
 
+if(!toast || !text) return;
+
 text.innerHTML =
-
-name + " added to cart";
-
-toast.style.display =
-"flex";
+message;
 
 toast.classList.add(
 "showToast"
@@ -1977,95 +1755,42 @@ toast.classList.remove(
 "showToast"
 );
 
-setTimeout(()=>{
-
-toast.style.display =
-"none";
-
-},300);
-
 },2000);
 
 };
 
 /* ===================================
-WORKING SEARCH
+TOTAL ITEMS
 =================================== */
 
-const searchInput =
-
-document.getElementById(
-"serviceSearch"
-);
-
-if(searchInput){
-
-searchInput.addEventListener(
-
-"input",
-
+window.getCartItemsCount =
 function(){
 
-const keyword =
+const cart =
+getCart();
 
-this.value
-.toLowerCase()
-.trim();
+let total = 0;
 
-document
-.querySelectorAll(
-".serviceCard"
-)
+cart.forEach(item=>{
 
-.forEach(card=>{
-
-const serviceName =
-
-card.dataset.name
-.toLowerCase();
-
-if(
-
-serviceName.includes(
-keyword
-)
-
-){
-
-card.style.display =
-"block";
-
-}else{
-
-card.style.display =
-"none";
-
-}
+total +=
+item.qty || 1;
 
 });
 
-}
+return total;
 
-);
-
-}
+};
 
 /* ===================================
-CART TOTAL
+TOTAL PRICE
 =================================== */
 
 window.getCartTotal =
 function(){
 
 const cart =
-
-JSON.parse(
-localStorage.getItem(
-"cart"
-)
-)
-
-|| [];
+getCart();
 
 let total = 0;
 
@@ -2086,82 +1811,7 @@ return total;
 };
 
 /* ===================================
-CART COUNT
-=================================== */
-
-window.getCartCount =
-function(){
-
-const cart =
-
-JSON.parse(
-localStorage.getItem(
-"cart"
-)
-)
-
-|| [];
-
-let count = 0;
-
-cart.forEach(item=>{
-
-count +=
-
-item.qty || 1;
-
-});
-
-return count;
-
-};
-
-/* ===================================
-CLEAR CART
-=================================== */
-
-window.clearCart =
-function(){
-
-localStorage.removeItem(
-"cart"
-);
-
-if(window.updateCartBadge){
-
-window.updateCartBadge();
-
-}
-
-};
-
-/* ===================================
-CITY PRICE LOCK
-
-Price Stored In Cart
-
-Admin Later Changes Price
-
-Old Cart Price Same Rahega
-
-=================================== */
-
-/*
-
-Cart Example
-
-{
- serviceId:"1",
- serviceName:"Formal Shirt",
- price:12,
- qty:2,
- city:"Kasganj"
-}
-
-*/
-
-/* ===================================
-SERVICE DETAILS
+OPEN SERVICE
 =================================== */
 
 window.openService =
@@ -2173,113 +1823,67 @@ window.location.href =
 
 };
 
-</script>
+/* ===================================
+OPEN CART
+=================================== */
 
-<!-- ===================================
-SEARCH EXAMPLES
+window.goCart =
+function(){
 
-Formal Shirt
-Denim Shirt
-Cotton Shirt
-Formal Pant
-Casual Pant
-Jeans
+window.location.href =
+"cart.html";
 
+};
+
+console.log(
+"QuickPress Cart Ready"
+);
+
+</script><!-- ===================================
+BOTTOM NAVIGATION
 =================================== -->
 
-<!-- ===================================
-CITY PRICING
-
-Kasganj
-Formal Shirt ₹12
-
-Aligarh
-Formal Shirt ₹15
-
-Delhi
-Formal Shirt ₹25
-
-=================================== -->
-
-<!-- ===================================
-ADMIN PANEL READY
-
-✓ Add Category
-✓ Add Sub Category
-✓ Add Service
-✓ Change Price
-✓ City Wise Pricing
-✓ Enable/Disable Service
-
-=================================== -->
-<!-- ===================================
-FOOTER
-=================================== -->
-
-<div class="footer">
-
-<div class="footerBrand">
-
-⚡ QuickPress
-
-</div>
-
-<div class="footerText">
-
-Premium Laundry • Fast Pickup • Fast Delivery
-
-</div>
-
-<div class="footerCopy">
-
-© 2026 QuickPress. All Rights Reserved.
-
-</div>
-
-</div>
-
-<!-- ===================================
-BOTTOM NAVBAR
-=================================== -->
-
-<div class="bottomNav">
+<nav class="bottomNav">
 
 <button
 class="navItem"
-onclick="window.location.href='index.html'">
+data-page="home">
 
 <i class="fa-solid fa-house"></i>
 
-<span>Home</span>
+<span>
+
+Home
+
+</span>
 
 </button>
 
 <button
-class="navItem"
-onclick="openOrders()">
-
-<i class="fa-solid fa-box"></i>
-
-<span>Orders</span>
-
-</button>
-
-<button
-class="navItem activeNav">
+class="navItem activeNav"
+data-page="services">
 
 <i class="fa-solid fa-table-cells-large"></i>
 
-<span>Services</span>
+<span>
+
+Services
+
+</span>
 
 </button>
 
 <button
 class="navItem"
-onclick="window.location.href='cart.html'">
+data-page="cart">
 
 <i class="fa-solid fa-cart-shopping"></i>
 
-<span>Cart</span>
+<span>
+
+Cart
+
+</span>
 
 <div
 class="navCartBadge"
@@ -2293,62 +1897,38 @@ id="navCartBadge">
 
 <button
 class="navItem"
-onclick="openProfile()">
+data-page="orders">
 
-<i class="fa-regular fa-user"></i>
+<i class="fa-solid fa-box"></i>
 
-<span>Profile</span>
+<span>
+
+Orders
+
+</span>
 
 </button>
 
-</div>
+<button
+class="navItem"
+data-page="profile">
+
+<i class="fa-regular fa-user"></i>
+
+<span>
+
+Profile
+
+</span>
+
+</button>
+
+</nav>
 
 <style>
 
 /* ===================================
-FOOTER
-=================================== */
-
-.footer{
-
-padding:40px 20px 120px;
-
-text-align:center;
-
-}
-
-.footerBrand{
-
-font-size:22px;
-
-font-weight:900;
-
-color:#111827;
-
-}
-
-.footerText{
-
-margin-top:8px;
-
-font-size:13px;
-
-color:#6B7280;
-
-}
-
-.footerCopy{
-
-margin-top:10px;
-
-font-size:12px;
-
-color:#9CA3AF;
-
-}
-
-/* ===================================
-BOTTOM NAVBAR
+BOTTOM NAV
 =================================== */
 
 .bottomNav{
@@ -2359,19 +1939,20 @@ left:0;
 right:0;
 bottom:0;
 
-height:72px;
+height:74px;
 
 background:#fff;
 
 display:flex;
 
 justify-content:space-around;
+
 align-items:center;
 
 box-shadow:
-0 -6px 20px rgba(0,0,0,.08);
+0 -8px 24px rgba(0,0,0,.08);
 
-z-index:999;
+z-index:9999;
 
 }
 
@@ -2388,9 +1969,11 @@ border:none;
 background:none;
 
 display:flex;
+
 flex-direction:column;
 
 align-items:center;
+
 justify-content:center;
 
 gap:4px;
@@ -2421,10 +2004,12 @@ color:#16A34A;
 
 position:absolute;
 
-top:8px;
+top:10px;
+
 right:22px;
 
 min-width:18px;
+
 height:18px;
 
 padding:0 4px;
@@ -2436,7 +2021,9 @@ background:#EF4444;
 color:#fff;
 
 display:flex;
+
 align-items:center;
+
 justify-content:center;
 
 font-size:10px;
@@ -2449,7 +2036,7 @@ font-weight:900;
 
 .bottomNav{
 
-max-width:600px;
+max-width:650px;
 
 left:50%;
 
@@ -2464,79 +2051,119 @@ border-radius:24px 24px 0 0;
 
 </style>
 
-<script type="module">
-
-import { auth }
-from "./firebase.js";
-
-import {
-onAuthStateChanged
-}
-from
-"https://www.gstatic.com/firebasejs/12.11.0/firebase-auth.js";
+<script>
 
 /* ===================================
-AUTH
+NAVIGATION
 =================================== */
 
-let currentUser = null;
+document
+.querySelectorAll(".navItem")
+.forEach(item=>{
 
-onAuthStateChanged(
+item.addEventListener(
 
-auth,
+"click",
 
-(user)=>{
+()=>{
 
-currentUser = user;
+const page =
+item.dataset.page;
+
+if(page==="home"){
+
+window.location.href =
+"index.html";
+
+}
+
+if(page==="services"){
+
+window.location.href =
+"services.html";
+
+}
+
+if(page==="cart"){
+
+window.location.href =
+"cart.html";
+
+}
+
+if(page==="orders"){
+
+window.location.href =
+"orders.html";
+
+}
+
+if(page==="profile"){
+
+window.location.href =
+"profile.html";
+
+}
 
 }
 
 );
 
+});
+
 /* ===================================
-PROFILE
+ACTIVE PAGE
 =================================== */
 
-window.openProfile =
-function(){
+const currentPage =
 
-if(currentUser){
+window.location.pathname
+.split("/")
+.pop();
 
-window.location.href =
-"profile.html";
+document
+.querySelectorAll(".navItem")
+.forEach(item=>{
 
-}else{
+item.classList.remove(
+"activeNav"
+);
 
-window.location.href =
-"login.html";
+const page =
+item.dataset.page;
+
+if(
+
+(currentPage==="services.html" && page==="services")
+
+||
+
+(currentPage==="index.html" && page==="home")
+
+||
+
+(currentPage==="cart.html" && page==="cart")
+
+||
+
+(currentPage==="orders.html" && page==="orders")
+
+||
+
+(currentPage==="profile.html" && page==="profile")
+
+){
+
+item.classList.add(
+"activeNav"
+);
 
 }
 
-};
+});
 
 /* ===================================
-ORDERS
-=================================== */
-
-window.openOrders =
-function(){
-
-if(currentUser){
-
-window.location.href =
-"orders.html";
-
-}else{
-
-window.location.href =
-"login.html";
-
-}
-
-};
-
-/* ===================================
-NAVBAR CART BADGE
+CART BADGE
 =================================== */
 
 window.updateNavbarCartCount =
@@ -2556,7 +2183,8 @@ let total = 0;
 
 cart.forEach(item=>{
 
-total += item.qty || 1;
+total +=
+item.qty || 1;
 
 });
 
@@ -2583,36 +2211,1489 @@ total > 0
 updateNavbarCartCount();
 
 /* ===================================
-SYNC TOP CART
+PROFILE
 =================================== */
 
-window.addEventListener(
+window.openProfile =
+function(){
 
-"storage",
+window.location.href =
+"profile.html";
 
-()=>{
+};
 
-updateNavbarCartCount();
+</script><script type="module">
 
-if(window.updateCartBadge){
+/* ===================================
+FIREBASE AUTH
+=================================== */
 
-updateCartBadge();
+import { auth }
+from "./firebase.js";
+
+import {
+
+onAuthStateChanged,
+signOut
 
 }
+
+from
+
+"https://www.gstatic.com/firebasejs/12.11.0/firebase-auth.js";
+
+/* ===================================
+GLOBAL USER
+=================================== */
+
+let currentUser = null;
+
+/* ===================================
+AUTH STATE
+=================================== */
+
+onAuthStateChanged(
+
+auth,
+
+(user)=>{
+
+currentUser = user;
+
+/* ===================================
+PROFILE ICON
+=================================== */
+
+const profileBtn =
+
+document.querySelector(
+".profileBtn"
+);
+
+if(profileBtn){
+
+if(user){
+
+profileBtn.innerHTML =
+
+`<i class="fa-solid fa-user-check"></i>`;
+
+}else{
+
+profileBtn.innerHTML =
+
+`<i class="fa-regular fa-user"></i>`;
+
+}
+
+}
+
+});
+
+/* ===================================
+PROFILE PAGE
+=================================== */
+
+window.openProfile =
+function(){
+
+if(currentUser){
+
+window.location.href =
+"profile.html";
+
+}else{
+
+window.location.href =
+"login.html";
+
+}
+
+};
+
+/* ===================================
+LOGIN CHECK
+=================================== */
+
+window.requireLogin =
+function(){
+
+if(!currentUser){
+
+window.location.href =
+"login.html";
+
+return false;
+
+}
+
+return true;
+
+};
+
+/* ===================================
+ORDERS PAGE
+=================================== */
+
+window.openOrders =
+function(){
+
+if(!requireLogin()){
+
+return;
+
+}
+
+window.location.href =
+"orders.html";
+
+};
+
+/* ===================================
+CART PAGE
+=================================== */
+
+window.openCart =
+function(){
+
+window.location.href =
+"cart.html";
+
+};
+
+/* ===================================
+USER DATA
+=================================== */
+
+window.getCurrentUser =
+function(){
+
+return currentUser;
+
+};
+
+window.isLoggedIn =
+function(){
+
+return currentUser !== null;
+
+};
+
+window.getUserName =
+function(){
+
+if(!currentUser){
+
+return "Guest";
+
+}
+
+return (
+
+currentUser.displayName
+
+||
+
+currentUser.phoneNumber
+
+||
+
+currentUser.email
+
+||
+
+"User"
+
+);
+
+};
+
+/* ===================================
+USER PHOTO
+=================================== */
+
+window.getUserPhoto =
+function(){
+
+if(
+
+currentUser &&
+currentUser.photoURL
+
+){
+
+return currentUser.photoURL;
+
+}
+
+return null;
+
+};
+
+/* ===================================
+LOGOUT
+=================================== */
+
+window.logoutUser =
+async function(){
+
+try{
+
+await signOut(auth);
+
+window.location.href =
+"login.html";
+
+}catch(error){
+
+console.log(error);
+
+alert(
+"Logout Failed"
+);
+
+}
+
+};
+
+/* ===================================
+AUTH READY
+=================================== */
+
+console.log(
+"QuickPress Services Auth Loaded"
+);
+
+</script><script>
+
+/* ===================================
+FILTER ENGINE
+=================================== */
+
+let currentSearchText = "";
+
+let currentCategoryFilter = "All";
+
+let currentSortFilter = "popular";
+
+/* ===================================
+SEARCH SYSTEM
+=================================== */
+
+const searchInput =
+
+document.getElementById(
+"globalSearch"
+);
+
+if(searchInput){
+
+searchInput.addEventListener(
+
+"input",
+
+function(){
+
+currentSearchText =
+
+this.value
+.toLowerCase()
+.trim();
+
+applyAdvancedFilters();
 
 }
 
 );
+
+}
+
+/* ===================================
+CATEGORY FILTER
+=================================== */
+
+window.filterCategory =
+function(category){
+
+currentCategoryFilter =
+category;
+
+applyAdvancedFilters();
+
+};
+
+/* ===================================
+SORT FILTER
+=================================== */
+
+const sortSelect =
+
+document.getElementById(
+"sortServices"
+);
+
+if(sortSelect){
+
+sortSelect.addEventListener(
+
+"change",
+
+function(){
+
+currentSortFilter =
+this.value;
+
+applyAdvancedFilters();
+
+}
+
+);
+
+}
+
+/* ===================================
+MAIN FILTER ENGINE
+=================================== */
+
+window.applyAdvancedFilters =
+function(){
+
+if(!window.allServices){
+
+return;
+
+}
+
+let filtered =
+
+[...window.allServices];
+
+/* Search */
+
+if(currentSearchText){
+
+filtered =
+
+filtered.filter(
+
+service=>{
+
+const name =
+
+(service.name || "")
+.toLowerCase();
+
+const category =
+
+(service.category || "")
+.toLowerCase();
+
+const description =
+
+(service.description || "")
+.toLowerCase();
+
+return (
+
+name.includes(
+currentSearchText
+)
+
+||
+
+category.includes(
+currentSearchText
+)
+
+||
+
+description.includes(
+currentSearchText
+)
+
+);
+
+}
+
+);
+
+}
+
+/* Category */
+
+if(
+
+currentCategoryFilter !==
+"All"
+
+){
+
+filtered =
+
+filtered.filter(
+
+service=>
+
+service.category ===
+
+currentCategoryFilter
+
+);
+
+}
+
+/* Sorting */
+
+switch(
+
+currentSortFilter
+
+){
+
+case "lowToHigh":
+
+filtered.sort(
+
+(a,b)=>
+
+(a.price||0)
+
+-
+
+(b.price||0)
+
+);
+
+break;
+
+case "highToLow":
+
+filtered.sort(
+
+(a,b)=>
+
+(b.price||0)
+
+-
+
+(a.price||0)
+
+);
+
+break;
+
+case "newest":
+
+filtered.sort(
+
+(a,b)=>
+
+(b.createdAt||0)
+
+-
+
+(a.createdAt||0)
+
+);
+
+break;
+
+default:
+
+break;
+
+}
+
+/* Update Counter */
+
+if(
+window.updateResultCount
+){
+
+updateResultCount(
+
+filtered.length
+
+);
+
+}
+
+/* Render */
+
+if(
+window.renderServices
+){
+
+renderServices(
+filtered
+);
+
+}
+
+};
+
+/* ===================================
+SERVICE CACHE
+=================================== */
+
+window.saveServicesCache =
+function(data){
+
+try{
+
+localStorage.setItem(
+
+"servicesCache",
+
+JSON.stringify(
+data
+)
+
+);
+
+}catch(error){
+
+console.log(error);
+
+}
+
+};
+
+window.loadServicesCache =
+function(){
+
+try{
+
+return JSON.parse(
+
+localStorage.getItem(
+"servicesCache"
+)
+
+|| "[]"
+
+);
+
+}catch(error){
+
+return [];
+
+}
+
+};
+
+/* ===================================
+AUTO CACHE
+=================================== */
+
+window.cacheServices =
+function(){
+
+if(
+window.allServices
+){
+
+saveServicesCache(
+window.allServices
+);
+
+}
+
+};
+
+/* ===================================
+SEARCH CLEAR
+=================================== */
+
+window.clearSearch =
+function(){
+
+if(searchInput){
+
+searchInput.value = "";
+
+}
+
+currentSearchText = "";
+
+applyAdvancedFilters();
+
+};
+
+/* ===================================
+FILTER RESET
+=================================== */
+
+window.resetFilters =
+function(){
+
+currentSearchText = "";
+
+currentCategoryFilter =
+
+"All";
+
+currentSortFilter =
+
+"popular";
+
+if(searchInput){
+
+searchInput.value = "";
+
+}
+
+if(sortSelect){
+
+sortSelect.value =
+
+"popular";
+
+}
+
+document
+.querySelectorAll(
+".categoryChip"
+)
+
+.forEach(chip=>{
+
+chip.classList.remove(
+"activeChip"
+);
+
+if(
+
+chip.dataset.category
+=== "All"
+
+){
+
+chip.classList.add(
+"activeChip"
+);
+
+}
+
+});
+
+applyAdvancedFilters();
+
+};
+
+/* ===================================
+PERFORMANCE
+=================================== */
+
+window.debounce =
+function(callback,delay){
+
+let timer;
+
+return function(){
+
+clearTimeout(timer);
+
+timer = setTimeout(
+
+()=>{
+
+callback.apply(
+this,
+arguments
+);
+
+},
+
+delay
+
+);
+
+};
+
+};
 
 /* ===================================
 READY
 =================================== */
 
 console.log(
-"QuickPress Services V3 Loaded"
+"QuickPress Filter Engine Loaded"
+);
+
+</script><script>
+
+/* ===================================
+GET CART
+=================================== */
+
+window.getCart =
+function(){
+
+try{
+
+return JSON.parse(
+
+localStorage.getItem(
+"cart"
+)
+
+|| "[]"
+
+);
+
+}catch(error){
+
+return [];
+
+}
+
+};
+
+/* ===================================
+SAVE CART
+=================================== */
+
+window.saveCart =
+function(cart){
+
+localStorage.setItem(
+
+"cart",
+
+JSON.stringify(cart)
+
+);
+
+if(
+window.updateNavbarCartCount
+){
+
+updateNavbarCartCount();
+
+}
+
+};
+
+/* ===================================
+ADD TO CART
+=================================== */
+
+window.addToCart =
+function(
+
+id,
+name,
+price,
+category
+
+){
+
+let cart =
+getCart();
+
+const existing =
+
+cart.find(
+
+item=>
+
+item.serviceId === id
+
+);
+
+if(existing){
+
+existing.qty++;
+
+}else{
+
+cart.push({
+
+serviceId:id,
+
+serviceName:name,
+
+price,
+
+category,
+
+qty:1,
+
+addedAt:Date.now()
+
+});
+
+}
+
+saveCart(cart);
+
+if(window.showToast){
+
+showToast(
+
+name +
+" added to cart"
+
+);
+
+}
+
+};
+
+/* ===================================
+INCREASE QTY
+=================================== */
+
+window.increaseQty =
+function(serviceId){
+
+let cart =
+getCart();
+
+const item =
+
+cart.find(
+
+item=>
+
+item.serviceId === serviceId
+
+);
+
+if(item){
+
+item.qty++;
+
+}
+
+saveCart(cart);
+
+if(window.renderCart){
+
+renderCart();
+
+}
+
+};
+
+/* ===================================
+DECREASE QTY
+=================================== */
+
+window.decreaseQty =
+function(serviceId){
+
+let cart =
+getCart();
+
+const item =
+
+cart.find(
+
+item=>
+
+item.serviceId === serviceId
+
+);
+
+if(!item) return;
+
+item.qty--;
+
+if(item.qty <= 0){
+
+cart = cart.filter(
+
+x=>
+
+x.serviceId !== serviceId
+
+);
+
+}
+
+saveCart(cart);
+
+if(window.renderCart){
+
+renderCart();
+
+}
+
+};
+
+/* ===================================
+REMOVE ITEM
+=================================== */
+
+window.removeCartItem =
+function(serviceId){
+
+let cart =
+getCart();
+
+cart =
+
+cart.filter(
+
+item=>
+
+item.serviceId !== serviceId
+
+);
+
+saveCart(cart);
+
+if(window.renderCart){
+
+renderCart();
+
+}
+
+if(window.showToast){
+
+showToast(
+"Item Removed"
+);
+
+}
+
+};
+
+/* ===================================
+CLEAR CART
+=================================== */
+
+window.clearCart =
+function(){
+
+localStorage.removeItem(
+"cart"
+);
+
+if(
+window.updateNavbarCartCount
+){
+
+updateNavbarCartCount();
+
+}
+
+if(window.renderCart){
+
+renderCart();
+
+}
+
+};
+
+/* ===================================
+ITEM COUNT
+=================================== */
+
+window.getCartItemsCount =
+function(){
+
+const cart =
+getCart();
+
+let total = 0;
+
+cart.forEach(item=>{
+
+total +=
+item.qty || 1;
+
+});
+
+return total;
+
+};
+
+/* ===================================
+TOTAL PRICE
+=================================== */
+
+window.getCartTotal =
+function(){
+
+const cart =
+getCart();
+
+let total = 0;
+
+cart.forEach(item=>{
+
+total +=
+
+(item.price || 0)
+
+*
+
+(item.qty || 1);
+
+});
+
+return total;
+
+};
+
+/* ===================================
+ORDER SUMMARY
+=================================== */
+
+window.getOrderSummary =
+function(){
+
+const subtotal =
+
+getCartTotal();
+
+const deliveryFee =
+
+subtotal >= 299
+
+? 0
+
+: 49;
+
+const tax =
+
+Math.round(
+subtotal * 0.05
+);
+
+const grandTotal =
+
+subtotal +
+deliveryFee +
+tax;
+
+return{
+
+subtotal,
+
+deliveryFee,
+
+tax,
+
+grandTotal,
+
+items:
+
+getCartItemsCount()
+
+};
+
+};
+
+/* ===================================
+CHECKOUT
+=================================== */
+
+window.goCheckout =
+function(){
+
+const cart =
+getCart();
+
+if(cart.length===0){
+
+alert(
+"Your Cart Is Empty"
+);
+
+return;
+
+}
+
+window.location.href =
+"checkout.html";
+
+};
+
+/* ===================================
+COUPON SUPPORT
+=================================== */
+
+window.applyCoupon =
+function(code){
+
+const summary =
+
+getOrderSummary();
+
+let discount = 0;
+
+if(code==="WELCOME50"){
+
+discount =
+
+Math.round(
+
+summary.subtotal * 0.50
+
+);
+
+}
+
+if(code==="QUICK20"){
+
+discount =
+
+Math.round(
+
+summary.subtotal * 0.20
+
+);
+
+}
+
+return discount;
+
+};
+
+/* ===================================
+CHECKOUT DATA
+=================================== */
+
+window.createCheckoutData =
+function(){
+
+return{
+
+items:getCart(),
+
+summary:getOrderSummary(),
+
+createdAt:
+Date.now()
+
+};
+
+};
+
+console.log(
+"QuickPress Cart Engine Loaded"
+);
+
+</script><!-- ===================================
+GLOBAL TOAST
+=================================== -->
+
+<div
+class="globalToast"
+id="globalToast">
+
+<span
+id="globalToastText">
+
+Success
+
+</span>
+
+</div>
+
+<style>
+
+/* ===================================
+GLOBAL TOAST
+=================================== */
+
+.globalToast{
+
+position:fixed;
+
+left:50%;
+
+bottom:90px;
+
+transform:
+translateX(-50%);
+
+background:#111827;
+
+color:#fff;
+
+padding:14px 20px;
+
+border-radius:14px;
+
+font-size:13px;
+
+font-weight:700;
+
+opacity:0;
+
+visibility:hidden;
+
+transition:.3s;
+
+z-index:99999;
+
+}
+
+.globalToast.show{
+
+opacity:1;
+
+visibility:visible;
+
+}
+
+/* ===================================
+SMOOTH UI
+=================================== */
+
+.serviceCard,
+.categoryChip,
+.addBtn,
+.navItem{
+
+transition:.25s;
+
+}
+
+.addBtn:active{
+
+transform:scale(.95);
+
+}
+
+.categoryChip:active{
+
+transform:scale(.95);
+
+}
+
+</style>
+
+<script>
+
+/* ===================================
+GLOBAL TOAST
+=================================== */
+
+window.showToast =
+function(message){
+
+const toast =
+
+document.getElementById(
+"globalToast"
+);
+
+const text =
+
+document.getElementById(
+"globalToastText"
+);
+
+if(!toast || !text){
+
+return;
+
+}
+
+text.innerHTML =
+message;
+
+toast.classList.add(
+"show"
+);
+
+setTimeout(()=>{
+
+toast.classList.remove(
+"show"
+);
+
+},2000);
+
+};
+
+/* ===================================
+FORMAT PRICE
+=================================== */
+
+window.formatPrice =
+function(price){
+
+return "₹" +
+
+Number(price || 0)
+
+.toLocaleString(
+"en-IN"
+);
+
+};
+
+/* ===================================
+FORMAT DATE
+=================================== */
+
+window.formatDate =
+function(timestamp){
+
+if(!timestamp){
+
+return "";
+
+}
+
+return new Date(
+timestamp
+)
+
+.toLocaleDateString(
+"en-IN"
+
+);
+
+};
+
+/* ===================================
+GENERATE ID
+=================================== */
+
+window.generateOrderId =
+function(){
+
+return "QP" +
+
+Date.now()
+
+.toString()
+
+.slice(-8);
+
+};
+
+/* ===================================
+ONLINE STATUS
+=================================== */
+
+window.isOnline =
+function(){
+
+return navigator.onLine;
+
+};
+
+window.addEventListener(
+
+"offline",
+
+()=>{
+
+showToast(
+"Internet Disconnected"
+);
+
+}
+
+);
+
+window.addEventListener(
+
+"online",
+
+()=>{
+
+showToast(
+"Internet Connected"
+);
+
+}
+
+);
+
+/* ===================================
+CACHE RESTORE
+=================================== */
+
+window.restoreCachedServices =
+function(){
+
+try{
+
+const cache =
+
+JSON.parse(
+
+localStorage.getItem(
+"servicesCache"
+)
+
+|| "[]"
+
+);
+
+if(
+
+cache.length > 0
+
+&&
+
+window.renderServices
+
+){
+
+renderServices(
+cache
+);
+
+}
+
+}catch(error){
+
+console.log(error);
+
+}
+
+};
+
+/* ===================================
+PAGE READY
+=================================== */
+
+window.appReady =
+function(){
+
+console.log(
+"QuickPress Services Ready"
+);
+
+if(
+window.updateNavbarCartCount
+){
+
+updateNavbarCartCount();
+
+}
+
+};
+
+/* ===================================
+START APP
+=================================== */
+
+document.addEventListener(
+
+"DOMContentLoaded",
+
+()=>{
+
+appReady();
+
+}
+
 );
 
 </script>
 
 </body>
+
 </html>
