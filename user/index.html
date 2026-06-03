@@ -421,8 +421,7 @@ placeholder="Search Dry Cleaning, Steam Iron, Shoe Care">
 </div>
 
 </div>
-
-</div><!-- ===================================
+<!-- ===================================
 LOCATION MODAL
 =================================== -->
 
@@ -435,9 +434,7 @@ id="locationModal">
 <div class="locationHeader">
 
 <h3>
-
 Select Location
-
 </h3>
 
 <button
@@ -462,8 +459,8 @@ Detect My Location
 
 <input
 type="text"
-class="locationSearch"
 id="locationSearch"
+class="locationSearch"
 placeholder="Search City">
 
 <div
@@ -514,7 +511,9 @@ Delhi
 
 </div>
 
-</div><!-- ===================================
+</div>
+
+<!-- ===================================
 PREMIUM CATEGORIES
 =================================== -->
 
@@ -553,7 +552,11 @@ class="categoryIcon dryBg">
 
 </div>
 
-<h4>Dry Cleaning</h4>
+<h4>
+
+Dry Cleaning
+
+</h4>
 
 </div>
 
@@ -568,7 +571,11 @@ class="categoryIcon washBg">
 
 </div>
 
-<h4>Wash & Fold</h4>
+<h4>
+
+Wash & Fold
+
+</h4>
 
 </div>
 
@@ -583,7 +590,11 @@ class="categoryIcon ironBg">
 
 </div>
 
-<h4>Steam Iron</h4>
+<h4>
+
+Steam Iron
+
+</h4>
 
 </div>
 
@@ -598,7 +609,11 @@ class="categoryIcon shoeBg">
 
 </div>
 
-<h4>Shoe Care</h4>
+<h4>
+
+Shoe Care
+
+</h4>
 
 </div>
 
@@ -613,7 +628,11 @@ class="categoryIcon blanketBg">
 
 </div>
 
-<h4>Blanket Care</h4>
+<h4>
+
+Blanket Care
+
+</h4>
 
 </div>
 
@@ -628,10 +647,1490 @@ class="categoryIcon premiumBg">
 
 </div>
 
-<h4>Premium Care</h4>
+<h4>
+
+Premium Care
+
+</h4>
+
+</div>
+
+<div
+class="categoryCard"
+data-category="Curtain Care">
+
+<div
+class="categoryIcon curtainBg">
+
+<i class="fa-solid fa-border-all"></i>
+
+</div>
+
+<h4>
+
+Curtain Care
+
+</h4>
+
+</div>
+
+<div
+class="categoryCard"
+data-category="Express Laundry">
+
+<div
+class="categoryIcon expressBg">
+
+<i class="fa-solid fa-bolt"></i>
+
+</div>
+
+<h4>
+
+Express
+
+</h4>
 
 </div>
 
 </div>
 
 </section>
+
+<style>
+
+/* ===================================
+LOCATION MODAL
+=================================== */
+
+.locationModal{
+
+position:fixed;
+inset:0;
+
+background:
+rgba(0,0,0,.45);
+
+display:none;
+
+justify-content:center;
+align-items:center;
+
+z-index:99999;
+
+}
+
+.locationBox{
+
+width:92%;
+max-width:520px;
+
+background:#fff;
+
+border-radius:28px;
+
+padding:20px;
+
+}
+
+.locationHeader{
+
+display:flex;
+
+justify-content:space-between;
+align-items:center;
+
+margin-bottom:14px;
+
+}
+
+.locationHeader h3{
+
+font-size:22px;
+
+font-weight:900;
+
+}
+
+.closeLocation{
+
+width:42px;
+height:42px;
+
+border:none;
+
+border-radius:12px;
+
+background:#F3F4F6;
+
+cursor:pointer;
+
+}
+
+.detectBtn{
+
+width:100%;
+
+height:54px;
+
+border:none;
+
+border-radius:16px;
+
+background:#16A34A;
+
+color:#fff;
+
+font-weight:900;
+
+cursor:pointer;
+
+}
+
+.locationSearch{
+
+width:100%;
+
+height:54px;
+
+margin-top:12px;
+
+border:1px solid #E5E7EB;
+
+border-radius:16px;
+
+padding:0 14px;
+
+outline:none;
+
+}
+
+.locationList{
+
+margin-top:12px;
+
+max-height:260px;
+
+overflow:auto;
+
+}
+
+.locationItem{
+
+padding:14px;
+
+border-bottom:
+1px solid #F3F4F6;
+
+cursor:pointer;
+
+font-weight:700;
+
+transition:.3s;
+
+}
+
+.locationItem:hover{
+
+background:#F9FAFB;
+
+}
+
+/* ===================================
+CATEGORIES
+=================================== */
+
+.categorySection{
+
+padding:24px 16px;
+
+}
+
+.sectionTop{
+
+display:flex;
+
+justify-content:space-between;
+align-items:center;
+
+margin-bottom:18px;
+
+}
+
+.viewAllBtn{
+
+border:none;
+
+background:none;
+
+font-size:13px;
+
+font-weight:800;
+
+color:#16A34A;
+
+cursor:pointer;
+
+}
+
+.categorySlider{
+
+display:flex;
+
+gap:14px;
+
+overflow-x:auto;
+
+scrollbar-width:none;
+
+padding-bottom:8px;
+
+}
+
+.categorySlider::-webkit-scrollbar{
+
+display:none;
+
+}
+
+.categoryCard{
+
+min-width:100px;
+
+text-align:center;
+
+cursor:pointer;
+
+transition:.3s;
+
+}
+
+.categoryCard:hover{
+
+transform:translateY(-4px);
+
+}
+
+.categoryIcon{
+
+width:64px;
+height:64px;
+
+margin:auto;
+
+border-radius:18px;
+
+display:flex;
+align-items:center;
+justify-content:center;
+
+font-size:24px;
+
+box-shadow:
+0 8px 20px rgba(0,0,0,.05);
+
+}
+
+.categoryCard h4{
+
+margin-top:10px;
+
+font-size:12px;
+
+font-weight:800;
+
+line-height:1.4;
+
+}
+
+.dryBg{
+background:#DBEAFE;
+color:#2563EB;
+}
+
+.washBg{
+background:#DCFCE7;
+color:#16A34A;
+}
+
+.ironBg{
+background:#FEF3C7;
+color:#D97706;
+}
+
+.shoeBg{
+background:#F3E8FF;
+color:#7C3AED;
+}
+
+.blanketBg{
+background:#FCE7F3;
+color:#DB2777;
+}
+
+.premiumBg{
+background:#FFF7ED;
+color:#EA580C;
+}
+
+.curtainBg{
+background:#E0F2FE;
+color:#0284C7;
+}
+
+.expressBg{
+background:#FFE4B5;
+color:#EA580C;
+}
+
+</style>
+
+<script>
+
+/* ===================================
+CATEGORY REDIRECT
+=================================== */
+
+document
+.querySelectorAll(
+".categoryCard"
+)
+
+.forEach(card=>{
+
+card.addEventListener(
+
+"click",
+
+()=>{
+
+const category =
+card.dataset.category;
+
+localStorage.setItem(
+"selectedCategory",
+category
+);
+
+window.location.href =
+
+`services.html?category=${encodeURIComponent(category)}`;
+
+}
+
+);
+
+});
+
+/* ===================================
+LOCATION MODAL
+=================================== */
+
+function openLocationModal(){
+
+document
+.getElementById(
+"locationModal"
+)
+.style.display="flex";
+
+}
+
+function closeLocationModal(){
+
+document
+.getElementById(
+"locationModal"
+)
+.style.display="none";
+
+}
+
+function selectCity(city){
+
+localStorage.setItem(
+"userCity",
+city
+);
+
+document
+.getElementById(
+"locationText"
+)
+.innerHTML =
+city + ", Uttar Pradesh";
+
+closeLocationModal();
+
+}
+
+</script><!-- ===================================
+TRENDING SERVICES
+=================================== -->
+
+<section class="servicesSection">
+
+<div class="sectionTop">
+
+<h2 class="sectionHeading">
+
+Trending Services
+
+</h2>
+
+<button
+class="viewAllBtn"
+onclick="window.location.href='services.html'">
+
+View All
+
+</button>
+
+</div>
+
+<div
+class="productGrid"
+id="productGrid">
+
+<!-- Firebase Services -->
+
+</div>
+
+</section>
+
+<!-- ===================================
+ADD TO CART TOAST
+=================================== -->
+
+<div
+class="cartToast"
+id="cartToast">
+
+<div class="toastIcon">
+
+<i class="fa-solid fa-circle-check"></i>
+
+</div>
+
+<div>
+
+<div class="toastTitle">
+
+Added To Cart
+
+</div>
+
+<div
+class="toastText"
+id="toastText">
+
+Service Added
+
+</div>
+
+</div>
+
+</div>
+
+<style>
+
+/* ===================================
+SERVICES SECTION
+=================================== */
+
+.servicesSection{
+
+padding:24px 16px;
+
+}
+
+.productGrid{
+
+display:grid;
+
+grid-template-columns:
+repeat(2,1fr);
+
+gap:14px;
+
+}
+
+/* ===================================
+SERVICE CARD
+=================================== */
+
+.productCard{
+
+background:#fff;
+
+border-radius:22px;
+
+overflow:hidden;
+
+box-shadow:
+0 8px 24px rgba(0,0,0,.05);
+
+transition:.3s;
+
+}
+
+.productCard:hover{
+
+transform:translateY(-4px);
+
+}
+
+.productTop{
+
+height:120px;
+
+display:flex;
+
+align-items:center;
+
+justify-content:center;
+
+background:
+linear-gradient(
+135deg,
+#FFF8E1,
+#FFFFFF
+);
+
+}
+
+.productTop i{
+
+font-size:46px;
+
+color:#16A34A;
+
+}
+
+.productBody{
+
+padding:14px;
+
+}
+
+.productName{
+
+font-size:14px;
+
+font-weight:800;
+
+line-height:1.4;
+
+color:#111827;
+
+min-height:42px;
+
+}
+
+.productCategory{
+
+margin-top:4px;
+
+font-size:11px;
+
+font-weight:700;
+
+color:#6B7280;
+
+}
+
+.productBottom{
+
+margin-top:12px;
+
+display:flex;
+
+justify-content:space-between;
+
+align-items:center;
+
+}
+
+.price{
+
+font-size:18px;
+
+font-weight:900;
+
+color:#111827;
+
+}
+
+.addBtn{
+
+height:38px;
+
+padding:0 16px;
+
+border:none;
+
+border-radius:12px;
+
+background:#16A34A;
+
+color:#fff;
+
+font-size:12px;
+
+font-weight:900;
+
+cursor:pointer;
+
+}
+
+/* ===================================
+TOAST
+=================================== */
+
+.cartToast{
+
+display:none;
+
+position:fixed;
+
+left:50%;
+
+bottom:90px;
+
+transform:
+translateX(-50%);
+
+background:#111827;
+
+color:#fff;
+
+padding:14px 18px;
+
+border-radius:18px;
+
+align-items:center;
+
+gap:12px;
+
+box-shadow:
+0 12px 30px rgba(0,0,0,.25);
+
+z-index:99999;
+
+}
+
+.showToast{
+
+display:flex;
+
+}
+
+.toastIcon{
+
+font-size:22px;
+
+color:#22C55E;
+
+}
+
+.toastTitle{
+
+font-size:13px;
+
+font-weight:900;
+
+}
+
+.toastText{
+
+font-size:12px;
+
+opacity:.9;
+
+margin-top:3px;
+
+}
+
+/* ===================================
+DESKTOP
+=================================== */
+
+@media(min-width:992px){
+
+.productGrid{
+
+grid-template-columns:
+repeat(4,1fr);
+
+gap:20px;
+
+}
+
+}
+
+</style>
+
+<script type="module">
+
+import { db }
+from "./firebase.js";
+
+import {
+collection,
+onSnapshot
+}
+from
+"https://www.gstatic.com/firebasejs/12.11.0/firebase-firestore.js";
+
+const productGrid =
+document.getElementById(
+"productGrid"
+);
+
+let cart =
+
+JSON.parse(
+localStorage.getItem("cart")
+)
+
+|| [];
+
+/* ===================================
+LOAD SERVICES
+=================================== */
+
+onSnapshot(
+
+collection(
+db,
+"services"
+),
+
+(snapshot)=>{
+
+let html = "";
+
+snapshot.forEach(doc=>{
+
+const service = {
+
+id:doc.id,
+
+...doc.data()
+
+};
+
+html += `
+
+<div class="productCard">
+
+<div class="productTop">
+
+<i class="fa-solid fa-shirt"></i>
+
+</div>
+
+<div class="productBody">
+
+<div class="productName">
+
+${service.name}
+
+</div>
+
+<div class="productCategory">
+
+${service.category || "Laundry"}
+
+</div>
+
+<div class="productBottom">
+
+<div class="price">
+
+₹${service.price}
+
+</div>
+
+<button
+class="addBtn"
+
+onclick="addToCart(
+
+'${service.id}',
+
+'${service.name}',
+
+${service.price},
+
+'${service.category || "Laundry"}'
+
+)">
+
+Add
+
+</button>
+
+</div>
+
+</div>
+
+</div>
+
+`;
+
+});
+
+productGrid.innerHTML = html;
+
+});
+
+/* ===================================
+ADD TO CART
+=================================== */
+
+window.addToCart =
+function(
+
+id,
+name,
+price,
+category
+
+){
+
+const existing =
+
+cart.find(
+
+item=>
+
+item.serviceId===id
+
+);
+
+if(existing){
+
+existing.qty++;
+
+}else{
+
+cart.push({
+
+serviceId:id,
+
+serviceName:name,
+
+price,
+
+category,
+
+qty:1
+
+});
+
+}
+
+localStorage.setItem(
+
+"cart",
+
+JSON.stringify(cart)
+
+);
+
+if(
+window.updateNavbarCartCount
+){
+
+window.updateNavbarCartCount();
+
+}
+
+showToast(name);
+
+};
+
+/* ===================================
+TOAST
+=================================== */
+
+function showToast(name){
+
+const toast =
+
+document.getElementById(
+"cartToast"
+);
+
+document.getElementById(
+"toastText"
+)
+
+.innerHTML =
+
+name + " added successfully";
+
+toast.classList.add(
+"showToast"
+);
+
+setTimeout(()=>{
+
+toast.classList.remove(
+"showToast"
+);
+
+},2000);
+
+}
+
+</script><!-- ===================================
+PREMIUM HERO BANNER
+=================================== -->
+
+<section class="heroBanner">
+
+<div class="heroContent">
+
+<div class="heroBadge">
+
+⚡ EXPRESS PICKUP
+
+</div>
+
+<h2>
+
+Premium Laundry
+Delivered Fast
+
+</h2>
+
+<p>
+
+Dry Cleaning, Wash & Fold,
+Steam Iron, Shoe Care,
+Curtain Cleaning and
+Premium Garment Care.
+
+</p>
+
+<div class="heroButtons">
+
+<button
+class="bookBtn"
+onclick="window.location.href='services.html'">
+
+Book Pickup
+
+</button>
+
+<button
+class="learnBtn"
+onclick="window.location.href='services.html'">
+
+Explore Services
+
+</button>
+
+</div>
+
+</div>
+
+</section>
+
+<!-- ===================================
+OFFERS SECTION
+=================================== -->
+
+<section class="offerSection">
+
+<div class="sectionTop">
+
+<h2 class="sectionHeading">
+
+Special Offers
+
+</h2>
+
+</div>
+
+<div class="offerGrid">
+
+<div class="offerCard">
+
+<div class="offerTag">
+
+NEW USER
+
+</div>
+
+<h3>
+
+50% OFF
+
+</h3>
+
+<p>
+
+On your first laundry order.
+
+</p>
+
+</div>
+
+<div class="offerCard">
+
+<div class="offerTag">
+
+FREE PICKUP
+
+</div>
+
+<h3>
+
+₹0 Pickup
+
+</h3>
+
+<p>
+
+Orders above ₹299.
+
+</p>
+
+</div>
+
+<div class="offerCard">
+
+<div class="offerTag">
+
+PREMIUM
+
+</div>
+
+<h3>
+
+20% OFF
+
+</h3>
+
+<p>
+
+Premium Dry Cleaning.
+
+</p>
+
+</div>
+
+</div>
+
+</section>
+
+<!-- ===================================
+WHY QUICKPRESS
+=================================== -->
+
+<section class="whySection">
+
+<h2 class="sectionHeading">
+
+Why QuickPress?
+
+</h2>
+
+<div class="whyGrid">
+
+<div class="whyCard">
+
+<i class="fa-solid fa-truck-fast"></i>
+
+<h4>
+
+Fast Pickup
+
+</h4>
+
+<p>
+
+Pickup in minutes.
+
+</p>
+
+</div>
+
+<div class="whyCard">
+
+<i class="fa-solid fa-shield-check"></i>
+
+<h4>
+
+Safe Cleaning
+
+</h4>
+
+<p>
+
+Premium garment care.
+
+</p>
+
+</div>
+
+<div class="whyCard">
+
+<i class="fa-solid fa-clock"></i>
+
+<h4>
+
+On Time
+
+</h4>
+
+<p>
+
+Reliable delivery.
+
+</p>
+
+</div>
+
+<div class="whyCard">
+
+<i class="fa-solid fa-star"></i>
+
+<h4>
+
+Top Rated
+
+</h4>
+
+<p>
+
+Trusted by customers.
+
+</p>
+
+</div>
+
+</div>
+
+</section>
+
+<style>
+
+/* ===================================
+HERO
+=================================== */
+
+.heroBanner{
+
+margin:0 16px;
+
+padding:30px;
+
+border-radius:28px;
+
+background:
+linear-gradient(
+135deg,
+#111827,
+#1F2937
+);
+
+color:#fff;
+
+position:relative;
+
+overflow:hidden;
+
+}
+
+.heroBanner::before{
+
+content:"";
+
+position:absolute;
+
+right:-90px;
+top:-90px;
+
+width:240px;
+height:240px;
+
+border-radius:50%;
+
+background:
+rgba(255,255,255,.05);
+
+}
+
+.heroBadge{
+
+display:inline-flex;
+
+align-items:center;
+
+height:34px;
+
+padding:0 14px;
+
+border-radius:999px;
+
+background:#F4B400;
+
+color:#111827;
+
+font-size:11px;
+
+font-weight:900;
+
+}
+
+.heroBanner h2{
+
+margin-top:14px;
+
+font-size:34px;
+
+font-weight:900;
+
+line-height:1.1;
+
+}
+
+.heroBanner p{
+
+margin-top:12px;
+
+font-size:14px;
+
+line-height:1.8;
+
+opacity:.9;
+
+max-width:550px;
+
+}
+
+.heroButtons{
+
+margin-top:20px;
+
+display:flex;
+
+gap:12px;
+
+flex-wrap:wrap;
+
+}
+
+.bookBtn{
+
+height:50px;
+
+padding:0 22px;
+
+border:none;
+
+border-radius:16px;
+
+background:#16A34A;
+
+color:#fff;
+
+font-weight:900;
+
+cursor:pointer;
+
+}
+
+.learnBtn{
+
+height:50px;
+
+padding:0 22px;
+
+border:none;
+
+border-radius:16px;
+
+background:#fff;
+
+color:#111827;
+
+font-weight:900;
+
+cursor:pointer;
+
+}
+
+/* ===================================
+OFFERS
+=================================== */
+
+.offerSection{
+
+padding:26px 16px;
+
+}
+
+.offerGrid{
+
+display:grid;
+
+grid-template-columns:
+repeat(1,1fr);
+
+gap:14px;
+
+}
+
+.offerCard{
+
+background:#fff;
+
+padding:22px;
+
+border-radius:22px;
+
+box-shadow:
+0 8px 24px rgba(0,0,0,.05);
+
+}
+
+.offerTag{
+
+display:inline-flex;
+
+align-items:center;
+
+height:30px;
+
+padding:0 12px;
+
+border-radius:999px;
+
+background:#F4B400;
+
+font-size:11px;
+
+font-weight:900;
+
+}
+
+.offerCard h3{
+
+margin-top:12px;
+
+font-size:30px;
+
+font-weight:900;
+
+}
+
+.offerCard p{
+
+margin-top:8px;
+
+font-size:13px;
+
+color:#6B7280;
+
+font-weight:700;
+
+}
+
+/* ===================================
+WHY SECTION
+=================================== */
+
+.whySection{
+
+padding:10px 16px 30px;
+
+}
+
+.whyGrid{
+
+display:grid;
+
+grid-template-columns:
+repeat(2,1fr);
+
+gap:14px;
+
+}
+
+.whyCard{
+
+background:#fff;
+
+padding:20px;
+
+border-radius:20px;
+
+text-align:center;
+
+box-shadow:
+0 8px 24px rgba(0,0,0,.05);
+
+}
+
+.whyCard i{
+
+font-size:28px;
+
+color:#16A34A;
+
+margin-bottom:12px;
+
+}
+
+.whyCard h4{
+
+font-size:14px;
+
+font-weight:900;
+
+margin-bottom:6px;
+
+}
+
+.whyCard p{
+
+font-size:12px;
+
+color:#6B7280;
+
+}
+
+/* ===================================
+DESKTOP
+=================================== */
+
+@media(min-width:992px){
+
+.offerGrid{
+
+grid-template-columns:
+repeat(3,1fr);
+
+}
+
+.whyGrid{
+
+grid-template-columns:
+repeat(4,1fr);
+
+}
+
+.heroBanner h2{
+
+font-size:44px;
+
+}
+
+}
+
+</style>
