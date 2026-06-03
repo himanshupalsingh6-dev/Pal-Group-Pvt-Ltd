@@ -10,7 +10,9 @@ name="viewport"
 content="width=device-width, initial-scale=1.0">
 
 <title>
-QuickPress | Checkout
+
+QuickPress Checkout
+
 </title>
 
 <link
@@ -19,7 +21,7 @@ rel="stylesheet">
 
 <link
 rel="stylesheet"
-href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css"/>
+href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
 
 <style>
 
@@ -36,9 +38,9 @@ font-family:'Inter',sans-serif;
 --secondary:#16A34A;
 
 --dark:#111827;
---light:#6B7280;
+--gray:#6B7280;
 
---bg:#F6F7FB;
+--bg:#F7F8FA;
 --white:#FFFFFF;
 
 }
@@ -47,75 +49,146 @@ body{
 
 background:var(--bg);
 
-padding-bottom:120px;
+padding-bottom:140px;
 
 }
 
-.hero{
+/* HEADER */
 
-position:sticky;
-
-top:0;
+.checkoutHeader{
 
 background:#fff;
 
-padding:16px;
+padding:18px;
 
-z-index:999;
+display:flex;
+
+align-items:center;
+
+gap:14px;
 
 box-shadow:
 0 4px 20px rgba(0,0,0,.05);
 
 }
 
-.brandName{
+.backBtn{
 
-font-size:30px;
+width:44px;
 
-font-weight:900;
+height:44px;
 
-color:#111827;
+border:none;
 
-}
+border-radius:12px;
 
-.pageTitle{
+background:#F3F4F6;
 
-margin-top:4px;
-
-font-size:14px;
-
-font-weight:800;
-
-color:#6B7280;
+cursor:pointer;
 
 }
 
-.section{
-
-padding:16px;
-
-}
-
-.card{
-
-background:#fff;
-
-border-radius:22px;
-
-padding:18px;
-
-box-shadow:
-0 8px 24px rgba(0,0,0,.05);
-
-}
-
-.sectionTitle{
+.backBtn i{
 
 font-size:18px;
 
+}
+
+.headerTitle h2{
+
+font-size:22px;
+
 font-weight:900;
 
-margin-bottom:16px;
+}
+
+.headerTitle p{
+
+font-size:12px;
+
+color:#6B7280;
+
+margin-top:3px;
+
+}
+
+/* PROGRESS */
+
+.progressCard{
+
+background:#fff;
+
+margin:16px;
+
+padding:20px;
+
+border-radius:22px;
+
+}
+
+.progressLine{
+
+display:flex;
+
+align-items:center;
+
+justify-content:space-between;
+
+}
+
+.step{
+
+display:flex;
+
+flex-direction:column;
+
+align-items:center;
+
+}
+
+.stepCircle{
+
+width:36px;
+
+height:36px;
+
+border-radius:50%;
+
+background:#16A34A;
+
+color:#fff;
+
+display:flex;
+
+align-items:center;
+
+justify-content:center;
+
+font-weight:900;
+
+}
+
+.stepLabel{
+
+font-size:11px;
+
+margin-top:8px;
+
+font-weight:700;
+
+}
+
+.progressBar{
+
+flex:1;
+
+height:4px;
+
+background:#DCFCE7;
+
+margin:0 8px;
+
+margin-bottom:24px;
 
 }
 
@@ -125,64 +198,135 @@ margin-bottom:16px;
 
 <body>
 
-<div class="hero">
+<div class="checkoutHeader">
 
-<div class="brandName">
+<button
+class="backBtn"
+onclick="history.back()">
 
-QuickPress
+<i class="fa-solid fa-arrow-left"></i>
 
-</div>
+</button>
 
-<div class="pageTitle">
+<div class="headerTitle">
+
+<h2>
 
 Checkout
 
+</h2>
+
+<p>
+
+Review & Place Order
+
+</p>
+
 </div>
 
-</div><!-- ===================================
-CUSTOMER DETAILS
-=================================== -->
+</div>
 
-<section class="section">
+<div class="progressCard">
+
+<div class="progressLine">
+
+<div class="step">
+
+<div class="stepCircle">
+
+1
+
+</div>
+
+<div class="stepLabel">
+
+Address
+
+</div>
+
+</div>
+
+<div class="progressBar"></div>
+
+<div class="step">
+
+<div class="stepCircle">
+
+2
+
+</div>
+
+<div class="stepLabel">
+
+Schedule
+
+</div>
+
+</div>
+
+<div class="progressBar"></div>
+
+<div class="step">
+
+<div class="stepCircle">
+
+3
+
+</div>
+
+<div class="stepLabel">
+
+Payment
+
+</div>
+
+</div>
+
+<div class="progressBar"></div>
+
+<div class="step">
+
+<div class="stepCircle">
+
+4
+
+</div>
+
+<div class="stepLabel">
+
+Done
+
+</div>
+
+</div>
+
+</div>
+
+</div><section style="padding:0 16px;">
 
 <div class="card">
 
-<h2 class="sectionTitle">
+<div class="sectionHead">
 
-Customer Details
+<h3>
 
-</h2>
+Pickup Address
 
-<div class="formGroup">
+</h3>
 
-<label>Full Name</label>
+<button
+onclick="location.href='addresses.html'">
 
-<input
-type="text"
-id="customerName"
-placeholder="Enter Full Name">
+Change
 
-</div>
-
-<div class="formGroup">
-
-<label>Mobile Number</label>
-
-<input
-type="tel"
-id="customerPhone"
-placeholder="Enter Mobile Number">
+</button>
 
 </div>
 
-<div class="formGroup">
+<div
+id="defaultAddressCard">
 
-<label>Email Address</label>
-
-<input
-type="email"
-id="customerEmail"
-placeholder="Enter Email">
+Loading Address...
 
 </div>
 
@@ -192,115 +336,107 @@ placeholder="Enter Email">
 
 <style>
 
-.formGroup{
+.card{
+
+background:#fff;
+
+padding:20px;
+
+border-radius:22px;
 
 margin-bottom:16px;
 
 }
 
-.formGroup label{
+.sectionHead{
 
-display:block;
+display:flex;
 
-margin-bottom:8px;
+justify-content:space-between;
 
-font-size:13px;
+align-items:center;
+
+margin-bottom:16px;
+
+}
+
+.sectionHead h3{
+
+font-size:18px;
+
+font-weight:900;
+
+}
+
+.sectionHead button{
+
+border:none;
+
+background:#F4B400;
+
+padding:10px 16px;
+
+border-radius:10px;
 
 font-weight:800;
 
-color:#111827;
+cursor:pointer;
 
 }
 
-.formGroup input{
+.addressCard{
 
-width:100%;
+background:#F9FAFB;
 
-height:52px;
-
-border:1px solid #E5E7EB;
+padding:14px;
 
 border-radius:14px;
 
-padding:0 14px;
+}
 
-font-size:14px;
+.defaultTag{
 
-outline:none;
+display:inline-block;
+
+padding:5px 10px;
+
+background:#DCFCE7;
+
+color:#16A34A;
+
+border-radius:999px;
+
+font-size:11px;
+
+font-weight:800;
+
+margin-bottom:10px;
 
 }
 
-.formGroup input:focus{
-
-border-color:#16A34A;
-
-}
-
-</style><!-- ===================================
-ADDRESS
-=================================== -->
-
-<section class="section">
+</style><section style="padding:0 16px;">
 
 <div class="card">
 
-<h2 class="sectionTitle">
+<h3>
 
-Pickup Address
+Customer Details
 
-</h2>
+</h3>
 
-<div class="formGroup">
-
-<label>House / Flat</label>
+<div class="customerGrid">
 
 <input
-type="text"
-id="houseNumber"
-placeholder="Flat / House Number">
-
-</div>
-
-<div class="formGroup">
-
-<label>Street / Area</label>
+id="customerName"
+placeholder="Full Name">
 
 <input
-type="text"
-id="streetAddress"
-placeholder="Street / Area">
-
-</div>
-
-<div class="formGroup">
-
-<label>City</label>
+id="customerPhone"
+placeholder="Phone Number">
 
 <input
-type="text"
-id="cityName"
-placeholder="City">
-
-</div>
-
-<div class="formGroup">
-
-<label>Pincode</label>
-
-<input
-type="text"
-id="pincode"
-placeholder="Pincode">
-
-</div>
-
-<div class="formGroup">
-
-<label>Additional Notes</label>
-
-<textarea
-id="addressNote"
-placeholder="Any pickup instructions"></textarea>
+id="customerEmail"
+placeholder="Email Address">
 
 </div>
 
@@ -310,93 +446,77 @@ placeholder="Any pickup instructions"></textarea>
 
 <style>
 
-textarea{
+.customerGrid{
 
-width:100%;
+display:grid;
 
-height:100px;
+gap:12px;
 
-padding:14px;
+margin-top:16px;
+
+}
+
+.customerGrid input{
+
+height:54px;
 
 border:1px solid #E5E7EB;
 
 border-radius:14px;
 
-resize:none;
+padding:0 16px;
 
 outline:none;
 
 }
 
-textarea:focus{
-
-border-color:#16A34A;
-
-}
-
-</style><!-- ===================================
-SCHEDULE
-=================================== -->
-
-<section class="section">
+</style><section style="padding:0 16px;">
 
 <div class="card">
 
-<h2 class="sectionTitle">
+<h3>
 
-Pickup & Delivery
+Pickup Schedule
 
-</h2>
+</h3>
 
-<div class="formGroup">
-
-<label>Pickup Date</label>
+<div class="customerGrid">
 
 <input
 type="date"
 id="pickupDate">
 
-</div>
-
-<div class="formGroup">
-
-<label>Pickup Time</label>
-
 <select id="pickupTime">
 
 <option>
-09:00 AM - 11:00 AM
+09 AM - 11 AM
 </option>
 
 <option>
-11:00 AM - 01:00 PM
+11 AM - 01 PM
 </option>
 
 <option>
-01:00 PM - 03:00 PM
+01 PM - 03 PM
 </option>
 
 <option>
-03:00 PM - 05:00 PM
+03 PM - 05 PM
 </option>
 
 <option>
-05:00 PM - 07:00 PM
+05 PM - 07 PM
 </option>
 
 </select>
 
 </div>
 
-<div class="formGroup">
+<textarea
+id="orderNote"
+placeholder="Special Instructions (Optional)">
 
-<label>Expected Delivery</label>
-
-<input
-type="date"
-id="deliveryDate">
-
-</div>
+</textarea>
 
 </div>
 
@@ -404,51 +524,48 @@ id="deliveryDate">
 
 <style>
 
-select{
+select,
+textarea{
 
 width:100%;
-
-height:52px;
 
 border:1px solid #E5E7EB;
 
 border-radius:14px;
 
-padding:0 14px;
+padding:14px;
+
+margin-top:12px;
 
 outline:none;
 
-background:#fff;
+}
+
+textarea{
+
+height:100px;
+
+resize:none;
 
 }
 
-select:focus{
-
-border-color:#16A34A;
-
-}
-
-</style><!-- ===================================
-PAYMENT METHODS
-=================================== -->
-
-<section class="section">
+</style><section style="padding:0 16px;">
 
 <div class="card">
 
-<h2 class="sectionTitle">
+<h3>
 
 Payment Method
 
-</h2>
+</h3>
 
-<div class="paymentOptions">
+<div class="paymentList">
 
 <label class="paymentCard">
 
 <input
 type="radio"
-name="paymentMethod"
+name="payment"
 value="COD"
 checked>
 
@@ -462,7 +579,7 @@ Cash On Delivery
 
 <p>
 
-Pay when your order is delivered
+Pay after service completion
 
 </p>
 
@@ -474,7 +591,7 @@ Pay when your order is delivered
 
 <input
 type="radio"
-name="paymentMethod"
+name="payment"
 value="ONLINE">
 
 <div>
@@ -487,7 +604,7 @@ Online Payment
 
 <p>
 
-UPI, Card, Net Banking
+UPI • Card • Net Banking
 
 </p>
 
@@ -503,7 +620,9 @@ UPI, Card, Net Banking
 
 <style>
 
-.paymentOptions{
+.paymentList{
+
+margin-top:16px;
 
 display:flex;
 
@@ -519,31 +638,21 @@ display:flex;
 
 gap:12px;
 
-align-items:flex-start;
-
 padding:14px;
 
 border:1px solid #E5E7EB;
 
-border-radius:16px;
+border-radius:14px;
 
 cursor:pointer;
 
 }
 
-.paymentCard input{
-
-margin-top:4px;
-
-}
-
 .paymentCard h4{
 
-font-size:15px;
+font-size:14px;
 
 font-weight:800;
-
-margin-bottom:4px;
 
 }
 
@@ -553,31 +662,164 @@ font-size:12px;
 
 color:#6B7280;
 
+margin-top:4px;
+
 }
 
-</style><!-- ===================================
-ORDER SUMMARY
-=================================== -->
-
-<section class="section">
+</style><section style="padding:0 16px;">
 
 <div class="card">
 
-<h2 class="sectionTitle">
+<h3>
 
-Order Summary
+Order Items
 
-</h2>
+</h3>
 
-<div id="checkoutItems">
+<div
+id="checkoutItems">
 
 </div>
 
-<div class="summaryLine">
+</div>
 
-<span>Subtotal</span>
+</section>
 
-<span id="checkoutSubtotal">
+<style>
+
+.checkoutItem{
+
+background:#F9FAFB;
+
+padding:14px;
+
+border-radius:14px;
+
+display:flex;
+
+justify-content:space-between;
+
+align-items:center;
+
+margin-top:12px;
+
+}
+
+.itemLeft h4{
+
+font-size:14px;
+
+font-weight:800;
+
+}
+
+.itemMeta{
+
+font-size:12px;
+
+color:#6B7280;
+
+margin-top:4px;
+
+}
+
+.itemPrice{
+
+font-size:16px;
+
+font-weight:900;
+
+}
+
+</style>
+
+<script>
+
+/* ===================================
+LOAD ITEMS
+=================================== */
+
+window.renderCheckoutItems =
+function(){
+
+const cart =
+
+JSON.parse(
+
+localStorage.getItem(
+"cart"
+)
+
+|| "[]"
+
+);
+
+const container =
+
+document.getElementById(
+"checkoutItems"
+);
+
+let html = "";
+
+cart.forEach(item=>{
+
+html += `
+
+<div class="checkoutItem">
+
+<div class="itemLeft">
+
+<h4>
+
+${item.serviceName}
+
+</h4>
+
+<div class="itemMeta">
+
+${item.category}
+• Qty ${item.qty}
+
+</div>
+
+</div>
+
+<div class="itemPrice">
+
+₹${item.price * item.qty}
+
+</div>
+
+</div>
+
+`;
+
+});
+
+container.innerHTML = html;
+
+};
+
+</script><section style="padding:0 16px;">
+
+<div class="card">
+
+<h3>
+
+Bill Summary
+
+</h3>
+
+<div class="billRow">
+
+<span>
+
+Subtotal
+
+</span>
+
+<span id="subtotal">
 
 ₹0
 
@@ -585,11 +827,15 @@ Order Summary
 
 </div>
 
-<div class="summaryLine">
+<div class="billRow">
 
-<span>Delivery Fee</span>
+<span>
 
-<span id="checkoutDelivery">
+Delivery Fee
+
+</span>
+
+<span id="deliveryFee">
 
 ₹0
 
@@ -597,11 +843,15 @@ Order Summary
 
 </div>
 
-<div class="summaryLine">
+<div class="billRow">
 
-<span>Tax (5%)</span>
+<span>
 
-<span id="checkoutTax">
+Tax
+
+</span>
+
+<span id="taxAmount">
 
 ₹0
 
@@ -609,11 +859,15 @@ Order Summary
 
 </div>
 
-<div class="summaryLine">
+<div class="billRow">
 
-<span>Discount</span>
+<span>
 
-<span id="checkoutDiscount">
+Discount
+
+</span>
+
+<span id="discountAmount">
 
 ₹0
 
@@ -621,13 +875,17 @@ Order Summary
 
 </div>
 
-<div class="summaryDivider"></div>
+<hr>
 
-<div class="summaryLine totalSummary">
+<div class="billTotal">
 
-<span>Total</span>
+<span>
 
-<span id="checkoutGrandTotal">
+Total
+
+</span>
+
+<span id="grandTotal">
 
 ₹0
 
@@ -641,57 +899,29 @@ Order Summary
 
 <style>
 
-.summaryLine{
+.billRow{
 
 display:flex;
 
 justify-content:space-between;
 
-margin-bottom:12px;
+margin-top:14px;
 
 font-size:14px;
 
 }
 
-.summaryDivider{
-
-height:1px;
-
-background:#E5E7EB;
-
-margin:16px 0;
-
-}
-
-.totalSummary{
-
-font-size:18px;
-
-font-weight:900;
-
-}
-
-.checkoutItem{
+.billTotal{
 
 display:flex;
 
 justify-content:space-between;
 
-margin-bottom:10px;
+margin-top:18px;
 
-font-size:13px;
+font-size:20px;
 
-}
-
-.checkoutItemName{
-
-font-weight:700;
-
-}
-
-.checkoutItemQty{
-
-color:#6B7280;
+font-weight:900;
 
 }
 
@@ -699,102 +929,94 @@ color:#6B7280;
 
 <script>
 
-/* ===================================
-LOAD SUMMARY
-=================================== */
+window.calculateBill =
+function(){
 
-function loadCheckoutSummary(){
-
-const order =
+const cart =
 
 JSON.parse(
 
 localStorage.getItem(
-"checkoutData"
+"cart"
 )
 
-|| "{}"
+|| "[]"
 
 );
 
-if(!order.items){
+let subtotal = 0;
 
-return;
+cart.forEach(item=>{
 
-}
+subtotal +=
 
-const itemsBox =
-
-document.getElementById(
-"checkoutItems"
-);
-
-let html = "";
-
-order.items.forEach(item=>{
-
-html += `
-
-<div class="checkoutItem">
-
-<div>
-
-<div class="checkoutItemName">
-
-${item.serviceName}
-
-</div>
-
-<div class="checkoutItemQty">
-
-Qty : ${item.qty}
-
-</div>
-
-</div>
-
-<div>
-
-₹${item.price * item.qty}
-
-</div>
-
-</div>
-
-`;
+item.price *
+item.qty;
 
 });
 
-itemsBox.innerHTML = html;
+const delivery =
+
+subtotal > 299
+
+? 0
+
+: 49;
+
+const tax =
+
+Math.round(
+subtotal * 0.05
+);
+
+const discount =
+
+Number(
+
+localStorage.getItem(
+"couponDiscount"
+)
+
+|| 0
+
+);
+
+const total =
+
+subtotal +
+delivery +
+tax -
+discount;
 
 document.getElementById(
-"checkoutSubtotal"
+"subtotal"
 ).innerHTML =
-"₹"+order.subtotal;
+"₹"+subtotal;
 
 document.getElementById(
-"checkoutDelivery"
+"deliveryFee"
 ).innerHTML =
-"₹"+order.deliveryFee;
+"₹"+delivery;
 
 document.getElementById(
-"checkoutTax"
+"taxAmount"
 ).innerHTML =
-"₹"+order.tax;
+"₹"+tax;
 
 document.getElementById(
-"checkoutDiscount"
+"discountAmount"
 ).innerHTML =
-"₹"+(order.discount||0);
+"- ₹"+discount;
 
 document.getElementById(
-"checkoutGrandTotal"
+"grandTotal"
 ).innerHTML =
-"₹"+order.total;
+"₹"+total;
 
-}
+window.finalTotal =
+total;
 
-loadCheckoutSummary();
+};
 
 </script><script type="module">
 
@@ -813,14 +1035,8 @@ from
 
 "https://www.gstatic.com/firebasejs/12.11.0/firebase-firestore.js";
 
-/* ===================================
-SAVE ORDER
-=================================== */
-
-window.saveOrderToFirebase =
+window.saveOrder =
 async function(orderData){
-
-try{
 
 const docRef =
 
@@ -838,246 +1054,29 @@ db,
 userId:
 
 auth.currentUser
+? auth.currentUser.uid
+: null,
 
-?
-
-auth.currentUser.uid
-
-:
-
-null,
+createdAt:
+serverTimestamp(),
 
 status:"Pending",
 
-paymentStatus:"Pending",
-
-createdAt:
-serverTimestamp()
+paymentStatus:"Pending"
 
 }
 
 );
 
-return{
-
-success:true,
-
-orderId:docRef.id
+return docRef.id;
 
 };
 
-}
-
-catch(error){
-
-console.log(error);
-
-return{
-
-success:false,
-
-error:error.message
-
-};
-
-}
-
-};
-
-console.log(
-"QuickPress Checkout Firebase Ready"
-);
-
-</script><!-- ===================================
-PLACE ORDER
-=================================== -->
-
-<section class="section">
-
-<button
-id="placeOrderBtn"
-class="placeOrderBtn"
-onclick="placeOrder()">
-
-Place Order
-
-</button>
-
-</section>
-
-<style>
-
-.placeOrderBtn{
-
-width:100%;
-
-height:58px;
-
-border:none;
-
-border-radius:18px;
-
-background:#16A34A;
-
-color:#fff;
-
-font-size:16px;
-
-font-weight:900;
-
-cursor:pointer;
-
-box-shadow:
-0 10px 24px rgba(22,163,74,.25);
-
-}
-
-.placeOrderBtn:disabled{
-
-opacity:.6;
-
-cursor:not-allowed;
-
-}
-
-</style>
-
-<script>
-
-window.placeOrder =
-async function(){
-
-const btn =
-
-document.getElementById(
-"placeOrderBtn"
-);
-
-btn.disabled = true;
-
-btn.innerHTML =
-"Processing...";
-
-const order =
-
-JSON.parse(
-
-localStorage.getItem(
-"checkoutData"
-)
-
-|| "{}"
-
-);
-
-const paymentMethod =
-
-document.querySelector(
-'input[name="paymentMethod"]:checked'
-).value;
-
-const finalOrder = {
-
-...order,
-
-customer:{
-
-name:
-
-document.getElementById(
-"customerName"
-).value,
-
-phone:
-
-document.getElementById(
-"customerPhone"
-).value,
-
-email:
-
-document.getElementById(
-"customerEmail"
-).value
-
-},
-
-address:{
-
-house:
-
-document.getElementById(
-"houseNumber"
-).value,
-
-street:
-
-document.getElementById(
-"streetAddress"
-).value,
-
-city:
-
-document.getElementById(
-"cityName"
-).value,
-
-pincode:
-
-document.getElementById(
-"pincode"
-).value,
-
-note:
-
-document.getElementById(
-"addressNote"
-).value
-
-},
-
-pickupDate:
-
-document.getElementById(
-"pickupDate"
-).value,
-
-pickupTime:
-
-document.getElementById(
-"pickupTime"
-).value,
-
-deliveryDate:
-
-document.getElementById(
-"deliveryDate"
-).value,
-
-paymentMethod
-
-};
-
-window.finalCheckoutOrder =
-finalOrder;
-
-validateCheckout();
-
-};
-
-</script><!-- ===================================
-TOAST
-=================================== -->
-
-<div
+</script><div
 id="checkoutToast"
 class="checkoutToast">
 
-<span id="checkoutToastText">
-
 Success
-
-</span>
 
 </div>
 
@@ -1089,7 +1088,7 @@ position:fixed;
 
 left:50%;
 
-bottom:100px;
+bottom:110px;
 
 transform:
 translateX(-50%);
@@ -1098,7 +1097,7 @@ background:#111827;
 
 color:#fff;
 
-padding:14px 18px;
+padding:14px 20px;
 
 border-radius:14px;
 
@@ -1128,7 +1127,7 @@ visibility:visible;
 
 <script>
 
-window.showCheckoutToast =
+window.showToast =
 function(message){
 
 const toast =
@@ -1137,11 +1136,7 @@ document.getElementById(
 "checkoutToast"
 );
 
-document.getElementById(
-"checkoutToastText"
-)
-
-.innerHTML =
+toast.innerHTML =
 message;
 
 toast.classList.add(
@@ -1159,203 +1154,133 @@ toast.classList.remove(
 };
 
 /* ===================================
-VALIDATION
+LOAD DEFAULT ADDRESS
 =================================== */
 
-window.validateCheckout =
-async function(){
+window.loadDefaultAddress =
+function(){
 
-const order =
-window.finalCheckoutOrder;
+const addresses =
 
-if(!order.customer.name){
+JSON.parse(
 
-showCheckoutToast(
-"Enter Name"
+localStorage.getItem(
+"addresses"
+)
+
+|| "[]"
+
 );
 
-resetOrderBtn();
+const defaultAddress =
+
+addresses.find(
+
+item=>item.isDefault
+
+);
+
+if(!defaultAddress){
+
+document.getElementById(
+"defaultAddressCard"
+).innerHTML =
+
+"No Default Address Found";
 
 return;
 
 }
 
-if(!order.customer.phone){
+document.getElementById(
+"defaultAddressCard"
+).innerHTML =
 
-showCheckoutToast(
-"Enter Phone Number"
-);
+`
 
-resetOrderBtn();
+<div class="addressCard">
 
-return;
+<div class="defaultTag">
 
-}
+Default Address
 
-if(!order.address.house){
+</div>
 
-showCheckoutToast(
-"Enter House Number"
-);
+<h4>
 
-resetOrderBtn();
+${defaultAddress.type}
 
-return;
+</h4>
 
-}
+<p>
 
-if(!order.address.street){
+${defaultAddress.address}
 
-showCheckoutToast(
-"Enter Street Address"
-);
+</p>
 
-resetOrderBtn();
+</div>
 
-return;
-
-}
-
-if(!order.address.city){
-
-showCheckoutToast(
-"Enter City"
-);
-
-resetOrderBtn();
-
-return;
-
-}
-
-if(!order.pickupDate){
-
-showCheckoutToast(
-"Select Pickup Date"
-);
-
-resetOrderBtn();
-
-return;
-
-}
-
-const result =
-
-await saveOrderToFirebase(
-order
-);
-
-if(result.success){
-
-localStorage.removeItem(
-"cart"
-);
-
-localStorage.removeItem(
-"checkoutData"
-);
-
-localStorage.setItem(
-
-"lastOrderId",
-
-result.orderId
-
-);
-
-window.location.href =
-
-"order-success.html?id=" +
-
-result.orderId;
-
-}
-
-else{
-
-showCheckoutToast(
-"Order Failed"
-);
-
-resetOrderBtn();
-
-}
+`;
 
 };
 
-function resetOrderBtn(){
+/* ===================================
+INIT
+=================================== */
 
-const btn =
+document.addEventListener(
 
-document.getElementById(
-"placeOrderBtn"
-);
+"DOMContentLoaded",
 
-btn.disabled = false;
+()=>{
 
-btn.innerHTML =
-"Place Order";
+loadDefaultAddress();
+
+renderCheckoutItems();
+
+calculateBill();
 
 }
 
-</script><nav class="bottomNav">
+);
+
+</script><!-- ===================================
+STICKY CHECKOUT BAR
+=================================== -->
+
+<div class="stickyCheckout">
+
+<div>
+
+<div class="totalLabel">
+
+Grand Total
+
+</div>
+
+<div
+id="stickyTotal"
+class="stickyTotal">
+
+₹0
+
+</div>
+
+</div>
 
 <button
-class="navItem"
-onclick="window.location.href='index.html'">
+class="placeOrderBtn"
+onclick="placeOrder()">
 
-<i class="fa-solid fa-house"></i>
-
-<span>Home</span>
+Place Order
 
 </button>
 
-<button
-class="navItem"
-onclick="window.location.href='services.html'">
-
-<i class="fa-solid fa-table-cells-large"></i>
-
-<span>Services</span>
-
-</button>
-
-<button
-class="navItem"
-onclick="window.location.href='cart.html'">
-
-<i class="fa-solid fa-cart-shopping"></i>
-
-<span>Cart</span>
-
-</button>
-
-<button
-class="navItem"
-onclick="window.location.href='orders.html'">
-
-<i class="fa-solid fa-box"></i>
-
-<span>Orders</span>
-
-</button>
-
-<button
-class="navItem"
-onclick="window.location.href='profile.html'">
-
-<i class="fa-regular fa-user"></i>
-
-<span>Profile</span>
-
-</button>
-
-</nav>
+</div>
 
 <style>
 
-.bottomNav{
+.stickyCheckout{
 
 position:fixed;
 
@@ -1363,13 +1288,15 @@ left:0;
 right:0;
 bottom:0;
 
-height:72px;
+height:90px;
 
 background:#fff;
 
+padding:0 16px;
+
 display:flex;
 
-justify-content:space-around;
+justify-content:space-between;
 
 align-items:center;
 
@@ -1380,39 +1307,55 @@ z-index:9999;
 
 }
 
-.navItem{
+.totalLabel{
 
-flex:1;
+font-size:12px;
 
-height:100%;
-
-border:none;
-
-background:none;
-
-display:flex;
-
-flex-direction:column;
-
-justify-content:center;
-
-align-items:center;
-
-gap:4px;
-
-font-size:11px;
+color:#6B7280;
 
 font-weight:700;
 
-color:#6B7280;
+}
+
+.stickyTotal{
+
+font-size:24px;
+
+font-weight:900;
+
+color:#111827;
+
+margin-top:2px;
+
+}
+
+.placeOrderBtn{
+
+height:54px;
+
+padding:0 26px;
+
+border:none;
+
+border-radius:16px;
+
+background:#16A34A;
+
+color:#fff;
+
+font-size:15px;
+
+font-weight:900;
 
 cursor:pointer;
 
 }
 
-.navItem i{
+.placeOrderBtn:disabled{
 
-font-size:18px;
+opacity:.6;
+
+cursor:not-allowed;
 
 }
 
@@ -1420,21 +1363,221 @@ font-size:18px;
 
 <script>
 
-document.addEventListener(
+/* ===================================
+UPDATE STICKY TOTAL
+=================================== */
 
-"DOMContentLoaded",
+const oldCalculateBill =
+window.calculateBill;
 
-()=>{
+window.calculateBill =
+function(){
 
-console.log(
-"QuickPress Checkout Ready"
+oldCalculateBill();
+
+document.getElementById(
+"stickyTotal"
+).innerHTML =
+
+document.getElementById(
+"grandTotal"
+).innerHTML;
+
+};
+
+/* ===================================
+PLACE ORDER
+=================================== */
+
+window.placeOrder =
+async function(){
+
+const btn =
+
+document.querySelector(
+".placeOrderBtn"
 );
+
+const name =
+
+document.getElementById(
+"customerName"
+).value.trim();
+
+const phone =
+
+document.getElementById(
+"customerPhone"
+).value.trim();
+
+const pickupDate =
+
+document.getElementById(
+"pickupDate"
+).value;
+
+if(!name){
+
+showToast(
+"Enter Customer Name"
+);
+
+return;
 
 }
 
+if(phone.length < 10){
+
+showToast(
+"Enter Valid Phone Number"
 );
+
+return;
+
+}
+
+if(!pickupDate){
+
+showToast(
+"Select Pickup Date"
+);
+
+return;
+
+}
+
+btn.disabled = true;
+
+btn.innerHTML =
+"Processing...";
+
+try{
+
+const cart =
+
+JSON.parse(
+
+localStorage.getItem(
+"cart"
+)
+
+|| "[]"
+
+);
+
+const paymentMethod =
+
+document.querySelector(
+'input[name="payment"]:checked'
+).value;
+
+const addresses =
+
+JSON.parse(
+
+localStorage.getItem(
+"addresses"
+)
+
+|| "[]"
+
+);
+
+const defaultAddress =
+
+addresses.find(
+a=>a.isDefault
+);
+
+const orderData = {
+
+orderNumber:
+
+"QP" +
+
+Date.now(),
+
+customerName:name,
+
+customerPhone:phone,
+
+customerEmail:
+
+document.getElementById(
+"customerEmail"
+).value,
+
+pickupDate,
+
+pickupTime:
+
+document.getElementById(
+"pickupTime"
+).value,
+
+orderNote:
+
+document.getElementById(
+"orderNote"
+).value,
+
+paymentMethod,
+
+items:cart,
+
+address:
+
+defaultAddress || null,
+
+total:
+
+window.finalTotal,
+
+status:"Pending"
+
+};
+
+const orderId =
+
+await saveOrder(
+orderData
+);
+
+localStorage.setItem(
+"lastOrderId",
+orderId
+);
+
+localStorage.removeItem(
+"cart"
+);
+
+window.location.href =
+
+"order-success.html?id=" +
+orderId;
+
+}
+
+catch(error){
+
+console.log(error);
+
+showToast(
+"Order Failed"
+);
+
+btn.disabled = false;
+
+btn.innerHTML =
+"Place Order";
+
+}
+
+};
 
 </script>
 
 </body>
+
 </html>
