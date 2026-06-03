@@ -1718,7 +1718,8 @@ function(
 id,
 name,
 price,
-category
+category,
+subCategory
 
 ){
 
@@ -1744,17 +1745,17 @@ existing.qty++;
 
 cart.push({
 
-serviceId:id,
+ serviceId:id,
 
-serviceName:name,
+ serviceName:name,
 
-price,
+ category,
 
-category,
+ subCategory,
 
-qty:1,
+ price,
 
-addedAt:Date.now()
+ qty:1
 
 });
 
