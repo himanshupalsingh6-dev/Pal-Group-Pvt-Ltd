@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
 
 <meta charset="UTF-8">
@@ -10,7 +11,7 @@ content="width=device-width, initial-scale=1.0">
 
 <title>
 
-My Addresses
+Manage Addresses | QuickPress
 
 </title>
 
@@ -24,776 +25,648 @@ href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css"
 
 <style>
 
+:root{
+
+--primary:#F4B400;
+--dark:#111827;
+--gray:#6B7280;
+--bg:#F5F7FB;
+--white:#FFFFFF;
+--success:#16A34A;
+--border:#E5E7EB;
+
+}
+
 *{
+
 margin:0;
 padding:0;
 box-sizing:border-box;
 font-family:'Inter',sans-serif;
+
 }
 
 body{
 
-background:#F6F7FB;
-
-padding-bottom:120px;
+background:var(--bg);
 
 }
 
-/* ===================================
-HEADER
-=================================== */
+.container{
 
-.header{
+max-width:1400px;
 
-background:
-linear-gradient(
-135deg,
-#16A34A,
-#22C55E
-);
+margin:auto;
 
 padding:20px;
 
-padding-bottom:90px;
-
-border-radius:
-0 0 32px 32px;
-
-color:#fff;
-
 }
 
-.headerRow{
+/* HEADER */
+
+.pageHeader{
 
 display:flex;
 
+justify-content:space-between;
+
 align-items:center;
 
-gap:12px;
-
-}
-
-.backBtn{
-
-width:42px;
-height:42px;
-
-border:none;
-
-border-radius:12px;
-
-background:
-rgba(255,255,255,.2);
-
-color:#fff;
-
-cursor:pointer;
+margin-bottom:25px;
 
 }
 
 .pageTitle{
 
-font-size:22px;
+font-size:34px;
 
 font-weight:900;
 
-}
-
-/* ===================================
-ADD BUTTON
-=================================== */
-
-.addAddressCard{
-
-background:#fff;
-
-margin:
--55px 16px 20px;
-
-border-radius:24px;
-
-padding:20px;
-
-box-shadow:
-0 10px 25px rgba(0,0,0,.08);
+color:#111827;
 
 }
 
-.addAddressBtn{
+.pageSubTitle{
 
-width:100%;
+margin-top:5px;
 
-height:56px;
+font-size:14px;
+
+color:#6B7280;
+
+}
+
+.primaryBtn{
+
+height:55px;
+
+padding:0 22px;
 
 border:none;
 
-border-radius:16px;
+border-radius:14px;
 
-background:#16A34A;
+background:#F4B400;
 
 color:#fff;
 
-font-size:15px;
+font-size:14px;
 
 font-weight:900;
 
 cursor:pointer;
-
-}
-
-/* ===================================
-ADDRESS LIST
-=================================== */
-
-.addressContainer{
-
-padding:0 16px;
-
-}
-
-</style>
-
-</head>
-
-<body>
-
-<div class="header">
-
-<div class="headerRow">
-
-<button
-class="backBtn"
-onclick="history.back()">
-
-<i class="fa-solid fa-arrow-left"></i>
-
-</button>
-
-<div class="pageTitle">
-
-My Addresses
-
-</div>
-
-</div>
-
-</div>
-
-<div class="addAddressCard">
-
-<button
-class="addAddressBtn"
-onclick="openAddressModal()">
-
-<i class="fa-solid fa-plus"></i>
-
-Add New Address
-
-</button>
-
-</div>
-
-<div
-class="addressContainer"
-id="addressContainer">
-
-<!-- Addresses Here -->
-
-</div>
-<!DOCTYPE html>
-<html lang="en">
-<head>
-
-<meta charset="UTF-8">
-
-<meta
-name="viewport"
-content="width=device-width, initial-scale=1.0">
-
-<title>
-
-My Addresses
-
-</title>
-
-<link
-href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap"
-rel="stylesheet">
-
-<link
-rel="stylesheet"
-href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
-
-<style>
-
-*{
-margin:0;
-padding:0;
-box-sizing:border-box;
-font-family:'Inter',sans-serif;
-}
-
-body{
-
-background:#F6F7FB;
-
-padding-bottom:120px;
-
-}
-
-/* ===================================
-HEADER
-=================================== */
-
-.header{
-
-background:
-linear-gradient(
-135deg,
-#16A34A,
-#22C55E
-);
-
-padding:20px;
-
-padding-bottom:90px;
-
-border-radius:
-0 0 32px 32px;
-
-color:#fff;
-
-}
-
-.headerRow{
 
 display:flex;
 
 align-items:center;
 
-gap:12px;
+gap:10px;
 
 }
 
-.backBtn{
+/* CARD */
 
-width:42px;
-height:42px;
-
-border:none;
-
-border-radius:12px;
-
-background:
-rgba(255,255,255,.2);
-
-color:#fff;
-
-cursor:pointer;
-
-}
-
-.pageTitle{
-
-font-size:22px;
-
-font-weight:900;
-
-}
-
-/* ===================================
-ADD BUTTON
-=================================== */
-
-.addAddressCard{
+.card{
 
 background:#fff;
-
-margin:
--55px 16px 20px;
 
 border-radius:24px;
 
-padding:20px;
-
-box-shadow:
-0 10px 25px rgba(0,0,0,.08);
-
-}
-
-.addAddressBtn{
-
-width:100%;
-
-height:56px;
-
-border:none;
-
-border-radius:16px;
-
-background:#16A34A;
-
-color:#fff;
-
-font-size:15px;
-
-font-weight:900;
-
-cursor:pointer;
-
-}
-
-/* ===================================
-ADDRESS LIST
-=================================== */
-
-.addressContainer{
-
-padding:0 16px;
-
-}
-
-</style>
-
-</head>
-
-<body>
-
-<div class="header">
-
-<div class="headerRow">
-
-<button
-class="backBtn"
-onclick="history.back()">
-
-<i class="fa-solid fa-arrow-left"></i>
-
-</button>
-
-<div class="pageTitle">
-
-My Addresses
-
-</div>
-
-</div>
-
-</div>
-
-<div class="addAddressCard">
-
-<button
-class="addAddressBtn"
-onclick="openAddressModal()">
-
-<i class="fa-solid fa-plus"></i>
-
-Add New Address
-
-</button>
-
-</div>
-
-<div
-class="addressContainer"
-id="addressContainer">
-
-<!-- Addresses Here -->
-
-</div>
-
-<script type="module">
-
-import { auth, db }
-from "./firebase.js";
-
-import {
-collection,
-addDoc,
-getDocs,
-deleteDoc,
-doc,
-updateDoc,
-query,
-where
-}
-from
-"https://www.gstatic.com/firebasejs/12.11.0/firebase-firestore.js";
-
-/* ===================================
-SAVE ADDRESS
-=================================== */
-
-window.saveAddress =
-async function(){
-
-try{
-
-const user = auth.currentUser;
-
-if(!user){
-
-alert(
-"Please login first"
-);
-
-return;
-
-}
-
-const fullName =
-
-document.getElementById(
-"addressName"
-).value.trim();
-
-const phone =
-
-document.getElementById(
-"addressPhone"
-).value.trim();
-
-const houseNo =
-
-document.getElementById(
-"houseNumber"
-).value.trim();
-
-const address =
-
-document.getElementById(
-"fullAddress"
-).value.trim();
-
-const city =
-
-document.getElementById(
-"city"
-).value;
-
-if(
-!fullName ||
-!phone ||
-!houseNo ||
-!address
-){
-
-alert(
-"Please fill all fields"
-);
-
-return;
-
-}
-
-await addDoc(
-
-collection(
-db,
-"addresses"
-),
-
-{
-
-userId:user.uid,
-
-fullName,
-
-phone,
-
-houseNo,
-
-address,
-
-city,
-
-type:selectedType,
-
-isDefault:false,
-
-createdAt:
-Date.now()
-
-}
-
-);
-
-closeAddressModal();
-
-loadAddresses();
-
-alert(
-"Address Saved ✅"
-);
-
-}
-catch(error){
-
-console.error(error);
-
-alert(
-"Failed to save address"
-);
-
-}
-
-};
-
-/* ===================================
-LOAD ADDRESSES
-=================================== */
-
-window.loadAddresses =
-async function(){
-
-try{
-
-const user = auth.currentUser;
-
-if(!user) return;
-
-const q = query(
-
-collection(
-db,
-"addresses"
-),
-
-where(
-"userId",
-"==",
-user.uid
-)
-
-);
-
-const snapshot =
-await getDocs(q);
-
-const container =
-
-document.getElementById(
-"addressContainer"
-);
-
-container.innerHTML = "";
-
-snapshot.forEach(docSnap=>{
-
-const data =
-docSnap.data();
-
-container.innerHTML +=
-
-`
-
-<div class="addressCard">
-
-<div class="addressTop">
-
-<div>
-
-<div class="addressType">
-
-${data.type}
-
-${data.isDefault
-? '<span class="defaultBadge">Default</span>'
-: ''
-}
-
-</div>
-
-<div class="addressName">
-
-${data.fullName}
-
-</div>
-
-</div>
-
-<div class="addressActions">
-
-<button
-onclick="setDefaultAddress('${docSnap.id}')">
-
-<i class="fa-solid fa-star"></i>
-
-</button>
-
-<button
-onclick="deleteAddress('${docSnap.id}')">
-
-<i class="fa-solid fa-trash"></i>
-
-</button>
-
-</div>
-
-</div>
-
-<div class="addressLine">
-
-${data.houseNo}
-
-</div>
-
-<div class="addressLine">
-
-${data.address}
-
-</div>
-
-<div class="addressLine">
-
-${data.city}
-
-</div>
-
-<div class="addressPhone">
-
-${data.phone}
-
-</div>
-
-</div>
-
-`;
-
-});
-
-}
-catch(error){
-
-console.error(error);
-
-}
-
-};
-
-/* ===================================
-DELETE
-=================================== */
-
-window.deleteAddress =
-async function(id){
-
-const ok = confirm(
-"Delete this address?"
-);
-
-if(!ok) return;
-
-await deleteDoc(
-
-doc(
-db,
-"addresses",
-id
-)
-
-);
-
-loadAddresses();
-
-};
-
-/* ===================================
-DEFAULT ADDRESS
-=================================== */
-
-window.setDefaultAddress =
-async function(id){
-
-const user = auth.currentUser;
-
-if(!user) return;
-
-const q = query(
-
-collection(
-db,
-"addresses"
-),
-
-where(
-"userId",
-"==",
-user.uid
-)
-
-);
-
-const snapshot =
-await getDocs(q);
-
-/* RESET ALL */
-
-for(const item of snapshot.docs){
-
-await updateDoc(
-
-doc(
-db,
-"addresses",
-item.id
-),
-
-{
-isDefault:false
-}
-
-);
-
-}
-
-/* SET NEW */
-
-await updateDoc(
-
-doc(
-db,
-"addresses",
-id
-),
-
-{
-isDefault:true
-}
-
-);
-
-loadAddresses();
-
-};
-
-setTimeout(()=>{
-
-loadAddresses();
-
-},500);
-
-</script>
-
-<style>
-
-/* ===================================
-ADDRESS CARD
-=================================== */
-
-.addressCard{
-
-background:#fff;
-
-border-radius:20px;
-
-padding:18px;
-
-margin-bottom:14px;
+padding:24px;
 
 box-shadow:
 0 4px 14px rgba(0,0,0,.05);
+
+}
+
+</style>
+
+</head>
+
+<body>
+
+<div class="container">
+
+<!-- HEADER -->
+
+<div class="pageHeader">
+
+<div>
+
+<div class="pageTitle">
+
+My Addresses
+
+</div>
+
+<div class="pageSubTitle">
+
+Manage pickup and delivery locations
+
+</div>
+
+</div>
+
+<button
+class="primaryBtn"
+id="addAddressBtn">
+
+<i class="fa-solid fa-plus"></i>
+
+Add Address
+
+</button>
+
+</div><!-- =====================
+ADDRESS STATS
+===================== -->
+
+<div class="addressStats">
+
+    <div class="statCard">
+
+        <div class="statIcon">
+
+            <i class="fa-solid fa-location-dot"></i>
+
+        </div>
+
+        <div>
+
+            <div class="statLabel">
+
+                Total Addresses
+
+            </div>
+
+            <div
+            class="statValue"
+            id="totalAddresses">
+
+                0
+
+            </div>
+
+        </div>
+
+    </div>
+
+    <div class="statCard">
+
+        <div class="statIcon defaultIcon">
+
+            <i class="fa-solid fa-house"></i>
+
+        </div>
+
+        <div>
+
+            <div class="statLabel">
+
+                Default Address
+
+            </div>
+
+            <div
+            class="statValue"
+            id="defaultAddressCount">
+
+                0
+
+            </div>
+
+        </div>
+
+    </div>
+
+    <div class="statCard">
+
+        <div class="statIcon cityIcon">
+
+            <i class="fa-solid fa-city"></i>
+
+        </div>
+
+        <div>
+
+            <div class="statLabel">
+
+                Active City
+
+            </div>
+
+            <div
+            class="statValue"
+            id="activeCity">
+
+                --
+
+            </div>
+
+        </div>
+
+    </div>
+
+    <div class="statCard">
+
+        <div class="statIcon savedIcon">
+
+            <i class="fa-solid fa-bookmark"></i>
+
+        </div>
+
+        <div>
+
+            <div class="statLabel">
+
+                Saved Locations
+
+            </div>
+
+            <div
+            class="statValue"
+            id="savedLocations">
+
+                0
+
+            </div>
+
+        </div>
+
+    </div>
+
+</div>
+
+<style>
+
+/* =====================
+ADDRESS STATS
+===================== */
+
+.addressStats{
+
+display:grid;
+
+grid-template-columns:
+repeat(4,1fr);
+
+gap:20px;
+
+margin-bottom:25px;
+
+}
+
+.statCard{
+
+background:#fff;
+
+padding:24px;
+
+border-radius:22px;
+
+display:flex;
+
+align-items:center;
+
+gap:16px;
+
+box-shadow:
+0 4px 14px rgba(0,0,0,.05);
+
+}
+
+.statIcon{
+
+width:65px;
+height:65px;
+
+background:#FEF3C7;
+
+color:#D97706;
+
+border-radius:18px;
+
+display:flex;
+
+justify-content:center;
+align-items:center;
+
+font-size:24px;
+
+}
+
+.defaultIcon{
+
+background:#DCFCE7;
+
+color:#16A34A;
+
+}
+
+.cityIcon{
+
+background:#DBEAFE;
+
+color:#2563EB;
+
+}
+
+.savedIcon{
+
+background:#F3E8FF;
+
+color:#9333EA;
+
+}
+
+.statLabel{
+
+font-size:13px;
+
+font-weight:700;
+
+color:#6B7280;
+
+}
+
+.statValue{
+
+margin-top:6px;
+
+font-size:28px;
+
+font-weight:900;
+
+color:#111827;
+
+}
+
+/* RESPONSIVE */
+
+@media(max-width:1200px){
+
+.addressStats{
+
+grid-template-columns:
+repeat(2,1fr);
+
+}
+
+}
+
+@media(max-width:700px){
+
+.addressStats{
+
+grid-template-columns:1fr;
+
+}
+
+}
+
+</style><!-- =====================
+ADDRESS LIST
+===================== -->
+
+<div class="card">
+
+    <div class="sectionHeader">
+
+        <div class="sectionTitle">
+
+            Saved Addresses
+
+        </div>
+
+        <div class="addressSearch">
+
+            <i class="fa-solid fa-magnifying-glass"></i>
+
+            <input
+            type="text"
+            placeholder="Search Address">
+
+        </div>
+
+    </div>
+
+    <!-- ADDRESS CARDS -->
+
+    <div
+    class="addressGrid"
+    id="addressGrid">
+
+        <!-- HOME -->
+
+        <div class="addressCard">
+
+            <div class="addressTop">
+
+                <div class="addressType">
+
+                    <i class="fa-solid fa-house"></i>
+
+                    Home
+
+                </div>
+
+                <div class="defaultBadge">
+
+                    Default
+
+                </div>
+
+            </div>
+
+            <div class="addressName">
+
+                Himanshu Pal
+
+            </div>
+
+            <div class="addressPhone">
+
+                +91 9876543210
+
+            </div>
+
+            <div class="addressText">
+
+                House No. 123, Near Main Market,
+                Kasganj, Uttar Pradesh - 207123
+
+            </div>
+
+            <div class="addressActions">
+
+                <button class="editBtn">
+
+                    <i class="fa-solid fa-pen"></i>
+
+                    Edit
+
+                </button>
+
+                <button class="deleteBtn">
+
+                    <i class="fa-solid fa-trash"></i>
+
+                    Delete
+
+                </button>
+
+            </div>
+
+        </div>
+
+        <!-- OFFICE -->
+
+        <div class="addressCard">
+
+            <div class="addressTop">
+
+                <div class="addressType officeType">
+
+                    <i class="fa-solid fa-building"></i>
+
+                    Office
+
+                </div>
+
+            </div>
+
+            <div class="addressName">
+
+                Pal Group Pvt Ltd
+
+            </div>
+
+            <div class="addressPhone">
+
+                +91 9876543210
+
+            </div>
+
+            <div class="addressText">
+
+                Office Complex,
+                Soron Gate,
+                Kasganj, Uttar Pradesh
+
+            </div>
+
+            <div class="addressActions">
+
+                <button class="setDefaultBtn">
+
+                    Set Default
+
+                </button>
+
+                <button class="editBtn">
+
+                    Edit
+
+                </button>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</div>
+
+<style>
+
+/* SECTION */
+
+.sectionHeader{
+
+display:flex;
+
+justify-content:space-between;
+
+align-items:center;
+
+margin-bottom:25px;
+
+}
+
+.sectionTitle{
+
+font-size:22px;
+
+font-weight:900;
+
+color:#111827;
+
+}
+
+/* SEARCH */
+
+.addressSearch{
+
+width:300px;
+
+height:52px;
+
+background:#F3F4F6;
+
+border-radius:14px;
+
+display:flex;
+
+align-items:center;
+
+padding:0 15px;
+
+gap:10px;
+
+}
+
+.addressSearch input{
+
+border:none;
+
+outline:none;
+
+background:none;
+
+width:100%;
+
+}
+
+/* GRID */
+
+.addressGrid{
+
+display:grid;
+
+grid-template-columns:
+repeat(2,1fr);
+
+gap:20px;
+
+}
+
+/* CARD */
+
+.addressCard{
+
+border:2px solid #F3F4F6;
+
+border-radius:22px;
+
+padding:22px;
+
+transition:.2s;
+
+}
+
+.addressCard:hover{
+
+border-color:#F4B400;
 
 }
 
@@ -803,59 +676,467 @@ display:flex;
 
 justify-content:space-between;
 
-align-items:flex-start;
+align-items:center;
+
+margin-bottom:15px;
 
 }
 
 .addressType{
 
-font-size:13px;
+display:inline-flex;
 
-font-weight:900;
+align-items:center;
 
-color:#16A34A;
+gap:8px;
+
+padding:8px 14px;
+
+border-radius:999px;
+
+background:#FEF3C7;
+
+color:#D97706;
+
+font-size:12px;
+
+font-weight:800;
+
+}
+
+.officeType{
+
+background:#DBEAFE;
+
+color:#2563EB;
 
 }
 
 .defaultBadge{
 
-margin-left:8px;
-
-background:#DCFCE7;
-
-color:#15803D;
-
-padding:4px 8px;
+padding:8px 14px;
 
 border-radius:999px;
 
-font-size:10px;
+background:#DCFCE7;
+
+color:#16A34A;
+
+font-size:12px;
+
+font-weight:800;
 
 }
 
 .addressName{
 
-margin-top:6px;
-
-font-size:16px;
+font-size:18px;
 
 font-weight:900;
 
-}
-
-.addressLine{
-
-margin-top:6px;
-
-font-size:13px;
-
-color:#6B7280;
+margin-bottom:6px;
 
 }
 
 .addressPhone{
 
-margin-top:10px;
+color:#6B7280;
+
+margin-bottom:10px;
+
+font-size:14px;
+
+}
+
+.addressText{
+
+line-height:1.7;
+
+color:#374151;
+
+margin-bottom:20px;
+
+}
+
+/* ACTIONS */
+
+.addressActions{
+
+display:flex;
+
+gap:10px;
+
+flex-wrap:wrap;
+
+}
+
+.editBtn,
+.deleteBtn,
+.setDefaultBtn{
+
+height:44px;
+
+padding:0 16px;
+
+border:none;
+
+border-radius:12px;
+
+font-size:13px;
+
+font-weight:800;
+
+cursor:pointer;
+
+}
+
+.editBtn{
+
+background:#DBEAFE;
+
+color:#2563EB;
+
+}
+
+.deleteBtn{
+
+background:#FEE2E2;
+
+color:#DC2626;
+
+}
+
+.setDefaultBtn{
+
+background:#F4B400;
+
+color:#fff;
+
+}
+
+/* MOBILE */
+
+@media(max-width:900px){
+
+.addressGrid{
+
+grid-template-columns:1fr;
+
+}
+
+.sectionHeader{
+
+flex-direction:column;
+
+align-items:stretch;
+
+gap:15px;
+
+}
+
+.addressSearch{
+
+width:100%;
+
+}
+
+}
+
+</style><!-- =====================
+ADD ADDRESS MODAL
+===================== -->
+
+<div
+class="modalOverlay"
+id="addressModal">
+
+    <div class="addressModal">
+
+        <div class="modalHeader">
+
+            <div>
+
+                <h2 id="addressModalTitle">
+
+                    Add New Address
+
+                </h2>
+
+                <p>
+
+                    Add pickup & delivery location
+
+                </p>
+
+            </div>
+
+            <button class="closeBtn">
+
+                <i class="fa-solid fa-xmark"></i>
+
+            </button>
+
+        </div>
+
+        <!-- ADDRESS TYPE -->
+
+        <div class="formGroup">
+
+            <label>
+
+                Address Type
+
+            </label>
+
+            <div class="typeGrid">
+
+                <button class="typeBtn activeType">
+
+                    <i class="fa-solid fa-house"></i>
+
+                    Home
+
+                </button>
+
+                <button class="typeBtn">
+
+                    <i class="fa-solid fa-building"></i>
+
+                    Office
+
+                </button>
+
+                <button class="typeBtn">
+
+                    <i class="fa-solid fa-location-dot"></i>
+
+                    Other
+
+                </button>
+
+            </div>
+
+        </div>
+
+        <!-- NAME -->
+
+        <div class="formGroup">
+
+            <label>
+
+                Full Name
+
+            </label>
+
+            <input
+            type="text"
+            id="fullName"
+            placeholder="Enter Full Name">
+
+        </div>
+
+        <!-- PHONE -->
+
+        <div class="formGroup">
+
+            <label>
+
+                Mobile Number
+
+            </label>
+
+            <input
+            type="tel"
+            id="mobileNumber"
+            placeholder="+91 XXXXX XXXXX">
+
+        </div>
+
+        <!-- ADDRESS -->
+
+        <div class="formGroup">
+
+            <label>
+
+                Complete Address
+
+            </label>
+
+            <textarea
+            rows="4"
+            id="addressText"
+            placeholder="House No, Street, Area">
+
+            </textarea>
+
+        </div>
+
+        <!-- LANDMARK -->
+
+        <div class="formGroup">
+
+            <label>
+
+                Landmark
+
+            </label>
+
+            <input
+            type="text"
+            id="landmark"
+            placeholder="Near School, Temple, Market">
+
+        </div>
+
+        <!-- CITY + PIN -->
+
+        <div class="twoColumn">
+
+            <div class="formGroup">
+
+                <label>
+
+                    City
+
+                </label>
+
+                <select id="city">
+
+                    <option>
+
+                        Kasganj
+
+                    </option>
+
+                    <option>
+
+                        Aligarh
+
+                    </option>
+
+                    <option>
+
+                        Agra
+
+                    </option>
+
+                </select>
+
+            </div>
+
+            <div class="formGroup">
+
+                <label>
+
+                    Pincode
+
+                </label>
+
+                <input
+                type="text"
+                id="pincode"
+                placeholder="207123">
+
+            </div>
+
+        </div>
+
+        <!-- GPS -->
+
+        <button
+        class="locationBtn">
+
+            <i class="fa-solid fa-location-crosshairs"></i>
+
+            Use Current Location
+
+        </button>
+
+        <!-- DEFAULT -->
+
+        <div class="defaultAddressBox">
+
+            <input
+            type="checkbox"
+            id="defaultAddress">
+
+            <label for="defaultAddress">
+
+                Set as Default Address
+
+            </label>
+
+        </div>
+
+        <!-- SAVE -->
+
+        <button
+        class="saveAddressBtn"
+        id="saveAddressBtn">
+
+            Save Address
+
+        </button>
+
+    </div>
+
+</div>
+
+<style>
+
+/* MODAL */
+
+.modalOverlay{
+
+position:fixed;
+
+inset:0;
+
+background:rgba(0,0,0,.55);
+
+display:none;
+
+justify-content:center;
+
+align-items:center;
+
+padding:20px;
+
+z-index:9999;
+
+}
+
+.addressModal{
+
+width:100%;
+
+max-width:800px;
+
+max-height:90vh;
+
+overflow:auto;
+
+background:#fff;
+
+border-radius:24px;
+
+padding:25px;
+
+}
+
+/* FORM */
+
+.formGroup{
+
+margin-bottom:18px;
+
+}
+
+.formGroup label{
+
+display:block;
+
+margin-bottom:8px;
 
 font-size:13px;
 
@@ -863,221 +1144,129 @@ font-weight:800;
 
 }
 
-.addressActions{
-
-display:flex;
-
-gap:8px;
-
-}
-
-.addressActions button{
-
-width:38px;
-height:38px;
-
-border:none;
-
-border-radius:12px;
-
-background:#F3F4F6;
-
-cursor:pointer;
-
-}
-
-.addressActions i{
-
-font-size:14px;
-
-}
-
-</style>
-
-<script type="module">
-
-import { db }
-from "./firebase.js";
-
-import {
-doc,
-updateDoc,
-getDoc
-}
-from
-"https://www.gstatic.com/firebasejs/12.11.0/firebase-firestore.js";
-
-/* ===================================
-EDIT ADDRESS
-=================================== */
-
-window.editAddress =
-async function(id){
-
-try{
-
-const snap =
-
-await getDoc(
-doc(
-db,
-"addresses",
-id
-)
-);
-
-if(!snap.exists()) return;
-
-const data =
-snap.data();
-
-/* FILL FORM */
-
-document.getElementById(
-"addressName"
-).value =
-
-data.fullName || "";
-
-document.getElementById(
-"addressPhone"
-).value =
-
-data.phone || "";
-
-document.getElementById(
-"houseNumber"
-).value =
-
-data.houseNo || "";
-
-document.getElementById(
-"fullAddress"
-).value =
-
-data.address || "";
-
-document.getElementById(
-"city"
-).value =
-
-data.city || "";
-
-selectedType =
-data.type || "Home";
-
-/* STORE EDIT ID */
-
-window.editingAddressId =
-id;
-
-openAddressModal();
-
-}
-catch(error){
-
-console.error(error);
-
-}
-
-};
-
-/* ===================================
-SAVE EDIT
-=================================== */
-
-/*
-SAVE ADDRESS FUNCTION UPDATE:
-
-if(window.editingAddressId){
-
-await updateDoc(
-
-doc(
-db,
-"addresses",
-window.editingAddressId
-),
-
-{
-fullName,
-phone,
-houseNo,
-address,
-city,
-type:selectedType
-}
-
-);
-
-window.editingAddressId = null;
-
-}else{
-
-addDoc(...)
-
-}
-
-*/
-
-/* ===================================
-SELECT ADDRESS FOR CHECKOUT
-=================================== */
-
-window.selectAddress =
-async function(id){
-
-try{
-
-localStorage.setItem(
-
-"defaultAddressId",
-
-id
-
-);
-
-alert(
-"Address Selected ✅"
-);
-
-window.location.href =
-"checkout.html";
-
-}
-catch(error){
-
-console.error(error);
-
-}
-
-};
-
-</script>
-
-<style>
-
-/* ===================================
-SELECT BUTTON
-=================================== */
-
-.selectAddressBtn{
-
-margin-top:14px;
+.formGroup input,
+.formGroup select,
+.formGroup textarea{
 
 width:100%;
 
-height:48px;
+border:none;
+
+outline:none;
+
+background:#F3F4F6;
+
+border-radius:14px;
+
+padding:14px;
+
+}
+
+/* TYPE */
+
+.typeGrid{
+
+display:grid;
+
+grid-template-columns:
+repeat(3,1fr);
+
+gap:12px;
+
+}
+
+.typeBtn{
+
+height:55px;
 
 border:none;
 
 border-radius:14px;
 
-background:#16A34A;
+background:#F3F4F6;
+
+font-weight:800;
+
+cursor:pointer;
+
+}
+
+.activeType{
+
+background:#F4B400;
 
 color:#fff;
 
-font-size:14px;
+}
+
+/* 2 COLUMN */
+
+.twoColumn{
+
+display:grid;
+
+grid-template-columns:
+1fr 1fr;
+
+gap:15px;
+
+}
+
+/* LOCATION */
+
+.locationBtn{
+
+width:100%;
+
+height:55px;
+
+border:none;
+
+border-radius:14px;
+
+background:#DBEAFE;
+
+color:#2563EB;
+
+font-weight:800;
+
+cursor:pointer;
+
+margin-bottom:15px;
+
+}
+
+/* DEFAULT */
+
+.defaultAddressBox{
+
+display:flex;
+
+align-items:center;
+
+gap:10px;
+
+margin-bottom:20px;
+
+}
+
+/* SAVE */
+
+.saveAddressBtn{
+
+width:100%;
+
+height:58px;
+
+border:none;
+
+border-radius:14px;
+
+background:#F4B400;
+
+color:#fff;
+
+font-size:15px;
 
 font-weight:900;
 
@@ -1085,330 +1274,1779 @@ cursor:pointer;
 
 }
 
-</style>
+/* MOBILE */
 
-<!-- ===================================
-UPDATE ADDRESS CARD
-ADD INSIDE loadAddresses()
+@media(max-width:700px){
 
-AFTER PHONE SECTION:
+.twoColumn,
+.typeGrid{
 
-<button
-class="selectAddressBtn"
-onclick="selectAddress('${docSnap.id}')">
+grid-template-columns:1fr;
 
-Deliver Here
+}
 
-</button>
+}
 
-AND ADD:
-
-<button
-onclick="editAddress('${docSnap.id}')">
-
-<i class="fa-solid fa-pen"></i>
-
-</button>
-
-INSIDE addressActions
-
-=================================== -->
-
-<!-- ===================================
-FOOTER
-=================================== -->
-
-<div class="footer">
-
-<div class="footerBrand">
-
-⚡ QuickPress
-
-</div>
-
-<div class="footerText">
-
-Manage your delivery addresses
-
-</div>
-
-<div class="footerCopy">
-
-© 2026 QuickPress. All Rights Reserved.
-
-</div>
-
-</div>
-
-<!-- ===================================
-BOTTOM NAVBAR
-=================================== -->
-
-<div class="bottomNav">
-
-<button
-class="navItem"
-onclick="window.location.href='index.html'">
-
-<i class="fa-solid fa-house"></i>
-
-<span>Home</span>
-
-</button>
-
-<button
-class="navItem"
-onclick="window.location.href='orders.html'">
-
-<i class="fa-solid fa-box"></i>
-
-<span>Orders</span>
-
-</button>
-
-<button
-class="navItem"
-onclick="window.location.href='services.html'">
-
-<i class="fa-solid fa-table-cells-large"></i>
-
-<span>Services</span>
-
-</button>
-
-<button
-class="navItem"
-onclick="window.location.href='cart.html'">
-
-<i class="fa-solid fa-cart-shopping"></i>
-
-<span>Cart</span>
+</style><!-- =====================
+ADDRESS DETAILS MODAL
+===================== -->
 
 <div
-class="navCartBadge"
-id="navCartBadge">
+class="modalOverlay"
+id="addressDetailsModal">
 
-0
+    <div class="addressDetailsModal">
 
-</div>
+        <!-- HEADER -->
 
-</button>
+        <div class="modalHeader">
 
-<button
-class="navItem activeNav"
-onclick="window.location.href='profile.html'">
+            <div>
 
-<i class="fa-solid fa-user"></i>
+                <h2>
 
-<span>Profile</span>
+                    Address Details
 
-</button>
+                </h2>
+
+                <p>
+
+                    Verify service availability at your location
+
+                </p>
+
+            </div>
+
+            <button class="closeBtn">
+
+                <i class="fa-solid fa-xmark"></i>
+
+            </button>
+
+        </div>
+
+        <!-- MAP PREVIEW -->
+
+        <div class="mapPreview">
+
+            <div class="mapPlaceholder">
+
+                <i class="fa-solid fa-map-location-dot"></i>
+
+                <h3>
+
+                    Map Preview
+
+                </h3>
+
+                <p>
+
+                    Google Map Location Preview
+
+                </p>
+
+            </div>
+
+        </div>
+
+        <!-- ADDRESS INFO -->
+
+        <div class="detailsGrid">
+
+            <div class="detailBox">
+
+                <div class="detailLabel">
+
+                    Address Type
+
+                </div>
+
+                <div class="detailValue">
+
+                    Home
+
+                </div>
+
+            </div>
+
+            <div class="detailBox">
+
+                <div class="detailLabel">
+
+                    Service City
+
+                </div>
+
+                <div class="detailValue">
+
+                    Kasganj
+
+                </div>
+
+            </div>
+
+            <div class="detailBox">
+
+                <div class="detailLabel">
+
+                    Pincode
+
+                </div>
+
+                <div class="detailValue">
+
+                    207123
+
+                </div>
+
+            </div>
+
+            <div class="detailBox">
+
+                <div class="detailLabel">
+
+                    Status
+
+                </div>
+
+                <div class="verifiedBadge">
+
+                    Verified
+
+                </div>
+
+            </div>
+
+        </div>
+
+        <!-- FULL ADDRESS -->
+
+        <div class="infoCard">
+
+            <div class="sectionHeading">
+
+                Full Address
+
+            </div>
+
+            <div class="addressDisplay">
+
+                House No 123,
+                Near Main Market,
+                Kasganj,
+                Uttar Pradesh - 207123
+            </div>
+
+        </div>
+
+        <!-- SERVICE AVAILABILITY -->
+
+        <div class="infoCard">
+
+            <div class="sectionHeading">
+
+                Available Services
+
+            </div>
+
+            <div class="serviceAvailabilityGrid">
+
+                <div class="serviceAvailable">
+
+                    <i class="fa-solid fa-circle-check"></i>
+
+                    Ironing
+                </div>
+
+                <div class="serviceAvailable">
+
+                    <i class="fa-solid fa-circle-check"></i>
+
+                    Wash & Iron
+                </div>
+
+                <div class="serviceAvailable">
+
+                    <i class="fa-solid fa-circle-check"></i>
+
+                    Dry Cleaning
+                </div>
+
+                <div class="serviceAvailable">
+
+                    <i class="fa-solid fa-circle-check"></i>
+
+                    Shoe Cleaning
+                </div>
+
+            </div>
+
+        </div>
+
+        <!-- DELIVERY ZONE -->
+
+        <div class="zoneCard">
+
+            <div class="zoneLeft">
+
+                <i class="fa-solid fa-truck-fast"></i>
+
+            </div>
+
+            <div>
+
+                <h3>
+
+                    Service Available
+
+                </h3>
+
+                <p>
+
+                    Pickup and delivery available at this location.
+
+                </p>
+
+            </div>
+
+        </div>
+
+    </div>
 
 </div>
 
 <style>
 
-/* ===================================
-FOOTER
-=================================== */
+/* ADDRESS DETAILS MODAL */
 
-.footer{
+.addressDetailsModal{
 
-padding:30px 20px 120px;
+width:100%;
 
-text-align:center;
+max-width:950px;
+
+max-height:90vh;
+
+overflow:auto;
+
+background:#fff;
+
+border-radius:24px;
+
+padding:25px;
 
 }
 
-.footerBrand{
+/* MAP */
 
-font-size:22px;
+.mapPreview{
+
+height:260px;
+
+background:#F9FAFB;
+
+border-radius:20px;
+
+margin-bottom:20px;
+
+overflow:hidden;
+
+}
+
+.mapPlaceholder{
+
+height:100%;
+
+display:flex;
+
+flex-direction:column;
+
+justify-content:center;
+
+align-items:center;
+
+}
+
+.mapPlaceholder i{
+
+font-size:70px;
+
+color:#F4B400;
+
+margin-bottom:15px;
+
+}
+
+.mapPlaceholder h3{
+
+font-size:24px;
 
 font-weight:900;
 
+margin-bottom:8px;
+
 }
 
-.footerText{
-
-margin-top:8px;
-
-font-size:13px;
+.mapPlaceholder p{
 
 color:#6B7280;
 
 }
 
-.footerCopy{
+/* DETAILS */
 
-margin-top:10px;
+.detailsGrid{
+
+display:grid;
+
+grid-template-columns:
+repeat(4,1fr);
+
+gap:15px;
+
+margin-bottom:20px;
+
+}
+
+.detailBox{
+
+background:#F9FAFB;
+
+padding:18px;
+
+border-radius:16px;
+
+}
+
+.detailLabel{
 
 font-size:12px;
-
-color:#9CA3AF;
-
-}
-
-/* ===================================
-BOTTOM NAV
-=================================== */
-
-.bottomNav{
-
-position:fixed;
-
-left:0;
-right:0;
-bottom:0;
-
-height:72px;
-
-background:#fff;
-
-display:flex;
-
-justify-content:space-around;
-align-items:center;
-
-box-shadow:
-0 -6px 20px rgba(0,0,0,.08);
-
-z-index:999;
-
-}
-
-.navItem{
-
-position:relative;
-
-flex:1;
-
-height:100%;
-
-border:none;
-
-background:none;
-
-display:flex;
-flex-direction:column;
-
-align-items:center;
-justify-content:center;
-
-gap:4px;
-
-font-size:11px;
 
 font-weight:700;
 
 color:#6B7280;
 
-cursor:pointer;
+margin-bottom:8px;
 
 }
 
-.navItem i{
+.detailValue{
 
-font-size:18px;
+font-size:16px;
 
-}
-
-.activeNav{
-
-color:#16A34A;
+font-weight:800;
 
 }
 
-.navCartBadge{
+/* VERIFIED */
 
-position:absolute;
+.verifiedBadge{
 
-top:8px;
-right:22px;
+display:inline-flex;
 
-min-width:18px;
-height:18px;
+align-items:center;
 
-padding:0 4px;
+padding:8px 14px;
 
 border-radius:999px;
 
-background:#EF4444;
+background:#DCFCE7;
+
+color:#16A34A;
+
+font-size:12px;
+
+font-weight:800;
+
+}
+
+/* INFO CARD */
+
+.infoCard{
+
+background:#F9FAFB;
+
+padding:20px;
+
+border-radius:20px;
+
+margin-bottom:20px;
+
+}
+
+.addressDisplay{
+
+line-height:1.8;
+
+color:#374151;
+
+}
+
+/* SERVICES */
+
+.serviceAvailabilityGrid{
+
+display:grid;
+
+grid-template-columns:
+repeat(2,1fr);
+
+gap:12px;
+
+}
+
+.serviceAvailable{
+
+padding:14px;
+
+border-radius:14px;
+
+background:#DCFCE7;
+
+color:#15803D;
+
+font-weight:800;
+
+display:flex;
+
+align-items:center;
+
+gap:10px;
+
+}
+
+/* ZONE */
+
+.zoneCard{
+
+display:flex;
+
+align-items:center;
+
+gap:16px;
+
+padding:22px;
+
+background:#DCFCE7;
+
+border-radius:20px;
+
+}
+
+.zoneLeft{
+
+width:65px;
+
+height:65px;
+
+border-radius:16px;
+
+background:#16A34A;
+
+display:flex;
+
+align-items:center;
+
+justify-content:center;
 
 color:#fff;
 
+font-size:28px;
+
+}
+
+.zoneCard h3{
+
+font-size:20px;
+
+font-weight:900;
+
+margin-bottom:6px;
+
+}
+
+.zoneCard p{
+
+color:#166534;
+
+}
+
+/* MOBILE */
+
+@media(max-width:900px){
+
+.detailsGrid{
+
+grid-template-columns:
+repeat(2,1fr);
+
+}
+
+}
+
+@media(max-width:600px){
+
+.detailsGrid{
+
+grid-template-columns:1fr;
+
+}
+
+.serviceAvailabilityGrid{
+
+grid-template-columns:1fr;
+
+}
+
+}
+
+</style><!-- =====================
+SAVED LOCATIONS
+===================== -->
+
+<div class="card">
+
+    <div class="sectionHeader">
+
+        <div class="sectionTitle">
+
+            Quick Locations
+
+        </div>
+
+    </div>
+
+    <div class="quickLocationGrid">
+
+        <div class="quickLocationCard homeCard">
+
+            <div class="locationIcon">
+
+                <i class="fa-solid fa-house"></i>
+
+            </div>
+
+            <div>
+
+                <h4>
+
+                    Home
+
+                </h4>
+
+                <p>
+
+                    Default Address
+
+                </p>
+
+            </div>
+
+        </div>
+
+        <div class="quickLocationCard officeCard">
+
+            <div class="locationIcon">
+
+                <i class="fa-solid fa-building"></i>
+
+            </div>
+
+            <div>
+
+                <h4>
+
+                    Office
+
+                </h4>
+
+                <p>
+
+                    Work Location
+
+                </p>
+
+            </div>
+
+        </div>
+
+        <div class="quickLocationCard otherCard">
+
+            <div class="locationIcon">
+
+                <i class="fa-solid fa-location-dot"></i>
+
+            </div>
+
+            <div>
+
+                <h4>
+
+                    Other
+
+                </h4>
+
+                <p>
+
+                    Custom Address
+
+                </p>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</div>
+
+<!-- =====================
+RECENT LOCATIONS
+===================== -->
+
+<div class="card">
+
+    <div class="sectionHeader">
+
+        <div class="sectionTitle">
+
+            Recent Locations
+
+        </div>
+
+    </div>
+
+    <div class="recentLocationList">
+
+        <div class="recentLocationItem">
+
+            <i class="fa-solid fa-clock-rotate-left"></i>
+
+            <div>
+
+                <h4>
+
+                    Main Market, Kasganj
+
+                </h4>
+
+                <p>
+
+                    Last used 2 days ago
+
+                </p>
+
+            </div>
+
+        </div>
+
+        <div class="recentLocationItem">
+
+            <i class="fa-solid fa-clock-rotate-left"></i>
+
+            <div>
+
+                <h4>
+
+                    Soron Gate, Kasganj
+
+                </h4>
+
+                <p>
+
+                    Last used 5 days ago
+
+                </p>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</div>
+
+<!-- =====================
+FAVOURITE ADDRESSES
+===================== -->
+
+<div class="card">
+
+    <div class="sectionHeader">
+
+        <div class="sectionTitle">
+
+            Favourite Addresses
+
+        </div>
+
+    </div>
+
+    <div class="favouriteGrid">
+
+        <div class="favouriteCard">
+
+            <div class="favTop">
+
+                <i class="fa-solid fa-star"></i>
+
+                Favourite
+            </div>
+
+            <h4>
+
+                Home Pickup Point
+
+            </h4>
+
+            <p>
+
+                Near Main Market,
+                Kasganj, Uttar Pradesh
+
+            </p>
+
+        </div>
+
+        <div class="favouriteCard">
+
+            <div class="favTop">
+
+                <i class="fa-solid fa-star"></i>
+
+                Favourite
+            </div>
+
+            <h4>
+
+                Office Pickup Point
+
+            </h4>
+
+            <p>
+
+                Soron Gate,
+                Kasganj, Uttar Pradesh
+
+            </p>
+
+        </div>
+
+    </div>
+
+</div>
+
+<style>
+
+/* QUICK LOCATIONS */
+
+.quickLocationGrid{
+
+display:grid;
+
+grid-template-columns:
+repeat(3,1fr);
+
+gap:20px;
+
+}
+
+.quickLocationCard{
+
+padding:22px;
+
+border-radius:20px;
+
 display:flex;
+
 align-items:center;
+
+gap:15px;
+
+cursor:pointer;
+
+transition:.2s;
+
+}
+
+.quickLocationCard:hover{
+
+transform:translateY(-2px);
+
+}
+
+.homeCard{
+
+background:#FEF3C7;
+
+}
+
+.officeCard{
+
+background:#DBEAFE;
+
+}
+
+.otherCard{
+
+background:#F3E8FF;
+
+}
+
+.locationIcon{
+
+width:60px;
+height:60px;
+
+border-radius:16px;
+
+background:#fff;
+
+display:flex;
+
+align-items:center;
+
 justify-content:center;
 
-font-size:10px;
+font-size:22px;
+
+}
+
+/* RECENT */
+
+.recentLocationList{
+
+display:flex;
+
+flex-direction:column;
+
+gap:15px;
+
+}
+
+.recentLocationItem{
+
+display:flex;
+
+align-items:center;
+
+gap:15px;
+
+padding:18px;
+
+background:#F9FAFB;
+
+border-radius:16px;
+
+}
+
+.recentLocationItem i{
+
+font-size:22px;
+
+color:#F4B400;
+
+}
+
+/* FAVOURITES */
+
+.favouriteGrid{
+
+display:grid;
+
+grid-template-columns:
+repeat(2,1fr);
+
+gap:20px;
+
+}
+
+.favouriteCard{
+
+padding:22px;
+
+border:2px solid #FEF3C7;
+
+border-radius:20px;
+
+}
+
+.favTop{
+
+display:flex;
+
+align-items:center;
+
+gap:8px;
+
+font-size:13px;
+
+font-weight:800;
+
+color:#D97706;
+
+margin-bottom:12px;
+
+}
+
+.favouriteCard h4{
+
+font-size:18px;
+
+font-weight:900;
+
+margin-bottom:8px;
+
+}
+
+.favouriteCard p{
+
+color:#6B7280;
+
+line-height:1.6;
+
+}
+
+/* MOBILE */
+
+@media(max-width:900px){
+
+.quickLocationGrid,
+.favouriteGrid{
+
+grid-template-columns:1fr;
+
+}
+
+}
+
+</style><!-- =====================
+SERVICE COVERAGE
+===================== -->
+
+<div class="card">
+
+    <div class="sectionHeader">
+
+        <div class="sectionTitle">
+
+            Service Coverage Area
+
+        </div>
+
+    </div>
+
+    <div class="coverageGrid">
+
+        <div class="coverageCard activeCoverage">
+
+            <i class="fa-solid fa-circle-check"></i>
+
+            <div>
+
+                <h4>
+
+                    Kasganj
+
+                </h4>
+
+                <p>
+
+                    Service Available
+
+                </p>
+
+            </div>
+
+        </div>
+
+        <div class="coverageCard activeCoverage">
+
+            <i class="fa-solid fa-circle-check"></i>
+
+            <div>
+
+                <h4>
+
+                    Aligarh
+
+                </h4>
+
+                <p>
+
+                    Service Available
+
+                </p>
+
+            </div>
+
+        </div>
+
+        <div class="coverageCard inactiveCoverage">
+
+            <i class="fa-solid fa-circle-xmark"></i>
+
+            <div>
+
+                <h4>
+
+                    Etah
+
+                </h4>
+
+                <p>
+
+                    Coming Soon
+
+                </p>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</div>
+
+<!-- =====================
+DELIVERY INFO
+===================== -->
+
+<div class="card">
+
+    <div class="sectionTitle">
+
+        Delivery Information
+
+    </div>
+
+    <div class="deliveryGrid">
+
+        <div class="deliveryCard">
+
+            <i class="fa-solid fa-truck-fast"></i>
+
+            <h4>
+
+                Pickup Charge
+
+            </h4>
+
+            <p>
+
+                ₹0 - ₹49
+
+            </p>
+
+        </div>
+
+        <div class="deliveryCard">
+
+            <i class="fa-solid fa-clock"></i>
+
+            <h4>
+
+                Service Time
+
+            </h4>
+
+            <p>
+
+                24 - 48 Hours
+
+            </p>
+
+        </div>
+
+        <div class="deliveryCard">
+
+            <i class="fa-solid fa-motorcycle"></i>
+
+            <h4>
+
+                Delivery Charge
+
+            </h4>
+
+            <p>
+
+                Free Above ₹299
+
+            </p>
+
+        </div>
+
+    </div>
+
+</div>
+
+<!-- =====================
+PICKUP TIME SLOTS
+===================== -->
+
+<div class="card">
+
+    <div class="sectionTitle">
+
+        Available Pickup Slots
+
+    </div>
+
+    <div class="slotGrid">
+
+        <div class="slotCard">
+
+            08:00 AM - 10:00 AM
+
+        </div>
+
+        <div class="slotCard">
+
+            10:00 AM - 12:00 PM
+
+        </div>
+
+        <div class="slotCard activeSlot">
+
+            12:00 PM - 02:00 PM
+
+        </div>
+
+        <div class="slotCard">
+
+            02:00 PM - 04:00 PM
+
+        </div>
+
+        <div class="slotCard">
+
+            04:00 PM - 06:00 PM
+
+        </div>
+
+        <div class="slotCard">
+
+            06:00 PM - 08:00 PM
+
+        </div>
+
+    </div>
+
+</div>
+
+<!-- =====================
+COVERAGE MAP
+===================== -->
+
+<div class="card">
+
+    <div class="sectionTitle">
+
+        Coverage Map
+
+    </div>
+
+    <div class="coverageMap">
+
+        <i class="fa-solid fa-map-location-dot"></i>
+
+        <h3>
+
+            Coverage Area Map
+
+        </h3>
+
+        <p>
+
+            Live service area map will be loaded here.
+
+        </p>
+
+    </div>
+
+</div>
+
+<style>
+
+/* COVERAGE */
+
+.coverageGrid{
+
+display:grid;
+
+grid-template-columns:
+repeat(3,1fr);
+
+gap:20px;
+
+}
+
+.coverageCard{
+
+padding:22px;
+
+border-radius:20px;
+
+display:flex;
+
+align-items:center;
+
+gap:15px;
+
+}
+
+.activeCoverage{
+
+background:#DCFCE7;
+
+color:#166534;
+
+}
+
+.inactiveCoverage{
+
+background:#FEE2E2;
+
+color:#B91C1C;
+
+}
+
+.coverageCard i{
+
+font-size:28px;
+
+}
+
+/* DELIVERY */
+
+.deliveryGrid{
+
+display:grid;
+
+grid-template-columns:
+repeat(3,1fr);
+
+gap:20px;
+
+}
+
+.deliveryCard{
+
+background:#F9FAFB;
+
+padding:24px;
+
+border-radius:20px;
+
+text-align:center;
+
+}
+
+.deliveryCard i{
+
+font-size:34px;
+
+color:#F4B400;
+
+margin-bottom:12px;
+
+}
+
+.deliveryCard h4{
+
+margin-bottom:8px;
+
+font-size:18px;
 
 font-weight:900;
 
 }
 
+/* SLOTS */
+
+.slotGrid{
+
+display:grid;
+
+grid-template-columns:
+repeat(3,1fr);
+
+gap:15px;
+
+}
+
+.slotCard{
+
+height:60px;
+
+display:flex;
+
+justify-content:center;
+
+align-items:center;
+
+background:#F3F4F6;
+
+border-radius:14px;
+
+font-weight:800;
+
+cursor:pointer;
+
+}
+
+.activeSlot{
+
+background:#F4B400;
+
+color:#fff;
+
+}
+
+/* MAP */
+
+.coverageMap{
+
+height:300px;
+
+background:#F9FAFB;
+
+border-radius:22px;
+
+display:flex;
+
+flex-direction:column;
+
+justify-content:center;
+
+align-items:center;
+
+text-align:center;
+
+}
+
+.coverageMap i{
+
+font-size:70px;
+
+color:#F4B400;
+
+margin-bottom:15px;
+
+}
+
+.coverageMap h3{
+
+font-size:24px;
+
+font-weight:900;
+
+margin-bottom:8px;
+
+}
+
+.coverageMap p{
+
+color:#6B7280;
+
+}
+
+/* MOBILE */
+
+@media(max-width:900px){
+
+.coverageGrid,
+.deliveryGrid,
+.slotGrid{
+
+grid-template-columns:1fr;
+
+}
+
+}
+
+</style><!-- =====================
+EMPTY STATE
+===================== -->
+
+<div
+id="emptyAddressState"
+style="display:none;">
+
+    <div class="emptyStateCard">
+
+        <i class="fa-solid fa-location-dot"></i>
+
+        <h2>
+
+            No Address Found
+
+        </h2>
+
+        <p>
+
+            Add your first pickup and delivery address.
+
+        </p>
+
+        <button
+        class="primaryBtn">
+
+            Add Address
+
+        </button>
+
+    </div>
+
+</div>
+
+<!-- =====================
+REAL DATA CONTAINER
+===================== -->
+
+<div
+id="addressesDataContainer"
+style="display:none;">
+
+</div>
+
+<!-- =====================
+BOTTOM NAVIGATION
+===================== -->
+
+<div class="bottomNav">
+
+    <a href="index.html">
+
+        <i class="fa-solid fa-house"></i>
+
+        <span>Home</span>
+
+    </a>
+
+    <a href="services.html">
+
+        <i class="fa-solid fa-shirt"></i>
+
+        <span>Services</span>
+
+    </a>
+
+    <a href="cart.html">
+
+        <i class="fa-solid fa-cart-shopping"></i>
+
+        <span>Cart</span>
+
+    </a>
+
+    <a href="orders.html">
+
+        <i class="fa-solid fa-box"></i>
+
+        <span>Orders</span>
+
+    </a>
+
+    <a
+    href="addresses.html"
+    class="activeNav">
+
+        <i class="fa-solid fa-location-dot"></i>
+
+        <span>Address</span>
+
+    </a>
+
+</div>
+
+<!-- =====================
+FOOTER
+===================== -->
+
+<footer class="footer">
+
+    <div class="footerLogo">
+
+        QuickPress
+
+    </div>
+
+    <div class="footerText">
+
+        Professional Laundry & Dry Cleaning Service
+
+    </div>
+
+    <div class="footerLinks">
+
+        <a href="#">
+
+            Privacy Policy
+
+        </a>
+
+        <a href="#">
+
+            Terms & Conditions
+
+        </a>
+
+        <a href="#">
+
+            Support
+
+        </a>
+
+    </div>
+
+    <div class="footerCopyright">
+
+        © 2026 QuickPress. All Rights Reserved.
+
+    </div>
+
+</footer>
+
+<style>
+
+/* EMPTY STATE */
+
+.emptyStateCard{
+
+background:#fff;
+
+padding:60px 30px;
+
+border-radius:24px;
+
+text-align:center;
+
+box-shadow:
+0 4px 14px rgba(0,0,0,.05);
+
+margin-bottom:30px;
+
+}
+
+.emptyStateCard i{
+
+font-size:80px;
+
+color:#F4B400;
+
+margin-bottom:20px;
+
+}
+
+.emptyStateCard h2{
+
+font-size:30px;
+
+font-weight:900;
+
+margin-bottom:10px;
+
+}
+
+.emptyStateCard p{
+
+color:#6B7280;
+
+margin-bottom:25px;
+
+}
+
+/* BOTTOM NAV */
+
+.bottomNav{
+
+position:fixed;
+
+bottom:0;
+
+left:0;
+
+right:0;
+
+height:75px;
+
+background:#fff;
+
+display:none;
+
+justify-content:space-around;
+
+align-items:center;
+
+box-shadow:
+0 -4px 14px rgba(0,0,0,.08);
+
+z-index:999;
+
+}
+
+.bottomNav a{
+
+text-decoration:none;
+
+color:#6B7280;
+
+display:flex;
+
+flex-direction:column;
+
+align-items:center;
+
+gap:5px;
+
+font-size:12px;
+
+font-weight:700;
+
+}
+
+.bottomNav i{
+
+font-size:20px;
+
+}
+
+.activeNav{
+
+color:#F4B400 !important;
+
+}
+
+/* FOOTER */
+
+.footer{
+
+margin-top:40px;
+
+background:#fff;
+
+padding:35px;
+
+border-radius:24px;
+
+text-align:center;
+
+box-shadow:
+0 4px 14px rgba(0,0,0,.05);
+
+}
+
+.footerLogo{
+
+font-size:28px;
+
+font-weight:900;
+
+margin-bottom:10px;
+
+}
+
+.footerText{
+
+color:#6B7280;
+
+margin-bottom:20px;
+
+}
+
+.footerLinks{
+
+display:flex;
+
+justify-content:center;
+
+gap:25px;
+
+margin-bottom:20px;
+
+}
+
+.footerLinks a{
+
+text-decoration:none;
+
+color:#111827;
+
+font-weight:700;
+
+}
+
+.footerCopyright{
+
+font-size:13px;
+
+color:#9CA3AF;
+
+}
+
+/* MOBILE */
+
+@media(max-width:768px){
+
+.container{
+
+padding-bottom:100px;
+
+}
+
+.bottomNav{
+
+display:flex;
+
+}
+
+.footer{
+
+display:none;
+
+}
+
+}
+
 </style>
+
+<!-- =====================
+FIREBASE READY STRUCTURE
+===================== -->
 
 <script>
 
-/* ===================================
-CART BADGE
-=================================== */
+/*
 
-function updateNavbarCartCount(){
+addresses/
 
-const cart =
+{
+id:"",
+userId:"",
+type:"home",
 
-JSON.parse(
-localStorage.getItem(
-"cart"
-)
-)
+name:"",
+phone:"",
 
-|| [];
+address:"",
+landmark:"",
 
-let total = 0;
+city:"",
+pincode:"",
 
-cart.forEach(item=>{
+latitude:"",
+longitude:"",
 
-total += item.qty || 1;
+isDefault:true,
 
-});
-
-const badge =
-
-document.getElementById(
-"navCartBadge"
-);
-
-if(!badge) return;
-
-badge.innerHTML = total;
-
-badge.style.display =
-
-total > 0
-
-? "flex"
-
-: "none";
-
+createdAt:""
 }
 
-updateNavbarCartCount();
-
-window.addEventListener(
-
-"storage",
-
-()=>{
-
-updateNavbarCartCount();
-
-}
-
-);
+*/
 
 </script>
 
 </body>
+
 </html>
