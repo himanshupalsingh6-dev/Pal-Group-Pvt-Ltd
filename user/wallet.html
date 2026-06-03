@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
 
 <meta charset="UTF-8">
@@ -10,7 +11,7 @@ content="width=device-width, initial-scale=1.0">
 
 <title>
 
-Quick Wallet
+QuickPress Wallet
 
 </title>
 
@@ -31,124 +32,56 @@ box-sizing:border-box;
 font-family:'Inter',sans-serif;
 }
 
+:root{
+
+--primary:#F4B400;
+--secondary:#16A34A;
+--bg:#F7F8FA;
+--dark:#111827;
+--gray:#6B7280;
+
+}
+
 body{
 
-background:#F6F7FB;
+background:var(--bg);
 
 padding-bottom:120px;
 
 }
 
-/* ==========================
-HEADER
-========================== */
-
-.walletHero{
-
-background:
-linear-gradient(
-135deg,
-#16A34A,
-#22C55E
-);
-
-padding:20px;
-padding-bottom:120px;
-
-border-radius:
-0 0 32px 32px;
-
-color:#fff;
-
-}
-
-.headerRow{
-
-display:flex;
-
-align-items:center;
-
-gap:12px;
-
-}
-
-.backBtn{
-
-width:42px;
-height:42px;
-
-border:none;
-
-border-radius:12px;
-
-background:
-rgba(255,255,255,.2);
-
-color:#fff;
-
-cursor:pointer;
-
-}
-
-.pageTitle{
-
-font-size:24px;
-
-font-weight:900;
-
-}
-
-/* ==========================
-BALANCE CARD
-========================== */
-
-.balanceCard{
+.walletHeader{
 
 background:#fff;
 
-margin:
--85px 16px 20px;
+padding:20px 16px;
 
-border-radius:28px;
+position:sticky;
 
-padding:24px;
+top:0;
+
+z-index:999;
 
 box-shadow:
-0 10px 30px rgba(0,0,0,.08);
-
-text-align:center;
+0 4px 20px rgba(0,0,0,.05);
 
 }
 
-.balanceLabel{
+.walletTitle{
 
-font-size:13px;
-
-font-weight:700;
-
-color:#6B7280;
-
-}
-
-.balanceAmount{
-
-font-size:44px;
+font-size:28px;
 
 font-weight:900;
 
-color:#16A34A;
-
-margin-top:8px;
-
 }
 
-.balanceDesc{
-
-margin-top:8px;
+.walletSub{
 
 font-size:13px;
 
-color:#9CA3AF;
+color:#6B7280;
+
+margin-top:4px;
 
 }
 
@@ -158,280 +91,212 @@ color:#9CA3AF;
 
 <body>
 
-<div class="walletHero">
+<div class="walletHeader">
 
-<div class="headerRow">
+<div class="walletTitle">
 
-<button
-class="backBtn"
-onclick="history.back()">
-
-<i class="fa-solid fa-arrow-left"></i>
-
-</button>
-
-<div class="pageTitle">
-
-Quick Wallet
+My Wallet
 
 </div>
 
-</div>
+<div class="walletSub">
+
+Manage your wallet balance
 
 </div>
 
-<div class="balanceCard">
+</div><section style="padding:16px;">
 
-<div class="balanceLabel">
+<div class="walletCard">
+
+<div class="walletLabel">
 
 Available Balance
 
 </div>
 
 <div
-class="balanceAmount"
-id="walletBalance">
+id="walletBalance"
+class="walletBalance">
 
 ₹0
 
 </div>
 
-<div class="balanceDesc">
+<div class="walletInfo">
 
-Use for Laundry Orders & Mobile Recharge
-
-</div>
-
-</div>
-
-<script>
-
-const walletBalance =
-
-localStorage.getItem(
-"walletBalance"
-)
-
-|| 500;
-
-document.getElementById(
-"walletBalance"
-).innerHTML =
-
-"₹" + walletBalance;
-
-</script>
-
-<!-- ==========================
-WALLET STATS
-========================== -->
-
-<div class="statsGrid">
-
-<div class="statCard">
-
-<div class="statIcon">
-
-💸
-
-</div>
-
-<div
-class="statAmount"
-id="cashbackAmount">
-
-₹0
-
-</div>
-
-<div class="statLabel">
-
-Cashback Earned
+QuickPress Wallet
 
 </div>
 
 </div>
 
-<div class="statCard">
-
-<div class="statIcon">
-
-🎁
-
-</div>
-
-<div
-class="statAmount"
-id="referralAmount">
-
-₹0
-
-</div>
-
-<div class="statLabel">
-
-Referral Earnings
-
-</div>
-
-</div>
-
-</div>
-
-<!-- ==========================
-QUICK ACTIONS
-========================== -->
-
-<div class="actionSection">
-
-<button
-class="actionBtn rechargeBtn"
-onclick="window.location.href='mobile-recharge.html'">
-
-<div>
-
-📱 Recharge Mobile
-
-</div>
-
-<i class="fa-solid fa-chevron-right"></i>
-
-</button>
-
-<button
-class="actionBtn inviteBtn"
-onclick="shareReferral()">
-
-<div>
-
-🎁 Invite Friends
-
-</div>
-
-<i class="fa-solid fa-chevron-right"></i>
-
-</button>
-
-</div>
+</section>
 
 <style>
 
-/* ==========================
-STATS
-========================== */
+.walletCard{
 
-.statsGrid{
+background:
+linear-gradient(
+135deg,
+#16A34A,
+#22C55E
+);
+
+border-radius:26px;
+
+padding:24px;
+
+color:white;
+
+box-shadow:
+0 10px 30px rgba(22,163,74,.25);
+
+}
+
+.walletLabel{
+
+font-size:13px;
+
+opacity:.9;
+
+}
+
+.walletBalance{
+
+font-size:40px;
+
+font-weight:900;
+
+margin-top:8px;
+
+}
+
+.walletInfo{
+
+margin-top:8px;
+
+font-size:12px;
+
+opacity:.85;
+
+}
+
+</style><section style="padding:0 16px;">
+
+<h3 class="sectionHeading">
+
+Quick Recharge
+
+</h3>
+
+<div class="amountGrid">
+
+<button
+onclick="selectAmount(100)">
+
+₹100
+
+</button>
+
+<button
+onclick="selectAmount(200)">
+
+₹200
+
+</button>
+
+<button
+onclick="selectAmount(500)">
+
+₹500
+
+</button>
+
+<button
+onclick="selectAmount(1000)">
+
+₹1000
+
+</button>
+
+</div>
+
+</section>
+
+<style>
+
+.sectionHeading{
+
+font-size:18px;
+
+font-weight:900;
+
+margin-bottom:14px;
+
+}
+
+.amountGrid{
 
 display:grid;
 
 grid-template-columns:
-1fr 1fr;
+repeat(4,1fr);
 
-gap:14px;
-
-padding:0 16px 20px;
+gap:10px;
 
 }
 
-.statCard{
+.amountGrid button{
 
-background:#fff;
-
-padding:20px;
-
-border-radius:22px;
-
-text-align:center;
-
-box-shadow:
-0 4px 14px rgba(0,0,0,.05);
-
-}
-
-.statIcon{
-
-font-size:28px;
-
-}
-
-.statAmount{
-
-margin-top:10px;
-
-font-size:26px;
-
-font-weight:900;
-
-color:#111827;
-
-}
-
-.statLabel{
-
-margin-top:6px;
-
-font-size:12px;
-
-font-weight:700;
-
-color:#6B7280;
-
-}
-
-/* ==========================
-ACTIONS
-========================== */
-
-.actionSection{
-
-padding:0 16px 20px;
-
-}
-
-.actionBtn{
-
-width:100%;
-
-height:62px;
+height:50px;
 
 border:none;
 
-border-radius:18px;
+border-radius:14px;
 
 background:#fff;
-
-display:flex;
-
-align-items:center;
-
-justify-content:space-between;
-
-padding:0 20px;
-
-font-size:15px;
 
 font-weight:900;
 
 cursor:pointer;
 
-margin-bottom:12px;
-
-box-shadow:
-0 4px 14px rgba(0,0,0,.05);
-
 }
 
-.rechargeBtn{
+</style><section style="padding:16px;">
 
-border-left:
-5px solid #16A34A;
+<input
 
-}
+id="walletAmount"
 
-.inviteBtn{
+type="number"
 
-border-left:
-5px solid #F59E0B;
+placeholder="Enter Amount"
+
+class="walletInput">
+
+</section>
+
+<style>
+
+.walletInput{
+
+width:100%;
+
+height:58px;
+
+border:none;
+
+border-radius:16px;
+
+background:#fff;
+
+padding:0 16px;
+
+font-size:16px;
+
+outline:none;
 
 }
 
@@ -439,156 +304,278 @@ border-left:
 
 <script>
 
-/* ==========================
-LOAD WALLET DATA
-========================== */
-
-const cashback =
-
-Number(
-
-localStorage.getItem(
-"cashbackEarned"
-)
-
-|| 250
-
-);
-
-const referral =
-
-Number(
-
-localStorage.getItem(
-"referralEarnings"
-)
-
-|| 150
-
-);
+window.selectAmount =
+function(amount){
 
 document.getElementById(
-"cashbackAmount"
-).innerHTML =
+"walletAmount"
+).value = amount;
 
-"₹" + cashback;
+};
 
-document.getElementById(
-"referralAmount"
-).innerHTML =
+</script><section style="padding:0 16px;">
 
-"₹" + referral;
+<button
+class="addMoneyBtn"
+onclick="addMoney()">
 
-/* ==========================
-REFER
-========================== */
+Add Money
 
-window.shareReferral =
-function(){
+</button>
 
-const code =
+</section>
 
-localStorage.getItem(
-"userReferral"
-)
+<style>
 
-|| "QP1001";
+.addMoneyBtn{
 
-const text =
+width:100%;
 
-`Join QuickPress 🚀
+height:58px;
 
-Use Referral Code:
+border:none;
 
-${code}
+border-radius:16px;
 
-and earn rewards!`;
+background:#16A34A;
 
-if(navigator.share){
+color:white;
 
-navigator.share({
+font-size:16px;
 
-title:"QuickPress",
+font-weight:900;
 
-text:text
+cursor:pointer;
 
-});
+margin-top:10px;
 
 }
-else{
 
-navigator.clipboard.writeText(
-text
+</style><script type="module">
+
+import { db, auth }
+from "./firebase.js";
+
+import {
+
+doc,
+getDoc
+
+}
+
+from
+
+"https://www.gstatic.com/firebasejs/12.11.0/firebase-firestore.js";
+
+window.loadWallet =
+async function(){
+
+if(!auth.currentUser){
+
+return;
+
+}
+
+const userRef =
+
+doc(
+db,
+"users",
+auth.currentUser.uid
 );
 
-alert(
-"Referral code copied"
+const userDoc =
+
+await getDoc(
+userRef
 );
+
+if(userDoc.exists()){
+
+const data =
+userDoc.data();
+
+document.getElementById(
+"walletBalance"
+).innerHTML =
+
+"₹" +
+
+(data.walletBalance || 0);
 
 }
 
 };
 
-</script>
+</script><script src="https://checkout.razorpay.com/v1/checkout.js"></script>
 
-<!-- ==========================
-TRANSACTION HISTORY
-========================== -->
+<script type="module">
 
-<div class="historySection">
+import { db, auth }
+from "./firebase.js";
 
-<div class="sectionTitle">
+import {
+
+doc,
+updateDoc,
+increment,
+collection,
+addDoc,
+serverTimestamp
+
+}
+
+from
+
+"https://www.gstatic.com/firebasejs/12.11.0/firebase-firestore.js";
+
+window.addMoney =
+function(){
+
+const amount =
+
+Number(
+
+document.getElementById(
+"walletAmount"
+).value
+
+);
+
+if(amount < 100){
+
+alert(
+"Minimum ₹100 Required"
+);
+
+return;
+
+}
+
+const options = {
+
+key:
+"YOUR_RAZORPAY_KEY",
+
+amount:
+amount * 100,
+
+currency:
+"INR",
+
+name:
+"QuickPress",
+
+description:
+"Wallet Recharge",
+
+handler:
+
+async function(response){
+
+try{
+
+await updateDoc(
+
+doc(
+db,
+"users",
+auth.currentUser.uid
+),
+
+{
+
+walletBalance:
+
+increment(amount)
+
+}
+
+);
+
+await addDoc(
+
+collection(
+db,
+"walletTransactions"
+),
+
+{
+
+userId:
+auth.currentUser.uid,
+
+type:"credit",
+
+amount,
+
+paymentId:
+
+response.razorpay_payment_id,
+
+status:"success",
+
+createdAt:
+serverTimestamp()
+
+}
+
+);
+
+alert(
+"Wallet Updated"
+);
+
+loadWallet();
+
+}
+
+catch(error){
+
+console.error(error);
+
+}
+
+}
+
+};
+
+const rzp =
+
+new Razorpay(
+options
+);
+
+rzp.open();
+
+};
+
+</script><section style="padding:16px;">
+
+<h3 class="sectionHeading">
 
 Transaction History
 
-</div>
+</h3>
 
 <div
-class="historyCard"
 id="transactionContainer">
 
-<!-- Transactions Render Here -->
-
 </div>
 
-</div>
+</section>
 
 <style>
 
-/* ==========================
-HISTORY
-========================== */
-
-.historySection{
-
-padding:0 16px 20px;
-
-}
-
-.sectionTitle{
-
-font-size:18px;
-
-font-weight:900;
-
-margin-bottom:12px;
-
-}
-
-.historyCard{
+.transactionCard{
 
 background:#fff;
 
-border-radius:24px;
+border-radius:18px;
 
-overflow:hidden;
+padding:16px;
 
-box-shadow:
-0 4px 14px rgba(0,0,0,.05);
-
-}
-
-.transactionItem{
+margin-bottom:12px;
 
 display:flex;
 
@@ -596,16 +583,8 @@ justify-content:space-between;
 
 align-items:center;
 
-padding:16px 18px;
-
-border-bottom:
-1px solid #F3F4F6;
-
-}
-
-.transactionItem:last-child{
-
-border-bottom:none;
+box-shadow:
+0 4px 12px rgba(0,0,0,.05);
 
 }
 
@@ -613,37 +592,7 @@ border-bottom:none;
 
 display:flex;
 
-align-items:center;
-
-gap:12px;
-
-}
-
-.transactionIcon{
-
-width:42px;
-height:42px;
-
-border-radius:12px;
-
-display:flex;
-
-align-items:center;
-justify-content:center;
-
-font-size:18px;
-
-}
-
-.creditIcon{
-
-background:#DCFCE7;
-
-}
-
-.debitIcon{
-
-background:#FEE2E2;
+flex-direction:column;
 
 }
 
@@ -657,17 +606,17 @@ font-weight:800;
 
 .transactionDate{
 
-margin-top:4px;
-
-font-size:12px;
+font-size:11px;
 
 color:#6B7280;
+
+margin-top:4px;
 
 }
 
 .transactionAmount{
 
-font-size:15px;
+font-size:16px;
 
 font-weight:900;
 
@@ -681,63 +630,63 @@ color:#16A34A;
 
 .debit{
 
-color:#DC2626;
+color:#EF4444;
 
 }
 
-.emptyHistory{
+.emptyTransactions{
 
-padding:40px 20px;
+background:#fff;
+
+padding:30px;
+
+border-radius:20px;
 
 text-align:center;
 
-color:#9CA3AF;
-
-font-size:14px;
+color:#6B7280;
 
 }
 
-</style>
+</style><script type="module">
 
-<script type="module">
-
-import { auth, db }
+import { db, auth }
 from "./firebase.js";
 
 import {
+
 collection,
-getDocs,
 query,
 where,
-orderBy
+orderBy,
+onSnapshot
+
 }
+
 from
+
 "https://www.gstatic.com/firebasejs/12.11.0/firebase-firestore.js";
 
-/* ==========================
-LOAD TRANSACTIONS
-========================== */
-
 window.loadTransactions =
-async function(){
+function(){
 
-try{
+if(!auth.currentUser){
 
-const user = auth.currentUser;
+return;
 
-if(!user) return;
+}
 
 const q = query(
 
 collection(
 db,
-"wallet_transactions"
+"walletTransactions"
 ),
 
 where(
 "userId",
 "==",
-user.uid
+auth.currentUser.uid
 ),
 
 orderBy(
@@ -747,8 +696,11 @@ orderBy(
 
 );
 
-const snapshot =
-await getDocs(q);
+onSnapshot(
+
+q,
+
+(snapshot)=>{
 
 const container =
 
@@ -756,19 +708,15 @@ document.getElementById(
 "transactionContainer"
 );
 
-container.innerHTML = "";
-
-/* EMPTY */
-
 if(snapshot.empty){
 
 container.innerHTML =
 
 `
 
-<div class="emptyHistory">
+<div class="emptyTransactions">
 
-No transactions found
+No Transactions Found
 
 </div>
 
@@ -778,67 +726,80 @@ return;
 
 }
 
+let html = "";
+
 snapshot.forEach(doc=>{
 
-const data =
+const txn =
 doc.data();
 
-const credit =
+const amountClass =
 
-data.type === "credit";
+txn.type === "credit"
 
-container.innerHTML +=
+?
 
-`
+"credit"
 
-<div class="transactionItem">
+:
+
+"debit";
+
+const sign =
+
+txn.type === "credit"
+
+?
+
+"+"
+
+:
+
+"-";
+
+const date =
+
+txn.createdAt
+
+?
+
+new Date(
+
+txn.createdAt.seconds * 1000
+
+).toLocaleDateString()
+
+:
+
+"Today";
+
+html += `
+
+<div class="transactionCard">
 
 <div class="transactionLeft">
 
-<div class="transactionIcon
-
-${credit
-? "creditIcon"
-: "debitIcon"}
-
-">
-
-${credit ? "💰" : "📱"}
-
-</div>
-
-<div>
-
 <div class="transactionTitle">
 
-${data.title}
+${txn.type === "credit"
+
+? "Wallet Recharge"
+
+: "Order Payment"}
 
 </div>
 
 <div class="transactionDate">
 
-${new Date(
-data.createdAt
-).toLocaleDateString()}
+${date}
 
 </div>
 
 </div>
 
-</div>
+<div class="transactionAmount ${amountClass}">
 
-<div
-class="transactionAmount
-
-${credit
-? "credit"
-: "debit"}
-
-">
-
-${credit ? "+" : "-"}
-
-₹${data.amount}
+${sign} ₹${txn.amount}
 
 </div>
 
@@ -848,162 +809,85 @@ ${credit ? "+" : "-"}
 
 });
 
-}
-catch(error){
-
-console.error(error);
+container.innerHTML =
+html;
 
 }
+
+);
 
 };
 
-setTimeout(()=>{
-
-loadTransactions();
-
-},500);
-
-</script>
-
-<!-- ==========================
-FOOTER
-========================== -->
-
-<div class="footer">
-
-<div class="footerBrand">
-
-⚡ QuickPress
-
-</div>
-
-<div class="footerText">
-
-Cashback • Rewards • Mobile Recharge
-
-</div>
-
-<div class="footerCopy">
-
-© 2026 QuickPress. All Rights Reserved.
-
-</div>
-
-</div>
-
-<!-- ==========================
-BOTTOM NAVBAR
-========================== -->
-
-<div class="bottomNav">
+</script><nav class="bottomNav">
 
 <button
-class="navItem"
-onclick="window.location.href='index.html'">
+onclick="location.href='index.html'">
 
 <i class="fa-solid fa-house"></i>
 
-<span>Home</span>
+<span>
+
+Home
+
+</span>
 
 </button>
 
 <button
-class="navItem"
-onclick="window.location.href='orders.html'">
-
-<i class="fa-solid fa-box"></i>
-
-<span>Orders</span>
-
-</button>
-
-<button
-class="navItem"
-onclick="window.location.href='services.html'">
+onclick="location.href='services.html'">
 
 <i class="fa-solid fa-table-cells-large"></i>
 
-<span>Services</span>
+<span>
+
+Services
+
+</span>
 
 </button>
 
 <button
-class="navItem"
-onclick="window.location.href='cart.html'">
+onclick="location.href='cart.html'">
 
 <i class="fa-solid fa-cart-shopping"></i>
 
-<span>Cart</span>
+<span>
 
-<div
-class="navCartBadge"
-id="navCartBadge">
+Cart
 
-0
-
-</div>
+</span>
 
 </button>
 
 <button
-class="navItem activeNav"
-onclick="window.location.href='profile.html'">
+onclick="location.href='orders.html'">
 
-<i class="fa-solid fa-user"></i>
+<i class="fa-solid fa-box"></i>
 
-<span>Profile</span>
+<span>
+
+Orders
+
+</span>
 
 </button>
 
-</div>
+<button
+class="activeNav">
+
+<i class="fa-solid fa-wallet"></i>
+
+<span>
+
+Wallet
+
+</span>
+
+</button>
+
+</nav>
 
 <style>
-
-/* ==========================
-FOOTER
-========================== */
-
-.footer{
-
-padding:30px 20px 120px;
-
-text-align:center;
-
-}
-
-.footerBrand{
-
-font-size:22px;
-
-font-weight:900;
-
-color:#111827;
-
-}
-
-.footerText{
-
-margin-top:8px;
-
-font-size:13px;
-
-color:#6B7280;
-
-}
-
-.footerCopy{
-
-margin-top:10px;
-
-font-size:12px;
-
-color:#9CA3AF;
-
-}
-
-/* ==========================
-BOTTOM NAVBAR
-========================== */
 
 .bottomNav{
 
@@ -1013,25 +897,24 @@ left:0;
 right:0;
 bottom:0;
 
-height:72px;
+height:74px;
 
 background:#fff;
 
 display:flex;
 
 justify-content:space-around;
+
 align-items:center;
 
 box-shadow:
-0 -6px 20px rgba(0,0,0,.08);
+0 -8px 24px rgba(0,0,0,.08);
 
-z-index:999;
+z-index:9999;
 
 }
 
-.navItem{
-
-position:relative;
+.bottomNav button{
 
 flex:1;
 
@@ -1042,14 +925,14 @@ border:none;
 background:none;
 
 display:flex;
+
 flex-direction:column;
 
-align-items:center;
 justify-content:center;
 
-gap:4px;
+align-items:center;
 
-cursor:pointer;
+gap:4px;
 
 font-size:11px;
 
@@ -1057,9 +940,11 @@ font-weight:700;
 
 color:#6B7280;
 
+cursor:pointer;
+
 }
 
-.navItem i{
+.bottomNav i{
 
 font-size:18px;
 
@@ -1067,36 +952,7 @@ font-size:18px;
 
 .activeNav{
 
-color:#16A34A;
-
-}
-
-.navCartBadge{
-
-position:absolute;
-
-top:8px;
-right:22px;
-
-min-width:18px;
-height:18px;
-
-padding:0 4px;
-
-border-radius:999px;
-
-background:#EF4444;
-
-color:#fff;
-
-display:flex;
-
-align-items:center;
-justify-content:center;
-
-font-size:10px;
-
-font-weight:900;
+color:#16A34A !important;
 
 }
 
@@ -1104,151 +960,44 @@ font-weight:900;
 
 <script type="module">
 
-import { auth, db }
+import { auth }
 from "./firebase.js";
 
 import {
-doc,
-getDoc
+
+onAuthStateChanged
+
 }
+
 from
-"https://www.gstatic.com/firebasejs/12.11.0/firebase-firestore.js";
 
-/* ==========================
-LOAD WALLET BALANCE
-========================== */
+"https://www.gstatic.com/firebasejs/12.11.0/firebase-auth.js";
 
-async function loadWalletBalance(){
+onAuthStateChanged(
 
-try{
+auth,
 
-const user = auth.currentUser;
+(user)=>{
 
-if(!user) return;
+if(user){
 
-const walletRef =
+loadWallet();
 
-doc(
-db,
-"wallets",
-user.uid
-);
+loadTransactions();
 
-const snap =
+}else{
 
-await getDoc(
-walletRef
-);
-
-if(snap.exists()){
-
-const data =
-snap.data();
-
-const balance =
-
-data.balance || 0;
-
-document.getElementById(
-"walletBalance"
-).innerHTML =
-
-"₹" + balance;
+window.location.href =
+"login.html";
 
 }
-
-}
-catch(error){
-
-console.error(error);
-
-}
-
-}
-
-/* ==========================
-CART BADGE
-========================== */
-
-function updateNavbarCartCount(){
-
-const cart =
-
-JSON.parse(
-localStorage.getItem(
-"cart"
-)
-)
-
-|| [];
-
-let total = 0;
-
-cart.forEach(item=>{
-
-total += item.qty || 1;
-
-});
-
-const badge =
-
-document.getElementById(
-"navCartBadge"
-);
-
-if(!badge) return;
-
-badge.innerHTML = total;
-
-badge.style.display =
-
-total > 0
-
-? "flex"
-
-: "none";
-
-}
-
-updateNavbarCartCount();
-
-/* ==========================
-AUTO REFRESH
-========================== */
-
-setInterval(()=>{
-
-loadWalletBalance();
-
-},30000);
-
-/* ==========================
-STORAGE SYNC
-========================== */
-
-window.addEventListener(
-
-"storage",
-
-()=>{
-
-updateNavbarCartCount();
 
 }
 
 );
-
-/* ==========================
-INIT
-========================== */
-
-setTimeout(()=>{
-
-loadWalletBalance();
-
-},500);
 
 </script>
 
 </body>
+
 </html>
