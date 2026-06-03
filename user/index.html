@@ -3205,7 +3205,10 @@ return;
 CARDS
 =================================== */
 
-services.forEach(service=>{
+services
+.filter(service => service.popular === true)
+.slice(0,2)
+.forEach(service=>{
 
 const price =
 
