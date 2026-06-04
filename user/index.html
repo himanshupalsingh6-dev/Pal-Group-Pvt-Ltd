@@ -431,92 +431,386 @@ placeholder="Search Dry Cleaning, Steam Iron, Shoe Care">
 LOCATION MODAL
 =================================== -->
 
+<!-- LOCATION MODAL -->
+
 <div
-class="locationModal"
-id="locationModal">
+id="locationModal"
+class="locationModal">
 
-<div class="locationBox">
+<div class="locationSheet">
 
-<div class="locationHeader">
+<div class="sheetHandle"></div>
 
-<h3>
-Select Location
-</h3>
+<div class="sheetHeader">
+
+<h2>
+
+Select Pickup Location
+
+</h2>
 
 <button
-class="closeLocation"
 onclick="closeLocationModal()">
 
 <i class="fa-solid fa-xmark"></i>
 
 </button>
 
-</div>
+</div><div class="searchWrapper">
 
-<button
-class="detectBtn"
-onclick="startLocationDetection()">
-
-<i class="fa-solid fa-location-crosshairs"></i>
-
-Detect My Location
-
-</button>
+<i class="fa-solid fa-magnifying-glass"></i>
 
 <input
 type="text"
-id="locationSearch"
-class="locationSearch"
-placeholder="Search City">
+placeholder="Search city, area, locality">
 
-<div
-class="locationList"
-id="locationList">
+</div><div
+class="actionCard"
+onclick="detectLocation()">
 
-<div
-class="locationItem"
-onclick="selectCity('Kasganj')">
+<div class="actionIcon">
 
-Kasganj
+📍
 
 </div>
 
-<div
-class="locationItem"
-onclick="selectCity('Etah')">
+<div class="actionContent">
 
-Etah
+<h3>
 
-</div>
+Use Current Location
 
-<div
-class="locationItem"
-onclick="selectCity('Aligarh')">
+</h3>
 
-Aligarh
+<p>
 
-</div>
+Detect automatically
 
-<div
-class="locationItem"
-onclick="selectCity('Noida')">
-
-Noida
+</p>
 
 </div>
 
-<div
-class="locationItem"
-onclick="selectCity('Delhi')">
+<i class="fa-solid fa-chevron-right"></i>
 
-Delhi
+</div><div
+class="actionCard"
+onclick="location.href='addresses.html'">
+
+<div class="actionIcon">
+
+➕
+
+</div>
+
+<div class="actionContent">
+
+<h3>
+
+Add New Address
+
+</h3>
+
+<p>
+
+Home, Work or Other
+
+</p>
+
+</div>
+
+<i class="fa-solid fa-chevron-right"></i>
+
+</div><div class="savedTitle">
+
+Saved Addresses
+
+</div>
+
+<div id="savedAddresses">
+
+<!-- Firebase Addresses -->
+
+</div><style>
+
+.locationModal{
+
+position:fixed;
+
+inset:0;
+
+background:
+rgba(0,0,0,.45);
+
+z-index:99999;
+
+display:none;
+
+align-items:flex-end;
+
+}
+
+.locationSheet{
+
+width:100%;
+
+background:#F8FAFC;
+
+border-radius:28px 28px 0 0;
+
+padding:18px;
+
+max-height:85vh;
+
+overflow:auto;
+
+animation:
+slideUp .3s ease;
+
+}
+
+@keyframes slideUp{
+
+from{
+
+transform:
+translateY(100%);
+
+}
+
+to{
+
+transform:
+translateY(0);
+
+}
+
+}
+
+.sheetHandle{
+
+width:70px;
+
+height:5px;
+
+background:#CBD5E1;
+
+border-radius:999px;
+
+margin:auto;
+
+}
+
+.sheetHeader{
+
+display:flex;
+
+justify-content:space-between;
+
+align-items:center;
+
+margin-top:15px;
+
+}
+
+.sheetHeader h2{
+
+font-size:24px;
+
+font-weight:900;
+
+}
+
+.sheetHeader button{
+
+border:none;
+
+background:#fff;
+
+width:40px;
+
+height:40px;
+
+border-radius:50%;
+
+cursor:pointer;
+
+}
+
+.searchWrapper{
+
+margin-top:20px;
+
+position:relative;
+
+}
+
+.searchWrapper i{
+
+position:absolute;
+
+left:18px;
+
+top:20px;
+
+color:#64748B;
+
+}
+
+.searchWrapper input{
+
+width:100%;
+
+height:58px;
+
+border:none;
+
+border-radius:18px;
+
+padding-left:50px;
+
+font-size:15px;
+
+}
+
+.actionCard{
+
+background:#fff;
+
+padding:18px;
+
+border-radius:18px;
+
+display:flex;
+
+align-items:center;
+
+gap:14px;
+
+margin-top:14px;
+
+cursor:pointer;
+
+}
+
+.actionIcon{
+
+font-size:26px;
+
+}
+
+.actionContent{
+
+flex:1;
+
+}
+
+.actionContent h3{
+
+font-size:17px;
+
+font-weight:800;
+
+}
+
+.actionContent p{
+
+font-size:13px;
+
+color:#64748B;
+
+margin-top:4px;
+
+}
+
+.savedTitle{
+
+font-size:18px;
+
+font-weight:900;
+
+margin-top:28px;
+
+margin-bottom:15px;
+
+}
+
+</style>function renderAddress(address){
+
+return `
+
+<div class="actionCard">
+
+<div class="actionIcon">
+
+🏠
+
+</div>
+
+<div class="actionContent">
+
+<h3>
+
+${address.type}
+
+</h3>
+
+<p>
+
+${address.address}
+
+</p>
 
 </div>
 
 </div>
 
-</div>
+`;
 
+}<script>
+
+function openLocationModal(){
+
+document.getElementById(
+"locationModal"
+).style.display =
+"flex";
+
+}
+
+function closeLocationModal(){
+
+document.getElementById(
+"locationModal"
+).style.display =
+"none";
+
+}
+
+window.addEventListener(
+
+"load",
+
+()=>{
+
+if(
+
+!localStorage.getItem(
+"userAddress"
+)
+
+){
+
+openLocationModal();
+
+}
+
+}
+
+);
+
+</script>
+
+</div>
 </div>
 
 <!-- ===================================
