@@ -19,9 +19,7 @@ QuickPress
 href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap"
 rel="stylesheet">
 
-<style>
-
-*{
+<style>*{
 margin:0;
 padding:0;
 box-sizing:border-box;
@@ -41,15 +39,13 @@ body{
 
 height:100vh;
 
+background:#fff;
+
 display:flex;
 
 justify-content:center;
 
 align-items:center;
-
-flex-direction:column;
-
-background:#FFFFFF;
 
 overflow:hidden;
 
@@ -57,9 +53,7 @@ position:relative;
 
 }
 
-/* ===========================
-BACKGROUND FLOATING CIRCLES
-=========================== */
+/* Background */
 
 .bgCircle{
 
@@ -68,7 +62,7 @@ position:absolute;
 border-radius:50%;
 
 background:
-rgba(22,163,74,.08);
+rgba(22,163,74,.06);
 
 animation:
 floatBg 8s infinite ease-in-out;
@@ -77,42 +71,35 @@ floatBg 8s infinite ease-in-out;
 
 .c1{
 
-width:180px;
-height:180px;
+width:220px;
+height:220px;
 
-top:-50px;
-left:-50px;
+top:-80px;
+left:-80px;
 
 }
 
 .c2{
 
-width:140px;
-height:140px;
+width:180px;
+height:180px;
 
-right:-30px;
+right:-60px;
 top:120px;
 
 }
 
 .c3{
 
-width:220px;
-height:220px;
+width:280px;
+height:280px;
 
-bottom:-80px;
-left:30%;
+bottom:-120px;
+left:25%;
 
 }
 
 @keyframes floatBg{
-
-0%{
-
-transform:
-translateY(0);
-
-}
 
 50%{
 
@@ -121,221 +108,325 @@ translateY(-20px);
 
 }
 
-100%{
-
-transform:
-translateY(0);
-
 }
 
-}
+/* Main */
 
-/* ===========================
-LOGO AREA
-=========================== */
-
-.logoWrap{
-
-text-align:center;
-
-z-index:2;
-
-}
-
-.laundryAnimation{
+.splashContainer{
 
 position:relative;
 
-width:140px;
+text-align:center;
 
-height:140px;
-
-margin:auto;
+z-index:5;
 
 }
 
-.basket{
+/* Clothes */
+
+.floatingClothes{
 
 position:absolute;
 
-bottom:0;
+font-size:44px;
+
+opacity:0;
+
+}
+
+.shirt{
+
+left:-80px;
+
+top:0;
+
+animation:
+flyLeft 1.4s forwards;
+
+}
+
+.tshirt{
+
+right:-80px;
+
+top:0;
+
+animation:
+flyRight 1.4s forwards;
+
+}
+
+.pant{
 
 left:50%;
 
-transform:translateX(-50%);
+top:-80px;
 
-font-size:72px;
+transform:
+translateX(-50%);
 
 animation:
-basketFloat 3s infinite ease-in-out;
+flyTop 1.4s forwards;
 
 }
 
-@keyframes basketFloat{
+/* Basket */
 
-0%{
+.basket{
 
-transform:
-translateX(-50%)
-translateY(0);
-
-}
-
-50%{
-
-transform:
-translateX(-50%)
-translateY(-10px);
-
-}
-
-100%{
-
-transform:
-translateX(-50%)
-translateY(0);
-
-}
-
-}
-
-/* ===========================
-STEAM EFFECT
-=========================== */
-
-.steam{
-
-position:absolute;
-
-bottom:65px;
-
-width:12px;
-
-height:40px;
-
-background:
-rgba(22,163,74,.25);
-
-border-radius:50px;
-
-filter:blur(6px);
+font-size:90px;
 
 animation:
-steamMove 3s infinite;
+basketDrop 1.2s ease;
 
 }
 
-.steam1{
+/* Brand */
 
-left:40px;
+.brand{
 
-animation-delay:0s;
-
-}
-
-.steam2{
-
-left:65px;
-
-animation-delay:.5s;
-
-}
-
-.steam3{
-
-left:90px;
-
-animation-delay:1s;
-
-}
-
-@keyframes steamMove{
-
-0%{
-
-opacity:0;
-
-transform:
-translateY(0)
-scale(.8);
-
-}
-
-50%{
-
-opacity:1;
-
-}
-
-100%{
-
-opacity:0;
-
-transform:
-translateY(-50px)
-scale(1.3);
-
-}
-
-}
-
-/* ===========================
-TEXT
-=========================== */
-
-.logoWrap h1{
-
-margin-top:18px;
-
-font-size:36px;
+font-size:42px;
 
 font-weight:900;
 
 color:#0F172A;
 
+margin-top:20px;
+
+animation:
+zoomIn 1.2s ease;
+
 }
 
-.logoWrap p{
+.tagline{
 
 margin-top:8px;
 
 font-size:14px;
 
-color:#64748B;
-
 font-weight:600;
 
-}
-
-/* ===========================
-LOADER
-=========================== */
-
-.loader{
-
-width:46px;
-
-height:46px;
-
-margin-top:36px;
-
-border:4px solid #E5E7EB;
-
-border-top:4px solid #16A34A;
-
-border-radius:50%;
-
-animation:
-spin 1s linear infinite;
+color:#64748B;
 
 }
 
-@keyframes spin{
+@keyframes basketDrop{
+
+0%{
+
+opacity:0;
+
+transform:
+translateY(-200px);
+
+}
 
 100%{
 
+opacity:1;
+
 transform:
-rotate(360deg);
+translateY(0);
+
+}
+
+}
+
+@keyframes flyLeft{
+
+0%{
+
+opacity:0;
+
+transform:
+translateX(-120px);
+
+}
+
+100%{
+
+opacity:1;
+
+transform:
+translateX(0);
+
+}
+
+}
+
+@keyframes flyRight{
+
+0%{
+
+opacity:0;
+
+transform:
+translateX(120px);
+
+}
+
+100%{
+
+opacity:1;
+
+transform:
+translateX(0);
+
+}
+
+}
+
+@keyframes flyTop{
+
+0%{
+
+opacity:0;
+
+transform:
+translate(-50%,-120px);
+
+}
+
+100%{
+
+opacity:1;
+
+transform:
+translate(-50%,0);
+
+}
+
+}
+
+@keyframes zoomIn{
+
+0%{
+
+opacity:0;
+
+transform:
+scale(.6);
+
+}
+
+100%{
+
+opacity:1;
+
+transform:
+scale(1);
+
+}
+
+}</style>
+
+</head>
+
+<body>
+
+<div class="bgCircle c1"></div>
+<div class="bgCircle c2"></div>
+<div class="bgCircle c3"></div>
+
+<div class="splashContainer">
+
+<div class="floatingClothes shirt">
+
+👔
+
+</div>
+
+<div class="floatingClothes tshirt">
+
+👕
+
+</div>
+
+<div class="floatingClothes pant">
+
+👖
+
+</div>
+
+<div class="basket">
+
+🧺
+
+</div>
+
+<div class="brand">
+
+QuickPress
+
+</div>
+
+<div class="tagline">
+
+Premium Laundry Marketplace
+
+</div>
+
+<div class="progressBar">
+
+<div class="progressFill"></div>
+
+</div>
+
+<div class="loadingText">
+
+Preparing Your Laundry Experience...
+
+</div>
+
+</div>
+
+<style>
+
+.progressBar{
+
+width:240px;
+
+height:8px;
+
+background:#E5E7EB;
+
+border-radius:999px;
+
+overflow:hidden;
+
+margin:30px auto 0;
+
+}
+
+.progressFill{
+
+height:100%;
+
+width:0;
+
+background:
+linear-gradient(
+90deg,
+#F4B400,
+#16A34A
+);
+
+animation:
+loading 2.5s linear forwards;
+
+}
+
+@keyframes loading{
+
+from{
+
+width:0%;
+
+}
+
+to{
+
+width:100%;
 
 }
 
@@ -351,87 +442,9 @@ font-weight:700;
 
 color:#64748B;
 
-letter-spacing:.4px;
-
 }
 
-.version{
-
-position:absolute;
-
-bottom:24px;
-
-font-size:12px;
-
-color:#94A3B8;
-
-font-weight:600;
-
-}
-
-</style>
-
-</head>
-
-<body>
-
-<!-- Floating Background -->
-
-<div class="bgCircle c1"></div>
-<div class="bgCircle c2"></div>
-<div class="bgCircle c3"></div>
-
-<!-- Logo Area -->
-
-<div class="logoWrap">
-
-<div class="laundryAnimation">
-
-<div class="basket">
-
-🧺
-
-</div>
-
-<div class="steam steam1"></div>
-<div class="steam steam2"></div>
-<div class="steam steam3"></div>
-
-</div>
-
-<h1>
-
-QuickPress
-
-</h1>
-
-<p>
-
-Premium Laundry Marketplace
-
-</p>
-
-</div>
-
-<!-- Loader -->
-
-<div class="loader"></div>
-
-<div class="loadingText">
-
-Preparing Your Laundry Experience...
-
-</div>
-
-<div class="version">
-
-Version 1.0.0
-
-</div>
-
-<!-- Firebase Auth Redirect -->
-
-<script type="module">
+</style><script type="module">
 
 import { auth }
 from "./firebase.js";
@@ -441,6 +454,7 @@ import {
 onAuthStateChanged
 
 }
+
 from
 
 "https://www.gstatic.com/firebasejs/12.11.0/firebase-auth.js";
