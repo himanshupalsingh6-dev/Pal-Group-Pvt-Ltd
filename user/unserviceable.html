@@ -1,0 +1,423 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+<meta charset="UTF-8">
+
+<meta
+name="viewport"
+content="width=device-width, initial-scale=1.0">
+
+<title>
+
+QuickPress - Service Not Available
+
+</title>
+
+<link
+href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap"
+rel="stylesheet">
+
+<link
+rel="stylesheet"
+href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+
+<style>
+
+*{
+margin:0;
+padding:0;
+box-sizing:border-box;
+font-family:'Inter',sans-serif;
+}
+
+:root{
+
+--primary:#F4B400;
+--secondary:#16A34A;
+--dark:#0F172A;
+--gray:#64748B;
+--bg:#F8FAFC;
+
+}
+
+body{
+
+background:var(--bg);
+
+min-height:100vh;
+
+}
+
+</style>
+
+</head>
+
+<body><div class="topHeader">
+
+<div>
+
+<h1>
+
+Unserviceable Area
+
+</h1>
+
+<p id="currentLocation">
+
+Loading Location...
+
+</p>
+
+</div>
+
+<div class="profileBtn">
+
+<i class="fa-regular fa-user"></i>
+
+</div>
+
+</div>
+
+<style>
+
+.topHeader{
+
+padding:24px 18px;
+
+display:flex;
+
+justify-content:space-between;
+
+align-items:center;
+
+background:#fff;
+
+}
+
+.topHeader h1{
+
+font-size:30px;
+
+font-weight:900;
+
+color:#EF4444;
+
+}
+
+.topHeader p{
+
+margin-top:6px;
+
+font-size:15px;
+
+color:#64748B;
+
+}
+
+.profileBtn{
+
+width:56px;
+
+height:56px;
+
+border-radius:50%;
+
+background:#fff;
+
+display:flex;
+
+justify-content:center;
+
+align-items:center;
+
+font-size:22px;
+
+box-shadow:
+0 4px 20px rgba(0,0,0,.08);
+
+}
+
+</style><div class="emptyState">
+
+<div class="storeIcon">
+
+🏪
+
+</div>
+
+<h2>
+
+Oops!
+
+</h2>
+
+<h3>
+
+QuickPress is not available
+in your area yet.
+
+</h3>
+
+<p>
+
+We are expanding rapidly
+and will reach your city soon.
+
+</p>
+
+</div>
+
+<style>
+
+.emptyState{
+
+padding:40px 24px;
+
+text-align:center;
+
+}
+
+.storeIcon{
+
+font-size:120px;
+
+margin-bottom:20px;
+
+}
+
+.emptyState h2{
+
+font-size:42px;
+
+font-weight:900;
+
+color:#EF4444;
+
+}
+
+.emptyState h3{
+
+margin-top:12px;
+
+font-size:28px;
+
+line-height:1.4;
+
+font-weight:800;
+
+color:#0F172A;
+
+}
+
+.emptyState p{
+
+margin-top:16px;
+
+font-size:15px;
+
+color:#64748B;
+
+line-height:1.7;
+
+}
+
+</style><div class="actionArea">
+
+<button
+class="primaryBtn"
+onclick="location.href='location.html'">
+
+Change Location
+
+</button>
+
+<button
+class="secondaryBtn"
+onclick="joinWaitlist()">
+
+Notify Me When Available
+
+</button>
+
+</div>
+
+<style>
+
+.actionArea{
+
+padding:0 20px;
+
+display:flex;
+
+flex-direction:column;
+
+gap:12px;
+
+}
+
+.primaryBtn{
+
+height:58px;
+
+border:none;
+
+border-radius:18px;
+
+background:#16A34A;
+
+color:white;
+
+font-size:16px;
+
+font-weight:800;
+
+cursor:pointer;
+
+}
+
+.secondaryBtn{
+
+height:58px;
+
+border:none;
+
+border-radius:18px;
+
+background:#fff;
+
+border:2px solid #E5E7EB;
+
+font-size:16px;
+
+font-weight:800;
+
+cursor:pointer;
+
+}
+
+</style><div class="menuSection">
+
+<div class="menuItem">
+
+<i class="fa-solid fa-headset"></i>
+
+<span>
+
+Contact Support
+
+</span>
+
+<i class="fa-solid fa-chevron-right"></i>
+
+</div>
+
+<div class="menuItem">
+
+<i class="fa-solid fa-circle-info"></i>
+
+<span>
+
+About QuickPress
+
+</span>
+
+<i class="fa-solid fa-chevron-right"></i>
+
+</div>
+
+<div class="menuItem">
+
+<i class="fa-brands fa-whatsapp"></i>
+
+<span>
+
+Join WhatsApp Updates
+
+</span>
+
+<i class="fa-solid fa-chevron-right"></i>
+
+</div>
+
+</div>
+
+<style>
+
+.menuSection{
+
+margin-top:30px;
+
+background:#fff;
+
+}
+
+.menuItem{
+
+height:72px;
+
+padding:0 20px;
+
+display:flex;
+
+align-items:center;
+
+gap:16px;
+
+border-bottom:1px solid #F1F5F9;
+
+}
+
+.menuItem span{
+
+flex:1;
+
+font-size:15px;
+
+font-weight:700;
+
+}
+
+.menuItem i:first-child{
+
+font-size:20px;
+
+color:#16A34A;
+
+}
+
+.menuItem i:last-child{
+
+color:#94A3B8;
+
+}
+
+</style><script type="module">
+
+window.joinWaitlist =
+function(){
+
+alert(
+"Thank you! We will notify you when QuickPress launches in your city."
+);
+
+};
+
+const city =
+
+localStorage.getItem(
+"userCity"
+);
+
+document.getElementById(
+"currentLocation"
+).innerHTML =
+
+city || "Location Not Selected";
+
+</script>
+
+</body>
+
+</html>
