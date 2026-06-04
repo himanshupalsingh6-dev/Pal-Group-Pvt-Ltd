@@ -1,13 +1,27 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
 
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Select Location</title>
+<meta
+name="viewport"
+content="width=device-width, initial-scale=1.0">
 
-<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;700;800;900&display=swap" rel="stylesheet">
+<title>
+
+Select Location | QuickPress
+
+</title>
+
+<link
+href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap"
+rel="stylesheet">
+
+<link
+rel="stylesheet"
+href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
 
 <style>
 
@@ -18,97 +32,138 @@ box-sizing:border-box;
 font-family:'Inter',sans-serif;
 }
 
+:root{
+
+--primary:#F4B400;
+--secondary:#16A34A;
+--dark:#111827;
+--gray:#6B7280;
+--bg:#F8FAFC;
+
+}
+
 body{
 
-background:#F6F7FB;
+background:var(--bg);
 
 min-height:100vh;
 
 }
 
+/* Header */
+
 .header{
+
+padding:24px 20px;
+
+background:#fff;
+
+box-shadow:
+0 4px 20px rgba(0,0,0,.05);
+
+}
+
+.logo{
+
+font-size:32px;
+
+font-weight:900;
+
+color:#111827;
+
+}
+
+.subtitle{
+
+margin-top:6px;
+
+color:#64748B;
+
+font-size:14px;
+
+}
+
+/* Hero */
+
+.hero{
+
+padding:40px 20px;
+
+text-align:center;
+
+}
+
+.heroIcon{
+
+width:120px;
+
+height:120px;
+
+margin:auto;
+
+border-radius:50%;
 
 background:
 linear-gradient(
 135deg,
-#FFD633,
-#FFE98A
+#F4B400,
+#16A34A
 );
 
-padding:30px 20px;
+display:flex;
 
-border-bottom-left-radius:35px;
-border-bottom-right-radius:35px;
+align-items:center;
+
+justify-content:center;
+
+font-size:55px;
+
+color:#fff;
+
+animation:
+pulse 2s infinite;
 
 }
 
-.header h1{
+@keyframes pulse{
+
+50%{
+
+transform:scale(1.05);
+
+}
+
+}
+
+.heroTitle{
+
+margin-top:25px;
 
 font-size:32px;
-font-weight:900;
-
-}
-
-.header p{
-
-margin-top:8px;
-
-font-size:14px;
-
-font-weight:600;
-
-color:#374151;
-
-}
-
-.container{
-
-padding:20px;
-
-}
-
-.locationCard{
-
-background:#fff;
-
-padding:22px;
-
-border-radius:28px;
-
-box-shadow:
-0 8px 24px rgba(0,0,0,.05);
-
-}
-
-.locationTitle{
-
-font-size:18px;
 
 font-weight:900;
 
-margin-bottom:15px;
+color:#111827;
 
 }
 
-.currentLocation{
+.heroText{
 
-background:#F9FAFB;
+margin-top:12px;
 
-padding:16px;
-
-border-radius:18px;
-
-margin-bottom:15px;
-
-}
-
-.locationText{
-
-font-size:14px;
+color:#64748B;
 
 line-height:1.8;
 
-color:#374151;
+font-size:15px;
+
+}
+
+/* Buttons */
+
+.section{
+
+padding:0 20px;
 
 }
 
@@ -116,7 +171,7 @@ color:#374151;
 
 width:100%;
 
-height:56px;
+height:60px;
 
 border:none;
 
@@ -126,24 +181,78 @@ background:#16A34A;
 
 color:#fff;
 
-font-size:15px;
+font-size:17px;
 
-font-weight:900;
+font-weight:800;
 
 cursor:pointer;
 
-margin-top:10px;
+}
+
+.searchBox{
+
+margin-top:20px;
+
+position:relative;
+
+}
+
+.searchBox input{
+
+width:100%;
+
+height:58px;
+
+border:2px solid #E5E7EB;
+
+border-radius:18px;
+
+padding:0 18px 0 50px;
+
+font-size:15px;
+
+outline:none;
+
+background:#fff;
+
+}
+
+.searchBox i{
+
+position:absolute;
+
+left:18px;
+
+top:20px;
+
+color:#64748B;
+
+}
+
+/* Cities */
+
+.citySection{
+
+padding:30px 20px;
+
+}
+
+.cityTitle{
+
+font-size:18px;
+
+font-weight:800;
+
+margin-bottom:16px;
 
 }
 
 .cityGrid{
 
-margin-top:20px;
-
 display:grid;
 
 grid-template-columns:
-1fr 1fr;
+repeat(2,1fr);
 
 gap:12px;
 
@@ -153,61 +262,59 @@ gap:12px;
 
 background:#fff;
 
-border:2px solid #E5E7EB;
-
 padding:18px;
-
-border-radius:20px;
-
-text-align:center;
-
-cursor:pointer;
-
-font-weight:800;
-
-}
-
-.activeCity{
-
-border-color:#16A34A;
-
-background:#DCFCE7;
-
-}
-
-.saveBtn{
-
-width:100%;
-
-height:58px;
-
-border:none;
 
 border-radius:18px;
 
-background:#111827;
+text-align:center;
 
-color:#fff;
-
-font-size:15px;
-
-font-weight:900;
+font-weight:700;
 
 cursor:pointer;
 
-margin-top:25px;
+box-shadow:
+0 4px 14px rgba(0,0,0,.05);
+
+transition:.3s;
 
 }
 
-.watermark{
+.cityCard:hover{
 
-margin-top:30px;
+transform:translateY(-3px);
+
+}
+
+/* Loader */
+
+.loader{
+
+display:none;
 
 text-align:center;
 
-font-size:12px;
+padding:30px;
 
-opacity:.7;
+}
+
+.loader i{
+
+font-size:35px;
+
+color:#16A34A;
+
+animation:
+spin 1s linear infinite;
+
+}
+
+@keyframes spin{
+
+100%{
+
+transform:rotate(360deg);
+
+}
 
 }
 
@@ -219,54 +326,82 @@ opacity:.7;
 
 <div class="header">
 
-<h1>
-Select Location
-</h1>
+<div class="logo">
 
-<p>
-Location helps us show city-wise services & pricing
+QuickPress
+
+</div>
+
+<div class="subtitle">
+
+Premium Laundry Marketplace
+
+</div>
+
+</div>
+
+<div class="hero">
+
+<div class="heroIcon">
+
+📍
+
+</div>
+
+<div class="heroTitle">
+
+Choose Your Location
+
+</div>
+
+<div class="heroText">
+
+Enable location access or select your city to see available QuickPress services.
+
+</div>
+
+</div>
+
+<div class="section">
+
+<button
+class="detectBtn"
+onclick="detectLocation()">
+
+Use Current Location
+
+</button>
+
+<div class="searchBox">
+
+<i class="fa-solid fa-magnifying-glass"></i>
+
+<input
+type="text"
+id="searchCity"
+placeholder="Search City">
+
+</div>
+
+</div>
+
+<div class="loader" id="loader">
+
+<i class="fa-solid fa-spinner"></i>
+
+<p style="margin-top:10px;">
+
+Detecting Location...
+
 </p>
 
 </div>
 
-<div class="container">
+<div class="citySection">
 
-<div class="locationCard">
+<div class="cityTitle">
 
-<div class="locationTitle">
-
-📍 Current Location
-
-</div>
-
-<div class="currentLocation">
-
-<div
-id="locationText"
-class="locationText">
-
-Location not detected
-
-</div>
-
-</div>
-
-<button
-id="detectBtn"
-class="detectBtn">
-
-Detect My Location
-
-</button>
-
-</div>
-
-<div class="locationCard"
-style="margin-top:20px;">
-
-<div class="locationTitle">
-
-🏙 Select City
+Popular Cities
 
 </div>
 
@@ -274,7 +409,7 @@ style="margin-top:20px;">
 
 <div
 class="cityCard"
-data-city="Kasganj">
+onclick="selectCity('Kasganj')">
 
 Kasganj
 
@@ -282,15 +417,15 @@ Kasganj
 
 <div
 class="cityCard"
-data-city="Aligarh">
+onclick="selectCity('Noida')">
 
-Aligarh
+Noida
 
 </div>
 
 <div
 class="cityCard"
-data-city="Delhi">
+onclick="selectCity('Delhi')">
 
 Delhi
 
@@ -298,125 +433,114 @@ Delhi
 
 <div
 class="cityCard"
-data-city="Noida">
+onclick="selectCity('Agra')">
 
-Noida
+Agra
+
+</div>
+
+<div
+class="cityCard"
+onclick="selectCity('Lucknow')">
+
+Lucknow
+
+</div>
+
+<div
+class="cityCard"
+onclick="selectCity('Aligarh')">
+
+Aligarh
 
 </div>
 
 </div>
 
-<button
-id="saveBtn"
-class="saveBtn">
-
-Save Location
-
-</button>
-
 </div>
 
-<div class="watermark">
-
-Made in Uttar Pradesh 🇮🇳<br>
-Crafted by Himanshu Baghel 💗
-
-</div>
-
-</div>
 <script>
 
-let selectedCity = "";
-let latitude = "";
-let longitude = "";
+function selectCity(city){
 
-/* ==========================
-CITY SELECT
-========================== */
-
-document
-.querySelectorAll(
-".cityCard"
-)
-
-.forEach(card=>{
-
-card.addEventListener(
-
-"click",
-
-()=>{
-
-document
-.querySelectorAll(
-".cityCard"
-)
-
-.forEach(c=>
-c.classList.remove(
-"activeCity"
-)
+localStorage.setItem(
+"userCity",
+city
 );
 
-card.classList.add(
-"activeCity"
-);
-
-selectedCity =
-card.dataset.city;
+checkService(city);
 
 }
 
+function detectLocation(){
+
+document.getElementById(
+"loader"
+).style.display =
+"block";
+
+if(!navigator.geolocation){
+
+alert(
+"Location Not Supported"
 );
 
-});
+return;
 
-/* ==========================
-GPS DETECT
-========================== */
+}
 
-document
-.getElementById(
-"detectBtn"
-)
+navigator.geolocation.getCurrentPosition(
 
-.addEventListener(
+async(position)=>{
 
-"click",
+try{
 
-()=>{
-
-navigator.geolocation
-.getCurrentPosition(
-
-(position)=>{
-
-latitude =
+const lat =
 position.coords.latitude;
 
-longitude =
+const lng =
 position.coords.longitude;
 
-document
-.getElementById(
-"locationText"
-)
+const response =
+await fetch(
 
-.innerHTML =
+`https://nominatim.openstreetmap.org/reverse?format=json&lat=${lat}&lon=${lng}`
 
-`
-Latitude:
-${latitude}
+);
 
-<br>
+const data =
+await response.json();
 
-Longitude:
-${longitude}
-`;
+const city =
+
+data.address.city ||
+
+data.address.town ||
+
+data.address.county ||
+
+"Unknown";
+
+localStorage.setItem(
+"userCity",
+city
+);
+
+checkService(city);
+
+}
+
+catch(error){
+
+alert(
+"Location Detection Failed"
+);
+
+}
 
 },
 
-(error)=>{
+()=>{
 
 alert(
 "Location Permission Denied"
@@ -428,70 +552,19 @@ alert(
 
 }
 
-);
+function checkService(city){
 
-/* ==========================
-SAVE LOCATION
-========================== */
+const activeCities = [
 
-document
-.getElementById(
-"saveBtn"
-)
+"Kasganj",
+"Noida",
+"Delhi"
 
-.addEventListener(
+];
 
-"click",
-
-()=>{
-
-if(!selectedCity){
-
-alert(
-"Select City"
-);
-
-return;
-
-}
-
-const locationData = {
-
-city:
-selectedCity,
-
-latitude,
-
-longitude,
-
-savedAt:
-Date.now()
-
-};
-
-/* ==========================
-LOCAL STORAGE
-========================== */
-
-localStorage.setItem(
-
-"userLocation",
-
-JSON.stringify(
-locationData
-)
-
-);
-
-localStorage.setItem(
-"userCity",
-selectedCity
-);
-
-/* ==========================
-REDIRECT
-========================== */
-if(serviceAvailable){
+if(
+activeCities.includes(city)
+){
 
 window.location.href =
 "index.html";
@@ -505,9 +578,32 @@ window.location.href =
 
 }
 
+document
+.getElementById(
+"searchCity"
+)
+
+.addEventListener(
+
+"keyup",
+
+function(){
+
+const city =
+this.value.trim();
+
+if(city.length > 2){
+
+selectCity(city);
+
+}
+
+}
+
 );
 
 </script>
 
 </body>
+
 </html>
