@@ -1,406 +1,241 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-    <title>QuickPress | Premium Laundry Marketplace</title>
+<meta charset="UTF-8">
 
-    <meta name="description"
-        content="QuickPress - Fast Pickup, Premium Laundry, Real Time Tracking">
+<meta
+name="viewport"
+content="width=device-width, initial-scale=1.0">
 
-    <link rel="stylesheet" href="css/index.css">
+<title>
 
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap"
-        rel="stylesheet">
+QuickPress
 
-    <script type="module" src="js/index.js" defer></script>
+</title>
+
+<link
+href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap"
+rel="stylesheet">
+
+<style>
+
+*{
+margin:0;
+padding:0;
+box-sizing:border-box;
+font-family:'Inter',sans-serif;
+}
+
+body{
+
+height:100vh;
+
+display:flex;
+
+justify-content:center;
+
+align-items:center;
+
+flex-direction:column;
+
+background:#FFFFFF;
+
+overflow:hidden;
+
+}
+
+</style>
+
 </head>
 
-<body>
+<body><div class="logoWrap">
 
-    <!-- NAVBAR -->
+<div class="logoCircle">
 
-    <nav class="navbar">
+QP
 
-        <div class="logo">
-            QuickPress
-        </div>
+</div>
 
-        <ul class="nav-links">
-            <li><a href="#">Home</a></li>
-            <li><a href="#categories">Services</a></li>
-            <li><a href="#stores">Stores</a></li>
-            <li><a href="#plans">Plans</a></li>
-            <li><a href="#tracking">Track Order</a></li>
-            <li><a href="#franchise">Franchise</a></li>
-        </ul>
+<h1>
 
-        <div class="nav-actions">
-            <button class="wallet-btn">Wallet</button>
-            <button class="login-btn">Login</button>
-        </div>
+QuickPress
 
-    </nav>
+</h1>
 
-    <!-- HERO -->
+<p>
 
-    <section class="hero">
+Premium Laundry Marketplace
 
-        <div class="hero-content">
+</p>
 
-            <span class="badge">
-                India's Fastest Laundry Marketplace
-            </span>
+</div>
 
-            <h1>
-                Premium Laundry &
-                Dry Cleaning Delivered
-                To Your Doorstep
-            </h1>
+<style>
 
-            <p>
-                Book pickup, track orders live,
-                get fresh clothes delivered.
-            </p>
+.logoWrap{
 
-            <div class="hero-buttons">
+text-align:center;
 
-                <button class="primary-btn">
-                    Book Pickup
-                </button>
+}
 
-                <button class="secondary-btn">
-                    Explore Services
-                </button>
+.logoCircle{
 
-            </div>
+width:110px;
 
-        </div>
+height:110px;
 
-    </section>
+border-radius:50%;
 
-    <!-- SEARCH -->
+background:
+linear-gradient(
+135deg,
+#F4B400,
+#16A34A
+);
 
-    <section class="search-section">
+display:flex;
 
-        <div class="search-container">
+justify-content:center;
 
-            <input
-                type="text"
-                id="globalSearch"
-                placeholder="Search services, stores, city..." />
+align-items:center;
 
-            <button id="searchBtn">
-                Search
-            </button>
+font-size:38px;
 
-        </div>
+font-weight:900;
 
-    </section>
+color:white;
 
-    <!-- CATEGORIES -->
+margin:auto;
 
-    <section id="categories" class="section">
+animation:
+pulse 2s infinite;
 
-        <div class="section-header">
+}
 
-            <h2>Popular Services</h2>
+.logoWrap h1{
 
-            <p>
-                Real-time services loaded from Firebase
-            </p>
+margin-top:20px;
 
-        </div>
+font-size:34px;
 
-        <div id="categoryContainer"
-            class="category-grid">
+font-weight:900;
 
-        </div>
+color:#0F172A;
 
-    </section>
+}
 
-    <!-- STORES -->
+.logoWrap p{
 
-    <section id="stores" class="section">
+margin-top:8px;
 
-        <div class="section-header">
+font-size:14px;
 
-            <h2>Featured Laundry Stores</h2>
+color:#64748B;
 
-            <p>
-                Verified stores with premium ratings
-            </p>
+}
 
-        </div>
+@keyframes pulse{
 
-        <div id="storeContainer"
-            class="store-grid">
+0%{
 
-        </div>
+transform:scale(1);
 
-    </section>
+}
 
-    <!-- QUICK PICKUP -->
+50%{
 
-    <section class="pickup-section">
+transform:scale(1.08);
 
-        <div class="pickup-card">
+}
 
-            <h2>Book Quick Pickup</h2>
+100%{
 
-            <form id="pickupForm">
+transform:scale(1);
 
-                <input
-                    type="text"
-                    id="pickupAddress"
-                    placeholder="Pickup Address"
-                    required>
+}
 
-                <input
-                    type="date"
-                    id="pickupDate"
-                    required>
+}
 
-                <input
-                    type="time"
-                    id="pickupTime"
-                    required>
+</style><div class="loader"></div>
 
-                <select id="serviceType">
+<style>
 
-                    <option>
-                        Wash & Fold
-                    </option>
+.loader{
 
-                    <option>
-                        Dry Cleaning
-                    </option>
+width:44px;
 
-                    <option>
-                        Steam Iron
-                    </option>
+height:44px;
 
-                </select>
+margin-top:40px;
 
-                <textarea
-                    id="instructions"
-                    placeholder="Special Instructions"></textarea>
+border:4px solid #E5E7EB;
 
-                <button type="submit"
-                    class="primary-btn">
+border-top:4px solid #16A34A;
 
-                    Book Pickup
+border-radius:50%;
 
-                </button>
+animation:
+spin 1s linear infinite;
 
-            </form>
+}
 
-        </div>
+@keyframes spin{
 
-    </section>
+100%{
 
-    <!-- TRACKING -->
+transform:rotate(
+360deg
+);
 
-    <section id="tracking"
-        class="section">
+}
 
-        <div class="section-header">
+}
 
-            <h2>Track Your Order</h2>
+</style><script type="module">
 
-        </div>
+import { auth }
+from "./firebase.js";
 
-        <div class="tracking-box">
+import {
 
-            <input
-                type="text"
-                id="trackOrderId"
-                placeholder="Enter Order ID">
+onAuthStateChanged
 
-            <button id="trackBtn">
-                Track Order
-            </button>
+}
 
-            <div id="trackingResult">
+from
 
-            </div>
+"https://www.gstatic.com/firebasejs/12.11.0/firebase-auth.js";
 
-        </div>
+setTimeout(()=>{
 
-    </section>
+onAuthStateChanged(
 
-    <!-- PLANS -->
+auth,
 
-    <section id="plans"
-        class="section">
+(user)=>{
 
-        <div class="section-header">
+if(user){
 
-            <h2>Membership Plans</h2>
+window.location.replace(
+"index.html"
+);
 
-        </div>
+}else{
 
-        <div id="planContainer"
-            class="plan-grid">
+window.location.replace(
+"login.html"
+);
 
-        </div>
+}
 
-    </section>
+}
 
-    <!-- COUPONS -->
+);
 
-    <section class="section">
+},2500);
 
-        <div class="section-header">
-
-            <h2>Offers & Coupons</h2>
-
-        </div>
-
-        <div id="couponContainer"
-            class="coupon-grid">
-
-        </div>
-
-    </section>
-
-    <!-- REVIEWS -->
-
-    <section class="section">
-
-        <div class="section-header">
-
-            <h2>Customer Reviews</h2>
-
-        </div>
-
-        <div id="reviewContainer"
-            class="review-grid">
-
-        </div>
-
-    </section>
-
-    <!-- REFERRAL -->
-
-    <section class="referral-section">
-
-        <div class="referral-card">
-
-            <h2>Invite Friends</h2>
-
-            <p>
-                Earn rewards for every successful referral.
-            </p>
-
-            <div id="referralCode">
-
-                REF-CODE
-
-            </div>
-
-        </div>
-
-    </section>
-
-    <!-- FRANCHISE -->
-
-    <section id="franchise"
-        class="section">
-
-        <div class="section-header">
-
-            <h2>Apply For Franchise</h2>
-
-        </div>
-
-        <form id="franchiseForm"
-            class="franchise-form">
-
-            <input
-                type="text"
-                id="fullName"
-                placeholder="Full Name">
-
-            <input
-                type="email"
-                id="email"
-                placeholder="Email">
-
-            <input
-                type="tel"
-                id="phone"
-                placeholder="Phone Number">
-
-            <input
-                type="text"
-                id="city"
-                placeholder="City">
-
-            <input
-                type="text"
-                id="state"
-                placeholder="State">
-
-            <input
-                type="text"
-                id="investment"
-                placeholder="Investment Capacity">
-
-            <textarea
-                id="experience"
-                placeholder="Business Experience"></textarea>
-
-            <button
-                type="submit"
-                class="primary-btn">
-
-                Submit Application
-
-            </button>
-
-        </form>
-
-    </section>
-
-    <!-- FOOTER -->
-
-    <footer class="footer">
-
-        <div class="footer-logo">
-
-            QuickPress
-
-        </div>
-
-        <p>
-            Fast Pickup.
-            Premium Laundry.
-            Delivered Fresh.
-        </p>
-
-        <div class="footer-links">
-
-            <a href="#">Privacy</a>
-
-            <a href="#">Terms</a>
-
-            <a href="#">Support</a>
-
-            <a href="#">Contact</a>
-
-        </div>
-
-        <div class="copyright">
-
-            © 2026 QuickPress.
-            All Rights Reserved.
-
-        </div>
-
-    </footer>
-
+</script>
 </body>
 </html>
