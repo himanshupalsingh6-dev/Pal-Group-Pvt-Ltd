@@ -379,11 +379,15 @@ Express Delivery in 30 Minutes
 class="address"
 onclick="openLocationModal()">
 
-<span id="locationText">
+<div class="locationText">
 
-Kasganj, Uttar Pradesh
+<span id="selectedLocation">
+
+Select Location
 
 </span>
+
+</div>
 
 <i class="fa-solid fa-angle-down"></i>
 
@@ -4517,6 +4521,25 @@ src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js">
 <script
 type="module"
 src="./js/auth-guard.js">
+</script>
+
+<script>
+
+const savedLocation =
+
+localStorage.getItem(
+"userCity"
+);
+
+if(savedLocation){
+
+document.getElementById(
+"selectedLocation"
+).innerText =
+savedLocation;
+
+}
+
 </script>
 
 </body>
