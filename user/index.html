@@ -718,33 +718,11 @@ Choose exact pickup location
 
 </div>
 
-<div class="actionIcon">
-
-🏠
+<div id="savedAddresses">
 
 </div>
 
-<div class="actionContent">
-
-<h3>
-
-${address.type}
-
-</h3>
-
-<p>
-
-${address.address}
-
-</p>
-
-</div>
-
-</div>
-
-`;
-
-}<script>
+<script>
 
 function openLocationModal(){
 
@@ -4523,11 +4501,25 @@ return `
 
 <div class="savedCard">
 
-<div>
+<div class="actionIcon">
 
-<h3>${address.type}</h3>
+🏠
 
-<p>${address.address}</p>
+</div>
+
+<div class="actionContent">
+
+<h3>
+
+${address.type}
+
+</h3>
+
+<p>
+
+${address.address}
+
+</p>
 
 </div>
 
@@ -4538,29 +4530,19 @@ return `
 }
 
 const savedAddresses =
-
 JSON.parse(
-
 localStorage.getItem("addresses")
-
 || "[]"
-
 );
 
 const container =
-
-document.getElementById(
-
-"savedAddresses"
-
-);
+document.getElementById("savedAddresses");
 
 if(container){
 
 savedAddresses.forEach(address=>{
 
 container.innerHTML +=
-
 renderAddress(address);
 
 });
