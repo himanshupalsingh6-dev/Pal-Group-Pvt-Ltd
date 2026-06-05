@@ -1,0 +1,366 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+
+<meta charset="UTF-8">
+
+<meta name="viewport"
+content="width=device-width, initial-scale=1.0">
+
+<title>QuickPress Notifications</title>
+
+<link
+href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap"
+rel="stylesheet">
+
+<style>
+
+*{
+margin:0;
+padding:0;
+box-sizing:border-box;
+font-family:'Inter',sans-serif;
+}
+
+body{
+
+background:#F8FAFC;
+
+height:100vh;
+
+display:flex;
+
+flex-direction:column;
+
+justify-content:space-between;
+
+padding:30px;
+
+overflow:hidden;
+
+}
+
+/* =========================
+TOP CONTENT
+========================= */
+
+.permissionContent{
+
+flex:1;
+
+display:flex;
+
+flex-direction:column;
+
+justify-content:center;
+
+align-items:center;
+
+text-align:center;
+
+}
+
+.permissionTitle{
+
+font-size:38px;
+
+font-weight:700;
+
+line-height:1.4;
+
+color:#111827;
+
+max-width:700px;
+
+}
+
+/* =========================
+BELL
+========================= */
+
+.bellWrapper{
+
+margin-top:80px;
+
+position:relative;
+
+}
+
+.bell{
+
+font-size:150px;
+
+animation:ring 2s infinite;
+
+}
+
+.dot{
+
+position:absolute;
+
+top:20px;
+
+right:20px;
+
+width:28px;
+
+height:28px;
+
+background:#4ADE80;
+
+border-radius:50%;
+
+box-shadow:
+0 0 0 8px rgba(74,222,128,.2);
+
+}
+
+@keyframes ring{
+
+0%{
+transform:rotate(0deg);
+}
+
+10%{
+transform:rotate(12deg);
+}
+
+20%{
+transform:rotate(-12deg);
+}
+
+30%{
+transform:rotate(10deg);
+}
+
+40%{
+transform:rotate(-10deg);
+}
+
+50%{
+transform:rotate(0deg);
+}
+
+100%{
+transform:rotate(0deg);
+}
+
+}
+
+/* =========================
+BUTTONS
+========================= */
+
+.buttonArea{
+
+display:flex;
+
+flex-direction:column;
+
+gap:16px;
+
+}
+
+.enableBtn{
+
+height:70px;
+
+border:none;
+
+border-radius:20px;
+
+background:#16A34A;
+
+color:white;
+
+font-size:24px;
+
+font-weight:700;
+
+cursor:pointer;
+
+transition:.3s;
+
+}
+
+.enableBtn:hover{
+
+transform:translateY(-2px);
+
+}
+
+.skipBtn{
+
+height:70px;
+
+border-radius:20px;
+
+background:white;
+
+border:2px solid #16A34A;
+
+color:#16A34A;
+
+font-size:24px;
+
+font-weight:700;
+
+cursor:pointer;
+
+}
+
+.skipBtn:hover{
+
+background:#F0FDF4;
+
+}
+
+</style>
+
+</head>
+
+<body>
+
+<div class="permissionContent">
+
+<h1 class="permissionTitle">
+
+Enable notifications to get updates
+about offers, order status and more
+
+</h1>
+
+<div class="bellWrapper">
+
+<div class="bell">
+
+🔔
+
+</div>
+
+<div class="dot"></div>
+
+</div>
+
+</div>
+
+<div class="buttonArea">
+
+<button
+class="enableBtn"
+onclick="enableNotifications()">
+
+Enable Notifications
+
+</button>
+
+<button
+class="skipBtn"
+onclick="goNext()">
+
+Not Now
+
+</button>
+
+</div>
+
+<script>
+
+/* =========================
+ENABLE NOTIFICATIONS
+========================= */
+
+async function enableNotifications(){
+
+try{
+
+if(
+
+"Notification" in window
+
+){
+
+const permission =
+
+await Notification.requestPermission();
+
+localStorage.setItem(
+
+"qp_notification_permission",
+
+permission
+
+);
+
+}
+
+}catch(error){
+
+console.log(error);
+
+}
+
+localStorage.setItem(
+
+"qp_notification_screen_seen",
+
+"true"
+
+);
+
+goNext();
+
+}
+
+/* =========================
+SKIP
+========================= */
+
+function goNext(){
+
+localStorage.setItem(
+
+"qp_notification_screen_seen",
+
+"true"
+
+);
+
+window.location.href =
+"index.html";
+
+}
+
+/* =========================
+AUTO SKIP IF ALREADY SEEN
+========================= */
+
+window.addEventListener(
+
+"load",
+
+()=>{
+
+const seen =
+
+localStorage.getItem(
+
+"qp_notification_screen_seen"
+
+);
+
+if(seen){
+
+window.location.href =
+"index.html";
+
+}
+
+}
+
+);
+
+</script>
+
+</body>
+</html>
