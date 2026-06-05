@@ -599,8 +599,21 @@ auth,
 
 if(user){
 
+const seen = localStorage.getItem(
+"qp_notification_screen_seen"
+);
+
+if(seen){
+
 window.location.href =
 "index.html";
+
+}else{
+
+window.location.href =
+"notification-permission.html";
+
+}
 
 }
 
