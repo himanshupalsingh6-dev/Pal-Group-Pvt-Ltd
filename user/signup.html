@@ -19,6 +19,10 @@ QuickPress Signup
 href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap"
 rel="stylesheet">
 
+<link
+rel="stylesheet"
+href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+
 <style>
 
 *{
@@ -32,9 +36,9 @@ body{
 
 background:#fff;
 
-min-height:100vh;
-
 overflow-x:hidden;
+
+min-height:100vh;
 
 }
 
@@ -43,11 +47,11 @@ overflow-x:hidden;
 --primary:#F4B400;
 --secondary:#16A34A;
 --dark:#111827;
---gray:#6B7280;
+--light:#6B7280;
 
 }.slider{
 
-height:42vh;
+height:45vh;
 
 position:relative;
 
@@ -59,14 +63,24 @@ overflow:hidden;
 
 position:absolute;
 
-width:100%;
-height:100%;
+inset:0;
+
+opacity:0;
+
+transition:1s;
+
+}
+
+.activeSlide{
+
+opacity:1;
 
 }
 
 .slide img{
 
 width:100%;
+
 height:100%;
 
 object-fit:cover;
@@ -80,9 +94,13 @@ position:absolute;
 inset:0;
 
 background:
+
 linear-gradient(
+
 transparent,
-rgba(0,0,0,.55)
+
+rgba(0,0,0,.65)
+
 );
 
 display:flex;
@@ -91,15 +109,15 @@ flex-direction:column;
 
 justify-content:flex-end;
 
-padding:25px;
+padding:24px;
 
-color:white;
+color:#fff;
 
 }
 
 .overlay h2{
 
-font-size:34px;
+font-size:36px;
 
 font-weight:900;
 
@@ -113,17 +131,25 @@ font-size:15px;
 
 }.signupCard{
 
-background:white;
+background:
 
-margin-top:-25px;
+rgba(255,255,255,.96);
 
-border-radius:30px 30px 0 0;
+backdrop-filter:
+
+blur(20px);
+
+margin-top:-35px;
+
+border-radius:34px 34px 0 0;
 
 padding:24px;
 
 position:relative;
 
 z-index:10;
+
+min-height:60vh;
 
 }
 
@@ -133,61 +159,49 @@ font-size:42px;
 
 font-weight:900;
 
-color:var(--dark);
+color:#111827;
 
 }
 
 .subTitle{
 
-color:var(--gray);
+margin-top:4px;
 
-margin-top:5px;
+color:#6B7280;
 
-margin-bottom:24px;
+font-size:14px;
 
-}form{
+}.formGroup{
 
-display:flex;
-
-flex-direction:column;
-
-gap:14px;
+margin-top:18px;
 
 }
 
 .input{
 
-height:58px;
-
-border:1px solid #E5E7EB;
-
-border-radius:16px;
-
-padding:0 18px;
-
-font-size:15px;
-
-outline:none;
-
-}
-
-.input:focus{
-
-border-color:var(--secondary);
-
-}
-
-.continueBtn{
+width:100%;
 
 height:60px;
 
+border:1px solid #E5E7EB;
+
+border-radius:18px;
+
+padding:0 18px;.continueBtn{
+
+width:100%;
+
+height:60px;
+
+margin-top:18px;
+
 border:none;
 
-border-radius:16px;
+border-radius:18px;
 
-background:var(--secondary);
+background:#16A34A;
 
-color:white;
+color:#fff;
 
 font-size:18px;
 
@@ -195,59 +209,35 @@ font-weight:800;
 
 cursor:pointer;
 
-}.divider{
-
-margin:22px 0;
-
-text-align:center;
-
-color:var(--gray);
-
-font-weight:600;
-
 }
 
 .googleBtn{
 
+width:100%;
+
 height:58px;
 
-width:100%;
+margin-top:14px;
 
 border:2px solid #E5E7EB;
 
-background:white;
+background:#fff;
 
-border-radius:16px;
+border-radius:18px;
 
-font-size:16px;
-
-font-weight:700;
+font-weight:800;
 
 cursor:pointer;
 
-}
-
-.terms{
-
-font-size:12px;
-
-line-height:1.6;
-
-text-align:center;
-
-margin-top:18px;
-
-color:var(--gray);
-
-}
-
-</style>
+}</style>
 
 </head>
 
-<body><div class="slider">
+<body>
 
-<div class="slide">
+<div class="slider">
+
+<div class="slide activeSlide">
 
 <img
 src="https://images.unsplash.com/photo-1521656693074-0ef32e80a5d5?q=80&w=1200">
@@ -256,7 +246,7 @@ src="https://images.unsplash.com/photo-1521656693074-0ef32e80a5d5?q=80&w=1200">
 
 <h2>
 
-Premium Laundry Service
+Laundry Made Easy
 
 </h2>
 
@@ -278,37 +268,53 @@ QuickPress
 
 </div>
 
-<p class="subTitle">
+<div class="subTitle">
 
 Create your account
 
-</p>
+</div>
 
 <form id="signupForm">
 
+<div class="formGroup">
+
 <input
-class="input"
 id="name"
+class="input"
 type="text"
 placeholder="Full Name"
 required>
 
+</div>
+
+<div class="formGroup">
+
 <input
-class="input"
 id="email"
-type="email"
-placeholder="Email Address"><input
 class="input"
+type="email"
+placeholder="Email Address">
+
+</div><div class="formGroup">
+
+<input
 id="phone"
+class="input"
 type="tel"
 placeholder="+91 Mobile Number"
 required>
 
+</div>
+
+<div class="formGroup">
+
 <input
-class="input"
 id="referral"
+class="input"
 type="text"
 placeholder="Referral Code (Optional)">
+
+</div>
 
 <button
 class="continueBtn"
@@ -318,24 +324,37 @@ Continue
 
 </button>
 
-</form><div class="divider">
-
-OR
-
-</div>
+</form>
 
 <button
 class="googleBtn">
 
+<i class="fa-brands fa-google"></i>
+
 Continue With Google
 
-</button>
+</button><p
+style="
 
-<p class="terms">
+font-size:12px;
+
+line-height:1.7;
+
+color:#6B7280;
+
+margin-top:18px;
+
+text-align:center;
+
+">
 
 By continuing you agree to
-QuickPress Terms of Service,
-Privacy Policy and Content Policy.
+
+QuickPress Terms,
+
+Privacy Policy
+
+and Content Policy.
 
 </p>
 
@@ -355,35 +374,31 @@ function(e){
 
 e.preventDefault();
 
-const user = {
+const userData = {
 
 name:
 
 document
-.getElementById(
-"name"
-).value,
+.getElementById("name")
+.value,
 
 email:
 
 document
-.getElementById(
-"email"
-).value,
+.getElementById("email")
+.value,
 
 phone:
 
 document
-.getElementById(
-"phone"
-).value,
+.getElementById("phone")
+.value,
 
 referral:
 
 document
-.getElementById(
-"referral"
-).value
+.getElementById("referral")
+.value
 
 };
 
@@ -391,7 +406,7 @@ localStorage.setItem(
 
 "qp_signup",
 
-JSON.stringify(user)
+JSON.stringify(userData)
 
 );
 
@@ -406,3 +421,17 @@ window.location.href =
 
 </body>
 </html>
+
+font-size:15px;
+
+outline:none;
+
+font-weight:600;
+
+}
+
+.input:focus{
+
+border-color:#16A34A;
+
+}
