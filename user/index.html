@@ -729,7 +729,22 @@ openLocationModal();
 );
 
 </script>
+<script>
 
+const address =
+localStorage.getItem("userAddress");
+
+if(address){
+
+document.getElementById(
+"selectedLocation"
+).innerText =
+address.split(",")[0];
+
+}
+
+</script>
+  
 </div>
 </div>
 
@@ -4933,7 +4948,19 @@ alert(
 }
 
 </script>
+<script>
 
+window.onload = function(){
+
+if(!localStorage.getItem("userAddress")){
+
+openLocationModal();
+
+}
+
+};
+
+</script>
 <!-- LOCATION MODAL END -->
 </body>
 
