@@ -3850,24 +3850,24 @@ z-index:999999;
 
 }
 
+
 .qpLocationBox{
 
-width:92%;
-
-max-width:450px;
+width:95%;
+max-width:520px;
 
 background:#fff;
 
-border-radius:30px;
+border-radius:32px;
 
-padding:20px;
+padding:24px;
 
-max-height:85vh;
+box-shadow:
+0 25px 60px rgba(0,0,0,.25);
 
-overflow:auto;
+animation:popup .25s ease;
 
 }
-
 .qpHandle{
 
 width:70px;
@@ -3881,6 +3881,19 @@ border-radius:999px;
 margin:auto;
 
 margin-bottom:18px;
+
+}
+  @keyframes popup{
+
+from{
+opacity:0;
+transform:scale(.9);
+}
+
+to{
+opacity:1;
+transform:scale(1);
+}
 
 }
 
@@ -3909,14 +3922,16 @@ font-size:26px;
 .qpSearchInput{
 
 width:100%;
-
-height:54px;
+height:58px;
 
 border:1px solid #E5E7EB;
 
-border-radius:16px;
+border-radius:18px;
 
-padding-left:45px;
+padding-left:48px;
+
+font-size:15px;
+font-weight:600;
 
 }
 
@@ -3939,7 +3954,98 @@ top:18px;
 color:#6B7280;
 
 }
+.qpLocationHeader{
+margin-bottom:16px;
+}
 
+.qpLocationHeader h2{
+font-size:32px;
+font-weight:900;
+color:#111827;
+}
+
+.qpLocationHeader p{
+font-size:14px;
+color:#6B7280;
+margin-top:4px;
+}
+
+.qpActionCard{
+display:flex;
+align-items:center;
+gap:14px;
+padding:16px;
+margin-top:12px;
+background:#F8FAFC;
+border:1px solid #E5E7EB;
+border-radius:18px;
+cursor:pointer;
+transition:.3s;
+}
+
+.qpActionCard:hover{
+background:#ECFDF5;
+border-color:#16A34A;
+}
+
+.qpActionIcon{
+font-size:24px;
+width:42px;
+text-align:center;
+}
+
+.qpActionCard h3{
+font-size:20px;
+font-weight:800;
+margin:0;
+}
+
+.qpActionCard p{
+font-size:13px;
+color:#6B7280;
+margin-top:2px;
+}
+
+.qpSectionTitle{
+margin-top:18px;
+margin-bottom:10px;
+font-size:20px;
+font-weight:900;
+color:#111827;
+}
+
+.qpAddressCard{
+display:flex;
+align-items:center;
+gap:10px;
+padding:14px;
+margin-bottom:10px;
+background:#F9FAFB;
+border-radius:16px;
+border:1px solid #E5E7EB;
+font-size:16px;
+font-weight:700;
+cursor:pointer;
+}
+
+.qpAddressCard:hover{
+background:#ECFDF5;
+}
+
+.qpCityItem{
+padding:14px 16px;
+margin-bottom:8px;
+background:#F9FAFB;
+border-radius:14px;
+font-weight:700;
+cursor:pointer;
+border:1px solid #E5E7EB;
+}
+
+.qpCityItem:hover{
+background:#ECFDF5;
+border-color:#16A34A;
+}
 </style>
 </body>
 
