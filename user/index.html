@@ -445,13 +445,23 @@ class="locationModal">
 
 <div class="sheetHandle"></div>
 
-<div class="sheetHeader">
+<div class="modalHeader">
+
+<div>
 
 <h2>
 
-Select Pickup Location
+Select Location
 
 </h2>
+
+<p>
+
+Choose Pickup Address
+
+</p>
+
+</div>
 
 <button
 onclick="closeLocationModal()">
@@ -460,78 +470,7 @@ onclick="closeLocationModal()">
 
 </button>
 
-</div><div class="searchWrapper">
-
-<i class="fa-solid fa-magnifying-glass"></i>
-
-<input
-type="text"
-placeholder="Search city, area, locality">
-
-</div><div
-class="actionCard"
-onclick="detectLocation()">
-
-<div class="actionIcon">
-
-📍
-
 </div>
-
-<div class="actionContent">
-
-<h3>
-
-Use Current Location
-
-</h3>
-
-<p>
-
-Detect automatically
-
-</p>
-
-</div>
-
-<i class="fa-solid fa-chevron-right"></i>
-
-</div><div
-class="actionCard"
-onclick="location.href='addresses.html'">
-
-<div class="actionIcon">
-
-➕
-
-</div>
-
-<div class="actionContent">
-
-<h3>
-
-Add New Address
-
-</h3>
-
-<p>
-
-Home, Work or Other
-
-</p>
-
-</div>
-
-<i class="fa-solid fa-chevron-right"></i>
-
-</div><div class="savedTitle">
-
-Saved Addresses
-
-</div>
-
-<div id="savedAddresses">
-
 <!-- Firebase Addresses -->
 
 </div><style>
@@ -543,32 +482,38 @@ position:fixed;
 inset:0;
 
 background:
-rgba(0,0,0,.45);
-
-z-index:99999;
+rgba(0,0,0,.55);
 
 display:none;
 
-align-items:flex-end;
+justify-content:center;
+
+align-items:center;
+
+backdrop-filter:blur(8px);
+
+z-index:99999;
 
 }
 
 .locationSheet{
 
-width:100%;
+width:92%;
 
-background:#F8FAFC;
+max-width:420px;
 
-border-radius:28px 28px 0 0;
+background:#fff;
 
-padding:18px;
+border-radius:28px;
 
-max-height:85vh;
+padding:20px;
+
+box-shadow:
+0 25px 60px rgba(0,0,0,.25);
+
+max-height:80vh;
 
 overflow:auto;
-
-animation:
-slideUp .3s ease;
 
 }
 
@@ -738,11 +683,40 @@ margin-bottom:15px;
 
 }
 
-</style>function renderAddress(address){
+</style>
 
-return `
+  
 
 <div class="actionCard">
+<div
+class="actionCard"
+onclick="window.location.href='map-picker.html'">
+
+<div class="actionIcon">
+
+🗺️
+
+</div>
+
+<div class="actionContent">
+
+<h3>
+
+Select On Map
+
+</h3>
+
+<p>
+
+Choose exact pickup location
+
+</p>
+
+</div>
+
+<i class="fa-solid fa-chevron-right"></i>
+
+</div>
 
 <div class="actionIcon">
 
@@ -4541,7 +4515,60 @@ savedLocation;
 }
 
 </script>
+<script>
 
+function renderAddress(address){
+
+return `
+
+<div class="savedCard">
+
+<div>
+
+<h3>${address.type}</h3>
+
+<p>${address.address}</p>
+
+</div>
+
+</div>
+
+`;
+
+}
+
+const savedAddresses =
+
+JSON.parse(
+
+localStorage.getItem("addresses")
+
+|| "[]"
+
+);
+
+const container =
+
+document.getElementById(
+
+"savedAddresses"
+
+);
+
+if(container){
+
+savedAddresses.forEach(address=>{
+
+container.innerHTML +=
+
+renderAddress(address);
+
+});
+
+}
+
+</script>
+  
 </body>
 
 </html>
