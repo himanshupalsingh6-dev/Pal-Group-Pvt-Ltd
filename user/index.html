@@ -376,10 +376,8 @@ Express Delivery in 30 Minutes
 </div>
 
 <div
-class="address"
-onclick="openLocationModal()">
-
-<div class="locationText">
+onclick="openLocationModal()"
+style="cursor:pointer;">
 
 <span id="selectedLocation">
 
@@ -436,40 +434,7 @@ LOCATION MODAL
 =================================== -->
 
 <!-- LOCATION MODAL -->
-<div
-  class=
-  "locationModal">
 
-<div class="locationSheet">
-
-<div class="sheetHandle"></div>
-
-<div class="modalHeader">
-
-<div>
-
-<h2>
-
-Select Location
-
-</h2>
-
-<p>
-
-Choose Pickup Address
-
-</p>
-
-</div>
-
-<button
-onclick="closeLocationModal()">
-
-<i class="fa-solid fa-xmark"></i>
-
-</button>
-
-</div>
 <!-- Firebase Addresses -->
 
 </div><style>
@@ -4571,6 +4536,425 @@ document.getElementById(
 }
 
 </script>
+<!-- LOCATION MODAL START -->
+
+<div
+id="locationModal"
+class="locationModal">
+
+<div class="locationSheet">
+
+<div class="modalTopBar"></div>
+
+<div class="modalHeader">
+
+<div>
+
+<h2>Select Pickup Location</h2>
+
+<p>Choose pickup address</p>
+
+</div>
+
+<button
+class="closeBtn"
+onclick="closeLocationModal()">
+
+✕
+
+</button>
+
+</div>
+
+<div class="searchBox">
+
+<input
+type="text"
+placeholder="Search city, area, locality">
+
+</div>
+
+<div
+class="locationCard"
+onclick="detectLocation()">
+
+<div>
+
+📍
+
+</div>
+
+<div class="locationContent">
+
+<h3>Use Current Location</h3>
+
+<p>Detect automatically</p>
+
+</div>
+
+</div>
+
+<div
+class="locationCard"
+onclick="window.location.href='map-picker.html'">
+
+<div>
+
+🗺️
+
+</div>
+
+<div class="locationContent">
+
+<h3>Select On Map</h3>
+
+<p>Choose exact pickup location</p>
+
+</div>
+
+</div>
+
+<div
+class="locationCard"
+onclick="window.location.href='addresses.html'">
+
+<div>
+
+➕
+
+</div>
+
+<div class="locationContent">
+
+<h3>Add New Address</h3>
+
+<p>Home, Work or Other</p>
+
+</div>
+
+</div>
+
+<div class="savedTitle">
+
+Saved Addresses
+
+</div>
+
+<div id="savedAddresses">
+
+<div class="savedCard">
+
+<h3>Home</h3>
+
+<p>
+
+Kasganj, Uttar Pradesh
+
+</p>
+
+</div>
+
+</div>
+
+</div>
+
+</div>
+
+<style>
+
+.locationModal{
+
+display:none;
+
+position:fixed;
+
+inset:0;
+
+background:
+rgba(0,0,0,.45);
+
+backdrop-filter:blur(6px);
+
+justify-content:center;
+
+align-items:center;
+
+z-index:99999;
+
+}
+
+.locationSheet{
+
+width:92%;
+
+max-width:430px;
+
+background:#fff;
+
+border-radius:28px;
+
+padding:20px;
+
+box-shadow:
+0 25px 60px rgba(0,0,0,.25);
+
+animation:popup .25s ease;
+
+}
+
+@keyframes popup{
+
+from{
+
+opacity:0;
+transform:scale(.9);
+
+}
+
+to{
+
+opacity:1;
+transform:scale(1);
+
+}
+
+}
+
+.modalTopBar{
+
+width:70px;
+
+height:5px;
+
+background:#CBD5E1;
+
+border-radius:999px;
+
+margin:auto;
+
+margin-bottom:15px;
+
+}
+
+.modalHeader{
+
+display:flex;
+
+justify-content:space-between;
+
+align-items:center;
+
+}
+
+.modalHeader h2{
+
+font-size:28px;
+
+font-weight:900;
+
+}
+
+.modalHeader p{
+
+color:#64748B;
+
+font-size:13px;
+
+}
+
+.closeBtn{
+
+width:40px;
+
+height:40px;
+
+border:none;
+
+border-radius:50%;
+
+background:#F3F4F6;
+
+cursor:pointer;
+
+}
+
+.searchBox{
+
+margin-top:15px;
+
+}
+
+.searchBox input{
+
+width:100%;
+
+height:54px;
+
+border:1px solid #E5E7EB;
+
+border-radius:16px;
+
+padding:0 15px;
+
+font-size:14px;
+
+}
+
+.locationCard{
+
+background:#F8FAFC;
+
+border-radius:18px;
+
+padding:15px;
+
+display:flex;
+
+gap:12px;
+
+align-items:center;
+
+margin-top:12px;
+
+cursor:pointer;
+
+}
+
+.locationCard:hover{
+
+background:#F1F5F9;
+
+}
+
+.locationContent h3{
+
+font-size:16px;
+
+font-weight:800;
+
+}
+
+.locationContent p{
+
+font-size:13px;
+
+color:#64748B;
+
+margin-top:3px;
+
+}
+
+.savedTitle{
+
+margin-top:20px;
+
+font-size:18px;
+
+font-weight:900;
+
+}
+
+.savedCard{
+
+background:#F8FAFC;
+
+padding:14px;
+
+border-radius:16px;
+
+margin-top:10px;
+
+}
+
+.savedCard h3{
+
+font-size:16px;
+
+font-weight:800;
+
+}
+
+.savedCard p{
+
+font-size:13px;
+
+color:#64748B;
+
+margin-top:4px;
+
+}
+
+</style>
+
+<script>
+
+function openLocationModal(){
+
+document.getElementById(
+"locationModal"
+).style.display =
+"flex";
+
+}
+
+function closeLocationModal(){
+
+document.getElementById(
+"locationModal"
+).style.display =
+"none";
+
+}
+
+function detectLocation(){
+
+if(!navigator.geolocation){
+
+alert(
+"Location not supported"
+);
+
+return;
+
+}
+
+navigator.geolocation.getCurrentPosition(
+
+(pos)=>{
+
+localStorage.setItem(
+"userLatitude",
+pos.coords.latitude
+);
+
+localStorage.setItem(
+"userLongitude",
+pos.coords.longitude
+);
+
+alert(
+"Location Detected Successfully"
+);
+
+closeLocationModal();
+
+},
+
+()=>{
+
+alert(
+"Location Permission Denied"
+);
+
+}
+
+);
+
+}
+
+</script>
+
+<!-- LOCATION MODAL END -->
 </body>
 
 </html>
