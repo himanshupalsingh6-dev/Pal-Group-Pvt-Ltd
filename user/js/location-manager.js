@@ -2,8 +2,7 @@
 QUICKPRESS LOCATION MANAGER
 =================================== */
 
-const LOCATION_KEY =
-"qp_location";
+const LOCATION_KEY = "qp_location";
 
 const SERVICEABLE_CITIES = [
 
@@ -12,86 +11,74 @@ const SERVICEABLE_CITIES = [
 "Bilram",
 "Patiyali",
 "Sahawar",
-"Ganj Dundwara"
-
-];const UP_CITIES = [
-
-"Agra",
-"Aligarh",
-"Prayagraj",
-"Lucknow",
-"Kanpur",
-"Varanasi",
-"Meerut",
-"Ghaziabad",
-"Noida",
-"Mathura",
-"Etah",
-"Kasganj",
-"Soron",
-"Bilram",
-"Patiyali",
-"Sahawar",
 "Ganj Dundwara",
-"Bareilly",
-"Moradabad",
-"Gorakhpur",
-"Jhansi",
-"Firozabad",
-"Mainpuri",
-"Etawah",
-"Unnao"
+"Etah",
+"Aligarh"
 
-];window.openLocationModal =
-function(){
+];
+
+/* ===================================
+OPEN MODAL
+=================================== */
+
+window.openLocationModal = function(){
 
 const modal =
-
 document.getElementById(
 "locationModal"
 );
 
 if(modal){
 
-modal.style.display =
-"flex";
+modal.style.display = "flex";
 
 }
 
-};window.closeLocationModal =
-function(){
+};
+
+/* ===================================
+CLOSE MODAL
+=================================== */
+
+window.closeLocationModal = function(){
 
 const modal =
-
 document.getElementById(
 "locationModal"
 );
 
 if(modal){
 
-modal.style.display =
-"none";
+modal.style.display = "none";
 
 }
 
-};window.updateLocationHeader =
-function(city){
+};
 
-const locationText =
+/* ===================================
+HEADER UPDATE
+=================================== */
 
+function updateHeader(city){
+
+const text =
 document.getElementById(
 "locationText"
 );
 
-if(locationText){
+if(text){
 
-locationText.innerHTML =
-city;
+text.innerHTML = city;
 
 }
 
-};window.saveLocationData =
-function(data){
+}
+
+/* ===================================
+SAVE LOCATION
+=================================== */
+
+function saveLocation(data){
 
 localStorage.setItem(
 
@@ -101,28 +88,44 @@ JSON.stringify(data)
 
 );
 
-updateLocationHeader(
+updateHeader(
 data.city
 );
 
 closeLocationModal();
 
-};window.selectCity =
-function(city){
+/* Reload Services */
 
-saveLocationData({
+if(window.refreshServices){
+
+window.refreshServices();
+
+}
+
+}
+
+/* ===================================
+MANUAL CITY
+=================================== */
+
+window.selectCity = function(city){
+
+saveLocation({
 
 city,
-
 address:city,
-
 serviceable:true,
-
 savedAt:Date.now()
 
 });
 
-};window.startLocationDetection =
+};
+
+/* ===================================
+GPS DETECT
+=================================== */
+
+window.startLocationDetection =
 function(){
 
 if(!navigator.geolocation){
@@ -137,23 +140,22 @@ return;
 
 navigator.geolocation.getCurrentPosition(
 
-detectSuccess,
+gpsSuccess,
 
-detectError,
+gpsError,
 
 {
 
 enableHighAccuracy:true,
-
 timeout:10000
 
 }
 
 );
 
-};async function detectSuccess(
-position
-){
+};
+
+async function gpsSuccess(position){
 
 const lat =
 position.coords.latitude;
@@ -203,21 +205,14 @@ return;
 
 }
 
-saveLocationData({
+saveLocation({
 
 city,
-
-address:
-data.display_name,
-
+address:data.display_name,
 lat,
-
 lng,
-
 serviceable:true,
-
-savedAt:
-Date.now()
+savedAt:Date.now()
 
 });
 
@@ -231,7 +226,9 @@ alert(
 
 }
 
-}function detectError(){
+}
+
+function gpsError(){
 
 alert(
 "Location Permission Denied"
@@ -239,11 +236,112 @@ alert(
 
 }
 
-document.addEventListener(
+/* ===================================
+CITY FILTER
+=================================== */
 
-"DOMContentLoaded",
+window.filterServicesByCity =
+function(services){
 
-()=>{
+const saved =
+
+JSON.parse(
+
+localStorage.getItem(
+LOCATION_KEY
+)
+
+|| "null"
+
+);
+
+if(!saved){
+
+return services;
+
+}
+
+return services.filter(service=>{
+
+if(!service.city){
+
+return true;
+
+}
+
+if(
+
+Array.isArray(
+service.city
+)
+
+){
+
+return service.city.includes(
+saved.city
+);
+
+}
+
+return service.city ===
+saved.city;
+
+});
+
+};
+
+/* ===================================
+CITY PRICING
+=================================== */
+
+window.getServicePrice =
+function(service){
+
+const saved =
+
+JSON.parse(
+
+localStorage.getItem(
+LOCATION_KEY
+)
+
+|| "null"
+
+);
+
+if(!saved){
+
+return service.price || 0;
+
+}
+
+if(
+
+service.cityPricing &&
+
+service.cityPricing[
+saved.city
+]
+
+){
+
+return
+
+service.cityPricing[
+saved.city
+];
+
+}
+
+return service.price || 0;
+
+};
+
+/* ===================================
+RESTORE
+=================================== */
+
+function restoreLocation(){
 
 const saved =
 
@@ -251,24 +349,85 @@ localStorage.getItem(
 LOCATION_KEY
 );
 
-if(saved){
-
-const data =
-
-JSON.parse(saved);
-
-updateLocationHeader(
-data.city
-);
-
-}else{
+if(!saved){
 
 setTimeout(()=>{
 
 openLocationModal();
 
-},800);
+},600);
+
+return;
+
+}
+
+const data =
+JSON.parse(saved);
+
+updateHeader(
+data.city
+);
+
+}
+
+/* ===================================
+SEARCH CITY
+=================================== */
+
+document.addEventListener(
+
+"DOMContentLoaded",
+
+()=>{
+
+restoreLocation();
+
+const search =
+
+document.getElementById(
+"locationSearch"
+);
+
+if(search){
+
+search.addEventListener(
+
+"keyup",
+
+function(){
+
+const value =
+
+this.value
+.toLowerCase();
+
+document
+.querySelectorAll(
+".qpCityItem"
+)
+
+.forEach(item=>{
+
+item.style.display =
+
+item.innerText
+.toLowerCase()
+.includes(value)
+
+? "block"
+
+: "none";
+
+});
+
+}
+
+);
 
 }
 
 });
+
+console.log(
+"QuickPress Location Loaded"
+);
