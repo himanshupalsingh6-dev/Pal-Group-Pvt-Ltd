@@ -376,16 +376,14 @@ Express Delivery in 30 Minutes
 </div>
 
 <div
-onclick="openLocationModal()"
-style="cursor:pointer;">
+class="address"
+onclick="openLocationModal()">
 
-<span id="selectedLocation">
+<span id="locationText">
 
-Select Location
+Kasganj, Uttar Pradesh
 
 </span>
-
-</div>
 
 <i class="fa-solid fa-angle-down"></i>
 
@@ -433,319 +431,92 @@ placeholder="Search Dry Cleaning, Steam Iron, Shoe Care">
 LOCATION MODAL
 =================================== -->
 
-<!-- LOCATION MODAL -->
-
-<!-- Firebase Addresses -->
-
-</div><style>
-
-.locationModal{
-
-position:fixed;
-
-inset:0;
-
-background:
-rgba(0,0,0,.55);
-
-display:none;
-
-justify-content:center;
-
-align-items:center;
-
-backdrop-filter:blur(8px);
-
-z-index:99999;
-
-}
-
-.locationSheet{
-
-width:92%;
-
-max-width:420px;
-
-background:#fff;
-
-border-radius:28px;
-
-padding:20px;
-
-box-shadow:
-0 25px 60px rgba(0,0,0,.25);
-
-max-height:80vh;
-
-overflow:auto;
-
-}
-
-@keyframes slideUp{
-
-from{
-
-transform:
-translateY(100%);
-
-}
-
-to{
-
-transform:
-translateY(0);
-
-}
-
-}
-
-.sheetHandle{
-
-width:70px;
-
-height:5px;
-
-background:#CBD5E1;
-
-border-radius:999px;
-
-margin:auto;
-
-}
-
-.sheetHeader{
-
-display:flex;
-
-justify-content:space-between;
-
-align-items:center;
-
-margin-top:15px;
-
-}
-
-.sheetHeader h2{
-
-font-size:24px;
-
-font-weight:900;
-
-}
-
-.sheetHeader button{
-
-border:none;
-
-background:#fff;
-
-width:40px;
-
-height:40px;
-
-border-radius:50%;
-
-cursor:pointer;
-
-}
-
-.searchWrapper{
-
-margin-top:20px;
-
-position:relative;
-
-}
-
-.searchWrapper i{
-
-position:absolute;
-
-left:18px;
-
-top:20px;
-
-color:#64748B;
-
-}
-
-.searchWrapper input{
-
-width:100%;
-
-height:58px;
-
-border:none;
-
-border-radius:18px;
-
-padding-left:50px;
-
-font-size:15px;
-
-}
-
-.actionCard{
-
-background:#fff;
-
-padding:18px;
-
-border-radius:18px;
-
-display:flex;
-
-align-items:center;
-
-gap:14px;
-
-margin-top:14px;
-
-cursor:pointer;
-
-}
-
-.actionIcon{
-
-font-size:26px;
-
-}
-
-.actionContent{
-
-flex:1;
-
-}
-
-.actionContent h3{
-
-font-size:17px;
-
-font-weight:800;
-
-}
-
-.actionContent p{
-
-font-size:13px;
-
-color:#64748B;
-
-margin-top:4px;
-
-}
-
-.savedTitle{
-
-font-size:18px;
-
-font-weight:900;
-
-margin-top:28px;
-
-margin-bottom:15px;
-
-}
-
-</style>
-
-  
-
-<div class="actionCard">
 <div
-class="actionCard"
-onclick="window.location.href='map-picker.html'">
+class="locationModal"
+id="locationModal">
 
-<div class="actionIcon">
+<div class="locationBox">
 
-🗺️
-
-</div>
-
-<div class="actionContent">
+<div class="locationHeader">
 
 <h3>
-
-Select On Map
-
+Select Location
 </h3>
 
-<p>
+<button
+class="closeLocation"
+onclick="closeLocationModal()">
 
-Choose exact pickup location
+<i class="fa-solid fa-xmark"></i>
 
-</p>
-
-</div>
-
-<i class="fa-solid fa-chevron-right"></i>
+</button>
 
 </div>
 
-<div id="savedAddresses">
+<button
+class="detectBtn"
+onclick="startLocationDetection()">
+
+<i class="fa-solid fa-location-crosshairs"></i>
+
+Detect My Location
+
+</button>
+
+<input
+type="text"
+id="locationSearch"
+class="locationSearch"
+placeholder="Search City">
+
+<div
+class="locationList"
+id="locationList">
+
+<div
+class="locationItem"
+onclick="selectCity('Kasganj')">
+
+Kasganj
 
 </div>
 
-<script>
+<div
+class="locationItem"
+onclick="selectCity('Etah')">
 
-function openLocationModal(){
+Etah
 
-document.getElementById(
-"locationModal"
-).style.display =
-"flex";
-
-}
-
-function closeLocationModal(){
-
-document.getElementById(
-"locationModal"
-).style.display =
-"none";
-
-}
-
-window.addEventListener(
-
-"load",
-
-()=>{
-
-if(
-
-!localStorage.getItem(
-"userAddress"
-)
-
-){
-
-openLocationModal();
-
-}
-
-}
-
-);
-
-</script>
-<script>
-
-const address =
-localStorage.getItem("userAddress");
-
-if(address){
-
-document.getElementById(
-"selectedLocation"
-).innerText =
-address.split(",")[0];
-
-}
-
-</script>
-  
 </div>
+
+<div
+class="locationItem"
+onclick="selectCity('Aligarh')">
+
+Aligarh
+
+</div>
+
+<div
+class="locationItem"
+onclick="selectCity('Noida')">
+
+Noida
+
+</div>
+
+<div
+class="locationItem"
+onclick="selectCity('Delhi')">
+
+Delhi
+
+</div>
+
+</div>
+
+</div>
+
 </div>
 
 <!-- ===================================
@@ -4454,514 +4225,6 @@ type="module"
 src="./js/auth-guard.js">
 </script>
 
-<script>
-
-const savedLocation =
-
-localStorage.getItem(
-"userCity"
-);
-
-if(savedLocation){
-
-document.getElementById(
-"selectedLocation"
-).innerText =
-savedLocation;
-
-}
-
-</script>
-<script>
-
-function renderAddress(address){
-
-return `
-
-<div class="savedCard">
-
-<div class="actionIcon">
-
-🏠
-
-</div>
-
-<div class="actionContent">
-
-<h3>
-
-${address.type}
-
-</h3>
-
-<p>
-
-${address.address}
-
-</p>
-
-</div>
-
-</div>
-
-`;
-
-}
-
-const savedAddresses =
-JSON.parse(
-localStorage.getItem("addresses")
-|| "[]"
-);
-
-const container =
-document.getElementById("savedAddresses");
-
-if(container){
-
-savedAddresses.forEach(address=>{
-
-container.innerHTML +=
-renderAddress(address);
-
-});
-
-}
-
-</script>
-
-<script>
-
-function openLocationModal(){
-
-document.getElementById(
-"locationModal"
-).style.display =
-"flex";
-
-}
-
-function closeLocationModal(){
-
-document.getElementById(
-"locationModal"
-).style.display =
-"none";
-
-}
-
-</script>
-<!-- LOCATION MODAL START -->
-
-<div
-id="locationModal"
-class="locationModal">
-
-<div class="locationSheet">
-
-<div class="modalTopBar"></div>
-
-<div class="modalHeader">
-
-<div>
-
-<h2>Select Pickup Location</h2>
-
-<p>Choose pickup address</p>
-
-</div>
-
-<button
-class="closeBtn"
-onclick="closeLocationModal()">
-
-✕
-
-</button>
-
-</div>
-
-<div class="searchBox">
-
-<input
-type="text"
-placeholder="Search city, area, locality">
-
-</div>
-
-<div
-class="locationCard"
-onclick="detectLocation()">
-
-<div>
-
-📍
-
-</div>
-
-<div class="locationContent">
-
-<h3>Use Current Location</h3>
-
-<p>Detect automatically</p>
-
-</div>
-
-</div>
-
-<div
-class="locationCard"
-onclick="window.location.href='addresses.html'">
-
-<div>
-
-➕
-
-</div>
-
-<div class="locationContent">
-
-<h3>Add New Address</h3>
-
-<p>Home, Work or Other</p>
-
-</div>
-
-</div>
-
-<div class="savedTitle">
-
-Saved Addresses
-
-</div>
-
-<div id="savedAddresses">
-
-<div class="savedCard">
-
-<h3>Home</h3>
-
-<p>
-
-Kasganj, Uttar Pradesh
-
-</p>
-
-</div>
-
-</div>
-
-</div>
-
-</div>
-
-<style>
-
-.locationModal{
-
-display:none;
-
-position:fixed;
-
-inset:0;
-
-background:
-rgba(0,0,0,.45);
-
-backdrop-filter:blur(6px);
-
-justify-content:center;
-
-align-items:center;
-
-z-index:99999;
-
-}
-
-.locationSheet{
-
-width:92%;
-
-max-width:430px;
-
-background:#fff;
-
-border-radius:28px;
-
-padding:20px;
-
-box-shadow:
-0 25px 60px rgba(0,0,0,.25);
-
-animation:popup .25s ease;
-
-}
-
-@keyframes popup{
-
-from{
-
-opacity:0;
-transform:scale(.9);
-
-}
-
-to{
-
-opacity:1;
-transform:scale(1);
-
-}
-
-}
-
-.modalTopBar{
-
-width:70px;
-
-height:5px;
-
-background:#CBD5E1;
-
-border-radius:999px;
-
-margin:auto;
-
-margin-bottom:15px;
-
-}
-
-.modalHeader{
-
-display:flex;
-
-justify-content:space-between;
-
-align-items:center;
-
-}
-
-.modalHeader h2{
-
-font-size:28px;
-
-font-weight:900;
-
-}
-
-.modalHeader p{
-
-color:#64748B;
-
-font-size:13px;
-
-}
-
-.closeBtn{
-
-width:40px;
-
-height:40px;
-
-border:none;
-
-border-radius:50%;
-
-background:#F3F4F6;
-
-cursor:pointer;
-
-}
-
-.searchBox{
-
-margin-top:15px;
-
-}
-
-.searchBox input{
-
-width:100%;
-
-height:54px;
-
-border:1px solid #E5E7EB;
-
-border-radius:16px;
-
-padding:0 15px;
-
-font-size:14px;
-
-}
-
-.locationCard{
-
-background:#F8FAFC;
-
-border-radius:18px;
-
-padding:15px;
-
-display:flex;
-
-gap:12px;
-
-align-items:center;
-
-margin-top:12px;
-
-cursor:pointer;
-
-}
-
-.locationCard:hover{
-
-background:#F1F5F9;
-
-}
-
-.locationContent h3{
-
-font-size:16px;
-
-font-weight:800;
-
-}
-
-.locationContent p{
-
-font-size:13px;
-
-color:#64748B;
-
-margin-top:3px;
-
-}
-
-.savedTitle{
-
-margin-top:20px;
-
-font-size:18px;
-
-font-weight:900;
-
-}
-
-.savedCard{
-
-background:#F8FAFC;
-
-padding:14px;
-
-border-radius:16px;
-
-margin-top:10px;
-
-}
-
-.savedCard h3{
-
-font-size:16px;
-
-font-weight:800;
-
-}
-
-.savedCard p{
-
-font-size:13px;
-
-color:#64748B;
-
-margin-top:4px;
-
-}
-
-</style>
-
-<script>
-
-function openLocationModal(){
-
-document.getElementById(
-"locationModal"
-).style.display =
-"flex";
-
-}
-
-function closeLocationModal(){
-
-document.getElementById(
-"locationModal"
-).style.display =
-"none";
-
-}
-
-function detectLocation(){
-
-if(!navigator.geolocation){
-
-alert(
-"Location not supported"
-);
-
-return;
-
-}
-
-navigator.geolocation.getCurrentPosition(
-
-(pos)=>{
-
-localStorage.setItem(
-"userLatitude",
-pos.coords.latitude
-);
-
-localStorage.setItem(
-"userLongitude",
-pos.coords.longitude
-);
-
-alert(
-"Location Detected Successfully"
-);
-
-closeLocationModal();
-
-},
-
-()=>{
-
-alert(
-"Location Permission Denied"
-);
-
-}
-
-);
-
-}
-
-</script>
-<script>
-
-window.onload = function(){
-
-if(!localStorage.getItem("userAddress")){
-
-openLocationModal();
-
-}
-
-};
-
-</script>
-<!-- LOCATION MODAL END -->
 </body>
 
 </html>
