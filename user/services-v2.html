@@ -1,0 +1,3372 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+<meta charset="UTF-8">
+
+<meta
+name="viewport"
+content="width=device-width, initial-scale=1.0">
+
+<title>
+
+QuickPress | Services
+
+</title>
+
+<meta
+name="theme-color"
+content="#16A34A">
+
+<link
+rel="preconnect"
+href="https://fonts.googleapis.com">
+
+<link
+rel="preconnect"
+href="https://fonts.gstatic.com"
+crossorigin>
+
+<link
+href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap"
+rel="stylesheet">
+
+<link
+rel="stylesheet"
+href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+
+<style>
+
+/* =========================
+RESET
+========================= */
+
+*{
+
+margin:0;
+padding:0;
+
+box-sizing:border-box;
+
+font-family:'Inter',sans-serif;
+
+-webkit-tap-highlight-color:
+transparent;
+
+}
+
+/* =========================
+ROOT
+========================= */
+
+:root{
+
+--primary:#F4B400;
+--secondary:#16A34A;
+
+--dark:#111827;
+--light:#6B7280;
+
+--bg:#F6F7FB;
+--white:#FFFFFF;
+
+--shadow:
+0 10px 30px rgba(0,0,0,.08);
+
+}
+
+/* =========================
+BODY
+========================= */
+
+body{
+
+background:var(--bg);
+
+color:var(--dark);
+
+overflow-x:hidden;
+
+padding-bottom:120px;
+
+}
+
+/* =========================
+HEADER
+========================= */
+
+.servicesHeader{
+
+position:sticky;
+
+top:0;
+
+z-index:9999;
+
+background:white;
+
+padding:16px;
+
+box-shadow:
+0 4px 20px rgba(0,0,0,.05);
+
+}
+
+/* =========================
+TOP ROW
+========================= */
+
+.topRow{
+
+display:flex;
+
+justify-content:space-between;
+
+align-items:center;
+
+}
+
+/* =========================
+LOCATION
+========================= */
+
+.locationArea{
+
+cursor:pointer;
+
+}
+
+.locationLabel{
+
+font-size:12px;
+
+font-weight:700;
+
+color:#6B7280;
+
+}
+
+.locationCity{
+
+font-size:20px;
+
+font-weight:900;
+
+margin-top:2px;
+
+}
+
+/* =========================
+PROFILE
+========================= */
+
+.profileBtn{
+
+width:48px;
+height:48px;
+
+border:none;
+
+border-radius:14px;
+
+background:#F3F4F6;
+
+font-size:18px;
+
+cursor:pointer;
+
+}
+
+/* =========================
+SEARCH
+========================= */
+
+.searchWrap{
+
+margin-top:14px;
+
+}
+
+.searchBar{
+
+height:58px;
+
+background:#F6F7FB;
+
+border-radius:18px;
+
+display:flex;
+
+align-items:center;
+
+padding:0 16px;
+
+}
+
+.searchBar i{
+
+color:#16A34A;
+
+font-size:18px;
+
+}
+
+.searchBar input{
+
+flex:1;
+
+border:none;
+
+outline:none;
+
+background:none;
+
+padding-left:12px;
+
+font-size:15px;
+
+font-weight:600;
+
+}
+
+.searchBar input::placeholder{
+
+color:#9CA3AF;
+
+}
+
+</style>
+
+</head>
+
+<body>
+
+<!-- =========================
+HEADER
+========================= -->
+
+<header
+class="servicesHeader">
+
+<div class="topRow">
+
+<div
+class="locationArea"
+onclick="window.location.href='location.html'">
+
+<div class="locationLabel">
+
+Laundry Services In
+
+</div>
+
+<div
+class="locationCity"
+id="currentCity">
+
+Kasganj
+
+</div>
+
+</div>
+
+<button
+class="profileBtn"
+onclick="window.location.href='profile.html'">
+
+<i class="fa-regular fa-user"></i>
+
+</button>
+
+</div>
+
+<div class="searchWrap">
+
+<div class="searchBar">
+
+<i class="fa-solid fa-magnifying-glass"></i>
+
+<input
+id="serviceSearch"
+type="text"
+placeholder="Search laundry services">
+
+<button
+class="voiceBtn"
+id="voiceSearchBtn">
+
+<i class="fa-solid fa-microphone"></i>
+
+</button>
+
+</div>
+
+<div
+class="searchSuggestions"
+id="searchSuggestions">
+
+</div>
+
+</div>
+
+</header>
+<!-- =========================
+HERO OFFERS
+========================= -->
+
+<section class="heroSection">
+
+<div class="offerSlider">
+
+<!-- CARD 1 -->
+
+<div class="offerCard greenCard">
+
+<div class="offerContent">
+
+<div class="offerTag">
+
+FIRST ORDER
+
+</div>
+
+<h2>
+
+50% OFF
+
+</h2>
+
+<p>
+
+On Premium Laundry Services
+
+</p>
+
+<button class="offerBtn">
+
+Order Now
+
+</button>
+
+</div>
+
+<div class="offerImage">
+
+🧺
+
+</div>
+
+</div>
+
+<!-- CARD 2 -->
+
+<div class="offerCard yellowCard">
+
+<div class="offerContent">
+
+<div class="offerTag">
+
+REFER & EARN
+
+</div>
+
+<h2>
+
+₹150 BONUS
+
+</h2>
+
+<p>
+
+Invite Friends & Earn Cashback
+
+</p>
+
+<button class="offerBtn">
+
+Invite Now
+
+</button>
+
+</div>
+
+<div class="offerImage">
+
+🎁
+
+</div>
+
+</div>
+
+<!-- CARD 3 -->
+
+<div class="offerCard darkCard">
+
+<div class="offerContent">
+
+<div class="offerTag">
+
+EXPRESS DELIVERY
+
+</div>
+
+<h2>
+
+30 MIN PICKUP
+
+</h2>
+
+<p>
+
+Fast Pickup Across Your City
+
+</p>
+
+<button class="offerBtn">
+
+Book Pickup
+
+</button>
+
+</div>
+
+<div class="offerImage">
+
+⚡
+
+</div>
+
+</div>
+
+</div>
+
+</section>
+
+<!-- =========================
+QUICK ACTIONS
+========================= -->
+
+<section class="quickActions">
+
+<div class="quickGrid">
+
+<div class="quickCard">
+
+<div class="quickIcon">
+
+🧺
+
+</div>
+
+<span>
+
+Wash & Fold
+
+</span>
+
+</div>
+
+<div class="quickCard">
+
+<div class="quickIcon">
+
+👔
+
+</div>
+
+<span>
+
+Dry Clean
+
+</span>
+
+</div>
+
+<div class="quickCard">
+
+<div class="quickIcon">
+
+🔥
+
+</div>
+
+<span>
+
+Steam Iron
+
+</span>
+
+</div>
+
+<div class="quickCard">
+
+<div class="quickIcon">
+
+👟
+
+</div>
+
+<span>
+
+Shoe Care
+
+</span>
+
+</div>
+
+</div>
+
+</section>
+
+<style>
+
+/* =========================
+HERO SECTION
+========================= */
+
+.heroSection{
+
+padding:18px 16px 10px;
+
+}
+
+/* =========================
+SLIDER
+========================= */
+
+.offerSlider{
+
+display:flex;
+
+gap:14px;
+
+overflow-x:auto;
+
+scrollbar-width:none;
+
+scroll-snap-type:x mandatory;
+
+}
+
+.offerSlider::-webkit-scrollbar{
+
+display:none;
+
+}
+
+/* =========================
+CARD
+========================= */
+
+.offerCard{
+
+min-width:92%;
+
+border-radius:28px;
+
+padding:24px;
+
+display:flex;
+
+justify-content:space-between;
+
+align-items:center;
+
+scroll-snap-align:start;
+
+color:white;
+
+position:relative;
+
+overflow:hidden;
+
+}
+
+/* =========================
+CARD THEMES
+========================= */
+
+.greenCard{
+
+background:
+linear-gradient(
+135deg,
+#16A34A,
+#22C55E
+);
+
+}
+
+.yellowCard{
+
+background:
+linear-gradient(
+135deg,
+#F4B400,
+#FACC15
+);
+
+color:#111827;
+
+}
+
+.darkCard{
+
+background:
+linear-gradient(
+135deg,
+#111827,
+#1F2937
+);
+
+}
+
+/* =========================
+CONTENT
+========================= */
+
+.offerTag{
+
+font-size:11px;
+
+font-weight:900;
+
+letter-spacing:1px;
+
+opacity:.9;
+
+}
+
+.offerContent h2{
+
+font-size:34px;
+
+font-weight:900;
+
+margin-top:8px;
+
+line-height:1;
+
+}
+
+.offerContent p{
+
+margin-top:10px;
+
+font-size:14px;
+
+line-height:1.5;
+
+max-width:190px;
+
+}
+
+/* =========================
+BUTTON
+========================= */
+
+.offerBtn{
+
+margin-top:18px;
+
+height:42px;
+
+padding:0 18px;
+
+border:none;
+
+border-radius:14px;
+
+background:white;
+
+color:#111827;
+
+font-size:13px;
+
+font-weight:800;
+
+cursor:pointer;
+
+}
+
+/* =========================
+IMAGE
+========================= */
+
+.offerImage{
+
+font-size:80px;
+
+opacity:.95;
+
+}
+
+/* =========================
+QUICK ACTIONS
+========================= */
+
+.quickActions{
+
+padding:8px 16px 18px;
+
+}
+
+.quickGrid{
+
+display:grid;
+
+grid-template-columns:
+repeat(4,1fr);
+
+gap:12px;
+
+}
+
+/* =========================
+QUICK CARD
+========================= */
+
+.quickCard{
+
+background:white;
+
+border-radius:22px;
+
+padding:16px 10px;
+
+display:flex;
+
+flex-direction:column;
+
+align-items:center;
+
+justify-content:center;
+
+gap:10px;
+
+box-shadow:
+0 8px 24px rgba(0,0,0,.05);
+
+cursor:pointer;
+
+transition:.25s;
+
+}
+
+.quickCard:hover{
+
+transform:
+translateY(-3px);
+
+}
+
+/* =========================
+ICON
+========================= */
+
+.quickIcon{
+
+width:54px;
+height:54px;
+
+border-radius:18px;
+
+background:#F6F7FB;
+
+display:flex;
+
+align-items:center;
+
+justify-content:center;
+
+font-size:28px;
+
+}
+
+.quickCard span{
+
+font-size:12px;
+
+font-weight:800;
+
+text-align:center;
+
+line-height:1.4;
+
+}
+
+/* =========================
+DESKTOP
+========================= */
+
+@media(min-width:992px){
+
+.heroSection{
+
+padding:24px;
+
+}
+
+.offerCard{
+
+min-width:48%;
+
+}
+
+.quickGrid{
+
+grid-template-columns:
+repeat(8,1fr);
+
+}
+
+}
+
+</style>
+<!-- =========================
+CATEGORY FILTER
+========================= -->
+
+<section class="categorySection">
+
+<div
+class="categoryWrapper"
+id="categoryWrapper">
+
+<button
+class="categoryChip activeChip"
+data-category="All">
+
+All
+
+</button>
+
+<button
+class="categoryChip"
+data-category="Dry Cleaning">
+
+Dry Cleaning
+
+</button>
+
+<button
+class="categoryChip"
+data-category="Wash & Fold">
+
+Wash & Fold
+
+</button>
+
+<button
+class="categoryChip"
+data-category="Steam Iron">
+
+Steam Iron
+
+</button>
+
+<button
+class="categoryChip"
+data-category="Shoe Care">
+
+Shoe Care
+
+</button>
+
+<button
+class="categoryChip"
+data-category="Curtains">
+
+Curtains
+
+</button>
+
+<button
+class="categoryChip"
+data-category="Blankets">
+
+Blankets
+
+</button>
+
+<button
+class="categoryChip"
+data-category="Premium">
+
+Premium
+
+</button>
+
+</div>
+
+</section>
+
+<style>
+
+/* =========================
+CATEGORY SECTION
+========================= */
+
+.categorySection{
+
+position:sticky;
+
+top:94px;
+
+z-index:998;
+
+background:var(--bg);
+
+padding:12px 16px;
+
+}
+
+/* =========================
+WRAPPER
+========================= */
+
+.categoryWrapper{
+
+display:flex;
+
+gap:10px;
+
+overflow-x:auto;
+
+scrollbar-width:none;
+
+padding-bottom:4px;
+
+}
+
+.categoryWrapper::-webkit-scrollbar{
+
+display:none;
+
+}
+
+/* =========================
+CATEGORY CHIP
+========================= */
+
+.categoryChip{
+
+height:42px;
+
+padding:0 18px;
+
+border:none;
+
+border-radius:999px;
+
+background:white;
+
+color:#111827;
+
+font-size:13px;
+
+font-weight:800;
+
+white-space:nowrap;
+
+cursor:pointer;
+
+box-shadow:
+0 6px 18px rgba(0,0,0,.05);
+
+transition:.25s;
+
+}
+
+.categoryChip:hover{
+
+transform:
+translateY(-2px);
+
+}
+
+/* =========================
+ACTIVE CHIP
+========================= */
+
+.activeChip{
+
+background:#16A34A;
+
+color:white;
+
+box-shadow:
+0 8px 24px rgba(22,163,74,.30);
+
+}
+
+/* =========================
+DESKTOP
+========================= */
+
+@media(min-width:992px){
+
+.categoryWrapper{
+
+justify-content:center;
+
+flex-wrap:wrap;
+
+}
+
+}
+
+</style>
+
+<script>
+
+/* =========================
+CATEGORY ENGINE
+========================= */
+
+let currentCategory = "All";
+
+document
+.querySelectorAll(
+".categoryChip"
+)
+
+.forEach(chip=>{
+
+chip.addEventListener(
+
+"click",
+
+()=>{
+
+document
+.querySelectorAll(
+".categoryChip"
+)
+
+.forEach(item=>{
+
+item.classList.remove(
+"activeChip"
+);
+
+});
+
+chip.classList.add(
+"activeChip"
+);
+
+currentCategory =
+chip.dataset.category;
+
+/* Trigger service reload */
+
+if(
+window.filterServices
+){
+
+window.filterServices(
+currentCategory
+);
+
+}
+
+}
+
+);
+
+});
+
+</script>
+<!-- =========================
+POPULAR SERVICES
+========================= -->
+
+<section class="servicesSection">
+
+<div class="sectionHeader">
+
+<h2>
+
+Popular Services
+
+</h2>
+
+<button>
+
+View All
+
+</button>
+
+</div>
+
+<div
+id="servicesGrid"
+class="servicesGrid">
+
+<!-- Dynamic Services -->
+
+</div>
+
+</section>
+
+<style>
+
+/* =========================
+SERVICES SECTION
+========================= */
+
+.servicesSection{
+
+padding:18px 16px;
+
+}
+
+/* =========================
+HEADER
+========================= */
+
+.sectionHeader{
+
+display:flex;
+
+justify-content:space-between;
+
+align-items:center;
+
+margin-bottom:18px;
+
+}
+
+.sectionHeader h2{
+
+font-size:24px;
+
+font-weight:900;
+
+color:#111827;
+
+}
+
+.sectionHeader button{
+
+border:none;
+
+background:none;
+
+font-size:13px;
+
+font-weight:800;
+
+color:#16A34A;
+
+cursor:pointer;
+
+}
+/* =========================
+VOICE BUTTON
+========================= */
+
+.voiceBtn{
+
+width:38px;
+height:38px;
+
+border:none;
+
+background:#16A34A;
+
+color:white;
+
+border-radius:12px;
+
+cursor:pointer;
+
+flex-shrink:0;
+
+}
+
+/* =========================
+SUGGESTIONS
+========================= */
+
+.searchSuggestions{
+
+display:none;
+
+background:white;
+
+margin-top:8px;
+
+border-radius:18px;
+
+overflow:hidden;
+
+box-shadow:
+0 10px 30px rgba(0,0,0,.08);
+
+}
+
+.searchItem{
+
+padding:14px 16px;
+
+border-bottom:
+1px solid #F3F4F6;
+
+font-size:14px;
+
+font-weight:600;
+
+cursor:pointer;
+
+}
+
+.searchItem:last-child{
+
+border-bottom:none;
+
+}
+
+.searchItem:hover{
+
+background:#F9FAFB;
+
+}
+/* =========================
+GRID
+========================= */
+
+.servicesGrid{
+
+display:grid;
+
+grid-template-columns:
+repeat(2,1fr);
+
+gap:14px;
+
+}
+
+/* =========================
+CARD
+========================= */
+
+.serviceCard{
+
+background:white;
+
+border-radius:24px;
+
+overflow:hidden;
+
+box-shadow:
+0 10px 25px rgba(0,0,0,.06);
+
+position:relative;
+
+transition:.25s;
+
+cursor:pointer;
+
+}
+
+.serviceCard:hover{
+
+transform:
+translateY(-3px);
+
+}
+
+/* =========================
+IMAGE
+========================= */
+
+.serviceImage{
+
+height:140px;
+
+position:relative;
+
+overflow:hidden;
+
+background:#F9FAFB;
+
+}
+
+.serviceImage img{
+
+width:100%;
+
+height:100%;
+
+object-fit:cover;
+
+}
+
+/* =========================
+BADGES
+========================= */
+
+.discountBadge{
+
+position:absolute;
+
+top:10px;
+left:10px;
+
+background:#EF4444;
+
+color:white;
+
+font-size:11px;
+
+font-weight:900;
+
+padding:5px 8px;
+
+border-radius:999px;
+
+}
+
+.ratingBadge{
+
+position:absolute;
+
+top:10px;
+right:10px;
+
+background:white;
+
+padding:5px 8px;
+
+border-radius:999px;
+
+font-size:11px;
+
+font-weight:800;
+
+}
+
+/* =========================
+WISHLIST
+========================= */
+
+.wishlistBtn{
+
+position:absolute;
+
+bottom:10px;
+right:10px;
+
+width:36px;
+height:36px;
+
+border:none;
+
+border-radius:50%;
+
+background:white;
+
+font-size:15px;
+
+cursor:pointer;
+
+box-shadow:
+0 6px 14px rgba(0,0,0,.12);
+
+}
+
+/* =========================
+CONTENT
+========================= */
+
+.serviceBody{
+
+padding:14px;
+
+}
+
+.serviceCategory{
+
+font-size:11px;
+
+font-weight:800;
+
+color:#16A34A;
+
+margin-bottom:6px;
+
+}
+
+.serviceName{
+
+font-size:15px;
+
+font-weight:900;
+
+line-height:1.4;
+
+color:#111827;
+
+}
+
+.serviceDescription{
+
+font-size:12px;
+
+color:#6B7280;
+
+line-height:1.5;
+
+margin-top:6px;
+
+min-height:34px;
+
+}
+
+/* =========================
+BOTTOM
+========================= */
+
+.serviceBottom{
+
+margin-top:14px;
+
+display:flex;
+
+justify-content:space-between;
+
+align-items:center;
+
+}
+
+.priceBox{
+
+display:flex;
+
+flex-direction:column;
+
+}
+
+.oldPrice{
+
+font-size:11px;
+
+color:#9CA3AF;
+
+text-decoration:line-through;
+
+}
+
+.newPrice{
+
+font-size:20px;
+
+font-weight:900;
+
+color:#111827;
+
+}
+
+.addBtn{
+
+height:38px;
+
+padding:0 16px;
+
+border:none;
+
+border-radius:12px;
+
+background:#16A34A;
+
+color:white;
+
+font-size:12px;
+
+font-weight:900;
+
+cursor:pointer;
+
+}
+
+/* =========================
+DESKTOP
+========================= */
+
+@media(min-width:992px){
+
+.servicesGrid{
+
+grid-template-columns:
+repeat(4,1fr);
+
+gap:20px;
+
+}
+
+}
+
+</style>
+
+<script>
+
+/* =========================
+TEMP DATA
+========================= */
+
+<script type="module">
+
+/* =========================
+FIREBASE
+========================= */
+
+import { db }
+from "./js/firebase.js";
+
+import {
+
+collection,
+query,
+where,
+orderBy,
+onSnapshot
+
+}
+
+from
+
+"https://www.gstatic.com/firebasejs/12.11.0/firebase-firestore.js";
+
+/* =========================
+GLOBAL DATA
+========================= */
+
+window.allServices = [];
+
+/* =========================
+LOAD SERVICES
+========================= */
+
+function loadServices(){
+
+const serviceQuery =
+
+query(
+
+collection(
+db,
+"services"
+),
+
+where(
+"active",
+"==",
+true
+)
+
+);
+
+onSnapshot(
+
+serviceQuery,
+
+(snapshot)=>{
+
+window.allServices = [];
+
+snapshot.forEach(doc=>{
+
+window.allServices.push({
+
+id:doc.id,
+
+...doc.data()
+
+});
+
+});
+
+buildCategories();
+
+renderServices(
+window.allServices
+);
+
+renderFavorites();
+
+console.log(
+
+"Services Loaded:",
+
+window.allServices.length
+
+);
+
+}
+
+);
+
+}
+
+/* =========================
+BUILD CATEGORIES
+========================= */
+
+function buildCategories(){
+
+const categories =
+new Set();
+
+window.allServices.forEach(service=>{
+
+if(service.category){
+
+categories.add(
+service.category
+);
+
+}
+
+});
+
+let html = `
+
+<button
+class="categoryChip activeChip"
+data-category="All">
+
+All
+
+</button>
+
+`;
+
+categories.forEach(category=>{
+
+html += `
+
+<button
+class="categoryChip"
+data-category="${category}">
+
+${category}
+
+</button>
+
+`;
+
+});
+
+document.getElementById(
+"categoryWrapper"
+).innerHTML =
+html;
+
+bindCategories();
+
+}
+
+/* =========================
+CATEGORY EVENTS
+========================= */
+
+function bindCategories(){
+
+document
+.querySelectorAll(
+".categoryChip"
+)
+
+.forEach(chip=>{
+
+chip.addEventListener(
+
+"click",
+
+()=>{
+
+document
+.querySelectorAll(
+".categoryChip"
+)
+
+.forEach(item=>{
+
+item.classList.remove(
+"activeChip"
+);
+
+});
+
+chip.classList.add(
+"activeChip"
+);
+
+filterServices(
+chip.dataset.category
+);
+
+}
+
+);
+
+});
+
+}
+
+/* =========================
+START
+========================= */
+
+loadServices();
+
+</script>
+
+id:"1",
+
+name:"Shirt Dry Cleaning",
+
+category:"Dry Cleaning",
+
+description:"Premium stain removal & fabric care",
+
+price:49,
+
+oldPrice:79,
+
+rating:"4.8",
+
+discount:"38% OFF",
+
+image:"https://images.unsplash.com/photo-1521572267360-ee0c2909d518?w=600"
+
+},
+
+{
+
+id:"2",
+
+name:"Wash & Fold",
+
+category:"Wash & Fold",
+
+description:"Fresh wash with soft folding",
+
+price:79,
+
+oldPrice:119,
+
+rating:"4.9",
+
+discount:"33% OFF",
+
+image:"https://images.unsplash.com/photo-1517677208171-0bc6725a3e60?w=600"
+
+},
+
+{
+
+id:"3",
+
+name:"Steam Iron",
+
+category:"Steam Iron",
+
+description:"Perfect wrinkle-free finishing",
+
+price:15,
+
+oldPrice:25,
+
+rating:"4.7",
+
+discount:"40% OFF",
+
+image:"https://images.unsplash.com/photo-1582735689369-4fe89db7114c?w=600"
+
+},
+
+{
+
+id:"4",
+
+name:"Shoe Cleaning",
+
+category:"Shoe Care",
+
+description:"Deep cleaning and whitening",
+
+price:199,
+
+oldPrice:299,
+
+rating:"4.9",
+
+discount:"35% OFF",
+
+image:"https://images.unsplash.com/photo-1542291026-7eec264c27ff?w=600"
+
+}
+
+];
+
+/* =========================
+RENDER SERVICES
+========================= */
+
+window.renderServices =
+function(data){
+
+const grid =
+
+document.getElementById(
+"servicesGrid"
+);
+
+grid.innerHTML = "";
+
+data.forEach(service=>{
+
+grid.innerHTML += `
+
+<div
+class="serviceCard"
+onclick="openService('${service.id}')">
+
+<div class="serviceImage">
+
+<img
+src="${service.image}">
+
+<div class="discountBadge">
+
+${service.discount}
+
+</div>
+
+<div class="ratingBadge">
+
+⭐ ${service.rating}
+
+</div>
+
+<button
+class="wishlistBtn"
+onclick="event.stopPropagation()">
+
+❤
+
+</button>
+
+</div>
+
+<div class="serviceBody">
+
+<div class="serviceCategory">
+
+${service.category}
+
+</div>
+
+<div class="serviceName">
+
+${service.name}
+
+</div>
+
+<div class="serviceDescription">
+
+${service.description}
+
+</div>
+
+<div class="serviceBottom">
+
+<div class="priceBox">
+
+<div class="oldPrice">
+
+₹${service.oldPrice}
+
+</div>
+
+<div class="newPrice">
+
+₹${getServicePrice(service)}
+
+</div>
+
+</div>
+
+<button
+class="addBtn"
+onclick="event.stopPropagation();addToCart('${service.id}','${service.name}',${service.price},'${service.category}')">
+
+Add
+
+</button>
+
+</div>
+
+</div>
+
+</div>
+
+`;
+
+});
+
+};
+
+/* =========================
+FILTER
+========================= */
+
+window.filterServices =
+function(category){
+
+if(category==="All"){
+
+renderServices(
+allServices
+);
+
+return;
+
+}
+
+const filtered =
+
+allServices.filter(
+
+service=>
+
+service.category ===
+category
+
+);
+
+renderServices(
+filtered
+);
+
+};
+
+/* =========================
+OPEN SERVICE
+========================= */
+
+window.openService =
+function(id){
+
+window.location.href =
+
+`service-details.html?id=${id}`;
+
+};
+
+/* =========================
+INITIAL LOAD
+========================= */
+
+renderServices(
+allServices
+);
+
+</script>
+<!-- =========================
+RECENTLY ORDERED
+========================= -->
+
+<section class="recentSection">
+
+<div class="sectionHeader">
+
+<h2>
+
+Recently Ordered
+
+</h2>
+
+<button>
+
+View All
+
+</button>
+
+</div>
+
+<div
+class="recentScroller"
+id="recentScroller">
+
+<div class="recentCard">
+
+<div class="recentIcon">
+
+👔
+
+</div>
+
+<div class="recentInfo">
+
+<h4>
+
+Shirt Dry Cleaning
+
+</h4>
+
+<p>
+
+Last ordered 2 days ago
+
+</p>
+
+</div>
+
+<button>
+
+Reorder
+
+</button>
+
+</div>
+
+<div class="recentCard">
+
+<div class="recentIcon">
+
+🧺
+
+</div>
+
+<div class="recentInfo">
+
+<h4>
+
+Wash & Fold
+
+</h4>
+
+<p>
+
+Last ordered 5 days ago
+
+</p>
+
+</div>
+
+<button>
+
+Reorder
+
+</button>
+
+</div>
+
+</div>
+
+</section>
+
+<!-- =========================
+RECOMMENDED
+========================= -->
+
+<section class="recommendSection">
+
+<div class="sectionHeader">
+
+<h2>
+
+Recommended For You
+
+</h2>
+
+<button>
+
+See More
+
+</button>
+
+</div>
+
+<div class="recommendGrid">
+
+<div class="recommendCard">
+
+<div class="recommendTop">
+
+🔥
+
+</div>
+
+<h4>
+
+Express Laundry
+
+</h4>
+
+<p>
+
+30 Minute Pickup
+
+</p>
+
+</div>
+
+<div class="recommendCard">
+
+<div class="recommendTop">
+
+🎁
+
+</div>
+
+<h4>
+
+Premium Care
+
+</h4>
+
+<p>
+
+Delicate Fabric Experts
+
+</p>
+
+</div>
+
+<div class="recommendCard">
+
+<div class="recommendTop">
+
+⭐
+
+</div>
+
+<h4>
+
+Top Rated
+
+</h4>
+
+<p>
+
+Customer Favorites
+
+</p>
+
+</div>
+
+</div>
+
+</section>
+
+<style>
+
+/* =========================
+RECENT SECTION
+========================= */
+
+.recentSection{
+
+padding:20px 16px;
+
+}
+
+.recentScroller{
+
+display:flex;
+
+gap:14px;
+
+overflow-x:auto;
+
+scrollbar-width:none;
+
+}
+
+.recentScroller::-webkit-scrollbar{
+
+display:none;
+
+}
+
+/* =========================
+RECENT CARD
+========================= */
+
+.recentCard{
+
+min-width:290px;
+
+background:white;
+
+border-radius:22px;
+
+padding:16px;
+
+display:flex;
+
+align-items:center;
+
+gap:12px;
+
+box-shadow:
+0 8px 20px rgba(0,0,0,.05);
+
+}
+
+.recentIcon{
+
+width:56px;
+height:56px;
+
+border-radius:16px;
+
+background:#F6F7FB;
+
+display:flex;
+
+justify-content:center;
+align-items:center;
+
+font-size:28px;
+
+}
+
+.recentInfo{
+
+flex:1;
+
+}
+
+.recentInfo h4{
+
+font-size:14px;
+
+font-weight:900;
+
+}
+
+.recentInfo p{
+
+font-size:12px;
+
+color:#6B7280;
+
+margin-top:4px;
+
+}
+
+.recentCard button{
+
+height:38px;
+
+padding:0 14px;
+
+border:none;
+
+border-radius:12px;
+
+background:#16A34A;
+
+color:white;
+
+font-size:12px;
+
+font-weight:800;
+
+}
+
+/* =========================
+RECOMMENDED
+========================= */
+
+.recommendSection{
+
+padding:0 16px 20px;
+
+}
+
+.recommendGrid{
+
+display:grid;
+
+grid-template-columns:
+repeat(3,1fr);
+
+gap:12px;
+
+}
+
+.recommendCard{
+
+background:white;
+
+padding:18px 12px;
+
+border-radius:20px;
+
+text-align:center;
+
+box-shadow:
+0 8px 20px rgba(0,0,0,.05);
+
+}
+
+.recommendTop{
+
+font-size:34px;
+
+margin-bottom:10px;
+
+}
+
+.recommendCard h4{
+
+font-size:13px;
+
+font-weight:900;
+
+}
+
+.recommendCard p{
+
+font-size:11px;
+
+margin-top:5px;
+
+color:#6B7280;
+
+line-height:1.4;
+
+}
+
+@media(max-width:768px){
+
+.recommendGrid{
+
+grid-template-columns:
+repeat(2,1fr);
+
+}
+
+}
+
+</style>
+<!-- =========================
+FLOATING CART BAR
+========================= -->
+
+<div
+class="floatingCart"
+id="floatingCart">
+
+<div class="cartLeft">
+
+<div
+class="cartCount"
+id="floatingCartCount">
+
+0 Items
+
+</div>
+
+<div
+class="cartPrice"
+id="floatingCartPrice">
+
+₹0
+
+</div>
+
+</div>
+
+<button
+class="viewCartBtn"
+onclick="goCart()">
+
+View Cart
+
+<i class="fa-solid fa-arrow-right"></i>
+
+</button>
+
+</div>
+
+<style>
+
+/* =========================
+FLOATING CART
+========================= */
+
+.floatingCart{
+
+position:fixed;
+
+left:16px;
+right:16px;
+bottom:86px;
+
+height:64px;
+
+background:#16A34A;
+
+border-radius:20px;
+
+padding:0 18px;
+
+display:none;
+
+align-items:center;
+
+justify-content:space-between;
+
+box-shadow:
+0 15px 35px rgba(22,163,74,.35);
+
+z-index:99999;
+
+animation:
+slideCart .25s ease;
+
+}
+
+/* =========================
+ANIMATION
+========================= */
+
+@keyframes slideCart{
+
+from{
+
+opacity:0;
+
+transform:
+translateY(30px);
+
+}
+
+to{
+
+opacity:1;
+
+transform:
+translateY(0);
+
+}
+
+}
+
+/* =========================
+LEFT
+========================= */
+
+.cartLeft{
+
+display:flex;
+
+flex-direction:column;
+
+}
+
+.cartCount{
+
+font-size:12px;
+
+font-weight:800;
+
+color:white;
+
+opacity:.9;
+
+}
+
+.cartPrice{
+
+font-size:20px;
+
+font-weight:900;
+
+color:white;
+
+margin-top:2px;
+
+}
+
+/* =========================
+BUTTON
+========================= */
+
+.viewCartBtn{
+
+height:42px;
+
+padding:0 16px;
+
+border:none;
+
+border-radius:14px;
+
+background:white;
+
+color:#111827;
+
+font-size:13px;
+
+font-weight:900;
+
+display:flex;
+
+align-items:center;
+
+gap:8px;
+
+cursor:pointer;
+
+}
+
+/* =========================
+DESKTOP
+========================= */
+
+@media(min-width:992px){
+
+.floatingCart{
+
+max-width:500px;
+
+margin:auto;
+
+left:50%;
+
+transform:
+translateX(-50%);
+
+right:auto;
+
+}
+
+}
+
+</style>
+
+<script>
+
+/* =========================
+UPDATE FLOATING CART
+========================= */
+
+window.updateFloatingCart =
+function(){
+
+const cart =
+
+JSON.parse(
+
+localStorage.getItem(
+"cart"
+)
+
+|| "[]"
+
+);
+
+let totalItems = 0;
+let totalPrice = 0;
+
+cart.forEach(item=>{
+
+totalItems +=
+
+item.qty || 1;
+
+totalPrice +=
+
+(item.price || 0)
+
+*
+
+(item.qty || 1);
+
+});
+
+const cartBar =
+
+document.getElementById(
+"floatingCart"
+);
+
+const count =
+
+document.getElementById(
+"floatingCartCount"
+);
+
+const price =
+
+document.getElementById(
+"floatingCartPrice"
+);
+
+if(totalItems===0){
+
+cartBar.style.display =
+"none";
+
+return;
+
+}
+
+cartBar.style.display =
+"flex";
+
+count.innerHTML =
+
+totalItems +
+
+" Items";
+
+price.innerHTML =
+
+"₹" +
+
+totalPrice;
+
+};
+
+/* =========================
+OVERRIDE SAVE CART
+========================= */
+
+const originalSaveCart =
+
+window.saveCart;
+
+window.saveCart =
+function(cart){
+
+originalSaveCart(
+cart
+);
+
+updateFloatingCart();
+
+};
+
+/* =========================
+OPEN CART
+========================= */
+
+window.goCart =
+function(){
+
+window.location.href =
+"cart.html";
+
+};
+
+/* =========================
+INIT
+========================= */
+
+document.addEventListener(
+
+"DOMContentLoaded",
+
+()=>{
+
+updateFloatingCart();
+
+}
+
+);
+
+</script>
+<!-- =========================
+FAVORITES SECTION
+========================= -->
+
+<section
+class="favoritesSection"
+id="favoritesSection">
+
+<div class="sectionHeader">
+
+<h2>
+
+Your Favorites
+
+</h2>
+
+<button>
+
+See All
+
+</button>
+
+</div>
+
+<div
+class="favoritesGrid"
+id="favoritesGrid">
+
+</div>
+
+</section>
+
+<style>
+
+/* =========================
+FAVORITES
+========================= */
+
+.favoritesSection{
+
+padding:20px 16px;
+
+display:none;
+
+}
+
+.favoritesGrid{
+
+display:grid;
+
+grid-template-columns:
+repeat(2,1fr);
+
+gap:14px;
+
+}
+
+/* =========================
+ACTIVE HEART
+========================= */
+
+.wishlistBtn.active{
+
+background:#EF4444;
+
+color:white;
+
+}
+
+</style>
+
+<script>
+
+/* =========================
+GET FAVORITES
+========================= */
+
+window.getFavorites =
+function(){
+
+return JSON.parse(
+
+localStorage.getItem(
+"favorites"
+)
+
+|| "[]"
+
+);
+
+};
+
+/* =========================
+SAVE FAVORITES
+========================= */
+
+window.saveFavorites =
+function(data){
+
+localStorage.setItem(
+
+"favorites",
+
+JSON.stringify(data)
+
+);
+
+};
+
+/* =========================
+TOGGLE FAVORITE
+========================= */
+
+window.toggleFavorite =
+function(serviceId){
+
+let favorites =
+getFavorites();
+
+if(
+favorites.includes(serviceId)
+){
+
+favorites =
+favorites.filter(
+
+id =>
+
+id !== serviceId
+
+);
+
+}else{
+
+favorites.push(
+serviceId
+);
+
+}
+
+saveFavorites(
+favorites
+);
+
+renderServices(
+window.allServices
+);
+
+renderFavorites();
+
+};
+
+/* =========================
+CHECK FAVORITE
+========================= */
+
+window.isFavorite =
+function(serviceId){
+
+return getFavorites()
+.includes(serviceId);
+
+};
+/* =========================
+RENDER FAVORITES
+========================= */
+
+window.renderFavorites =
+function(){
+
+const favorites =
+
+getFavorites();
+
+const section =
+
+document.getElementById(
+"favoritesSection"
+);
+
+const grid =
+
+document.getElementById(
+"favoritesGrid"
+);
+
+if(
+favorites.length===0
+){
+
+section.style.display =
+"none";
+
+return;
+
+}
+
+section.style.display =
+"block";
+
+const favoriteServices =
+
+window.allServices.filter(
+
+service =>
+
+favorites.includes(
+service.id
+)
+
+);
+
+grid.innerHTML = "";
+
+favoriteServices.forEach(service=>{
+
+grid.innerHTML += `
+
+<div
+class="serviceCard"
+onclick="openService('${service.id}')">
+
+<div class="serviceImage">
+
+<img
+src="${service.image}">
+
+</div>
+
+<div class="serviceBody">
+
+<div class="serviceCategory">
+
+${service.category}
+
+</div>
+
+<div class="serviceName">
+
+${service.name}
+
+</div>
+
+<div class="serviceBottom">
+
+<div class="newPrice">
+
+₹${getServicePrice(service)}
+
+</div>
+
+<button
+class="addBtn">
+
+Add
+
+</button>
+
+</div>
+
+</div>
+
+</div>
+
+`;
+
+});
+
+};
+
+/* =========================
+AUTO LOAD
+========================= */
+
+document.addEventListener(
+
+"DOMContentLoaded",
+
+()=>{
+
+renderFavorites();
+
+}
+
+);
+window.getServicePrice =
+function(service){
+
+const city =
+
+localStorage.getItem(
+"selectedCity"
+)
+
+|| "Kasganj";
+
+const multiplier = {
+
+Kasganj:1,
+
+Agra:1.1,
+
+Noida:1.3,
+
+Lucknow:1.2,
+
+Kanpur:1.15,
+
+Aligarh:1.05
+
+};
+
+const factor =
+
+multiplier[city] || 1;
+
+return Math.round(
+
+(service.price || 0)
+
+* factor
+
+);
+
+};
+
+</script>
+<script>
+
+/* =========================
+SEARCH SYSTEM
+========================= */
+
+const searchInput =
+
+document.getElementById(
+"serviceSearch"
+);
+
+const suggestionBox =
+
+document.getElementById(
+"searchSuggestions"
+);
+
+/* =========================
+RECENT SEARCHES
+========================= */
+
+function getRecentSearches(){
+
+return JSON.parse(
+
+localStorage.getItem(
+"recentSearches"
+)
+
+|| "[]"
+
+);
+
+}
+
+function saveRecentSearch(text){
+
+let searches =
+
+getRecentSearches();
+
+searches = searches.filter(
+
+item => item !== text
+
+);
+
+searches.unshift(text);
+
+searches = searches.slice(0,5);
+
+localStorage.setItem(
+
+"recentSearches",
+
+JSON.stringify(searches)
+
+);
+
+}
+
+/* =========================
+DEBOUNCE
+========================= */
+
+function debounce(func,delay){
+
+let timer;
+
+return function(){
+
+clearTimeout(timer);
+
+timer = setTimeout(
+
+()=>{
+
+func.apply(
+this,
+arguments
+);
+
+},
+
+delay
+
+);
+
+};
+
+}
+
+/* =========================
+SHOW SUGGESTIONS
+========================= */
+
+function showSuggestions(keyword){
+
+if(!keyword){
+
+const recent =
+
+getRecentSearches();
+
+if(recent.length===0){
+
+suggestionBox.style.display =
+"none";
+
+return;
+
+}
+
+suggestionBox.innerHTML =
+
+recent.map(item=>`
+
+<div
+class="searchItem"
+onclick="selectSuggestion('${item}')">
+
+🕒 ${item}
+
+</div>
+
+`).join("");
+
+suggestionBox.style.display =
+"block";
+
+return;
+
+}
+
+const filtered =
+
+window.allServices.filter(
+
+service =>
+
+(service.name || "")
+.toLowerCase()
+.includes(
+keyword
+)
+
+);
+
+suggestionBox.innerHTML =
+
+filtered.slice(0,6).map(service=>`
+
+<div
+class="searchItem"
+onclick="selectSuggestion('${service.name}')">
+
+🔍 ${service.name}
+
+</div>
+
+`).join("");
+
+suggestionBox.style.display =
+
+filtered.length
+
+? "block"
+
+: "none";
+
+}
+
+/* =========================
+SELECT
+========================= */
+
+window.selectSuggestion =
+function(text){
+
+searchInput.value = text;
+
+suggestionBox.style.display =
+"none";
+
+saveRecentSearch(text);
+
+const filtered =
+
+window.allServices.filter(
+
+service =>
+
+(service.name || "")
+.toLowerCase()
+.includes(
+text.toLowerCase()
+)
+
+);
+
+renderServices(
+filtered
+);
+
+};
+
+/* =========================
+INPUT
+========================= */
+
+searchInput.addEventListener(
+
+"input",
+
+debounce(function(){
+
+const value =
+
+this.value
+.toLowerCase()
+.trim();
+
+showSuggestions(
+value
+);
+
+if(!value){
+
+renderServices(
+window.allServices
+);
+
+return;
+
+}
+
+const filtered =
+
+window.allServices.filter(
+
+service =>
+
+(service.name || "")
+.toLowerCase()
+.includes(value)
+
+||
+
+(service.category || "")
+.toLowerCase()
+.includes(value)
+
+);
+
+renderServices(
+filtered
+);
+
+},300)
+
+);
+
+/* =========================
+CLICK OUTSIDE
+========================= */
+
+document.addEventListener(
+
+"click",
+
+e=>{
+
+if(
+
+!e.target.closest(
+".searchBar"
+)
+
+){
+
+suggestionBox.style.display =
+"none";
+
+}
+
+}
+
+);
+
+</script>
+<script>
+
+/* =========================
+VOICE SEARCH
+========================= */
+
+const voiceBtn =
+
+document.getElementById(
+"voiceSearchBtn"
+);
+
+if(
+
+'webkitSpeechRecognition'
+in window
+
+){
+
+const recognition =
+
+new webkitSpeechRecognition();
+
+recognition.lang = "en-IN";
+
+recognition.continuous = false;
+
+recognition.interimResults = false;
+
+voiceBtn.addEventListener(
+
+"click",
+
+()=>{
+
+recognition.start();
+
+showToast(
+"Listening..."
+);
+
+}
+
+);
+
+recognition.onresult =
+function(event){
+
+const text =
+
+event.results[0][0]
+.transcript;
+
+searchInput.value =
+text;
+
+selectSuggestion(
+text
+);
+
+};
+
+}
+</script>
+
