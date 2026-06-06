@@ -1,494 +1,139 @@
 <!DOCTYPE html>
-<html lang="en">
-
+<html>
 <head>
-
 <meta charset="UTF-8">
-
-<meta
-name="viewport"
-content="width=device-width, initial-scale=1.0">
-
-<title>
-
-QuickPress
-
-</title>
-
-<link
-href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap"
-rel="stylesheet">
-
-<style>*{
-margin:0;
-padding:0;
-box-sizing:border-box;
-font-family:'Inter',sans-serif;
-}
-
-:root{
-
---primary:#F4B400;
---secondary:#16A34A;
---dark:#0F172A;
---gray:#64748B;
-
-}
-
-body{
-
-height:100vh;
-
-background:#fff;
-
-display:flex;
-
-justify-content:center;
-
-align-items:center;
-
-overflow:hidden;
-
-position:relative;
-
-}
-
-/* Background */
-
-.bgCircle{
-
-position:absolute;
-
-border-radius:50%;
-
-background:
-rgba(22,163,74,.06);
-
-animation:
-floatBg 8s infinite ease-in-out;
-
-}
-
-.c1{
-
-width:220px;
-height:220px;
-
-top:-80px;
-left:-80px;
-
-}
-
-.c2{
-
-width:180px;
-height:180px;
-
-right:-60px;
-top:120px;
-
-}
-
-.c3{
-
-width:280px;
-height:280px;
-
-bottom:-120px;
-left:25%;
-
-}
-
-@keyframes floatBg{
-
-50%{
-
-transform:
-translateY(-20px);
-
-}
-
-}
-
-/* Main */
-
-.splashContainer{
-
-position:relative;
-
-text-align:center;
-
-z-index:5;
-
-}
-
-/* Clothes */
-
-.floatingClothes{
-
-position:absolute;
-
-font-size:44px;
-
-opacity:0;
-
-}
-
-.shirt{
-
-left:-80px;
-
-top:0;
-
-animation:
-flyLeft 1.4s forwards;
-
-}
-
-.tshirt{
-
-right:-80px;
-
-top:0;
-
-animation:
-flyRight 1.4s forwards;
-
-}
-
-.pant{
-
-left:50%;
-
-top:-80px;
-
-transform:
-translateX(-50%);
-
-animation:
-flyTop 1.4s forwards;
-
-}
-
-/* Basket */
-
-.basket{
-
-font-size:90px;
-
-animation:
-basketDrop 1.2s ease;
-
-}
-
-/* Brand */
-
-.brand{
-
-font-size:42px;
-
-font-weight:900;
-
-color:#0F172A;
-
-margin-top:20px;
-
-animation:
-zoomIn 1.2s ease;
-
-}
-
-.tagline{
-
-margin-top:8px;
-
-font-size:14px;
-
-font-weight:600;
-
-color:#64748B;
-
-}
-
-@keyframes basketDrop{
-
-0%{
-
-opacity:0;
-
-transform:
-translateY(-200px);
-
-}
-
-100%{
-
-opacity:1;
-
-transform:
-translateY(0);
-
-}
-
-}
-
-@keyframes flyLeft{
-
-0%{
-
-opacity:0;
-
-transform:
-translateX(-120px);
-
-}
-
-100%{
-
-opacity:1;
-
-transform:
-translateX(0);
-
-}
-
-}
-
-@keyframes flyRight{
-
-0%{
-
-opacity:0;
-
-transform:
-translateX(120px);
-
-}
-
-100%{
-
-opacity:1;
-
-transform:
-translateX(0);
-
-}
-
-}
-
-@keyframes flyTop{
-
-0%{
-
-opacity:0;
-
-transform:
-translate(-50%,-120px);
-
-}
-
-100%{
-
-opacity:1;
-
-transform:
-translate(-50%,0);
-
-}
-
-}
-
-@keyframes zoomIn{
-
-0%{
-
-opacity:0;
-
-transform:
-scale(.6);
-
-}
-
-100%{
-
-opacity:1;
-
-transform:
-scale(1);
-
-}
-
-}</style>
-
-</head>
-
-<body>
-
-<div class="bgCircle c1"></div>
-<div class="bgCircle c2"></div>
-<div class="bgCircle c3"></div>
-
-<div class="splashContainer">
-
-<div class="floatingClothes shirt">
-
-👔
-
-</div>
-
-<div class="floatingClothes tshirt">
-
-👕
-
-</div>
-
-<div class="floatingClothes pant">
-
-👖
-
-</div>
-
-<div class="basket">
-
-🧺
-
-</div>
-
-<div class="brand">
-
-QuickPress
-
-</div>
-
-<div class="tagline">
-
-Premium Laundry Marketplace
-
-</div>
-
-<div class="progressBar">
-
-<div class="progressFill"></div>
-
-</div>
-
-<div class="loadingText">
-
-Preparing Your Laundry Experience...
-
-</div>
-
-</div>
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>QuickPress</title>
 
 <style>
 
-.progressBar{
-
-width:240px;
-
-height:8px;
-
-background:#E5E7EB;
-
-border-radius:999px;
-
-overflow:hidden;
-
-margin:30px auto 0;
-
+*{
+margin:0;
+padding:0;
+box-sizing:border-box;
+font-family:Inter,sans-serif;
 }
 
-.progressFill{
+body{
+background:#0F172A;
+height:100vh;
+display:flex;
+justify-content:center;
+align-items:center;
+overflow:hidden;
+}
 
+.splash{
+text-align:center;
+color:white;
+}
+
+.logo{
+font-size:64px;
+font-weight:900;
+color:#F4B400;
+animation:zoom 1.5s ease;
+}
+
+.logo span{
+color:#16A34A;
+}
+
+.tagline{
+margin-top:10px;
+font-size:18px;
+opacity:.9;
+}
+
+.loader{
+width:220px;
+height:6px;
+background:rgba(255,255,255,.15);
+border-radius:50px;
+margin:30px auto 0;
+overflow:hidden;
+}
+
+.loaderFill{
 height:100%;
-
-width:0;
-
-background:
-linear-gradient(
+width:0%;
+background:linear-gradient(
 90deg,
 #F4B400,
 #16A34A
 );
-
-animation:
-loading 2.5s linear forwards;
-
+animation:load 3s linear forwards;
 }
 
-@keyframes loading{
-
-from{
-
-width:0%;
-
+@keyframes load{
+from{width:0}
+to{width:100%}
 }
 
-to{
-
-width:100%;
-
+@keyframes zoom{
+0%{
+transform:scale(.5);
+opacity:0;
+}
+100%{
+transform:scale(1);
+opacity:1;
+}
 }
 
-}
-
-.loadingText{
-
-margin-top:18px;
-
+.version{
+margin-top:25px;
 font-size:13px;
-
-font-weight:700;
-
-color:#64748B;
-
+opacity:.6;
 }
 
-</style><script type="module">
+</style>
+</head>
 
-import { auth }
-from "./firebase.js";
+<body>
 
-import {
+<div class="splash">
 
-onAuthStateChanged
+<div class="logo">
+Quick<span>Press</span>
+</div>
 
-}
+<div class="tagline">
+Express Laundry in 30 Minutes
+</div>
 
-from
+<div class="loader">
+<div class="loaderFill"></div>
+</div>
 
-"https://www.gstatic.com/firebasejs/12.11.0/firebase-auth.js";
+<div class="version">
+Version 1.0
+</div>
+
+</div>
+
+<script>
 
 setTimeout(()=>{
 
-onAuthStateChanged(
+const uid =
+localStorage.getItem("qp_uid");
 
-auth,
+if(uid){
 
-(user)=>{
-
-if(user){
-
-window.location.replace(
-"index.html"
-);
+window.location.href =
+"index.html";
 
 }else{
 
-window.location.replace(
-"login.html"
-);
+window.location.href =
+"auth.html";
 
 }
 
-}
-
-);
-
-},2500);
+},3000);
 
 </script>
 
 </body>
-
 </html>
