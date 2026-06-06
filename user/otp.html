@@ -202,7 +202,7 @@ Resend OTP
 
 </div>
 
-</div><script type="module">
+<script type="module">
 
 import {
 
@@ -224,7 +224,8 @@ doc,
 setDoc,
 serverTimestamp
 
-} from "https://www.gstatic.com/firebasejs/12.11.0/firebase-firestore.js";window.recaptchaVerifier =
+} from "https://www.gstatic.com/firebasejs/12.11.0/firebase-firestore.js";
+window.recaptchaVerifier =
 new RecaptchaVerifier(
 
 auth,
@@ -237,7 +238,8 @@ size:"invisible"
 
 }
 
-);const phone =
+);
+  const phone =
 
 localStorage.getItem(
 "qp_phone"
@@ -274,7 +276,8 @@ alert(
 
 }
 
-sendOTP();document
+sendOTP();
+  document
 
 .getElementById(
 "verifyBtn"
@@ -349,7 +352,8 @@ alert(
 
 }
 
-});<script>
+});
+<script>
 
 document
 
