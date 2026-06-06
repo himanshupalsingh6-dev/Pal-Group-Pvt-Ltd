@@ -1,23 +1,11 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
-
 <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>QuickPress - Verify OTP</title>
 
-<meta
-name="viewport"
-content="width=device-width, initial-scale=1.0">
-
-<title>
-
-Verify OTP
-
-</title>
-
-<link
-href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap"
-rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
 
 <style>
 
@@ -29,220 +17,174 @@ font-family:'Inter',sans-serif;
 }
 
 body{
-
-background:#fff;
-
+background:#ffffff;
 min-height:100vh;
-
 display:flex;
-
-flex-direction:column;
-
 justify-content:center;
-
-padding:24px;
-
+align-items:center;
+padding:20px;
 }
 
-:root{
-
---yellow:#F4B400;
---green:#16A34A;
---dark:#111827;
---gray:#6B7280;
-
-}.otpCard{
-
-max-width:450px;
-
+.otpCard{
 width:100%;
-
-margin:auto;
-
+max-width:450px;
 }
 
 .logo{
-
 font-size:42px;
-
 font-weight:900;
-
-color:var(--green);
-
+color:#16A34A;
+margin-bottom:10px;
 }
 
 .title{
-
-font-size:32px;
-
+font-size:34px;
 font-weight:900;
-
-margin-top:14px;
-
-color:var(--dark);
-
+color:#111827;
+margin-bottom:10px;
 }
 
 .sub{
-
-margin-top:8px;
-
-color:var(--gray);
-
+color:#6B7280;
 line-height:1.6;
-
+margin-bottom:24px;
 }
 
 .otpInput{
-
 width:100%;
-
-height:64px;
-
-margin-top:24px;
-
+height:65px;
 border:1px solid #E5E7EB;
-
 border-radius:18px;
-
-font-size:22px;
-
-text-align:center;
-
-letter-spacing:8px;
-
+font-size:24px;
 font-weight:800;
-
+text-align:center;
+letter-spacing:8px;
+outline:none;
 }
 
 .verifyBtn{
-
 width:100%;
-
 height:60px;
-
 margin-top:18px;
-
 border:none;
-
 border-radius:18px;
-
-background:var(--green);
-
-color:white;
-
+background:#16A34A;
+color:#fff;
 font-size:18px;
-
 font-weight:800;
-
 cursor:pointer;
+}
 
+.verifyBtn:disabled{
+opacity:.6;
+cursor:not-allowed;
 }
 
 .resend{
-
-margin-top:18px;
-
+margin-top:20px;
 text-align:center;
-
-color:var(--green);
-
 font-weight:700;
-
+color:#16A34A;
 cursor:pointer;
+}
 
+.loader{
+display:none;
+margin-top:15px;
+text-align:center;
+font-weight:700;
+color:#16A34A;
+}
+
+#recaptcha-container{
+margin-top:10px;
 }
 
 </style>
 </head>
-<body><div class="otpCard">
+
+<body>
+
+<div class="otpCard">
 
 <div class="logo">
-
 QuickPress
-
 </div>
 
 <div class="title">
-
 Verify OTP
-
 </div>
 
 <div class="sub">
-
-Enter the verification code
-sent to your mobile number
-
+Enter the OTP sent to your mobile number.
 </div>
 
 <input
-
+type="text"
 id="otpCode"
-
 class="otpInput"
-
 maxlength="6"
-
 placeholder="------">
+
+<div id="recaptcha-container"></div>
 
 <button
 id="verifyBtn"
 class="verifyBtn">
-
 Verify OTP
-
 </button>
+
+<div id="loader" class="loader">
+Verifying...
+</div>
 
 <div
 id="resendBtn"
 class="resend">
-
 Resend OTP
+</div>
 
 </div>
 
 <script type="module">
 
-import {
-
-auth,
-db
-
-} from "./js/firebase.js";
+import { auth, db } from "./firebase.js";
 
 import {
-
-signInWithPhoneNumber,
-RecaptchaVerifier
-
+RecaptchaVerifier,
+signInWithPhoneNumber
 } from "https://www.gstatic.com/firebasejs/12.11.0/firebase-auth.js";
 
 import {
-
 doc,
 setDoc,
 serverTimestamp
-
 } from "https://www.gstatic.com/firebasejs/12.11.0/firebase-firestore.js";
-window.recaptchaVerifier =
-new RecaptchaVerifier(
 
-auth,
+const verifyBtn =
+document.getElementById("verifyBtn");
 
-"verifyBtn",
+const resendBtn =
+document.getElementById("resendBtn");
 
-{
+const loader =
+document.getElementById("loader");
 
-size:"invisible"
+const phone =
+localStorage.getItem("qp_phone");
 
+if(!phone){
+alert("Phone number missing");
+window.location.href="auth.html";
 }
 
-);
-  const phone =
-
-localStorage.getItem(
-"qp_phone"
+window.recaptchaVerifier =
+new RecaptchaVerifier(
+auth,
+"recaptcha-container",
+{
+size:"invisible"
+}
 );
 
 async function sendOTP(){
@@ -250,93 +192,70 @@ async function sendOTP(){
 try{
 
 const result =
-
 await signInWithPhoneNumber(
-
 auth,
-
-"+91" + phone,
-
+"+91"+phone,
 window.recaptchaVerifier
-
 );
 
 window.confirmationResult =
 result;
 
+console.log("OTP Sent");
+
 }catch(error){
 
-console.log(error);
+console.error(error);
 
-alert(
-"OTP Send Failed"
-);
+alert("OTP Send Failed");
 
 }
 
 }
 
 sendOTP();
-  document
 
-.getElementById(
-"verifyBtn"
-)
-
-.addEventListener(
-
+verifyBtn.addEventListener(
 "click",
-
 async()=>{
 
 const otp =
+document.getElementById("otpCode").value;
 
-document
-.getElementById(
-"otpCode"
-)
-.value;
+if(otp.length !== 6){
+alert("Enter valid OTP");
+return;
+}
+
+if(!window.confirmationResult){
+alert("OTP session not found");
+return;
+}
 
 try{
 
-const result =
+loader.style.display="block";
+verifyBtn.disabled=true;
 
-await window.confirmationResult.confirm(
-otp
-);
+const result =
+await window.confirmationResult.confirm(otp);
 
 const user =
 result.user;
 
 await setDoc(
-
-doc(
-db,
-"users",
-user.uid
-),
-
+doc(db,"users",user.uid),
 {
-
 uid:user.uid,
-
 phone:user.phoneNumber,
-
-createdAt:
-serverTimestamp()
-
+createdAt:serverTimestamp()
 },
-
 {merge:true}
-
 );
 
 localStorage.setItem(
-
 "qp_uid",
-
 user.uid
-
 );
 
 window.location.href =
@@ -344,33 +263,22 @@ window.location.href =
 
 }catch(error){
 
-console.log(error);
+console.error(error);
 
-alert(
-"Invalid OTP"
-);
+alert("Invalid OTP");
+
+loader.style.display="none";
+verifyBtn.disabled=false;
 
 }
 
 });
-<script>
 
-document
-
-.getElementById(
-"resendBtn"
-)
-
-.addEventListener(
-
+resendBtn.addEventListener(
 "click",
-
 ()=>{
-
 location.reload();
-
 }
-
 );
 
 </script>
