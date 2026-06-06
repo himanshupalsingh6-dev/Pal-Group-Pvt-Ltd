@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
 
 <meta charset="UTF-8">
@@ -10,7 +11,7 @@ content="width=device-width, initial-scale=1.0">
 
 <title>
 
-QuickPress Authentication
+QuickPress Login & Signup
 
 </title>
 
@@ -31,152 +32,151 @@ box-sizing:border-box;
 font-family:'Inter',sans-serif;
 }
 
-body{
+:root{
 
-background:#fff;
-
-min-height:100vh;
-
-overflow:hidden;
+--primary:#F4B400;
+--secondary:#16A34A;
+--dark:#111827;
+--gray:#6B7280;
+--border:#E5E7EB;
 
 }
 
-:root{
+body{
 
---yellow:#F4B400;
---green:#16A34A;
---dark:#111827;
---gray:#6B7280;
+background:#ffffff;
 
-}.backgroundGrid{
+overflow-x:hidden;
+
+min-height:100vh;
+
+}.hero{
 
 height:45vh;
+
+position:relative;
+
+overflow:hidden;
+
+background:
+linear-gradient(
+135deg,
+#F4B400,
+#FFD54F
+);
+
+}
+
+.heroContent{
+
+position:absolute;
+
+left:24px;
+
+bottom:40px;
+
+color:white;
+
+z-index:2;
+
+}
+
+.heroTitle{
+
+font-size:42px;
+
+font-weight:900;
+
+line-height:1.1;
+
+}
+
+.heroSub{
+
+margin-top:10px;
+
+font-size:15px;
+
+opacity:.95;
+
+}
+
+.heroGrid{
+
+position:absolute;
+
+inset:0;
 
 display:grid;
 
 grid-template-columns:
 repeat(4,1fr);
 
-gap:12px;
+gap:10px;
 
-padding:14px;
+padding:15px;
 
-overflow:hidden;
+opacity:.25;
 
 }
 
-.gridItem{
+.heroItem{
 
-background:#F0FDFA;
+background:white;
 
 border-radius:20px;
-
-display:flex;
-
-align-items:center;
-
-justify-content:center;
-
-font-size:42px;
-
-animation:float 4s ease-in-out infinite;
-
-}
-
-@keyframes float{
-
-0%,100%{
-transform:translateY(0);
-}
-
-50%{
-transform:translateY(-8px);
-}
 
 }.authCard{
 
 background:white;
 
-margin-top:-20px;
+margin-top:-28px;
 
-border-radius:30px 30px 0 0;
+border-radius:32px 32px 0 0;
 
 padding:24px;
 
-min-height:55vh;
-
 position:relative;
 
-z-index:10;
+z-index:5;
+
+min-height:60vh;
 
 }
 
-.logoBox{
+.logo{
 
-width:90px;
-height:90px;
-
-background:var(--yellow);
-
-border-radius:24px;
-
-display:flex;
-
-align-items:center;
-
-justify-content:center;
-
-margin:auto;
-
-}
-
-.logoText{
-
-font-size:34px;
+font-size:42px;
 
 font-weight:900;
-
-color:var(--green);
-
-}.authTitle{
-
-text-align:center;
-
-font-size:34px;
-
-font-weight:900;
-
-margin-top:20px;
 
 color:var(--dark);
 
 }
 
-.authSubtitle{
+.subTitle{
 
-text-align:center;
-
-font-size:15px;
+font-size:14px;
 
 color:var(--gray);
 
-margin-top:6px;
+margin-top:4px;
 
 }.phoneBox{
 
-margin-top:28px;
+height:62px;
 
 display:flex;
 
 align-items:center;
 
-border:1px solid #E5E7EB;
+border:1px solid var(--border);
 
 border-radius:18px;
 
-height:60px;
-
 padding:0 16px;
+
+margin-top:22px;
 
 }
 
@@ -198,13 +198,13 @@ outline:none;
 
 font-size:16px;
 
-}
+font-weight:600;
 
-.continueBtn{
+}.continueBtn{
 
 width:100%;
 
-height:58px;
+height:60px;
 
 margin-top:18px;
 
@@ -212,7 +212,7 @@ border:none;
 
 border-radius:18px;
 
-background:var(--green);
+background:var(--secondary);
 
 color:white;
 
@@ -230,59 +230,192 @@ width:100%;
 
 height:58px;
 
-margin-top:18px;
+margin-top:14px;
 
-border:2px solid #E5E7EB;
+border:2px solid var(--border);
 
 border-radius:18px;
 
 background:white;
 
+font-size:16px;
+
 font-weight:800;
+
+cursor:pointer;
+
+}.divider{
+
+display:flex;
+
+align-items:center;
+
+gap:12px;
+
+margin:20px 0;
+
+color:var(--gray);
+
+font-size:13px;
+
+font-weight:700;
+
+}
+
+.divider::before,
+.divider::after{
+
+content:"";
+
+flex:1;
+
+height:1px;
+
+background:#E5E7EB;
+
+}
+
+.terms{
+
+margin-top:20px;
+
+font-size:12px;
+
+line-height:1.7;
+
+text-align:center;
+
+color:var(--gray);
+
+}.signupSheet{
+
+position:fixed;
+
+left:0;
+right:0;
+bottom:-100%;
+
+background:white;
+
+border-radius:30px 30px 0 0;
+
+padding:24px;
+
+box-shadow:
+0 -10px 40px rgba(0,0,0,.15);
+
+transition:.4s;
+
+z-index:9999;
+
+}
+
+.signupSheet.show{
+
+bottom:0;
+
+}
+
+.sheetInput{
+
+width:100%;
+
+height:58px;
+
+border:1px solid var(--border);
+
+border-radius:16px;
+
+padding:0 16px;
+
+margin-top:14px;
+
+}
+
+.sheetBtn{
+
+width:100%;
+
+height:58px;
+
+margin-top:18px;
+
+background:var(--secondary);
+
+border:none;
+
+border-radius:16px;
+
+color:white;
+
+font-weight:800;
+
+}@media(max-width:480px){
+
+.heroTitle{
+
+font-size:34px;
+
+}
+
+.logo{
+
+font-size:36px;
+
+}
 
 }
 
 </style>
-
 </head>
+<body><div class="hero">
 
-<body>
+<div class="heroGrid">
 
-<div class="backgroundGrid">
+<div class="heroItem"></div>
+<div class="heroItem"></div>
+<div class="heroItem"></div>
+<div class="heroItem"></div>
 
-<div class="gridItem">👕</div>
-<div class="gridItem">🧺</div>
-<div class="gridItem">👔</div>
-<div class="gridItem">🧥</div>
+<div class="heroItem"></div>
+<div class="heroItem"></div>
+<div class="heroItem"></div>
+<div class="heroItem"></div>
 
-<div class="gridItem">🧦</div>
-<div class="gridItem">🛏️</div>
-<div class="gridItem">👖</div>
-<div class="gridItem">🧴</div>
+</div>
+
+<div class="heroContent">
+
+<div class="heroTitle">
+
+Laundry<br>
+Made Easy
+
+</div>
+
+<div class="heroSub">
+
+Pickup & Delivery In Minutes
+
+</div>
+
+</div>
 
 </div><div class="authCard">
 
-<div class="logoBox">
-
-<div class="logoText">
-
-Q
-
-</div>
-
-</div>
-
-<h1 class="authTitle">
+<div class="logo">
 
 QuickPress
 
-</h1>
+</div>
 
-<p class="authSubtitle">
+<div class="subTitle">
 
-India's Premium Laundry App
+Login or create account
 
-</p><form id="authForm">
+</div>
+
+<form id="authForm">
 
 <div class="phoneBox">
 
@@ -302,6 +435,8 @@ type="tel"
 
 placeholder="Enter mobile number"
 
+maxlength="10"
+
 required>
 
 </div>
@@ -314,7 +449,16 @@ Continue
 
 </button>
 
-</form><button
+</form>
+
+<div class="divider">
+
+OR
+
+</div>
+
+<button
+id="googleLoginBtn"
 class="googleBtn">
 
 <i class="fa-brands fa-google"></i>
@@ -323,37 +467,201 @@ Continue With Google
 
 </button>
 
-<p
-style="
-
-font-size:12px;
-
-text-align:center;
-
-color:#6B7280;
-
-margin-top:20px;
-
-line-height:1.6;
-
-">
+<div class="terms">
 
 By continuing you agree to
-
-Terms of Service,
-
-Privacy Policy
-
-and Content Policy.
-
-</p>
+QuickPress Terms,
+Privacy Policy and Content Policy.
 
 </div>
+
+</div><script type="module">
+
+import {
+auth,
+db
+} from "./js/firebase.js";
+
+import {
+
+GoogleAuthProvider,
+
+signInWithPopup
+
+} from "https://www.gstatic.com/firebasejs/12.11.0/firebase-auth.js";
+
+import {
+
+doc,
+getDoc,
+setDoc,
+serverTimestamp
+
+} from "https://www.gstatic.com/firebasejs/12.11.0/firebase-firestore.js";const googleBtn =
+
+document.getElementById(
+"googleLoginBtn"
+);
+
+googleBtn.addEventListener(
+
+"click",
+
+async()=>{
+
+try{
+
+const provider =
+new GoogleAuthProvider();
+
+const result =
+
+await signInWithPopup(
+auth,
+provider
+);
+
+const user =
+result.user;
+
+const ref =
+
+doc(
+db,
+"users",
+user.uid
+);
+
+const snap =
+
+await getDoc(ref);
+
+if(!snap.exists()){
+
+await setDoc(
+ref,
+{
+uid:user.uid,
+name:user.displayName,
+email:user.email,
+photo:user.photoURL,
+provider:"google",
+createdAt:
+serverTimestamp()
+}
+);
+
+}
+
+localStorage.setItem(
+
+"qp_uid",
+
+user.uid
+
+);
+
+window.location.href =
+"notification-permission.html";
+
+}catch(error){
+
+console.log(error);
+
+alert(
+"Google Login Failed"
+);
+
+}
+
+});document
+
+.getElementById(
+"authForm"
+)
+
+.addEventListener(
+
+"submit",
+
+async(e)=>{
+
+e.preventDefault();
+
+const phone =
+
+document
+.getElementById(
+"phone"
+)
+.value;
+
+if(phone.length < 10){
+
+alert(
+"Enter valid mobile number"
+);
+
+return;
+
+}
+
+localStorage.setItem(
+"qp_phone",
+phone
+);
+
+/* Firebase Phone Auth Later */
+
+window.location.href =
+"otp.html";
+
+});window.createAccount =
+async function(){
+
+const name =
+
+document.getElementById(
+"signupName"
+).value;
+
+const email =
+
+document.getElementById(
+"signupEmail"
+).value;
+
+const referral =
+
+document.getElementById(
+"signupReferral"
+).value;
+
+localStorage.setItem(
+
+"qp_signup_data",
+
+JSON.stringify({
+
+name,
+email,
+referral
+
+})
+
+);
+
+window.location.href =
+"otp.html";
+
+};
+
+</script>
 <div
 id="signupSheet"
 class="signupSheet">
 
-<h2 class="sheetTitle">
+<h2>
 
 Create Account
 
@@ -383,147 +691,5 @@ Continue
 </button>
 
 </div>
-  
-  
-  
-<script>
-
-document
-
-.getElementById(
-"authForm"
-)
-
-.addEventListener(
-
-"submit",
-
-function(e){
-
-e.preventDefault();
-
-const phone =
-
-document
-.getElementById(
-"phone"
-).value;
-
-localStorage.setItem(
-
-"qp_phone",
-
-phone
-
-);
-
-/*
-
-Firebase Check
-
-User Exists?
-
-YES -> OTP
-
-NO -> Signup Sheet
-
-*/
-
-const user =
-
-checkUser(phone);
-
-if(user){
-
-localStorage.setItem(
-"qp_phone",
-phone
-);
-
-window.location.href =
-"otp.html";
-
-}else{
-
-document
-.getElementById(
-"signupSheet"
-)
-.classList.add("show");
-
-}
-  function createAccount(){
-
-const phone =
-
-document
-.getElementById(
-"phone"
-).value;
-
-const name =
-
-document
-.getElementById(
-"signupName"
-).value;
-
-const email =
-
-document
-.getElementById(
-"signupEmail"
-).value;
-
-const referral =
-
-document
-.getElementById(
-"signupReferral"
-).value;
-
-const users =
-
-JSON.parse(
-localStorage.getItem(
-"qp_users"
-) || "[]"
-);
-
-users.push({
-
-phone,
-name,
-email,
-referral
-
-});
-
-localStorage.setItem(
-
-"qp_users",
-
-JSON.stringify(users)
-
-);
-
-localStorage.setItem(
-
-"qp_phone",
-
-phone
-
-);
-
-window.location.href =
-"otp.html";
-
-}
-}
-
-);
-
-</script>
-
 </body>
 </html>
