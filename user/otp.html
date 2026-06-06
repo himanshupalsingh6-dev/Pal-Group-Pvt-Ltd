@@ -28,210 +28,106 @@ box-sizing:border-box;
 font-family:'Inter',sans-serif;
 }
 
-:root{
-
---primary:#F4B400;
---secondary:#16A34A;
---dark:#0F172A;
---gray:#64748B;
-
-}
-
 body{
 
 background:#fff;
 
-}
-
-.hero{
-
-height:32vh;
-
-background:
-linear-gradient(
-135deg,
-#16A34A,
-#0EA84B
-);
+min-height:100vh;
 
 display:flex;
 
+flex-direction:column;
+
 justify-content:center;
 
-align-items:center;
-
-color:white;
-
-text-align:center;
-
-padding:20px;
+padding:24px;
 
 }
 
-.hero h1{
+:root{
 
-font-size:34px;
+--yellow:#F4B400;
+--green:#16A34A;
+--dark:#111827;
+--gray:#6B7280;
+
+}.otpCard{
+
+max-width:450px;
+
+width:100%;
+
+margin:auto;
+
+}
+
+.logo{
+
+font-size:42px;
 
 font-weight:900;
 
-}
-
-.hero p{
-
-margin-top:10px;
-
-opacity:.9;
+color:var(--green);
 
 }
 
-</style>
+.title{
 
-</head>
+font-size:32px;
 
-<body>
+font-weight:900;
 
-<div class="hero">
+margin-top:14px;
 
-<div>
-
-<h1>
-
-Verify OTP
-
-</h1>
-
-<p>
-
-Secure Login To QuickPress
-
-</p>
-
-</div>
-
-</div><div class="otpCard">
-
-<h2>
-
-Enter Verification Code
-
-</h2>
-
-<p id="phoneText">
-
-+91 XXXXX XXXXX
-
-</p>
-
-<style>
-
-.otpCard{
-
-margin-top:-25px;
-
-background:#fff;
-
-border-radius:30px 30px 0 0;
-
-padding:28px 24px;
-
-min-height:68vh;
+color:var(--dark);
 
 }
 
-.otpCard h2{
+.sub{
 
-text-align:center;
+margin-top:8px;
 
-font-size:24px;
+color:var(--gray);
 
-font-weight:800;
-
-}
-
-.otpCard p{
-
-text-align:center;
-
-margin-top:10px;
-
-color:#64748B;
+line-height:1.6;
 
 }
 
-</style><div class="otpWrapper">
+.otpInput{
 
-<input class="otpBox" maxlength="1">
-<input class="otpBox" maxlength="1">
-<input class="otpBox" maxlength="1">
-<input class="otpBox" maxlength="1">
-<input class="otpBox" maxlength="1">
-<input class="otpBox" maxlength="1">
+width:100%;
 
-</div>
+height:64px;
 
-<style>
+margin-top:24px;
 
-.otpWrapper{
+border:1px solid #E5E7EB;
 
-display:flex;
-
-justify-content:center;
-
-gap:10px;
-
-margin-top:30px;
-
-}
-
-.otpBox{
-
-width:50px;
-
-height:58px;
-
-border:2px solid #E5E7EB;
-
-border-radius:14px;
-
-text-align:center;
+border-radius:18px;
 
 font-size:22px;
 
+text-align:center;
+
+letter-spacing:8px;
+
 font-weight:800;
 
-outline:none;
-
 }
-
-.otpBox:focus{
-
-border-color:#16A34A;
-
-}
-
-</style><button
-class="verifyBtn"
-onclick="verifyOTP()">
-
-Verify OTP
-
-</button>
-
-<style>
 
 .verifyBtn{
 
 width:100%;
 
-height:58px;
+height:60px;
 
-margin-top:28px;
+margin-top:18px;
 
 border:none;
 
 border-radius:18px;
 
-background:#16A34A;
+background:var(--green);
 
 color:white;
 
@@ -243,167 +139,209 @@ cursor:pointer;
 
 }
 
-</style><div class="resendRow">
+.resend{
 
-<span>
+margin-top:18px;
 
-Didn't receive code?
+text-align:center;
 
-</span>
+color:var(--green);
 
-<button
-onclick="resendOTP()">
-
-Resend OTP
-
-</button>
-
-</div>
-
-<style>
-
-.resendRow{
-
-display:flex;
-
-justify-content:center;
-
-align-items:center;
-
-gap:8px;
-
-margin-top:24px;
-
-}
-
-.resendRow span{
-
-font-size:14px;
-
-color:#64748B;
-
-}
-
-.resendRow button{
-
-border:none;
-
-background:none;
-
-font-weight:800;
-
-color:#16A34A;
+font-weight:700;
 
 cursor:pointer;
 
 }
 
-</style><script type="module">
+</style>
+</head>
+<body><div class="otpCard">
 
-import { auth }
-from "./firebase.js";
+<div class="logo">
+
+QuickPress
+
+</div>
+
+<div class="title">
+
+Verify OTP
+
+</div>
+
+<div class="sub">
+
+Enter the verification code
+sent to your mobile number
+
+</div>
+
+<input
+
+id="otpCode"
+
+class="otpInput"
+
+maxlength="6"
+
+placeholder="------">
+
+<button
+id="verifyBtn"
+class="verifyBtn">
+
+Verify OTP
+
+</button>
+
+<div
+id="resendBtn"
+class="resend">
+
+Resend OTP
+
+</div>
+
+</div><script type="module">
 
 import {
 
-PhoneAuthProvider,
-signInWithCredential
+auth,
+db
 
-}
-
-from
-
-"https://www.gstatic.com/firebasejs/12.11.0/firebase-auth.js";
-
-const phone =
-
-sessionStorage.getItem(
-"loginPhone"
-);
-
-document.getElementById(
-"phoneText"
-).innerHTML =
-"+91 " + phone;
-
-</script><script type="module">
-
-import { auth }
-from "./firebase.js";
+} from "./js/firebase.js";
 
 import {
 
-PhoneAuthProvider,
-signInWithCredential
+signInWithPhoneNumber,
+RecaptchaVerifier
+
+} from "https://www.gstatic.com/firebasejs/12.11.0/firebase-auth.js";
+
+import {
+
+doc,
+setDoc,
+serverTimestamp
+
+} from "https://www.gstatic.com/firebasejs/12.11.0/firebase-firestore.js";window.recaptchaVerifier =
+new RecaptchaVerifier(
+
+auth,
+
+"verifyBtn",
+
+{
+
+size:"invisible"
 
 }
 
-from
+);const phone =
 
-"https://www.gstatic.com/firebasejs/12.11.0/firebase-auth.js";
-
-window.verifyOTP =
-async function(){
-
-const otpBoxes =
-
-document.querySelectorAll(
-".otpBox"
+localStorage.getItem(
+"qp_phone"
 );
 
-let code = "";
-
-otpBoxes.forEach(box=>{
-
-code += box.value;
-
-});
-
-if(code.length !== 6){
-
-alert(
-"Enter Valid OTP"
-);
-
-return;
-
-}
+async function sendOTP(){
 
 try{
 
-const verificationId =
-
-sessionStorage.getItem(
-"verificationId"
-);
-
-const credential =
-
-PhoneAuthProvider.credential(
-
-verificationId,
-code
-
-);
-
 const result =
 
-await signInWithCredential(
+await signInWithPhoneNumber(
+
 auth,
-credential
+
+"+91" + phone,
+
+window.recaptchaVerifier
+
 );
 
-sessionStorage.removeItem(
-"verificationId"
-);
+window.confirmationResult =
+result;
 
-window.location.href =
-"signup.html";
+}catch(error){
+
+console.log(error);
+
+alert(
+"OTP Send Failed"
+);
 
 }
 
-catch(error){
+}
 
-console.error(error);
+sendOTP();document
+
+.getElementById(
+"verifyBtn"
+)
+
+.addEventListener(
+
+"click",
+
+async()=>{
+
+const otp =
+
+document
+.getElementById(
+"otpCode"
+)
+.value;
+
+try{
+
+const result =
+
+await window.confirmationResult.confirm(
+otp
+);
+
+const user =
+result.user;
+
+await setDoc(
+
+doc(
+db,
+"users",
+user.uid
+),
+
+{
+
+uid:user.uid,
+
+phone:user.phoneNumber,
+
+createdAt:
+serverTimestamp()
+
+},
+
+{merge:true}
+
+);
+
+localStorage.setItem(
+
+"qp_uid",
+
+user.uid
+
+);
+
+window.location.href =
+"notification-permission.html";
+
+}catch(error){
+
+console.log(error);
 
 alert(
 "Invalid OTP"
@@ -411,58 +349,27 @@ alert(
 
 }
 
-};
+});<script>
 
-</script><script>
+document
 
-const otpInputs =
+.getElementById(
+"resendBtn"
+)
 
-document.querySelectorAll(
-".otpBox"
-);
+.addEventListener(
 
-otpInputs.forEach((input,index)=>{
-
-input.addEventListener(
-
-"input",
+"click",
 
 ()=>{
 
-if(
-
-input.value.length === 1
-
-&&
-
-index < otpInputs.length - 1
-
-){
-
-otpInputs[
-index + 1
-].focus();
-
-}
+location.reload();
 
 }
 
 );
 
-});
-
-window.resendOTP =
-function(){
-
-window.location.href =
-"login.html";
-
-};
-
 </script>
 
-</div>
-
 </body>
-
 </html>
