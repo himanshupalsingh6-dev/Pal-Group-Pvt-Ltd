@@ -240,7 +240,9 @@ background:white;
 
 font-weight:800;
 
-}</style>
+}
+
+</style>
 
 </head>
 
@@ -346,7 +348,45 @@ and Content Policy.
 
 </p>
 
-</div><script>
+</div>
+<div
+id="signupSheet"
+class="signupSheet">
+
+<h2 class="sheetTitle">
+
+Create Account
+
+</h2>
+
+<input
+id="signupName"
+class="sheetInput"
+placeholder="Full Name">
+
+<input
+id="signupEmail"
+class="sheetInput"
+placeholder="Email Address">
+
+<input
+id="signupReferral"
+class="sheetInput"
+placeholder="Referral Code (Optional)">
+
+<button
+class="sheetBtn"
+onclick="createAccount()">
+
+Continue
+
+</button>
+
+</div>
+  
+  
+  
+<script>
 
 document
 
@@ -389,9 +429,96 @@ NO -> Signup Sheet
 
 */
 
+const user =
+
+checkUser(phone);
+
+if(user){
+
+localStorage.setItem(
+"qp_phone",
+phone
+);
+
 window.location.href =
 "otp.html";
 
+}else{
+
+document
+.getElementById(
+"signupSheet"
+)
+.classList.add("show");
+
+}
+  function createAccount(){
+
+const phone =
+
+document
+.getElementById(
+"phone"
+).value;
+
+const name =
+
+document
+.getElementById(
+"signupName"
+).value;
+
+const email =
+
+document
+.getElementById(
+"signupEmail"
+).value;
+
+const referral =
+
+document
+.getElementById(
+"signupReferral"
+).value;
+
+const users =
+
+JSON.parse(
+localStorage.getItem(
+"qp_users"
+) || "[]"
+);
+
+users.push({
+
+phone,
+name,
+email,
+referral
+
+});
+
+localStorage.setItem(
+
+"qp_users",
+
+JSON.stringify(users)
+
+);
+
+localStorage.setItem(
+
+"qp_phone",
+
+phone
+
+);
+
+window.location.href =
+"otp.html";
+
+}
 }
 
 );
