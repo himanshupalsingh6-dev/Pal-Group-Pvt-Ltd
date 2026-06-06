@@ -11,22 +11,13 @@ content="width=device-width, initial-scale=1.0">
 
 <title>
 
-QuickPress | Services
+QuickPress Services
 
 </title>
-
-<meta
-name="theme-color"
-content="#16A34A">
 
 <link
 rel="preconnect"
 href="https://fonts.googleapis.com">
-
-<link
-rel="preconnect"
-href="https://fonts.gstatic.com"
-crossorigin>
 
 <link
 href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap"
@@ -36,243 +27,49 @@ rel="stylesheet">
 rel="stylesheet"
 href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
 
-<style>
-
-/* =========================
-RESET
-========================= */
-
-*{
-
-margin:0;
-padding:0;
-
-box-sizing:border-box;
-
-font-family:'Inter',sans-serif;
-
--webkit-tap-highlight-color:
-transparent;
-
-}
-
-/* =========================
-ROOT
-========================= */
-
-:root{
-
---primary:#F4B400;
---secondary:#16A34A;
-
---dark:#111827;
---light:#6B7280;
-
---bg:#F6F7FB;
---white:#FFFFFF;
-
---shadow:
-0 10px 30px rgba(0,0,0,.08);
-
-}
-
-/* =========================
-BODY
-========================= */
-
-body{
-
-background:var(--bg);
-
-color:var(--dark);
-
-overflow-x:hidden;
-
-padding-bottom:120px;
-
-}
-
-/* =========================
-HEADER
-========================= */
-
-.servicesHeader{
-
-position:sticky;
-
-top:0;
-
-z-index:9999;
-
-background:white;
-
-padding:16px;
-
-box-shadow:
-0 4px 20px rgba(0,0,0,.05);
-
-}
-
-/* =========================
-TOP ROW
-========================= */
-
-.topRow{
-
-display:flex;
-
-justify-content:space-between;
-
-align-items:center;
-
-}
-
-/* =========================
-LOCATION
-========================= */
-
-.locationArea{
-
-cursor:pointer;
-
-}
-
-.locationLabel{
-
-font-size:12px;
-
-font-weight:700;
-
-color:#6B7280;
-
-}
-
-.locationCity{
-
-font-size:20px;
-
-font-weight:900;
-
-margin-top:2px;
-
-}
-
-/* =========================
-PROFILE
-========================= */
-
-.profileBtn{
-
-width:48px;
-height:48px;
-
-border:none;
-
-border-radius:14px;
-
-background:#F3F4F6;
-
-font-size:18px;
-
-cursor:pointer;
-
-}
-
-/* =========================
-SEARCH
-========================= */
-
-.searchWrap{
-
-margin-top:14px;
-
-}
-
-.searchBar{
-
-height:58px;
-
-background:#F6F7FB;
-
-border-radius:18px;
-
-display:flex;
-
-align-items:center;
-
-padding:0 16px;
-
-}
-
-.searchBar i{
-
-color:#16A34A;
-
-font-size:18px;
-
-}
-
-.searchBar input{
-
-flex:1;
-
-border:none;
-
-outline:none;
-
-background:none;
-
-padding-left:12px;
-
-font-size:15px;
-
-font-weight:600;
-
-}
-
-.searchBar input::placeholder{
-
-color:#9CA3AF;
-
-}
-
-</style>
+<link
+rel="stylesheet"
+href="services.css">
 
 </head>
 
 <body>
 
-<!-- =========================
-HEADER
-========================= -->
+<!-- HEADER -->
 
-<header
-class="servicesHeader">
+<header class="servicesHeader">
 
-<div class="topRow">
+<div class="topBar">
 
 <div
-class="locationArea"
+class="locationBox"
 onclick="window.location.href='location.html'">
 
-<div class="locationLabel">
+<span>
 
 Laundry Services In
 
-</div>
+</span>
 
-<div
-class="locationCity"
-id="currentCity">
+<h3 id="currentCity">
 
 Kasganj
 
-</div>
+</h3>
 
 </div>
+
+<div class="headerActions">
 
 <button
-class="profileBtn"
+class="headerBtn">
+
+<i class="fa-regular fa-heart"></i>
+
+</button>
+
+<button
+class="headerBtn"
 onclick="window.location.href='profile.html'">
 
 <i class="fa-regular fa-user"></i>
@@ -281,7 +78,11 @@ onclick="window.location.href='profile.html'">
 
 </div>
 
-<div class="searchWrap">
+</div>
+
+<!-- SEARCH -->
+
+<div class="searchWrapper">
 
 <div class="searchBar">
 
@@ -292,66 +93,33 @@ id="serviceSearch"
 type="text"
 placeholder="Search laundry services">
 
-<button
-class="voiceBtn"
-id="voiceSearchBtn">
-
-<i class="fa-solid fa-microphone"></i>
-
-</button>
-
-</div>
-
-<div
-class="searchSuggestions"
-id="searchSuggestions">
-
 </div>
 
 </div>
 
 </header>
-<!-- =========================
-HERO OFFERS
-========================= -->
 
-<section class="heroSection">
+<!-- OFFER SLIDER -->
+
+<section class="offerSection">
 
 <div class="offerSlider">
 
-<!-- CARD 1 -->
+<div class="offerCard green">
 
-<div class="offerCard greenCard">
+<div>
 
-<div class="offerContent">
+<p>FIRST ORDER</p>
 
-<div class="offerTag">
+<h2>50% OFF</h2>
 
-FIRST ORDER
-
-</div>
-
-<h2>
-
-50% OFF
-
-</h2>
-
-<p>
-
-On Premium Laundry Services
-
-</p>
-
-<button class="offerBtn">
-
-Order Now
-
-</button>
+<span>
+On Laundry Services
+</span>
 
 </div>
 
-<div class="offerImage">
+<div class="offerEmoji">
 
 🧺
 
@@ -359,39 +127,21 @@ Order Now
 
 </div>
 
-<!-- CARD 2 -->
+<div class="offerCard yellow">
 
-<div class="offerCard yellowCard">
+<div>
 
-<div class="offerContent">
+<p>REFER & EARN</p>
 
-<div class="offerTag">
+<h2>₹150</h2>
 
-REFER & EARN
-
-</div>
-
-<h2>
-
-₹150 BONUS
-
-</h2>
-
-<p>
-
-Invite Friends & Earn Cashback
-
-</p>
-
-<button class="offerBtn">
-
-Invite Now
-
-</button>
+<span>
+Invite Friends
+</span>
 
 </div>
 
-<div class="offerImage">
+<div class="offerEmoji">
 
 🎁
 
@@ -399,39 +149,21 @@ Invite Now
 
 </div>
 
-<!-- CARD 3 -->
+<div class="offerCard dark">
 
-<div class="offerCard darkCard">
+<div>
 
-<div class="offerContent">
+<p>EXPRESS</p>
 
-<div class="offerTag">
+<h2>30 MIN</h2>
 
-EXPRESS DELIVERY
-
-</div>
-
-<h2>
-
-30 MIN PICKUP
-
-</h2>
-
-<p>
-
-Fast Pickup Across Your City
-
-</p>
-
-<button class="offerBtn">
-
-Book Pickup
-
-</button>
+<span>
+Pickup Available
+</span>
 
 </div>
 
-<div class="offerImage">
+<div class="offerEmoji">
 
 ⚡
 
@@ -443,42 +175,18 @@ Book Pickup
 
 </section>
 
-<!-- =========================
-QUICK ACTIONS
-========================= -->
+<!-- QUICK CATEGORIES -->
 
-<section class="quickActions">
-
-<div class="quickGrid">
+<section class="quickCategories">
 
 <div class="quickCard">
 
 <div class="quickIcon">
-
-🧺
-
-</div>
-
-<span>
-
-Wash & Fold
-
-</span>
-
-</div>
-
-<div class="quickCard">
-
-<div class="quickIcon">
-
 👔
-
 </div>
 
 <span>
-
-Dry Clean
-
+Dry Cleaning
 </span>
 
 </div>
@@ -486,15 +194,23 @@ Dry Clean
 <div class="quickCard">
 
 <div class="quickIcon">
+🧺
+</div>
 
+<span>
+Wash & Fold
+</span>
+
+</div>
+
+<div class="quickCard">
+
+<div class="quickIcon">
 🔥
-
 </div>
 
 <span>
-
 Steam Iron
-
 </span>
 
 </div>
@@ -502,586 +218,38 @@ Steam Iron
 <div class="quickCard">
 
 <div class="quickIcon">
-
 👟
-
 </div>
 
 <span>
-
 Shoe Care
-
 </span>
-
-</div>
 
 </div>
 
 </section>
 
-<style>
-
-/* =========================
-HERO SECTION
-========================= */
-
-.heroSection{
-
-padding:18px 16px 10px;
-
-}
-
-/* =========================
-SLIDER
-========================= */
-
-.offerSlider{
-
-display:flex;
-
-gap:14px;
-
-overflow-x:auto;
-
-scrollbar-width:none;
-
-scroll-snap-type:x mandatory;
-
-}
-
-.offerSlider::-webkit-scrollbar{
-
-display:none;
-
-}
-
-/* =========================
-CARD
-========================= */
-
-.offerCard{
-
-min-width:92%;
-
-border-radius:28px;
-
-padding:24px;
-
-display:flex;
-
-justify-content:space-between;
-
-align-items:center;
-
-scroll-snap-align:start;
-
-color:white;
-
-position:relative;
-
-overflow:hidden;
-
-}
-
-/* =========================
-CARD THEMES
-========================= */
-
-.greenCard{
-
-background:
-linear-gradient(
-135deg,
-#16A34A,
-#22C55E
-);
-
-}
-
-.yellowCard{
-
-background:
-linear-gradient(
-135deg,
-#F4B400,
-#FACC15
-);
-
-color:#111827;
-
-}
-
-.darkCard{
-
-background:
-linear-gradient(
-135deg,
-#111827,
-#1F2937
-);
-
-}
-
-/* =========================
-CONTENT
-========================= */
-
-.offerTag{
-
-font-size:11px;
-
-font-weight:900;
-
-letter-spacing:1px;
-
-opacity:.9;
-
-}
-
-.offerContent h2{
-
-font-size:34px;
-
-font-weight:900;
-
-margin-top:8px;
-
-line-height:1;
-
-}
-
-.offerContent p{
-
-margin-top:10px;
-
-font-size:14px;
-
-line-height:1.5;
-
-max-width:190px;
-
-}
-
-/* =========================
-BUTTON
-========================= */
-
-.offerBtn{
-
-margin-top:18px;
-
-height:42px;
-
-padding:0 18px;
-
-border:none;
-
-border-radius:14px;
-
-background:white;
-
-color:#111827;
-
-font-size:13px;
-
-font-weight:800;
-
-cursor:pointer;
-
-}
-
-/* =========================
-IMAGE
-========================= */
-
-.offerImage{
-
-font-size:80px;
-
-opacity:.95;
-
-}
-
-/* =========================
-QUICK ACTIONS
-========================= */
-
-.quickActions{
-
-padding:8px 16px 18px;
-
-}
-
-.quickGrid{
-
-display:grid;
-
-grid-template-columns:
-repeat(4,1fr);
-
-gap:12px;
-
-}
-
-/* =========================
-QUICK CARD
-========================= */
-
-.quickCard{
-
-background:white;
-
-border-radius:22px;
-
-padding:16px 10px;
-
-display:flex;
-
-flex-direction:column;
-
-align-items:center;
-
-justify-content:center;
-
-gap:10px;
-
-box-shadow:
-0 8px 24px rgba(0,0,0,.05);
-
-cursor:pointer;
-
-transition:.25s;
-
-}
-
-.quickCard:hover{
-
-transform:
-translateY(-3px);
-
-}
-
-/* =========================
-ICON
-========================= */
-
-.quickIcon{
-
-width:54px;
-height:54px;
-
-border-radius:18px;
-
-background:#F6F7FB;
-
-display:flex;
-
-align-items:center;
-
-justify-content:center;
-
-font-size:28px;
-
-}
-
-.quickCard span{
-
-font-size:12px;
-
-font-weight:800;
-
-text-align:center;
-
-line-height:1.4;
-
-}
-
-/* =========================
-DESKTOP
-========================= */
-
-@media(min-width:992px){
-
-.heroSection{
-
-padding:24px;
-
-}
-
-.offerCard{
-
-min-width:48%;
-
-}
-
-.quickGrid{
-
-grid-template-columns:
-repeat(8,1fr);
-
-}
-
-}
-
-</style>
-<!-- =========================
-CATEGORY FILTER
-========================= -->
+<!-- CATEGORY FILTER -->
 
 <section class="categorySection">
 
 <div
-class="categoryWrapper"
-id="categoryWrapper">
+id="categoryWrapper"
+class="categoryWrapper">
 
 <button
-class="categoryChip activeChip"
+class="categoryChip active"
 data-category="All">
 
 All
 
 </button>
 
-<button
-class="categoryChip"
-data-category="Dry Cleaning">
-
-Dry Cleaning
-
-</button>
-
-<button
-class="categoryChip"
-data-category="Wash & Fold">
-
-Wash & Fold
-
-</button>
-
-<button
-class="categoryChip"
-data-category="Steam Iron">
-
-Steam Iron
-
-</button>
-
-<button
-class="categoryChip"
-data-category="Shoe Care">
-
-Shoe Care
-
-</button>
-
-<button
-class="categoryChip"
-data-category="Curtains">
-
-Curtains
-
-</button>
-
-<button
-class="categoryChip"
-data-category="Blankets">
-
-Blankets
-
-</button>
-
-<button
-class="categoryChip"
-data-category="Premium">
-
-Premium
-
-</button>
-
 </div>
 
 </section>
 
-<style>
-
-/* =========================
-CATEGORY SECTION
-========================= */
-
-.categorySection{
-
-position:sticky;
-
-top:94px;
-
-z-index:998;
-
-background:var(--bg);
-
-padding:12px 16px;
-
-}
-
-/* =========================
-WRAPPER
-========================= */
-
-.categoryWrapper{
-
-display:flex;
-
-gap:10px;
-
-overflow-x:auto;
-
-scrollbar-width:none;
-
-padding-bottom:4px;
-
-}
-
-.categoryWrapper::-webkit-scrollbar{
-
-display:none;
-
-}
-
-/* =========================
-CATEGORY CHIP
-========================= */
-
-.categoryChip{
-
-height:42px;
-
-padding:0 18px;
-
-border:none;
-
-border-radius:999px;
-
-background:white;
-
-color:#111827;
-
-font-size:13px;
-
-font-weight:800;
-
-white-space:nowrap;
-
-cursor:pointer;
-
-box-shadow:
-0 6px 18px rgba(0,0,0,.05);
-
-transition:.25s;
-
-}
-
-.categoryChip:hover{
-
-transform:
-translateY(-2px);
-
-}
-
-/* =========================
-ACTIVE CHIP
-========================= */
-
-.activeChip{
-
-background:#16A34A;
-
-color:white;
-
-box-shadow:
-0 8px 24px rgba(22,163,74,.30);
-
-}
-
-/* =========================
-DESKTOP
-========================= */
-
-@media(min-width:992px){
-
-.categoryWrapper{
-
-justify-content:center;
-
-flex-wrap:wrap;
-
-}
-
-}
-
-</style>
-
-<script>
-
-/* =========================
-CATEGORY ENGINE
-========================= */
-
-let currentCategory = "All";
-
-document
-.querySelectorAll(
-".categoryChip"
-)
-
-.forEach(chip=>{
-
-chip.addEventListener(
-
-"click",
-
-()=>{
-
-document
-.querySelectorAll(
-".categoryChip"
-)
-
-.forEach(item=>{
-
-item.classList.remove(
-"activeChip"
-);
-
-});
-
-chip.classList.add(
-"activeChip"
-);
-
-currentCategory =
-chip.dataset.category;
-
-/* Trigger service reload */
-
-if(
-window.filterServices
-){
-
-window.filterServices(
-currentCategory
-);
-
-}
-
-}
-
-);
-
-});
-
-</script>
-<!-- =========================
-POPULAR SERVICES
-========================= -->
+<!-- POPULAR SERVICES -->
 
 <section class="servicesSection">
 
@@ -1095,7 +263,7 @@ Popular Services
 
 <button>
 
-View All
+See All
 
 </button>
 
@@ -1105,889 +273,105 @@ View All
 id="servicesGrid"
 class="servicesGrid">
 
-<!-- Dynamic Services -->
+</div>
+
+</section>
+
+<!-- TRENDING -->
+
+<section class="servicesSection">
+
+<div class="sectionHeader">
+
+<h2>
+
+Trending Services
+
+</h2>
+
+</div>
+
+<div
+id="trendingGrid"
+class="servicesGrid">
 
 </div>
 
 </section>
 
-<style>
+<!-- RECENTLY ORDERED -->
 
-/* =========================
-SERVICES SECTION
-========================= */
-
-.servicesSection{
-
-padding:18px 16px;
-
-}
-
-/* =========================
-HEADER
-========================= */
-
-.sectionHeader{
-
-display:flex;
-
-justify-content:space-between;
-
-align-items:center;
-
-margin-bottom:18px;
-
-}
-
-.sectionHeader h2{
-
-font-size:24px;
-
-font-weight:900;
-
-color:#111827;
-
-}
-
-.sectionHeader button{
-
-border:none;
-
-background:none;
-
-font-size:13px;
-
-font-weight:800;
-
-color:#16A34A;
-
-cursor:pointer;
-
-}
-/* =========================
-VOICE BUTTON
-========================= */
-
-.voiceBtn{
-
-width:38px;
-height:38px;
-
-border:none;
-
-background:#16A34A;
-
-color:white;
-
-border-radius:12px;
-
-cursor:pointer;
-
-flex-shrink:0;
-
-}
-
-/* =========================
-SUGGESTIONS
-========================= */
-
-.searchSuggestions{
-
-display:none;
-
-background:white;
-
-margin-top:8px;
-
-border-radius:18px;
-
-overflow:hidden;
-
-box-shadow:
-0 10px 30px rgba(0,0,0,.08);
-
-}
-
-.searchItem{
-
-padding:14px 16px;
-
-border-bottom:
-1px solid #F3F4F6;
-
-font-size:14px;
-
-font-weight:600;
-
-cursor:pointer;
-
-}
-
-.searchItem:last-child{
-
-border-bottom:none;
-
-}
-
-.searchItem:hover{
-
-background:#F9FAFB;
-
-}
-/* =========================
-GRID
-========================= */
-
-.servicesGrid{
-
-display:grid;
-
-grid-template-columns:
-repeat(2,1fr);
-
-gap:14px;
-
-}
-
-/* =========================
-CARD
-========================= */
-
-.serviceCard{
-
-background:white;
-
-border-radius:24px;
-
-overflow:hidden;
-
-box-shadow:
-0 10px 25px rgba(0,0,0,.06);
-
-position:relative;
-
-transition:.25s;
-
-cursor:pointer;
-
-}
-
-.serviceCard:hover{
-
-transform:
-translateY(-3px);
-
-}
-
-/* =========================
-IMAGE
-========================= */
-
-.serviceImage{
-
-height:140px;
-
-position:relative;
-
-overflow:hidden;
-
-background:#F9FAFB;
-
-}
-
-.serviceImage img{
-
-width:100%;
-
-height:100%;
-
-object-fit:cover;
-
-}
-
-/* =========================
-BADGES
-========================= */
-
-.discountBadge{
-
-position:absolute;
-
-top:10px;
-left:10px;
-
-background:#EF4444;
-
-color:white;
-
-font-size:11px;
-
-font-weight:900;
-
-padding:5px 8px;
-
-border-radius:999px;
-
-}
-
-.ratingBadge{
-
-position:absolute;
-
-top:10px;
-right:10px;
-
-background:white;
-
-padding:5px 8px;
-
-border-radius:999px;
-
-font-size:11px;
-
-font-weight:800;
-
-}
-
-/* =========================
-WISHLIST
-========================= */
-
-.wishlistBtn{
-
-position:absolute;
-
-bottom:10px;
-right:10px;
-
-width:36px;
-height:36px;
-
-border:none;
-
-border-radius:50%;
-
-background:white;
-
-font-size:15px;
-
-cursor:pointer;
-
-box-shadow:
-0 6px 14px rgba(0,0,0,.12);
-
-}
-
-/* =========================
-CONTENT
-========================= */
-
-.serviceBody{
-
-padding:14px;
-
-}
-
-.serviceCategory{
-
-font-size:11px;
-
-font-weight:800;
-
-color:#16A34A;
-
-margin-bottom:6px;
-
-}
-
-.serviceName{
-
-font-size:15px;
-
-font-weight:900;
-
-line-height:1.4;
-
-color:#111827;
-
-}
-
-.serviceDescription{
-
-font-size:12px;
-
-color:#6B7280;
-
-line-height:1.5;
-
-margin-top:6px;
-
-min-height:34px;
-
-}
-
-/* =========================
-BOTTOM
-========================= */
-
-.serviceBottom{
-
-margin-top:14px;
-
-display:flex;
-
-justify-content:space-between;
-
-align-items:center;
-
-}
-
-.priceBox{
-
-display:flex;
-
-flex-direction:column;
-
-}
-
-.oldPrice{
-
-font-size:11px;
-
-color:#9CA3AF;
-
-text-decoration:line-through;
-
-}
-
-.newPrice{
-
-font-size:20px;
-
-font-weight:900;
-
-color:#111827;
-
-}
-
-.addBtn{
-
-height:38px;
-
-padding:0 16px;
-
-border:none;
-
-border-radius:12px;
-
-background:#16A34A;
-
-color:white;
-
-font-size:12px;
-
-font-weight:900;
-
-cursor:pointer;
-
-}
-
-/* =========================
-DESKTOP
-========================= */
-
-@media(min-width:992px){
-
-.servicesGrid{
-
-grid-template-columns:
-repeat(4,1fr);
-
-gap:20px;
-
-}
-
-}
-
-</style>
-
-<script>
-
-/* =========================
-TEMP DATA
-========================= */
-
-<script type="module">
-
-/* =========================
-FIREBASE
-========================= */
-
-import { db }
-from "./js/firebase.js";
-
-import {
-
-collection,
-query,
-where,
-orderBy,
-onSnapshot
-
-}
-
-from
-
-"https://www.gstatic.com/firebasejs/12.11.0/firebase-firestore.js";
-
-/* =========================
-GLOBAL DATA
-========================= */
-
-window.allServices = [];
-
-/* =========================
-LOAD SERVICES
-========================= */
-
-function loadServices(){
-
-const serviceQuery =
-
-query(
-
-collection(
-db,
-"services"
-),
-
-where(
-"active",
-"==",
-true
-)
-
-);
-
-onSnapshot(
-
-serviceQuery,
-
-(snapshot)=>{
-
-window.allServices = [];
-
-snapshot.forEach(doc=>{
-
-window.allServices.push({
-
-id:doc.id,
-
-...doc.data()
-
-});
-
-});
-
-buildCategories();
-
-renderServices(
-window.allServices
-);
-
-renderFavorites();
-
-console.log(
-
-"Services Loaded:",
-
-window.allServices.length
-
-);
-
-}
-
-);
-
-}
-
-/* =========================
-BUILD CATEGORIES
-========================= */
-
-function buildCategories(){
-
-const categories =
-new Set();
-
-window.allServices.forEach(service=>{
-
-if(service.category){
-
-categories.add(
-service.category
-);
-
-}
-
-});
-
-let html = `
-
-<button
-class="categoryChip activeChip"
-data-category="All">
-
-All
-
-</button>
-
-`;
-
-categories.forEach(category=>{
-
-html += `
-
-<button
-class="categoryChip"
-data-category="${category}">
-
-${category}
-
-</button>
-
-`;
-
-});
-
-document.getElementById(
-"categoryWrapper"
-).innerHTML =
-html;
-
-bindCategories();
-
-}
-
-/* =========================
-CATEGORY EVENTS
-========================= */
-
-function bindCategories(){
-
-document
-.querySelectorAll(
-".categoryChip"
-)
-
-.forEach(chip=>{
-
-chip.addEventListener(
-
-"click",
-
-()=>{
-
-document
-.querySelectorAll(
-".categoryChip"
-)
-
-.forEach(item=>{
-
-item.classList.remove(
-"activeChip"
-);
-
-});
-
-chip.classList.add(
-"activeChip"
-);
-
-filterServices(
-chip.dataset.category
-);
-
-}
-
-);
-
-});
-
-}
-
-/* =========================
-START
-========================= */
-
-loadServices();
-
-</script>
-
-id:"1",
-
-name:"Shirt Dry Cleaning",
-
-category:"Dry Cleaning",
-
-description:"Premium stain removal & fabric care",
-
-price:49,
-
-oldPrice:79,
-
-rating:"4.8",
-
-discount:"38% OFF",
-
-image:"https://images.unsplash.com/photo-1521572267360-ee0c2909d518?w=600"
-
-},
-
-{
-
-id:"2",
-
-name:"Wash & Fold",
-
-category:"Wash & Fold",
-
-description:"Fresh wash with soft folding",
-
-price:79,
-
-oldPrice:119,
-
-rating:"4.9",
-
-discount:"33% OFF",
-
-image:"https://images.unsplash.com/photo-1517677208171-0bc6725a3e60?w=600"
-
-},
-
-{
-
-id:"3",
-
-name:"Steam Iron",
-
-category:"Steam Iron",
-
-description:"Perfect wrinkle-free finishing",
-
-price:15,
-
-oldPrice:25,
-
-rating:"4.7",
-
-discount:"40% OFF",
-
-image:"https://images.unsplash.com/photo-1582735689369-4fe89db7114c?w=600"
-
-},
-
-{
-
-id:"4",
-
-name:"Shoe Cleaning",
-
-category:"Shoe Care",
-
-description:"Deep cleaning and whitening",
-
-price:199,
-
-oldPrice:299,
-
-rating:"4.9",
-
-discount:"35% OFF",
-
-image:"https://images.unsplash.com/photo-1542291026-7eec264c27ff?w=600"
-
-}
-
-];
-
-/* =========================
-RENDER SERVICES
-========================= */
-
-window.renderServices =
-function(data){
-
-const grid =
-
-document.getElementById(
-"servicesGrid"
-);
-
-grid.innerHTML = "";
-
-data.forEach(service=>{
-
-grid.innerHTML += `
-
-<div
-class="serviceCard"
-onclick="openService('${service.id}')">
-
-<div class="serviceImage">
-
-<img
-src="${service.image}">
-
-<div class="discountBadge">
-
-${service.discount}
-
-</div>
-
-<div class="ratingBadge">
-
-⭐ ${service.rating}
-
-</div>
-
-<button
-class="wishlistBtn"
-onclick="event.stopPropagation()">
-
-❤
-
-</button>
-
-</div>
-
-<div class="serviceBody">
-
-<div class="serviceCategory">
-
-${service.category}
-
-</div>
-
-<div class="serviceName">
-
-${service.name}
-
-</div>
-
-<div class="serviceDescription">
-
-${service.description}
-
-</div>
-
-<div class="serviceBottom">
-
-<div class="priceBox">
-
-<div class="oldPrice">
-
-₹${service.oldPrice}
-
-</div>
-
-<div class="newPrice">
-
-₹${getServicePrice(service)}
-
-</div>
-
-</div>
-
-<button
-class="addBtn"
-onclick="event.stopPropagation();addToCart('${service.id}','${service.name}',${service.price},'${service.category}')">
-
-Add
-
-</button>
-
-</div>
-
-</div>
-
-</div>
-
-`;
-
-});
-
-};
-
-/* =========================
-FILTER
-========================= */
-
-window.filterServices =
-function(category){
-
-if(category==="All"){
-
-renderServices(
-allServices
-);
-
-return;
-
-}
-
-const filtered =
-
-allServices.filter(
-
-service=>
-
-service.category ===
-category
-
-);
-
-renderServices(
-filtered
-);
-
-};
-
-/* =========================
-OPEN SERVICE
-========================= */
-
-window.openService =
-function(id){
-
-window.location.href =
-
-`service-details.html?id=${id}`;
-
-};
-
-/* =========================
-INITIAL LOAD
-========================= */
-
-renderServices(
-allServices
-);
-
-</script>
-<!-- =========================
-RECENTLY ORDERED
-========================= -->
-
-<section class="recentSection">
+<section class="servicesSection">
 
 <div class="sectionHeader">
 
 <h2>
 
 Recently Ordered
+
+</h2>
+
+</div>
+
+<div
+id="recentlyOrdered">
+
+</div>
+
+</section>
+
+<!-- RECOMMENDED -->
+
+<section class="servicesSection">
+
+<div class="sectionHeader">
+
+<h2>
+
+Recommended For You
+
+</h2>
+
+</div>
+
+<div
+id="recommendedGrid"
+class="servicesGrid">
+
+</div>
+
+</section>
+
+<!-- FAVORITES -->
+
+<section
+id="favoritesSection"
+class="servicesSection">
+
+<div class="sectionHeader">
+
+<h2>
+
+Favorites
+
+</h2>
+
+</div>
+
+<div
+id="favoritesGrid"
+class="servicesGrid">
+
+</div>
+<!-- PREMIUM CARE -->
+
+<section class="servicesSection">
+
+<div class="sectionHeader">
+
+<h2>
+
+Premium Care
 
 </h2>
 
@@ -1999,920 +383,584 @@ View All
 
 </div>
 
-<div
-class="recentScroller"
-id="recentScroller">
+<div class="premiumCareGrid">
 
-<div class="recentCard">
+<div class="premiumCareCard">
 
-<div class="recentIcon">
+<div class="premiumImage">
 
-👔
+👗
 
 </div>
 
-<div class="recentInfo">
+<h3>
 
-<h4>
+Designer Wear
 
-Shirt Dry Cleaning
-
-</h4>
+</h3>
 
 <p>
 
-Last ordered 2 days ago
+Luxury Fabric Protection
 
 </p>
 
 </div>
 
-<button>
+<div class="premiumCareCard">
 
-Reorder
+<div class="premiumImage">
+
+🤵
+
+</div>
+
+<h3>
+
+Wedding Wear
+
+</h3>
+
+<p>
+
+Premium Dry Cleaning
+
+</p>
+
+</div>
+
+<div class="premiumCareCard">
+
+<div class="premiumImage">
+
+🧥
+
+</div>
+
+<h3>
+
+Winter Wear
+
+</h3>
+
+<p>
+
+Jackets & Blazers
+
+</p>
+
+</div>
+
+</div>
+
+</section>
+
+<!-- BENEFITS -->
+
+<section class="benefitsSection">
+
+<div class="benefitCard">
+
+<div class="benefitIcon">
+
+🚚
+
+</div>
+
+<div>
+
+<h4>
+
+Free Pickup
+
+</h4>
+
+<p>
+
+Above ₹299 Order
+
+</p>
+
+</div>
+
+</div>
+
+<div class="benefitCard">
+
+<div class="benefitIcon">
+
+⚡
+
+</div>
+
+<div>
+
+<h4>
+
+Express Delivery
+
+</h4>
+
+<p>
+
+Same Day Available
+
+</p>
+
+</div>
+
+</div>
+
+<div class="benefitCard">
+
+<div class="benefitIcon">
+
+🛡️
+
+</div>
+
+<div>
+
+<h4>
+
+Fabric Protection
+
+</h4>
+
+<p>
+
+Premium Care Process
+
+</p>
+
+</div>
+
+</div>
+
+</section>
+
+<!-- CUSTOMER REVIEWS -->
+
+<section class="servicesSection">
+
+<div class="sectionHeader">
+
+<h2>
+
+Customer Reviews
+
+</h2>
+
+</div>
+
+<div class="reviewList">
+
+<div class="reviewCard">
+
+<div class="reviewTop">
+
+<span>
+
+⭐ 5.0
+
+</span>
+
+<b>
+
+Rahul Sharma
+
+</b>
+
+</div>
+
+<p>
+
+Amazing service. Clothes came back looking brand new.
+
+</p>
+
+</div>
+
+<div class="reviewCard">
+
+<div class="reviewTop">
+
+<span>
+
+⭐ 4.9
+
+</span>
+
+<b>
+
+Aman Singh
+
+</b>
+
+</div>
+
+<p>
+
+Fast pickup and delivery. Highly recommended.
+
+</p>
+
+</div>
+
+</div>
+
+</section>
+
+<!-- OFFLINE -->
+
+<div
+id="offlineBar"
+class="offlineBar">
+
+No Internet Connection
+
+</div>
+
+<!-- LOADING -->
+
+<div
+id="loadingState"
+class="loadingState">
+
+<div class="loader"></div>
+
+<p>
+
+Loading Services...
+
+</p>
+
+</div>
+
+<!-- TOAST -->
+
+<div
+id="toast"
+class="toast">
+
+Added To Cart
+
+</div>
+
+<!-- SEARCH SUGGESTIONS -->
+
+<div
+id="searchSuggestions"
+class="searchSuggestions">
+
+</div>
+
+<!-- SERVICE DETAILS MODAL -->
+
+<div
+id="servicePreview"
+class="servicePreview">
+
+<div class="servicePreviewBox">
+
+<button
+class="closePreview">
+
+×
+
+</button>
+
+<img
+id="previewImage"
+src="">
+
+<h2
+id="previewName">
+
+Service
+
+</h2>
+
+<p
+id="previewDescription">
+
+Description
+
+</p>
+
+<button
+id="previewAddBtn">
+
+Add To Cart
 
 </button>
 
 </div>
 
-<div class="recentCard">
+</div>
 
-<div class="recentIcon">
+<!-- WISHLIST EMPTY -->
+
+<div
+id="wishlistEmpty"
+class="wishlistEmpty">
+
+❤️
+
+<h3>
+
+No Favorites Yet
+
+</h3>
+
+<p>
+
+Save services to access them quickly later.
+
+</p>
+
+</div>
+<!-- =========================
+SKELETON LOADING
+========================= -->
+
+<div
+id="skeletonGrid"
+class="skeletonGrid">
+
+<div class="skeletonCard"></div>
+<div class="skeletonCard"></div>
+<div class="skeletonCard"></div>
+<div class="skeletonCard"></div>
+<div class="skeletonCard"></div>
+<div class="skeletonCard"></div>
+
+</div>
+
+<!-- =========================
+RECENT SEARCHES
+========================= -->
+
+<div
+id="recentSearches"
+class="recentSearches">
+
+<h3>
+
+Recent Searches
+
+</h3>
+
+<div
+id="recentSearchList">
+
+</div>
+
+</div>
+
+<!-- =========================
+CITY PRICING INFO
+========================= -->
+
+<section class="cityPricingInfo">
+
+<div class="pricingCard">
+
+<div class="pricingLeft">
+
+📍
+
+<div>
+
+<h4>
+
+Current Pricing Zone
+
+</h4>
+
+<p
+id="pricingCity">
+
+Kasganj
+
+</p>
+
+</div>
+
+</div>
+
+<div
+id="pricingMultiplier">
+
+1x
+
+</div>
+
+</div>
+
+</section>
+
+<!-- =========================
+APP FEATURES
+========================= -->
+
+<section class="appFeatures">
+
+<div class="featureBox">
 
 🧺
 
-</div>
-
-<div class="recentInfo">
-
 <h4>
 
-Wash & Fold
+Professional Cleaning
 
 </h4>
 
 <p>
 
-Last ordered 5 days ago
+Premium quality laundry care
 
 </p>
 
 </div>
 
-<button>
+<div class="featureBox">
 
-Reorder
+🚚
 
-</button>
+<h4>
+
+Free Pickup
+
+</h4>
+
+<p>
+
+Doorstep pickup & delivery
+
+</p>
 
 </div>
+
+<div class="featureBox">
+
+⚡
+
+<h4>
+
+Fast Service
+
+</h4>
+
+<p>
+
+Express processing available
+
+</p>
+
+</div>
+
+<div class="featureBox">
+
+💳
+
+<h4>
+
+Secure Payment
+
+</h4>
+
+<p>
+
+100% secure transactions
+
+</p>
 
 </div>
 
 </section>
 
 <!-- =========================
-RECOMMENDED
+FOOTER
 ========================= -->
 
-<section class="recommendSection">
+<footer class="servicesFooter">
 
-<div class="sectionHeader">
+<div class="footerLogo">
 
-<h2>
-
-Recommended For You
-
-</h2>
-
-<button>
-
-See More
-
-</button>
+QuickPress
 
 </div>
-
-<div class="recommendGrid">
-
-<div class="recommendCard">
-
-<div class="recommendTop">
-
-🔥
-
-</div>
-
-<h4>
-
-Express Laundry
-
-</h4>
 
 <p>
 
-30 Minute Pickup
+India's Premium Laundry Marketplace
 
 </p>
 
-</div>
+<div class="footerLinks">
 
-<div class="recommendCard">
+<a href="about.html">
 
-<div class="recommendTop">
+About
 
-🎁
+</a>
 
-</div>
+<a href="contact.html">
 
-<h4>
+Contact
 
-Premium Care
+</a>
 
-</h4>
+<a href="privacy.html">
 
-<p>
+Privacy
 
-Delicate Fabric Experts
+</a>
 
-</p>
+<a href="terms.html">
 
-</div>
+Terms
 
-<div class="recommendCard">
-
-<div class="recommendTop">
-
-⭐
+</a>
 
 </div>
 
-<h4>
+</footer>
 
-Top Rated
-
-</h4>
-
-<p>
-
-Customer Favorites
-
-</p>
-
-</div>
-
-</div>
-
-</section>
-
-<style>
-
-/* =========================
-RECENT SECTION
-========================= */
-
-.recentSection{
-
-padding:20px 16px;
-
-}
-
-.recentScroller{
-
-display:flex;
-
-gap:14px;
-
-overflow-x:auto;
-
-scrollbar-width:none;
-
-}
-
-.recentScroller::-webkit-scrollbar{
-
-display:none;
-
-}
-
-/* =========================
-RECENT CARD
-========================= */
-
-.recentCard{
-
-min-width:290px;
-
-background:white;
-
-border-radius:22px;
-
-padding:16px;
-
-display:flex;
-
-align-items:center;
-
-gap:12px;
-
-box-shadow:
-0 8px 20px rgba(0,0,0,.05);
-
-}
-
-.recentIcon{
-
-width:56px;
-height:56px;
-
-border-radius:16px;
-
-background:#F6F7FB;
-
-display:flex;
-
-justify-content:center;
-align-items:center;
-
-font-size:28px;
-
-}
-
-.recentInfo{
-
-flex:1;
-
-}
-
-.recentInfo h4{
-
-font-size:14px;
-
-font-weight:900;
-
-}
-
-.recentInfo p{
-
-font-size:12px;
-
-color:#6B7280;
-
-margin-top:4px;
-
-}
-
-.recentCard button{
-
-height:38px;
-
-padding:0 14px;
-
-border:none;
-
-border-radius:12px;
-
-background:#16A34A;
-
-color:white;
-
-font-size:12px;
-
-font-weight:800;
-
-}
-
-/* =========================
-RECOMMENDED
-========================= */
-
-.recommendSection{
-
-padding:0 16px 20px;
-
-}
-
-.recommendGrid{
-
-display:grid;
-
-grid-template-columns:
-repeat(3,1fr);
-
-gap:12px;
-
-}
-
-.recommendCard{
-
-background:white;
-
-padding:18px 12px;
-
-border-radius:20px;
-
-text-align:center;
-
-box-shadow:
-0 8px 20px rgba(0,0,0,.05);
-
-}
-
-.recommendTop{
-
-font-size:34px;
-
-margin-bottom:10px;
-
-}
-
-.recommendCard h4{
-
-font-size:13px;
-
-font-weight:900;
-
-}
-
-.recommendCard p{
-
-font-size:11px;
-
-margin-top:5px;
-
-color:#6B7280;
-
-line-height:1.4;
-
-}
-
-@media(max-width:768px){
-
-.recommendGrid{
-
-grid-template-columns:
-repeat(2,1fr);
-
-}
-
-}
-
-</style>
 <!-- =========================
-FLOATING CART BAR
+HIDDEN CONTAINERS
 ========================= -->
 
 <div
-class="floatingCart"
-id="floatingCart">
-
-<div class="cartLeft">
-
-<div
-class="cartCount"
-id="floatingCartCount">
-
-0 Items
+id="modalContainer"
+style="display:none">
 
 </div>
 
 <div
-class="cartPrice"
-id="floatingCartPrice">
-
-₹0
+id="dynamicContainer"
+style="display:none">
 
 </div>
 
-</div>
-
-<button
-class="viewCartBtn"
-onclick="goCart()">
-
-View Cart
-
-<i class="fa-solid fa-arrow-right"></i>
-
-</button>
+<div
+id="cacheContainer"
+style="display:none">
 
 </div>
 
-<style>
-
-/* =========================
-FLOATING CART
-========================= */
-
-.floatingCart{
-
-position:fixed;
-
-left:16px;
-right:16px;
-bottom:86px;
-
-height:64px;
-
-background:#16A34A;
-
-border-radius:20px;
-
-padding:0 18px;
-
-display:none;
-
-align-items:center;
-
-justify-content:space-between;
-
-box-shadow:
-0 15px 35px rgba(22,163,74,.35);
-
-z-index:99999;
-
-animation:
-slideCart .25s ease;
-
-}
-
-/* =========================
-ANIMATION
-========================= */
-
-@keyframes slideCart{
-
-from{
-
-opacity:0;
-
-transform:
-translateY(30px);
-
-}
-
-to{
-
-opacity:1;
-
-transform:
-translateY(0);
-
-}
-
-}
-
-/* =========================
-LEFT
-========================= */
-
-.cartLeft{
-
-display:flex;
-
-flex-direction:column;
-
-}
-
-.cartCount{
-
-font-size:12px;
-
-font-weight:800;
-
-color:white;
-
-opacity:.9;
-
-}
-
-.cartPrice{
-
-font-size:20px;
-
-font-weight:900;
-
-color:white;
-
-margin-top:2px;
-
-}
-
-/* =========================
-BUTTON
-========================= */
-
-.viewCartBtn{
-
-height:42px;
-
-padding:0 16px;
-
-border:none;
-
-border-radius:14px;
-
-background:white;
-
-color:#111827;
-
-font-size:13px;
-
-font-weight:900;
-
-display:flex;
-
-align-items:center;
-
-gap:8px;
-
-cursor:pointer;
-
-}
-
-/* =========================
-DESKTOP
-========================= */
-
-@media(min-width:992px){
-
-.floatingCart{
-
-max-width:500px;
-
-margin:auto;
-
-left:50%;
-
-transform:
-translateX(-50%);
-
-right:auto;
-
-}
-
-}
-
-</style>
-
-<script>
-
-/* =========================
-UPDATE FLOATING CART
-========================= */
-
-window.updateFloatingCart =
-function(){
-
-const cart =
-
-JSON.parse(
-
-localStorage.getItem(
-"cart"
-)
-
-|| "[]"
-
-);
-
-let totalItems = 0;
-let totalPrice = 0;
-
-cart.forEach(item=>{
-
-totalItems +=
-
-item.qty || 1;
-
-totalPrice +=
-
-(item.price || 0)
-
-*
-
-(item.qty || 1);
-
-});
-
-const cartBar =
-
-document.getElementById(
-"floatingCart"
-);
-
-const count =
-
-document.getElementById(
-"floatingCartCount"
-);
-
-const price =
-
-document.getElementById(
-"floatingCartPrice"
-);
-
-if(totalItems===0){
-
-cartBar.style.display =
-"none";
-
-return;
-
-}
-
-cartBar.style.display =
-"flex";
-
-count.innerHTML =
-
-totalItems +
-
-" Items";
-
-price.innerHTML =
-
-"₹" +
-
-totalPrice;
-
-};
-
-/* =========================
-OVERRIDE SAVE CART
-========================= */
-
-const originalSaveCart =
-
-window.saveCart;
-
-window.saveCart =
-function(cart){
-
-originalSaveCart(
-cart
-);
-
-updateFloatingCart();
-
-};
-
-/* =========================
-OPEN CART
-========================= */
-
-window.goCart =
-function(){
-
-window.location.href =
-"cart.html";
-
-};
-
-/* =========================
-INIT
-========================= */
-
-document.addEventListener(
-
-"DOMContentLoaded",
-
-()=>{
-
-updateFloatingCart();
-
-}
-
-);
-
-</script>
 <!-- =========================
-FAVORITES SECTION
+SERVICE TEMPLATE
 ========================= -->
 
-<section
-class="favoritesSection"
-id="favoritesSection">
+<template id="serviceTemplate">
 
-<div class="sectionHeader">
-
-<h2>
-
-Your Favorites
-
-</h2>
-
-<button>
-
-See All
-
-</button>
-
-</div>
-
-<div
-class="favoritesGrid"
-id="favoritesGrid">
-
-</div>
-
-</section>
-
-<style>
-
-/* =========================
-FAVORITES
-========================= */
-
-.favoritesSection{
-
-padding:20px 16px;
-
-display:none;
-
-}
-
-.favoritesGrid{
-
-display:grid;
-
-grid-template-columns:
-repeat(2,1fr);
-
-gap:14px;
-
-}
-
-/* =========================
-ACTIVE HEART
-========================= */
-
-.wishlistBtn.active{
-
-background:#EF4444;
-
-color:white;
-
-}
-
-</style>
-
-<script>
-
-/* =========================
-GET FAVORITES
-========================= */
-
-window.getFavorites =
-function(){
-
-return JSON.parse(
-
-localStorage.getItem(
-"favorites"
-)
-
-|| "[]"
-
-);
-
-};
-
-/* =========================
-SAVE FAVORITES
-========================= */
-
-window.saveFavorites =
-function(data){
-
-localStorage.setItem(
-
-"favorites",
-
-JSON.stringify(data)
-
-);
-
-};
-
-/* =========================
-TOGGLE FAVORITE
-========================= */
-
-window.toggleFavorite =
-function(serviceId){
-
-let favorites =
-getFavorites();
-
-if(
-favorites.includes(serviceId)
-){
-
-favorites =
-favorites.filter(
-
-id =>
-
-id !== serviceId
-
-);
-
-}else{
-
-favorites.push(
-serviceId
-);
-
-}
-
-saveFavorites(
-favorites
-);
-
-renderServices(
-window.allServices
-);
-
-renderFavorites();
-
-};
-
-/* =========================
-CHECK FAVORITE
-========================= */
-
-window.isFavorite =
-function(serviceId){
-
-return getFavorites()
-.includes(serviceId);
-
-};
-/* =========================
-RENDER FAVORITES
-========================= */
-
-window.renderFavorites =
-function(){
-
-const favorites =
-
-getFavorites();
-
-const section =
-
-document.getElementById(
-"favoritesSection"
-);
-
-const grid =
-
-document.getElementById(
-"favoritesGrid"
-);
-
-if(
-favorites.length===0
-){
-
-section.style.display =
-"none";
-
-return;
-
-}
-
-section.style.display =
-"block";
-
-const favoriteServices =
-
-window.allServices.filter(
-
-service =>
-
-favorites.includes(
-service.id
-)
-
-);
-
-grid.innerHTML = "";
-
-favoriteServices.forEach(service=>{
-
-grid.innerHTML += `
-
-<div
-class="serviceCard"
-onclick="openService('${service.id}')">
+<div class="serviceCard">
 
 <div class="serviceImage">
 
-<img
-src="${service.image}">
+<img src="">
 
 </div>
 
@@ -2920,26 +968,41 @@ src="${service.image}">
 
 <div class="serviceCategory">
 
-${service.category}
+Category
 
 </div>
 
 <div class="serviceName">
 
-${service.name}
+Service Name
+
+</div>
+
+<div class="serviceDescription">
+
+Description
 
 </div>
 
 <div class="serviceBottom">
 
-<div class="newPrice">
+<div class="priceBox">
 
-₹${getServicePrice(service)}
+<div class="oldPrice">
+
+₹99
 
 </div>
 
-<button
-class="addBtn">
+<div class="newPrice">
+
+₹49
+
+</div>
+
+</div>
+
+<button class="addBtn">
 
 Add
 
@@ -2951,422 +1014,155 @@ Add
 
 </div>
 
-`;
+</template>
 
-});
+<!-- =========================
+NOSCRIPT
+========================= -->
 
-};
-
-/* =========================
-AUTO LOAD
-========================= */
-
-document.addEventListener(
-
-"DOMContentLoaded",
-
-()=>{
-
-renderFavorites();
-
-}
-
-);
-window.getServicePrice =
-function(service){
-
-const city =
-
-localStorage.getItem(
-"selectedCity"
-)
-
-|| "Kasganj";
-
-const multiplier = {
-
-Kasganj:1,
-
-Agra:1.1,
-
-Noida:1.3,
-
-Lucknow:1.2,
-
-Kanpur:1.15,
-
-Aligarh:1.05
-
-};
-
-const factor =
-
-multiplier[city] || 1;
-
-return Math.round(
-
-(service.price || 0)
-
-* factor
-
-);
-
-};
-
-</script>
-<script>
-
-/* =========================
-SEARCH SYSTEM
-========================= */
-
-const searchInput =
-
-document.getElementById(
-"serviceSearch"
-);
-
-const suggestionBox =
-
-document.getElementById(
-"searchSuggestions"
-);
-
-/* =========================
-RECENT SEARCHES
-========================= */
-
-function getRecentSearches(){
-
-return JSON.parse(
-
-localStorage.getItem(
-"recentSearches"
-)
-
-|| "[]"
-
-);
-
-}
-
-function saveRecentSearch(text){
-
-let searches =
-
-getRecentSearches();
-
-searches = searches.filter(
-
-item => item !== text
-
-);
-
-searches.unshift(text);
-
-searches = searches.slice(0,5);
-
-localStorage.setItem(
-
-"recentSearches",
-
-JSON.stringify(searches)
-
-);
-
-}
-
-/* =========================
-DEBOUNCE
-========================= */
-
-function debounce(func,delay){
-
-let timer;
-
-return function(){
-
-clearTimeout(timer);
-
-timer = setTimeout(
-
-()=>{
-
-func.apply(
-this,
-arguments
-);
-
-},
-
-delay
-
-);
-
-};
-
-}
-
-/* =========================
-SHOW SUGGESTIONS
-========================= */
-
-function showSuggestions(keyword){
-
-if(!keyword){
-
-const recent =
-
-getRecentSearches();
-
-if(recent.length===0){
-
-suggestionBox.style.display =
-"none";
-
-return;
-
-}
-
-suggestionBox.innerHTML =
-
-recent.map(item=>`
+<noscript>
 
 <div
-class="searchItem"
-onclick="selectSuggestion('${item}')">
+style="
+padding:20px;
+text-align:center;
+background:#fff3cd;
+color:#856404;
+font-weight:700;">
 
-🕒 ${item}
+Please enable JavaScript
+to use QuickPress Services.
 
 </div>
 
-`).join("");
+</noscript>
 
-suggestionBox.style.display =
-"block";
+<!-- =========================
+END OF PAGE
+========================= -->
 
-return;
+<script
+type="module"
+src="./services.js">
 
-}
+</script>
 
-const filtered =
+</body>
+</html>
+</section>
 
-window.allServices.filter(
-
-service =>
-
-(service.name || "")
-.toLowerCase()
-.includes(
-keyword
-)
-
-);
-
-suggestionBox.innerHTML =
-
-filtered.slice(0,6).map(service=>`
+<!-- EMPTY -->
 
 <div
-class="searchItem"
-onclick="selectSuggestion('${service.name}')">
+id="emptyState"
+class="emptyState">
 
-🔍 ${service.name}
+<div class="emptyIcon">
+
+🔍
 
 </div>
 
-`).join("");
+<h3>
 
-suggestionBox.style.display =
+No Services Found
 
-filtered.length
+</h3>
 
-? "block"
+<p>
 
-: "none";
+Try another search
 
-}
+</p>
 
-/* =========================
-SELECT
-========================= */
+</div>
 
-window.selectSuggestion =
-function(text){
+<!-- FLOATING CART -->
 
-searchInput.value = text;
+<div
+id="floatingCart"
+class="floatingCart">
 
-suggestionBox.style.display =
-"none";
+<div>
 
-saveRecentSearch(text);
+<div
+id="cartItems">
 
-const filtered =
+0 Items
 
-window.allServices.filter(
+</div>
 
-service =>
+<div
+id="cartTotal">
 
-(service.name || "")
-.toLowerCase()
-.includes(
-text.toLowerCase()
-)
+₹0
 
-);
+</div>
 
-renderServices(
-filtered
-);
+</div>
 
-};
+<button
+onclick="goCart()">
 
-/* =========================
-INPUT
-========================= */
+View Cart
 
-searchInput.addEventListener(
+</button>
 
-"input",
+</div>
 
-debounce(function(){
+<!-- BOTTOM NAV -->
 
-const value =
+<nav class="bottomNav">
 
-this.value
-.toLowerCase()
-.trim();
+<a href="index.html">
 
-showSuggestions(
-value
-);
+<i class="fa-solid fa-house"></i>
 
-if(!value){
+<span>Home</span>
 
-renderServices(
-window.allServices
-);
+</a>
 
-return;
+<a
+class="active"
+href="services.html">
 
-}
+<i class="fa-solid fa-shirt"></i>
 
-const filtered =
+<span>Services</span>
 
-window.allServices.filter(
+</a>
 
-service =>
+<a href="cart.html">
 
-(service.name || "")
-.toLowerCase()
-.includes(value)
+<i class="fa-solid fa-bag-shopping"></i>
 
-||
+<span>Cart</span>
 
-(service.category || "")
-.toLowerCase()
-.includes(value)
+</a>
 
-);
+<a href="orders.html">
 
-renderServices(
-filtered
-);
+<i class="fa-solid fa-box"></i>
 
-},300)
+<span>Orders</span>
 
-);
+</a>
 
-/* =========================
-CLICK OUTSIDE
-========================= */
+<a href="profile.html">
 
-document.addEventListener(
+<i class="fa-solid fa-user"></i>
 
-"click",
+<span>Profile</span>
 
-e=>{
+</a>
 
-if(
+</nav>
 
-!e.target.closest(
-".searchBar"
-)
-
-){
-
-suggestionBox.style.display =
-"none";
-
-}
-
-}
-
-);
+<script
+type="module"
+src="services.js">
 
 </script>
-<script>
 
-/* =========================
-VOICE SEARCH
-========================= */
-
-const voiceBtn =
-
-document.getElementById(
-"voiceSearchBtn"
-);
-
-if(
-
-'webkitSpeechRecognition'
-in window
-
-){
-
-const recognition =
-
-new webkitSpeechRecognition();
-
-recognition.lang = "en-IN";
-
-recognition.continuous = false;
-
-recognition.interimResults = false;
-
-voiceBtn.addEventListener(
-
-"click",
-
-()=>{
-
-recognition.start();
-
-showToast(
-"Listening..."
-);
-
-}
-
-);
-
-recognition.onresult =
-function(event){
-
-const text =
-
-event.results[0][0]
-.transcript;
-
-searchInput.value =
-text;
-
-selectSuggestion(
-text
-);
-
-};
-
-}
-</script>
-
+</body>
+</html>
