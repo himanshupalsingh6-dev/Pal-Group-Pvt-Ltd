@@ -5,7 +5,7 @@ FIREBASE + GLOBAL STATE
 ========================================== */
 
 import { db }
-from "./js/firebase.js";
+from "../js/firebase.js";
 
 import {
 
