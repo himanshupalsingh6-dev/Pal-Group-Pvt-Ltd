@@ -21,11 +21,13 @@ font-family:'Inter',sans-serif;
 }
 
 :root{
---yellow:#F4B400;
---green:#16A34A;
+--primary:#F4B400;
+--secondary:#16A34A;
 --dark:#111827;
 --gray:#6B7280;
 --bg:#F8FAFC;
+--white:#FFFFFF;
+--danger:#EF4444;
 }
 
 body{
@@ -33,80 +35,160 @@ background:var(--bg);
 padding-bottom:120px;
 }
 
-.header{
+/* HEADER */
+
+.checkoutHeader{
+
 position:sticky;
 top:0;
-background:#fff;
+
+background:white;
+
 padding:16px;
+
 display:flex;
 align-items:center;
-gap:15px;
-z-index:100;
-box-shadow:0 4px 15px rgba(0,0,0,.05);
+gap:14px;
+
+z-index:999;
+
+box-shadow:
+0 4px 20px rgba(0,0,0,.05);
+
 }
 
 .backBtn{
-width:44px;
-height:44px;
+
+width:46px;
+height:46px;
+
 border:none;
+
 border-radius:14px;
+
 background:#F3F4F6;
+
 font-size:18px;
+
+cursor:pointer;
+
 }
 
-.title{
-font-size:22px;
+.pageTitle{
+
+font-size:24px;
+
 font-weight:900;
+
+color:var(--dark);
+
 }
+
+/* SECTION */
 
 .section{
-background:#fff;
+
+background:white;
+
 margin:16px;
-padding:18px;
-border-radius:22px;
-box-shadow:0 5px 20px rgba(0,0,0,.04);
+
+padding:20px;
+
+border-radius:24px;
+
+box-shadow:
+0 6px 20px rgba(0,0,0,.04);
+
 }
 
 .sectionTitle{
+
 font-size:18px;
+
 font-weight:900;
-margin-bottom:15px;
+
+margin-bottom:16px;
+
+color:var(--dark);
+
 }
+
+/* ADDRESS */
 
 .addressCard{
+
 display:flex;
+
 justify-content:space-between;
+
 align-items:center;
+
+gap:12px;
+
 }
 
-.addressText h4{
+.addressInfo h4{
+
 font-size:16px;
-font-weight:800;
+
+font-weight:900;
+
+color:var(--dark);
+
 }
 
-.addressText p{
+.addressInfo p{
+
+margin-top:6px;
+
 font-size:13px;
+
+line-height:1.7;
+
 color:var(--gray);
-margin-top:5px;
-line-height:1.5;
+
 }
 
 .changeBtn{
-background:var(--green);
-color:#fff;
+
+height:44px;
+
+padding:0 16px;
+
 border:none;
-padding:10px 14px;
+
 border-radius:12px;
+
+background:var(--secondary);
+
+color:white;
+
 font-weight:800;
+
+cursor:pointer;
+
 }
 
-.dateInput,
-.slotSelect,
-.noteInput,
-.couponInput{
+/* GRID */
+
+.grid2{
+
+display:grid;
+
+grid-template-columns:
+1fr 1fr;
+
+gap:12px;
+
+}
+
+/* INPUT */
+
+.inputField{
 
 width:100%;
-height:52px;
+
+height:54px;
 
 border:1px solid #E5E7EB;
 
@@ -114,173 +196,88 @@ border-radius:14px;
 
 padding:0 14px;
 
-font-size:14px;
-
 outline:none;
 
-}
-
-.noteInput{
-height:90px;
-padding-top:14px;
-resize:none;
-}
-
-.row{
-display:grid;
-grid-template-columns:1fr 1fr;
-gap:12px;
-}
-
-.paymentCard{
-
-display:flex;
-align-items:center;
-gap:14px;
-
-padding:16px;
-
-border:2px solid #E5E7EB;
-
-border-radius:16px;
-
-margin-bottom:12px;
-
-cursor:pointer;
-
-}
-
-.paymentCard.active{
-
-border-color:var(--green);
-
-background:#F0FDF4;
-
-}
-
-.paymentCard h4{
-
-font-size:15px;
-
-font-weight:800;
-
-}
-
-.paymentCard p{
-
-font-size:12px;
-
-color:var(--gray);
-
-margin-top:4px;
-
-}
-
-.billRow{
-
-display:flex;
-
-justify-content:space-between;
-
-padding:10px 0;
-
 font-size:14px;
 
-}
-
-.grand{
-
-font-size:22px;
-
-font-weight:900;
-
-padding-top:14px;
-
-border-top:1px solid #E5E7EB;
-
-margin-top:10px;
+background:white;
 
 }
 
-.couponBox{
+.textArea{
 
-display:flex;
+width:100%;
 
-gap:10px;
+height:100px;
 
-}
+padding:14px;
 
-.applyBtn{
+resize:none;
 
-width:110px;
-
-border:none;
+border:1px solid #E5E7EB;
 
 border-radius:14px;
 
-background:var(--green);
+outline:none;
 
-color:#fff;
-
-font-weight:800;
+font-size:14px;
 
 }
 
-.bottomBar{
+/* LOGIN LOADER */
+
+.pageLoader{
 
 position:fixed;
 
-left:0;
-right:0;
-bottom:0;
+inset:0;
 
-background:#fff;
-
-padding:14px 16px;
+background:white;
 
 display:flex;
 
-justify-content:space-between;
+justify-content:center;
 
 align-items:center;
 
-box-shadow:0 -8px 25px rgba(0,0,0,.08);
+flex-direction:column;
+
+z-index:999999;
 
 }
 
-.payableText{
+.loader{
 
-font-size:12px;
+width:55px;
+height:55px;
 
-color:var(--gray);
+border:4px solid #E5E7EB;
+
+border-top:4px solid #16A34A;
+
+border-radius:50%;
+
+animation:spin 1s linear infinite;
 
 }
 
-.payableAmount{
+@keyframes spin{
 
-font-size:24px;
-
-font-weight:900;
+100%{
+transform:rotate(360deg);
+}
 
 }
 
-.placeOrderBtn{
+.loaderText{
 
-height:56px;
+margin-top:14px;
 
-padding:0 24px;
+font-size:14px;
 
-border:none;
+font-weight:800;
 
-border-radius:16px;
-
-background:var(--green);
-
-color:#fff;
-
-font-size:16px;
-
-font-weight:900;
+color:#6B7280;
 
 }
 
@@ -290,31 +287,59 @@ font-weight:900;
 
 <body>
 
-<div class="header">
+<!-- LOGIN LOADER -->
 
-<button class="backBtn" onclick="history.back()">
+<div
+id="pageLoader"
+class="pageLoader">
+
+<div class="loader"></div>
+
+<div class="loaderText">
+
+Loading Checkout...
+
+</div>
+
+</div>
+
+<!-- HEADER -->
+
+<header class="checkoutHeader">
+
+<button
+class="backBtn"
+onclick="history.back()">
+
 <i class="fa-solid fa-arrow-left"></i>
+
 </button>
 
-<div class="title">
+<div class="pageTitle">
+
 Checkout
-</div>
 
 </div>
+
+</header>
+
+<!-- ADDRESS -->
 
 <div class="section">
 
 <div class="sectionTitle">
+
 Delivery Address
+
 </div>
 
 <div class="addressCard">
 
-<div class="addressText">
+<div class="addressInfo">
 
 <h4 id="addressType">
 
-🏠 Select Address
+📍 Select Address
 
 </h4>
 
@@ -338,22 +363,26 @@ Change
 
 </div>
 
+<!-- PICKUP -->
+
 <div class="section">
 
 <div class="sectionTitle">
+
 Pickup Schedule
+
 </div>
 
-<div class="row">
+<div class="grid2">
 
 <input
 type="date"
 id="pickupDate"
-class="dateInput">
+class="inputField">
 
 <select
 id="pickupSlot"
-class="slotSelect">
+class="inputField">
 
 <option>9 AM - 12 PM</option>
 <option>12 PM - 3 PM</option>
@@ -366,22 +395,26 @@ class="slotSelect">
 
 </div>
 
+<!-- DELIVERY -->
+
 <div class="section">
 
 <div class="sectionTitle">
+
 Delivery Schedule
+
 </div>
 
-<div class="row">
+<div class="grid2">
 
 <input
 type="date"
 id="deliveryDate"
-class="dateInput">
+class="inputField">
 
 <select
 id="deliverySlot"
-class="slotSelect">
+class="inputField">
 
 <option>9 AM - 12 PM</option>
 <option>12 PM - 3 PM</option>
@@ -393,52 +426,65 @@ class="slotSelect">
 </div>
 
 </div>
-<!-- ORDER SUMMARY -->
+
+<!-- INSTRUCTIONS -->
 
 <div class="section">
 
 <div class="sectionTitle">
-Order Summary
-</div>
 
-<div id="orderItems">
-
-</div>
-
-</div>
-
-<!-- SPECIAL INSTRUCTIONS -->
-
-<div class="section">
-
-<div class="sectionTitle">
 Special Instructions
+
 </div>
 
 <textarea
 id="specialInstructions"
-class="noteInput"
-placeholder="Any special handling instructions..."></textarea>
+class="textArea"
+placeholder="Any special laundry instructions..."></textarea>
 
-</div>
-
-<!-- COUPON -->
+</div><!-- ==========================================
+ORDER SUMMARY
+========================================== -->
 
 <div class="section">
 
 <div class="sectionTitle">
-Apply Coupon
+
+Order Summary
+
+</div>
+
+<div
+id="orderItems">
+
+<!-- JS LOAD -->
+
+</div>
+
+</div>
+
+<!-- ==========================================
+COUPON
+========================================== -->
+
+<div class="section">
+
+<div class="sectionTitle">
+
+Offers & Coupons
+
 </div>
 
 <div class="couponBox">
 
 <input
+type="text"
 id="couponCode"
-class="couponInput"
+class="inputField"
 placeholder="Enter Coupon Code">
 
 <button
-class="applyBtn"
+class="applyCouponBtn"
 onclick="applyCoupon()">
 
 Apply
@@ -449,39 +495,46 @@ Apply
 
 <div
 id="couponMessage"
-style="
-margin-top:12px;
-font-size:13px;
-font-weight:700;">
-</div>
+class="couponMessage">
 
 </div>
 
-<!-- PAYMENT -->
+</div>
+
+<!-- ==========================================
+PAYMENT
+========================================== -->
 
 <div class="section">
 
 <div class="sectionTitle">
+
 Payment Method
+
 </div>
 
 <div
 class="paymentCard active"
 onclick="selectPayment('ONLINE',this)">
 
-<input
-type="radio"
-name="payment"
-checked>
+<div class="paymentIcon">
+
+💳
+
+</div>
 
 <div>
 
 <h4>
+
 Online Payment
+
 </h4>
 
 <p>
-UPI, Cards, Net Banking
+
+UPI, Debit Card, Credit Card
+
 </p>
 
 </div>
@@ -492,18 +545,24 @@ UPI, Cards, Net Banking
 class="paymentCard"
 onclick="selectPayment('COD',this)">
 
-<input
-type="radio"
-name="payment">
+<div class="paymentIcon">
+
+💵
+
+</div>
 
 <div>
 
 <h4>
+
 Cash On Delivery
+
 </h4>
 
 <p>
+
 Pay after delivery
+
 </p>
 
 </div>
@@ -512,83 +571,125 @@ Pay after delivery
 
 </div>
 
-<!-- BILL DETAILS -->
+<!-- ==========================================
+BILL DETAILS
+========================================== -->
 
 <div class="section">
 
 <div class="sectionTitle">
+
 Bill Details
-</div>
-
-<div class="billRow">
-
-<span>Items Total</span>
-
-<span id="itemTotal">
-₹0
-</span>
 
 </div>
 
 <div class="billRow">
-
-<span>Pickup Fee</span>
 
 <span>
-FREE
+
+Items Total
+
+</span>
+
+<span id="itemTotal">
+
+₹0
+
 </span>
 
 </div>
 
 <div class="billRow">
 
-<span>Delivery Fee</span>
+<span>
+
+Pickup Fee
+
+</span>
+
+<span>
+
+FREE
+
+</span>
+
+</div>
+
+<div class="billRow">
+
+<span>
+
+Delivery Fee
+
+</span>
 
 <span id="deliveryFee">
+
 ₹20
+
 </span>
 
 </div>
 
 <div class="billRow">
 
-<span>GST</span>
+<span>
+
+GST (5%)
+
+</span>
 
 <span id="gstAmount">
+
 ₹0
+
 </span>
 
 </div>
 
 <div class="billRow">
 
-<span>Discount</span>
+<span>
+
+Discount
+
+</span>
 
 <span id="discountAmount">
+
 -₹0
+
 </span>
 
 </div>
 
-<div class="billRow grand">
+<div class="billRow grandRow">
 
-<span>Total Payable</span>
+<span>
+
+Total Payable
+
+</span>
 
 <span id="grandTotal">
+
 ₹0
+
 </span>
 
 </div>
 
 </div>
 
-<!-- BOTTOM BAR -->
+<!-- ==========================================
+BOTTOM BAR
+========================================== -->
 
 <div class="bottomBar">
 
 <div>
 
-<div class="payableText">
+<div class="payableLabel">
 
 Total Payable
 
@@ -605,6 +706,7 @@ class="payableAmount">
 </div>
 
 <button
+id="placeOrderBtn"
 class="placeOrderBtn"
 onclick="placeOrder()">
 
@@ -614,7 +716,698 @@ Place Order
 
 </div>
 
-<script type="module">
+<style>
+
+/* ==========================================
+ORDER ITEMS
+========================================== */
+
+.orderItem{
+
+display:flex;
+
+justify-content:space-between;
+
+align-items:center;
+
+padding:12px 0;
+
+border-bottom:1px solid #F3F4F6;
+
+}
+
+.orderItem:last-child{
+
+border-bottom:none;
+
+}
+
+.orderItemName{
+
+font-size:14px;
+
+font-weight:700;
+
+}
+
+.orderItemPrice{
+
+font-size:14px;
+
+font-weight:900;
+
+}
+
+/* ==========================================
+COUPON
+========================================== */
+
+.couponBox{
+
+display:flex;
+
+gap:10px;
+
+}
+
+.applyCouponBtn{
+
+width:110px;
+
+border:none;
+
+border-radius:14px;
+
+background:#16A34A;
+
+color:white;
+
+font-weight:900;
+
+cursor:pointer;
+
+}
+
+.couponMessage{
+
+margin-top:12px;
+
+font-size:13px;
+
+font-weight:700;
+
+}
+
+/* ==========================================
+PAYMENT
+========================================== */
+
+.paymentCard{
+
+display:flex;
+
+align-items:center;
+
+gap:14px;
+
+padding:16px;
+
+border:2px solid #E5E7EB;
+
+border-radius:18px;
+
+margin-bottom:12px;
+
+cursor:pointer;
+
+transition:.25s;
+
+}
+
+.paymentCard.active{
+
+border-color:#16A34A;
+
+background:#F0FDF4;
+
+}
+
+.paymentIcon{
+
+font-size:28px;
+
+}
+
+.paymentCard h4{
+
+font-size:15px;
+
+font-weight:900;
+
+}
+
+.paymentCard p{
+
+font-size:12px;
+
+color:#6B7280;
+
+margin-top:4px;
+
+}
+
+/* ==========================================
+BILL
+========================================== */
+
+.billRow{
+
+display:flex;
+
+justify-content:space-between;
+
+padding:10px 0;
+
+font-size:14px;
+
+}
+
+.grandRow{
+
+margin-top:10px;
+
+padding-top:15px;
+
+border-top:1px solid #E5E7EB;
+
+font-size:20px;
+
+font-weight:900;
+
+}
+
+/* ==========================================
+BOTTOM BAR
+========================================== */
+
+.bottomBar{
+
+position:fixed;
+
+left:0;
+right:0;
+bottom:0;
+
+background:white;
+
+padding:14px 16px;
+
+display:flex;
+
+justify-content:space-between;
+
+align-items:center;
+
+box-shadow:
+0 -8px 25px rgba(0,0,0,.08);
+
+z-index:999;
+
+}
+
+.payableLabel{
+
+font-size:12px;
+
+color:#6B7280;
+
+}
+
+.payableAmount{
+
+font-size:26px;
+
+font-weight:900;
+
+color:#111827;
+
+}
+
+.placeOrderBtn{
+
+height:56px;
+
+padding:0 24px;
+
+border:none;
+
+border-radius:16px;
+
+background:#16A34A;
+
+color:white;
+
+font-size:16px;
+
+font-weight:900;
+
+cursor:pointer;
+
+}
+
+</style><!-- ==========================================
+EMPTY CART STATE
+========================================== -->
+
+<div
+id="emptyCartState"
+class="emptyCartState">
+
+<div class="emptyIcon">
+
+🛒
+
+</div>
+
+<h2>
+
+Your Cart Is Empty
+
+</h2>
+
+<p>
+
+Looks like you haven't added any laundry services yet.
+
+</p>
+
+<button
+class="browseServicesBtn"
+onclick="window.location.href='services.html'">
+
+Browse Services
+
+</button>
+
+</div>
+
+<!-- ==========================================
+TOAST
+========================================== -->
+
+<div
+id="toast"
+class="toast">
+
+Success
+
+</div>
+
+<!-- ==========================================
+FULL PAGE LOADER
+========================================== -->
+
+<div
+id="orderLoader"
+class="orderLoader">
+
+<div class="loaderBox">
+
+<div class="loaderSpinner"></div>
+
+<h3>
+
+Processing Order...
+
+</h3>
+
+<p>
+
+Please wait
+
+</p>
+
+</div>
+
+</div>
+
+<style>
+
+/* ==========================================
+EMPTY CART
+========================================== */
+
+.emptyCartState{
+
+display:none;
+
+text-align:center;
+
+padding:70px 25px;
+
+}
+
+.emptyIcon{
+
+font-size:90px;
+
+margin-bottom:18px;
+
+}
+
+.emptyCartState h2{
+
+font-size:28px;
+
+font-weight:900;
+
+color:#111827;
+
+}
+
+.emptyCartState p{
+
+margin-top:10px;
+
+font-size:14px;
+
+line-height:1.8;
+
+color:#6B7280;
+
+}
+
+.browseServicesBtn{
+
+margin-top:22px;
+
+height:56px;
+
+padding:0 24px;
+
+border:none;
+
+border-radius:16px;
+
+background:#16A34A;
+
+color:white;
+
+font-size:15px;
+
+font-weight:900;
+
+cursor:pointer;
+
+}
+
+/* ==========================================
+TOAST
+========================================== */
+
+.toast{
+
+position:fixed;
+
+left:50%;
+
+bottom:100px;
+
+transform:translateX(-50%);
+
+background:#111827;
+
+color:white;
+
+padding:12px 18px;
+
+border-radius:14px;
+
+font-size:13px;
+
+font-weight:800;
+
+opacity:0;
+
+visibility:hidden;
+
+transition:.3s;
+
+z-index:999999;
+
+}
+
+.toast.show{
+
+opacity:1;
+
+visibility:visible;
+
+}
+
+/* ==========================================
+LOADER
+========================================== */
+
+.orderLoader{
+
+position:fixed;
+
+inset:0;
+
+background:rgba(255,255,255,.85);
+
+backdrop-filter:blur(4px);
+
+display:none;
+
+justify-content:center;
+
+align-items:center;
+
+z-index:999999;
+
+}
+
+.loaderBox{
+
+background:white;
+
+padding:28px;
+
+border-radius:24px;
+
+text-align:center;
+
+box-shadow:
+0 12px 30px rgba(0,0,0,.08);
+
+}
+
+.loaderSpinner{
+
+width:60px;
+height:60px;
+
+margin:auto;
+
+border:4px solid #E5E7EB;
+
+border-top:4px solid #16A34A;
+
+border-radius:50%;
+
+animation:spin 1s linear infinite;
+
+}
+
+.loaderBox h3{
+
+margin-top:18px;
+
+font-size:20px;
+
+font-weight:900;
+
+}
+
+.loaderBox p{
+
+margin-top:8px;
+
+font-size:13px;
+
+color:#6B7280;
+
+}
+
+/* ==========================================
+ANIMATIONS
+========================================== */
+
+.section{
+
+animation:fadeUp .35s ease;
+
+}
+
+@keyframes fadeUp{
+
+from{
+
+opacity:0;
+
+transform:translateY(12px);
+
+}
+
+to{
+
+opacity:1;
+
+transform:translateY(0);
+
+}
+
+}
+
+.paymentCard{
+
+transition:.25s;
+
+}
+
+.paymentCard:hover{
+
+transform:translateY(-2px);
+
+}
+
+/* ==========================================
+MOBILE
+========================================== */
+
+@media(max-width:480px){
+
+.pageTitle{
+
+font-size:20px;
+
+}
+
+.section{
+
+margin:12px;
+
+padding:16px;
+
+}
+
+.grid2{
+
+grid-template-columns:1fr;
+
+}
+
+.placeOrderBtn{
+
+padding:0 18px;
+
+}
+
+.payableAmount{
+
+font-size:22px;
+
+}
+
+}
+
+</style>
+
+<script>
+
+/* ==========================================
+TOAST
+========================================== */
+
+window.showToast =
+function(message){
+
+const toast =
+
+document.getElementById(
+"toast"
+);
+
+toast.innerText =
+message;
+
+toast.classList.add(
+"show"
+);
+
+setTimeout(()=>{
+
+toast.classList.remove(
+"show"
+);
+
+},2500);
+
+};
+
+/* ==========================================
+LOADER
+========================================== */
+
+window.showOrderLoader =
+function(){
+
+document.getElementById(
+"orderLoader"
+).style.display =
+"flex";
+
+};
+
+window.hideOrderLoader =
+function(){
+
+document.getElementById(
+"orderLoader"
+).style.display =
+"none";
+
+};
+
+/* ==========================================
+EMPTY CART
+========================================== */
+
+window.checkEmptyCart =
+function(){
+
+const cart =
+
+JSON.parse(
+
+localStorage.getItem(
+"qp_cart"
+)
+
+|| "[]"
+
+);
+
+if(cart.length===0){
+
+document.getElementById(
+"emptyCartState"
+).style.display =
+"block";
+
+document.querySelectorAll(
+".section"
+)
+
+.forEach(item=>{
+
+item.style.display =
+"none";
+
+});
+
+document.querySelector(
+".bottomBar"
+).style.display =
+"none";
+
+}
+
+};
+
+</script><script type="module">
 
 import { db, auth }
 from "../js/firebase.js";
@@ -629,8 +1422,164 @@ serverTimestamp
 
 from "https://www.gstatic.com/firebasejs/12.11.0/firebase-firestore.js";
 
+/* ==========================================
+GLOBAL
+========================================== */
+
 let paymentMethod = "ONLINE";
 let discount = 0;
+let subtotal = 0;
+let finalTotal = 0;
+
+const selectedAddress =
+
+JSON.parse(
+
+localStorage.getItem(
+"qp_selected_address"
+)
+
+|| "{}"
+
+);
+
+/* ==========================================
+LOGIN PROTECTION
+========================================== */
+
+auth.onAuthStateChanged(
+
+(user)=>{
+
+if(!user){
+
+window.location.href =
+"auth.html";
+
+return;
+
+}
+
+document.getElementById(
+"pageLoader"
+).style.display =
+"none";
+
+loadSelectedAddress();
+
+setDefaultDates();
+
+loadCart();
+
+checkEmptyCart();
+
+}
+
+);
+
+/* ==========================================
+ADDRESS
+========================================== */
+
+function getAddressIcon(type){
+
+if(type==="Home")
+return "🏠";
+
+if(type==="Work")
+return "🏢";
+
+return "📍";
+
+}
+
+function loadSelectedAddress(){
+
+const typeEl =
+document.getElementById(
+"addressType"
+);
+
+const textEl =
+document.getElementById(
+"addressText"
+);
+
+if(!selectedAddress.address){
+
+typeEl.innerText =
+"📍 Select Address";
+
+textEl.innerText =
+"Please select delivery address";
+
+return;
+
+}
+
+typeEl.innerText =
+
+getAddressIcon(
+selectedAddress.type
+)
+
++
+
+" "
+
++
+
+selectedAddress.type;
+
+textEl.innerHTML =
+
+selectedAddress.address +
+
+"<br>" +
+
+selectedAddress.city +
+
+", " +
+
+selectedAddress.state;
+
+}
+
+/* ==========================================
+DATES
+========================================== */
+
+function setDefaultDates(){
+
+const today =
+new Date();
+
+const tomorrow =
+new Date();
+
+tomorrow.setDate(
+today.getDate()+1
+);
+
+document.getElementById(
+"pickupDate"
+).value =
+
+today.toISOString()
+.split("T")[0];
+
+document.getElementById(
+"deliveryDate"
+).value =
+
+tomorrow.toISOString()
+.split("T")[0];
+
+}
+
+/* ==========================================
+LOAD CART
+========================================== */
 
 function loadCart(){
 
@@ -652,9 +1601,9 @@ document.getElementById(
 "orderItems"
 );
 
-let subtotal = 0;
-
 container.innerHTML = "";
+
+subtotal = 0;
 
 cart.forEach(item=>{
 
@@ -667,20 +1616,23 @@ subtotal += total;
 
 container.innerHTML += `
 
-<div class="billRow">
+<div class="orderItem">
 
-<span>
+<div>
+
+<div class="orderItemName">
 
 ${item.name}
-× ${item.qty}
 
-</span>
+</div>
 
-<span>
+</div>
+
+<div class="orderItemPrice">
 
 ₹${total}
 
-</span>
+</div>
 
 </div>
 
@@ -688,13 +1640,15 @@ ${item.name}
 
 });
 
-calculateBill(
-subtotal
-);
+calculateBill();
 
 }
 
-function calculateBill(subtotal){
+/* ==========================================
+BILL
+========================================== */
+
+function calculateBill(){
 
 const deliveryFee = 20;
 
@@ -704,7 +1658,7 @@ Math.round(
 subtotal * 0.05
 );
 
-const grand =
+finalTotal =
 
 subtotal +
 deliveryFee +
@@ -729,18 +1683,18 @@ document.getElementById(
 document.getElementById(
 "grandTotal"
 ).innerText =
-"₹" + grand;
+"₹" + finalTotal;
 
 document.getElementById(
 "bottomAmount"
 ).innerText =
-"₹" + grand;
-
-window.finalTotal = grand;
-
-window.subtotal = subtotal;
+"₹" + finalTotal;
 
 }
+
+/* ==========================================
+COUPON
+========================================== */
 
 window.applyCoupon =
 function(){
@@ -771,9 +1725,11 @@ msg.innerHTML =
 msg.style.color =
 "#16A34A";
 
-}
+showToast(
+"Coupon Applied"
+);
 
-else{
+}else{
 
 discount = 0;
 
@@ -785,11 +1741,13 @@ msg.style.color =
 
 }
 
-calculateBill(
-window.subtotal || 0
-);
+calculateBill();
 
 };
+
+/* ==========================================
+PAYMENT
+========================================== */
 
 window.selectPayment =
 function(type,card){
@@ -815,8 +1773,24 @@ card.classList.add(
 
 };
 
+/* ==========================================
+PLACE ORDER
+========================================== */
+
 window.placeOrder =
 async function(){
+
+const user =
+auth.currentUser;
+
+if(!user){
+
+window.location.href =
+"auth.html";
+
+return;
+
+}
 
 const cart =
 
@@ -832,13 +1806,32 @@ localStorage.getItem(
 
 if(cart.length===0){
 
-alert(
+showToast(
 "Cart Empty"
 );
 
 return;
 
 }
+
+if(!selectedAddress.address){
+
+showToast(
+"Select Address First"
+);
+
+setTimeout(()=>{
+
+window.location.href =
+"addresses.html";
+
+},1000);
+
+return;
+
+}
+
+showOrderLoader();
 
 const orderId =
 
@@ -849,21 +1842,17 @@ const orderData = {
 
 orderId,
 
-uid:
-auth.currentUser?.uid || "",
+uid:user.uid,
 
-items:
-cart,
+items:cart,
 
 paymentMethod,
 
-subtotal:
-window.subtotal,
+subtotal,
 
 discount,
 
-grandTotal:
-window.finalTotal,
+grandTotal:finalTotal,
 
 pickupDate:
 
@@ -895,7 +1884,39 @@ document.getElementById(
 "specialInstructions"
 ).value,
 
+address:{
+
+type:
+selectedAddress.type || "",
+
+address:
+selectedAddress.address || "",
+
+landmark:
+selectedAddress.landmark || "",
+
+city:
+selectedAddress.city || "",
+
+state:
+selectedAddress.state || ""
+
+},
+
+paymentStatus:
+
+paymentMethod==="ONLINE"
+
+?
+
+"Pending"
+
+:
+
+"COD",
+
 status:
+
 "Order Received",
 
 createdAt:
@@ -917,9 +1938,21 @@ orderData
 
 );
 
+localStorage.setItem(
+
+"qp_last_order",
+
+JSON.stringify(
+orderData
+)
+
+);
+
 localStorage.removeItem(
 "qp_cart"
 );
+
+hideOrderLoader();
 
 if(paymentMethod==="ONLINE"){
 
@@ -943,44 +1976,15 @@ window.location.href =
 
 console.error(error);
 
-alert(
+hideOrderLoader();
+
+showToast(
 "Order Failed"
 );
 
 }
 
 };
-
-function setDefaultDates(){
-
-const today =
-new Date();
-
-const tomorrow =
-new Date();
-
-tomorrow.setDate(
-today.getDate()+1
-);
-
-document.getElementById(
-"pickupDate"
-).value =
-
-today.toISOString()
-.split("T")[0];
-
-document.getElementById(
-"deliveryDate"
-).value =
-
-tomorrow.toISOString()
-.split("T")[0];
-
-}
-
-setDefaultDates();
-loadCart();
 
 </script>
 
