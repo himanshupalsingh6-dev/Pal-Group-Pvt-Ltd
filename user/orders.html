@@ -4,24 +4,13 @@
 <head>
 
 <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<meta
-name="viewport"
-content="width=device-width, initial-scale=1.0">
+<title>My Orders - QuickPress</title>
 
-<title>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
 
-My Orders
-
-</title>
-
-<link
-href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap"
-rel="stylesheet">
-
-<link
-rel="stylesheet"
-href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
 
 <style>
 
@@ -33,57 +22,240 @@ font-family:'Inter',sans-serif;
 }
 
 :root{
-
---primary:#F4B400;
---secondary:#16A34A;
---bg:#F7F8FA;
+--green:#16A34A;
+--yellow:#F4B400;
 --dark:#111827;
 --gray:#6B7280;
-
+--bg:#F8FAFC;
 }
 
 body{
-
 background:var(--bg);
-
-padding-bottom:120px;
-
+padding-bottom:100px;
 }
 
-.ordersHeader{
+/* HEADER */
 
-background:#fff;
-
-padding:20px 16px;
+.header{
 
 position:sticky;
-
 top:0;
 
-z-index:999;
+background:white;
 
-box-shadow:
-0 4px 20px rgba(0,0,0,.05);
+padding:16px;
+
+display:flex;
+align-items:center;
+gap:14px;
+
+box-shadow:0 4px 15px rgba(0,0,0,.05);
+
+z-index:100;
 
 }
 
-.ordersTitle{
+.backBtn{
 
-font-size:30px;
+width:44px;
+height:44px;
+
+border:none;
+
+border-radius:14px;
+
+background:#F3F4F6;
+
+font-size:18px;
+
+cursor:pointer;
+
+}
+
+.title{
+
+font-size:24px;
 
 font-weight:900;
 
-color:#111827;
+}
+
+/* CARD */
+
+.ordersContainer{
+
+padding:16px;
 
 }
 
-.ordersSub{
+.orderCard{
 
-font-size:13px;
+background:white;
+
+border-radius:24px;
+
+padding:18px;
+
+margin-bottom:18px;
+
+box-shadow:0 8px 25px rgba(0,0,0,.05);
+
+}
+
+.orderTop{
+
+display:flex;
+
+justify-content:space-between;
+
+align-items:center;
+
+margin-bottom:14px;
+
+}
+
+.orderId{
+
+font-size:16px;
+
+font-weight:900;
+
+}
+
+.status{
+
+padding:8px 12px;
+
+border-radius:999px;
+
+background:#ECFDF5;
+
+color:#16A34A;
+
+font-size:12px;
+
+font-weight:900;
+
+}
+
+.orderAmount{
+
+font-size:24px;
+
+font-weight:900;
+
+margin-top:10px;
+
+}
+
+/* TIMELINE */
+
+.timeline{
+
+margin-top:20px;
+
+}
+
+.step{
+
+display:flex;
+
+gap:12px;
+
+margin-bottom:18px;
+
+}
+
+.stepDot{
+
+width:18px;
+height:18px;
+
+border-radius:50%;
+
+background:#D1D5DB;
+
+margin-top:4px;
+
+}
+
+.step.active .stepDot{
+
+background:#16A34A;
+
+}
+
+.stepContent h4{
+
+font-size:14px;
+
+font-weight:800;
+
+}
+
+.stepContent p{
+
+font-size:12px;
 
 color:#6B7280;
 
 margin-top:4px;
+
+}
+
+/* EMPTY */
+
+.empty{
+
+text-align:center;
+
+padding:80px 20px;
+
+display:none;
+
+}
+
+.emptyIcon{
+
+font-size:80px;
+
+}
+
+.empty h2{
+
+margin-top:15px;
+
+font-size:28px;
+
+font-weight:900;
+
+}
+
+.empty p{
+
+margin-top:10px;
+
+color:#6B7280;
+
+}
+
+.shopBtn{
+
+margin-top:20px;
+
+height:54px;
+
+padding:0 20px;
+
+border:none;
+
+border-radius:16px;
+
+background:#16A34A;
+
+color:white;
+
+font-weight:900;
 
 }
 
@@ -93,290 +265,81 @@ margin-top:4px;
 
 <body>
 
-<div class="ordersHeader">
+<div class="header">
 
-<div class="ordersTitle">
+<button
+class="backBtn"
+onclick="history.back()">
+
+<i class="fa-solid fa-arrow-left"></i>
+
+</button>
+
+<div class="title">
 
 My Orders
 
 </div>
 
-<div class="ordersSub">
+</div>
 
-Track all your laundry orders
+<div
+id="ordersContainer"
+class="ordersContainer">
 
 </div>
 
-</div><section
-style="padding:16px;">
+<div
+id="emptyState"
+class="empty">
 
-<div class="orderTabs">
+<div class="emptyIcon">
 
-<button
-class="tabBtn activeTab"
-onclick="filterOrders('all')">
+📦
 
-All
+</div>
 
-</button>
+<h2>
 
-<button
-class="tabBtn"
-onclick="filterOrders('active')">
+No Orders Yet
 
-Active
+</h2>
 
-</button>
+<p>
 
-<button
-class="tabBtn"
-onclick="filterOrders('completed')">
+Place your first order with QuickPress
 
-Completed
-
-</button>
+</p>
 
 <button
-class="tabBtn"
-onclick="filterOrders('cancelled')">
+class="shopBtn"
+onclick="goHome()">
 
-Cancelled
+Browse Services
 
 </button>
 
 </div>
 
-</section>
-
-<style>
-
-.orderTabs{
-
-display:flex;
-
-gap:10px;
-
-overflow-x:auto;
-
-scrollbar-width:none;
-
-}
-
-.orderTabs::-webkit-scrollbar{
-
-display:none;
-
-}
-
-.tabBtn{
-
-border:none;
-
-height:42px;
-
-padding:0 18px;
-
-border-radius:999px;
-
-background:#fff;
-
-font-weight:800;
-
-cursor:pointer;
-
-flex-shrink:0;
-
-}
-
-.activeTab{
-
-background:#16A34A;
-
-color:#fff;
-
-}
-
-</style><script type="module">
+<script type="module">
 
 import { db, auth }
-from "./firebase.js";
+from "../js/firebase.js";
 
 import {
 
 collection,
 query,
 where,
-onSnapshot
+getDocs
 
 }
 
-from
+from "https://www.gstatic.com/firebasejs/12.11.0/firebase-firestore.js";
 
-"https://www.gstatic.com/firebasejs/12.11.0/firebase-firestore.js";
+/* LOAD ORDERS */
 
-window.allOrders = [];
-
-window.loadOrders =
-function(){
-
-if(!auth.currentUser){
-
-return;
-
-}
-
-const orderQuery =
-
-query(
-
-collection(
-db,
-"orders"
-),
-
-where(
-"userId",
-"==",
-auth.currentUser.uid
-)
-
-);
-
-onSnapshot(
-
-orderQuery,
-
-(snapshot)=>{
-
-allOrders = [];
-
-snapshot.forEach(doc=>{
-
-allOrders.push({
-
-id:doc.id,
-
-...doc.data()
-
-});
-
-});
-
-renderOrders(
-allOrders
-);
-
-}
-
-);
-
-};
-
-</script><section
-style="padding:0 16px;">
-
-<div
-id="ordersContainer">
-
-</div>
-
-</section>
-
-<style>
-
-.orderCard{
-
-background:#fff;
-
-border-radius:22px;
-
-padding:18px;
-
-margin-bottom:16px;
-
-box-shadow:
-0 8px 24px rgba(0,0,0,.05);
-
-}
-
-.orderHeaderRow{
-
-display:flex;
-
-justify-content:space-between;
-
-align-items:center;
-
-margin-bottom:10px;
-
-}
-
-.orderNumber{
-
-font-size:15px;
-
-font-weight:900;
-
-}
-
-.orderCity{
-
-font-size:12px;
-
-color:#6B7280;
-
-margin-bottom:12px;
-
-}
-
-.statusBadge{
-
-padding:7px 12px;
-
-border-radius:999px;
-
-font-size:11px;
-
-font-weight:900;
-
-}
-
-.pending{
-
-background:#FEF3C7;
-
-color:#D97706;
-
-}
-
-.cleaning{
-
-background:#DBEAFE;
-
-color:#2563EB;
-
-}
-
-.delivered{
-
-background:#DCFCE7;
-
-color:#16A34A;
-
-}
-
-.cancelled{
-
-background:#FEE2E2;
-
-color:#DC2626;
-
-}
-
-</style><script>
-
-window.renderOrders =
-function(orders){
+async function loadOrders(){
 
 const container =
 
@@ -384,262 +347,227 @@ document.getElementById(
 "ordersContainer"
 );
 
-if(!orders.length){
+const empty =
 
-container.innerHTML =
+document.getElementById(
+"emptyState"
+);
 
-`
+const user =
 
-<div style="
-background:#fff;
-padding:40px;
-border-radius:24px;
-text-align:center;
-">
+auth.currentUser;
 
-<h3>
+if(!user){
 
-No Orders Found
+empty.style.display =
+"block";
 
-</h3>
+return;
 
-<p style="
-margin-top:8px;
-color:#6B7280;
-">
+}
 
-Place your first order
+const q = query(
+
+collection(db,"orders"),
+
+where(
+"uid",
+"==",
+user.uid
+)
+
+);
+
+const snapshot =
+await getDocs(q);
+
+if(snapshot.empty){
+
+empty.style.display =
+"block";
+
+return;
+
+}
+
+container.innerHTML = "";
+
+snapshot.forEach(doc=>{
+
+const order =
+doc.data();
+
+container.innerHTML += `
+
+<div class="orderCard">
+
+<div class="orderTop">
+
+<div>
+
+<div class="orderId">
+
+${order.orderId}
+
+</div>
+
+<div>
+
+${order.paymentMethod}
+
+</div>
+
+</div>
+
+<div class="status">
+
+${order.status}
+
+</div>
+
+</div>
+
+<div class="orderAmount">
+
+₹${order.grandTotal}
+
+</div>
+
+<div class="timeline">
+
+<div class="step active">
+
+<div class="stepDot"></div>
+
+<div class="stepContent">
+
+<h4>
+
+Order Received
+
+</h4>
+
+<p>
+
+Your order is confirmed
 
 </p>
 
 </div>
 
-`;
-
-return;
-
-}
-
-let html = "";
-
-orders.forEach(order=>{
-
-html +=
-
-getTimelineHTML(
-
-order.status ||
-
-"Pending"
-
-);
-
-if(order.items){
-
-order.items.forEach(item=>{
-
-html += `
-
-<div style="
-padding:10px 0;
-border-top:1px solid #F3F4F6;
-">
-
-<div style="
-font-weight:800;
-">
-
-${item.serviceName}
-
 </div>
 
-<div style="
-font-size:12px;
-color:#6B7280;
-margin-top:4px;
-">
+<div class="step active">
 
-${item.category}
+<div class="stepDot"></div>
 
->
+<div class="stepContent">
 
-${item.subCategory}
+<h4>
 
-</div>
+Pickup Assigned
 
-<div style="
-font-size:12px;
-margin-top:4px;
-">
+</h4>
 
-Qty ${item.qty}
+<p>
+
+Pickup partner assigned
+
+</p>
 
 </div>
 
 </div>
 
-`;
+<div class="step">
 
-});
+<div class="stepDot"></div>
 
-}
+<div class="stepContent">
 
-html += `
+<h4>
 
-<div style="
-display:flex;
-justify-content:space-between;
-align-items:center;
-margin-top:14px;
-padding-top:14px;
-border-top:1px solid #F3F4F6;
-">
+Picked Up
 
-<div style="
-font-size:20px;
-font-weight:900;
-">
+</h4>
 
-₹${order.total || 0}
+<p>
 
-</div>
+Laundry collected
 
-<button
-onclick="location.href='order-details.html?id=${order.id}'"
-style="
-height:42px;
-padding:0 16px;
-border:none;
-border-radius:12px;
-background:#16A34A;
-color:#fff;
-font-weight:800;
-cursor:pointer;
-">
-
-Track Order
-
-</button>
+</p>
 
 </div>
 
 </div>
 
-`;
+<div class="step">
 
-});
+<div class="stepDot"></div>
 
-container.innerHTML = html;
+<div class="stepContent">
 
-};
+<h4>
 
-</script><style>
+Cleaning In Progress
 
-.timeline{
+</h4>
 
-margin-top:14px;
+<p>
 
-padding-top:14px;
+Processing clothes
 
-border-top:1px solid #F3F4F6;
+</p>
 
-}
+</div>
 
-.timelineStep{
+</div>
 
-display:flex;
+<div class="step">
 
-align-items:center;
+<div class="stepDot"></div>
 
-gap:10px;
+<div class="stepContent">
 
-margin-bottom:10px;
+<h4>
 
-font-size:12px;
+Out For Delivery
 
-font-weight:700;
+</h4>
 
-}
+<p>
 
-.timelineDot{
+On the way
 
-width:12px;
+</p>
 
-height:12px;
+</div>
 
-border-radius:50%;
+</div>
 
-background:#D1D5DB;
+<div class="step">
 
-}
+<div class="stepDot"></div>
 
-.timelineDone{
+<div class="stepContent">
 
-background:#16A34A;
+<h4>
 
-}
+Delivered
 
-.timelineActive{
+</h4>
 
-background:#F4B400;
+<p>
 
-}
+Successfully delivered
 
-</style>
+</p>
 
-<script>
+</div>
 
-window.getTimelineHTML =
-function(status){
+</div>
 
-const steps = [
-
-"Pending",
-"Pickup Assigned",
-"Picked Up",
-"Cleaning",
-"Out For Delivery",
-"Delivered"
-
-];
-
-let currentIndex =
-
-steps.indexOf(status);
-
-if(currentIndex < 0){
-
-currentIndex = 0;
-
-}
-
-let html =
-'<div class="timeline">';
-
-steps.forEach((step,index)=>{
-
-let dotClass =
-"timelineDot";
-
-if(index < currentIndex){
-
-dotClass +=
-" timelineDone";
-
-}else if(index === currentIndex){
-
-dotClass +=
-" timelineActive";
-
-}
-
-html += `
-
-<div class="timelineStep">
-
-<div class="${dotClass}"></div>
-
-<div>${step}</div>
+</div>
 
 </div>
 
@@ -647,345 +575,18 @@ html += `
 
 });
 
-html += "</div>";
-
-return html;
-
-};
-
-</script><section
-style="padding:0 16px 16px;">
-
-<input
-
-id="orderSearch"
-
-placeholder="Search Order Number"
-
-style="
-width:100%;
-height:54px;
-border:none;
-border-radius:16px;
-padding:0 16px;
-outline:none;
-background:#fff;
-">
-
-</section>
-
-<script>
-
-document
-.getElementById(
-"orderSearch"
-)
-
-.addEventListener(
-
-"input",
-
-function(){
-
-const keyword =
-
-this.value
-.toLowerCase();
-
-const filtered =
-
-allOrders.filter(order=>{
-
-return (
-
-order.orderNumber ||
-
-""
-
-)
-
-.toLowerCase()
-
-.includes(keyword);
-
-});
-
-renderOrders(
-filtered
-);
-
 }
 
-);
-
-</script><script>
-
-window.filterOrders =
-function(type){
-
-document
-.querySelectorAll(
-".tabBtn"
-)
-
-.forEach(btn=>{
-
-btn.classList.remove(
-"activeTab"
-);
-
-});
-
-event.target.classList.add(
-"activeTab"
-);
-
-if(type==="all"){
-
-renderOrders(
-allOrders
-);
-
-return;
-
-}
-
-if(type==="active"){
-
-const activeOrders =
-
-allOrders.filter(order=>
-
-order.status !==
-"Delivered"
-
-&&
-
-order.status !==
-"Cancelled"
-
-);
-
-renderOrders(
-activeOrders
-);
-
-return;
-
-}
-
-if(type==="completed"){
-
-renderOrders(
-
-allOrders.filter(order=>
-
-order.status ===
-"Delivered"
-
-)
-
-);
-
-return;
-
-}
-
-if(type==="cancelled"){
-
-renderOrders(
-
-allOrders.filter(order=>
-
-order.status ===
-"Cancelled"
-
-)
-
-);
-
-}
-
-};
-
-</script><nav class="bottomNav">
-
-<button
-onclick="location.href='index.html'">
-
-<i class="fa-solid fa-house"></i>
-
-<span>
-
-Home
-
-</span>
-
-</button>
-
-<button
-onclick="location.href='services.html'">
-
-<i class="fa-solid fa-table-cells-large"></i>
-
-<span>
-
-Services
-
-</span>
-
-</button>
-
-<button
-onclick="location.href='cart.html'">
-
-<i class="fa-solid fa-cart-shopping"></i>
-
-<span>
-
-Cart
-
-</span>
-
-</button>
-
-<button
-class="activeNav">
-
-<i class="fa-solid fa-box"></i>
-
-<span>
-
-Orders
-
-</span>
-
-</button>
-
-<button
-onclick="location.href='profile.html'">
-
-<i class="fa-solid fa-user"></i>
-
-<span>
-
-Profile
-
-</span>
-
-</button>
-
-</nav>
-
-<style>
-
-.bottomNav{
-
-position:fixed;
-
-left:0;
-right:0;
-bottom:0;
-
-height:74px;
-
-background:#fff;
-
-display:flex;
-
-justify-content:space-around;
-
-align-items:center;
-
-box-shadow:
-0 -8px 24px rgba(0,0,0,.08);
-
-z-index:9999;
-
-}
-
-.bottomNav button{
-
-flex:1;
-
-height:100%;
-
-border:none;
-
-background:none;
-
-display:flex;
-
-flex-direction:column;
-
-justify-content:center;
-
-align-items:center;
-
-gap:4px;
-
-font-size:11px;
-
-font-weight:700;
-
-color:#6B7280;
-
-cursor:pointer;
-
-}
-
-.bottomNav i{
-
-font-size:18px;
-
-}
-
-.activeNav{
-
-color:#16A34A !important;
-
-}
-
-</style>
-
-<script type="module">
-
-import { auth }
-from "./firebase.js";
-
-import {
-
-onAuthStateChanged
-
-}
-
-from
-
-"https://www.gstatic.com/firebasejs/12.11.0/firebase-auth.js";
-
-onAuthStateChanged(
-
-auth,
-
-(user)=>{
-
-if(user){
-
-loadOrders();
-
-}else{
+function goHome(){
 
 window.location.href =
-"login.html";
+"services.html";
 
 }
 
-}
-
-);
+loadOrders();
 
 </script>
 
 </body>
-
 </html>
