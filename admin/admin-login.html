@@ -10,9 +10,7 @@ name="viewport"
 content="width=device-width, initial-scale=1.0">
 
 <title>
-
 QuickPress Admin Login
-
 </title>
 
 <link
@@ -33,13 +31,11 @@ font-family:'Inter',sans-serif;
 }
 
 :root{
-
 --primary:#F4B400;
 --secondary:#16A34A;
 --dark:#111827;
 --gray:#6B7280;
 --bg:#F8FAFC;
-
 }
 
 body{
@@ -53,7 +49,6 @@ justify-content:center;
 align-items:center;
 
 background:
-
 linear-gradient(
 135deg,
 #F8FAFC,
@@ -67,7 +62,6 @@ padding:20px;
 .loginCard{
 
 width:100%;
-
 max-width:450px;
 
 background:white;
@@ -91,15 +85,14 @@ margin-bottom:30px;
 
 .logoBox{
 
-width:80px;
-height:80px;
+width:90px;
+height:90px;
 
 margin:auto;
 
 border-radius:24px;
 
 background:
-
 linear-gradient(
 135deg,
 #F4B400,
@@ -112,7 +105,7 @@ align-items:center;
 
 justify-content:center;
 
-font-size:28px;
+font-size:30px;
 
 font-weight:900;
 
@@ -122,9 +115,9 @@ color:white;
 
 .logo h1{
 
-margin-top:16px;
+margin-top:18px;
 
-font-size:28px;
+font-size:30px;
 
 font-weight:900;
 
@@ -158,6 +151,8 @@ font-size:13px;
 
 font-weight:800;
 
+color:#111827;
+
 }
 
 .inputField{
@@ -175,6 +170,12 @@ padding:0 16px;
 font-size:14px;
 
 outline:none;
+
+}
+
+.inputField:focus{
+
+border-color:#16A34A;
 
 }
 
@@ -200,6 +201,30 @@ cursor:pointer;
 
 margin-top:10px;
 
+transition:.3s;
+
+}
+
+.loginBtn:hover{
+
+transform:translateY(-2px);
+
+}
+
+.loader{
+
+display:none;
+
+text-align:center;
+
+margin-top:15px;
+
+font-size:13px;
+
+font-weight:700;
+
+color:#6B7280;
+
 }
 
 .errorBox{
@@ -222,17 +247,19 @@ font-weight:700;
 
 }
 
-.loader{
+.loginInfo{
 
-display:none;
+margin-top:20px;
 
-text-align:center;
+padding:14px;
 
-margin-top:15px;
+border-radius:14px;
+
+background:#F9FAFB;
 
 font-size:13px;
 
-font-weight:700;
+line-height:1.8;
 
 color:#6B7280;
 
@@ -262,7 +289,7 @@ QuickPress Admin
 
 <p>
 
-Super Admin Panel Login
+Super Admin Panel
 
 </p>
 
@@ -272,7 +299,7 @@ Super Admin Panel Login
 
 <label>
 
-Email
+Email Address
 
 </label>
 
@@ -280,7 +307,7 @@ Email
 type="email"
 id="email"
 class="inputField"
-placeholder="admin@quickpress.com">
+placeholder="Enter Admin Email">
 
 </div>
 
@@ -304,7 +331,7 @@ placeholder="Enter Password">
 class="loginBtn"
 onclick="adminLogin()">
 
-Login
+Login To Dashboard
 
 </button>
 
@@ -320,44 +347,81 @@ Verifying Admin Access...
 id="errorBox"
 class="errorBox">
 
-Invalid Admin Credentials
+Invalid Credentials
 
-</div><script type="module">
+</div>
 
-import { auth, db }
-from "../js/firebase.js";
+<div class="loginInfo">
 
-import {
+<b>Demo Login</b><br>
 
-signInWithEmailAndPassword
+Email:
+himanshupalsingh6@gmail.com
 
-}
+<br>
 
-from "https://www.gstatic.com/firebasejs/12.11.0/firebase-auth.js";
+Password:
+4502
 
-import {
+</div>
 
-doc,
-getDoc
+</div>
 
-}
+<script>
 
-from "https://www.gstatic.com/firebasejs/12.11.0/firebase-firestore.js";
+/* ==========================================
+ADMIN LOGIN
+========================================== */
 
-window.adminLogin = async function(){
+window.adminLogin =
+async function(){
 
 const email =
-document.getElementById("email").value.trim();
+
+document.getElementById(
+"email"
+).value.trim();
 
 const password =
-document.getElementById("password").value;
 
-/* TEST ADMIN LOGIN */
+document.getElementById(
+"password"
+).value;
+
+const loader =
+
+document.getElementById(
+"loader"
+);
+
+const errorBox =
+
+document.getElementById(
+"errorBox"
+);
+
+errorBox.style.display =
+"none";
+
+loader.style.display =
+"block";
+
+const ADMIN_EMAIL =
+"himanshupalsingh6@gmail.com";
+
+const ADMIN_PASSWORD =
+"4502";
+
+setTimeout(()=>{
 
 if(
-email === "himanshupalsingh6@gmail.com"
+
+email === ADMIN_EMAIL
+
 &&
-password === "4502"
+
+password === ADMIN_PASSWORD
+
 ){
 
 localStorage.setItem(
@@ -365,69 +429,70 @@ localStorage.setItem(
 "true"
 );
 
+localStorage.setItem(
+"adminRole",
+"super_admin"
+);
+
+localStorage.setItem(
+"adminName",
+"Himanshu Pal"
+);
+
 window.location.href =
 "dashboard.html";
 
-return;
-
-}
-
-document.getElementById(
-"errorBox"
-).innerText =
-"Invalid Email or Password";
-
-document.getElementById(
-"errorBox"
-).style.display =
-"block";
-
-};
-window.location.href =
-"dashboard.html";
-
-}catch(error){
-
-console.error(error);
+}else{
 
 loader.style.display =
 "none";
 
 errorBox.innerText =
-"Invalid Email or Password";
+"Invalid Email Or Password";
 
 errorBox.style.display =
 "block";
 
 }
 
+},1000);
+
 };
 
-/* AUTO LOGIN */
+/* ==========================================
+AUTO LOGIN
+========================================== */
 
-auth.onAuthStateChanged(
+if(
 
-async(user)=>{
-
-if(!user)
-return;
-
-const adminDoc =
-
-await getDoc(
-
-doc(
-db,
-"admins",
-user.uid
+localStorage.getItem(
+"adminLogin"
 )
 
-);
+===
 
-if(adminDoc.exists()){
+"true"
+
+){
 
 window.location.href =
 "dashboard.html";
+
+}
+
+/* ==========================================
+ENTER KEY LOGIN
+========================================== */
+
+document.addEventListener(
+
+"keydown",
+
+(event)=>{
+
+if(event.key==="Enter"){
+
+adminLogin();
 
 }
 
@@ -436,8 +501,6 @@ window.location.href =
 );
 
 </script>
-
-</div>
 
 </body>
 </html>
