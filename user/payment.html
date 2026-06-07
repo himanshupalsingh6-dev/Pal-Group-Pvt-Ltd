@@ -3,29 +3,13 @@
 <head>
 
 <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<meta
-name="viewport"
-content="width=device-width, initial-scale=1.0">
+<title>QuickPress Payment</title>
 
-<title>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
 
-QuickPress Payment
-
-</title>
-
-<link rel="preconnect"
-href="https://fonts.googleapis.com">
-
-<link rel="preconnect"
-href="https://fonts.gstatic.com"
-crossorigin>
-
-<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap"
-rel="stylesheet">
-
-<link rel="stylesheet"
-href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
 
 <style>
 
@@ -36,228 +20,206 @@ box-sizing:border-box;
 font-family:'Inter',sans-serif;
 }
 
-body{
-
-background:#F6F7FB;
-
-color:#111827;
-
-padding-bottom:120px;
-
-overflow-x:hidden;
-
+:root{
+--yellow:#F4B400;
+--green:#16A34A;
+--dark:#111827;
+--gray:#6B7280;
+--bg:#F8FAFC;
 }
 
-/* ===================================
-HEADER
-=================================== */
+body{
+background:var(--bg);
+padding-bottom:120px;
+}
 
-.paymentHeader{
+.header{
 
 position:sticky;
-
 top:0;
 
-z-index:999;
+background:white;
 
-background:#fff;
-
-padding:12px 16px;
-
-box-shadow:
-0 2px 15px rgba(0,0,0,.05);
-
-}
-
-.headerRow{
+padding:16px;
 
 display:flex;
-
 align-items:center;
+gap:14px;
 
-justify-content:space-between;
+box-shadow:0 4px 15px rgba(0,0,0,.05);
+
+z-index:100;
 
 }
 
 .backBtn{
 
-width:42px;
-height:42px;
+width:44px;
+height:44px;
 
 border:none;
 
+border-radius:14px;
+
 background:#F3F4F6;
 
-border-radius:12px;
-
-font-size:16px;
-
-cursor:pointer;
+font-size:18px;
 
 }
 
-.headerCenter{
-
-flex:1;
-
-text-align:center;
-
-}
-
-.brandText{
-
-font-size:12px;
-
-font-weight:700;
-
-color:#16A34A;
-
-}
-
-.pageTitle{
+.title{
 
 font-size:22px;
-
 font-weight:900;
 
 }
 
-.paymentIcon{
+.section{
 
-width:42px;
-height:42px;
+background:white;
 
-border:none;
+margin:16px;
 
-border-radius:12px;
+padding:20px;
 
-background:#16A34A;
+border-radius:22px;
 
-color:#fff;
-
-font-size:16px;
+box-shadow:0 5px 20px rgba(0,0,0,.04);
 
 }
 
-/* ===================================
-AMOUNT CARD
-=================================== */
-
-.amountSection{
-
-padding:20px 16px;
-
-}
-
-.amountCard{
-
-background:
-linear-gradient(
-135deg,
-#16A34A,
-#22C55E
-);
-
-color:#fff;
-
-padding:24px;
-
-border-radius:24px;
+.paymentAmount{
 
 text-align:center;
 
-box-shadow:
-0 12px 30px rgba(34,197,94,.25);
-
 }
 
-.amountLabel{
-
-font-size:14px;
-
-font-weight:700;
-
-opacity:.9;
-
-}
-
-.amountValue{
+.paymentAmount h1{
 
 font-size:42px;
 
 font-weight:900;
 
+color:#16A34A;
+
+margin-top:10px;
+
+}
+
+.paymentAmount p{
+
+color:#6B7280;
+
 margin-top:8px;
 
 }
 
-.orderId{
-
-margin-top:10px;
-
-font-size:13px;
-
-opacity:.9;
-
-}
-
-/* ===================================
-SUMMARY CARD
-=================================== */
-
-.summarySection{
-
-padding:0 16px 20px;
-
-}
-
-.summaryCard{
-
-background:#fff;
-
-padding:18px;
-
-border-radius:20px;
-
-box-shadow:
-0 4px 14px rgba(0,0,0,.05);
-
-}
-
-.summaryTitle{
-
-font-size:18px;
-
-font-weight:900;
-
-margin-bottom:14px;
-
-}
-
-.summaryRow{
+.methodCard{
 
 display:flex;
 
-justify-content:space-between;
+align-items:center;
 
-margin-bottom:12px;
+gap:15px;
 
-font-size:14px;
+padding:18px;
 
-font-weight:700;
+border:2px solid #E5E7EB;
+
+border-radius:18px;
+
+margin-top:14px;
+
+cursor:pointer;
+
+transition:.3s;
 
 }
 
-.totalRow{
+.methodCard.active{
 
-padding-top:14px;
+border-color:#16A34A;
 
-border-top:
-1px solid #E5E7EB;
+background:#F0FDF4;
+
+}
+
+.methodIcon{
+
+width:55px;
+height:55px;
+
+border-radius:14px;
+
+background:#F3F4F6;
+
+display:flex;
+align-items:center;
+justify-content:center;
+
+font-size:24px;
+
+}
+
+.methodTitle{
+
+font-size:16px;
+
+font-weight:800;
+
+}
+
+.methodDesc{
+
+font-size:13px;
+
+color:#6B7280;
+
+margin-top:4px;
+
+}
+
+.payBtn{
+
+position:fixed;
+
+left:16px;
+right:16px;
+bottom:20px;
+
+height:60px;
+
+border:none;
+
+border-radius:18px;
+
+background:#16A34A;
+
+color:white;
 
 font-size:18px;
 
 font-weight:900;
+
+box-shadow:0 12px 25px rgba(22,163,74,.25);
+
+}
+
+.secureBox{
+
+display:flex;
+
+align-items:center;
+
+justify-content:center;
+
+gap:8px;
+
+margin-top:16px;
+
+font-size:13px;
+
+color:#6B7280;
 
 }
 
@@ -267,13 +229,7 @@ font-weight:900;
 
 <body>
 
-<!-- ===================================
-HEADER
-=================================== -->
-
-<div class="paymentHeader">
-
-<div class="headerRow">
+<div class="header">
 
 <button
 class="backBtn"
@@ -283,15 +239,7 @@ onclick="history.back()">
 
 </button>
 
-<div class="headerCenter">
-
-<div class="brandText">
-
-QuickPress
-
-</div>
-
-<div class="pageTitle">
+<div class="title">
 
 Payment
 
@@ -299,1685 +247,261 @@ Payment
 
 </div>
 
-<button
-class="paymentIcon">
+<!-- Amount -->
 
-<i class="fa-solid fa-shield-halved"></i>
+<div class="section paymentAmount">
 
-</button>
+<div>
+
+💳
+
+</div>
+
+<h1 id="paymentAmount">
+
+₹0
+
+</h1>
+
+<p>
+
+Secure Payment for QuickPress Order
+
+</p>
 
 </div>
 
-</div>
+<!-- Payment Methods -->
 
-<!-- ===================================
-AMOUNT
-=================================== -->
+<div class="section">
 
-<div class="amountSection">
+<h3>
 
-<div class="amountCard">
+Choose Payment Method
 
-<div class="amountLabel">
-
-Amount To Pay
-
-</div>
+</h3>
 
 <div
-class="amountValue"
-id="amountValue">
+class="methodCard active"
+onclick="selectMethod('UPI',this)">
 
-₹0
+<div class="methodIcon">
 
-</div>
-
-<div
-class="orderId"
-id="paymentOrderId">
-
-Order ID: --
-
-</div>
-
-</div>
-
-</div>
-
-<!-- ===================================
-SUMMARY
-=================================== -->
-
-<div class="summarySection">
-
-<div class="summaryCard">
-
-<div class="summaryTitle">
-
-Payment Summary
-
-</div>
-
-<div class="summaryRow">
-
-<span>
-
-Subtotal
-
-</span>
-
-<span
-id="paySubtotal">
-
-₹0
-
-</span>
-
-</div>
-
-<div class="summaryRow">
-
-<span>
-
-Delivery
-
-</span>
-
-<span
-id="payDelivery">
-
-₹0
-
-</span>
-
-</div>
-
-<div class="summaryRow totalRow">
-
-<span>
-
-Total
-
-</span>
-
-<span
-id="payTotal">
-
-₹0
-
-</span>
-
-</div>
-
-</div>
-
-</div>
-
-<script>
-
-/* ===================================
-LOAD ORDER
-=================================== */
-
-const pendingOrder =
-
-JSON.parse(
-localStorage.getItem(
-"pendingOrder"
-)
-);
-
-if(pendingOrder){
-
-document.getElementById(
-"amountValue"
-).innerHTML =
-
-"₹" +
-
-(pendingOrder.grandTotal || 0);
-
-document.getElementById(
-"paymentOrderId"
-).innerHTML =
-
-"Order ID: " +
-
-(pendingOrder.orderId || "--");
-
-document.getElementById(
-"paySubtotal"
-).innerHTML =
-
-"₹" +
-
-(pendingOrder.subtotal || 0);
-
-document.getElementById(
-"payDelivery"
-).innerHTML =
-
-"₹" +
-
-(pendingOrder.delivery || 0);
-
-document.getElementById(
-"payTotal"
-).innerHTML =
-
-"₹" +
-
-(pendingOrder.grandTotal || 0);
-
-}
-
-</script>
-<!-- ===================================
-UPI PAYMENT
-=================================== -->
-
-<div class="paymentMethods">
-
-<div class="paymentCard">
-
-<div class="paymentTitle">
-
-📱 Pay Using UPI
-
-</div>
-
-<div class="paymentDesc">
-
-PhonePe • Google Pay • Paytm • BHIM
-
-</div>
-
-<div class="upiBox">
-
-<input
-type="text"
-id="upiId"
-placeholder="Enter UPI ID (example@upi)">
-
-<button
-onclick="verifyUPI()">
-
-Verify
-
-</button>
-
-</div>
-
-<div
-class="verifyStatus"
-id="verifyStatus">
-
-</div>
-
-</div>
-
-<!-- ===================================
-UPI APPS
-=================================== -->
-
-<div class="paymentCard">
-
-<div class="paymentTitle">
-
-⚡ Quick Pay
-
-</div>
-
-<div class="upiApps">
-
-<button class="upiApp">
-
-<img
-src="https://cdn-icons-png.flaticon.com/512/825/825454.png"
-width="24">
-
-PhonePe
-
-</button>
-
-<button class="upiApp">
-
-<img
-src="https://cdn-icons-png.flaticon.com/512/2991/2991148.png"
-width="24">
-
-GPay
-
-</button>
-
-<button class="upiApp">
-
-<img
-src="https://cdn-icons-png.flaticon.com/512/5968/5968299.png"
-width="24">
-
-Paytm
-
-</button>
-
-</div>
-
-</div>
-
-<!-- ===================================
-QR PAYMENT
-=================================== -->
-
-<div class="paymentCard">
-
-<div class="paymentTitle">
-
-🔳 Scan QR & Pay
-
-</div>
-
-<div class="qrWrapper">
-
-<img
-
-id="paymentQR"
-
-src="https://api.qrserver.com/v1/create-qr-code/?size=220x220&data=quickpress@upi"
-
-alt="QR Code">
-
-</div>
-
-<div class="upiIdBox">
-
-<span id="merchantUPI">
-
-quickpress@upi
-
-</span>
-
-<button
-onclick="copyUPI()">
-
-Copy
-
-</button>
-
-</div>
-
-</div>
-
-</div>
-
-<style>
-
-/* ===================================
-PAYMENT METHODS
-=================================== */
-
-.paymentMethods{
-
-padding:0 16px 20px;
-
-}
-
-.paymentCard{
-
-background:#fff;
-
-padding:18px;
-
-border-radius:20px;
-
-margin-bottom:16px;
-
-box-shadow:
-0 4px 14px rgba(0,0,0,.05);
-
-}
-
-.paymentTitle{
-
-font-size:17px;
-
-font-weight:900;
-
-margin-bottom:6px;
-
-}
-
-.paymentDesc{
-
-font-size:13px;
-
-color:#6B7280;
-
-margin-bottom:14px;
-
-}
-
-/* ===================================
-UPI INPUT
-=================================== */
-
-.upiBox{
-
-display:flex;
-
-gap:10px;
-
-}
-
-.upiBox input{
-
-flex:1;
-
-height:50px;
-
-border:none;
-
-outline:none;
-
-background:#F3F4F6;
-
-border-radius:12px;
-
-padding:0 14px;
-
-font-size:14px;
-
-}
-
-.upiBox button{
-
-width:90px;
-
-border:none;
-
-border-radius:12px;
-
-background:#16A34A;
-
-color:#fff;
-
-font-weight:800;
-
-cursor:pointer;
-
-}
-
-.verifyStatus{
-
-margin-top:10px;
-
-font-size:13px;
-
-font-weight:700;
-
-color:#16A34A;
-
-}
-
-/* ===================================
-UPI APPS
-=================================== */
-
-.upiApps{
-
-display:grid;
-
-grid-template-columns:
-repeat(3,1fr);
-
-gap:10px;
-
-}
-
-.upiApp{
-
-border:none;
-
-background:#F9FAFB;
-
-padding:14px 10px;
-
-border-radius:14px;
-
-display:flex;
-
-flex-direction:column;
-
-align-items:center;
-
-gap:8px;
-
-font-size:12px;
-
-font-weight:800;
-
-cursor:pointer;
-
-}
-
-/* ===================================
-QR
-=================================== */
-
-.qrWrapper{
-
-text-align:center;
-
-padding:10px 0;
-
-}
-
-.qrWrapper img{
-
-width:220px;
-
-height:220px;
-
-border-radius:14px;
-
-background:#fff;
-
-}
-
-.upiIdBox{
-
-margin-top:12px;
-
-display:flex;
-
-align-items:center;
-
-justify-content:space-between;
-
-background:#F3F4F6;
-
-padding:12px;
-
-border-radius:12px;
-
-}
-
-.upiIdBox span{
-
-font-weight:800;
-
-font-size:14px;
-
-}
-
-.upiIdBox button{
-
-border:none;
-
-background:#16A34A;
-
-color:#fff;
-
-padding:8px 14px;
-
-border-radius:10px;
-
-font-size:12px;
-
-font-weight:800;
-
-cursor:pointer;
-
-}
-
-</style>
-
-<script>
-
-/* ===================================
-VERIFY UPI
-=================================== */
-
-function verifyUPI(){
-
-const upi =
-
-document.getElementById(
-"upiId"
-).value.trim();
-
-if(!upi.includes("@")){
-
-document.getElementById(
-"verifyStatus"
-).innerHTML =
-
-"❌ Invalid UPI ID";
-
-return;
-
-}
-
-document.getElementById(
-"verifyStatus"
-).innerHTML =
-
-"✅ UPI ID Verified";
-
-}
-
-/* ===================================
-COPY UPI
-=================================== */
-
-function copyUPI(){
-
-const upi =
-
-document.getElementById(
-"merchantUPI"
-).innerText;
-
-navigator.clipboard.writeText(
-upi
-);
-
-alert(
-"UPI ID Copied"
-);
-
-}
-
-</script>
-<!-- ===================================
-PAY NOW SECTION
-=================================== -->
-
-<div class="payNowSection">
-
-<div class="secureCard">
-
-<div class="secureIcon">
-
-🔒
+📱
 
 </div>
 
 <div>
 
-<div class="secureTitle">
+<div class="methodTitle">
+
+Online Payment
+
+</div>
+
+<div class="methodDesc">
+
+UPI / Cards / Net Banking
+
+</div>
+
+</div>
+
+</div>
+
+<div
+class="methodCard"
+onclick="selectMethod('COD',this)">
+
+<div class="methodIcon">
+
+💵
+
+</div>
+
+<div>
+
+<div class="methodTitle">
+
+Cash On Delivery
+
+</div>
+
+<div class="methodDesc">
+
+Pay after delivery
+
+</div>
+
+</div>
+
+</div>
+
+<div class="secureBox">
+
+<i class="fa-solid fa-lock"></i>
 
 100% Secure Payment
 
 </div>
 
-<div class="secureText">
-
-Your payment is encrypted and secure.
-
-</div>
-
-</div>
-
 </div>
 
 <button
-class="payNowBtn"
-id="payNowBtn"
-onclick="startPayment()">
+class="payBtn"
+onclick="payNow()">
 
 Pay Now
 
 </button>
 
-<!-- LOADER -->
-
-<div
-class="paymentLoader"
-id="paymentLoader">
-
-<div class="loaderCircle"></div>
-
-<div class="loaderText">
-
-Processing Payment...
-
-</div>
-
-</div>
-
-</div>
-
-<style>
-
-/* ===================================
-PAY NOW
-=================================== */
-
-.payNowSection{
-
-padding:0 16px 20px;
-
-}
-
-.secureCard{
-
-background:#ECFDF5;
-
-border-radius:18px;
-
-padding:16px;
-
-display:flex;
-
-align-items:center;
-
-gap:14px;
-
-margin-bottom:16px;
-
-}
-
-.secureIcon{
-
-font-size:28px;
-
-}
-
-.secureTitle{
-
-font-size:15px;
-
-font-weight:900;
-
-}
-
-.secureText{
-
-font-size:12px;
-
-color:#6B7280;
-
-margin-top:4px;
-
-}
-
-.payNowBtn{
-
-width:100%;
-
-height:58px;
-
-border:none;
-
-border-radius:16px;
-
-background:#16A34A;
-
-color:#fff;
-
-font-size:16px;
-
-font-weight:900;
-
-cursor:pointer;
-
-}
-
-/* ===================================
-LOADER
-=================================== */
-
-.paymentLoader{
-
-display:none;
-
-padding:20px;
-
-text-align:center;
-
-}
-
-.loaderCircle{
-
-width:44px;
-height:44px;
-
-margin:auto;
-
-border:4px solid #E5E7EB;
-
-border-top:4px solid #16A34A;
-
-border-radius:50%;
-
-animation:
-spin 1s linear infinite;
-
-}
-
-@keyframes spin{
-
-100%{
-transform:rotate(360deg);
-}
-
-}
-
-.loaderText{
-
-margin-top:12px;
-
-font-size:14px;
-
-font-weight:800;
-
-}
-
-</style>
-
-<script>
-
-/* ===================================
-START PAYMENT
-=================================== */
-
-window.startPayment =
-function(){
-
-const btn =
-
-document.getElementById(
-"payNowBtn"
-);
-
-const loader =
-
-document.getElementById(
-"paymentLoader"
-);
-
-btn.style.display =
-"none";
-
-loader.style.display =
-"block";
-
-/* ===================================
-DEMO FLOW
-
-Replace with Razorpay
-
-=================================== */
-
-setTimeout(()=>{
-
-loader.style.display =
-"none";
-
-/* SUCCESS */
-
-paymentSuccess();
-
-},2500);
-
-};
-
-/* ===================================
-PAYMENT SUCCESS
-=================================== */
-
-window.paymentSuccess =
-function(){
-
-alert(
-"Payment Successful ✅"
-);
-
-/* Save success status */
-
-localStorage.setItem(
-
-"paymentStatus",
-
-"Success"
-
-);
-
-/* Next page */
-
-window.location.href =
-
-"order-success.html";
-
-};
-
-/* ===================================
-PAYMENT FAILED
-=================================== */
-
-window.paymentFailed =
-function(){
-
-alert(
-"Payment Failed ❌"
-);
-
-localStorage.setItem(
-
-"paymentStatus",
-
-"Failed"
-
-);
-
-document.getElementById(
-"paymentLoader"
-).style.display =
-"none";
-
-document.getElementById(
-"payNowBtn"
-).style.display =
-"block";
-
-};
-
-/* ===================================
-RAZORPAY READY
-
-Future:
-
-const options = {
- key:"YOUR_KEY",
- amount:grandTotal*100,
- currency:"INR",
- name:"QuickPress"
-};
-
-const rzp =
-new Razorpay(options);
-
-rzp.open();
-
-=================================== */
-
-</script>
 <script type="module">
 
 import { db }
-from "./firebase.js";
+from "../js/firebase.js";
 
 import {
-collection,
-addDoc,
+
 doc,
-updateDoc,
-serverTimestamp
+updateDoc
+
 }
-from
-"https://www.gstatic.com/firebasejs/12.11.0/firebase-firestore.js";
 
-/* ===================================
-GENERATE TXN ID
-=================================== */
+from "https://www.gstatic.com/firebasejs/12.11.0/firebase-firestore.js";
 
-function generateTxnId(){
+let paymentMethod = "UPI";
 
-return
+const params =
 
-"TXN" +
-
-Date.now()
-
-+
-
-Math.floor(
-Math.random()*9999
+new URLSearchParams(
+window.location.search
 );
 
-}
+const orderId =
+params.get("orderId");
 
-/* ===================================
-SAVE PAYMENT
-=================================== */
-
-window.savePaymentRecord =
-async function(
-
-status,
-method
-
-){
-
-try{
-
-const pendingOrder =
+const order =
 
 JSON.parse(
+
 localStorage.getItem(
-"pendingOrder"
+"qp_last_order"
 )
+
+|| "{}"
+
 );
 
-if(!pendingOrder){
+document.getElementById(
+"paymentAmount"
+).innerText =
 
-return false;
+"₹" +
 
-}
+(order.grandTotal || 0);
 
-const transactionId =
+window.selectMethod =
+function(method,card){
 
-generateTxnId();
+paymentMethod = method;
 
-/* ===================================
-PAYMENT OBJECT
-=================================== */
+document
+.querySelectorAll(
+".methodCard"
+)
 
-const paymentData = {
+.forEach(item=>{
 
-orderId:
+item.classList.remove(
+"active"
+);
 
-pendingOrder.orderId,
+});
 
-transactionId,
-
-paymentMethod:
-
-method,
-
-paymentStatus:
-
-status,
-
-amount:
-
-pendingOrder.grandTotal,
-
-createdAt:
-
-serverTimestamp()
+card.classList.add(
+"active"
+);
 
 };
 
-/* ===================================
-SAVE PAYMENT
-=================================== */
-
-await addDoc(
-
-collection(
-db,
-"payments"
-),
-
-paymentData
-
-);
-
-/* ===================================
-SAVE LOCALLY
-=================================== */
-
-localStorage.setItem(
-
-"lastTransactionId",
-
-transactionId
-
-);
-
-localStorage.setItem(
-
-"paymentStatus",
-
-status
-
-);
-
-return true;
-
-}
-catch(error){
-
-console.error(
-error
-);
-
-return false;
-
-}
-
-};
-
-/* ===================================
-SAVE ORDER
-=================================== */
-
-window.saveFinalOrder =
+window.payNow =
 async function(){
 
 try{
 
-const pendingOrder =
+if(paymentMethod==="COD"){
 
-JSON.parse(
-localStorage.getItem(
-"pendingOrder"
-)
-);
+await updateDoc(
 
-if(!pendingOrder){
-
-return false;
-
-}
-
-pendingOrder.paymentStatus =
-"Paid";
-
-pendingOrder.orderStatus =
-"Confirmed";
-
-pendingOrder.updatedAt =
-serverTimestamp();
-
-/* ===================================
-SAVE ORDER
-=================================== */
-
-const orderRef =
-
-await addDoc(
-
-collection(
+doc(
 db,
-"orders"
+"orders",
+orderId
 ),
 
-pendingOrder
+{
 
-);
+paymentMethod:"COD",
 
-/* SAVE IDs */
-
-localStorage.setItem(
-
-"lastOrderDocId",
-
-orderRef.id
-
-);
-
-localStorage.setItem(
-
-"lastOrderId",
-
-pendingOrder.orderId
-
-);
-
-return true;
-
-}
-catch(error){
-
-console.error(
-error
-);
-
-return false;
+paymentStatus:"Pending"
 
 }
 
-};
-
-/* ===================================
-PAYMENT SUCCESS
-=================================== */
-
-window.paymentSuccess =
-async function(){
-
-const method =
-
-localStorage.getItem(
-"selectedPaymentMethod"
-)
-
-|| "upi";
-
-/* SAVE PAYMENT */
-
-await savePaymentRecord(
-
-"Success",
-method
-
 );
-
-/* SAVE ORDER */
-
-await saveFinalOrder();
-
-/* CLEAR CART */
-
-localStorage.removeItem(
-"cart"
-);
-
-localStorage.removeItem(
-"checkoutDraft"
-);
-
-localStorage.removeItem(
-"pendingOrder"
-);
-
-/* REDIRECT */
 
 window.location.href =
 
-"order-success.html";
+"order-success.html?orderId="
 
-};
++ orderId;
 
-/* ===================================
-PAYMENT FAILED
-=================================== */
+return;
 
-window.paymentFailed =
-async function(){
+}
 
-const method =
+/* DEMO ONLINE PAYMENT */
 
-localStorage.getItem(
-"selectedPaymentMethod"
-)
+await updateDoc(
 
-|| "upi";
+doc(
+db,
+"orders",
+orderId
+),
 
-await savePaymentRecord(
+{
 
-"Failed",
-method
+paymentMethod:"ONLINE",
+
+paymentStatus:"Paid"
+
+}
 
 );
+
+alert(
+"Payment Successful"
+);
+
+window.location.href =
+
+"order-success.html?orderId="
+
++ orderId;
+
+}
+
+catch(error){
+
+console.log(error);
 
 alert(
 "Payment Failed"
 );
 
-document.getElementById(
-"paymentLoader"
-).style.display =
-"none";
-
-document.getElementById(
-"payNowBtn"
-).style.display =
-"block";
-
-};
-
-/* ===================================
-RAZORPAY CALLBACK READY
-
-handler:function(response){
-
-savePaymentRecord(
-"Success",
-"razorpay"
-);
-
-saveFinalOrder();
-
-}
-
-=================================== */
-
-/* ===================================
-PHONEPE CALLBACK READY
-
-paymentSuccess()
-
-=================================== */
-
-/* ===================================
-PAYTM CALLBACK READY
-
-paymentSuccess()
-
-=================================== */
-
-</script>
-
-<!-- ===================================
-FIREBASE STRUCTURE
-
-payments
-{
- orderId:"QP123",
-
- transactionId:"TXN123",
-
- paymentMethod:"upi",
-
- paymentStatus:"Success",
-
- amount:62
-}
-
-=================================== -->
-
-<!-- ===================================
-ORDERS STRUCTURE
-
-orders
-{
- orderId:"QP123",
-
- city:"Kasganj",
-
- paymentStatus:"Paid",
-
- orderStatus:"Confirmed"
-}
-
-=================================== -->
-<!-- ===================================
-FOOTER
-=================================== -->
-
-<div class="footer">
-
-<div class="footerBrand">
-
-⚡ QuickPress
-
-</div>
-
-<div class="footerText">
-
-Secure Payments • Trusted Service • Fast Delivery
-
-</div>
-
-<div class="footerCopy">
-
-© 2026 QuickPress. All Rights Reserved.
-
-</div>
-
-</div>
-
-<!-- ===================================
-BOTTOM NAVBAR
-=================================== -->
-
-<div class="bottomNav">
-
-<button
-class="navItem"
-onclick="window.location.href='index.html'">
-
-<i class="fa-solid fa-house"></i>
-
-<span>Home</span>
-
-</button>
-
-<button
-class="navItem"
-onclick="openOrders()">
-
-<i class="fa-solid fa-box"></i>
-
-<span>Orders</span>
-
-</button>
-
-<button
-class="navItem"
-onclick="window.location.href='services.html'">
-
-<i class="fa-solid fa-table-cells-large"></i>
-
-<span>Services</span>
-
-</button>
-
-<button
-class="navItem"
-onclick="window.location.href='cart.html'">
-
-<i class="fa-solid fa-cart-shopping"></i>
-
-<span>Cart</span>
-
-<div
-class="navCartBadge"
-id="navCartBadge">
-
-0
-
-</div>
-
-</button>
-
-<button
-class="navItem activeNav"
-onclick="openProfile()">
-
-<i class="fa-regular fa-user"></i>
-
-<span>Profile</span>
-
-</button>
-
-</div>
-
-<style>
-
-/* ===================================
-FOOTER
-=================================== */
-
-.footer{
-
-padding:40px 20px 120px;
-
-text-align:center;
-
-}
-
-.footerBrand{
-
-font-size:22px;
-
-font-weight:900;
-
-color:#111827;
-
-}
-
-.footerText{
-
-margin-top:8px;
-
-font-size:13px;
-
-color:#6B7280;
-
-}
-
-.footerCopy{
-
-margin-top:10px;
-
-font-size:12px;
-
-color:#9CA3AF;
-
-}
-
-/* ===================================
-BOTTOM NAVBAR
-=================================== */
-
-.bottomNav{
-
-position:fixed;
-
-left:0;
-right:0;
-bottom:0;
-
-height:72px;
-
-background:#fff;
-
-display:flex;
-
-justify-content:space-around;
-align-items:center;
-
-box-shadow:
-0 -6px 20px rgba(0,0,0,.08);
-
-z-index:999;
-
-}
-
-.navItem{
-
-position:relative;
-
-flex:1;
-
-height:100%;
-
-border:none;
-
-background:none;
-
-display:flex;
-flex-direction:column;
-
-align-items:center;
-justify-content:center;
-
-gap:4px;
-
-cursor:pointer;
-
-font-size:11px;
-
-font-weight:700;
-
-color:#6B7280;
-
-}
-
-.navItem i{
-
-font-size:18px;
-
-}
-
-.activeNav{
-
-color:#16A34A;
-
-}
-
-.navCartBadge{
-
-position:absolute;
-
-top:8px;
-right:22px;
-
-min-width:18px;
-height:18px;
-
-padding:0 4px;
-
-border-radius:999px;
-
-background:#EF4444;
-
-color:#fff;
-
-display:flex;
-align-items:center;
-justify-content:center;
-
-font-size:10px;
-
-font-weight:900;
-
-}
-
-@media(min-width:1200px){
-
-.bottomNav{
-
-max-width:600px;
-
-left:50%;
-
-transform:
-translateX(-50%);
-
-border-radius:24px 24px 0 0;
-
-}
-
-}
-
-</style>
-
-<script type="module">
-
-import { auth }
-from "./firebase.js";
-
-import {
-onAuthStateChanged
-}
-from
-"https://www.gstatic.com/firebasejs/12.11.0/firebase-auth.js";
-
-/* ===================================
-AUTH
-=================================== */
-
-let currentUser = null;
-
-onAuthStateChanged(
-
-auth,
-
-(user)=>{
-
-currentUser = user;
-
-}
-
-);
-
-/* ===================================
-PROFILE
-=================================== */
-
-window.openProfile =
-function(){
-
-if(currentUser){
-
-window.location.href =
-"profile.html";
-
-}else{
-
-window.location.href =
-"login.html";
-
 }
 
 };
-
-/* ===================================
-ORDERS
-=================================== */
-
-window.openOrders =
-function(){
-
-if(currentUser){
-
-window.location.href =
-"orders.html";
-
-}else{
-
-window.location.href =
-"login.html";
-
-}
-
-};
-
-/* ===================================
-LIVE CART BADGE
-=================================== */
-
-window.updateNavbarCartCount =
-function(){
-
-const cart =
-
-JSON.parse(
-localStorage.getItem(
-"cart"
-)
-)
-
-|| [];
-
-let total = 0;
-
-cart.forEach(item=>{
-
-total += item.qty || 1;
-
-});
-
-const badge =
-
-document.getElementById(
-"navCartBadge"
-);
-
-if(!badge) return;
-
-badge.innerHTML = total;
-
-badge.style.display =
-
-total > 0
-
-? "flex"
-
-: "none";
-
-};
-
-updateNavbarCartCount();
-
-/* ===================================
-AUTO SYNC
-=================================== */
-
-window.addEventListener(
-
-"storage",
-
-()=>{
-
-updateNavbarCartCount();
-
-}
-
-);
-
-/* ===================================
-PAYMENT PAGE READY
-=================================== */
-
-console.log(
-"QuickPress Payment Ready"
-);
 
 </script>
 
