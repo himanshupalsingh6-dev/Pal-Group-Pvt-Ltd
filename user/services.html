@@ -11,22 +11,13 @@ content="width=device-width, initial-scale=1.0">
 
 <title>
 
-QuickPress | Services
+QuickPress Services
 
 </title>
-
-<meta
-name="theme-color"
-content="#16A34A">
 
 <link
 rel="preconnect"
 href="https://fonts.googleapis.com">
-
-<link
-rel="preconnect"
-href="https://fonts.gstatic.com"
-crossorigin>
 
 <link
 href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap"
@@ -34,293 +25,52 @@ rel="stylesheet">
 
 <link
 rel="stylesheet"
-href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css"/>
-
-<style>
-
-/* ===================================
-RESET
-=================================== */
-
-*{
-
-margin:0;
-padding:0;
-
-box-sizing:border-box;
-
-font-family:'Inter',sans-serif;
-
--webkit-tap-highlight-color:transparent;
-
-}
-
-html{
-
-scroll-behavior:smooth;
-
-}
-
-/* ===================================
-ROOT
-=================================== */
-
-:root{
-
---primary:#F4B400;
---secondary:#16A34A;
-
---dark:#111827;
---light:#6B7280;
-
---bg:#F6F7FB;
---white:#FFFFFF;
-
---shadow:
-0 8px 24px rgba(0,0,0,.06);
-
-}
-
-/* ===================================
-BODY
-=================================== */
-
-body{
-
-background:var(--bg);
-
-color:var(--dark);
-
-overflow-x:hidden;
-
-padding-bottom:100px;
-
-}
-
-/* ===================================
-HEADER
-=================================== */
-
-.hero{
-
-position:sticky;
-
-top:0;
-
-z-index:9999;
-
-background:#fff;
-
-padding:16px;
-
-box-shadow:
-0 4px 20px rgba(0,0,0,.05);
-
-}
-
-/* ===================================
-TOP BAR
-=================================== */
-
-.topBar{
-
-display:flex;
-
-justify-content:space-between;
-
-align-items:center;
-
-}
-
-/* ===================================
-BRAND
-=================================== */
-
-.brandName{
-
-font-size:30px;
-
-font-weight:900;
-
-line-height:1;
-
-letter-spacing:-1px;
-
-color:#111827;
-
-}
-
-.pageTitle{
-
-margin-top:5px;
-
-font-size:14px;
-
-font-weight:800;
-
-color:#6B7280;
-
-}
-
-/* ===================================
-PROFILE BUTTON
-=================================== */
-
-.profileBtn{
-
-width:46px;
-
-height:46px;
-
-border:none;
-
-border-radius:14px;
-
-background:#F3F4F6;
-
-display:flex;
-
-align-items:center;
-
-justify-content:center;
-
-font-size:18px;
-
-cursor:pointer;
-
-}
-
-/* ===================================
-SEARCH
-=================================== */
-
-.searchWrap{
-
-margin-top:14px;
-
-}
-
-.searchBar{
-
-height:56px;
-
-background:#F6F7FB;
-
-border:1px solid #ECEFF3;
-
-border-radius:18px;
-
-display:flex;
-
-align-items:center;
-
-padding:0 16px;
-
-}
-
-.searchBar i{
-
-font-size:18px;
-
-color:#16A34A;
-
-}
-
-.searchBar input{
-
-flex:1;
-
-border:none;
-
-outline:none;
-
-background:none;
-
-padding-left:12px;
-
-font-size:14px;
-
-font-weight:600;
-
-color:#111827;
-
-}
-
-.searchBar input::placeholder{
-
-color:#9CA3AF;
-
-}
-
-/* ===================================
-SECTION TITLE
-=================================== */
-
-.sectionHeading{
-
-font-size:22px;
-
-font-weight:900;
-
-color:#111827;
-
-margin-bottom:18px;
-
-}
-
-/* ===================================
-DESKTOP
-=================================== */
-
-@media(min-width:992px){
-
-.hero{
-
-padding:18px 24px;
-
-}
-
-.brandName{
-
-font-size:34px;
-
-}
-
-}
-
-</style>
+href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+
+<link
+rel="stylesheet"
+href="services.css">
 
 </head>
 
 <body>
 
-<!-- ===================================
-HEADER
-=================================== -->
+<!-- HEADER -->
 
-<div class="hero">
+<header class="servicesHeader">
 
 <div class="topBar">
 
-<div>
+<div
+class="locationBox"
+onclick="window.location.href='location.html'">
 
-<div class="brandName">
+<span>
 
-QuickPress
+Laundry Services In
+
+</span>
+
+<h3 id="currentCity">
+
+Kasganj
+
+</h3>
 
 </div>
 
-<div class="pageTitle">
-
-All Laundry Services
-
-</div>
-
-</div>
+<div class="headerActions">
 
 <button
-class="profileBtn"
-onclick="openProfile()">
+class="headerBtn">
+
+<i class="fa-regular fa-heart"></i>
+
+</button>
+
+<button
+class="headerBtn"
+onclick="window.location.href='profile.html'">
 
 <i class="fa-regular fa-user"></i>
 
@@ -328,35 +78,39 @@ onclick="openProfile()">
 
 </div>
 
-<div class="searchWrap">
+</div>
+
+<!-- SEARCH -->
+
+<div class="searchWrapper">
 
 <div class="searchBar">
 
 <i class="fa-solid fa-magnifying-glass"></i>
 
 <input
-id="globalSearch"
+id="serviceSearch"
 type="text"
-placeholder="Search services">
+placeholder="Search laundry services">
 
 </div>
 
 </div>
 
-</div><!-- ===================================
-CATEGORY FILTERS
-=================================== -->
+</header>
+
+<!-- OFFER SLIDER -->
+
+<!-- CATEGORY FILTER -->
 
 <section class="categorySection">
 
-<div class="categoryScroller">
-
-</button>
-
-<div class="categoryScroller" id="categoryScroller">
+<div
+id="categoryWrapper"
+class="categoryWrapper">
 
 <button
-class="categoryChip activeChip"
+class="categoryChip active"
 data-category="All">
 
 All
@@ -365,280 +119,469 @@ All
 
 </div>
 
-</div>
-
 </section>
 
-<style>
-
-/* ===================================
-CATEGORY SECTION
-=================================== */
-
-.categorySection{
-
-padding:16px;
-
-}
-
-/* ===================================
-SCROLLER
-=================================== */
-
-.categoryScroller{
-
-display:flex;
-
-gap:10px;
-
-overflow-x:auto;
-
-scrollbar-width:none;
-
-padding-bottom:6px;
-
-}
-
-.categoryScroller::-webkit-scrollbar{
-
-display:none;
-
-}
-
-/* ===================================
-CHIPS
-=================================== */
-
-.categoryChip{
-
-height:42px;
-
-padding:0 18px;
-
-border:none;
-
-border-radius:999px;
-
-background:#fff;
-
-color:#111827;
-
-font-size:13px;
-
-font-weight:800;
-
-white-space:nowrap;
-
-cursor:pointer;
-
-box-shadow:
-0 4px 12px rgba(0,0,0,.05);
-
-transition:.25s;
-
-}
-
-.categoryChip:hover{
-
-transform:translateY(-2px);
-
-}
-
-/* ===================================
-ACTIVE CHIP
-=================================== */
-
-.activeChip{
-
-background:#16A34A;
-
-color:#fff;
-
-box-shadow:
-0 8px 20px rgba(22,163,74,.25);
-
-}
-
-/* ===================================
-DESKTOP
-=================================== */
-
-@media(min-width:992px){
-
-.categorySection{
-
-padding:20px 24px;
-
-}
-
-.categoryScroller{
-
-justify-content:center;
-
-flex-wrap:wrap;
-
-}
-
-}
-
-</style>
-
-<script>
-
-/* ===================================
-CATEGORY ACTIVE STATE
-=================================== */
-
-document
-.querySelectorAll(
-".categoryChip"
-)
-
-.forEach(chip=>{
-
-chip.addEventListener(
-
-"click",
-
-()=>{
-
-document
-.querySelectorAll(
-".categoryChip"
-)
-
-.forEach(item=>{
-
-item.classList.remove(
-"activeChip"
-);
-
-});
-
-chip.classList.add(
-"activeChip"
-);
-
-const category =
-
-chip.dataset.category;
-
-/* Call Loader */
-
-if(
-window.filterCategory
-){
-
-window.filterCategory(
-category
-);
-
-}
-
-}
-
-);
-
-});
-
-</script><!-- ===================================
-TOP ACTION BAR
-=================================== -->
-
-<section class="actionSection">
-
-<div class="actionBar">
-
-<div
-class="resultCount"
-id="resultCount">
-
-0 Services
-
-</div>
-
-<select
-id="sortServices"
-class="sortSelect">
-
-<option value="popular">
-
-Popular
-
-</option>
-
-<option value="lowToHigh">
-
-Price Low → High
-
-</option>
-
-<option value="highToLow">
-
-Price High → Low
-
-</option>
-
-<option value="newest">
-
-Newest
-
-</option>
-
-</select>
-
-</div>
-
-</section>
-
-<!-- ===================================
-SERVICES GRID
-=================================== -->
+<!-- POPULAR SERVICES -->
 
 <section class="servicesSection">
 
-<div
-class="servicesGrid"
-id="servicesGrid">
+<div class="sectionHeader">
 
-<!-- Firebase Services -->
+<h2>
+
+Popular Services
+
+</h2>
+
+<button>
+
+See All
+
+</button>
+
+</div>
+
+<div
+id="servicesGrid"
+class="servicesGrid">
 
 </div>
 
 </section>
 
-<!-- ===================================
-EMPTY STATE
-=================================== -->
+<!-- TRENDING -->
+
+<section class="servicesSection">
+
+<div class="sectionHeader">
+
+<h2>
+
+Trending Services
+
+</h2>
+
+</div>
 
 <div
-class="emptyState"
-id="emptyState">
+id="trendingGrid"
+class="servicesGrid">
 
-<i class="fa-solid fa-magnifying-glass"></i>
+</div>
+
+</section>
+
+<!-- RECENTLY ORDERED -->
+
+<section class="servicesSection">
+
+<div class="sectionHeader">
+
+<h2>
+
+Recently Ordered
+
+</h2>
+
+</div>
+
+<div
+id="recentlyOrdered">
+
+</div>
+
+</section>
+
+<!-- RECOMMENDED -->
+
+<!-- FAVORITES -->
+
+<section
+id="favoritesSection"
+class="servicesSection">
+
+<div class="sectionHeader">
+
+<h2>
+
+Favorites
+
+</h2>
+
+</div>
+
+<div
+id="favoritesGrid"
+class="servicesGrid">
+
+</div>
+<!-- PREMIUM CARE -->
+
+<section class="servicesSection">
+
+<div class="sectionHeader">
+
+<h2>
+
+Premium Care
+
+</h2>
+
+<button>
+
+View All
+
+</button>
+
+</div>
+
+<div class="premiumCareGrid">
+
+<div class="premiumCareCard">
+
+<div class="premiumImage">
+
+👗
+
+</div>
 
 <h3>
 
-No Services Found
+Designer Wear
 
 </h3>
 
 <p>
 
-Try changing search or category.
+Luxury Fabric Protection
 
 </p>
 
 </div>
 
-<!-- ===================================
-LOADING STATE
-=================================== -->
+<div class="premiumCareCard">
+
+<div class="premiumImage">
+
+🤵
+
+</div>
+
+<h3>
+
+Wedding Wear
+
+</h3>
+
+<p>
+
+Premium Dry Cleaning
+
+</p>
+
+</div>
+
+<div class="premiumCareCard">
+
+<div class="premiumImage">
+
+🧥
+
+</div>
+
+<h3>
+
+Winter Wear
+
+</h3>
+
+<p>
+
+Jackets & Blazers
+
+</p>
+
+</div>
+
+</div>
+
+</section>
+
+<!-- BENEFITS -->
+
+<section class="benefitsSection">
+
+<div class="benefitCard">
+
+<div class="benefitIcon">
+
+🚚
+
+</div>
+
+<div>
+
+<h4>
+
+Free Pickup
+
+</h4>
+
+<p>
+
+Above ₹299 Order
+
+</p>
+
+</div>
+
+</div>
+
+<div class="benefitCard">
+
+<div class="benefitIcon">
+
+⚡
+
+</div>
+
+<div>
+
+<h4>
+
+Express Delivery
+
+</h4>
+
+<p>
+
+Same Day Available
+
+</p>
+
+</div>
+
+</div>
+
+<div class="benefitCard">
+
+<div class="benefitIcon">
+
+🛡️
+
+</div>
+
+<div>
+
+<h4>
+
+Fabric Protection
+
+</h4>
+
+<p>
+
+Premium Care Process
+
+</p>
+
+</div>
+
+</div>
+
+</section>
+
+<!-- CUSTOMER REVIEWS -->
+
+<section class="servicesSection">
+
+<div class="sectionHeader">
+
+<h2>
+
+Customer Reviews
+
+</h2>
+
+</div>
+
+<div class="reviewList">
+
+<div class="reviewCard">
+
+<div class="reviewTop">
+
+<span>
+
+⭐ 5.0
+
+</span>
+
+<b>
+
+Rahul Sharma
+
+</b>
+
+</div>
+
+<p>
+
+Amazing service. Clothes came back looking brand new.
+
+</p>
+
+</div>
+
+<div class="reviewCard">
+
+<div class="reviewTop">
+
+<span>
+
+⭐ 4.9
+
+</span>
+
+<b>
+
+Aman Singh
+
+</b>
+
+</div>
+
+<p>
+
+Fast pickup and delivery. Highly recommended.
+
+</p>
+
+</div>
+
+</div>
+
+</section>
+
+<!-- OFFLINE -->
 
 <div
-class="skeletonGrid"
-id="skeletonGrid">
+id="offlineBar"
+class="offlineBar">
 
+No Internet Connection
+
+</div>
+
+<!-- LOADING -->
+
+<div
+id="loadingState"
+class="loadingState">
+
+<div class="loader"></div>
+
+<p>
+
+Loading Services...
+
+</p>
+
+</div>
+
+<!-- TOAST -->
+
+<div
+id="toast"
+class="toast">
+
+Added To Cart
+
+</div>
+
+<!-- SEARCH SUGGESTIONS -->
+
+<div
+id="searchSuggestions"
+class="searchSuggestions">
+
+</div>
+
+<!-- SERVICE DETAILS MODAL -->
+
+<div
+id="servicePreview"
+class="servicePreview">
+
+<div class="servicePreviewBox">
+
+<button
+class="closePreview">
+
+×
+
+</button>
+
+<img
+id="previewImage"
+src="">
+
+<h2
+id="previewName">
+
+Service
+
+</h2>
+
+<p
+id="previewDescription">
+
+Description
+
+</p>
+
+<button
+id="previewAddBtn">
+
+Add To Cart
+
+</button>
+
+</div>
+
+</div>
+
+<!-- WISHLIST EMPTY -->
+
+<div
+id="wishlistEmpty"
+class="wishlistEmpty">
+
+❤️
+
+<h3>
+
+No Favorites Yet
+
+</h3>
+
+<p>
+
+Save services to access them quickly later.
+
+</p>
+
+</div>
+<!-- =========================
+SKELETON LOADING
+========================= -->
+
+<div
+id="skeletonGrid"
+class="skeletonGrid">
+
+<div class="skeletonCard"></div>
+<div class="skeletonCard"></div>
 <div class="skeletonCard"></div>
 <div class="skeletonCard"></div>
 <div class="skeletonCard"></div>
@@ -646,355 +589,230 @@ id="skeletonGrid">
 
 </div>
 
-<style>
+<!-- =========================
+RECENT SEARCHES
+========================= -->
 
-/* ===================================
-ACTION BAR
-=================================== */
+<div
+id="recentSearches"
+class="recentSearches">
 
-.actionSection{
+<h3>
 
-padding:0 16px 12px;
+Recent Searches
 
-}
+</h3>
 
-.actionBar{
+<div
+id="recentSearchList">
 
-display:flex;
+</div>
 
-justify-content:space-between;
+</div>
 
-align-items:center;
+<!-- =========================
+CITY PRICING INFO
+========================= -->
 
-gap:10px;
+<section class="cityPricingInfo">
 
-}
+<div class="pricingCard">
 
-.resultCount{
+<div class="pricingLeft">
 
-font-size:13px;
+📍
 
-font-weight:800;
+<div>
 
-color:#6B7280;
+<h4>
 
-}
+Current Pricing Zone
 
-.sortSelect{
+</h4>
 
-height:42px;
+<p
+id="pricingCity">
 
-padding:0 12px;
+Kasganj
 
-border:none;
+</p>
 
-border-radius:12px;
+</div>
 
-background:#fff;
+</div>
 
-font-size:13px;
+<div
+id="pricingMultiplier">
 
-font-weight:700;
+1x
 
-box-shadow:
-0 4px 12px rgba(0,0,0,.05);
+</div>
 
-outline:none;
+</div>
 
-}
+</section>
 
-/* ===================================
-SERVICES GRID
-=================================== */
+<!-- =========================
+APP FEATURES
+========================= -->
 
-.servicesSection{
+<section class="appFeatures">
 
-padding:0 16px 20px;
+<div class="featureBox">
 
-}
+🧺
 
-.servicesGrid{
+<h4>
 
-display:grid;
+Professional Cleaning
 
-grid-template-columns:
-repeat(2,1fr);
+</h4>
 
-gap:14px;
+<p>
 
-}
+Premium quality laundry care
 
-/* ===================================
-EMPTY STATE
-=================================== */
+</p>
 
-.emptyState{
+</div>
 
-display:none;
+<div class="featureBox">
 
-padding:60px 20px;
+🚚
 
-text-align:center;
+<h4>
 
-}
+Free Pickup
 
-.emptyState i{
+</h4>
 
-font-size:42px;
+<p>
 
-color:#D1D5DB;
+Doorstep pickup & delivery
 
-margin-bottom:14px;
+</p>
 
-}
+</div>
 
-.emptyState h3{
+<div class="featureBox">
 
-font-size:20px;
+⚡
 
-font-weight:900;
+<h4>
 
-color:#111827;
+Fast Service
 
-}
+</h4>
 
-.emptyState p{
+<p>
 
-margin-top:8px;
+Express processing available
 
-font-size:13px;
+</p>
 
-color:#6B7280;
+</div>
 
-}
+<div class="featureBox">
 
-/* ===================================
-LOADING
-=================================== */
+💳
 
-.skeletonGrid{
+<h4>
 
-display:grid;
+Secure Payment
 
-grid-template-columns:
-repeat(2,1fr);
+</h4>
 
-gap:14px;
+<p>
 
-padding:0 16px 20px;
+100% secure transactions
 
-}
+</p>
 
-.skeletonCard{
+</div>
 
-height:210px;
+</section>
 
-border-radius:22px;
+<!-- =========================
+FOOTER
+========================= -->
 
-background:
-linear-gradient(
-90deg,
-#F3F4F6 25%,
-#E5E7EB 50%,
-#F3F4F6 75%
-);
+<footer class="servicesFooter">
 
-background-size:
-400% 100%;
+<div class="footerLogo">
 
-animation:
-loading 1.4s infinite;
+QuickPress
 
-}
+</div>
 
-@keyframes loading{
+<p>
 
-0%{
-background-position:
-100% 0;
-}
+India's Premium Laundry Marketplace
 
-100%{
-background-position:
--100% 0;
-}
+</p>
 
-}
+<div class="footerLinks">
 
-/* ===================================
-DESKTOP
-=================================== */
+<a href="about.html">
 
-@media(min-width:992px){
+About
 
-.servicesGrid{
+</a>
 
-grid-template-columns:
-repeat(4,1fr);
+<a href="contact.html">
 
-gap:20px;
+Contact
 
-}
+</a>
 
-.skeletonGrid{
+<a href="privacy.html">
 
-grid-template-columns:
-repeat(4,1fr);
+Privacy
 
-}
+</a>
 
-}
+<a href="terms.html">
 
-</style>
+Terms
 
-<script>
+</a>
 
-/* ===================================
-HELPERS
-=================================== */
+</div>
 
-window.showLoading =
-function(){
+</footer>
 
-document.getElementById(
-"skeletonGrid"
-).style.display="grid";
+<!-- =========================
+HIDDEN CONTAINERS
+========================= -->
 
-document.getElementById(
-"servicesGrid"
-).style.display="none";
+<div
+id="modalContainer"
+style="display:none">
 
-};
+</div>
 
-window.hideLoading =
-function(){
+<div
+id="dynamicContainer"
+style="display:none">
 
-document.getElementById(
-"skeletonGrid"
-).style.display="none";
+</div>
 
-document.getElementById(
-"servicesGrid"
-).style.display="grid";
+<div
+id="cacheContainer"
+style="display:none">
 
-};
+</div>
 
-window.updateResultCount =
-function(count){
+<!-- =========================
+SERVICE TEMPLATE
+========================= -->
 
-document.getElementById(
-"resultCount"
-).innerHTML =
-
-count + " Services";
-
-};
-
-window.showEmptyState =
-function(){
-
-document.getElementById(
-"emptyState"
-).style.display="block";
-
-};
-
-window.hideEmptyState =
-function(){
-
-document.getElementById(
-"emptyState"
-).style.display="none";
-
-};
-
-showLoading();
-
-</script><script type="module">
-
-/* ===================================
-IMPORTS
-=================================== */
-
-import { db }
-from "./firebase.js";
-
-import {
-
-collection,
-query,
-where,
-onSnapshot
-
-}
-
-from
-
-"https://www.gstatic.com/firebasejs/12.11.0/firebase-firestore.js";
-
-/* ===================================
-GLOBAL DATA
-=================================== */
-
-let allServices = [];
-
-let currentCategory = "All";
-
-let currentSearch = "";
-
-let currentSort = "popular";
-
-/* ===================================
-ELEMENTS
-=================================== */
-
-const servicesGrid =
-
-document.getElementById(
-"servicesGrid"
-);
-
-const globalSearch =
-
-document.getElementById(
-"globalSearch"
-);
-
-const sortServices =
-
-document.getElementById(
-"sortServices"
-);
-
-/* ===================================
-SERVICE CARD
-=================================== */
-
-function createServiceCard(service){
-
-const price =
-
-service.price || 0;
-
-return `
+<template id="serviceTemplate">
 
 <div class="serviceCard">
 
-<div class="serviceTop">
+<div class="serviceImage">
 
-<img
-
-src="${
-service.image ||
-
-'https://images.unsplash.com/photo-1517677208171-0bc6725a3e60?w=500'
-}"
-
-loading="lazy"
-
-alt="${service.name}"
-
->
+<img src="">
 
 </div>
 
@@ -1002,57 +820,41 @@ alt="${service.name}"
 
 <div class="serviceCategory">
 
-${service.category || ""}
-
-${
-service.subCategory
-
-?
-
-" > " + service.subCategory
-
-:
-
-""
-}
+Category
 
 </div>
 
-<h3>
+<div class="serviceName">
 
-${service.name}
+Service Name
 
-</h3>
+</div>
 
-<p>
+<div class="serviceDescription">
 
-${service.description || "Premium Laundry Service"}
+Description
 
-</p>
+</div>
 
 <div class="serviceBottom">
 
-<div>
+<div class="priceBox">
 
-<div class="servicePrice">
+<div class="oldPrice">
 
-₹${price}
+₹99
+
+</div>
+
+<div class="newPrice">
+
+₹49
 
 </div>
 
 </div>
 
-<button
-
-class="addBtn"
-
-onclick="addToCart(
- '${service.id}',
- '${service.name}',
- ${price},
- '${service.category}',
- '${service.subCategory || ""}'
-)">
+<button class="addBtn">
 
 Add
 
@@ -1064,2681 +866,155 @@ Add
 
 </div>
 
-`;
+</template>
 
-}
+<!-- =========================
+NOSCRIPT
+========================= -->
 
-/* ===================================
-RENDER
-=================================== */
-
-function renderServices(data){
-
-hideLoading();
-
-servicesGrid.innerHTML = "";
-
-if(data.length===0){
-
-showEmptyState();
-
-updateResultCount(0);
-
-return;
-
-}
-
-hideEmptyState();
-
-updateResultCount(
-data.length
-);
-
-data.forEach(service=>{
-
-servicesGrid.innerHTML +=
-
-createServiceCard(
-service
-);
-
-});
-
-}
-
-/* ===================================
-FILTERS
-=================================== */
-
-function applyFilters(){
-
-let filtered =
-
-[...allServices];
-
-/* Category */
-
-if(
-currentCategory !== "All"
-){
-
-filtered =
-
-filtered.filter(
-
-service=>
-
-service.category ===
-currentCategory
-
-);
-
-}
-
-/* Search */
-
-if(currentSearch){
-
-filtered =
-
-filtered.filter(
-
-service=>
-
-(service.name || "")
-.toLowerCase()
-.includes(
-currentSearch
-)
-
-||
-
-(service.category || "")
-.toLowerCase()
-.includes(
-currentSearch
-)
-
-);
-
-}
-
-/* Sort */
-
-if(
-currentSort==="lowToHigh"
-){
-
-filtered.sort(
-
-(a,b)=>
-
-(a.price||0)-
-(b.price||0)
-
-);
-
-}
-
-if(
-currentSort==="highToLow"
-){
-
-filtered.sort(
-
-(a,b)=>
-
-(b.price||0)-
-(a.price||0)
-
-);
-
-}
-
-if(
-currentSort==="newest"
-){
-
-filtered.sort(
-
-(a,b)=>
-
-(b.createdAt||0)-
-(a.createdAt||0)
-
-);
-
-}
-
-renderServices(
-filtered
-);
-
-}
-
-/* ===================================
-FIREBASE LOAD
-=================================== */
-
-showLoading();
-
-const serviceQuery =
-
-query(
-
-collection(
-db,
-"services"
-),
-
-where(
-"active",
-"==",
-true
-)
-
-);
-
-onSnapshot(
-
-serviceQuery,
-
-(snapshot)=>{
-
-allServices = [];
-
-snapshot.forEach(doc=>{
-
-allServices.push({
-
-id:doc.id,
-
-...doc.data()
-
-});
-
-});
-const categories = new Set();
-
-allServices.forEach(service=>{
-
-if(service.category){
-
-categories.add(
-service.category
-);
-
-}
-
-});
-
-let categoryHtml = `
-
-<button
-class="categoryChip activeChip"
-data-category="All">
-
-All
-
-</button>
-
-`;
-
-categories.forEach(category=>{
-
-categoryHtml += `
-
-<button
-class="categoryChip"
-data-category="${category}">
-
-${category}
-
-</button>
-
-`;
-
-});
-
-document.getElementById(
-"categoryScroller"
-).innerHTML =
-categoryHtml;
-
-document
-.querySelectorAll(
-".categoryChip"
-)
-
-.forEach(chip=>{
-
-chip.addEventListener(
-
-"click",
-
-()=>{
-
-document
-.querySelectorAll(
-".categoryChip"
-)
-
-.forEach(item=>{
-
-item.classList.remove(
-"activeChip"
-);
-
-});
-
-chip.classList.add(
-"activeChip"
-);
-
-filterCategory(
-chip.dataset.category
-);
-
-}
-
-);
-
-});
-
-applyFilters();
-
-}
-
-);
-
-/* ===================================
-SEARCH
-=================================== */
-
-if(globalSearch){
-
-globalSearch.addEventListener(
-
-"keyup",
-
-e=>{
-
-currentSearch =
-
-e.target.value
-.toLowerCase()
-.trim();
-
-applyFilters();
-
-}
-
-);
-
-}
-
-/* ===================================
-SORT
-=================================== */
-
-if(sortServices){
-
-sortServices.addEventListener(
-
-"change",
-
-e=>{
-
-currentSort =
-e.target.value;
-
-applyFilters();
-
-}
-
-);
-
-}
-
-/* ===================================
-CATEGORY
-=================================== */
-
-window.filterCategory =
-function(category){
-
-currentCategory =
-category;
-
-applyFilters();
-
-};
-
-</script>
-
-<style>
-
-/* ===================================
-SERVICE CARD
-=================================== */
-
-.serviceCard{
-
-background:#fff;
-
-border-radius:22px;
-
-overflow:hidden;
-
-box-shadow:
-0 8px 24px rgba(0,0,0,.05);
-
-transition:.25s;
-
-}
-
-.serviceCard:hover{
-
-transform:
-translateY(-4px);
-
-}
-
-.serviceTop{
-
-height:140px;
-
-overflow:hidden;
-
-background:#F9FAFB;
-
-}
-
-.serviceTop img{
-
-width:100%;
-
-height:100%;
-
-object-fit:cover;
-
-}
-
-.serviceBody{
-
-padding:14px;
-
-}
-
-.serviceCategory{
-
-font-size:11px;
-
-font-weight:800;
-
-color:#16A34A;
-
-margin-bottom:6px;
-
-}
-
-.serviceBody h3{
-
-font-size:14px;
-
-font-weight:900;
-
-line-height:1.4;
-
-color:#111827;
-
-}
-
-.serviceBody p{
-
-margin-top:6px;
-
-font-size:12px;
-
-line-height:1.5;
-
-color:#6B7280;
-
-}
-
-.serviceBottom{
-
-margin-top:14px;
-
-display:flex;
-
-justify-content:space-between;
-
-align-items:center;
-
-}
-
-.servicePrice{
-
-font-size:18px;
-
-font-weight:900;
-
-color:#111827;
-
-}
-
-.addBtn{
-
-height:36px;
-
-padding:0 16px;
-
-border:none;
-
-border-radius:12px;
-
-background:#16A34A;
-
-color:#fff;
-
-font-size:12px;
-
-font-weight:900;
-
-cursor:pointer;
-
-}
-
-</style><!-- ===================================
-CART TOAST
-=================================== -->
+<noscript>
 
 <div
-class="cartToast"
-id="cartToast">
+style="
+padding:20px;
+text-align:center;
+background:#fff3cd;
+color:#856404;
+font-weight:700;">
 
-<div class="toastIcon">
-
-<i class="fa-solid fa-circle-check"></i>
-
-</div>
-
-<div>
-
-<div class="toastTitle">
-
-Added To Cart
+Please enable JavaScript
+to use QuickPress Services.
 
 </div>
 
-<div
-class="toastText"
-id="toastText">
-
-Service Added
-
-</div>
-
-</div>
-
-</div>
-
-<style>
-
-/* ===================================
-TOAST
-=================================== */
-
-.cartToast{
-
-display:none;
-
-position:fixed;
-
-left:50%;
-
-bottom:90px;
-
-transform:
-translateX(-50%);
-
-background:#111827;
-
-color:#fff;
-
-padding:14px 18px;
-
-border-radius:18px;
-
-align-items:center;
-
-gap:12px;
-
-box-shadow:
-0 12px 30px rgba(0,0,0,.25);
-
-z-index:99999;
-
-}
-
-.showToast{
-
-display:flex;
-
-}
-
-.toastIcon{
-
-font-size:22px;
-
-color:#22C55E;
-
-}
-
-.toastTitle{
-
-font-size:13px;
-
-font-weight:900;
-
-}
-
-.toastText{
-
-font-size:12px;
-
-opacity:.9;
-
-margin-top:3px;
-
-}
-
-</style>
-
-<script>
-
-/* ===================================
-GET CART
-=================================== */
-
-window.getCart =
-function(){
-
-return JSON.parse(
-
-localStorage.getItem(
-"cart"
-)
-
-|| "[]"
-
-);
-
-};
-
-/* ===================================
-SAVE CART
-=================================== */
-
-window.saveCart =
-function(cart){
-
-localStorage.setItem(
-
-"cart",
-
-JSON.stringify(cart)
-
-);
-
-if(
-window.updateNavbarCartCount
-){
-
-updateNavbarCartCount();
-
-}
-
-};
-
-/* ===================================
-ADD TO CART
-=================================== */
-
-window.addToCart =
-function(
-
-id,
-name,
-price,
-category,
-subCategory
-
-){
-
-let cart =
-
-getCart();
-
-const existing =
-
-cart.find(
-
-item=>
-
-item.serviceId===id
-
-);
-
-if(existing){
-
-existing.qty++;
-
-}else{
-
-cart.push({
-
- serviceId:id,
-
- serviceName:name,
-
- category,
-
- subCategory,
-
- price,
-
- qty:1
-
-});
-
-}
-
-saveCart(cart);
-
-showToast(
-
-name +
-" added successfully"
-
-);
-
-};
-
-/* ===================================
-SHOW TOAST
-=================================== */
-
-window.showToast =
-function(message){
-
-const toast =
-
-document.getElementById(
-"cartToast"
-);
-
-const text =
-
-document.getElementById(
-"toastText"
-);
-
-if(!toast || !text) return;
-
-text.innerHTML =
-message;
-
-toast.classList.add(
-"showToast"
-);
-
-setTimeout(()=>{
-
-toast.classList.remove(
-"showToast"
-);
-
-},2000);
-
-};
-
-/* ===================================
-TOTAL ITEMS
-=================================== */
-
-window.getCartItemsCount =
-function(){
-
-const cart =
-getCart();
-
-let total = 0;
-
-cart.forEach(item=>{
-
-total +=
-item.qty || 1;
-
-});
-
-return total;
-
-};
-
-/* ===================================
-TOTAL PRICE
-=================================== */
-
-window.getCartTotal =
-function(){
-
-const cart =
-getCart();
-
-let total = 0;
-
-cart.forEach(item=>{
-
-total +=
-
-(item.price || 0)
-
-*
-
-(item.qty || 1);
-
-});
-
-return total;
-
-};
-
-/* ===================================
-OPEN SERVICE
-=================================== */
-
-window.openService =
-function(serviceId){
-
-window.location.href =
-
-`service-details.html?id=${serviceId}`;
-
-};
-
-/* ===================================
-OPEN CART
-=================================== */
-
-window.goCart =
-function(){
-
-window.location.href =
-"cart.html";
-
-};
-
-console.log(
-"QuickPress Cart Ready"
-);
-
-</script><!-- ===================================
-BOTTOM NAVIGATION
-=================================== -->
-
-<nav class="bottomNav">
-
-<button
-class="navItem"
-data-page="home">
-
-<i class="fa-solid fa-house"></i>
-
-<span>
-
-Home
-
-</span>
-
-</button>
-
-<button
-class="navItem activeNav"
-data-page="services">
-
-<i class="fa-solid fa-table-cells-large"></i>
-
-<span>
-
-Services
-
-</span>
-
-</button>
-
-<button
-class="navItem"
-data-page="cart">
-
-<i class="fa-solid fa-cart-shopping"></i>
-
-<span>
-
-Cart
-
-</span>
-
-<div
-class="navCartBadge"
-id="navCartBadge">
-
-0
-
-</div>
-
-</button>
-
-<button
-class="navItem"
-data-page="orders">
-
-<i class="fa-solid fa-box"></i>
-
-<span>
-
-Orders
-
-</span>
-
-</button>
-
-<button
-class="navItem"
-data-page="profile">
-
-<i class="fa-regular fa-user"></i>
-
-<span>
-
-Profile
-
-</span>
-
-</button>
-
-</nav>
-
-<style>
-
-/* ===================================
-BOTTOM NAV
-=================================== */
-
-.bottomNav{
-
-position:fixed;
-
-left:0;
-right:0;
-bottom:0;
-
-height:74px;
-
-background:#fff;
-
-display:flex;
-
-justify-content:space-around;
-
-align-items:center;
-
-box-shadow:
-0 -8px 24px rgba(0,0,0,.08);
-
-z-index:9999;
-
-}
-
-.navItem{
-
-position:relative;
-
-flex:1;
-
-height:100%;
-
-border:none;
-
-background:none;
-
-display:flex;
-
-flex-direction:column;
-
-align-items:center;
-
-justify-content:center;
-
-gap:4px;
-
-cursor:pointer;
-
-font-size:11px;
-
-font-weight:700;
-
-color:#6B7280;
-
-}
-
-.navItem i{
-
-font-size:18px;
-
-}
-
-.activeNav{
-
-color:#16A34A;
-
-}
-
-.navCartBadge{
-
-position:absolute;
-
-top:10px;
-
-right:22px;
-
-min-width:18px;
-
-height:18px;
-
-padding:0 4px;
-
-border-radius:999px;
-
-background:#EF4444;
-
-color:#fff;
-
-display:flex;
-
-align-items:center;
-
-justify-content:center;
-
-font-size:10px;
-
-font-weight:900;
-
-}
-
-@media(min-width:1200px){
-
-.bottomNav{
-
-max-width:650px;
-
-left:50%;
-
-transform:
-translateX(-50%);
-
-border-radius:24px 24px 0 0;
-
-}
-
-}
-
-</style>
-
-<script>
-
-/* ===================================
-NAVIGATION
-=================================== */
-
-document
-.querySelectorAll(".navItem")
-.forEach(item=>{
-
-item.addEventListener(
-
-"click",
-
-()=>{
-
-const page =
-item.dataset.page;
-
-if(page==="home"){
-
-window.location.href =
-"index.html";
-
-}
-
-if(page==="services"){
-
-window.location.href =
-"services.html";
-
-}
-
-if(page==="cart"){
-
-window.location.href =
-"cart.html";
-
-}
-
-if(page==="orders"){
-
-window.location.href =
-"orders.html";
-
-}
-
-if(page==="profile"){
-
-window.location.href =
-"profile.html";
-
-}
-
-}
-
-);
-
-});
-
-/* ===================================
-ACTIVE PAGE
-=================================== */
-
-const currentPage =
-
-window.location.pathname
-.split("/")
-.pop();
-
-document
-.querySelectorAll(".navItem")
-.forEach(item=>{
-
-item.classList.remove(
-"activeNav"
-);
-
-const page =
-item.dataset.page;
-
-if(
-
-(currentPage==="services.html" && page==="services")
-
-||
-
-(currentPage==="index.html" && page==="home")
-
-||
-
-(currentPage==="cart.html" && page==="cart")
-
-||
-
-(currentPage==="orders.html" && page==="orders")
-
-||
-
-(currentPage==="profile.html" && page==="profile")
-
-){
-
-item.classList.add(
-"activeNav"
-);
-
-}
-
-});
-
-/* ===================================
-CART BADGE
-=================================== */
-
-window.updateNavbarCartCount =
-function(){
-
-const cart =
-
-JSON.parse(
-localStorage.getItem(
-"cart"
-)
-)
-
-|| [];
-
-let total = 0;
-
-cart.forEach(item=>{
-
-total +=
-item.qty || 1;
-
-});
-
-const badge =
-
-document.getElementById(
-"navCartBadge"
-);
-
-if(!badge) return;
-
-badge.innerHTML = total;
-
-badge.style.display =
-
-total > 0
-
-? "flex"
-
-: "none";
-
-};
-
-updateNavbarCartCount();
-
-/* ===================================
-PROFILE
-=================================== */
-
-window.openProfile =
-function(){
-
-window.location.href =
-"profile.html";
-
-};
-
-</script><script type="module">
-
-/* ===================================
-FIREBASE AUTH
-=================================== */
-
-import { auth }
-from "./firebase.js";
-
-import {
-
-onAuthStateChanged,
-signOut
-
-}
-
-from
-
-"https://www.gstatic.com/firebasejs/12.11.0/firebase-auth.js";
-
-/* ===================================
-GLOBAL USER
-=================================== */
-
-let currentUser = null;
-
-/* ===================================
-AUTH STATE
-=================================== */
-
-onAuthStateChanged(
-
-auth,
-
-(user)=>{
-
-currentUser = user;
-
-/* ===================================
-PROFILE ICON
-=================================== */
-
-const profileBtn =
-
-document.querySelector(
-".profileBtn"
-);
-
-if(profileBtn){
-
-if(user){
-
-profileBtn.innerHTML =
-
-`<i class="fa-solid fa-user-check"></i>`;
-
-}else{
-
-profileBtn.innerHTML =
-
-`<i class="fa-regular fa-user"></i>`;
-
-}
-
-}
-
-});
-
-/* ===================================
-PROFILE PAGE
-=================================== */
-
-window.openProfile =
-function(){
-
-if(currentUser){
-
-window.location.href =
-"profile.html";
-
-}else{
-
-window.location.href =
-"login.html";
-
-}
-
-};
-
-/* ===================================
-LOGIN CHECK
-=================================== */
-
-window.requireLogin =
-function(){
-
-if(!currentUser){
-
-window.location.href =
-"login.html";
-
-return false;
-
-}
-
-return true;
-
-};
-
-/* ===================================
-ORDERS PAGE
-=================================== */
-
-window.openOrders =
-function(){
-
-if(!requireLogin()){
-
-return;
-
-}
-
-window.location.href =
-"orders.html";
-
-};
-
-/* ===================================
-CART PAGE
-=================================== */
-
-window.openCart =
-function(){
-
-window.location.href =
-"cart.html";
-
-};
-
-/* ===================================
-USER DATA
-=================================== */
-
-window.getCurrentUser =
-function(){
-
-return currentUser;
-
-};
-
-window.isLoggedIn =
-function(){
-
-return currentUser !== null;
-
-};
-
-window.getUserName =
-function(){
-
-if(!currentUser){
-
-return "Guest";
-
-}
-
-return (
-
-currentUser.displayName
-
-||
-
-currentUser.phoneNumber
-
-||
-
-currentUser.email
-
-||
-
-"User"
-
-);
-
-};
-
-/* ===================================
-USER PHOTO
-=================================== */
-
-window.getUserPhoto =
-function(){
-
-if(
-
-currentUser &&
-currentUser.photoURL
-
-){
-
-return currentUser.photoURL;
-
-}
-
-return null;
-
-};
-
-/* ===================================
-LOGOUT
-=================================== */
-
-window.logoutUser =
-async function(){
-
-try{
-
-await signOut(auth);
-
-window.location.href =
-"login.html";
-
-}catch(error){
-
-console.log(error);
-
-alert(
-"Logout Failed"
-);
-
-}
-
-};
-
-/* ===================================
-AUTH READY
-=================================== */
-
-console.log(
-"QuickPress Services Auth Loaded"
-);
-
-</script><script>
-
-/* ===================================
-FILTER ENGINE
-=================================== */
-
-let currentSearchText = "";
-
-let currentCategoryFilter = "All";
-
-let currentSortFilter = "popular";
-
-/* ===================================
-SEARCH SYSTEM
-=================================== */
-
-const searchInput =
-
-document.getElementById(
-"globalSearch"
-);
-
-if(searchInput){
-
-searchInput.addEventListener(
-
-"input",
-
-function(){
-
-currentSearchText =
-
-this.value
-.toLowerCase()
-.trim();
-
-applyAdvancedFilters();
-
-}
-
-);
-
-}
-
-/* ===================================
-CATEGORY FILTER
-=================================== */
-
-window.filterCategory =
-function(category){
-
-currentCategoryFilter =
-category;
-
-applyAdvancedFilters();
-
-};
-
-/* ===================================
-SORT FILTER
-=================================== */
-
-const sortSelect =
-
-document.getElementById(
-"sortServices"
-);
-
-if(sortSelect){
-
-sortSelect.addEventListener(
-
-"change",
-
-function(){
-
-currentSortFilter =
-this.value;
-
-applyAdvancedFilters();
-
-}
-
-);
-
-}
-
-/* ===================================
-MAIN FILTER ENGINE
-=================================== */
-
-window.applyAdvancedFilters =
-function(){
-
-if(!window.allServices){
-
-return;
-
-}
-
-let filtered =
-
-[...window.allServices];
-
-/* Search */
-
-if(currentSearchText){
-
-filtered =
-
-filtered.filter(
-
-service=>{
-
-const name =
-
-(service.name || "")
-.toLowerCase();
-
-const category =
-
-(service.category || "")
-.toLowerCase();
-
-const description =
-
-(service.description || "")
-.toLowerCase();
-
-return (
-
-name.includes(
-currentSearchText
-)
-
-||
-
-category.includes(
-currentSearchText
-)
-
-||
-
-description.includes(
-currentSearchText
-)
-
-);
-
-}
-
-);
-
-}
-
-/* Category */
-
-if(
-
-currentCategoryFilter !==
-"All"
-
-){
-
-filtered =
-
-filtered.filter(
-
-service=>
-
-service.category ===
-
-currentCategoryFilter
-
-);
-
-}
-
-/* Sorting */
-
-switch(
-
-currentSortFilter
-
-){
-
-case "lowToHigh":
-
-filtered.sort(
-
-(a,b)=>
-
-(a.price||0)
-
--
-
-(b.price||0)
-
-);
-
-break;
-
-case "highToLow":
-
-filtered.sort(
-
-(a,b)=>
-
-(b.price||0)
-
--
-
-(a.price||0)
-
-);
-
-break;
-
-case "newest":
-
-filtered.sort(
-
-(a,b)=>
-
-(b.createdAt||0)
-
--
-
-(a.createdAt||0)
-
-);
-
-break;
-
-default:
-
-break;
-
-}
-
-/* Update Counter */
-
-if(
-window.updateResultCount
-){
-
-updateResultCount(
-
-filtered.length
-
-);
-
-}
-
-/* Render */
-
-if(
-window.renderServices
-){
-
-renderServices(
-filtered
-);
-
-}
-
-};
-
-/* ===================================
-SERVICE CACHE
-=================================== */
-
-window.saveServicesCache =
-function(data){
-
-try{
-
-localStorage.setItem(
-
-"servicesCache",
-
-JSON.stringify(
-data
-)
-
-);
-
-}catch(error){
-
-console.log(error);
-
-}
-
-};
-
-window.loadServicesCache =
-function(){
-
-try{
-
-return JSON.parse(
-
-localStorage.getItem(
-"servicesCache"
-)
-
-|| "[]"
-
-);
-
-}catch(error){
-
-return [];
-
-}
-
-};
-
-/* ===================================
-AUTO CACHE
-=================================== */
-
-window.cacheServices =
-function(){
-
-if(
-window.allServices
-){
-
-saveServicesCache(
-window.allServices
-);
-
-}
-
-};
-
-/* ===================================
-SEARCH CLEAR
-=================================== */
-
-window.clearSearch =
-function(){
-
-if(searchInput){
-
-searchInput.value = "";
-
-}
-
-currentSearchText = "";
-
-applyAdvancedFilters();
-
-};
-
-/* ===================================
-FILTER RESET
-=================================== */
-
-window.resetFilters =
-function(){
-
-currentSearchText = "";
-
-currentCategoryFilter =
-
-"All";
-
-currentSortFilter =
-
-"popular";
-
-if(searchInput){
-
-searchInput.value = "";
-
-}
-
-if(sortSelect){
-
-sortSelect.value =
-
-"popular";
-
-}
-
-document
-.querySelectorAll(
-".categoryChip"
-)
-
-.forEach(chip=>{
-
-chip.classList.remove(
-"activeChip"
-);
-
-if(
-
-chip.dataset.category
-=== "All"
-
-){
-
-chip.classList.add(
-"activeChip"
-);
-
-}
-
-});
-
-applyAdvancedFilters();
-
-};
-
-/* ===================================
-PERFORMANCE
-=================================== */
-
-window.debounce =
-function(callback,delay){
-
-let timer;
-
-return function(){
-
-clearTimeout(timer);
-
-timer = setTimeout(
-
-()=>{
-
-callback.apply(
-this,
-arguments
-);
-
-},
-
-delay
-
-);
-
-};
-
-};
-
-/* ===================================
-READY
-=================================== */
-
-console.log(
-"QuickPress Filter Engine Loaded"
-);
-
-</script><script>
-
-/* ===================================
-GET CART
-=================================== */
-
-window.getCart =
-function(){
-
-try{
-
-return JSON.parse(
-
-localStorage.getItem(
-"cart"
-)
-
-|| "[]"
-
-);
-
-}catch(error){
-
-return [];
-
-}
-
-};
-
-/* ===================================
-SAVE CART
-=================================== */
-
-window.saveCart =
-function(cart){
-
-localStorage.setItem(
-
-"cart",
-
-JSON.stringify(cart)
-
-);
-
-if(
-window.updateNavbarCartCount
-){
-
-updateNavbarCartCount();
-
-}
-
-};
-
-/* ===================================
-ADD TO CART
-=================================== */
-
-window.addToCart =
-function(
-
-id,
-name,
-price,
-category
-
-){
-
-let cart =
-getCart();
-
-const existing =
-
-cart.find(
-
-item=>
-
-item.serviceId === id
-
-);
-
-if(existing){
-
-existing.qty++;
-
-}else{
-
-cart.push({
-
-serviceId:id,
-
-serviceName:name,
-
-price,
-
-category,
-
-qty:1,
-
-addedAt:Date.now()
-
-});
-
-}
-
-saveCart(cart);
-
-if(window.showToast){
-
-showToast(
-
-name +
-" added to cart"
-
-);
-
-}
-
-};
-
-/* ===================================
-INCREASE QTY
-=================================== */
-
-window.increaseQty =
-function(serviceId){
-
-let cart =
-getCart();
-
-const item =
-
-cart.find(
-
-item=>
-
-item.serviceId === serviceId
-
-);
-
-if(item){
-
-item.qty++;
-
-}
-
-saveCart(cart);
-
-if(window.renderCart){
-
-renderCart();
-
-}
-
-};
-
-/* ===================================
-DECREASE QTY
-=================================== */
-
-window.decreaseQty =
-function(serviceId){
-
-let cart =
-getCart();
-
-const item =
-
-cart.find(
-
-item=>
-
-item.serviceId === serviceId
-
-);
-
-if(!item) return;
-
-item.qty--;
-
-if(item.qty <= 0){
-
-cart = cart.filter(
-
-x=>
-
-x.serviceId !== serviceId
-
-);
-
-}
-
-saveCart(cart);
-
-if(window.renderCart){
-
-renderCart();
-
-}
-
-};
-
-/* ===================================
-REMOVE ITEM
-=================================== */
-
-window.removeCartItem =
-function(serviceId){
-
-let cart =
-getCart();
-
-cart =
-
-cart.filter(
-
-item=>
-
-item.serviceId !== serviceId
-
-);
-
-saveCart(cart);
-
-if(window.renderCart){
-
-renderCart();
-
-}
-
-if(window.showToast){
-
-showToast(
-"Item Removed"
-);
-
-}
-
-};
-
-/* ===================================
-CLEAR CART
-=================================== */
-
-window.clearCart =
-function(){
-
-localStorage.removeItem(
-"cart"
-);
-
-if(
-window.updateNavbarCartCount
-){
-
-updateNavbarCartCount();
-
-}
-
-if(window.renderCart){
-
-renderCart();
-
-}
-
-};
-
-/* ===================================
-ITEM COUNT
-=================================== */
-
-window.getCartItemsCount =
-function(){
-
-const cart =
-getCart();
-
-let total = 0;
-
-cart.forEach(item=>{
-
-total +=
-item.qty || 1;
-
-});
-
-return total;
-
-};
-
-/* ===================================
-TOTAL PRICE
-=================================== */
-
-window.getCartTotal =
-function(){
-
-const cart =
-getCart();
-
-let total = 0;
-
-cart.forEach(item=>{
-
-total +=
-
-(item.price || 0)
-
-*
-
-(item.qty || 1);
-
-});
-
-return total;
-
-};
-
-/* ===================================
-ORDER SUMMARY
-=================================== */
-
-window.getOrderSummary =
-function(){
-
-const subtotal =
-
-getCartTotal();
-
-const deliveryFee =
-
-subtotal >= 299
-
-? 0
-
-: 49;
-
-const tax =
-
-Math.round(
-subtotal * 0.05
-);
-
-const grandTotal =
-
-subtotal +
-deliveryFee +
-tax;
-
-return{
-
-subtotal,
-
-deliveryFee,
-
-tax,
-
-grandTotal,
-
-items:
-
-getCartItemsCount()
-
-};
-
-};
-
-/* ===================================
-CHECKOUT
-=================================== */
-
-window.goCheckout =
-function(){
-
-const cart =
-getCart();
-
-if(cart.length===0){
-
-alert(
-"Your Cart Is Empty"
-);
-
-return;
-
-}
-
-window.location.href =
-"checkout.html";
-
-};
-
-/* ===================================
-COUPON SUPPORT
-=================================== */
-
-window.applyCoupon =
-function(code){
-
-const summary =
-
-getOrderSummary();
-
-let discount = 0;
-
-if(code==="WELCOME50"){
-
-discount =
-
-Math.round(
-
-summary.subtotal * 0.50
-
-);
-
-}
-
-if(code==="QUICK20"){
-
-discount =
-
-Math.round(
-
-summary.subtotal * 0.20
-
-);
-
-}
-
-return discount;
-
-};
-
-/* ===================================
-CHECKOUT DATA
-=================================== */
-
-window.createCheckoutData =
-function(){
-
-return{
-
-items:getCart(),
-
-summary:getOrderSummary(),
-
-createdAt:
-Date.now()
-
-};
-
-};
-
-console.log(
-"QuickPress Cart Engine Loaded"
-);
-
-</script><!-- ===================================
-GLOBAL TOAST
-=================================== -->
-
-<div
-class="globalToast"
-id="globalToast">
-
-<span
-id="globalToastText">
-
-Success
-
-</span>
-
-</div>
-
-<style>
-
-/* ===================================
-GLOBAL TOAST
-=================================== */
-
-.globalToast{
-
-position:fixed;
-
-left:50%;
-
-bottom:90px;
-
-transform:
-translateX(-50%);
-
-background:#111827;
-
-color:#fff;
-
-padding:14px 20px;
-
-border-radius:14px;
-
-font-size:13px;
-
-font-weight:700;
-
-opacity:0;
-
-visibility:hidden;
-
-transition:.3s;
-
-z-index:99999;
-
-}
-
-.globalToast.show{
-
-opacity:1;
-
-visibility:visible;
-
-}
-
-/* ===================================
-SMOOTH UI
-=================================== */
-
-.serviceCard,
-.categoryChip,
-.addBtn,
-.navItem{
-
-transition:.25s;
-
-}
-
-.addBtn:active{
-
-transform:scale(.95);
-
-}
-
-.categoryChip:active{
-
-transform:scale(.95);
-
-}
-
-</style>
-
-<script>
-
-/* ===================================
-GLOBAL TOAST
-=================================== */
-
-window.showToast =
-function(message){
-
-const toast =
-
-document.getElementById(
-"globalToast"
-);
-
-const text =
-
-document.getElementById(
-"globalToastText"
-);
-
-if(!toast || !text){
-
-return;
-
-}
-
-text.innerHTML =
-message;
-
-toast.classList.add(
-"show"
-);
-
-setTimeout(()=>{
-
-toast.classList.remove(
-"show"
-);
-
-},2000);
-
-};
-
-/* ===================================
-FORMAT PRICE
-=================================== */
-
-window.formatPrice =
-function(price){
-
-return "₹" +
-
-Number(price || 0)
-
-.toLocaleString(
-"en-IN"
-);
-
-};
-
-/* ===================================
-FORMAT DATE
-=================================== */
-
-window.formatDate =
-function(timestamp){
-
-if(!timestamp){
-
-return "";
-
-}
-
-return new Date(
-timestamp
-)
-
-.toLocaleDateString(
-"en-IN"
-
-);
-
-};
-
-/* ===================================
-GENERATE ID
-=================================== */
-
-window.generateOrderId =
-function(){
-
-return "QP" +
-
-Date.now()
-
-.toString()
-
-.slice(-8);
-
-};
-
-/* ===================================
-ONLINE STATUS
-=================================== */
-
-window.isOnline =
-function(){
-
-return navigator.onLine;
-
-};
-
-window.addEventListener(
-
-"offline",
-
-()=>{
-
-showToast(
-"Internet Disconnected"
-);
-
-}
-
-);
-
-window.addEventListener(
-
-"online",
-
-()=>{
-
-showToast(
-"Internet Connected"
-);
-
-}
-
-);
-
-/* ===================================
-CACHE RESTORE
-=================================== */
-
-window.restoreCachedServices =
-function(){
-
-try{
-
-const cache =
-
-JSON.parse(
-
-localStorage.getItem(
-"servicesCache"
-)
-
-|| "[]"
-
-);
-
-if(
-
-cache.length > 0
-
-&&
-
-window.renderServices
-
-){
-
-renderServices(
-cache
-);
-
-}
-
-}catch(error){
-
-console.log(error);
-
-}
-
-};
-
-/* ===================================
-PAGE READY
-=================================== */
-
-window.appReady =
-function(){
-
-console.log(
-"QuickPress Services Ready"
-);
-
-if(
-window.updateNavbarCartCount
-){
-
-updateNavbarCartCount();
-
-}
-
-};
-
-/* ===================================
-START APP
-=================================== */
-
-document.addEventListener(
-
-"DOMContentLoaded",
-
-()=>{
-
-appReady();
-
-}
-
-);
+</noscript>
+
+<!-- =========================
+END OF PAGE
+========================= -->
+
+<script
+type="module"
+src="./services.js">
 
 </script>
 
 </body>
+</html>
+</section>
 
+<!-- EMPTY -->
+
+<div
+id="emptyState"
+class="emptyState">
+
+<div class="emptyIcon">
+
+🔍
+
+</div>
+
+<h3>
+
+No Services Found
+
+</h3>
+
+<p>
+
+Try another search
+
+</p>
+
+</div>
+
+<!-- FLOATING CART -->
+
+<div
+id="floatingCart"
+class="floatingCart">
+
+<div>
+
+<div
+id="cartItems">
+
+0 Items
+
+</div>
+
+<div
+id="cartTotal">
+
+₹0
+
+</div>
+
+</div>
+
+<button
+onclick="goCart()">
+
+View Cart
+
+</button>
+
+</div>
+
+<!-- BOTTOM NAV -->
+
+<nav class="bottomNav">
+
+<a href="index.html">
+
+<i class="fa-solid fa-house"></i>
+
+<span>Home</span>
+
+</a>
+
+<a
+class="active"
+href="services.html">
+
+<i class="fa-solid fa-shirt"></i>
+
+<span>Services</span>
+
+</a>
+
+<a href="cart.html">
+
+<i class="fa-solid fa-bag-shopping"></i>
+
+<span>Cart</span>
+
+</a>
+
+<a href="orders.html">
+
+<i class="fa-solid fa-box"></i>
+
+<span>Orders</span>
+
+</a>
+
+<a href="profile.html">
+
+<i class="fa-solid fa-user"></i>
+
+<span>Profile</span>
+
+</a>
+
+</nav>
+
+<script
+type="module"
+src="services.js">
+
+</script>
+
+</body>
 </html>
