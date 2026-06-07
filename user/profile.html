@@ -11,7 +11,7 @@ content="width=device-width, initial-scale=1.0">
 
 <title>
 
-QuickPress | Profile
+My Profile - QuickPress
 
 </title>
 
@@ -21,7 +21,7 @@ rel="stylesheet">
 
 <link
 rel="stylesheet"
-href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css"/>
+href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
 
 <style>
 
@@ -34,34 +34,98 @@ font-family:'Inter',sans-serif;
 
 :root{
 
---primary:#F4B400;
---secondary:#16A34A;
-
+--yellow:#F4B400;
+--green:#16A34A;
 --dark:#111827;
---light:#6B7280;
-
---bg:#F6F7FB;
---white:#FFFFFF;
+--gray:#6B7280;
+--bg:#F8FAFC;
 
 }
 
 body{
 
-background:#F6F7FB;
+background:var(--bg);
 
 padding-bottom:120px;
 
 }
 
-.hero{
+/* LOADER */
+
+.pageLoader{
+
+position:fixed;
+
+inset:0;
+
+background:white;
+
+display:flex;
+
+justify-content:center;
+
+align-items:center;
+
+flex-direction:column;
+
+z-index:999999;
+
+}
+
+.loaderCircle{
+
+width:60px;
+height:60px;
+
+border:4px solid #E5E7EB;
+
+border-top:4px solid var(--green);
+
+border-radius:50%;
+
+animation:spin 1s linear infinite;
+
+}
+
+@keyframes spin{
+
+100%{
+
+transform:rotate(360deg);
+
+}
+
+}
+
+.loaderText{
+
+margin-top:15px;
+
+font-size:14px;
+
+font-weight:800;
+
+color:var(--gray);
+
+}
+
+/* HEADER */
+
+.profileHeader{
 
 position:sticky;
 
 top:0;
 
-background:#fff;
+background:white;
 
 padding:16px;
+
+display:flex;
+
+justify-content:space-between;
+
+align-items:center;
 
 z-index:999;
 
@@ -70,44 +134,38 @@ box-shadow:
 
 }
 
-.brandName{
+.pageTitle{
 
-font-size:30px;
+font-size:24px;
 
 font-weight:900;
 
-color:#111827;
+color:var(--dark);
 
 }
 
-.pageTitle{
+.headerActions{
 
-margin-top:4px;
+display:flex;
 
-font-size:14px;
-
-font-weight:800;
-
-color:#6B7280;
+gap:10px;
 
 }
 
-.section{
+.actionBtn{
 
-padding:16px;
+width:46px;
+height:46px;
 
-}
+border:none;
 
-.card{
+border-radius:14px;
 
-background:#fff;
+background:#F3F4F6;
 
-border-radius:24px;
+font-size:18px;
 
-padding:20px;
-
-box-shadow:
-0 8px 24px rgba(0,0,0,.05);
+cursor:pointer;
 
 }
 
@@ -117,13 +175,21 @@ box-shadow:
 
 <body>
 
-<div class="hero">
+<div
+id="pageLoader"
+class="pageLoader">
 
-<div class="brandName">
+<div class="loaderCircle"></div>
 
-QuickPress
+<div class="loaderText">
+
+Loading Profile...
 
 </div>
+
+</div>
+
+<header class="profileHeader">
 
 <div class="pageTitle">
 
@@ -131,60 +197,133 @@ My Profile
 
 </div>
 
-</div><section class="section">
+<div class="headerActions">
 
-<div class="card profileCard">
+<button class="actionBtn">
 
-<div class="profileAvatar">
+<i class="fa-regular fa-bell"></i>
 
-<i class="fa-solid fa-user"></i>
+</button>
 
-</div>
+<button class="actionBtn">
 
-<h2
-id="userName">
-
-Guest User
-
-</h2>
-
-<p
-id="userEmail">
-
-Not Logged In
-
-</p>
-
-<button
-class="editBtn">
-
-Edit Profile
+<i class="fa-solid fa-gear"></i>
 
 </button>
 
 </div>
 
-</section>
+</header>
+
+<script type="module">
+
+import { auth }
+from "../js/firebase.js";
+
+window.currentUser = null;
+
+auth.onAuthStateChanged(
+
+(user)=>{
+
+if(!user){
+
+window.location.href =
+"auth.html";
+
+return;
+
+}
+
+window.currentUser =
+user;
+
+document.getElementById(
+"pageLoader"
+).style.display =
+"none";
+
+if(
+typeof loadProfileData ===
+"function"
+){
+
+loadProfileData();
+
+}
+
+}
+
+);
+
+</script><!-- PROFILE CARD -->
+
+<div class="profileCard">
+
+<div class="profileAvatar">
+
+👤
+
+</div>
+
+<div
+id="profileName"
+class="profileName">
+
+QuickPress User
+
+</div>
+
+<div
+id="profilePhone"
+class="profilePhone">
+
++91 XXXXX XXXXX
+
+</div>
+
+<div class="memberBadge">
+
+🏆 QuickPress Gold Member
+
+</div>
+
+</div>
 
 <style>
 
 .profileCard{
 
+margin:16px;
+
+background:white;
+
+border-radius:28px;
+
+padding:24px;
+
 text-align:center;
+
+box-shadow:
+0 8px 25px rgba(0,0,0,.05);
 
 }
 
 .profileAvatar{
 
 width:90px;
-
 height:90px;
 
 margin:auto;
 
 border-radius:50%;
 
-background:#DCFCE7;
+background:
+linear-gradient(
+135deg,
+#16A34A,
+#22C55E
+);
 
 display:flex;
 
@@ -194,138 +333,261 @@ justify-content:center;
 
 font-size:42px;
 
-color:#16A34A;
+color:white;
 
 }
 
-.profileCard h2{
+.profileName{
 
 margin-top:14px;
 
-font-size:22px;
+font-size:24px;
 
 font-weight:900;
 
+color:#111827;
+
 }
 
-.profileCard p{
+.profilePhone{
 
-margin-top:6px;
+margin-top:8px;
 
-font-size:13px;
+font-size:14px;
 
 color:#6B7280;
 
 }
 
-.editBtn{
+.memberBadge{
 
-margin-top:18px;
+margin-top:16px;
 
-height:48px;
+display:inline-block;
 
-padding:0 24px;
+padding:10px 16px;
 
-border:none;
+border-radius:999px;
 
-border-radius:14px;
+background:#FEF3C7;
 
-background:#16A34A;
-
-color:#fff;
+font-size:13px;
 
 font-weight:900;
 
-cursor:pointer;
-
 }
 
-</style><section class="section">
+</style><!-- QUICK STATS -->
 
-<div class="card">
+<div class="statsGrid">
 
-<div class="menuItem">
+<div class="statCard">
 
-<i class="fa-solid fa-location-dot"></i>
+<div class="statValue"
+id="totalOrders">
 
-<span>
-
-Saved Addresses
-
-</span>
+0
 
 </div>
 
-<div class="menuItem">
+<div class="statLabel">
 
-<i class="fa-solid fa-box"></i>
-
-<span>
-
-My Orders
-
-</span>
-
-</div>
-
-<div class="menuItem">
-
-<i class="fa-solid fa-wallet"></i>
-
-<span>
-
-Wallet
-
-</span>
-
-</div>
-
-<div class="menuItem">
-
-<i class="fa-solid fa-headset"></i>
-
-<span>
-
-Help & Support
-
-</span>
-
-</div>
-
-<div class="menuItem">
-
-<i class="fa-solid fa-gear"></i>
-
-<span>
-
-Settings
-
-</span>
+Orders
 
 </div>
 
 </div>
 
-</section>
+<div class="statCard">
+
+<div class="statValue"
+id="totalSavings">
+
+₹0
+
+</div>
+
+<div class="statLabel">
+
+Savings
+
+</div>
+
+</div>
+
+<div class="statCard">
+
+<div class="statValue"
+id="rewardPoints">
+
+0
+
+</div>
+
+<div class="statLabel">
+
+Points
+
+</div>
+
+</div>
+
+</div>
 
 <style>
 
+.statsGrid{
+
+display:grid;
+
+grid-template-columns:
+repeat(3,1fr);
+
+gap:12px;
+
+padding:0 16px;
+
+}
+
+.statCard{
+
+background:white;
+
+padding:18px;
+
+border-radius:20px;
+
+text-align:center;
+
+box-shadow:
+0 6px 18px rgba(0,0,0,.04);
+
+}
+
+.statValue{
+
+font-size:22px;
+
+font-weight:900;
+
+color:#111827;
+
+}
+
+.statLabel{
+
+margin-top:6px;
+
+font-size:12px;
+
+font-weight:700;
+
+color:#6B7280;
+
+}
+
+</style><!-- ACCOUNT MENU -->
+
+<div class="menuSection">
+
+<div class="sectionTitle">
+
+Account
+
+</div>
+
+<div class="menuCard">
+
+<div class="menuItem"
+onclick="window.location.href='orders.html'">
+
+<div class="menuLeft">
+
+📦 My Orders
+
+</div>
+
+<i class="fa-solid fa-chevron-right"></i>
+
+</div>
+
+<div class="menuItem"
+onclick="window.location.href='addresses.html'">
+
+<div class="menuLeft">
+
+🏠 Saved Addresses
+
+</div>
+
+<i class="fa-solid fa-chevron-right"></i>
+
+</div>
+
+<div class="menuItem"
+onclick="window.location.href='notifications.html'">
+
+<div class="menuLeft">
+
+🔔 Notifications
+
+</div>
+
+<i class="fa-solid fa-chevron-right"></i>
+
+</div>
+
+</div>
+
+</div>
+
+<style>
+
+.menuSection{
+
+padding:16px;
+
+}
+
+.sectionTitle{
+
+font-size:18px;
+
+font-weight:900;
+
+margin-bottom:12px;
+
+color:#111827;
+
+}
+
+.menuCard{
+
+background:white;
+
+border-radius:24px;
+
+overflow:hidden;
+
+box-shadow:
+0 6px 18px rgba(0,0,0,.04);
+
+}
+
 .menuItem{
+
+height:62px;
 
 display:flex;
 
+justify-content:space-between;
+
 align-items:center;
 
-gap:14px;
-
-padding:16px 0;
+padding:0 18px;
 
 border-bottom:
 1px solid #F3F4F6;
-
-font-size:14px;
-
-font-weight:700;
 
 cursor:pointer;
 
@@ -337,123 +599,419 @@ border-bottom:none;
 
 }
 
-.menuItem i{
+.menuLeft{
 
-width:36px;
+font-size:15px;
 
-height:36px;
-
-border-radius:10px;
-
-background:#F3F4F6;
-
-display:flex;
-
-align-items:center;
-
-justify-content:center;
-
-color:#16A34A;
+font-weight:700;
 
 }
 
-</style>
-<section class="section">
+</style><!-- ORDER SUMMARY -->
 
-<div class="card">
+<div class="menuSection">
 
-<h3 style="
-font-size:18px;
-font-weight:900;
-margin-bottom:16px;
-">
+<div class="sectionTitle">
 
-Saved Addresses
+Quick Access
+
+</div>
+
+<div class="quickGrid">
+
+<div class="quickCard"
+onclick="window.location.href='orders.html'">
+
+📦
+
+<h4>
+
+Orders
+
+</h4>
+
+</div>
+
+<div class="quickCard"
+onclick="window.location.href='cart.html'">
+
+🛒
+
+<h4>
+
+Cart
+
+</h4>
+
+</div>
+
+<div class="quickCard"
+onclick="window.location.href='services.html'">
+
+🧺
+
+<h4>
+
+Services
+
+</h4>
+
+</div>
+
+<div class="quickCard"
+onclick="window.location.href='support.html'">
+
+🎧
+
+<h4>
+
+Support
+
+</h4>
+
+</div>
+
+</div>
+
+</div>
+
+<style>
+
+.quickGrid{
+
+display:grid;
+
+grid-template-columns:
+repeat(2,1fr);
+
+gap:12px;
+
+padding:0 16px 16px;
+
+}
+
+.quickCard{
+
+background:white;
+
+padding:22px;
+
+border-radius:22px;
+
+text-align:center;
+
+box-shadow:
+0 6px 18px rgba(0,0,0,.04);
+
+cursor:pointer;
+
+}
+
+.quickCard{
+
+font-size:32px;
+
+}
+
+.quickCard h4{
+
+margin-top:10px;
+
+font-size:15px;
+
+font-weight:800;
+
+}
+
+</style><!-- REFER & EARN -->
+
+<div class="menuSection">
+
+<div class="referCard">
+
+<div>
+
+<h3>
+
+🎁 Refer & Earn
 
 </h3>
 
-<div id="profileAddresses">
+<p>
+
+Invite friends and earn rewards.
+
+</p>
 
 </div>
 
 <button
-class="addAddressBtn">
+class="referBtn">
 
-Manage Addresses
+Invite
 
 </button>
 
 </div>
 
-</section>
+</div>
+
+<!-- WALLET -->
+
+<div class="menuSection">
+
+<div class="walletCard">
+
+<div>
+
+<h3>
+
+💰 QuickPress Wallet
+
+</h3>
+
+<p>
+
+Available Balance
+
+</p>
+
+</div>
+
+<div
+id="walletBalance"
+class="walletBalance">
+
+₹0
+
+</div>
+
+</div>
+
+</div>
 
 <style>
 
-.addressCard{
+.referCard{
 
-background:#F9FAFB;
+background:
+linear-gradient(
+135deg,
+#F4B400,
+#F59E0B
+);
 
-padding:14px;
+padding:22px;
+
+border-radius:24px;
+
+display:flex;
+
+justify-content:space-between;
+
+align-items:center;
+
+color:#111827;
+
+}
+
+.referCard h3{
+
+font-size:20px;
+
+font-weight:900;
+
+}
+
+.referCard p{
+
+margin-top:6px;
+
+font-size:13px;
+
+}
+
+.referBtn{
+
+height:48px;
+
+padding:0 18px;
+
+border:none;
 
 border-radius:14px;
 
-margin-bottom:12px;
+background:white;
+
+font-weight:900;
+
+cursor:pointer;
 
 }
 
-.addressCard h4{
+.walletCard{
 
-font-size:14px;
+background:white;
 
-font-weight:800;
+padding:22px;
 
-margin-bottom:6px;
+border-radius:24px;
+
+display:flex;
+
+justify-content:space-between;
+
+align-items:center;
+
+box-shadow:
+0 6px 18px rgba(0,0,0,.04);
 
 }
 
-.addressCard p{
+.walletCard h3{
 
-font-size:12px;
+font-size:18px;
 
-line-height:1.6;
+font-weight:900;
+
+}
+
+.walletCard p{
+
+margin-top:5px;
+
+font-size:13px;
 
 color:#6B7280;
 
 }
 
-.defaultBadge{
+.walletBalance{
 
-display:inline-block;
+font-size:30px;
 
-margin-top:8px;
-
-padding:4px 10px;
-
-border-radius:999px;
-
-background:#DCFCE7;
+font-weight:900;
 
 color:#16A34A;
 
-font-size:11px;
-
-font-weight:800;
-
 }
 
-</style><section class="section">
+</style><!-- SUPPORT & HELP -->
+
+<div class="menuSection">
+
+<div class="sectionTitle">
+
+Support & Help
+
+</div>
+
+<div class="menuCard">
+
+<div class="menuItem"
+onclick="window.location.href='support.html'">
+
+<div class="menuLeft">
+
+🎧 Help & Support
+
+</div>
+
+<i class="fa-solid fa-chevron-right"></i>
+
+</div>
+
+<div class="menuItem">
+
+<div class="menuLeft">
+
+❓ FAQ
+
+</div>
+
+<i class="fa-solid fa-chevron-right"></i>
+
+</div>
+
+<div class="menuItem">
+
+<div class="menuLeft">
+
+⭐ Rate QuickPress
+
+</div>
+
+<i class="fa-solid fa-chevron-right"></i>
+
+</div>
+
+</div>
+
+</div><!-- SETTINGS -->
+
+<div class="menuSection">
+
+<div class="sectionTitle">
+
+Settings
+
+</div>
+
+<div class="menuCard">
+
+<div class="menuItem">
+
+<div class="menuLeft">
+
+🔔 Notification Settings
+
+</div>
+
+<i class="fa-solid fa-chevron-right"></i>
+
+</div>
+
+<div class="menuItem">
+
+<div class="menuLeft">
+
+🔒 Privacy Policy
+
+</div>
+
+<i class="fa-solid fa-chevron-right"></i>
+
+</div>
+
+<div class="menuItem">
+
+<div class="menuLeft">
+
+📜 Terms & Conditions
+
+</div>
+
+<i class="fa-solid fa-chevron-right"></i>
+
+</div>
+
+</div>
+
+</div>
+
+<!-- LOGOUT -->
+
+<div class="menuSection">
 
 <button
 class="logoutBtn"
 onclick="logoutUser()">
 
-<i class="fa-solid fa-right-from-bracket"></i>
-
-Logout
+🚪 Logout
 
 </button>
 
-</section>
+</div>
 
 <style>
 
@@ -461,17 +1019,17 @@ Logout
 
 width:100%;
 
-height:56px;
+height:58px;
 
 border:none;
 
-border-radius:16px;
+border-radius:18px;
 
-background:#EF4444;
+background:#DC2626;
 
-color:#fff;
+color:white;
 
-font-size:15px;
+font-size:16px;
 
 font-weight:900;
 
@@ -481,77 +1039,8 @@ cursor:pointer;
 
 </style><script type="module">
 
-import { auth }
-from "./firebase.js";
-
-import {
-
-onAuthStateChanged
-
-}
-
-from
-
-"https://www.gstatic.com/firebasejs/12.11.0/firebase-auth.js";
-
-/* ===================================
-USER DATA
-=================================== */
-
-window.currentUser = null;
-
-onAuthStateChanged(
-
-auth,
-
-(user)=>{
-
-window.currentUser = user;
-
-if(!user){
-
-document.getElementById(
-"userName"
-).innerHTML =
-"Guest User";
-
-document.getElementById(
-"userEmail"
-).innerHTML =
-"Not Logged In";
-
-return;
-
-}
-
-document.getElementById(
-"userName"
-).innerHTML =
-
-user.displayName ||
-
-user.phoneNumber ||
-
-"QuickPress User";
-
-document.getElementById(
-"userEmail"
-).innerHTML =
-
-user.email ||
-
-user.phoneNumber ||
-
-"Authenticated User";
-
-}
-
-);
-
-</script><script type="module">
-
-import { auth }
-from "./firebase.js";
+import { auth, db }
+from "../js/firebase.js";
 
 import {
 
@@ -559,13 +1048,99 @@ signOut
 
 }
 
-from
+from "https://www.gstatic.com/firebasejs/12.11.0/firebase-auth.js";
 
-"https://www.gstatic.com/firebasejs/12.11.0/firebase-auth.js";
+import {
 
-/* ===================================
-LOGOUT
-=================================== */
+doc,
+getDoc
+
+}
+
+from "https://www.gstatic.com/firebasejs/12.11.0/firebase-firestore.js";
+
+/* LOAD PROFILE */
+
+window.loadProfileData =
+async function(){
+
+try{
+
+const user =
+currentUser;
+
+if(!user) return;
+
+document.getElementById(
+"profilePhone"
+).innerText =
+
+user.phoneNumber ||
+"Not Available";
+
+const profileDoc =
+
+await getDoc(
+
+doc(
+db,
+"users",
+user.uid
+)
+
+);
+
+if(profileDoc.exists()){
+
+const data =
+profileDoc.data();
+
+document.getElementById(
+"profileName"
+).innerText =
+
+data.name ||
+"QuickPress User";
+
+document.getElementById(
+"walletBalance"
+).innerText =
+
+"₹" +
+
+(data.wallet || 0);
+
+document.getElementById(
+"rewardPoints"
+).innerText =
+
+data.points || 0;
+
+document.getElementById(
+"totalOrders"
+).innerText =
+
+data.totalOrders || 0;
+
+document.getElementById(
+"totalSavings"
+).innerText =
+
+"₹" +
+
+(data.savings || 0);
+
+}
+
+}catch(error){
+
+console.error(error);
+
+}
+
+};
+
+/* LOGOUT */
 
 window.logoutUser =
 async function(){
@@ -573,33 +1148,24 @@ async function(){
 const confirmLogout =
 
 confirm(
-"Are you sure you want to logout?"
+"Are you sure?"
 );
 
-if(!confirmLogout){
-
+if(!confirmLogout)
 return;
-
-}
 
 try{
 
-await signOut(
-auth
-);
+await signOut(auth);
 
-localStorage.removeItem(
-"checkoutData"
-);
+localStorage.clear();
 
 window.location.href =
-"login.html";
+"auth.html";
 
-}
+}catch(error){
 
-catch(error){
-
-console.log(error);
+console.error(error);
 
 alert(
 "Logout Failed"
@@ -609,168 +1175,50 @@ alert(
 
 };
 
-</script><script>
+</script><!-- BOTTOM NAV -->
 
-/* ===================================
-MENU ACTIONS
-=================================== */
+<nav class="bottomNav">
 
-const menuItems =
+<a href="index.html">
 
-document.querySelectorAll(
-".menuItem"
-);
+🏠
 
-menuItems[0].onclick =
-function(){
+<span>Home</span>
 
-window.location.href =
-"addresses.html";
+</a>
 
-};
+<a href="services.html">
 
-menuItems[1].onclick =
-function(){
+🧺
 
-window.location.href =
-"orders.html";
+<span>Services</span>
 
-};
+</a>
 
-menuItems[2].onclick =
-function(){
+<a href="cart.html">
 
-window.location.href =
-"wallet.html";
+🛒
 
-};
+<span>Cart</span>
 
-menuItems[3].onclick =
-function(){
+</a>
 
-window.location.href =
-"support.html";
+<a href="orders.html">
 
-};
+📦
 
-menuItems[4].onclick =
-function(){
+<span>Orders</span>
 
-window.location.href =
-"settings.html";
+</a>
 
-};
+<a class="active"
+href="profile.html">
 
-/* ===================================
-EDIT PROFILE
-=================================== */
+👤
 
-document
-.querySelector(
-".editBtn"
-)
+<span>Profile</span>
 
-.onclick = function(){
-
-window.location.href =
-"edit-profile.html";
-
-};
-
-/* ===================================
-ADD ADDRESS
-=================================== */
-
-document
-.querySelector(
-".addAddressBtn"
-)
-
-.onclick = function(){
-
-window.location.href =
-"addresses.html";
-
-};
-
-</script><nav class="bottomNav">
-
-<button
-class="navItem"
-onclick="window.location.href='index.html'">
-
-<i class="fa-solid fa-house"></i>
-
-<span>
-
-Home
-
-</span>
-
-</button>
-
-<button
-class="navItem"
-onclick="window.location.href='services.html'">
-
-<i class="fa-solid fa-table-cells-large"></i>
-
-<span>
-
-Services
-
-</span>
-
-</button>
-
-<button
-class="navItem"
-onclick="window.location.href='cart.html'">
-
-<i class="fa-solid fa-cart-shopping"></i>
-
-<span>
-
-Cart
-
-</span>
-
-<div
-class="navCartBadge"
-id="navCartBadge">
-
-0
-
-</div>
-
-</button>
-
-<button
-class="navItem"
-onclick="window.location.href='orders.html'">
-
-<i class="fa-solid fa-box"></i>
-
-<span>
-
-Orders
-
-</span>
-
-</button>
-
-<button
-class="navItem activeNav">
-
-<i class="fa-solid fa-user"></i>
-
-<span>
-
-Profile
-
-</span>
-
-</button>
+</a>
 
 </nav>
 
@@ -784,9 +1232,9 @@ left:0;
 right:0;
 bottom:0;
 
-height:74px;
+height:72px;
 
-background:#fff;
+background:white;
 
 display:flex;
 
@@ -794,329 +1242,59 @@ justify-content:space-around;
 
 align-items:center;
 
-box-shadow:
-0 -8px 24px rgba(0,0,0,.08);
+border-top:1px solid #E5E7EB;
 
 z-index:9999;
 
 }
 
-.navItem{
-
-position:relative;
-
-flex:1;
-
-height:100%;
-
-border:none;
-
-background:none;
+.bottomNav a{
 
 display:flex;
 
 flex-direction:column;
 
-justify-content:center;
-
 align-items:center;
 
 gap:4px;
+
+text-decoration:none;
+
+color:#6B7280;
 
 font-size:11px;
 
 font-weight:700;
 
-color:#6B7280;
-
-cursor:pointer;
-
 }
 
-.navItem i{
-
-font-size:18px;
-
-}
-
-.activeNav{
+.bottomNav a.active{
 
 color:#16A34A;
-
-}
-
-.navCartBadge{
-
-position:absolute;
-
-top:10px;
-
-right:22px;
-
-min-width:18px;
-
-height:18px;
-
-padding:0 4px;
-
-border-radius:999px;
-
-background:#EF4444;
-
-color:#fff;
-
-display:flex;
-
-align-items:center;
-
-justify-content:center;
-
-font-size:10px;
 
 font-weight:900;
 
 }
 
-</style><script>
+</style>
 
-/* ===================================
-CART BADGE
-=================================== */
+<script>
 
-window.updateNavbarCartCount =
-function(){
+/* FINAL INIT */
 
-const cart =
+document.addEventListener(
 
-JSON.parse(
+"DOMContentLoaded",
 
-localStorage.getItem(
-"cart"
-)
-
-|| "[]"
-
-);
-
-let total = 0;
-
-cart.forEach(item=>{
-
-total +=
-
-item.qty || 1;
-
-});
-
-const badge =
-
-document.getElementById(
-"navCartBadge"
-);
-
-if(!badge) return;
-
-badge.innerHTML = total;
-
-badge.style.display =
-
-total > 0
-
-? "flex"
-
-: "none";
-
-};
-
-/* ===================================
-PROFILE READY
-=================================== */
-
-window.profileReady =
-function(){
-
-updateNavbarCartCount();
+()=>{
 
 console.log(
 "QuickPress Profile Ready"
 );
 
-};
-
-/* ===================================
-AUTO LOAD
-=================================== */
-
-document.addEventListener(
-
-"DOMContentLoaded",
-
-()=>{
-
-profileReady();
-
-}
-
-);
-
-/* ===================================
-NETWORK STATUS
-=================================== */
-
-window.addEventListener(
-
-"offline",
-
-()=>{
-
-console.log(
-"Offline Mode"
-);
-
-}
-
-);
-
-window.addEventListener(
-
-"online",
-
-()=>{
-
-console.log(
-"Online Mode"
-);
-
-}
-
-);
-
-</script>
-<script>
-
-/* ===================================
-LOAD PROFILE ADDRESSES
-=================================== */
-
-window.loadProfileAddresses =
-function(){
-
-const container =
-
-document.getElementById(
-"profileAddresses"
-);
-
-if(!container) return;
-
-const addresses =
-
-JSON.parse(
-
-localStorage.getItem(
-"addresses"
-)
-
-|| "[]"
-
-);
-
-if(addresses.length===0){
-
-container.innerHTML =
-
-`
-
-<div class="addressCard">
-
-<p>No Address Found</p>
-
-</div>
-
-`;
-
-return;
-
-}
-
-let html = "";
-
-addresses.forEach(address=>{
-
-html += `
-
-<div class="addressCard">
-
-<h4>
-
-${address.type || "Address"}
-
-</h4>
-
-<p>
-
-${address.address || ""}
-
-</p>
-
-${
-address.isDefault
-
-?
-
-'<div class="defaultBadge">Default Address</div>'
-
-:
-
-''
-
-}
-
-</div>
-
-`;
-
 });
 
-container.innerHTML = html;
-
-};
-
-/* ===================================
-MANAGE ADDRESS
-=================================== */
-
-document.addEventListener(
-
-"DOMContentLoaded",
-
-()=>{
-
-const btn =
-
-document.querySelector(
-".addAddressBtn"
-);
-
-if(btn){
-
-btn.onclick = ()=>{
-
-window.location.href =
-"addresses.html";
-
-};
-
-}
-
-loadProfileAddresses();
-
-}
-
-);
-
 </script>
-  
-</body>
 
+</body>
 </html>
