@@ -21,7 +21,7 @@ rel="stylesheet">
 
 <link
 rel="stylesheet"
-href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
 
 <style>
 
@@ -40,7 +40,7 @@ font-family:'Inter',sans-serif;
 --dark:#111827;
 --gray:#6B7280;
 
---bg:#F7F8FA;
+--bg:#F8FAFC;
 --white:#FFFFFF;
 
 }
@@ -57,9 +57,15 @@ padding-bottom:140px;
 
 .checkoutHeader{
 
-background:#fff;
+position:sticky;
 
-padding:18px;
+top:0;
+
+background:white;
+
+z-index:999;
+
+padding:16px;
 
 display:flex;
 
@@ -68,127 +74,63 @@ align-items:center;
 gap:14px;
 
 box-shadow:
-0 4px 20px rgba(0,0,0,.05);
+0 4px 15px rgba(0,0,0,.05);
 
 }
 
 .backBtn{
 
 width:44px;
-
 height:44px;
 
 border:none;
 
-border-radius:12px;
+border-radius:14px;
 
 background:#F3F4F6;
+
+font-size:18px;
 
 cursor:pointer;
 
 }
 
-.backBtn i{
-
-font-size:18px;
-
-}
-
-.headerTitle h2{
+.headerTitle{
 
 font-size:22px;
 
 font-weight:900;
 
-}
-
-.headerTitle p{
-
-font-size:12px;
-
-color:#6B7280;
-
-margin-top:3px;
+color:var(--dark);
 
 }
 
-/* PROGRESS */
+/* SECTION */
 
-.progressCard{
+.section{
 
-background:#fff;
+background:white;
 
 margin:16px;
 
-padding:20px;
+padding:18px;
 
-border-radius:22px;
+border-radius:24px;
 
-}
-
-.progressLine{
-
-display:flex;
-
-align-items:center;
-
-justify-content:space-between;
+box-shadow:
+0 6px 20px rgba(0,0,0,.04);
 
 }
 
-.step{
+.sectionTitle{
 
-display:flex;
-
-flex-direction:column;
-
-align-items:center;
-
-}
-
-.stepCircle{
-
-width:36px;
-
-height:36px;
-
-border-radius:50%;
-
-background:#16A34A;
-
-color:#fff;
-
-display:flex;
-
-align-items:center;
-
-justify-content:center;
+font-size:18px;
 
 font-weight:900;
 
-}
+margin-bottom:16px;
 
-.stepLabel{
-
-font-size:11px;
-
-margin-top:8px;
-
-font-weight:700;
-
-}
-
-.progressBar{
-
-flex:1;
-
-height:4px;
-
-background:#DCFCE7;
-
-margin:0 8px;
-
-margin-bottom:24px;
+color:var(--dark);
 
 }
 
@@ -197,6 +139,8 @@ margin-bottom:24px;
 </head>
 
 <body>
+
+<!-- HEADER -->
 
 <div class="checkoutHeader">
 
@@ -210,624 +154,295 @@ onclick="history.back()">
 
 <div class="headerTitle">
 
-<h2>
-
 Checkout
 
-</h2>
+</div>
 
-<p>
+</div>
 
-Review & Place Order
+<!-- ADDRESS -->
 
-</p>
+<div class="section">
+
+<div class="sectionTitle">
+
+Delivery Address
+
+</div>
+
+<div id="selectedAddress">
+
+🏠 Home Address
+
+<br>
+
+Kasganj, Uttar Pradesh
 
 </div>
 
 </div>
 
-<div class="progressCard">
+<!-- PICKUP -->
 
-<div class="progressLine">
+<div class="section">
 
-<div class="step">
-
-<div class="stepCircle">
-
-1
-
-</div>
-
-<div class="stepLabel">
-
-Address
-
-</div>
-
-</div>
-
-<div class="progressBar"></div>
-
-<div class="step">
-
-<div class="stepCircle">
-
-2
-
-</div>
-
-<div class="stepLabel">
-
-Schedule
-
-</div>
-
-</div>
-
-<div class="progressBar"></div>
-
-<div class="step">
-
-<div class="stepCircle">
-
-3
-
-</div>
-
-<div class="stepLabel">
-
-Payment
-
-</div>
-
-</div>
-
-<div class="progressBar"></div>
-
-<div class="step">
-
-<div class="stepCircle">
-
-4
-
-</div>
-
-<div class="stepLabel">
-
-Done
-
-</div>
-
-</div>
-
-</div>
-
-</div><section style="padding:0 16px;">
-
-<div class="card">
-
-<div class="sectionHead">
-
-<h3>
-
-Pickup Address
-
-</h3>
-
-<button
-onclick="location.href='addresses.html'">
-
-Change
-
-</button>
-
-</div>
-
-<div
-id="defaultAddressCard">
-
-Loading Address...
-
-</div>
-
-</div>
-
-</section>
-
-<style>
-
-.card{
-
-background:#fff;
-
-padding:20px;
-
-border-radius:22px;
-
-margin-bottom:16px;
-
-}
-
-.sectionHead{
-
-display:flex;
-
-justify-content:space-between;
-
-align-items:center;
-
-margin-bottom:16px;
-
-}
-
-.sectionHead h3{
-
-font-size:18px;
-
-font-weight:900;
-
-}
-
-.sectionHead button{
-
-border:none;
-
-background:#F4B400;
-
-padding:10px 16px;
-
-border-radius:10px;
-
-font-weight:800;
-
-cursor:pointer;
-
-}
-
-.addressCard{
-
-background:#F9FAFB;
-
-padding:14px;
-
-border-radius:14px;
-
-}
-
-.defaultTag{
-
-display:inline-block;
-
-padding:5px 10px;
-
-background:#DCFCE7;
-
-color:#16A34A;
-
-border-radius:999px;
-
-font-size:11px;
-
-font-weight:800;
-
-margin-bottom:10px;
-
-}
-
-</style><section style="padding:0 16px;">
-
-<div class="card">
-
-<h3>
-
-Customer Details
-
-</h3>
-
-<div class="customerGrid">
-
-<input
-id="customerName"
-placeholder="Full Name">
-
-<input
-id="customerPhone"
-placeholder="Phone Number">
-
-<input
-id="customerEmail"
-placeholder="Email Address">
-
-</div>
-
-</div>
-
-</section>
-
-<style>
-
-.customerGrid{
-
-display:grid;
-
-gap:12px;
-
-margin-top:16px;
-
-}
-
-.customerGrid input{
-
-height:54px;
-
-border:1px solid #E5E7EB;
-
-border-radius:14px;
-
-padding:0 16px;
-
-outline:none;
-
-}
-
-</style><section style="padding:0 16px;">
-
-<div class="card">
-
-<h3>
+<div class="sectionTitle">
 
 Pickup Schedule
 
-</h3>
-
-<div class="customerGrid">
+</div>
 
 <input
 type="date"
 id="pickupDate">
 
-<select id="pickupTime">
+<br><br>
+
+<select id="pickupSlot">
 
 <option>
-09 AM - 11 AM
+
+9 AM - 12 PM
+
 </option>
 
 <option>
-11 AM - 01 PM
+
+12 PM - 3 PM
+
 </option>
 
 <option>
-01 PM - 03 PM
+
+3 PM - 6 PM
+
 </option>
 
 <option>
-03 PM - 05 PM
-</option>
 
-<option>
-05 PM - 07 PM
+6 PM - 9 PM
+
 </option>
 
 </select>
 
 </div>
 
-<textarea
-id="orderNote"
-placeholder="Special Instructions (Optional)">
+<!-- DELIVERY -->
 
-</textarea>
+<div class="section">
+
+<div class="sectionTitle">
+
+Delivery Schedule
 
 </div>
-
-</section>
-
-<style>
-
-select,
-textarea{
-
-width:100%;
-
-border:1px solid #E5E7EB;
-
-border-radius:14px;
-
-padding:14px;
-
-margin-top:12px;
-
-outline:none;
-
-}
-
-textarea{
-
-height:100px;
-
-resize:none;
-
-}
-
-</style><section style="padding:0 16px;">
-
-<div class="card">
-
-<h3>
-
-Payment Method
-
-</h3>
-
-<div class="paymentList">
-
-<label class="paymentCard">
 
 <input
-type="radio"
-name="payment"
-value="COD"
-checked>
+type="date"
+id="deliveryDate">
 
-<div>
+<br><br>
 
-<h4>
+<select id="deliverySlot">
 
-Cash On Delivery
+<option>
 
-</h4>
+9 AM - 12 PM
 
-<p>
+</option>
 
-Pay after service completion
+<option>
 
-</p>
+12 PM - 3 PM
+
+</option>
+
+<option>
+
+3 PM - 6 PM
+
+</option>
+
+<option>
+
+6 PM - 9 PM
+
+</option>
+
+</select>
+
+</div>
+<!-- ORDER SUMMARY -->
+
+<div class="section">
+
+<div class="sectionTitle">
+
+Order Summary
 
 </div>
 
-</label>
+<div id="orderItems">
 
-<label class="paymentCard">
-
-<input
-type="radio"
-name="payment"
-value="ONLINE">
-
-<div>
-
-<h4>
-
-Online Payment
-
-</h4>
-
-<p>
-
-UPI • Card • Net Banking
-
-</p>
-
-</div>
-
-</label>
-
-</div>
-
-</div>
-
-</section>
-
-<style>
-
-.paymentList{
-
-margin-top:16px;
-
-display:flex;
-
-flex-direction:column;
-
-gap:12px;
-
-}
-
-.paymentCard{
-
-display:flex;
-
-gap:12px;
-
-padding:14px;
-
-border:1px solid #E5E7EB;
-
-border-radius:14px;
-
-cursor:pointer;
-
-}
-
-.paymentCard h4{
-
-font-size:14px;
-
-font-weight:800;
-
-}
-
-.paymentCard p{
-
-font-size:12px;
-
-color:#6B7280;
-
-margin-top:4px;
-
-}
-
-</style><section style="padding:0 16px;">
-
-<div class="card">
-
-<h3>
-
-Order Items
-
-</h3>
-
-<div
-id="checkoutItems">
-
-</div>
-
-</div>
-
-</section>
-
-<style>
-
-.checkoutItem{
-
-background:#F9FAFB;
-
-padding:14px;
-
-border-radius:14px;
-
-display:flex;
-
-justify-content:space-between;
-
-align-items:center;
-
-margin-top:12px;
-
-}
-
-.itemLeft h4{
-
-font-size:14px;
-
-font-weight:800;
-
-}
-
-.itemMeta{
-
-font-size:12px;
-
-color:#6B7280;
-
-margin-top:4px;
-
-}
-
-.itemPrice{
-
-font-size:16px;
-
-font-weight:900;
-
-}
-
-</style>
-
-<script>
-
-/* ===================================
-LOAD ITEMS
-=================================== */
-
-window.renderCheckoutItems =
-function(){
-
-const cart =
-
-JSON.parse(
-
-localStorage.getItem(
-"cart"
-)
-
-|| "[]"
-
-);
-
-const container =
-
-document.getElementById(
-"checkoutItems"
-);
-
-let html = "";
-
-cart.forEach(item=>{
-
-html += `
-
-<div class="checkoutItem">
-
-<div class="itemLeft">
-
-<h4>
-
-${item.serviceName}
-
-</h4>
-
-<div class="itemMeta">
-
-${item.category}
-• Qty ${item.qty}
-
-</div>
-
-</div>
-
-<div class="itemPrice">
-
-₹${item.price * item.qty}
-
-</div>
-
-</div>
-
-`;
-
-});
-
-container.innerHTML = html;
-
-};
-
-</script><section style="padding:0 16px;">
-
-<div class="card">
-
-<h3>
-
-Bill Summary
-
-</h3>
-
-<div class="billRow">
+<div class="orderItem">
 
 <span>
 
-Subtotal
+Shirt Dry Cleaning × 2
 
 </span>
 
-<span id="subtotal">
+<span>
 
-₹0
+₹98
 
 </span>
 
 </div>
 
-<div class="billRow">
+<div class="orderItem">
+
+<span>
+
+Wash & Fold × 1
+
+</span>
+
+<span>
+
+₹79
+
+</span>
+
+</div>
+
+</div>
+
+</div>
+
+<!-- COUPON -->
+
+<div class="section">
+
+<div class="sectionTitle">
+
+Apply Coupon
+
+</div>
+
+<div class="couponRow">
+
+<input
+type="text"
+id="couponCode"
+placeholder="Enter Coupon Code">
+
+<button
+onclick="applyCoupon()">
+
+Apply
+
+</button>
+
+</div>
+
+<div
+id="couponMessage">
+
+</div>
+
+</div>
+
+<!-- PAYMENT METHOD -->
+
+<div class="section">
+
+<div class="sectionTitle">
+
+Payment Method
+
+</div>
+
+<label class="paymentOption">
+
+<input
+type="radio"
+name="payment"
+value="UPI"
+checked>
+
+UPI Payment
+
+</label>
+
+<label class="paymentOption">
+
+<input
+type="radio"
+name="payment"
+value="COD">
+
+Cash On Delivery
+
+</label>
+
+<label class="paymentOption">
+
+<input
+type="radio"
+name="payment"
+value="Wallet">
+
+QuickPress Wallet
+
+</label>
+
+</div>
+
+<!-- PRICE DETAILS -->
+
+<div class="section">
+
+<div class="sectionTitle">
+
+Price Details
+
+</div>
+
+<div class="priceRow">
+
+<span>
+
+Item Total
+
+</span>
+
+<span id="itemTotal">
+
+₹177
+
+</span>
+
+</div>
+
+<div class="priceRow">
+
+<span>
+
+Pickup Fee
+
+</span>
+
+<span>
+
+FREE
+
+</span>
+
+</div>
+
+<div class="priceRow">
 
 <span>
 
@@ -837,29 +452,29 @@ Delivery Fee
 
 <span id="deliveryFee">
 
-₹0
+₹20
 
 </span>
 
 </div>
 
-<div class="billRow">
+<div class="priceRow">
 
 <span>
 
-Tax
+GST
 
 </span>
 
-<span id="taxAmount">
+<span id="gstAmount">
 
-₹0
+₹9
 
 </span>
 
 </div>
 
-<div class="billRow">
+<div class="priceRow">
 
 <span>
 
@@ -869,7 +484,7 @@ Discount
 
 <span id="discountAmount">
 
-₹0
+-₹0
 
 </span>
 
@@ -877,17 +492,17 @@ Discount
 
 <hr>
 
-<div class="billTotal">
+<div class="grandTotal">
 
 <span>
 
-Total
+Grand Total
 
 </span>
 
 <span id="grandTotal">
 
-₹0
+₹206
 
 </span>
 
@@ -895,374 +510,23 @@ Total
 
 </div>
 
-</section>
+<!-- PLACE ORDER BAR -->
 
-<style>
-
-.billRow{
-
-display:flex;
-
-justify-content:space-between;
-
-margin-top:14px;
-
-font-size:14px;
-
-}
-
-.billTotal{
-
-display:flex;
-
-justify-content:space-between;
-
-margin-top:18px;
-
-font-size:20px;
-
-font-weight:900;
-
-}
-
-</style>
-
-<script>
-
-window.calculateBill =
-function(){
-
-const cart =
-
-JSON.parse(
-
-localStorage.getItem(
-"cart"
-)
-
-|| "[]"
-
-);
-
-let subtotal = 0;
-
-cart.forEach(item=>{
-
-subtotal +=
-
-item.price *
-item.qty;
-
-});
-
-const delivery =
-
-subtotal > 299
-
-? 0
-
-: 49;
-
-const tax =
-
-Math.round(
-subtotal * 0.05
-);
-
-const discount =
-
-Number(
-
-localStorage.getItem(
-"couponDiscount"
-)
-
-|| 0
-
-);
-
-const total =
-
-subtotal +
-delivery +
-tax -
-discount;
-
-document.getElementById(
-"subtotal"
-).innerHTML =
-"₹"+subtotal;
-
-document.getElementById(
-"deliveryFee"
-).innerHTML =
-"₹"+delivery;
-
-document.getElementById(
-"taxAmount"
-).innerHTML =
-"₹"+tax;
-
-document.getElementById(
-"discountAmount"
-).innerHTML =
-"- ₹"+discount;
-
-document.getElementById(
-"grandTotal"
-).innerHTML =
-"₹"+total;
-
-window.finalTotal =
-total;
-
-};
-
-</script><script type="module">
-
-import { db, auth }
-from "./firebase.js";
-
-import {
-
-collection,
-addDoc,
-serverTimestamp
-
-}
-
-from
-
-"https://www.gstatic.com/firebasejs/12.11.0/firebase-firestore.js";
-
-window.saveOrder =
-async function(orderData){
-
-const docRef =
-
-await addDoc(
-
-collection(
-db,
-"orders"
-),
-
-{
-
-...orderData,
-
-userId:
-
-auth.currentUser
-? auth.currentUser.uid
-: null,
-
-createdAt:
-serverTimestamp(),
-
-status:"Pending",
-
-paymentStatus:"Pending"
-
-}
-
-);
-
-return docRef.id;
-
-};
-
-</script><div
-id="checkoutToast"
-class="checkoutToast">
-
-Success
-
-</div>
-
-<style>
-
-.checkoutToast{
-
-position:fixed;
-
-left:50%;
-
-bottom:110px;
-
-transform:
-translateX(-50%);
-
-background:#111827;
-
-color:#fff;
-
-padding:14px 20px;
-
-border-radius:14px;
-
-font-size:13px;
-
-font-weight:700;
-
-opacity:0;
-
-visibility:hidden;
-
-transition:.3s;
-
-z-index:99999;
-
-}
-
-.checkoutToast.show{
-
-opacity:1;
-
-visibility:visible;
-
-}
-
-</style>
-
-<script>
-
-window.showToast =
-function(message){
-
-const toast =
-
-document.getElementById(
-"checkoutToast"
-);
-
-toast.innerHTML =
-message;
-
-toast.classList.add(
-"show"
-);
-
-setTimeout(()=>{
-
-toast.classList.remove(
-"show"
-);
-
-},2500);
-
-};
-
-/* ===================================
-LOAD DEFAULT ADDRESS
-=================================== */
-
-window.loadDefaultAddress =
-function(){
-
-const addresses =
-
-JSON.parse(
-
-localStorage.getItem(
-"addresses"
-)
-
-|| "[]"
-
-);
-
-const defaultAddress =
-
-addresses.find(
-
-item=>item.isDefault
-
-);
-
-if(!defaultAddress){
-
-document.getElementById(
-"defaultAddressCard"
-).innerHTML =
-
-"No Default Address Found";
-
-return;
-
-}
-
-document.getElementById(
-"defaultAddressCard"
-).innerHTML =
-
-`
-
-<div class="addressCard">
-
-<div class="defaultTag">
-
-Default Address
-
-</div>
-
-<h4>
-
-${defaultAddress.type}
-
-</h4>
-
-<p>
-
-${defaultAddress.address}
-
-</p>
-
-</div>
-
-`;
-
-};
-
-/* ===================================
-INIT
-=================================== */
-
-document.addEventListener(
-
-"DOMContentLoaded",
-
-()=>{
-
-loadDefaultAddress();
-
-renderCheckoutItems();
-
-calculateBill();
-
-}
-
-);
-
-</script><!-- ===================================
-STICKY CHECKOUT BAR
-=================================== -->
-
-<div class="stickyCheckout">
+<div class="bottomCheckout">
 
 <div>
 
-<div class="totalLabel">
+<div class="payLabel">
 
-Grand Total
+Payable Amount
 
 </div>
 
 <div
-id="stickyTotal"
-class="stickyTotal">
+id="bottomTotal"
+class="bottomTotal">
 
-₹0
+₹206
 
 </div>
 
@@ -1280,7 +544,134 @@ Place Order
 
 <style>
 
-.stickyCheckout{
+/* ORDER ITEM */
+
+.orderItem{
+
+display:flex;
+
+justify-content:space-between;
+
+padding:12px 0;
+
+border-bottom:
+1px solid #F3F4F6;
+
+font-size:14px;
+
+font-weight:700;
+
+}
+
+/* COUPON */
+
+.couponRow{
+
+display:flex;
+
+gap:10px;
+
+}
+
+.couponRow input{
+
+flex:1;
+
+height:50px;
+
+border:1px solid #E5E7EB;
+
+border-radius:14px;
+
+padding:0 14px;
+
+font-size:14px;
+
+}
+
+.couponRow button{
+
+width:100px;
+
+border:none;
+
+border-radius:14px;
+
+background:#16A34A;
+
+color:white;
+
+font-weight:800;
+
+}
+
+#couponMessage{
+
+margin-top:10px;
+
+font-size:13px;
+
+font-weight:700;
+
+color:#16A34A;
+
+}
+
+/* PAYMENT */
+
+.paymentOption{
+
+display:flex;
+
+align-items:center;
+
+gap:10px;
+
+padding:14px;
+
+border:1px solid #E5E7EB;
+
+border-radius:14px;
+
+margin-bottom:10px;
+
+font-weight:700;
+
+cursor:pointer;
+
+}
+
+/* PRICE */
+
+.priceRow{
+
+display:flex;
+
+justify-content:space-between;
+
+padding:10px 0;
+
+font-size:14px;
+
+}
+
+.grandTotal{
+
+display:flex;
+
+justify-content:space-between;
+
+padding-top:14px;
+
+font-size:20px;
+
+font-weight:900;
+
+}
+
+/* BOTTOM BAR */
+
+.bottomCheckout{
 
 position:fixed;
 
@@ -1288,11 +679,9 @@ left:0;
 right:0;
 bottom:0;
 
-height:90px;
+background:white;
 
-background:#fff;
-
-padding:0 16px;
+padding:14px 16px;
 
 display:flex;
 
@@ -1307,7 +696,7 @@ z-index:9999;
 
 }
 
-.totalLabel{
+.payLabel{
 
 font-size:12px;
 
@@ -1317,7 +706,7 @@ font-weight:700;
 
 }
 
-.stickyTotal{
+.bottomTotal{
 
 font-size:24px;
 
@@ -1325,15 +714,13 @@ font-weight:900;
 
 color:#111827;
 
-margin-top:2px;
-
 }
 
 .placeOrderBtn{
 
-height:54px;
+height:56px;
 
-padding:0 26px;
+padding:0 24px;
 
 border:none;
 
@@ -1341,9 +728,9 @@ border-radius:16px;
 
 background:#16A34A;
 
-color:#fff;
+color:white;
 
-font-size:15px;
+font-size:16px;
 
 font-weight:900;
 
@@ -1351,211 +738,456 @@ cursor:pointer;
 
 }
 
-.placeOrderBtn:disabled{
+</style>
+<script type="module">
 
-opacity:.6;
+/* ==========================================
+QUICKPRESS CHECKOUT
+PART 3/3
+========================================== */
 
-cursor:not-allowed;
+import { db, auth }
+from "../js/firebase.js";
+
+import {
+
+doc,
+setDoc,
+serverTimestamp
 
 }
 
-</style>
+from
 
-<script>
+"https://www.gstatic.com/firebasejs/12.11.0/firebase-firestore.js";
 
-/* ===================================
-UPDATE STICKY TOTAL
-=================================== */
+/* ==========================================
+GLOBAL
+========================================== */
 
-const oldCalculateBill =
-window.calculateBill;
+let cart = [];
 
-window.calculateBill =
+let itemTotal = 0;
+
+let discount = 0;
+
+const DELIVERY_FEE = 20;
+
+/* ==========================================
+LOAD CART
+========================================== */
+
+function loadCart(){
+
+cart = JSON.parse(
+
+localStorage.getItem(
+"qp_cart"
+)
+
+|| "[]"
+
+);
+
+const container =
+
+document.getElementById(
+"orderItems"
+);
+
+if(!container) return;
+
+if(cart.length === 0){
+
+container.innerHTML =
+
+`
+<div class="orderItem">
+
+<span>
+
+Cart Empty
+
+</span>
+
+<span>
+
+₹0
+
+</span>
+
+</div>
+`;
+
+calculateTotal();
+
+return;
+
+}
+
+itemTotal = 0;
+
+container.innerHTML = "";
+
+cart.forEach(item=>{
+
+const total =
+
+(item.price || 0)
+
+*
+
+(item.qty || 1);
+
+itemTotal += total;
+
+container.innerHTML += `
+
+<div class="orderItem">
+
+<span>
+
+${item.name}
+× ${item.qty}
+
+</span>
+
+<span>
+
+₹${total}
+
+</span>
+
+</div>
+
+`;
+
+});
+
+calculateTotal();
+
+}
+
+/* ==========================================
+COUPON
+========================================== */
+
+window.applyCoupon =
 function(){
 
-oldCalculateBill();
+const code =
+
+document
+.getElementById(
+"couponCode"
+)
+.value
+.trim()
+.toUpperCase();
+
+const message =
 
 document.getElementById(
-"stickyTotal"
-).innerHTML =
+"couponMessage"
+);
 
-document.getElementById(
-"grandTotal"
-).innerHTML;
+if(code==="WELCOME50"){
+
+discount = 50;
+
+message.innerHTML =
+
+"✅ ₹50 Discount Applied";
+
+}
+
+else if(
+code==="QUICKPRESS100"
+){
+
+discount = 100;
+
+message.innerHTML =
+
+"✅ ₹100 Discount Applied";
+
+}
+
+else{
+
+discount = 0;
+
+message.innerHTML =
+
+"❌ Invalid Coupon";
+
+}
+
+calculateTotal();
 
 };
 
-/* ===================================
+/* ==========================================
+CALCULATE TOTAL
+========================================== */
+
+function calculateTotal(){
+
+const gst =
+
+Math.round(
+itemTotal * 0.05
+);
+
+const grandTotal =
+
+itemTotal
+
++
+
+DELIVERY_FEE
+
++
+
+gst
+
+-
+
+discount;
+
+document.getElementById(
+"itemTotal"
+).innerText =
+
+"₹" + itemTotal;
+
+document.getElementById(
+"gstAmount"
+).innerText =
+
+"₹" + gst;
+
+document.getElementById(
+"discountAmount"
+).innerText =
+
+"-₹" + discount;
+
+document.getElementById(
+"grandTotal"
+).innerText =
+
+"₹" + grandTotal;
+
+document.getElementById(
+"bottomTotal"
+).innerText =
+
+"₹" + grandTotal;
+
+}
+
+/* ==========================================
+GET PAYMENT
+========================================== */
+
+function getPaymentMethod(){
+
+const selected =
+
+document.querySelector(
+
+'input[name="payment"]:checked'
+
+);
+
+return selected
+? selected.value
+: "UPI";
+
+}
+
+/* ==========================================
 PLACE ORDER
-=================================== */
+========================================== */
 
 window.placeOrder =
 async function(){
 
-const btn =
+if(cart.length===0){
 
-document.querySelector(
-".placeOrderBtn"
-);
-
-const name =
-
-document.getElementById(
-"customerName"
-).value.trim();
-
-const phone =
-
-document.getElementById(
-"customerPhone"
-).value.trim();
-
-const pickupDate =
-
-document.getElementById(
-"pickupDate"
-).value;
-
-if(!name){
-
-showToast(
-"Enter Customer Name"
+alert(
+"Cart is Empty"
 );
 
 return;
 
 }
-
-if(phone.length < 10){
-
-showToast(
-"Enter Valid Phone Number"
-);
-
-return;
-
-}
-
-if(!pickupDate){
-
-showToast(
-"Select Pickup Date"
-);
-
-return;
-
-}
-
-btn.disabled = true;
-
-btn.innerHTML =
-"Processing...";
 
 try{
 
-const cart =
+const user =
 
-JSON.parse(
-
-localStorage.getItem(
-"cart"
-)
-
-|| "[]"
-
-);
-
-const paymentMethod =
-
-document.querySelector(
-'input[name="payment"]:checked'
-).value;
-
-const addresses =
-
-JSON.parse(
-
-localStorage.getItem(
-"addresses"
-)
-
-|| "[]"
-
-);
-
-const defaultAddress =
-
-addresses.find(
-a=>a.isDefault
-);
-
-const orderData = {
-
-orderNumber:
-
-"QP" +
-
-Date.now(),
-
-customerName:name,
-
-customerPhone:phone,
-
-customerEmail:
-
-document.getElementById(
-"customerEmail"
-).value,
-
-pickupDate,
-
-pickupTime:
-
-document.getElementById(
-"pickupTime"
-).value,
-
-orderNote:
-
-document.getElementById(
-"orderNote"
-).value,
-
-paymentMethod,
-
-items:cart,
-
-address:
-
-defaultAddress || null,
-
-total:
-
-window.finalTotal,
-
-status:"Pending"
-
-};
+auth.currentUser;
 
 const orderId =
 
-await saveOrder(
-orderData
+"QP" +
+
+Date.now();
+
+const gst =
+
+Math.round(
+itemTotal * 0.05
 );
+
+const grandTotal =
+
+itemTotal
+
++
+
+DELIVERY_FEE
+
++
+
+gst
+
+-
+
+discount;
+
+const orderData = {
+
+orderId,
+
+uid:
+user?.uid || "",
+
+phone:
+user?.phoneNumber || "",
+
+items:
+cart,
+
+itemTotal,
+
+discount,
+
+deliveryFee:
+DELIVERY_FEE,
+
+gst,
+
+grandTotal,
+
+paymentMethod:
+getPaymentMethod(),
+
+pickupDate:
+
+document
+.getElementById(
+"pickupDate"
+)
+.value,
+
+pickupSlot:
+
+document
+.getElementById(
+"pickupSlot"
+)
+.value,
+
+deliveryDate:
+
+document
+.getElementById(
+"deliveryDate"
+)
+.value,
+
+deliverySlot:
+
+document
+.getElementById(
+"deliverySlot"
+)
+.value,
+
+status:
+"Order Received",
+
+createdAt:
+serverTimestamp()
+
+};
+
+await setDoc(
+
+doc(
+db,
+"orders",
+orderId
+),
+
+orderData
+
+);
+
+/* SAVE RECENT */
+
+const recent =
+
+cart.map(item=>({
+
+id:item.id,
+
+name:item.name
+
+}));
 
 localStorage.setItem(
-"lastOrderId",
-orderId
+
+"qp_recent_orders",
+
+JSON.stringify(
+recent
+)
+
 );
 
+/* CLEAR CART */
+
 localStorage.removeItem(
-"cart"
+"qp_cart"
 );
+
+/* SAVE LAST ORDER */
+
+localStorage.setItem(
+
+"qp_last_order",
+
+JSON.stringify(
+orderData
+)
+
+);
+
+alert(
+"Order Placed Successfully"
+);
+
+/* REDIRECT */
 
 window.location.href =
 
-"order-success.html?id=" +
-orderId;
+"order-success.html?id="
+
++ orderId;
 
 }
 
@@ -1563,21 +1195,69 @@ catch(error){
 
 console.log(error);
 
-showToast(
+alert(
 "Order Failed"
 );
-
-btn.disabled = false;
-
-btn.innerHTML =
-"Place Order";
 
 }
 
 };
 
+/* ==========================================
+DEFAULT DATES
+========================================== */
+
+function setDefaultDates(){
+
+const today =
+new Date();
+
+const tomorrow =
+new Date();
+
+tomorrow.setDate(
+
+today.getDate() + 1
+
+);
+
+document.getElementById(
+"pickupDate"
+).value =
+
+today
+.toISOString()
+.split("T")[0];
+
+document.getElementById(
+"deliveryDate"
+).value =
+
+tomorrow
+.toISOString()
+.split("T")[0];
+
+}
+
+/* ==========================================
+INIT
+========================================== */
+
+document.addEventListener(
+
+"DOMContentLoaded",
+
+()=>{
+
+setDefaultDates();
+
+loadCart();
+
+}
+
+);
+
 </script>
 
 </body>
-
 </html>
