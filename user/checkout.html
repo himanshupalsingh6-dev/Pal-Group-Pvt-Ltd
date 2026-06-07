@@ -1,27 +1,15 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
 
 <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<meta
-name="viewport"
-content="width=device-width, initial-scale=1.0">
+<title>QuickPress Checkout</title>
 
-<title>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
 
-QuickPress Checkout
-
-</title>
-
-<link
-href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap"
-rel="stylesheet">
-
-<link
-rel="stylesheet"
-href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
 
 <style>
 
@@ -33,104 +21,266 @@ font-family:'Inter',sans-serif;
 }
 
 :root{
-
---primary:#F4B400;
---secondary:#16A34A;
-
+--yellow:#F4B400;
+--green:#16A34A;
 --dark:#111827;
 --gray:#6B7280;
-
 --bg:#F8FAFC;
---white:#FFFFFF;
-
 }
 
 body{
-
 background:var(--bg);
-
-padding-bottom:140px;
-
+padding-bottom:120px;
 }
 
-/* HEADER */
-
-.checkoutHeader{
-
+.header{
 position:sticky;
-
 top:0;
-
-background:white;
-
-z-index:999;
-
+background:#fff;
 padding:16px;
-
 display:flex;
-
 align-items:center;
-
-gap:14px;
-
-box-shadow:
-0 4px 15px rgba(0,0,0,.05);
-
+gap:15px;
+z-index:100;
+box-shadow:0 4px 15px rgba(0,0,0,.05);
 }
 
 .backBtn{
-
 width:44px;
 height:44px;
-
 border:none;
+border-radius:14px;
+background:#F3F4F6;
+font-size:18px;
+}
+
+.title{
+font-size:22px;
+font-weight:900;
+}
+
+.section{
+background:#fff;
+margin:16px;
+padding:18px;
+border-radius:22px;
+box-shadow:0 5px 20px rgba(0,0,0,.04);
+}
+
+.sectionTitle{
+font-size:18px;
+font-weight:900;
+margin-bottom:15px;
+}
+
+.addressCard{
+display:flex;
+justify-content:space-between;
+align-items:center;
+}
+
+.addressText h4{
+font-size:16px;
+font-weight:800;
+}
+
+.addressText p{
+font-size:13px;
+color:var(--gray);
+margin-top:5px;
+line-height:1.5;
+}
+
+.changeBtn{
+background:var(--green);
+color:#fff;
+border:none;
+padding:10px 14px;
+border-radius:12px;
+font-weight:800;
+}
+
+.dateInput,
+.slotSelect,
+.noteInput,
+.couponInput{
+
+width:100%;
+height:52px;
+
+border:1px solid #E5E7EB;
 
 border-radius:14px;
 
-background:#F3F4F6;
+padding:0 14px;
 
-font-size:18px;
+font-size:14px;
+
+outline:none;
+
+}
+
+.noteInput{
+height:90px;
+padding-top:14px;
+resize:none;
+}
+
+.row{
+display:grid;
+grid-template-columns:1fr 1fr;
+gap:12px;
+}
+
+.paymentCard{
+
+display:flex;
+align-items:center;
+gap:14px;
+
+padding:16px;
+
+border:2px solid #E5E7EB;
+
+border-radius:16px;
+
+margin-bottom:12px;
 
 cursor:pointer;
 
 }
 
-.headerTitle{
+.paymentCard.active{
+
+border-color:var(--green);
+
+background:#F0FDF4;
+
+}
+
+.paymentCard h4{
+
+font-size:15px;
+
+font-weight:800;
+
+}
+
+.paymentCard p{
+
+font-size:12px;
+
+color:var(--gray);
+
+margin-top:4px;
+
+}
+
+.billRow{
+
+display:flex;
+
+justify-content:space-between;
+
+padding:10px 0;
+
+font-size:14px;
+
+}
+
+.grand{
 
 font-size:22px;
 
 font-weight:900;
 
-color:var(--dark);
+padding-top:14px;
+
+border-top:1px solid #E5E7EB;
+
+margin-top:10px;
 
 }
 
-/* SECTION */
+.couponBox{
 
-.section{
+display:flex;
 
-background:white;
-
-margin:16px;
-
-padding:18px;
-
-border-radius:24px;
-
-box-shadow:
-0 6px 20px rgba(0,0,0,.04);
+gap:10px;
 
 }
 
-.sectionTitle{
+.applyBtn{
 
-font-size:18px;
+width:110px;
+
+border:none;
+
+border-radius:14px;
+
+background:var(--green);
+
+color:#fff;
+
+font-weight:800;
+
+}
+
+.bottomBar{
+
+position:fixed;
+
+left:0;
+right:0;
+bottom:0;
+
+background:#fff;
+
+padding:14px 16px;
+
+display:flex;
+
+justify-content:space-between;
+
+align-items:center;
+
+box-shadow:0 -8px 25px rgba(0,0,0,.08);
+
+}
+
+.payableText{
+
+font-size:12px;
+
+color:var(--gray);
+
+}
+
+.payableAmount{
+
+font-size:24px;
 
 font-weight:900;
 
-margin-bottom:16px;
+}
 
-color:var(--dark);
+.placeOrderBtn{
+
+height:56px;
+
+padding:0 24px;
+
+border:none;
+
+border-radius:16px;
+
+background:var(--green);
+
+color:#fff;
+
+font-size:16px;
+
+font-weight:900;
 
 }
 
@@ -140,137 +290,97 @@ color:var(--dark);
 
 <body>
 
-<!-- HEADER -->
+<div class="header">
 
-<div class="checkoutHeader">
-
-<button
-class="backBtn"
-onclick="history.back()">
-
+<button class="backBtn" onclick="history.back()">
 <i class="fa-solid fa-arrow-left"></i>
-
 </button>
 
-<div class="headerTitle">
-
+<div class="title">
 Checkout
-
 </div>
 
 </div>
-
-<!-- ADDRESS -->
 
 <div class="section">
 
 <div class="sectionTitle">
-
 Delivery Address
-
 </div>
 
-<div id="selectedAddress">
+<div class="addressCard">
 
-🏠 Home Address
+<div class="addressText">
 
-<br>
+<h4>🏠 Home</h4>
 
+<p>
 Kasganj, Uttar Pradesh
+</p>
+
+</div>
+
+<button class="changeBtn">
+Change
+</button>
 
 </div>
 
 </div>
-
-<!-- PICKUP -->
 
 <div class="section">
 
 <div class="sectionTitle">
-
 Pickup Schedule
-
 </div>
+
+<div class="row">
 
 <input
 type="date"
-id="pickupDate">
+id="pickupDate"
+class="dateInput">
 
-<br><br>
+<select
+id="pickupSlot"
+class="slotSelect">
 
-<select id="pickupSlot">
-
-<option>
-
-9 AM - 12 PM
-
-</option>
-
-<option>
-
-12 PM - 3 PM
-
-</option>
-
-<option>
-
-3 PM - 6 PM
-
-</option>
-
-<option>
-
-6 PM - 9 PM
-
-</option>
+<option>9 AM - 12 PM</option>
+<option>12 PM - 3 PM</option>
+<option>3 PM - 6 PM</option>
+<option>6 PM - 9 PM</option>
 
 </select>
 
 </div>
 
-<!-- DELIVERY -->
+</div>
 
 <div class="section">
 
 <div class="sectionTitle">
-
 Delivery Schedule
-
 </div>
+
+<div class="row">
 
 <input
 type="date"
-id="deliveryDate">
+id="deliveryDate"
+class="dateInput">
 
-<br><br>
+<select
+id="deliverySlot"
+class="slotSelect">
 
-<select id="deliverySlot">
-
-<option>
-
-9 AM - 12 PM
-
-</option>
-
-<option>
-
-12 PM - 3 PM
-
-</option>
-
-<option>
-
-3 PM - 6 PM
-
-</option>
-
-<option>
-
-6 PM - 9 PM
-
-</option>
+<option>9 AM - 12 PM</option>
+<option>12 PM - 3 PM</option>
+<option>3 PM - 6 PM</option>
+<option>6 PM - 9 PM</option>
 
 </select>
+
+</div>
 
 </div>
 <!-- ORDER SUMMARY -->
@@ -278,46 +388,27 @@ id="deliveryDate">
 <div class="section">
 
 <div class="sectionTitle">
-
 Order Summary
-
 </div>
 
 <div id="orderItems">
 
-<div class="orderItem">
-
-<span>
-
-Shirt Dry Cleaning × 2
-
-</span>
-
-<span>
-
-₹98
-
-</span>
-
-</div>
-
-<div class="orderItem">
-
-<span>
-
-Wash & Fold × 1
-
-</span>
-
-<span>
-
-₹79
-
-</span>
-
 </div>
 
 </div>
+
+<!-- SPECIAL INSTRUCTIONS -->
+
+<div class="section">
+
+<div class="sectionTitle">
+Special Instructions
+</div>
+
+<textarea
+id="specialInstructions"
+class="noteInput"
+placeholder="Any special handling instructions..."></textarea>
 
 </div>
 
@@ -326,19 +417,18 @@ Wash & Fold × 1
 <div class="section">
 
 <div class="sectionTitle">
-
 Apply Coupon
-
 </div>
 
-<div class="couponRow">
+<div class="couponBox">
 
 <input
-type="text"
 id="couponCode"
+class="couponInput"
 placeholder="Enter Coupon Code">
 
 <button
+class="applyBtn"
 onclick="applyCoupon()">
 
 Apply
@@ -348,185 +438,157 @@ Apply
 </div>
 
 <div
-id="couponMessage">
-
+id="couponMessage"
+style="
+margin-top:12px;
+font-size:13px;
+font-weight:700;">
 </div>
 
 </div>
 
-<!-- PAYMENT METHOD -->
+<!-- PAYMENT -->
 
 <div class="section">
 
 <div class="sectionTitle">
-
 Payment Method
-
 </div>
 
-<label class="paymentOption">
+<div
+class="paymentCard active"
+onclick="selectPayment('ONLINE',this)">
 
 <input
 type="radio"
 name="payment"
-value="UPI"
 checked>
-
-UPI Payment
-
-</label>
-
-<label class="paymentOption">
-
-<input
-type="radio"
-name="payment"
-value="COD">
-
-Cash On Delivery
-
-</label>
-
-<label class="paymentOption">
-
-<input
-type="radio"
-name="payment"
-value="Wallet">
-
-QuickPress Wallet
-
-</label>
-
-</div>
-
-<!-- PRICE DETAILS -->
-
-<div class="section">
-
-<div class="sectionTitle">
-
-Price Details
-
-</div>
-
-<div class="priceRow">
-
-<span>
-
-Item Total
-
-</span>
-
-<span id="itemTotal">
-
-₹177
-
-</span>
-
-</div>
-
-<div class="priceRow">
-
-<span>
-
-Pickup Fee
-
-</span>
-
-<span>
-
-FREE
-
-</span>
-
-</div>
-
-<div class="priceRow">
-
-<span>
-
-Delivery Fee
-
-</span>
-
-<span id="deliveryFee">
-
-₹20
-
-</span>
-
-</div>
-
-<div class="priceRow">
-
-<span>
-
-GST
-
-</span>
-
-<span id="gstAmount">
-
-₹9
-
-</span>
-
-</div>
-
-<div class="priceRow">
-
-<span>
-
-Discount
-
-</span>
-
-<span id="discountAmount">
-
--₹0
-
-</span>
-
-</div>
-
-<hr>
-
-<div class="grandTotal">
-
-<span>
-
-Grand Total
-
-</span>
-
-<span id="grandTotal">
-
-₹206
-
-</span>
-
-</div>
-
-</div>
-
-<!-- PLACE ORDER BAR -->
-
-<div class="bottomCheckout">
 
 <div>
 
-<div class="payLabel">
+<h4>
+Online Payment
+</h4>
 
-Payable Amount
+<p>
+UPI, Cards, Net Banking
+</p>
+
+</div>
 
 </div>
 
 <div
-id="bottomTotal"
-class="bottomTotal">
+class="paymentCard"
+onclick="selectPayment('COD',this)">
 
-₹206
+<input
+type="radio"
+name="payment">
+
+<div>
+
+<h4>
+Cash On Delivery
+</h4>
+
+<p>
+Pay after delivery
+</p>
+
+</div>
+
+</div>
+
+</div>
+
+<!-- BILL DETAILS -->
+
+<div class="section">
+
+<div class="sectionTitle">
+Bill Details
+</div>
+
+<div class="billRow">
+
+<span>Items Total</span>
+
+<span id="itemTotal">
+₹0
+</span>
+
+</div>
+
+<div class="billRow">
+
+<span>Pickup Fee</span>
+
+<span>
+FREE
+</span>
+
+</div>
+
+<div class="billRow">
+
+<span>Delivery Fee</span>
+
+<span id="deliveryFee">
+₹20
+</span>
+
+</div>
+
+<div class="billRow">
+
+<span>GST</span>
+
+<span id="gstAmount">
+₹0
+</span>
+
+</div>
+
+<div class="billRow">
+
+<span>Discount</span>
+
+<span id="discountAmount">
+-₹0
+</span>
+
+</div>
+
+<div class="billRow grand">
+
+<span>Total Payable</span>
+
+<span id="grandTotal">
+₹0
+</span>
+
+</div>
+
+</div>
+
+<!-- BOTTOM BAR -->
+
+<div class="bottomBar">
+
+<div>
+
+<div class="payableText">
+
+Total Payable
+
+</div>
+
+<div
+id="bottomAmount"
+class="payableAmount">
+
+₹0
 
 </div>
 
@@ -542,209 +604,7 @@ Place Order
 
 </div>
 
-<style>
-
-/* ORDER ITEM */
-
-.orderItem{
-
-display:flex;
-
-justify-content:space-between;
-
-padding:12px 0;
-
-border-bottom:
-1px solid #F3F4F6;
-
-font-size:14px;
-
-font-weight:700;
-
-}
-
-/* COUPON */
-
-.couponRow{
-
-display:flex;
-
-gap:10px;
-
-}
-
-.couponRow input{
-
-flex:1;
-
-height:50px;
-
-border:1px solid #E5E7EB;
-
-border-radius:14px;
-
-padding:0 14px;
-
-font-size:14px;
-
-}
-
-.couponRow button{
-
-width:100px;
-
-border:none;
-
-border-radius:14px;
-
-background:#16A34A;
-
-color:white;
-
-font-weight:800;
-
-}
-
-#couponMessage{
-
-margin-top:10px;
-
-font-size:13px;
-
-font-weight:700;
-
-color:#16A34A;
-
-}
-
-/* PAYMENT */
-
-.paymentOption{
-
-display:flex;
-
-align-items:center;
-
-gap:10px;
-
-padding:14px;
-
-border:1px solid #E5E7EB;
-
-border-radius:14px;
-
-margin-bottom:10px;
-
-font-weight:700;
-
-cursor:pointer;
-
-}
-
-/* PRICE */
-
-.priceRow{
-
-display:flex;
-
-justify-content:space-between;
-
-padding:10px 0;
-
-font-size:14px;
-
-}
-
-.grandTotal{
-
-display:flex;
-
-justify-content:space-between;
-
-padding-top:14px;
-
-font-size:20px;
-
-font-weight:900;
-
-}
-
-/* BOTTOM BAR */
-
-.bottomCheckout{
-
-position:fixed;
-
-left:0;
-right:0;
-bottom:0;
-
-background:white;
-
-padding:14px 16px;
-
-display:flex;
-
-justify-content:space-between;
-
-align-items:center;
-
-box-shadow:
-0 -8px 24px rgba(0,0,0,.08);
-
-z-index:9999;
-
-}
-
-.payLabel{
-
-font-size:12px;
-
-color:#6B7280;
-
-font-weight:700;
-
-}
-
-.bottomTotal{
-
-font-size:24px;
-
-font-weight:900;
-
-color:#111827;
-
-}
-
-.placeOrderBtn{
-
-height:56px;
-
-padding:0 24px;
-
-border:none;
-
-border-radius:16px;
-
-background:#16A34A;
-
-color:white;
-
-font-size:16px;
-
-font-weight:900;
-
-cursor:pointer;
-
-}
-
-</style>
 <script type="module">
-
-/* ==========================================
-QUICKPRESS CHECKOUT
-PART 3/3
-========================================== */
 
 import { db, auth }
 from "../js/firebase.js";
@@ -757,29 +617,16 @@ serverTimestamp
 
 }
 
-from
+from "https://www.gstatic.com/firebasejs/12.11.0/firebase-firestore.js";
 
-"https://www.gstatic.com/firebasejs/12.11.0/firebase-firestore.js";
-
-/* ==========================================
-GLOBAL
-========================================== */
-
-let cart = [];
-
-let itemTotal = 0;
-
+let paymentMethod = "ONLINE";
 let discount = 0;
-
-const DELIVERY_FEE = 20;
-
-/* ==========================================
-LOAD CART
-========================================== */
 
 function loadCart(){
 
-cart = JSON.parse(
+const cart =
+
+JSON.parse(
 
 localStorage.getItem(
 "qp_cart"
@@ -795,37 +642,7 @@ document.getElementById(
 "orderItems"
 );
 
-if(!container) return;
-
-if(cart.length === 0){
-
-container.innerHTML =
-
-`
-<div class="orderItem">
-
-<span>
-
-Cart Empty
-
-</span>
-
-<span>
-
-₹0
-
-</span>
-
-</div>
-`;
-
-calculateTotal();
-
-return;
-
-}
-
-itemTotal = 0;
+let subtotal = 0;
 
 container.innerHTML = "";
 
@@ -833,17 +650,14 @@ cart.forEach(item=>{
 
 const total =
 
-(item.price || 0)
+item.price *
+item.qty;
 
-*
-
-(item.qty || 1);
-
-itemTotal += total;
+subtotal += total;
 
 container.innerHTML += `
 
-<div class="orderItem">
+<div class="billRow">
 
 <span>
 
@@ -864,13 +678,59 @@ ${item.name}
 
 });
 
-calculateTotal();
+calculateBill(
+subtotal
+);
 
 }
 
-/* ==========================================
-COUPON
-========================================== */
+function calculateBill(subtotal){
+
+const deliveryFee = 20;
+
+const gst =
+
+Math.round(
+subtotal * 0.05
+);
+
+const grand =
+
+subtotal +
+deliveryFee +
+gst -
+discount;
+
+document.getElementById(
+"itemTotal"
+).innerText =
+"₹" + subtotal;
+
+document.getElementById(
+"gstAmount"
+).innerText =
+"₹" + gst;
+
+document.getElementById(
+"discountAmount"
+).innerText =
+"-₹" + discount;
+
+document.getElementById(
+"grandTotal"
+).innerText =
+"₹" + grand;
+
+document.getElementById(
+"bottomAmount"
+).innerText =
+"₹" + grand;
+
+window.finalTotal = grand;
+
+window.subtotal = subtotal;
+
+}
 
 window.applyCoupon =
 function(){
@@ -885,7 +745,7 @@ document
 .trim()
 .toUpperCase();
 
-const message =
+const msg =
 
 document.getElementById(
 "couponMessage"
@@ -895,21 +755,11 @@ if(code==="WELCOME50"){
 
 discount = 50;
 
-message.innerHTML =
+msg.innerHTML =
+"✅ Coupon Applied";
 
-"✅ ₹50 Discount Applied";
-
-}
-
-else if(
-code==="QUICKPRESS100"
-){
-
-discount = 100;
-
-message.innerHTML =
-
-"✅ ₹100 Discount Applied";
+msg.style.color =
+"#16A34A";
 
 }
 
@@ -917,205 +767,123 @@ else{
 
 discount = 0;
 
-message.innerHTML =
-
+msg.innerHTML =
 "❌ Invalid Coupon";
+
+msg.style.color =
+"#EF4444";
 
 }
 
-calculateTotal();
+calculateBill(
+window.subtotal || 0
+);
 
 };
 
-/* ==========================================
-CALCULATE TOTAL
-========================================== */
+window.selectPayment =
+function(type,card){
 
-function calculateTotal(){
+paymentMethod = type;
 
-const gst =
+document
+.querySelectorAll(
+".paymentCard"
+)
 
-Math.round(
-itemTotal * 0.05
+.forEach(item=>{
+
+item.classList.remove(
+"active"
 );
 
-const grandTotal =
+});
 
-itemTotal
-
-+
-
-DELIVERY_FEE
-
-+
-
-gst
-
--
-
-discount;
-
-document.getElementById(
-"itemTotal"
-).innerText =
-
-"₹" + itemTotal;
-
-document.getElementById(
-"gstAmount"
-).innerText =
-
-"₹" + gst;
-
-document.getElementById(
-"discountAmount"
-).innerText =
-
-"-₹" + discount;
-
-document.getElementById(
-"grandTotal"
-).innerText =
-
-"₹" + grandTotal;
-
-document.getElementById(
-"bottomTotal"
-).innerText =
-
-"₹" + grandTotal;
-
-}
-
-/* ==========================================
-GET PAYMENT
-========================================== */
-
-function getPaymentMethod(){
-
-const selected =
-
-document.querySelector(
-
-'input[name="payment"]:checked'
-
+card.classList.add(
+"active"
 );
 
-return selected
-? selected.value
-: "UPI";
-
-}
-
-/* ==========================================
-PLACE ORDER
-========================================== */
+};
 
 window.placeOrder =
 async function(){
 
+const cart =
+
+JSON.parse(
+
+localStorage.getItem(
+"qp_cart"
+)
+
+|| "[]"
+
+);
+
 if(cart.length===0){
 
 alert(
-"Cart is Empty"
+"Cart Empty"
 );
 
 return;
 
 }
 
-try{
-
-const user =
-
-auth.currentUser;
-
 const orderId =
 
 "QP" +
-
 Date.now();
-
-const gst =
-
-Math.round(
-itemTotal * 0.05
-);
-
-const grandTotal =
-
-itemTotal
-
-+
-
-DELIVERY_FEE
-
-+
-
-gst
-
--
-
-discount;
 
 const orderData = {
 
 orderId,
 
 uid:
-user?.uid || "",
-
-phone:
-user?.phoneNumber || "",
+auth.currentUser?.uid || "",
 
 items:
 cart,
 
-itemTotal,
+paymentMethod,
+
+subtotal:
+window.subtotal,
 
 discount,
 
-deliveryFee:
-DELIVERY_FEE,
-
-gst,
-
-grandTotal,
-
-paymentMethod:
-getPaymentMethod(),
+grandTotal:
+window.finalTotal,
 
 pickupDate:
 
-document
-.getElementById(
+document.getElementById(
 "pickupDate"
-)
-.value,
+).value,
 
 pickupSlot:
 
-document
-.getElementById(
+document.getElementById(
 "pickupSlot"
-)
-.value,
+).value,
 
 deliveryDate:
 
-document
-.getElementById(
+document.getElementById(
 "deliveryDate"
-)
-.value,
+).value,
 
 deliverySlot:
 
-document
-.getElementById(
+document.getElementById(
 "deliverySlot"
-)
-.value,
+).value,
+
+instructions:
+
+document.getElementById(
+"specialInstructions"
+).value,
 
 status:
 "Order Received",
@@ -1124,6 +892,8 @@ createdAt:
 serverTimestamp()
 
 };
+
+try{
 
 await setDoc(
 
@@ -1137,63 +907,31 @@ orderData
 
 );
 
-/* SAVE RECENT */
-
-const recent =
-
-cart.map(item=>({
-
-id:item.id,
-
-name:item.name
-
-}));
-
-localStorage.setItem(
-
-"qp_recent_orders",
-
-JSON.stringify(
-recent
-)
-
-);
-
-/* CLEAR CART */
-
 localStorage.removeItem(
 "qp_cart"
 );
 
-/* SAVE LAST ORDER */
-
-localStorage.setItem(
-
-"qp_last_order",
-
-JSON.stringify(
-orderData
-)
-
-);
-
-alert(
-"Order Placed Successfully"
-);
-
-/* REDIRECT */
+if(paymentMethod==="ONLINE"){
 
 window.location.href =
 
-"order-success.html?id="
+"payment.html?orderId="
+
++ orderId;
+
+}else{
+
+window.location.href =
+
+"order-success.html?orderId="
 
 + orderId;
 
 }
 
-catch(error){
+}catch(error){
 
-console.log(error);
+console.error(error);
 
 alert(
 "Order Failed"
@@ -1202,10 +940,6 @@ alert(
 }
 
 };
-
-/* ==========================================
-DEFAULT DATES
-========================================== */
 
 function setDefaultDates(){
 
@@ -1216,46 +950,27 @@ const tomorrow =
 new Date();
 
 tomorrow.setDate(
-
-today.getDate() + 1
-
+today.getDate()+1
 );
 
 document.getElementById(
 "pickupDate"
 ).value =
 
-today
-.toISOString()
+today.toISOString()
 .split("T")[0];
 
 document.getElementById(
 "deliveryDate"
 ).value =
 
-tomorrow
-.toISOString()
+tomorrow.toISOString()
 .split("T")[0];
 
 }
 
-/* ==========================================
-INIT
-========================================== */
-
-document.addEventListener(
-
-"DOMContentLoaded",
-
-()=>{
-
 setDefaultDates();
-
 loadCart();
-
-}
-
-);
 
 </script>
 
