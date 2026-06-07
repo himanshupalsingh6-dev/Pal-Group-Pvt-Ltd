@@ -1,27 +1,13 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
 
 <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<meta
-name="viewport"
-content="width=device-width, initial-scale=1.0">
+<title>Order Success - QuickPress</title>
 
-<title>
-
-QuickPress | Order Success
-
-</title>
-
-<link
-href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap"
-rel="stylesheet">
-
-<link
-rel="stylesheet"
-href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css"/>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
 
 <style>
 
@@ -33,15 +19,11 @@ font-family:'Inter',sans-serif;
 }
 
 :root{
-
---primary:#F4B400;
---secondary:#16A34A;
-
+--green:#16A34A;
+--yellow:#F4B400;
 --dark:#111827;
---light:#6B7280;
-
---bg:#F6F7FB;
-
+--gray:#6B7280;
+--bg:#F8FAFC;
 }
 
 body{
@@ -62,34 +44,35 @@ padding:20px;
 
 .successCard{
 
+background:white;
+
 width:100%;
 
 max-width:500px;
 
-background:#fff;
+padding:35px 25px;
 
 border-radius:30px;
-
-padding:40px 24px;
 
 text-align:center;
 
 box-shadow:
-0 12px 40px rgba(0,0,0,.08);
+0 15px 40px rgba(0,0,0,.08);
 
 }
 
+/* Success Circle */
+
 .successCircle{
 
-width:110px;
-
-height:110px;
+width:120px;
+height:120px;
 
 margin:auto;
 
 border-radius:50%;
 
-background:#DCFCE7;
+background:#ECFDF5;
 
 display:flex;
 
@@ -97,12 +80,9 @@ align-items:center;
 
 justify-content:center;
 
-font-size:54px;
+font-size:55px;
 
-color:#16A34A;
-
-animation:
-pop .5s ease;
+animation:pop .6s ease;
 
 }
 
@@ -120,39 +100,41 @@ opacity:1;
 
 }
 
-.successTitle{
+.title{
 
-margin-top:24px;
-
-font-size:30px;
+font-size:32px;
 
 font-weight:900;
 
-color:#111827;
+margin-top:24px;
+
+color:var(--dark);
 
 }
 
-.successText{
+.subtitle{
 
-margin-top:12px;
+margin-top:10px;
 
-font-size:14px;
+font-size:15px;
 
-line-height:1.8;
+line-height:1.7;
 
-color:#6B7280;
+color:var(--gray);
 
 }
+
+/* Order Box */
 
 .orderBox{
 
-margin-top:24px;
+margin-top:25px;
 
 padding:18px;
 
 border-radius:18px;
 
-background:#F9FAFB;
+background:#F8FAFC;
 
 }
 
@@ -160,109 +142,99 @@ background:#F9FAFB;
 
 font-size:12px;
 
-font-weight:700;
+color:var(--gray);
 
-color:#6B7280;
+font-weight:700;
 
 }
 
 .orderId{
 
-margin-top:8px;
-
-font-size:20px;
+font-size:22px;
 
 font-weight:900;
 
-color:#111827;
+margin-top:8px;
 
-word-break:break-all;
+color:var(--dark);
 
 }
 
-.actionGrid{
+.status{
 
-margin-top:28px;
+margin-top:12px;
 
-display:grid;
+display:inline-block;
 
-grid-template-columns:1fr;
+padding:8px 14px;
 
-gap:12px;
+border-radius:999px;
+
+background:#ECFDF5;
+
+color:#16A34A;
+
+font-size:12px;
+
+font-weight:900;
+
+}
+
+/* Buttons */
+
+.btn{
+
+width:100%;
+
+height:58px;
+
+border:none;
+
+border-radius:18px;
+
+font-size:16px;
+
+font-weight:900;
+
+cursor:pointer;
+
+margin-top:14px;
 
 }
 
 .primaryBtn{
 
-height:54px;
-
-border:none;
-
-border-radius:16px;
-
 background:#16A34A;
 
-color:#fff;
-
-font-size:14px;
-
-font-weight:900;
-
-cursor:pointer;
+color:white;
 
 }
 
 .secondaryBtn{
 
-height:54px;
-
-border:none;
-
-border-radius:16px;
-
 background:#F3F4F6;
 
 color:#111827;
 
-font-size:14px;
+}
 
-font-weight:900;
+.continueBtn{
 
-cursor:pointer;
+background:#F4B400;
+
+color:#111827;
 
 }
 
-.infoCard{
+.note{
 
-margin-top:24px;
-
-padding:18px;
-
-border-radius:18px;
-
-background:#FFF8E1;
-
-text-align:left;
-
-}
-
-.infoCard h4{
-
-font-size:14px;
-
-font-weight:900;
-
-margin-bottom:10px;
-
-}
-
-.infoCard p{
+margin-top:20px;
 
 font-size:13px;
 
-line-height:1.7;
+color:var(--gray);
 
-color:#6B7280;
+line-height:1.6;
 
 }
 
@@ -270,26 +242,29 @@ color:#6B7280;
 
 </head>
 
-<body><div class="successCard">
+<body>
+
+<div class="successCard">
 
 <div class="successCircle">
 
-<i class="fa-solid fa-check"></i>
+✅
 
 </div>
 
-<h1 class="successTitle">
+<div class="title">
 
-Order Placed Successfully
+Order Confirmed
 
-</h1>
+</div>
 
-<p class="successText">
+<div class="subtitle">
 
-Thank you for choosing QuickPress.
-Your laundry pickup request has been submitted successfully.
+Your laundry order has been placed successfully.
 
-</p>
+We will contact you soon for pickup.
+
+</div>
 
 <div class="orderBox">
 
@@ -300,70 +275,60 @@ ORDER ID
 </div>
 
 <div
-class="orderId"
-id="orderId">
+id="orderId"
+class="orderId">
 
-Loading...
+QP000000
+
+</div>
+
+<div
+id="paymentStatus"
+class="status">
+
+Order Received
 
 </div>
 
 </div>
-
-<div class="infoCard">
-
-<h4>
-
-What's Next?
-
-</h4>
-
-<p>
-
-• Pickup partner will be assigned shortly.<br>
-
-• Pickup confirmation will appear in Orders page.<br>
-
-• Live order tracking available after pickup.<br>
-
-• Delivery updates will be shared automatically.
-
-</p>
-
-</div>
-
-<div class="actionGrid">
 
 <button
-class="primaryBtn"
-onclick="window.location.href='orders.html'">
+class="btn primaryBtn"
+onclick="trackOrder()">
 
 Track Order
 
 </button>
 
 <button
-class="secondaryBtn"
-onclick="window.location.href='services.html'">
+class="btn secondaryBtn"
+onclick="viewOrders()">
 
-Book Another Service
+View My Orders
 
 </button>
 
 <button
-class="secondaryBtn"
-onclick="window.location.href='index.html'">
+class="btn continueBtn"
+onclick="continueShopping()">
 
-Back To Home
+Continue Shopping
 
 </button>
 
+<div class="note">
+
+Pickup partner will be assigned shortly.
+
+You can track your order status anytime.
+
 </div>
 
-</div><script>
+</div>
 
-/* ===================================
-GET ORDER ID
-=================================== */
+<script>
+
+/* GET ORDER ID */
 
 const params =
 
@@ -374,45 +339,47 @@ window.location.search
 const orderId =
 
 params.get(
-"id"
-)
-
-||
-
-localStorage.getItem(
-"lastOrderId"
+"orderId"
 )
 
 ||
 
 "QP000000";
 
-/* ===================================
-SHOW ORDER
-=================================== */
-
 document.getElementById(
 "orderId"
-).innerHTML = orderId;
+).innerText =
+orderId;
 
-/* ===================================
-CLEAR TEMP DATA
-=================================== */
+/* ACTIONS */
 
-localStorage.removeItem(
-"checkoutData"
-);
+function trackOrder(){
 
-/* ===================================
-READY
-=================================== */
+window.location.href =
 
-console.log(
-"QuickPress Order Success Ready"
-);
+"orders.html?orderId="
+
++ orderId;
+
+}
+
+function viewOrders(){
+
+window.location.href =
+
+"orders.html";
+
+}
+
+function continueShopping(){
+
+window.location.href =
+
+"index.html";
+
+}
 
 </script>
 
 </body>
-
 </html>
