@@ -11,7 +11,7 @@ content="width=device-width, initial-scale=1.0">
 
 <title>
 
-QuickPress Dashboard
+QuickPress Super Admin Dashboard
 
 </title>
 
@@ -23,52 +23,55 @@ rel="stylesheet">
 rel="stylesheet"
 href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
 
-<link
-rel="stylesheet"
-href="admin-layout.css">
-
 <style>
 
 /* ==========================================
-DASHBOARD
+RESET
 ========================================== */
 
-.statsGrid{
+*{
+margin:0;
+padding:0;
+box-sizing:border-box;
+font-family:'Inter',sans-serif;
+}
 
-display:grid;
+:root{
 
-grid-template-columns:
-repeat(4,1fr);
+--primary:#F4B400;
+--secondary:#16A34A;
 
-gap:20px;
+--dark:#111827;
+--gray:#6B7280;
 
-margin-bottom:24px;
+--border:#E5E7EB;
+--bg:#F8FAFC;
 
 }
 
-.statCard{
+body{
+
+background:var(--bg);
+
+display:flex;
+
+min-height:100vh;
+
+overflow-x:hidden;
+
+}
+
+/* ==========================================
+LOGIN PROTECTION
+========================================== */
+
+.loaderScreen{
+
+position:fixed;
+
+inset:0;
 
 background:white;
-
-padding:24px;
-
-border-radius:24px;
-
-box-shadow:
-0 5px 20px rgba(0,0,0,.05);
-
-position:relative;
-
-overflow:hidden;
-
-}
-
-.statIcon{
-
-width:60px;
-height:60px;
-
-border-radius:18px;
 
 display:flex;
 
@@ -76,30 +79,516 @@ align-items:center;
 
 justify-content:center;
 
-font-size:24px;
+flex-direction:column;
+
+gap:20px;
+
+z-index:99999;
+
+}
+
+.loader{
+
+width:60px;
+height:60px;
+
+border:5px solid #E5E7EB;
+
+border-top:5px solid #16A34A;
+
+border-radius:50%;
+
+animation:spin 1s linear infinite;
+
+}
+
+@keyframes spin{
+
+100%{
+
+transform:rotate(360deg);
+
+}
+
+}
+
+/* ==========================================
+SIDEBAR
+========================================== */
+
+.sidebar{
+
+position:fixed;
+
+left:0;
+top:0;
+bottom:0;
+
+width:280px;
+
+background:white;
+
+border-right:1px solid var(--border);
+
+display:flex;
+
+flex-direction:column;
+
+z-index:1000;
+
+}
+
+.sidebarLogo{
+
+height:80px;
+
+display:flex;
+
+align-items:center;
+
+gap:14px;
+
+padding:0 24px;
+
+border-bottom:1px solid var(--border);
+
+}
+
+.logoBox{
+
+width:50px;
+height:50px;
+
+border-radius:16px;
+
+background:
+linear-gradient(
+135deg,
+#F4B400,
+#F59E0B
+);
+
+display:flex;
+
+align-items:center;
+
+justify-content:center;
+
+font-weight:900;
+
+font-size:18px;
+
+color:white;
+
+}
+
+.logoText{
+
+font-size:18px;
+
+font-weight:900;
+
+color:#111827;
+
+}
+
+.sidebarMenu{
+
+padding:15px;
+
+flex:1;
+
+overflow:auto;
+
+}
+
+.menuItem{
+
+height:54px;
+
+display:flex;
+
+align-items:center;
+
+gap:14px;
+
+padding:0 16px;
+
+border-radius:14px;
+
+text-decoration:none;
+
+color:#6B7280;
+
+font-size:14px;
+
+font-weight:700;
+
+margin-bottom:8px;
+
+transition:.25s;
+
+}
+
+.menuItem:hover{
+
+background:#F9FAFB;
+
+}
+
+.menuItem.active{
+
+background:#FEF3C7;
+
+color:#D97706;
+
+}
+
+/* ==========================================
+MAIN
+========================================== */
+
+.mainWrapper{
+
+margin-left:280px;
+
+width:calc(100% - 280px);
+
+}
+
+/* ==========================================
+TOPBAR
+========================================== */
+
+.topbar{
+
+height:80px;
+
+background:white;
+
+display:flex;
+
+align-items:center;
+
+justify-content:space-between;
+
+padding:0 24px;
+
+border-bottom:1px solid var(--border);
+
+position:sticky;
+
+top:0;
+
+z-index:999;
+
+}
+
+.topbarLeft{
+
+display:flex;
+
+align-items:center;
+
+gap:15px;
+
+}
+
+.pageTitle{
+
+font-size:28px;
+
+font-weight:900;
+
+color:#111827;
+
+}
+
+.searchBox{
+
+width:420px;
+
+height:50px;
+
+border:1px solid var(--border);
+
+border-radius:14px;
+
+display:flex;
+
+align-items:center;
+
+padding:0 15px;
+
+gap:10px;
+
+}
+
+.searchBox input{
+
+border:none;
+
+outline:none;
+
+width:100%;
+
+background:none;
+
+}
+
+.topbarRight{
+
+display:flex;
+
+align-items:center;
+
+gap:14px;
+
+}
+
+.iconBtn{
+
+width:46px;
+height:46px;
+
+border:none;
+
+border-radius:14px;
+
+background:#F3F4F6;
+
+cursor:pointer;
+
+font-size:18px;
+
+position:relative;
+
+}
+
+.notificationCount{
+
+position:absolute;
+
+top:4px;
+right:4px;
+
+width:18px;
+height:18px;
+
+border-radius:50%;
+
+background:#EF4444;
+
+color:white;
+
+font-size:10px;
+
+font-weight:900;
+
+display:flex;
+
+align-items:center;
+
+justify-content:center;
+
+}
+
+.adminBox{
+
+display:flex;
+
+align-items:center;
+
+gap:12px;
+
+padding:8px 12px;
+
+border-radius:14px;
+
+background:#F9FAFB;
+
+}
+
+.adminAvatar{
+
+width:44px;
+height:44px;
+
+border-radius:50%;
+
+background:#16A34A;
+
+display:flex;
+
+align-items:center;
+
+justify-content:center;
+
+color:white;
+
+font-weight:900;
+
+}
+
+/* ==========================================
+CONTENT
+========================================== */
+
+.content{
+
+padding:24px;
+
+}
+
+/* ==========================================
+WELCOME
+========================================== */
+
+.welcomeCard{
+
+background:
+
+linear-gradient(
+135deg,
+#F4B400,
+#F59E0B
+);
+
+border-radius:30px;
+
+padding:30px;
+
+color:white;
+
+display:flex;
+
+justify-content:space-between;
+
+align-items:center;
+
+margin-bottom:24px;
+
+}
+
+.welcomeCard h2{
+
+font-size:32px;
+
+font-weight:900;
+
+}
+
+.welcomeCard p{
+
+margin-top:10px;
+
+font-size:15px;
+
+opacity:.95;
+
+}
+
+.quickActions{
+
+display:flex;
+
+gap:12px;
+
+}
+
+.actionBtn{
+
+height:50px;
+
+padding:0 20px;
+
+border:none;
+
+border-radius:14px;
+
+background:white;
+
+font-weight:800;
+
+cursor:pointer;
+
+}
+
+/* ==========================================
+KPI CARDS
+========================================== */
+
+.statsGrid{
+
+display:grid;
+
+grid-template-columns:
+repeat(5,1fr);
+
+gap:20px;
+
+}
+
+.statCard{
+
+background:white;
+
+padding:22px;
+
+border-radius:24px;
+
+box-shadow:
+0 5px 20px rgba(0,0,0,.05);
+
+}
+
+.statTop{
+
+display:flex;
+
+justify-content:space-between;
+
+align-items:center;
 
 margin-bottom:16px;
 
 }
 
-.revenue{
+.statIcon{
+
+width:54px;
+height:54px;
+
+border-radius:16px;
+
+display:flex;
+
+align-items:center;
+
+justify-content:center;
+
+font-size:22px;
+
+}
+
+.revenueIcon{
 background:#DCFCE7;
-color:#16A34A;
 }
 
-.orders{
+.ordersIcon{
 background:#DBEAFE;
-color:#2563EB;
 }
 
-.customers{
+.activeIcon{
 background:#FEF3C7;
-color:#D97706;
 }
 
-.partners{
-background:#F3E8FF;
-color:#9333EA;
+.deliveredIcon{
+background:#DCFCE7;
+}
+
+.cancelIcon{
+background:#FEE2E2;
 }
 
 .statValue{
@@ -114,13 +603,13 @@ color:#111827;
 
 .statLabel{
 
-margin-top:6px;
-
-font-size:14px;
+font-size:13px;
 
 font-weight:700;
 
 color:#6B7280;
+
+margin-top:6px;
 
 }
 
@@ -128,79 +617,11 @@ color:#6B7280;
 
 margin-top:12px;
 
-font-size:13px;
+font-size:12px;
 
 font-weight:800;
 
 color:#16A34A;
-
-}
-
-/* ==========================================
-CHART SECTION
-========================================== */
-
-.chartSection{
-
-display:grid;
-
-grid-template-columns:
-2fr 1fr;
-
-gap:24px;
-
-margin-bottom:24px;
-
-}
-
-.card{
-
-background:white;
-
-border-radius:24px;
-
-padding:24px;
-
-box-shadow:
-0 5px 20px rgba(0,0,0,.05);
-
-}
-
-.cardTitle{
-
-font-size:20px;
-
-font-weight:900;
-
-margin-bottom:20px;
-
-}
-
-.chartPlaceholder{
-
-height:320px;
-
-border-radius:18px;
-
-background:
-
-linear-gradient(
-135deg,
-#F8FAFC,
-#EEF2FF
-);
-
-display:flex;
-
-align-items:center;
-
-justify-content:center;
-
-font-size:18px;
-
-font-weight:800;
-
-color:#6B7280;
 
 }
 
@@ -210,15 +631,27 @@ color:#6B7280;
 
 <body>
 
-<!-- SIDEBAR -->
+<div class="loaderScreen" id="loaderScreen">
 
-<aside
-id="sidebar"
-class="sidebar">
+<div class="loader"></div>
+
+<p>
+
+Loading Dashboard...
+
+</p>
+
+</div>
+
+<!-- ==========================================
+SIDEBAR
+========================================== -->
+
+<aside class="sidebar">
 
 <div class="sidebarLogo">
 
-<div class="logoIcon">
+<div class="logoBox">
 
 QP
 
@@ -232,129 +665,54 @@ QuickPress Admin
 
 </div>
 
-<nav class="sidebarMenu">
+<div class="sidebarMenu">
 
-<a
-href="dashboard.html"
-class="menuItem active">
-
+<a href="dashboard.html" class="menuItem active">
 <i class="fa-solid fa-chart-line"></i>
-
-<span>
-
 Dashboard
-
-</span>
-
 </a>
 
-<a
-href="orders.html"
-class="menuItem">
-
+<a href="orders.html" class="menuItem">
 <i class="fa-solid fa-box"></i>
-
-<span>
-
 Orders
-
-</span>
-
 </a>
 
-<a
-href="partners.html"
-class="menuItem">
-
+<a href="partners.html" class="menuItem">
 <i class="fa-solid fa-handshake"></i>
-
-<span>
-
 Partners
-
-</span>
-
 </a>
 
-<a
-href="customers.html"
-class="menuItem">
-
-<i class="fa-solid fa-users"></i>
-
-<span>
-
-Customers
-
-</span>
-
-</a>
-
-<a
-href="drivers.html"
-class="menuItem">
-
+<a href="drivers.html" class="menuItem">
 <i class="fa-solid fa-truck"></i>
-
-<span>
-
 Drivers
-
-</span>
-
 </a>
 
-<a
-href="cities.html"
-class="menuItem">
+<a href="customers.html" class="menuItem">
+<i class="fa-solid fa-users"></i>
+Customers
+</a>
 
+<a href="cities.html" class="menuItem">
 <i class="fa-solid fa-city"></i>
-
-<span>
-
 Cities
-
-</span>
-
 </a>
 
-<a
-href="finance.html"
-class="menuItem">
-
+<a href="finance.html" class="menuItem">
 <i class="fa-solid fa-wallet"></i>
-
-<span>
-
 Finance
-
-</span>
-
 </a>
 
-</nav>
+</div>
 
 </aside>
 
-<!-- MAIN -->
-
 <div class="mainWrapper">
-
-<!-- TOPBAR -->
 
 <header class="topbar">
 
 <div class="topbarLeft">
 
-<button
-id="sidebarToggle"
-class="iconBtn">
-
-<i class="fa-solid fa-bars"></i>
-
-</button>
-
-<h1>
+<h1 class="pageTitle">
 
 Dashboard
 
@@ -362,17 +720,13 @@ Dashboard
 
 </div>
 
-<div class="topbarCenter">
-
 <div class="searchBox">
 
 <i class="fa-solid fa-magnifying-glass"></i>
 
 <input
 type="text"
-placeholder="Search anything...">
-
-</div>
+placeholder="Search Orders, Partners, Cities">
 
 </div>
 
@@ -382,35 +736,37 @@ placeholder="Search anything...">
 
 <i class="fa-regular fa-bell"></i>
 
-<span class="notificationDot">
+<span class="notificationCount">
 
-5
+12
 
 </span>
 
 </button>
 
-<div class="adminProfile">
+<div class="adminBox">
 
-<div class="profileAvatar">
+<div class="adminAvatar">
 
 HP
 
 </div>
 
-<div class="profileInfo">
+<div>
 
-<h4>
+<b>
 
 Himanshu Pal
 
-</h4>
+</b>
 
-<p>
+<br>
+
+<small>
 
 Super Admin
 
-</p>
+</small>
 
 </div>
 
@@ -420,25 +776,65 @@ Super Admin
 
 </header>
 
-<!-- PAGE CONTENT -->
+<main class="content">
 
-<main class="pageContent">
+<div class="welcomeCard">
 
-<!-- STATS -->
+<div>
+
+<h2>
+
+Welcome Back 👋
+
+</h2>
+
+<p>
+
+Manage Orders, Partners, Drivers, Cities and Revenue from one dashboard.
+
+</p>
+
+</div>
+
+<div class="quickActions">
+
+<button class="actionBtn">
+
++ Partner
+
+</button>
+
+<button class="actionBtn">
+
++ City
+
+</button>
+
+<button class="actionBtn">
+
++ Coupon
+
+</button>
+
+</div>
+
+</div>
 
 <div class="statsGrid">
 
 <div class="statCard">
 
-<div class="statIcon revenue">
+<div class="statTop">
 
-₹
+<div class="statIcon revenueIcon">
+
+💰
 
 </div>
 
-<div
-id="todayRevenue"
-class="statValue">
+</div>
+
+<div class="statValue">
 
 ₹0
 
@@ -452,17 +848,20 @@ Today's Revenue
 
 <div class="statGrowth">
 
-+12.5%
++12%
 
 </div>
 
 </div>
-
 <div class="statCard">
 
-<div class="statIcon orders">
+<div class="statTop">
+
+<div class="statIcon ordersIcon">
 
 📦
+
+</div>
 
 </div>
 
@@ -482,7 +881,7 @@ Today's Orders
 
 <div class="statGrowth">
 
-+8.2%
++18%
 
 </div>
 
@@ -490,15 +889,121 @@ Today's Orders
 
 <div class="statCard">
 
-<div class="statIcon customers">
+<div class="statTop">
 
-👥
+<div class="statIcon activeIcon">
+
+🚚
+
+</div>
 
 </div>
 
 <div
-id="totalCustomers"
+id="activeOrders"
 class="statValue">
+
+0
+
+</div>
+
+<div class="statLabel">
+
+Active Orders
+
+</div>
+
+<div class="statGrowth">
+
+Live
+
+</div>
+
+</div>
+
+<div class="statCard">
+
+<div class="statTop">
+
+<div class="statIcon deliveredIcon">
+
+✅
+
+</div>
+
+</div>
+
+<div
+id="deliveredOrders"
+class="statValue">
+
+0
+
+</div>
+
+<div class="statLabel">
+
+Delivered Orders
+
+</div>
+
+<div class="statGrowth">
+
++24%
+
+</div>
+
+</div>
+
+<div class="statCard">
+
+<div class="statTop">
+
+<div class="statIcon cancelIcon">
+
+❌
+
+</div>
+
+</div>
+
+<div
+id="cancelledOrders"
+class="statValue">
+
+0
+
+</div>
+
+<div class="statLabel">
+
+Cancelled Orders
+
+</div>
+
+<div class="statGrowth"
+style="color:#EF4444;">
+
+-2%
+
+</div>
+
+</div>
+
+</div>
+
+<!-- ==========================================
+SECOND ROW KPI
+========================================== -->
+
+<div
+class="statsGrid"
+style="margin-top:20px;">
+
+<div class="statCard">
+
+<div class="statValue"
+id="totalCustomers">
 
 0
 
@@ -510,25 +1015,12 @@ Customers
 
 </div>
 
-<div class="statGrowth">
-
-+22%
-
-</div>
-
 </div>
 
 <div class="statCard">
 
-<div class="statIcon partners">
-
-🤝
-
-</div>
-
-<div
-id="totalPartners"
-class="statValue">
+<div class="statValue"
+id="totalPartners">
 
 0
 
@@ -540,9 +1032,54 @@ Partners
 
 </div>
 
-<div class="statGrowth">
+</div>
 
-+4%
+<div class="statCard">
+
+<div class="statValue"
+id="totalDrivers">
+
+0
+
+</div>
+
+<div class="statLabel">
+
+Drivers
+
+</div>
+
+</div>
+
+<div class="statCard">
+
+<div class="statValue"
+id="totalCities">
+
+0
+
+</div>
+
+<div class="statLabel">
+
+Cities
+
+</div>
+
+</div>
+
+<div class="statCard">
+
+<div class="statValue"
+id="supportTickets">
+
+0
+
+</div>
+
+<div class="statLabel">
+
+Support Tickets
 
 </div>
 
@@ -550,65 +1087,258 @@ Partners
 
 </div>
 
-<!-- CHARTS -->
-
-<div class="chartSection">
-
-<div class="card">
-
-<h3 class="cardTitle">
-
-Revenue Overview
-
-</h3>
-
-<div
-id="revenueChart"
-class="chartPlaceholder">
-
-Revenue Chart
-
-</div>
-
-</div>
-
-<div class="card">
-
-<h3 class="cardTitle">
-
-Quick Stats
-
-</h3>
-
-<div
-id="quickStats">
-
-Loading...
-
-</div>
-
-</div>
-
-</div>
 <!-- ==========================================
-RECENT ORDERS + TOP CITIES
+ANALYTICS SECTION
 ========================================== -->
 
-<div class="dashboardGrid">
+<div class="analyticsGrid">
 
-<!-- RECENT ORDERS -->
+<div class="analyticsCard">
 
-<div class="card">
+<div class="sectionHeader">
 
-<h3 class="cardTitle">
+<h3>
 
-Recent Orders
+Revenue Analytics
 
 </h3>
+
+<select class="filterSelect">
+
+<option>
+
+Today
+
+</option>
+
+<option>
+
+7 Days
+
+</option>
+
+<option>
+
+30 Days
+
+</option>
+
+<option>
+
+12 Months
+
+</option>
+
+</select>
+
+</div>
+
+<div class="chartBox">
+
+<canvas
+id="revenueChart">
+
+</canvas>
+
+</div>
+
+</div>
+
+<div class="analyticsCard">
+
+<div class="sectionHeader">
+
+<h3>
+
+Orders Analytics
+
+</h3>
+
+</div>
+
+<div class="chartBox">
+
+<canvas
+id="ordersChart">
+
+</canvas>
+
+</div>
+
+</div>
+
+</div>
+
+<style>
+
+/* ==========================================
+ANALYTICS
+========================================== */
+
+.analyticsGrid{
+
+display:grid;
+
+grid-template-columns:
+2fr 1fr;
+
+gap:24px;
+
+margin-top:24px;
+
+}
+
+.analyticsCard{
+
+background:white;
+
+padding:24px;
+
+border-radius:28px;
+
+box-shadow:
+0 5px 20px rgba(0,0,0,.05);
+
+}
+
+.sectionHeader{
+
+display:flex;
+
+justify-content:space-between;
+
+align-items:center;
+
+margin-bottom:20px;
+
+}
+
+.sectionHeader h3{
+
+font-size:20px;
+
+font-weight:900;
+
+color:#111827;
+
+}
+
+.filterSelect{
+
+height:42px;
+
+padding:0 14px;
+
+border:1px solid #E5E7EB;
+
+border-radius:12px;
+
+outline:none;
+
+}
+
+.chartBox{
+
+height:340px;
+
+background:
+
+linear-gradient(
+135deg,
+#F8FAFC,
+#EEF2FF
+);
+
+border-radius:20px;
+
+display:flex;
+
+align-items:center;
+
+justify-content:center;
+
+position:relative;
+
+}
+
+.chartBox canvas{
+
+width:100% !important;
+
+height:100% !important;
+
+}
+
+/* ==========================================
+RESPONSIVE
+========================================== */
+
+@media(max-width:1400px){
+
+.statsGrid{
+
+grid-template-columns:
+repeat(2,1fr);
+
+}
+
+}
+
+@media(max-width:991px){
+
+.analyticsGrid{
+
+grid-template-columns:1fr;
+
+}
+
+}
+
+@media(max-width:768px){
+
+.statsGrid{
+
+grid-template-columns:1fr;
+
+}
+
+.searchBox{
+
+display:none;
+
+}
+
+}
+
+</style><!-- ==========================================
+LIVE ORDERS + ACTIVITY
+========================================== -->
+
+<div class="dashboardRow">
+
+<!-- LIVE ORDERS -->
+
+<div class="dashboardCard largeCard">
+
+<div class="sectionHeader">
+
+<h3>
+
+📦 Live Orders
+
+</h3>
+
+<button class="viewAllBtn">
+
+View All
+
+</button>
+
+</div>
 
 <div class="tableWrapper">
 
-<table class="dataTable">
+<table class="ordersTable">
 
 <thead>
 
@@ -617,29 +1347,46 @@ Recent Orders
 <th>Order ID</th>
 <th>Customer</th>
 <th>City</th>
+<th>Partner</th>
 <th>Amount</th>
 <th>Status</th>
+<th>Action</th>
 
 </tr>
 
 </thead>
 
-<tbody id="recentOrdersTable">
+<tbody id="liveOrdersTable">
 
 <tr>
 
-<td>QP10245</td>
+<td>#QP10451</td>
+
 <td>Rahul Sharma</td>
+
 <td>Delhi</td>
+
+<td>Clean Hub</td>
+
 <td>₹450</td>
 
 <td>
 
-<span class="statusBadge pending">
+<span class="tableStatus cleaning">
 
-Pending
+Cleaning
 
 </span>
+
+</td>
+
+<td>
+
+<button class="actionTableBtn">
+
+View
+
+</button>
 
 </td>
 
@@ -647,18 +1394,33 @@ Pending
 
 <tr>
 
-<td>QP10246</td>
-<td>Amit Singh</td>
+<td>#QP10452</td>
+
+<td>Amit Kumar</td>
+
 <td>Mumbai</td>
-<td>₹780</td>
+
+<td>Laundry Point</td>
+
+<td>₹720</td>
 
 <td>
 
-<span class="statusBadge active">
+<span class="tableStatus pickup">
 
-Active
+Picked Up
 
 </span>
+
+</td>
+
+<td>
+
+<button class="actionTableBtn">
+
+View
+
+</button>
 
 </td>
 
@@ -666,37 +1428,33 @@ Active
 
 <tr>
 
-<td>QP10247</td>
-<td>Priya Verma</td>
-<td>Agra</td>
-<td>₹250</td>
+<td>#QP10453</td>
 
-<td>
+<td>Neha Verma</td>
 
-<span class="statusBadge delivered">
-
-Delivered
-
-</span>
-
-</td>
-
-</tr>
-
-<tr>
-
-<td>QP10248</td>
-<td>Neha Gupta</td>
 <td>Noida</td>
-<td>₹620</td>
+
+<td>Wash Hub</td>
+
+<td>₹380</td>
 
 <td>
 
-<span class="statusBadge active">
+<span class="tableStatus delivery">
 
-Processing
+Out For Delivery
 
 </span>
+
+</td>
+
+<td>
+
+<button class="actionTableBtn">
+
+View
+
+</button>
 
 </td>
 
@@ -710,87 +1468,147 @@ Processing
 
 </div>
 
-<!-- TOP CITIES -->
+<!-- ACTIVITY -->
 
-<div class="card">
+<div class="dashboardCard">
 
-<h3 class="cardTitle">
+<div class="sectionHeader">
 
-Top Cities
+<h3>
+
+🔥 Live Activity
 
 </h3>
 
-<div class="cityList">
+</div>
 
-<div class="cityItem">
+<div class="activityFeed">
+
+<div class="activityItem">
+
+<div class="activityIcon green">
+
+✓
+
+</div>
 
 <div>
 
-<h4>Delhi</h4>
+<h4>
 
-<p>1,245 Orders</p>
+Order Delivered
+
+</h4>
+
+<p>
+
+QP10448 completed
+
+</p>
 
 </div>
 
-<div class="cityRevenue">
+<span>
 
-₹2.8L
+2m
+
+</span>
 
 </div>
 
-</div>
+<div class="activityItem">
 
-<div class="cityItem">
+<div class="activityIcon blue">
+
+🚚
+
+</div>
 
 <div>
 
-<h4>Mumbai</h4>
+<h4>
 
-<p>980 Orders</p>
+Driver Assigned
+
+</h4>
+
+<p>
+
+Driver added to QP10449
+
+</p>
 
 </div>
 
-<div class="cityRevenue">
+<span>
 
-₹2.2L
+5m
+
+</span>
 
 </div>
 
-</div>
+<div class="activityItem">
 
-<div class="cityItem">
+<div class="activityIcon yellow">
+
+🏪
+
+</div>
 
 <div>
 
-<h4>Bangalore</h4>
+<h4>
 
-<p>820 Orders</p>
+Partner Joined
+
+</h4>
+
+<p>
+
+New partner approved
+
+</p>
 
 </div>
 
-<div class="cityRevenue">
+<span>
 
-₹1.9L
+11m
+
+</span>
 
 </div>
 
-</div>
+<div class="activityItem">
 
-<div class="cityItem">
+<div class="activityIcon red">
+
+🎫
+
+</div>
 
 <div>
 
-<h4>Noida</h4>
+<h4>
 
-<p>650 Orders</p>
+Support Ticket
+
+</h4>
+
+<p>
+
+Refund request received
+
+</p>
 
 </div>
 
-<div class="cityRevenue">
+<span>
 
-₹1.4L
+18m
 
-</div>
+</span>
 
 </div>
 
@@ -801,90 +1619,184 @@ Top Cities
 </div>
 
 <!-- ==========================================
-TOP PARTNERS + NEW CUSTOMERS
+TOP CITIES + TOP PARTNERS
 ========================================== -->
 
-<div class="dashboardGrid">
+<div class="dashboardRow">
 
-<!-- TOP PARTNERS -->
+<div class="dashboardCard">
 
-<div class="card">
+<div class="sectionHeader">
 
-<h3 class="cardTitle">
+<h3>
 
-Top Partners
+🏙 Top Cities
 
 </h3>
 
-<div class="partnerList">
-
-<div class="partnerItem">
-
-<div class="partnerAvatar">
-
-LP
-
 </div>
+
+<div class="rankList">
+
+<div class="rankItem">
 
 <div>
 
-<h4>Laundry Point</h4>
+<h4>Delhi</h4>
+
+<p>1245 Orders</p>
+
+</div>
+
+<b>
+
+₹2.8L
+
+</b>
+
+</div>
+
+<div class="rankItem">
+
+<div>
+
+<h4>Mumbai</h4>
+
+<p>980 Orders</p>
+
+</div>
+
+<b>
+
+₹2.2L
+
+</b>
+
+</div>
+
+<div class="rankItem">
+
+<div>
+
+<h4>Bangalore</h4>
+
+<p>820 Orders</p>
+
+</div>
+
+<b>
+
+₹1.9L
+
+</b>
+
+</div>
+
+<div class="rankItem">
+
+<div>
+
+<h4>Noida</h4>
+
+<p>640 Orders</p>
+
+</div>
+
+<b>
+
+₹1.3L
+
+</b>
+
+</div>
+
+</div>
+
+</div>
+
+<div class="dashboardCard">
+
+<div class="sectionHeader">
+
+<h3>
+
+🤝 Top Partners
+
+</h3>
+
+</div>
+
+<div class="rankList">
+
+<div class="rankItem">
+
+<div>
+
+<h4>Clean Hub</h4>
 
 <p>Delhi</p>
 
 </div>
 
-<div class="partnerRevenue">
+<b>
 
 ₹84K
 
-</div>
+</b>
 
 </div>
 
-<div class="partnerItem">
-
-<div class="partnerAvatar">
-
-CW
-
-</div>
+<div class="rankItem">
 
 <div>
 
-<h4>Clean Wash Hub</h4>
+<h4>Laundry Point</h4>
 
 <p>Mumbai</p>
 
 </div>
 
-<div class="partnerRevenue">
+<b>
 
-₹71K
+₹72K
 
-</div>
-
-</div>
-
-<div class="partnerItem">
-
-<div class="partnerAvatar">
-
-QC
+</b>
 
 </div>
+
+<div class="rankItem">
 
 <div>
 
-<h4>Quick Clean</h4>
+<h4>Wash Hub</h4>
 
 <p>Noida</p>
 
 </div>
 
-<div class="partnerRevenue">
+<b>
 
-₹63K
+₹61K
+
+</b>
+
+</div>
+
+<div class="rankItem">
+
+<div>
+
+<h4>Quick Clean</h4>
+
+<p>Agra</p>
+
+</div>
+
+<b>
+
+₹55K
+
+</b>
 
 </div>
 
@@ -894,61 +1806,1567 @@ QC
 
 </div>
 
-<!-- NEW CUSTOMERS -->
+<style>
 
-<div class="card">
+/* ==========================================
+DASHBOARD ROW
+========================================== */
 
-<h3 class="cardTitle">
+.dashboardRow{
 
-New Customers
+display:grid;
+
+grid-template-columns:2fr 1fr;
+
+gap:24px;
+
+margin-top:24px;
+
+}
+
+.dashboardCard{
+
+background:white;
+
+padding:24px;
+
+border-radius:28px;
+
+box-shadow:
+0 5px 20px rgba(0,0,0,.05);
+
+}
+
+.largeCard{
+
+overflow:hidden;
+
+}
+
+.viewAllBtn{
+
+height:40px;
+
+padding:0 14px;
+
+border:none;
+
+border-radius:12px;
+
+background:#F3F4F6;
+
+font-weight:700;
+
+cursor:pointer;
+
+}
+
+/* ==========================================
+TABLE
+========================================== */
+
+.tableWrapper{
+
+overflow:auto;
+
+}
+
+.ordersTable{
+
+width:100%;
+
+border-collapse:collapse;
+
+}
+
+.ordersTable th{
+
+text-align:left;
+
+padding:14px;
+
+background:#F9FAFB;
+
+font-size:13px;
+
+font-weight:800;
+
+}
+
+.ordersTable td{
+
+padding:14px;
+
+border-bottom:1px solid #F3F4F6;
+
+font-size:14px;
+
+}
+
+.tableStatus{
+
+padding:6px 12px;
+
+border-radius:999px;
+
+font-size:12px;
+
+font-weight:800;
+
+}
+
+.cleaning{
+
+background:#FEF3C7;
+
+color:#D97706;
+
+}
+
+.pickup{
+
+background:#DBEAFE;
+
+color:#2563EB;
+
+}
+
+.delivery{
+
+background:#DCFCE7;
+
+color:#16A34A;
+
+}
+
+.actionTableBtn{
+
+height:36px;
+
+padding:0 12px;
+
+border:none;
+
+border-radius:10px;
+
+background:#16A34A;
+
+color:white;
+
+font-weight:700;
+
+cursor:pointer;
+
+}
+
+/* ==========================================
+ACTIVITY
+========================================== */
+
+.activityFeed{
+
+display:flex;
+
+flex-direction:column;
+
+gap:16px;
+
+}
+
+.activityItem{
+
+display:flex;
+
+align-items:flex-start;
+
+gap:12px;
+
+padding-bottom:14px;
+
+border-bottom:1px solid #F3F4F6;
+
+}
+
+.activityIcon{
+
+width:40px;
+height:40px;
+
+border-radius:12px;
+
+display:flex;
+
+align-items:center;
+
+justify-content:center;
+
+font-weight:900;
+
+}
+
+.green{
+background:#DCFCE7;
+}
+
+.blue{
+background:#DBEAFE;
+}
+
+.yellow{
+background:#FEF3C7;
+}
+
+.red{
+background:#FEE2E2;
+}
+
+.activityItem h4{
+
+font-size:14px;
+
+font-weight:800;
+
+}
+
+.activityItem p{
+
+font-size:12px;
+
+color:#6B7280;
+
+margin-top:4px;
+
+}
+
+.activityItem span{
+
+margin-left:auto;
+
+font-size:12px;
+
+color:#9CA3AF;
+
+}
+
+/* ==========================================
+RANK LIST
+========================================== */
+
+.rankList{
+
+display:flex;
+
+flex-direction:column;
+
+gap:14px;
+
+}
+
+.rankItem{
+
+display:flex;
+
+justify-content:space-between;
+
+align-items:center;
+
+padding:12px 0;
+
+border-bottom:1px solid #F3F4F6;
+
+}
+
+.rankItem h4{
+
+font-size:15px;
+
+font-weight:800;
+
+}
+
+.rankItem p{
+
+font-size:12px;
+
+color:#6B7280;
+
+margin-top:4px;
+
+}
+
+.rankItem b{
+
+font-size:15px;
+
+font-weight:900;
+
+color:#16A34A;
+
+}
+
+@media(max-width:1200px){
+
+.dashboardRow{
+
+grid-template-columns:1fr;
+
+}
+
+}
+
+</style><!-- ==========================================
+TRANSACTIONS + SUPPORT
+========================================== -->
+
+<div class="dashboardRow">
+
+<!-- RECENT TRANSACTIONS -->
+
+<div class="dashboardCard">
+
+<div class="sectionHeader">
+
+<h3>
+
+💳 Recent Transactions
 
 </h3>
 
-<div class="customerList">
+<button class="viewAllBtn">
 
-<div class="customerItem">
+View All
 
-👤 Rohan Gupta
+</button>
+
+</div>
+
+<div class="transactionList">
+
+<div class="transactionItem">
+
+<div class="transactionIcon success">
+
+₹
+
+</div>
+
+<div>
+
+<h4>
+
+QP10458 Payment
+
+</h4>
+
+<p>
+
+Rahul Sharma • UPI
+
+</p>
+
+</div>
+
+<div class="transactionAmount">
+
++ ₹450
+
+</div>
+
+</div>
+
+<div class="transactionItem">
+
+<div class="transactionIcon success">
+
+₹
+
+</div>
+
+<div>
+
+<h4>
+
+QP10457 Payment
+
+</h4>
+
+<p>
+
+Amit Kumar • Card
+
+</p>
+
+</div>
+
+<div class="transactionAmount">
+
++ ₹720
+
+</div>
+
+</div>
+
+<div class="transactionItem">
+
+<div class="transactionIcon refund">
+
+↺
+
+</div>
+
+<div>
+
+<h4>
+
+Refund Processed
+
+</h4>
+
+<p>
+
+Order QP10440
+
+</p>
+
+</div>
+
+<div class="transactionAmount refundText">
+
+- ₹320
+
+</div>
+
+</div>
+
+<div class="transactionItem">
+
+<div class="transactionIcon success">
+
+₹
+
+</div>
+
+<div>
+
+<h4>
+
+QP10455 Payment
+
+</h4>
+
+<p>
+
+Neha Verma • COD
+
+</p>
+
+</div>
+
+<div class="transactionAmount">
+
++ ₹580
+
+</div>
+
+</div>
+
+</div>
+
+</div>
+
+<!-- SUPPORT TICKETS -->
+
+<div class="dashboardCard">
+
+<div class="sectionHeader">
+
+<h3>
+
+🎫 Support Tickets
+
+</h3>
+
+</div>
+
+<div class="ticketList">
+
+<div class="ticketItem high">
+
+<div>
+
+<h4>
+
+Refund Request
+
+</h4>
+
+<p>
+
+Order QP10450
+
+</p>
+
+</div>
 
 <span>
+
+High
+
+</span>
+
+</div>
+
+<div class="ticketItem medium">
+
+<div>
+
+<h4>
+
+Late Delivery
+
+</h4>
+
+<p>
+
+Order QP10446
+
+</p>
+
+</div>
+
+<span>
+
+Medium
+
+</span>
+
+</div>
+
+<div class="ticketItem low">
+
+<div>
+
+<h4>
+
+Address Change
+
+</h4>
+
+<p>
+
+Order QP10441
+
+</p>
+
+</div>
+
+<span>
+
+Low
+
+</span>
+
+</div>
+
+<div class="ticketItem medium">
+
+<div>
+
+<h4>
+
+Payment Issue
+
+</h4>
+
+<p>
+
+Order QP10439
+
+</p>
+
+</div>
+
+<span>
+
+Medium
+
+</span>
+
+</div>
+
+</div>
+
+</div>
+
+</div>
+
+<!-- ==========================================
+APPROVALS SECTION
+========================================== -->
+
+<div class="dashboardRow">
+
+<!-- PARTNER APPROVALS -->
+
+<div class="dashboardCard">
+
+<div class="sectionHeader">
+
+<h3>
+
+🏪 Pending Partner Approvals
+
+</h3>
+
+</div>
+
+<div class="approvalList">
+
+<div class="approvalItem">
+
+<div>
+
+<h4>
+
+Fresh Laundry Hub
+
+</h4>
+
+<p>
+
+Delhi • Applied Today
+
+</p>
+
+</div>
+
+<div class="approvalActions">
+
+<button class="approveBtn">
+
+Approve
+
+</button>
+
+<button class="rejectBtn">
+
+Reject
+
+</button>
+
+</div>
+
+</div>
+
+<div class="approvalItem">
+
+<div>
+
+<h4>
+
+Urban Wash Center
+
+</h4>
+
+<p>
+
+Mumbai • Applied Today
+
+</p>
+
+</div>
+
+<div class="approvalActions">
+
+<button class="approveBtn">
+
+Approve
+
+</button>
+
+<button class="rejectBtn">
+
+Reject
+
+</button>
+
+</div>
+
+</div>
+
+</div>
+
+</div>
+
+<!-- DRIVER APPROVALS -->
+
+<div class="dashboardCard">
+
+<div class="sectionHeader">
+
+<h3>
+
+🚚 Driver Approvals
+
+</h3>
+
+</div>
+
+<div class="approvalList">
+
+<div class="approvalItem">
+
+<div>
+
+<h4>
+
+Rakesh Kumar
+
+</h4>
+
+<p>
+
+Delhi • DL Verified
+
+</p>
+
+</div>
+
+<div class="approvalActions">
+
+<button class="approveBtn">
+
+Approve
+
+</button>
+
+<button class="rejectBtn">
+
+Reject
+
+</button>
+
+</div>
+
+</div>
+
+<div class="approvalItem">
+
+<div>
+
+<h4>
+
+Mohit Singh
+
+</h4>
+
+<p>
+
+Noida • Documents Verified
+
+</p>
+
+</div>
+
+<div class="approvalActions">
+
+<button class="approveBtn">
+
+Approve
+
+</button>
+
+<button class="rejectBtn">
+
+Reject
+
+</button>
+
+</div>
+
+</div>
+
+</div>
+
+</div>
+
+</div>
+
+<style>
+
+/* ==========================================
+TRANSACTIONS
+========================================== */
+
+.transactionList{
+
+display:flex;
+
+flex-direction:column;
+
+gap:16px;
+
+}
+
+.transactionItem{
+
+display:flex;
+
+align-items:center;
+
+gap:14px;
+
+padding-bottom:14px;
+
+border-bottom:1px solid #F3F4F6;
+
+}
+
+.transactionIcon{
+
+width:46px;
+height:46px;
+
+border-radius:14px;
+
+display:flex;
+
+align-items:center;
+
+justify-content:center;
+
+font-weight:900;
+
+}
+
+.success{
+
+background:#DCFCE7;
+
+color:#16A34A;
+
+}
+
+.refund{
+
+background:#FEE2E2;
+
+color:#DC2626;
+
+}
+
+.transactionAmount{
+
+margin-left:auto;
+
+font-weight:900;
+
+color:#16A34A;
+
+}
+
+.refundText{
+
+color:#DC2626;
+
+}
+
+/* ==========================================
+SUPPORT
+========================================== */
+
+.ticketList{
+
+display:flex;
+
+flex-direction:column;
+
+gap:14px;
+
+}
+
+.ticketItem{
+
+display:flex;
+
+justify-content:space-between;
+
+align-items:center;
+
+padding:14px;
+
+border-radius:16px;
+
+}
+
+.ticketItem span{
+
+padding:6px 12px;
+
+border-radius:999px;
+
+font-size:12px;
+
+font-weight:800;
+
+}
+
+.ticketItem.high{
+
+background:#FEF2F2;
+
+}
+
+.ticketItem.high span{
+
+background:#DC2626;
+
+color:white;
+
+}
+
+.ticketItem.medium{
+
+background:#FFFBEB;
+
+}
+
+.ticketItem.medium span{
+
+background:#F59E0B;
+
+color:white;
+
+}
+
+.ticketItem.low{
+
+background:#F0FDF4;
+
+}
+
+.ticketItem.low span{
+
+background:#16A34A;
+
+color:white;
+
+}
+
+/* ==========================================
+APPROVALS
+========================================== */
+
+.approvalList{
+
+display:flex;
+
+flex-direction:column;
+
+gap:16px;
+
+}
+
+.approvalItem{
+
+display:flex;
+
+justify-content:space-between;
+
+align-items:center;
+
+padding:16px 0;
+
+border-bottom:1px solid #F3F4F6;
+
+}
+
+.approvalActions{
+
+display:flex;
+
+gap:10px;
+
+}
+
+.approveBtn{
+
+height:40px;
+
+padding:0 14px;
+
+border:none;
+
+border-radius:12px;
+
+background:#16A34A;
+
+color:white;
+
+font-weight:800;
+
+cursor:pointer;
+
+}
+
+.rejectBtn{
+
+height:40px;
+
+padding:0 14px;
+
+border:none;
+
+border-radius:12px;
+
+background:#FEE2E2;
+
+color:#DC2626;
+
+font-weight:800;
+
+cursor:pointer;
+
+}
+
+@media(max-width:768px){
+
+.approvalItem{
+
+flex-direction:column;
+
+align-items:flex-start;
+
+gap:12px;
+
+}
+
+.approvalActions{
+
+width:100%;
+
+}
+
+.approveBtn,
+.rejectBtn{
+
+flex:1;
+
+}
+
+}
+
+</style><!-- ==========================================
+MONTHLY PERFORMANCE
+========================================== -->
+
+<div class="dashboardRow">
+
+<div class="dashboardCard">
+
+<div class="sectionHeader">
+
+<h3>
+
+📈 Monthly Revenue Summary
+
+</h3>
+
+<select class="filterSelect">
+
+<option>
+
+June 2026
+
+</option>
+
+<option>
+
+May 2026
+
+</option>
+
+<option>
+
+April 2026
+
+</option>
+
+</select>
+
+</div>
+
+<div class="performanceGrid">
+
+<div class="performanceBox revenue">
+
+<h2>
+
+₹12.48L
+
+</h2>
+
+<p>
+
+Monthly Revenue
+
+</p>
+
+</div>
+
+<div class="performanceBox orders">
+
+<h2>
+
+5,284
+
+</h2>
+
+<p>
+
+Orders Completed
+
+</p>
+
+</div>
+
+<div class="performanceBox customers">
+
+<h2>
+
+1,428
+
+</h2>
+
+<p>
+
+New Customers
+
+</p>
+
+</div>
+
+<div class="performanceBox partners">
+
+<h2>
+
+26
+
+</h2>
+
+<p>
+
+New Partners
+
+</p>
+
+</div>
+
+</div>
+
+</div>
+
+</div>
+
+<!-- ==========================================
+TOP SERVICES + TOP DRIVERS
+========================================== -->
+
+<div class="dashboardRow">
+
+<!-- TOP SERVICES -->
+
+<div class="dashboardCard">
+
+<div class="sectionHeader">
+
+<h3>
+
+🧺 Top Services
+
+</h3>
+
+</div>
+
+<div class="serviceList">
+
+<div class="serviceItem">
+
+<div>
+
+<h4>
+
+Wash & Fold
+
+</h4>
+
+<p>
+
+2,480 Orders
+
+</p>
+
+</div>
+
+<b>
+
+₹4.2L
+
+</b>
+
+</div>
+
+<div class="serviceItem">
+
+<div>
+
+<h4>
+
+Dry Cleaning
+
+</h4>
+
+<p>
+
+1,820 Orders
+
+</p>
+
+</div>
+
+<b>
+
+₹3.6L
+
+</b>
+
+</div>
+
+<div class="serviceItem">
+
+<div>
+
+<h4>
+
+Steam Iron
+
+</h4>
+
+<p>
+
+1,120 Orders
+
+</p>
+
+</div>
+
+<b>
+
+₹1.4L
+
+</b>
+
+</div>
+
+<div class="serviceItem">
+
+<div>
+
+<h4>
+
+Shoe Cleaning
+
+</h4>
+
+<p>
+
+620 Orders
+
+</p>
+
+</div>
+
+<b>
+
+₹82K
+
+</b>
+
+</div>
+
+</div>
+
+</div>
+
+<!-- TOP DRIVERS -->
+
+<div class="dashboardCard">
+
+<div class="sectionHeader">
+
+<h3>
+
+🏆 Top Drivers
+
+</h3>
+
+</div>
+
+<div class="driverList">
+
+<div class="driverItem">
+
+<div class="driverAvatar">
+
+RK
+
+</div>
+
+<div>
+
+<h4>
+
+Rakesh Kumar
+
+</h4>
+
+<p>
 
 Delhi
 
-</span>
+</p>
 
 </div>
 
-<div class="customerItem">
+<b>
 
-👤 Ayesha Khan
+482 Orders
 
-<span>
+</b>
+
+</div>
+
+<div class="driverItem">
+
+<div class="driverAvatar">
+
+MS
+
+</div>
+
+<div>
+
+<h4>
+
+Mohit Singh
+
+</h4>
+
+<p>
+
+Noida
+
+</p>
+
+</div>
+
+<b>
+
+451 Orders
+
+</b>
+
+</div>
+
+<div class="driverItem">
+
+<div class="driverAvatar">
+
+AK
+
+</div>
+
+<div>
+
+<h4>
+
+Aman Khan
+
+</h4>
+
+<p>
 
 Mumbai
 
-</span>
+</p>
 
 </div>
 
-<div class="customerItem">
+<b>
 
-👤 Mohit Sharma
+428 Orders
 
-<span>
+</b>
+
+</div>
+
+<div class="driverItem">
+
+<div class="driverAvatar">
+
+VS
+
+</div>
+
+<div>
+
+<h4>
+
+Vikas Sharma
+
+</h4>
+
+<p>
 
 Agra
 
+</p>
+
+</div>
+
+<b>
+
+391 Orders
+
+</b>
+
+</div>
+
+</div>
+
+</div>
+
+</div>
+
+<!-- ==========================================
+BUSINESS HEALTH
+========================================== -->
+
+<div class="dashboardRow">
+
+<div class="dashboardCard">
+
+<div class="sectionHeader">
+
+<h3>
+
+📊 Business Health Monitor
+
+</h3>
+
+</div>
+
+<div class="healthGrid">
+
+<div class="healthItem">
+
+<h4>
+
+Customer Satisfaction
+
+</h4>
+
+<div class="progressBar">
+
+<div
+class="progressFill greenFill"
+style="width:94%">
+
+</div>
+
+</div>
+
+<span>
+
+94%
+
 </span>
 
 </div>
 
-<div class="customerItem">
+<div class="healthItem">
 
-👤 Pooja Singh
+<h4>
+
+Order Success Rate
+
+</h4>
+
+<div class="progressBar">
+
+<div
+class="progressFill blueFill"
+style="width:97%">
+
+</div>
+
+</div>
 
 <span>
 
-Noida
+97%
+
+</span>
+
+</div>
+
+<div class="healthItem">
+
+<h4>
+
+Partner Performance
+
+</h4>
+
+<div class="progressBar">
+
+<div
+class="progressFill yellowFill"
+style="width:88%">
+
+</div>
+
+</div>
+
+<span>
+
+88%
+
+</span>
+
+</div>
+
+<div class="healthItem">
+
+<h4>
+
+Driver Availability
+
+</h4>
+
+<div class="progressBar">
+
+<div
+class="progressFill greenFill"
+style="width:91%">
+
+</div>
+
+</div>
+
+<span>
+
+91%
 
 </span>
 
@@ -963,105 +3381,111 @@ Noida
 <style>
 
 /* ==========================================
-GRID
+PERFORMANCE
 ========================================== */
 
-.dashboardGrid{
+.performanceGrid{
 
 display:grid;
 
-grid-template-columns:2fr 1fr;
+grid-template-columns:
+repeat(4,1fr);
 
-gap:24px;
-
-margin-bottom:24px;
-
-}
-
-/* ==========================================
-TABLE
-========================================== */
-
-.tableWrapper{
-
-overflow:auto;
+gap:18px;
 
 }
 
-.dataTable{
+.performanceBox{
 
-width:100%;
+padding:24px;
 
-border-collapse:collapse;
+border-radius:20px;
 
-}
-
-.dataTable th{
-
-text-align:left;
-
-padding:14px;
-
-background:#F9FAFB;
-
-font-size:13px;
-
-font-weight:800;
+color:white;
 
 }
 
-.dataTable td{
+.performanceBox h2{
 
-padding:14px;
+font-size:30px;
 
-border-bottom:1px solid #F3F4F6;
+font-weight:900;
+
+margin-bottom:8px;
+
+}
+
+.performanceBox p{
 
 font-size:14px;
 
+font-weight:600;
+
+opacity:.95;
+
+}
+
+.performanceBox.revenue{
+
+background:
+linear-gradient(
+135deg,
+#16A34A,
+#22C55E
+);
+
+}
+
+.performanceBox.orders{
+
+background:
+linear-gradient(
+135deg,
+#2563EB,
+#3B82F6
+);
+
+}
+
+.performanceBox.customers{
+
+background:
+linear-gradient(
+135deg,
+#F59E0B,
+#FBBF24
+);
+
+}
+
+.performanceBox.partners{
+
+background:
+linear-gradient(
+135deg,
+#9333EA,
+#A855F7
+);
+
 }
 
 /* ==========================================
-STATUS
+SERVICES
 ========================================== */
 
-.statusBadge{
+.serviceList,
+.driverList{
 
-padding:6px 12px;
+display:flex;
 
-border-radius:999px;
+flex-direction:column;
 
-font-size:12px;
-
-font-weight:800;
-
-}
-
-.pending{
-
-background:#FEF3C7;
-color:#D97706;
+gap:14px;
 
 }
 
-.active{
-
-background:#DBEAFE;
-color:#2563EB;
-
-}
-
-.delivered{
-
-background:#DCFCE7;
-color:#16A34A;
-
-}
-
-/* ==========================================
-CITYS
-========================================== */
-
-.cityItem{
+.serviceItem,
+.driverItem{
 
 display:flex;
 
@@ -1075,38 +3499,44 @@ border-bottom:1px solid #F3F4F6;
 
 }
 
-.cityRevenue{
+.serviceItem h4,
+.driverItem h4{
 
-font-weight:900;
+font-size:15px;
+
+font-weight:800;
+
+}
+
+.serviceItem p,
+.driverItem p{
+
+font-size:12px;
+
+color:#6B7280;
+
+margin-top:4px;
+
+}
+
+.serviceItem b{
 
 color:#16A34A;
+
+font-weight:900;
 
 }
 
 /* ==========================================
-PARTNERS
+DRIVERS
 ========================================== */
 
-.partnerItem{
+.driverAvatar{
 
-display:flex;
+width:48px;
+height:48px;
 
-align-items:center;
-
-gap:12px;
-
-padding:14px 0;
-
-border-bottom:1px solid #F3F4F6;
-
-}
-
-.partnerAvatar{
-
-width:44px;
-height:44px;
-
-border-radius:12px;
+border-radius:50%;
 
 background:#FEF3C7;
 
@@ -1118,27 +3548,645 @@ justify-content:center;
 
 font-weight:900;
 
+margin-right:12px;
+
 }
 
-.partnerRevenue{
+.driverItem{
+
+justify-content:flex-start;
+
+gap:12px;
+
+}
+
+.driverItem b{
 
 margin-left:auto;
 
-font-weight:900;
-
-color:#16A34A;
+color:#2563EB;
 
 }
 
 /* ==========================================
-CUSTOMERS
+HEALTH
 ========================================== */
 
-.customerItem{
+.healthGrid{
+
+display:grid;
+
+grid-template-columns:
+repeat(2,1fr);
+
+gap:20px;
+
+}
+
+.healthItem{
+
+background:#F9FAFB;
+
+padding:20px;
+
+border-radius:18px;
+
+}
+
+.healthItem h4{
+
+margin-bottom:14px;
+
+font-size:14px;
+
+font-weight:800;
+
+}
+
+.progressBar{
+
+height:10px;
+
+background:#E5E7EB;
+
+border-radius:999px;
+
+overflow:hidden;
+
+margin-bottom:10px;
+
+}
+
+.progressFill{
+
+height:100%;
+
+border-radius:999px;
+
+}
+
+.greenFill{
+
+background:#16A34A;
+
+}
+
+.blueFill{
+
+background:#2563EB;
+
+}
+
+.yellowFill{
+
+background:#F59E0B;
+
+}
+
+.healthItem span{
+
+font-size:13px;
+
+font-weight:900;
+
+color:#111827;
+
+}
+
+/* ==========================================
+RESPONSIVE
+========================================== */
+
+@media(max-width:1200px){
+
+.performanceGrid{
+
+grid-template-columns:
+repeat(2,1fr);
+
+}
+
+.healthGrid{
+
+grid-template-columns:1fr;
+
+}
+
+}
+
+@media(max-width:768px){
+
+.performanceGrid{
+
+grid-template-columns:1fr;
+
+}
+
+}
+
+</style><!-- ==========================================
+MULTI CITY PERFORMANCE
+========================================== -->
+
+<div class="dashboardRow">
+
+<div class="dashboardCard">
+
+<div class="sectionHeader">
+
+<h3>
+
+🌍 Multi-City Performance
+
+</h3>
+
+<button class="viewAllBtn">
+
+View Report
+
+</button>
+
+</div>
+
+<div class="cityPerformanceTable">
+
+<table class="ordersTable">
+
+<thead>
+
+<tr>
+
+<th>City</th>
+<th>Orders</th>
+<th>Revenue</th>
+<th>Partners</th>
+<th>Drivers</th>
+<th>Growth</th>
+
+</tr>
+
+</thead>
+
+<tbody>
+
+<tr>
+
+<td>Delhi</td>
+<td>1245</td>
+<td>₹2.8L</td>
+<td>28</td>
+<td>96</td>
+<td class="positiveGrowth">+18%</td>
+
+</tr>
+
+<tr>
+
+<td>Mumbai</td>
+<td>980</td>
+<td>₹2.2L</td>
+<td>21</td>
+<td>74</td>
+<td class="positiveGrowth">+14%</td>
+
+</tr>
+
+<tr>
+
+<td>Bangalore</td>
+<td>820</td>
+<td>₹1.9L</td>
+<td>18</td>
+<td>62</td>
+<td class="positiveGrowth">+11%</td>
+
+</tr>
+
+<tr>
+
+<td>Noida</td>
+<td>640</td>
+<td>₹1.3L</td>
+<td>12</td>
+<td>48</td>
+<td class="positiveGrowth">+9%</td>
+
+</tr>
+
+</tbody>
+
+</table>
+
+</div>
+
+</div>
+
+</div>
+
+<!-- ==========================================
+SETTLEMENTS + COUPONS
+========================================== -->
+
+<div class="dashboardRow">
+
+<div class="dashboardCard">
+
+<div class="sectionHeader">
+
+<h3>
+
+💰 Settlement Overview
+
+</h3>
+
+</div>
+
+<div class="settlementGrid">
+
+<div class="settlementBox">
+
+<h2>
+
+₹8.4L
+
+</h2>
+
+<p>
+
+Pending Settlements
+
+</p>
+
+</div>
+
+<div class="settlementBox">
+
+<h2>
+
+₹22.7L
+
+</h2>
+
+<p>
+
+Paid This Month
+
+</p>
+
+</div>
+
+<div class="settlementBox">
+
+<h2>
+
+186
+
+</h2>
+
+<p>
+
+Partner Requests
+
+</p>
+
+</div>
+
+</div>
+
+</div>
+
+<div class="dashboardCard">
+
+<div class="sectionHeader">
+
+<h3>
+
+🎟 Coupon Analytics
+
+</h3>
+
+</div>
+
+<div class="couponStats">
+
+<div class="couponItem">
+
+<h4>
+
+WELCOME50
+
+</h4>
+
+<b>
+
+1,284 Uses
+
+</b>
+
+</div>
+
+<div class="couponItem">
+
+<h4>
+
+FIRSTORDER
+
+</h4>
+
+<b>
+
+942 Uses
+
+</b>
+
+</div>
+
+<div class="couponItem">
+
+<h4>
+
+SAVE100
+
+</h4>
+
+<b>
+
+711 Uses
+
+</b>
+
+</div>
+
+<div class="couponItem">
+
+<h4>
+
+FESTIVE20
+
+</h4>
+
+<b>
+
+530 Uses
+
+</b>
+
+</div>
+
+</div>
+
+</div>
+
+</div>
+
+<!-- ==========================================
+NOTIFICATIONS CENTER
+========================================== -->
+
+<div class="dashboardRow">
+
+<div class="dashboardCard">
+
+<div class="sectionHeader">
+
+<h3>
+
+🔔 Notifications Center
+
+</h3>
+
+<button class="actionBtn">
+
++ Create Notification
+
+</button>
+
+</div>
+
+<div class="notificationList">
+
+<div class="notificationItem">
+
+<div class="notificationIcon success">
+
+📦
+
+</div>
+
+<div>
+
+<h4>
+
+Order Spike Detected
+
+</h4>
+
+<p>
+
+Delhi orders increased by 24% today.
+
+</p>
+
+</div>
+
+<span>
+
+Now
+
+</span>
+
+</div>
+
+<div class="notificationItem">
+
+<div class="notificationIcon warning">
+
+⚠️
+
+</div>
+
+<div>
+
+<h4>
+
+Low Driver Availability
+
+</h4>
+
+<p>
+
+Noida has only 5 active drivers.
+
+</p>
+
+</div>
+
+<span>
+
+12m
+
+</span>
+
+</div>
+
+<div class="notificationItem">
+
+<div class="notificationIcon info">
+
+🏪
+
+</div>
+
+<div>
+
+<h4>
+
+New Partner Application
+
+</h4>
+
+<p>
+
+Urban Laundry Hub submitted documents.
+
+</p>
+
+</div>
+
+<span>
+
+25m
+
+</span>
+
+</div>
+
+<div class="notificationItem">
+
+<div class="notificationIcon danger">
+
+🎫
+
+</div>
+
+<div>
+
+<h4>
+
+High Priority Ticket
+
+</h4>
+
+<p>
+
+Refund complaint waiting for approval.
+
+</p>
+
+</div>
+
+<span>
+
+39m
+
+</span>
+
+</div>
+
+</div>
+
+</div>
+
+</div>
+
+<style>
+
+/* ==========================================
+CITY PERFORMANCE
+========================================== */
+
+.cityPerformanceTable{
+
+overflow:auto;
+
+}
+
+.positiveGrowth{
+
+color:#16A34A;
+font-weight:900;
+
+}
+
+/* ==========================================
+SETTLEMENTS
+========================================== */
+
+.settlementGrid{
+
+display:grid;
+
+grid-template-columns:repeat(3,1fr);
+
+gap:16px;
+
+}
+
+.settlementBox{
+
+padding:22px;
+
+border-radius:20px;
+
+background:#F9FAFB;
+
+text-align:center;
+
+}
+
+.settlementBox h2{
+
+font-size:28px;
+
+font-weight:900;
+
+color:#111827;
+
+margin-bottom:8px;
+
+}
+
+.settlementBox p{
+
+font-size:13px;
+
+font-weight:700;
+
+color:#6B7280;
+
+}
+
+/* ==========================================
+COUPONS
+========================================== */
+
+.couponStats{
+
+display:flex;
+
+flex-direction:column;
+
+gap:12px;
+
+}
+
+.couponItem{
 
 display:flex;
 
 justify-content:space-between;
+
+align-items:center;
 
 padding:14px 0;
 
@@ -1146,9 +4194,96 @@ border-bottom:1px solid #F3F4F6;
 
 }
 
-.customerItem span{
+.couponItem h4{
 
-color:#6B7280;
+font-size:15px;
+
+font-weight:800;
+
+}
+
+.couponItem b{
+
+color:#16A34A;
+
+}
+
+/* ==========================================
+NOTIFICATIONS
+========================================== */
+
+.notificationList{
+
+display:flex;
+
+flex-direction:column;
+
+gap:14px;
+
+}
+
+.notificationItem{
+
+display:flex;
+
+align-items:flex-start;
+
+gap:14px;
+
+padding:14px 0;
+
+border-bottom:1px solid #F3F4F6;
+
+}
+
+.notificationItem span{
+
+margin-left:auto;
+
+font-size:12px;
+
+color:#9CA3AF;
+
+}
+
+.notificationIcon{
+
+width:48px;
+height:48px;
+
+border-radius:14px;
+
+display:flex;
+
+align-items:center;
+
+justify-content:center;
+
+font-size:18px;
+
+}
+
+.notificationIcon.success{
+
+background:#DCFCE7;
+
+}
+
+.notificationIcon.warning{
+
+background:#FEF3C7;
+
+}
+
+.notificationIcon.info{
+
+background:#DBEAFE;
+
+}
+
+.notificationIcon.danger{
+
+background:#FEE2E2;
 
 }
 
@@ -1158,7 +4293,7 @@ RESPONSIVE
 
 @media(max-width:991px){
 
-.dashboardGrid{
+.settlementGrid{
 
 grid-template-columns:1fr;
 
@@ -1167,78 +4302,78 @@ grid-template-columns:1fr;
 }
 
 </style><!-- ==========================================
-FIREBASE + ADMIN AUTH
+CHART.JS
+========================================== -->
+
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+<!-- ==========================================
+FIREBASE DASHBOARD LOGIC
 ========================================== -->
 
 <script type="module">
 
-import { auth, db }
-from "../js/firebase.js";
+import { db } from "../js/firebase.js";
 
 import {
 
-doc,
-getDoc,
 collection,
-getDocs
+getDocs,
+query,
+where
 
 }
 
 from "https://www.gstatic.com/firebasejs/12.11.0/firebase-firestore.js";
 
 /* ==========================================
-ADMIN AUTH
+LOADER
 ========================================== */
 
-auth.onAuthStateChanged(
+const loaderScreen =
 
-async(user)=>{
+document.getElementById(
+"loaderScreen"
+);
 
-if(!user){
+window.addEventListener(
 
-window.location.href =
-"admin-login.html";
+"load",
 
-return;
+()=>{
+
+setTimeout(()=>{
+
+loaderScreen.style.display =
+"none";
+
+},800);
 
 }
 
-try{
-
-const adminDoc =
-
-await getDoc(
-
-doc(
-db,
-"admins",
-user.uid
-)
+/* ==========================================
+DASHBOARD DATA
+========================================== */
 
 );
 
-if(!adminDoc.exists()){
+let totalRevenue = 0;
 
-alert(
-"Access Denied"
-);
+let todayOrders = 0;
 
-window.location.href =
-"../index.html";
+let activeOrders = 0;
 
-return;
+let deliveredOrders = 0;
 
-}
+let cancelledOrders = 0;
 
-loadDashboard();
+let totalCustomers = 0;
 
-}catch(error){
+let totalPartners = 0;
 
-console.error(error);
+let totalDrivers = 0;
 
-}
-
-});
+let totalCities = 0;
 
 /* ==========================================
 LOAD DASHBOARD
@@ -1252,17 +4387,24 @@ await Promise.all([
 
 loadOrders(),
 
-loadCustomers(),
+loadUsers(),
 
 loadPartners(),
 
-loadQuickStats()
+loadDrivers(),
+
+loadCities()
 
 ]);
 
+renderCharts();
+
 }catch(error){
 
-console.error(error);
+console.error(
+"Dashboard Error",
+error
+);
 
 }
 
@@ -1274,9 +4416,8 @@ ORDERS
 
 async function loadOrders(){
 
-try{
-
 const snapshot =
+
 await getDocs(
 
 collection(
@@ -1286,54 +4427,48 @@ db,
 
 );
 
-let totalRevenue = 0;
-
-let todayOrders = 0;
-
-const today =
-
-new Date()
-.toDateString();
-
 snapshot.forEach(doc=>{
 
-const data =
+const order =
 doc.data();
 
-totalRevenue +=
+const amount =
 
 Number(
-data.grandTotal || 0
+order.grandTotal || 0
 );
 
-if(data.createdAt){
+totalRevenue += amount;
+
+if(
+order.status ===
+"Delivered"
+){
+
+deliveredOrders++;
+
+}
+
+else if(
+order.status ===
+"Cancelled"
+){
+
+cancelledOrders++;
+
+}
+
+else{
+
+activeOrders++;
+
+}
 
 todayOrders++;
 
-}
-
 });
 
-document.getElementById(
-"todayRevenue"
-).innerText =
-
-"₹" +
-
-totalRevenue
-.toLocaleString();
-
-document.getElementById(
-"todayOrders"
-).innerText =
-
-todayOrders;
-
-}catch(error){
-
-console.error(error);
-
-}
+updateCards();
 
 }
 
@@ -1341,11 +4476,10 @@ console.error(error);
 CUSTOMERS
 ========================================== */
 
-async function loadCustomers(){
-
-try{
+async function loadUsers(){
 
 const snapshot =
+
 await getDocs(
 
 collection(
@@ -1355,17 +4489,13 @@ db,
 
 );
 
+totalCustomers =
+snapshot.size;
+
 document.getElementById(
 "totalCustomers"
 ).innerText =
-
-snapshot.size;
-
-}catch(error){
-
-console.error(error);
-
-}
+totalCustomers;
 
 }
 
@@ -1375,9 +4505,8 @@ PARTNERS
 
 async function loadPartners(){
 
-try{
-
 const snapshot =
+
 await getDocs(
 
 collection(
@@ -1387,147 +4516,625 @@ db,
 
 );
 
+totalPartners =
+snapshot.size;
+
 document.getElementById(
 "totalPartners"
 ).innerText =
-
-snapshot.size;
-
-}catch(error){
-
-console.error(error);
-
-}
+totalPartners;
 
 }
 
 /* ==========================================
-QUICK STATS
+DRIVERS
 ========================================== */
 
-async function loadQuickStats(){
+async function loadDrivers(){
 
-const stats =
+const snapshot =
 
-document.getElementById(
-"quickStats"
+await getDocs(
+
+collection(
+db,
+"drivers"
+)
+
 );
 
-stats.innerHTML = `
+totalDrivers =
+snapshot.size;
 
-<div style="
-display:flex;
-flex-direction:column;
-gap:16px;
-">
-
-<div style="
-display:flex;
-justify-content:space-between;
-">
-
-<span>
-
-Active Cities
-
-</span>
-
-<b>
-
-18
-
-</b>
-
-</div>
-
-<div style="
-display:flex;
-justify-content:space-between;
-">
-
-<span>
-
-Active Drivers
-
-</span>
-
-<b>
-
-248
-
-</b>
-
-</div>
-
-<div style="
-display:flex;
-justify-content:space-between;
-">
-
-<span>
-
-Pending Orders
-
-</span>
-
-<b>
-
-84
-
-</b>
-
-</div>
-
-<div style="
-display:flex;
-justify-content:space-between;
-">
-
-<span>
-
-Support Tickets
-
-</span>
-
-<b>
-
-42
-
-</b>
-
-</div>
-
-</div>
-
-`;
+document.getElementById(
+"totalDrivers"
+).innerText =
+totalDrivers;
 
 }
 
 /* ==========================================
-LOGOUT
+CITIES
 ========================================== */
 
-window.logoutAdmin =
+async function loadCities(){
+
+const snapshot =
+
+await getDocs(
+
+collection(
+db,
+"cities"
+)
+
+);
+
+totalCities =
+snapshot.size;
+
+document.getElementById(
+"totalCities"
+).innerText =
+totalCities;
+
+}
+
+/* ==========================================
+UPDATE CARDS
+========================================== */
+
+function updateCards(){
+
+document.getElementById(
+"todayRevenue"
+).innerText =
+
+"₹" +
+
+totalRevenue.toLocaleString(
+"en-IN"
+);
+
+document.getElementById(
+"todayOrders"
+).innerText =
+todayOrders;
+
+document.getElementById(
+"activeOrders"
+).innerText =
+activeOrders;
+
+document.getElementById(
+"deliveredOrders"
+).innerText =
+deliveredOrders;
+
+document.getElementById(
+"cancelledOrders"
+).innerText =
+cancelledOrders;
+
+}
+
+/* ==========================================
+REVENUE CHART
+========================================== */
+
+function renderCharts(){
+
+const revenueCtx =
+
+document.getElementById(
+"revenueChart"
+);
+
+if(revenueCtx){
+
+new Chart(
+
+revenueCtx,
+
+{
+
+type:"line",
+
+data:{
+
+labels:[
+
+"Mon",
+"Tue",
+"Wed",
+"Thu",
+"Fri",
+"Sat",
+"Sun"
+
+],
+
+datasets:[{
+
+label:"Revenue",
+
+data:[
+
+12000,
+18000,
+15000,
+26000,
+21000,
+31000,
+28000
+
+],
+
+borderWidth:3,
+
+tension:0.4
+
+}]
+
+},
+
+options:{
+
+responsive:true,
+
+maintainAspectRatio:false
+
+}
+
+}
+
+);
+
+}
+
+/* ==========================================
+ORDERS CHART
+========================================== */
+
+const ordersCtx =
+
+document.getElementById(
+"ordersChart"
+);
+
+if(ordersCtx){
+
+new Chart(
+
+ordersCtx,
+
+{
+
+type:"doughnut",
+
+data:{
+
+labels:[
+
+"Delivered",
+"Active",
+"Cancelled"
+
+],
+
+datasets:[{
+
+data:[
+
+deliveredOrders,
+activeOrders,
+cancelledOrders
+
+]
+
+}]
+
+},
+
+options:{
+
+responsive:true,
+
+maintainAspectRatio:false
+
+}
+
+}
+
+);
+
+}
+
+}
+
+/* ==========================================
+AUTO REFRESH
+========================================== */
+
+setInterval(
+
+()=>{
+
+location.reload();
+
+},
+
+300000
+
+);
+
+/* ==========================================
+INIT
+========================================== */
+
+loadDashboard();
+
+</script><!-- ==========================================
+ADMIN UTILITIES
+========================================== -->
+
+<script>
+
+/* ==========================================
+SIDEBAR TOGGLE
+========================================== */
+
+const sidebar =
+
+document.querySelector(
+".sidebar"
+);
+
+let sidebarOpen = true;
+
+window.toggleSidebar =
+function(){
+
+if(sidebarOpen){
+
+sidebar.style.left =
+"-280px";
+
+document.querySelector(
+".mainWrapper"
+).style.marginLeft =
+"0";
+
+document.querySelector(
+".mainWrapper"
+).style.width =
+"100%";
+
+}else{
+
+sidebar.style.left =
+"0";
+
+document.querySelector(
+".mainWrapper"
+).style.marginLeft =
+"280px";
+
+document.querySelector(
+".mainWrapper"
+).style.width =
+"calc(100% - 280px)";
+
+}
+
+sidebarOpen =
+!sidebarOpen;
+
+};
+
+/* ==========================================
+ADMIN LOGOUT
+========================================== */
+
+window.adminLogout =
 function(){
 
 const confirmLogout =
+
 confirm(
-"Logout Admin?"
+"Are you sure you want to logout?"
 );
 
 if(!confirmLogout)
 return;
 
-auth.signOut();
+localStorage.removeItem(
+"adminLogin"
+);
 
 window.location.href =
 "admin-login.html";
 
 };
 
+/* ==========================================
+DARK MODE
+========================================== */
+
+window.toggleDarkMode =
+function(){
+
+document.body.classList.toggle(
+"darkMode"
+);
+
+localStorage.setItem(
+
+"dashboardTheme",
+
+document.body.classList.contains(
+"darkMode"
+)
+
+?
+
+"dark"
+
+:
+
+"light"
+
+);
+
+};
+
+if(
+
+localStorage.getItem(
+"dashboardTheme"
+)
+
+===
+
+"dark"
+
+){
+
+document.body.classList.add(
+"darkMode"
+);
+
+}
+
+/* ==========================================
+NOTIFICATION DEMO
+========================================== */
+
+function showNotification(
+
+title,
+message
+
+){
+
+const box =
+
+document.createElement(
+"div"
+);
+
+box.className =
+"floatingNotification";
+
+box.innerHTML = `
+
+<h4>
+
+${title}
+
+</h4>
+
+<p>
+
+${message}
+
+</p>
+
+`;
+
+document.body.appendChild(
+box
+);
+
+setTimeout(()=>{
+
+box.remove();
+
+},5000);
+
+}
+
+/* ==========================================
+WELCOME ALERT
+========================================== */
+
+setTimeout(()=>{
+
+showNotification(
+
+"Dashboard Ready",
+
+"QuickPress Admin loaded successfully."
+
+);
+
+},2000);
+
 </script>
 
-<script src="admin-layout.js"></script>
+<style>
+
+/* ==========================================
+DARK MODE
+========================================== */
+
+.darkMode{
+
+background:#0F172A;
+
+color:white;
+
+}
+
+.darkMode .dashboardCard,
+.darkMode .analyticsCard,
+.darkMode .statCard,
+.darkMode .sidebar,
+.darkMode .topbar{
+
+background:#111827;
+
+color:white;
+
+border-color:#1F2937;
+
+}
+
+.darkMode .ordersTable th{
+
+background:#1F2937;
+
+}
+
+.darkMode input,
+.darkMode select{
+
+background:#1F2937;
+
+color:white;
+
+}
+
+/* ==========================================
+NOTIFICATION
+========================================== */
+
+.floatingNotification{
+
+position:fixed;
+
+top:20px;
+
+right:20px;
+
+width:320px;
+
+background:white;
+
+padding:18px;
+
+border-radius:18px;
+
+box-shadow:
+0 10px 30px rgba(0,0,0,.15);
+
+z-index:999999;
+
+animation:slideIn .4s ease;
+
+}
+
+.floatingNotification h4{
+
+font-size:15px;
+
+font-weight:900;
+
+margin-bottom:6px;
+
+}
+
+.floatingNotification p{
+
+font-size:13px;
+
+color:#6B7280;
+
+}
+
+@keyframes slideIn{
+
+from{
+
+transform:
+translateX(100%);
+
+opacity:0;
+
+}
+
+to{
+
+transform:
+translateX(0);
+
+opacity:1;
+
+}
+
+}
+
+/* ==========================================
+MOBILE
+========================================== */
+
+@media(max-width:991px){
+
+.sidebar{
+
+left:-280px;
+
+transition:.3s;
+
+}
+
+.mainWrapper{
+
+margin-left:0 !important;
+
+width:100% !important;
+
+}
+
+.pageTitle{
+
+font-size:22px;
+
+}
+
+.welcomeCard{
+
+flex-direction:column;
+
+align-items:flex-start;
+
+gap:20px;
+
+}
+
+.quickActions{
+
+flex-wrap:wrap;
+
+}
+
+}
+
+</style>
+
+<!-- ==========================================
+DASHBOARD END
+========================================== -->
 
 </main>
 
