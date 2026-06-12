@@ -2958,6 +2958,23 @@ SEARCH FILTER
 ========================================== */
 
 document
+.getElementById(
+"searchFilter"
+)
+
+?.addEventListener(
+
+"change",
+
+applySearchFilters
+
+);
+
+/* ==========================================
+CITY FILTER
+========================================== */
+
+document
 .getElementById("cityFilter")
 ?.addEventListener(
 "change",
@@ -2977,24 +2994,6 @@ document
 "change",
 () => window.applyCustomerFilters()
 );
-
-/* ==========================================
-CITY FILTER
-========================================== */
-
-document
-.getElementById(
-"cityFilter"
-)
-
-?.addEventListener(
-
-"change",
-
-applyCustomerFilters
-
-);
-
 /* ==========================================
 STATUS FILTER
 ========================================== */
