@@ -2436,3 +2436,585 @@ matchVehicle
 renderDriversTable();
 
 };
+/* ==========================================
+EXPORT DRIVERS CSV
+========================================== */
+
+window.exportDriversCSV =
+function(){
+
+if(drivers.length === 0){
+
+alert(
+"No Drivers Found"
+);
+
+return;
+
+}
+
+let csv =
+
+"Driver ID,Name,Phone,City,Vehicle,Vehicle Number,Status,Orders,Rating,Earnings\n";
+
+drivers.forEach(driver=>{
+
+csv +=
+
+`${driver.driverId || ""},
+${driver.name || ""},
+${driver.phone || ""},
+${driver.city || ""},
+${driver.vehicleType || ""},
+${driver.vehicleNumber || ""},
+${driver.status || ""},
+${driver.totalOrders || 0},
+${driver.rating || 0},
+${driver.totalEarnings || 0}
+\n`;
+
+});
+
+const blob =
+
+new Blob(
+[csv],
+{
+type:"text/csv"
+}
+);
+
+const url =
+
+URL.createObjectURL(
+blob
+);
+
+const a =
+
+document.createElement(
+"a"
+);
+
+a.href = url;
+
+a.download =
+"quickpress-drivers.csv";
+
+a.click();
+
+URL.revokeObjectURL(
+url);
+
+};
+
+/* ==========================================
+RENDER PAYOUT TABLE
+========================================== */
+
+function renderPayoutTable(){
+
+const tbody =
+
+document.getElementById(
+"payoutTableBody"
+);
+
+if(!tbody)
+return;
+
+tbody.innerHTML = "";
+
+drivers.forEach(driver=>{
+
+tbody.innerHTML += `
+
+<tr>
+
+<td>
+
+${driver.name || "-"}
+
+</td>
+
+<td>
+
+₹${Number(
+driver.totalEarnings || 0
+).toLocaleString("en-IN")}
+
+</td>
+
+<td>
+
+₹${Number(
+driver.pendingPayout || 0
+).toLocaleString("en-IN")}
+
+</td>
+
+<td>
+
+₹${Number(
+driver.paidPayout || 0
+).toLocaleString("en-IN")}
+
+</td>
+
+<td>
+
+${driver.lastPayoutDate || "-"}
+
+</td>
+
+<td>
+
+<span class="statusBadge ${
+
+(driver.pendingPayout || 0) > 0
+
+?
+
+"busyBadge"
+
+:
+
+"onlineBadge"
+
+}">
+
+${
+
+(driver.pendingPayout || 0) > 0
+
+?
+
+"Pending"
+
+:
+
+"Paid"
+
+}
+
+</span>
+
+</td>
+
+<td>
+
+<button
+class="viewBtn"
+onclick="markPayoutPaid('${driver.id}')">
+
+Pay
+
+</button>
+
+</td>
+
+</tr>
+
+`;
+
+});
+
+}
+
+/* ==========================================
+MARK PAYOUT PAID
+========================================== */
+
+window.markPayoutPaid =
+async function(driverId){
+
+try{
+
+const driver =
+
+drivers.find(
+
+item => item.id === driverId
+
+);
+
+if(!driver)
+return;
+
+const pendingAmount =
+
+Number(
+driver.pendingPayout || 0
+);
+
+if(pendingAmount <= 0){
+
+alert(
+"No Pending Payout"
+);
+
+return;
+
+}
+
+await updateDoc(
+
+doc(
+db,
+"drivers",
+driverId
+),
+
+{
+
+paidPayout:
+
+Number(
+driver.paidPayout || 0
+)
+
++
+
+pendingAmount,
+
+pendingPayout:0,
+
+lastPayoutDate:
+
+new Date()
+.toLocaleDateString(),
+
+updatedAt:
+serverTimestamp()
+
+}
+
+);
+
+alert(
+"Payout Completed"
+);
+
+await loadDrivers();
+
+}catch(error){
+
+console.error(error);
+
+alert(
+"Payout Failed"
+);
+
+}
+
+};
+
+/* ==========================================
+EARNINGS ANALYTICS
+========================================== */
+
+function updateEarningsAnalytics(){
+
+let total = 0;
+
+let today = 0;
+
+let pending = 0;
+
+let ratingTotal = 0;
+
+drivers.forEach(driver=>{
+
+total +=
+
+Number(
+driver.totalEarnings || 0
+);
+
+today +=
+
+Number(
+driver.todayEarnings || 0
+);
+
+pending +=
+
+Number(
+driver.pendingPayout || 0
+);
+
+ratingTotal +=
+
+Number(
+driver.rating || 0
+);
+
+});
+
+const averageRating =
+
+drivers.length
+
+?
+
+(
+ratingTotal /
+drivers.length
+).toFixed(1)
+
+:
+
+0;
+
+setText(
+"totalDriverEarnings",
+"₹" +
+total.toLocaleString(
+"en-IN"
+)
+);
+
+setText(
+"todayDriverEarnings",
+"₹" +
+today.toLocaleString(
+"en-IN"
+)
+);
+
+setText(
+"pendingPayouts",
+"₹" +
+pending.toLocaleString(
+"en-IN"
+)
+);
+
+setText(
+"averageRating",
+averageRating
+);
+
+}
+
+/* ==========================================
+BULK BUTTON EVENTS
+========================================== */
+
+document
+.querySelector(
+".activateBtn"
+)
+
+?.addEventListener(
+
+"click",
+
+bulkActivateDrivers
+
+);
+
+document
+.querySelector(
+".suspendBtn"
+)
+
+?.addEventListener(
+
+"click",
+
+bulkSuspendDrivers
+
+);
+
+document
+.querySelector(
+".deleteBtnBulk"
+)
+
+?.addEventListener(
+
+"click",
+
+bulkDeleteDrivers
+
+);
+
+/* ==========================================
+EXPORT BUTTON
+========================================== */
+
+document
+.querySelectorAll(
+".exportBtn"
+)
+
+.forEach(btn=>{
+
+btn.addEventListener(
+
+"click",
+
+exportDriversCSV
+
+);
+
+});
+
+/* ==========================================
+MODAL BACKDROP CLOSE
+========================================== */
+
+document
+.querySelectorAll(
+".adminModal"
+)
+
+.forEach(modal=>{
+
+modal.addEventListener(
+
+"click",
+
+function(e){
+
+if(
+e.target === modal
+){
+
+modal.classList.remove(
+"active"
+);
+
+}
+
+}
+
+);
+
+});
+
+/* ==========================================
+ESC KEY CLOSE
+========================================== */
+
+document.addEventListener(
+
+"keydown",
+
+function(e){
+
+if(e.key === "Escape"){
+
+document
+.querySelectorAll(
+".adminModal"
+)
+
+.forEach(modal=>{
+
+modal.classList.remove(
+"active"
+);
+
+});
+
+}
+
+}
+
+);
+
+/* ==========================================
+AUTO REFRESH
+========================================== */
+
+setInterval(
+
+()=>{
+
+loadDrivers();
+
+},
+
+300000
+
+);
+
+/* ==========================================
+ENHANCED LOAD
+========================================== */
+
+const originalLoadDrivers =
+loadDrivers;
+
+window.loadDrivers =
+async function(){
+
+await originalLoadDrivers();
+
+renderPayoutTable();
+
+updateEarningsAnalytics();
+
+};
+
+/* ==========================================
+FINAL INITIALIZATION
+========================================== */
+
+document.addEventListener(
+
+"DOMContentLoaded",
+
+async ()=>{
+
+try{
+
+await loadDrivers();
+
+renderPayoutTable();
+
+updateEarningsAnalytics();
+
+console.log(
+
+"QuickPress Driver Panel Ready 🚀"
+
+);
+
+}catch(error){
+
+console.error(
+
+"Driver Initialization Error",
+
+error
+
+);
+
+}
+
+}
+
+);
+
+/* ==========================================
+GLOBAL EXPORTS
+========================================== */
+
+window.driversApp = {
+
+loadDrivers,
+saveDriver,
+updateDriver,
+deleteDriver,
+viewDriver,
+editDriver,
+approveDriver,
+suspendDriver,
+activateDriver,
+exportDriversCSV,
+markPayoutPaid
+
+};
