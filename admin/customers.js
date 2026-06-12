@@ -2237,63 +2237,145 @@ retentionRate + "%"
 );
 
 }
+/* ==========================================
+BULK PREMIUM UPGRADE
+========================================== */
 
+window.bulkUpgradePremium =
+async function(){
+
+const ids =
+getSelectedCustomerIds();
+
+if(ids.length === 0){
+
+alert(
+"Select Customers First"
+);
+
+return;
+
+}
+
+for(const id of ids){
+
+await updateDoc(
+
+doc(
+db,
+"customers",
+id
+),
+
+{
+membership:"Premium",
+subscriptionPlan:"Premium",
+subscriptionStatus:"Active",
+loyaltyPoints:500,
+updatedAt:serverTimestamp()
+}
+
+);
+
+}
+
+alert(
+"Premium Upgrade Complete"
+);
+
+await loadCustomers();
+
+};
 /* ==========================================
 BULK BUTTON EVENTS
 ========================================== */
+/* ==========================================
+BULK BUTTON EVENTS FIXED
+========================================== */
 
 document
-.querySelector(
-".premiumBtn"
-)
-
+.querySelector(".premiumBtn")
 ?.addEventListener(
-
 "click",
+() => {
 
-bulkUpgradePremium
+if(typeof window.bulkUpgradePremium === "function"){
 
+window.bulkUpgradePremium();
+
+}else{
+
+console.error(
+"bulkUpgradePremium not found"
+);
+
+}
+
+}
 );
 
 document
-.querySelector(
-".blockBtn"
-)
-
+.querySelector(".blockBtn")
 ?.addEventListener(
-
 "click",
+() => {
 
-bulkBlockCustomers
+if(typeof window.bulkBlockCustomers === "function"){
 
+window.bulkBlockCustomers();
+
+}else{
+
+console.error(
+"bulkBlockCustomers not found"
+);
+
+}
+
+}
 );
 
 document
-.querySelector(
-".activateBtn"
-)
-
+.querySelector(".activateBtn")
 ?.addEventListener(
-
 "click",
+() => {
 
-bulkActivateCustomers
+if(typeof window.bulkActivateCustomers === "function"){
 
+window.bulkActivateCustomers();
+
+}else{
+
+console.error(
+"bulkActivateCustomers not found"
+);
+
+}
+
+}
 );
 
 document
-.querySelector(
-".deleteBtnBulk"
-)
-
+.querySelector(".deleteBtnBulk")
 ?.addEventListener(
-
 "click",
+() => {
 
-bulkDeleteCustomers
+if(typeof window.bulkDeleteCustomers === "function"){
 
+window.bulkDeleteCustomers();
+
+}else{
+
+console.error(
+"bulkDeleteCustomers not found"
 );
 
+}
+
+}
+);
 /* ==========================================
 EXPORT BUTTONS
 ========================================== */
