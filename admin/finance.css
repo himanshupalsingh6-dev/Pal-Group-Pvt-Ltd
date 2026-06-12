@@ -1,0 +1,297 @@
+/* ==========================================
+GLOBAL
+========================================== */
+
+*{
+margin:0;
+padding:0;
+box-sizing:border-box;
+font-family:Inter,sans-serif;
+}
+
+body{
+background:#F5F7FB;
+color:#111827;
+}
+
+.adminLayout{
+display:flex;
+min-height:100vh;
+}
+
+/* ==========================================
+SIDEBAR
+========================================== */
+
+.adminSidebar{
+width:260px;
+background:#FFFFFF;
+border-right:1px solid #E5E7EB;
+padding:24px;
+position:fixed;
+height:100vh;
+overflow-y:auto;
+}
+
+.logoArea h2{
+font-size:28px;
+font-weight:800;
+color:#F4B400;
+}
+
+.logoArea span{
+color:#6B7280;
+font-size:14px;
+}
+
+.sidebarMenu{
+margin-top:30px;
+display:flex;
+flex-direction:column;
+gap:10px;
+}
+
+.sidebarMenu a{
+text-decoration:none;
+padding:14px 18px;
+border-radius:12px;
+color:#374151;
+font-weight:600;
+transition:.3s;
+}
+
+.sidebarMenu a:hover,
+.sidebarMenu a.active{
+background:#FEF3C7;
+color:#111827;
+}
+
+/* ==========================================
+MAIN
+========================================== */
+
+.adminMain{
+margin-left:260px;
+padding:30px;
+width:100%;
+}
+
+.topBar{
+display:flex;
+justify-content:space-between;
+align-items:center;
+margin-bottom:30px;
+}
+
+.topBar h1{
+font-size:38px;
+font-weight:800;
+}
+
+.topBar p{
+color:#6B7280;
+margin-top:5px;
+}
+
+.exportBtn{
+background:#F4B400;
+color:#111827;
+border:none;
+padding:12px 18px;
+border-radius:12px;
+font-weight:700;
+cursor:pointer;
+}/* ==========================================
+CARDS
+========================================== */
+
+.financeCards{
+display:grid;
+grid-template-columns:repeat(4,1fr);
+gap:20px;
+margin-bottom:25px;
+}
+
+.financeCard{
+background:#fff;
+padding:24px;
+border-radius:20px;
+display:flex;
+align-items:center;
+gap:15px;
+box-shadow:0 8px 25px rgba(0,0,0,.05);
+}
+
+.financeCard h2{
+font-size:30px;
+font-weight:800;
+margin-bottom:5px;
+}
+
+.financeCard p{
+color:#6B7280;
+}
+
+.cardIcon{
+width:60px;
+height:60px;
+border-radius:16px;
+display:flex;
+align-items:center;
+justify-content:center;
+font-size:24px;
+background:#F3F4F6;
+}
+
+/* ==========================================
+TABLE
+========================================== */
+
+.tableCard{
+background:#fff;
+border-radius:20px;
+padding:24px;
+margin-bottom:25px;
+box-shadow:0 8px 25px rgba(0,0,0,.05);
+}
+
+.sectionHeader{
+display:flex;
+justify-content:space-between;
+align-items:center;
+margin-bottom:20px;
+}
+
+.sectionHeader h2{
+font-size:24px;
+font-weight:800;
+}
+
+.tableWrapper{
+overflow-x:auto;
+}
+
+.financeTable{
+width:100%;
+border-collapse:collapse;
+}
+
+.financeTable th{
+background:#F9FAFB;
+padding:14px;
+text-align:left;
+font-size:14px;
+font-weight:700;
+}
+
+.financeTable td{
+padding:14px;
+border-bottom:1px solid #E5E7EB;
+}/* ==========================================
+FORMS
+========================================== */
+
+input,
+select,
+textarea{
+width:100%;
+height:50px;
+padding:0 14px;
+border:1px solid #E5E7EB;
+border-radius:12px;
+background:#fff;
+}
+
+.filterBar{
+display:flex;
+gap:12px;
+flex-wrap:wrap;
+margin-bottom:25px;
+}
+
+.filterBtn,
+.confirmBtn{
+background:#16A34A;
+color:#fff;
+border:none;
+padding:14px 20px;
+border-radius:12px;
+font-weight:700;
+cursor:pointer;
+}
+
+/* ==========================================
+MODAL
+========================================== */
+
+.adminModal{
+display:none;
+position:fixed;
+inset:0;
+background:rgba(0,0,0,.45);
+z-index:999;
+align-items:center;
+justify-content:center;
+}
+
+.adminModal.active{
+display:flex;
+}
+
+.modalCard{
+width:550px;
+background:#fff;
+border-radius:20px;
+overflow:hidden;
+}
+
+.modalHeader{
+padding:20px;
+border-bottom:1px solid #E5E7EB;
+display:flex;
+justify-content:space-between;
+align-items:center;
+}
+
+.modalBody{
+padding:20px;
+}
+
+.formGroup{
+margin-bottom:15px;
+}
+
+/* ==========================================
+RESPONSIVE
+========================================== */
+
+@media(max-width:1200px){
+
+.financeCards{
+grid-template-columns:repeat(2,1fr);
+}
+
+}
+
+@media(max-width:768px){
+
+.adminSidebar{
+display:none;
+}
+
+.adminMain{
+margin-left:0;
+padding:15px;
+}
+
+.financeCards{
+grid-template-columns:1fr;
+}
+
+.topBar{
+flex-direction:column;
+align-items:flex-start;
+gap:15px;
+}
+
+}
