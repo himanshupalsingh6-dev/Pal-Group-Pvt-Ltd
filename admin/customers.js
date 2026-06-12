@@ -2544,7 +2544,6 @@ window.customersApp = {
 loadCustomers,
 saveCustomer,
 updateCustomer,
-deleteCustomer: window.deleteCustomer,,
 viewCustomer,
 editCustomer,
 blockCustomer,
