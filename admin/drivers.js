@@ -2978,27 +2978,20 @@ renderPayoutTable();
 updateEarningsAnalytics();
 
 console.log(
-
 "QuickPress Driver Panel Ready 🚀"
-
 );
 
 }catch(error){
 
 console.error(
-
 "Driver Initialization Error",
-
 error
-
 );
 
 }
 
 }
-
 );
-
 /* ==========================================
 GLOBAL EXPORTS
 ========================================== */
