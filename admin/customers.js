@@ -2998,34 +2998,110 @@ document
 STATUS FILTER
 ========================================== */
 
+/* ==========================================
+STATUS + MEMBERSHIP FILTER
+========================================== */
+
+window.applyCustomerFilters = function(){
+
+const search =
+document.getElementById(
+"searchCustomer"
+)?.value?.toLowerCase() || "";
+
+const city =
+document.getElementById(
+"cityFilter"
+)?.value || "";
+
+const status =
+document.getElementById(
+"statusFilter"
+)?.value || "";
+
+const membership =
+document.getElementById(
+"membershipFilter"
+)?.value || "";
+
+filteredCustomers = customers.filter(customer=>{
+
+const matchSearch =
+
+!search ||
+
+(customer.name || "")
+.toLowerCase()
+.includes(search)
+
+||
+
+(customer.phone || "")
+.includes(search)
+
+||
+
+(customer.email || "")
+.toLowerCase()
+.includes(search);
+
+const matchCity =
+
+!city ||
+
+customer.city === city;
+
+const matchStatus =
+
+!status ||
+
+customer.status === status;
+
+const matchMembership =
+
+!membership ||
+
+customer.membership === membership;
+
+return (
+
+matchSearch &&
+matchCity &&
+matchStatus &&
+matchMembership
+
+);
+
+});
+
+renderCustomersTable();
+
+};
+
+/* ==========================================
+STATUS FILTER EVENT
+========================================== */
+
 document
 .getElementById(
 "statusFilter"
 )
-
 ?.addEventListener(
-
 "change",
-
-applyCustomerFilters
-
+() => window.applyCustomerFilters()
 );
 
 /* ==========================================
-MEMBERSHIP FILTER
+MEMBERSHIP FILTER EVENT
 ========================================== */
 
 document
 .getElementById(
 "membershipFilter"
 )
-
 ?.addEventListener(
-
 "change",
-
-applyCustomerFilters
-
+() => window.applyCustomerFilters()
 );
 
 /* ==========================================
