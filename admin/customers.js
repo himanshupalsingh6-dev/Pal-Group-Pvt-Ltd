@@ -2958,16 +2958,24 @@ SEARCH FILTER
 ========================================== */
 
 document
-.getElementById(
-"searchCustomer"
-)
-
+.getElementById("cityFilter")
 ?.addEventListener(
+"change",
+() => window.applyCustomerFilters()
+);
 
-"input",
+document
+.getElementById("statusFilter")
+?.addEventListener(
+"change",
+() => window.applyCustomerFilters()
+);
 
-applyCustomerFilters
-
+document
+.getElementById("membershipFilter")
+?.addEventListener(
+"change",
+() => window.applyCustomerFilters()
 );
 
 /* ==========================================
