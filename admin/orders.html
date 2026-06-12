@@ -10,448 +10,370 @@ name="viewport"
 content="width=device-width, initial-scale=1.0">
 
 <title>
-QuickPress Orders
+
+QuickPress • Orders Management
+
 </title>
 
 <link
-rel="stylesheet"
-href="./layout.css">
+href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap"
+rel="stylesheet">
 
 <link
 rel="stylesheet"
-href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css"/>
-
-<script
-src="https://cdn.jsdelivr.net/npm/chart.js">
-</script>
+href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
 
 <style>
 
-/* =====================================================
-GLOBAL
-===================================================== */
+/* ==========================================
+RESET
+========================================== */
 
-body{
-background:#F4F4F5;
-font-family:Arial,sans-serif;
+*{
+margin:0;
+padding:0;
+box-sizing:border-box;
+font-family:'Inter',sans-serif;
 }
 
-/* =====================================================
-TOP STATS
-===================================================== */
+:root{
 
-.topStats{
+--primary:#F4B400;
+--secondary:#16A34A;
 
-display:grid;
+--dark:#111827;
+--gray:#6B7280;
 
-grid-template-columns:
-repeat(7,1fr);
+--border:#E5E7EB;
+--bg:#F8FAFC;
+
+}
+
+body{
+
+background:var(--bg);
+
+display:flex;
+
+min-height:100vh;
+
+overflow-x:hidden;
+
+}
+
+/* ==========================================
+SIDEBAR
+========================================== */
+
+.sidebar{
+
+position:fixed;
+
+left:0;
+top:0;
+bottom:0;
+
+width:280px;
+
+background:white;
+
+border-right:1px solid var(--border);
+
+z-index:1000;
+
+}
+
+.sidebarLogo{
+
+height:80px;
+
+display:flex;
+
+align-items:center;
+
+gap:12px;
+
+padding:0 24px;
+
+border-bottom:1px solid var(--border);
+
+}
+
+.logoBox{
+
+width:50px;
+height:50px;
+
+border-radius:16px;
+
+background:linear-gradient(
+135deg,
+#F4B400,
+#F59E0B
+);
+
+display:flex;
+
+align-items:center;
+
+justify-content:center;
+
+color:white;
+
+font-weight:900;
+
+}
+
+.logoText{
+
+font-size:18px;
+
+font-weight:900;
+
+}
+
+.sidebarMenu{
+
+padding:15px;
+
+}
+
+.menuItem{
+
+height:54px;
+
+display:flex;
+
+align-items:center;
 
 gap:14px;
 
-margin-bottom:20px;
+padding:0 16px;
+
+border-radius:14px;
+
+text-decoration:none;
+
+color:#6B7280;
+
+font-weight:700;
+
+margin-bottom:8px;
 
 }
 
-/* =====================================================
-CARD
-===================================================== */
+.menuItem.active{
 
-.statCard{
+background:#FEF3C7;
 
-background:#fff;
+color:#D97706;
 
-border-radius:18px;
+}
 
-padding:18px;
+/* ==========================================
+MAIN
+========================================== */
 
-border:1px solid #E5E7EB;
+.mainWrapper{
+
+margin-left:280px;
+
+width:calc(100% - 280px);
+
+}
+
+/* ==========================================
+TOPBAR
+========================================== */
+
+.topbar{
+
+height:80px;
+
+background:white;
+
+display:flex;
+
+align-items:center;
+
+justify-content:space-between;
+
+padding:0 24px;
+
+border-bottom:1px solid var(--border);
+
+}
+
+.pageTitle{
+
+font-size:28px;
+
+font-weight:900;
+
+}
+
+.topbarRight{
+
+display:flex;
+
+align-items:center;
+
+gap:15px;
+
+}
+
+.iconBtn{
+
+width:46px;
+height:46px;
+
+border:none;
+
+border-radius:14px;
+
+background:#F3F4F6;
 
 cursor:pointer;
 
-transition:.2s;
+}
+
+.adminBox{
+
+display:flex;
+
+align-items:center;
+
+gap:12px;
 
 }
 
-.statCard:hover{
+.avatar{
 
-transform:translateY(-3px);
+width:44px;
+height:44px;
+
+border-radius:50%;
+
+background:#16A34A;
+
+display:flex;
+
+align-items:center;
+
+justify-content:center;
+
+color:white;
+
+font-weight:900;
 
 }
 
-.statTitle{
+/* ==========================================
+CONTENT
+========================================== */
 
-font-size:13px;
-font-weight:800;
-color:#6B7280;
+.content{
+
+padding:24px;
+
+}
+
+/* ==========================================
+HEADER CARD
+========================================== */
+
+.ordersHeader{
+
+background:white;
+
+padding:24px;
+
+border-radius:24px;
+
+margin-bottom:24px;
+
+box-shadow:
+0 5px 20px rgba(0,0,0,.05);
+
+}
+
+.ordersHeader h2{
+
+font-size:28px;
+
+font-weight:900;
 
 margin-bottom:10px;
 
 }
 
-.statValue{
+.ordersHeader p{
 
-font-size:34px;
-font-weight:900;
-color:#111827;
+color:#6B7280;
 
 }
 
-/* =====================================================
-FILTERS
-===================================================== */
+/* ==========================================
+STATS
+========================================== */
 
-.filters{
+.statsGrid{
 
 display:grid;
-
-grid-template-columns:
-repeat(6,1fr);
-
-gap:14px;
-
-margin-bottom:20px;
-
-}
-
-.filterInput{
-
-height:50px;
-
-border:1px solid #E5E7EB;
-
-border-radius:12px;
-
-padding:0 16px;
-
-background:#fff;
-
-font-size:14px;
-font-weight:800;
-
-outline:none;
-
-}
-
-/* =====================================================
-TABLE
-===================================================== */
-
-.tableBox{
-
-background:#fff;
-
-border-radius:18px;
-
-border:1px solid #E5E7EB;
-
-overflow:hidden;
-
-}
-
-/* =====================================================
-HEADER
-===================================================== */
-
-.tableHeader{
-
-display:grid;
-
-grid-template-columns:
-120px 220px 200px 140px 120px 160px 180px 240px;
-
-padding:18px;
-
-background:#F9FAFB;
-
-font-size:13px;
-font-weight:900;
-
-border-bottom:1px solid #E5E7EB;
-
-}
-
-/* =====================================================
-ROW
-===================================================== */
-
-.orderRow{
-
-display:grid;
-
-grid-template-columns:
-120px 220px 200px 140px 120px 160px 180px 240px;
-
-padding:18px;
-
-align-items:center;
-
-border-bottom:1px solid #F3F4F6;
-
-font-size:14px;
-font-weight:800;
-
-}
-
-/* =====================================================
-STATUS
-===================================================== */
-
-.status{
-
-padding:8px 12px;
-
-border-radius:8px;
-
-display:inline-flex;
-
-width:max-content;
-
-font-size:12px;
-font-weight:900;
-
-color:#fff;
-
-}
-
-.pending{
-background:#F59E0B;
-}
-
-.assigned{
-background:#3B82F6;
-}
-
-.picked{
-background:#8B5CF6;
-}
-
-.delivery{
-background:#EC4899;
-}
-
-.completed{
-background:#10B981;
-}
-
-.cancelled{
-background:#EF4444;
-}
-
-/* =====================================================
-BUTTONS
-===================================================== */
-
-.actions{
-
-display:flex;
-gap:10px;
-flex-wrap:wrap;
-
-}
-
-.actionBtn{
-
-height:38px;
-
-padding:0 16px;
-
-border:none;
-
-border-radius:10px;
-
-font-size:12px;
-font-weight:900;
-
-cursor:pointer;
-
-}
-
-.viewBtn{
-
-background:#111827;
-color:#fff;
-
-}
-
-.assignBtn{
-
-background:#2563EB;
-color:#fff;
-
-}
-
-.trackBtn{
-
-background:#10B981;
-color:#fff;
-
-}
-
-/* =====================================================
-MODAL
-===================================================== */
-
-.modal{
-
-position:fixed;
-
-top:0;
-left:0;
-
-width:100%;
-height:100%;
-
-background:rgba(0,0,0,.4);
-
-display:none;
-align-items:center;
-justify-content:center;
-
-z-index:99999;
-
-}
-
-.modalBox{
-
-width:700px;
-max-width:95%;
-
-background:#fff;
-
-border-radius:24px;
-
-padding:24px;
-
-max-height:90vh;
-
-overflow-y:auto;
-
-}
-
-.modalTitle{
-
-font-size:32px;
-font-weight:900;
-
-margin-bottom:20px;
-
-}
-
-.detailRow{
-
-display:flex;
-justify-content:space-between;
-
-padding:14px 0;
-
-border-bottom:1px solid #F3F4F6;
-
-font-size:15px;
-font-weight:800;
-
-}
-
-/* =====================================================
-RIDER CARD
-===================================================== */
-
-.riderCard{
-
-padding:16px;
-
-border:1px solid #E5E7EB;
-
-border-radius:16px;
-
-margin-bottom:14px;
-
-display:flex;
-justify-content:space-between;
-align-items:center;
-
-}
-
-.assignNowBtn{
-
-height:42px;
-
-padding:0 18px;
-
-border:none;
-
-background:#111827;
-
-color:#fff;
-
-border-radius:10px;
-
-font-weight:900;
-
-cursor:pointer;
-
-}
-
-/* =====================================================
-RESPONSIVE
-===================================================== */
-
-@media(max-width:1600px){
-
-.topStats{
 
 grid-template-columns:
 repeat(4,1fr);
 
-}
+gap:20px;
 
-.filters{
-
-grid-template-columns:
-repeat(3,1fr);
+margin-top:20px;
 
 }
 
-}
+.statCard{
 
-@media(max-width:1100px){
+background:#F9FAFB;
 
-.topStats{
+padding:20px;
 
-grid-template-columns:
-repeat(2,1fr);
-
-}
-
-.filters{
-
-grid-template-columns:
-repeat(2,1fr);
+border-radius:18px;
 
 }
 
-.tableBox{
+.statCard h3{
 
-overflow:auto;
+font-size:30px;
 
-}
+font-weight:900;
 
-}
-
-@media(max-width:700px){
-
-.topStats{
-
-grid-template-columns:1fr;
+margin-bottom:8px;
 
 }
 
-.filters{
+.statCard p{
 
-grid-template-columns:1fr;
+font-size:13px;
+
+font-weight:700;
+
+color:#6B7280;
 
 }
 
+.pending{
+color:#F59E0B;
+}
+
+.active{
+color:#2563EB;
+}
+
+.delivered{
+color:#16A34A;
+}
+
+.cancelled{
+color:#EF4444;
 }
 
 </style>
@@ -460,324 +382,3795 @@ grid-template-columns:1fr;
 
 <body>
 
-<div id="layoutContainer"></div>
+<!-- ==========================================
+SIDEBAR
+========================================== -->
 
-<div class="main">
+<aside class="sidebar">
 
-<!-- =====================================================
-TOP STATS
-===================================================== -->
+<div class="sidebarLogo">
 
-<div class="topStats">
+<div class="logoBox">
+
+QP
+
+</div>
+
+<div class="logoText">
+
+QuickPress Admin
+
+</div>
+
+</div>
+
+<div class="sidebarMenu">
+
+<a href="dashboard.html" class="menuItem">
+<i class="fa-solid fa-chart-line"></i>
+Dashboard
+</a>
+
+<a href="orders.html" class="menuItem active">
+<i class="fa-solid fa-box"></i>
+Orders
+</a>
+
+<a href="partners.html" class="menuItem">
+<i class="fa-solid fa-handshake"></i>
+Partners
+</a>
+
+<a href="drivers.html" class="menuItem">
+<i class="fa-solid fa-truck"></i>
+Drivers
+</a>
+
+<a href="customers.html" class="menuItem">
+<i class="fa-solid fa-users"></i>
+Customers
+</a>
+
+<a href="cities.html" class="menuItem">
+<i class="fa-solid fa-city"></i>
+Cities
+</a>
+
+</div>
+
+</aside>
+
+<div class="mainWrapper">
+
+<header class="topbar">
+
+<h1 class="pageTitle">
+
+Orders Management
+
+</h1>
+
+<div class="topbarRight">
+
+<button class="iconBtn">
+
+<i class="fa-regular fa-bell"></i>
+
+</button>
+
+<div class="adminBox">
+
+<div class="avatar">
+
+HP
+
+</div>
+
+<div>
+
+<b>Himanshu</b>
+
+</div>
+
+</div>
+
+</div>
+
+</header>
+
+<main class="content">
+
+<div class="ordersHeader">
+
+<h2>
+
+📦 Orders Control Center
+
+</h2>
+
+<p>
+
+Manage orders, assign partners, assign drivers and track order lifecycle.
+
+</p>
+
+<div class="statsGrid">
 
 <div class="statCard">
 
-<div class="statTitle">
-Total Orders
-</div>
-
-<div
-class="statValue"
-id="totalOrders">
+<h3
+class="pending"
+id="pendingCount">
 
 0
 
-</div>
+</h3>
 
-</div>
+<p>
 
-<div class="statCard">
-
-<div class="statTitle">
 Pending Orders
-</div>
 
-<div
-class="statValue"
-id="pendingOrders">
-
-0
-
-</div>
+</p>
 
 </div>
 
 <div class="statCard">
 
-<div class="statTitle">
-Assigned Orders
-</div>
-
-<div
-class="statValue"
-id="assignedOrders">
+<h3
+class="active"
+id="activeCount">
 
 0
 
-</div>
+</h3>
+
+<p>
+
+Active Orders
+
+</p>
 
 </div>
 
 <div class="statCard">
 
-<div class="statTitle">
+<h3
+class="delivered"
+id="deliveredCount">
+
+0
+
+</h3>
+
+<p>
+
 Delivered Orders
-</div>
 
-<div
-class="statValue"
-id="deliveredOrders">
-
-0
-
-</div>
+</p>
 
 </div>
 
 <div class="statCard">
 
-<div class="statTitle">
+<h3
+class="cancelled"
+id="cancelledCount">
+
+0
+
+</h3>
+
+<p>
+
 Cancelled Orders
-</div>
 
-<div
-class="statValue"
-id="cancelledOrders">
-
-0
+</p>
 
 </div>
 
 </div>
 
-<div class="statCard">
+</div><!-- ==========================================
+FILTERS SECTION
+========================================== -->
 
-<div class="statTitle">
-COD Collection
-</div>
+<div class="filterCard">
 
-<div
-class="statValue"
-id="codCollection">
+<div class="filterRow">
 
-₹0
+<!-- SEARCH -->
 
-</div>
+<div class="searchBox">
 
-</div>
-
-<div class="statCard">
-
-<div class="statTitle">
-Active Riders
-</div>
-
-<div
-class="statValue"
-id="activeRiders">
-
-0
-
-</div>
-
-</div>
-
-</div>
-
-<!-- =====================================================
-FILTERS
-===================================================== -->
-
-<div class="filters">
+<i class="fa-solid fa-magnifying-glass"></i>
 
 <input
 type="text"
-placeholder="Search Order ID"
-class="filterInput"
-id="searchInput">
+id="searchOrder"
+placeholder="Search Order ID, Customer, Phone">
+
+</div>
+
+<!-- STATUS -->
 
 <select
-class="filterInput"
-id="statusFilter">
+id="statusFilter"
+class="filterSelect">
 
 <option value="">
+
 All Status
+
 </option>
 
-<option value="pending">
-Pending
+<option>
+
+Order Received
+
 </option>
 
-<option value="assigned">
+<option>
+
 Assigned
+
 </option>
 
-<option value="picked">
-Picked
+<option>
+
+Picked Up
+
 </option>
 
-<option value="delivery">
+<option>
+
+Cleaning
+
+</option>
+
+<option>
+
+Quality Check
+
+</option>
+
+<option>
+
+Ready
+
+</option>
+
+<option>
+
 Out For Delivery
+
 </option>
 
-<option value="completed">
+<option>
+
 Delivered
+
 </option>
 
-<option value="cancelled">
+<option>
+
 Cancelled
+
 </option>
 
 </select>
+
+<!-- CITY -->
 
 <select
-class="filterInput"
-id="areaFilter">
+id="cityFilter"
+class="filterSelect">
 
 <option value="">
-All Areas
+
+All Cities
+
 </option>
 
 </select>
+
+<!-- PARTNER -->
 
 <select
-class="filterInput"
-id="paymentFilter">
+id="partnerFilter"
+class="filterSelect">
 
 <option value="">
-Payment Type
-</option>
 
-<option value="cod">
-COD
-</option>
+All Partners
 
-<option value="online">
-Online
 </option>
 
 </select>
-
-<input
-type="date"
-class="filterInput"
-id="dateFilter">
 
 <button
-class="filterInput"
-onclick="autoAssignOrders()">
+class="refreshBtn"
+onclick="loadOrders()">
 
-AI Auto Assign
+<i class="fa-solid fa-rotate"></i>
+
+Refresh
 
 </button>
 
 </div>
 
-<!-- =====================================================
-TABLE
-===================================================== -->
+</div>
 
-<div class="tableBox">
+<!-- ==========================================
+ORDERS TABLE
+========================================== -->
+
+<div class="tableCard">
 
 <div class="tableHeader">
 
-<div>
-Order ID
-</div>
+<h3>
 
-<div>
-Customer
-</div>
+All Orders
 
-<div>
-Address
-</div>
+</h3>
 
-<div>
-Area
-</div>
+<div class="tableActions">
 
-<div>
-Amount
-</div>
+<button class="exportBtn">
 
-<div>
-Status
-</div>
+<i class="fa-solid fa-file-export"></i>
 
-<div>
-Assigned Rider
-</div>
+Export
 
-<div>
-Actions
-</div>
-
-</div>
-
-<div id="ordersContainer">
+</button>
 
 </div>
 
 </div>
 
+<div class="tableWrapper">
+
+<table class="ordersTable">
+
+<thead>
+
+<tr>
+
+<th>Order ID</th>
+
+<th>Customer</th>
+
+<th>Phone</th>
+
+<th>City</th>
+
+<th>Partner</th>
+
+<th>Amount</th>
+
+<th>Payment</th>
+
+<th>Status</th>
+
+<th>Date</th>
+
+<th>Actions</th>
+
+</tr>
+
+</thead>
+
+<tbody id="ordersTableBody">
+
+<!-- FIREBASE DATA -->
+
+</tbody>
+
+</table>
+
 </div>
 
-<!-- =====================================================
-VIEW MODAL
-===================================================== -->
+</div>
+
+<style>
+
+/* ==========================================
+FILTERS
+========================================== */
+
+.filterCard{
+
+background:white;
+
+padding:20px;
+
+border-radius:24px;
+
+margin-bottom:24px;
+
+box-shadow:
+0 5px 20px rgba(0,0,0,.05);
+
+}
+
+.filterRow{
+
+display:grid;
+
+grid-template-columns:
+2fr 1fr 1fr 1fr auto;
+
+gap:15px;
+
+}
+
+.searchBox{
+
+height:54px;
+
+border:1px solid #E5E7EB;
+
+border-radius:14px;
+
+display:flex;
+
+align-items:center;
+
+padding:0 15px;
+
+gap:10px;
+
+}
+
+.searchBox input{
+
+border:none;
+
+outline:none;
+
+width:100%;
+
+background:none;
+
+font-size:14px;
+
+}
+
+.filterSelect{
+
+height:54px;
+
+border:1px solid #E5E7EB;
+
+border-radius:14px;
+
+padding:0 14px;
+
+font-size:14px;
+
+outline:none;
+
+background:white;
+
+}
+
+.refreshBtn{
+
+height:54px;
+
+padding:0 18px;
+
+border:none;
+
+border-radius:14px;
+
+background:#16A34A;
+
+color:white;
+
+font-weight:800;
+
+cursor:pointer;
+
+}
+
+/* ==========================================
+TABLE
+========================================== */
+
+.tableCard{
+
+background:white;
+
+border-radius:24px;
+
+padding:20px;
+
+box-shadow:
+0 5px 20px rgba(0,0,0,.05);
+
+}
+
+.tableHeader{
+
+display:flex;
+
+justify-content:space-between;
+
+align-items:center;
+
+margin-bottom:20px;
+
+}
+
+.tableHeader h3{
+
+font-size:22px;
+
+font-weight:900;
+
+}
+
+.exportBtn{
+
+height:44px;
+
+padding:0 14px;
+
+border:none;
+
+border-radius:12px;
+
+background:#F4B400;
+
+color:white;
+
+font-weight:800;
+
+cursor:pointer;
+
+}
+
+.tableWrapper{
+
+overflow:auto;
+
+}
+
+.ordersTable{
+
+width:100%;
+
+border-collapse:collapse;
+
+min-width:1300px;
+
+}
+
+.ordersTable th{
+
+background:#F9FAFB;
+
+padding:15px;
+
+text-align:left;
+
+font-size:13px;
+
+font-weight:800;
+
+color:#6B7280;
+
+}
+
+.ordersTable td{
+
+padding:15px;
+
+border-bottom:1px solid #F3F4F6;
+
+font-size:14px;
+
+font-weight:600;
+
+}
+
+.ordersTable tr:hover{
+
+background:#FAFAFA;
+
+}
+
+/* ==========================================
+STATUS BADGES
+========================================== */
+
+.statusBadge{
+
+padding:8px 12px;
+
+border-radius:999px;
+
+font-size:12px;
+
+font-weight:800;
+
+white-space:nowrap;
+
+}
+
+.statusPending{
+
+background:#FEF3C7;
+
+color:#D97706;
+
+}
+
+.statusActive{
+
+background:#DBEAFE;
+
+color:#2563EB;
+
+}
+
+.statusDelivered{
+
+background:#DCFCE7;
+
+color:#16A34A;
+
+}
+
+.statusCancelled{
+
+background:#FEE2E2;
+
+color:#DC2626;
+
+}
+
+/* ==========================================
+RESPONSIVE
+========================================== */
+
+@media(max-width:1200px){
+
+.filterRow{
+
+grid-template-columns:1fr;
+
+}
+
+}
+
+</style><!-- ==========================================
+ORDER DETAILS DRAWER
+========================================== -->
 
 <div
-class="modal"
-id="viewModal">
+id="orderDrawer"
+class="orderDrawer">
 
-<div class="modalBox">
+<div class="drawerHeader">
 
-<div class="modalTitle">
+<h2>
+
 Order Details
+
+</h2>
+
+<button
+class="closeDrawerBtn"
+onclick="closeOrderDrawer()">
+
+<i class="fa-solid fa-xmark"></i>
+
+</button>
+
 </div>
-
-<div id="orderDetails">
-
-</div>
-
-</div>
-
-</div>
-
-<!-- =====================================================
-ASSIGN MODAL
-===================================================== -->
 
 <div
-class="modal"
-id="assignModal">
+id="drawerContent">
 
-<div class="modalBox">
-
-<div class="modalTitle">
-Assign Rider
-</div>
-
-<div id="ridersList">
+<!-- FIREBASE DATA -->
 
 </div>
 
 </div>
 
+<!-- OVERLAY -->
+
+<div
+id="drawerOverlay"
+class="drawerOverlay"
+onclick="closeOrderDrawer()">
+
 </div>
 
-<script type="module"
-src="./js/auth.js">
+<!-- ==========================================
+DRAWER TEMPLATE
+========================================== -->
+
+<template id="orderDetailsTemplate">
+
+<div class="drawerSection">
+
+<h3>
+
+📦 Order Information
+
+</h3>
+
+<div class="detailGrid">
+
+<div class="detailItem">
+
+<label>
+
+Order ID
+
+</label>
+
+<span id="drawerOrderId">
+
+-
+
+</span>
+
+</div>
+
+<div class="detailItem">
+
+<label>
+
+Status
+
+</label>
+
+<span id="drawerStatus">
+
+-
+
+</span>
+
+</div>
+
+<div class="detailItem">
+
+<label>
+
+Order Date
+
+</label>
+
+<span id="drawerDate">
+
+-
+
+</span>
+
+</div>
+
+<div class="detailItem">
+
+<label>
+
+Amount
+
+</label>
+
+<span id="drawerAmount">
+
+₹0
+
+</span>
+
+</div>
+
+</div>
+
+</div>
+
+<!-- CUSTOMER -->
+
+<div class="drawerSection">
+
+<h3>
+
+👤 Customer Details
+
+</h3>
+
+<div class="detailGrid">
+
+<div class="detailItem">
+
+<label>
+
+Name
+
+</label>
+
+<span id="drawerCustomer">
+
+-
+
+</span>
+
+</div>
+
+<div class="detailItem">
+
+<label>
+
+Phone
+
+</label>
+
+<span id="drawerPhone">
+
+-
+
+</span>
+
+</div>
+
+<div class="detailItem">
+
+<label>
+
+Email
+
+</label>
+
+<span id="drawerEmail">
+
+-
+
+</span>
+
+</div>
+
+</div>
+
+</div>
+
+<!-- ADDRESS -->
+
+<div class="drawerSection">
+
+<h3>
+
+📍 Delivery Address
+
+</h3>
+
+<div
+id="drawerAddress"
+class="addressBox">
+
+-
+
+</div>
+
+</div>
+
+<!-- ITEMS -->
+
+<div class="drawerSection">
+
+<h3>
+
+🧺 Order Items
+
+</h3>
+
+<div
+id="drawerItems">
+
+</div>
+
+</div>
+
+<!-- PAYMENT -->
+
+<div class="drawerSection">
+
+<h3>
+
+💳 Payment Details
+
+</h3>
+
+<div class="detailGrid">
+
+<div class="detailItem">
+
+<label>
+
+Payment Method
+
+</label>
+
+<span id="drawerPaymentMethod">
+
+-
+
+</span>
+
+</div>
+
+<div class="detailItem">
+
+<label>
+
+Payment Status
+
+</label>
+
+<span id="drawerPaymentStatus">
+
+-
+
+</span>
+
+</div>
+
+</div>
+
+</div>
+
+<!-- TIMELINE -->
+
+<div class="drawerSection">
+
+<h3>
+
+🚚 Order Timeline
+
+</h3>
+
+<div
+id="orderTimeline">
+
+</div>
+
+</div>
+
+<!-- ACTIONS -->
+
+<div class="drawerSection">
+
+<h3>
+
+⚙ Admin Actions
+
+</h3>
+
+<div class="actionGrid">
+
+<button
+class="assignPartnerBtn">
+
+Assign Partner
+
+</button>
+
+<button
+class="assignDriverBtn">
+
+Assign Driver
+
+</button>
+
+<button
+class="updateStatusBtn">
+
+Update Status
+
+</button>
+
+<button
+class="invoiceBtn">
+
+Print Invoice
+
+</button>
+
+</div>
+
+</div>
+
+</template>
+
+<style>
+
+/* ==========================================
+DRAWER
+========================================== */
+
+.orderDrawer{
+
+position:fixed;
+
+top:0;
+right:-650px;
+
+width:650px;
+
+height:100vh;
+
+background:white;
+
+z-index:9999;
+
+overflow-y:auto;
+
+transition:.35s;
+
+box-shadow:
+-10px 0 40px rgba(0,0,0,.12);
+
+}
+
+.orderDrawer.active{
+
+right:0;
+
+}
+
+.drawerOverlay{
+
+position:fixed;
+
+inset:0;
+
+background:rgba(0,0,0,.4);
+
+display:none;
+
+z-index:9998;
+
+}
+
+.drawerOverlay.active{
+
+display:block;
+
+}
+
+/* ==========================================
+HEADER
+========================================== */
+
+.drawerHeader{
+
+height:80px;
+
+display:flex;
+
+align-items:center;
+
+justify-content:space-between;
+
+padding:0 24px;
+
+border-bottom:1px solid #E5E7EB;
+
+position:sticky;
+
+top:0;
+
+background:white;
+
+z-index:2;
+
+}
+
+.drawerHeader h2{
+
+font-size:24px;
+
+font-weight:900;
+
+}
+
+.closeDrawerBtn{
+
+width:44px;
+height:44px;
+
+border:none;
+
+border-radius:12px;
+
+background:#F3F4F6;
+
+cursor:pointer;
+
+font-size:18px;
+
+}
+
+/* ==========================================
+SECTIONS
+========================================== */
+
+.drawerSection{
+
+padding:24px;
+
+border-bottom:1px solid #F3F4F6;
+
+}
+
+.drawerSection h3{
+
+font-size:18px;
+
+font-weight:900;
+
+margin-bottom:16px;
+
+}
+
+/* ==========================================
+DETAIL GRID
+========================================== */
+
+.detailGrid{
+
+display:grid;
+
+grid-template-columns:
+1fr 1fr;
+
+gap:16px;
+
+}
+
+.detailItem{
+
+background:#F9FAFB;
+
+padding:14px;
+
+border-radius:14px;
+
+}
+
+.detailItem label{
+
+display:block;
+
+font-size:12px;
+
+font-weight:700;
+
+color:#6B7280;
+
+margin-bottom:8px;
+
+}
+
+.detailItem span{
+
+font-size:14px;
+
+font-weight:800;
+
+}
+
+/* ==========================================
+ADDRESS
+========================================== */
+
+.addressBox{
+
+background:#F9FAFB;
+
+padding:16px;
+
+border-radius:14px;
+
+line-height:1.7;
+
+font-size:14px;
+
+}
+
+/* ==========================================
+ITEMS
+========================================== */
+
+.orderItem{
+
+display:flex;
+
+justify-content:space-between;
+
+padding:12px 0;
+
+border-bottom:1px solid #F3F4F6;
+
+}
+
+/* ==========================================
+TIMELINE
+========================================== */
+
+.timelineItem{
+
+display:flex;
+
+gap:14px;
+
+padding:12px 0;
+
+}
+
+.timelineDot{
+
+width:16px;
+height:16px;
+
+border-radius:50%;
+
+background:#16A34A;
+
+margin-top:4px;
+
+}
+
+.timelineContent h4{
+
+font-size:14px;
+
+font-weight:800;
+
+}
+
+.timelineContent p{
+
+font-size:12px;
+
+color:#6B7280;
+
+margin-top:4px;
+
+}
+
+/* ==========================================
+ACTIONS
+========================================== */
+
+.actionGrid{
+
+display:grid;
+
+grid-template-columns:
+1fr 1fr;
+
+gap:12px;
+
+}
+
+.actionGrid button{
+
+height:50px;
+
+border:none;
+
+border-radius:14px;
+
+font-weight:800;
+
+cursor:pointer;
+
+}
+
+.assignPartnerBtn{
+
+background:#2563EB;
+
+color:white;
+
+}
+
+.assignDriverBtn{
+
+background:#16A34A;
+
+color:white;
+
+}
+
+.updateStatusBtn{
+
+background:#F4B400;
+
+color:white;
+
+}
+
+.invoiceBtn{
+
+background:#111827;
+
+color:white;
+
+}
+
+/* ==========================================
+RESPONSIVE
+========================================== */
+
+@media(max-width:768px){
+
+.orderDrawer{
+
+width:100%;
+
+}
+
+.detailGrid{
+
+grid-template-columns:1fr;
+
+}
+
+.actionGrid{
+
+grid-template-columns:1fr;
+
+}
+
+}
+
+</style><!-- ==========================================
+ASSIGN PARTNER MODAL
+========================================== -->
+
+<div
+id="partnerModal"
+class="adminModal">
+
+<div class="modalCard">
+
+<div class="modalHeader">
+
+<h2>
+
+🤝 Assign Partner
+
+</h2>
+
+<button
+onclick="closePartnerModal()">
+
+<i class="fa-solid fa-xmark"></i>
+
+</button>
+
+</div>
+
+<div class="modalBody">
+
+<label>
+
+Select Partner
+
+</label>
+
+<select
+id="partnerSelect"
+class="modalSelect">
+
+<option>
+
+Loading Partners...
+
+</option>
+
+</select>
+
+<button
+class="saveBtn"
+onclick="assignPartner()">
+
+Assign Partner
+
+</button>
+
+</div>
+
+</div>
+
+</div>
+
+<!-- ==========================================
+ASSIGN DRIVER MODAL
+========================================== -->
+
+<div
+id="driverModal"
+class="adminModal">
+
+<div class="modalCard">
+
+<div class="modalHeader">
+
+<h2>
+
+🚚 Assign Driver
+
+</h2>
+
+<button
+onclick="closeDriverModal()">
+
+<i class="fa-solid fa-xmark"></i>
+
+</button>
+
+</div>
+
+<div class="modalBody">
+
+<label>
+
+Select Driver
+
+</label>
+
+<select
+id="driverSelect"
+class="modalSelect">
+
+<option>
+
+Loading Drivers...
+
+</option>
+
+</select>
+
+<button
+class="saveBtn"
+onclick="assignDriver()">
+
+Assign Driver
+
+</button>
+
+</div>
+
+</div>
+
+</div>
+
+<!-- ==========================================
+UPDATE STATUS MODAL
+========================================== -->
+
+<div
+id="statusModal"
+class="adminModal">
+
+<div class="modalCard">
+
+<div class="modalHeader">
+
+<h2>
+
+📦 Update Order Status
+
+</h2>
+
+<button
+onclick="closeStatusModal()">
+
+<i class="fa-solid fa-xmark"></i>
+
+</button>
+
+</div>
+
+<div class="modalBody">
+
+<label>
+
+Select Status
+
+</label>
+
+<select
+id="statusSelect"
+class="modalSelect">
+
+<option>
+
+Order Received
+
+</option>
+
+<option>
+
+Assigned
+
+</option>
+
+<option>
+
+Picked Up
+
+</option>
+
+<option>
+
+Cleaning
+
+</option>
+
+<option>
+
+Quality Check
+
+</option>
+
+<option>
+
+Ready
+
+</option>
+
+<option>
+
+Out For Delivery
+
+</option>
+
+<option>
+
+Delivered
+
+</option>
+
+<option>
+
+Cancelled
+
+</option>
+
+</select>
+
+<button
+class="saveBtn"
+onclick="updateOrderStatus()">
+
+Update Status
+
+</button>
+
+</div>
+
+</div>
+
+</div>
+
+<!-- ==========================================
+ACTION CONFIRM MODAL
+========================================== -->
+
+<div
+id="confirmModal"
+class="adminModal">
+
+<div class="modalCard smallModal">
+
+<div class="modalBody center">
+
+<div class="confirmIcon">
+
+⚠️
+
+</div>
+
+<h3>
+
+Confirm Action
+
+</h3>
+
+<p
+id="confirmText">
+
+Are you sure?
+
+</p>
+
+<div class="confirmActions">
+
+<button
+class="cancelBtn"
+onclick="closeConfirmModal()">
+
+Cancel
+
+</button>
+
+<button
+class="dangerBtn"
+id="confirmActionBtn">
+
+Confirm
+
+</button>
+
+</div>
+
+</div>
+
+</div>
+
+</div>
+
+<style>
+
+/* ==========================================
+MODAL
+========================================== */
+
+.adminModal{
+
+position:fixed;
+
+inset:0;
+
+background:rgba(0,0,0,.45);
+
+display:none;
+
+align-items:center;
+
+justify-content:center;
+
+z-index:10000;
+
+padding:20px;
+
+}
+
+.adminModal.active{
+
+display:flex;
+
+}
+
+.modalCard{
+
+width:100%;
+
+max-width:520px;
+
+background:white;
+
+border-radius:24px;
+
+overflow:hidden;
+
+animation:modalShow .25s ease;
+
+}
+
+.smallModal{
+
+max-width:420px;
+
+}
+
+@keyframes modalShow{
+
+from{
+
+opacity:0;
+
+transform:translateY(20px);
+
+}
+
+to{
+
+opacity:1;
+
+transform:translateY(0);
+
+}
+
+}
+
+/* ==========================================
+MODAL HEADER
+========================================== */
+
+.modalHeader{
+
+height:70px;
+
+display:flex;
+
+align-items:center;
+
+justify-content:space-between;
+
+padding:0 20px;
+
+border-bottom:1px solid #E5E7EB;
+
+}
+
+.modalHeader h2{
+
+font-size:20px;
+
+font-weight:900;
+
+}
+
+.modalHeader button{
+
+width:40px;
+height:40px;
+
+border:none;
+
+background:#F3F4F6;
+
+border-radius:12px;
+
+cursor:pointer;
+
+}
+
+/* ==========================================
+MODAL BODY
+========================================== */
+
+.modalBody{
+
+padding:24px;
+
+}
+
+.modalBody label{
+
+display:block;
+
+font-size:13px;
+
+font-weight:800;
+
+margin-bottom:10px;
+
+}
+
+.modalSelect{
+
+width:100%;
+
+height:54px;
+
+border:1px solid #E5E7EB;
+
+border-radius:14px;
+
+padding:0 14px;
+
+font-size:14px;
+
+margin-bottom:18px;
+
+outline:none;
+
+}
+
+.saveBtn{
+
+width:100%;
+
+height:54px;
+
+border:none;
+
+border-radius:14px;
+
+background:#16A34A;
+
+color:white;
+
+font-size:15px;
+
+font-weight:900;
+
+cursor:pointer;
+
+}
+
+/* ==========================================
+CONFIRM
+========================================== */
+
+.center{
+
+text-align:center;
+
+}
+
+.confirmIcon{
+
+font-size:52px;
+
+margin-bottom:12px;
+
+}
+
+.center h3{
+
+font-size:22px;
+
+font-weight:900;
+
+margin-bottom:8px;
+
+}
+
+.center p{
+
+font-size:14px;
+
+color:#6B7280;
+
+margin-bottom:20px;
+
+}
+
+.confirmActions{
+
+display:grid;
+
+grid-template-columns:1fr 1fr;
+
+gap:12px;
+
+}
+
+.cancelBtn{
+
+height:50px;
+
+border:none;
+
+border-radius:14px;
+
+background:#F3F4F6;
+
+font-weight:800;
+
+cursor:pointer;
+
+}
+
+.dangerBtn{
+
+height:50px;
+
+border:none;
+
+border-radius:14px;
+
+background:#EF4444;
+
+color:white;
+
+font-weight:800;
+
+cursor:pointer;
+
+}
+
+@media(max-width:768px){
+
+.modalCard{
+
+max-width:100%;
+
+}
+
+.confirmActions{
+
+grid-template-columns:1fr;
+
+}
+
+}
+
+</style><!-- ==========================================
+BULK ACTIONS BAR
+========================================== -->
+
+<div class="bulkActionBar">
+
+<div class="bulkLeft">
+
+<input
+type="checkbox"
+id="selectAllOrders">
+
+<label for="selectAllOrders">
+
+Select All Orders
+
+</label>
+
+<span id="selectedOrdersCount">
+
+0 Selected
+
+</span>
+
+</div>
+
+<div class="bulkRight">
+
+<button
+class="bulkBtn assignBulkBtn">
+
+Assign Partner
+
+</button>
+
+<button
+class="bulkBtn driverBulkBtn">
+
+Assign Driver
+
+</button>
+
+<button
+class="bulkBtn statusBulkBtn">
+
+Update Status
+
+</button>
+
+<button
+class="bulkBtn exportBulkBtn">
+
+Export CSV
+
+</button>
+
+</div>
+
+</div>
+
+<!-- ==========================================
+ORDER ANALYTICS
+========================================== -->
+
+<div class="analyticsCards">
+
+<div class="analyticsCardMini">
+
+<div class="analyticsIcon revenueMini">
+
+💰
+
+</div>
+
+<div>
+
+<h3 id="todayRevenueValue">
+
+₹0
+
+</h3>
+
+<p>
+
+Today's Revenue
+
+</p>
+
+</div>
+
+</div>
+
+<div class="analyticsCardMini">
+
+<div class="analyticsIcon avgMini">
+
+📊
+
+</div>
+
+<div>
+
+<h3 id="avgOrderValue">
+
+₹0
+
+</h3>
+
+<p>
+
+Average Order Value
+
+</p>
+
+</div>
+
+</div>
+
+<div class="analyticsCardMini">
+
+<div class="analyticsIcon pendingMini">
+
+⏳
+
+</div>
+
+<div>
+
+<h3 id="pendingPickupValue">
+
+0
+
+</h3>
+
+<p>
+
+Pending Pickup
+
+</p>
+
+</div>
+
+</div>
+
+<div class="analyticsCardMini">
+
+<div class="analyticsIcon deliveryMini">
+
+🚚
+
+</div>
+
+<div>
+
+<h3 id="outDeliveryValue">
+
+0
+
+</h3>
+
+<p>
+
+Out For Delivery
+
+</p>
+
+</div>
+
+</div>
+
+</div>
+
+<!-- ==========================================
+QUICK STATUS ACTIONS
+========================================== -->
+
+<div class="quickActionsCard">
+
+<div class="sectionTitle">
+
+⚡ Quick Status Actions
+
+</div>
+
+<div class="quickStatusGrid">
+
+<button
+class="quickStatusBtn receivedBtn">
+
+Order Received
+
+</button>
+
+<button
+class="quickStatusBtn assignedBtn">
+
+Assigned
+
+</button>
+
+<button
+class="quickStatusBtn pickupBtn">
+
+Picked Up
+
+</button>
+
+<button
+class="quickStatusBtn cleaningBtn">
+
+Cleaning
+
+</button>
+
+<button
+class="quickStatusBtn qualityBtn">
+
+Quality Check
+
+</button>
+
+<button
+class="quickStatusBtn readyBtn">
+
+Ready
+
+</button>
+
+<button
+class="quickStatusBtn deliveryBtn">
+
+Out For Delivery
+
+</button>
+
+<button
+class="quickStatusBtn deliveredBtn">
+
+Delivered
+
+</button>
+
+</div>
+
+</div>
+
+<style>
+
+/* ==========================================
+BULK ACTION BAR
+========================================== */
+
+.bulkActionBar{
+
+background:white;
+
+padding:18px 22px;
+
+border-radius:20px;
+
+margin-bottom:24px;
+
+display:flex;
+
+justify-content:space-between;
+
+align-items:center;
+
+box-shadow:
+0 5px 20px rgba(0,0,0,.05);
+
+}
+
+.bulkLeft{
+
+display:flex;
+
+align-items:center;
+
+gap:14px;
+
+font-weight:700;
+
+}
+
+#selectedOrdersCount{
+
+color:#6B7280;
+
+}
+
+.bulkRight{
+
+display:flex;
+
+gap:10px;
+
+flex-wrap:wrap;
+
+}
+
+.bulkBtn{
+
+height:44px;
+
+padding:0 16px;
+
+border:none;
+
+border-radius:12px;
+
+font-weight:800;
+
+cursor:pointer;
+
+}
+
+.assignBulkBtn{
+
+background:#2563EB;
+color:white;
+
+}
+
+.driverBulkBtn{
+
+background:#16A34A;
+color:white;
+
+}
+
+.statusBulkBtn{
+
+background:#F59E0B;
+color:white;
+
+}
+
+.exportBulkBtn{
+
+background:#111827;
+color:white;
+
+}
+
+/* ==========================================
+ANALYTICS MINI CARDS
+========================================== */
+
+.analyticsCards{
+
+display:grid;
+
+grid-template-columns:
+repeat(4,1fr);
+
+gap:20px;
+
+margin-bottom:24px;
+
+}
+
+.analyticsCardMini{
+
+background:white;
+
+padding:20px;
+
+border-radius:20px;
+
+display:flex;
+
+align-items:center;
+
+gap:16px;
+
+box-shadow:
+0 5px 20px rgba(0,0,0,.05);
+
+}
+
+.analyticsIcon{
+
+width:56px;
+height:56px;
+
+border-radius:16px;
+
+display:flex;
+
+align-items:center;
+
+justify-content:center;
+
+font-size:22px;
+
+}
+
+.revenueMini{
+
+background:#DCFCE7;
+
+}
+
+.avgMini{
+
+background:#DBEAFE;
+
+}
+
+.pendingMini{
+
+background:#FEF3C7;
+
+}
+
+.deliveryMini{
+
+background:#FEE2E2;
+
+}
+
+.analyticsCardMini h3{
+
+font-size:26px;
+
+font-weight:900;
+
+}
+
+.analyticsCardMini p{
+
+font-size:13px;
+
+font-weight:700;
+
+color:#6B7280;
+
+margin-top:4px;
+
+}
+
+/* ==========================================
+QUICK STATUS
+========================================== */
+
+.quickActionsCard{
+
+background:white;
+
+padding:22px;
+
+border-radius:22px;
+
+margin-bottom:24px;
+
+box-shadow:
+0 5px 20px rgba(0,0,0,.05);
+
+}
+
+.sectionTitle{
+
+font-size:20px;
+
+font-weight:900;
+
+margin-bottom:18px;
+
+}
+
+.quickStatusGrid{
+
+display:grid;
+
+grid-template-columns:
+repeat(4,1fr);
+
+gap:14px;
+
+}
+
+.quickStatusBtn{
+
+height:52px;
+
+border:none;
+
+border-radius:14px;
+
+font-weight:800;
+
+cursor:pointer;
+
+}
+
+.receivedBtn{
+
+background:#FFF7ED;
+
+}
+
+.assignedBtn{
+
+background:#EFF6FF;
+
+}
+
+.pickupBtn{
+
+background:#DBEAFE;
+
+}
+
+.cleaningBtn{
+
+background:#FEF3C7;
+
+}
+
+.qualityBtn{
+
+background:#EDE9FE;
+
+}
+
+.readyBtn{
+
+background:#DCFCE7;
+
+}
+
+.deliveryBtn{
+
+background:#D1FAE5;
+
+}
+
+.deliveredBtn{
+
+background:#16A34A;
+
+color:white;
+
+}
+
+/* ==========================================
+RESPONSIVE
+========================================== */
+
+@media(max-width:1200px){
+
+.analyticsCards{
+
+grid-template-columns:
+repeat(2,1fr);
+
+}
+
+.quickStatusGrid{
+
+grid-template-columns:
+repeat(2,1fr);
+
+}
+
+}
+
+@media(max-width:768px){
+
+.bulkActionBar{
+
+flex-direction:column;
+
+align-items:flex-start;
+
+gap:16px;
+
+}
+
+.analyticsCards{
+
+grid-template-columns:1fr;
+
+}
+
+.quickStatusGrid{
+
+grid-template-columns:1fr;
+
+}
+
+}
+
+</style><!-- ==========================================
+FIREBASE ORDERS LOGIC
+========================================== -->
+
+<script type="module">
+
+import { db }
+from "../js/firebase.js";
+
+import {
+
+collection,
+getDocs,
+doc,
+updateDoc
+
+}
+
+from "https://www.gstatic.com/firebasejs/12.11.0/firebase-firestore.js";
+
+/* ==========================================
+GLOBAL
+========================================== */
+
+let allOrders = [];
+
+let selectedOrderId = null;
+
+/* ==========================================
+LOAD ORDERS
+========================================== */
+
+window.loadOrders =
+async function(){
+
+try{
+
+const snapshot =
+
+await getDocs(
+
+collection(
+db,
+"orders"
+)
+
+);
+
+allOrders = [];
+
+let pending = 0;
+let active = 0;
+let delivered = 0;
+let cancelled = 0;
+
+const table =
+
+document.getElementById(
+"ordersTableBody"
+);
+
+table.innerHTML = "";
+
+snapshot.forEach(docSnap=>{
+
+const order = {
+
+id:docSnap.id,
+
+...docSnap.data()
+
+};
+
+allOrders.push(order);
+
+if(
+order.status === "Delivered"
+){
+
+delivered++;
+
+}
+else if(
+order.status === "Cancelled"
+){
+
+cancelled++;
+
+}
+else if(
+order.status === "Order Received"
+){
+
+pending++;
+
+}
+else{
+
+active++;
+
+}
+
+renderOrderRow(
+order
+);
+
+});
+
+document.getElementById(
+"pendingCount"
+).innerText = pending;
+
+document.getElementById(
+"activeCount"
+).innerText = active;
+
+document.getElementById(
+"deliveredCount"
+).innerText = delivered;
+
+document.getElementById(
+"cancelledCount"
+).innerText = cancelled;
+
+calculateAnalytics();
+
+}
+catch(error){
+
+console.error(error);
+
+}
+
+};
+
+/* ==========================================
+ORDER ROW
+========================================== */
+
+function renderOrderRow(order){
+
+const table =
+
+document.getElementById(
+"ordersTableBody"
+);
+
+let statusClass =
+"statusActive";
+
+if(order.status==="Delivered")
+statusClass="statusDelivered";
+
+if(order.status==="Cancelled")
+statusClass="statusCancelled";
+
+if(order.status==="Order Received")
+statusClass="statusPending";
+
+table.innerHTML += `
+
+<tr>
+
+<td>
+
+${order.orderId || order.id}
+
+</td>
+
+<td>
+
+${order.customerName || "-"}
+
+</td>
+
+<td>
+
+${order.phone || "-"}
+
+</td>
+
+<td>
+
+${order.city || "-"}
+
+</td>
+
+<td>
+
+${order.partnerName || "-"}
+
+</td>
+
+<td>
+
+₹${order.grandTotal || 0}
+
+</td>
+
+<td>
+
+${order.paymentMethod || "COD"}
+
+</td>
+
+<td>
+
+<span class="statusBadge ${statusClass}">
+
+${order.status || "Pending"}
+
+</span>
+
+</td>
+
+<td>
+
+${formatDate(
+order.createdAt
+)}
+
+</td>
+
+<td>
+
+<button
+class="actionTableBtn"
+onclick="openOrderDrawer('${order.id}')">
+
+View
+
+</button>
+
+</td>
+
+</tr>
+
+`;
+
+}
+
+/* ==========================================
+SEARCH
+========================================== */
+
+document
+.getElementById(
+"searchOrder"
+)
+
+.addEventListener(
+
+"input",
+
+function(){
+
+const keyword =
+
+this.value
+.toLowerCase();
+
+const rows =
+
+document.querySelectorAll(
+"#ordersTableBody tr"
+);
+
+rows.forEach(row=>{
+
+const text =
+
+row.innerText
+.toLowerCase();
+
+row.style.display =
+
+text.includes(keyword)
+
+?
+
+""
+
+:
+
+"none";
+
+});
+
+}
+
+);
+
+/* ==========================================
+STATUS FILTER
+========================================== */
+
+document
+.getElementById(
+"statusFilter"
+)
+
+.addEventListener(
+
+"change",
+
+function(){
+
+const value =
+this.value;
+
+const rows =
+
+document.querySelectorAll(
+"#ordersTableBody tr"
+);
+
+rows.forEach(row=>{
+
+if(
+value === ""
+){
+
+row.style.display = "";
+
+return;
+
+}
+
+row.style.display =
+
+row.innerText.includes(value)
+
+?
+
+""
+
+:
+
+"none";
+
+});
+
+}
+
+);
+
+/* ==========================================
+ANALYTICS
+========================================== */
+
+function calculateAnalytics(){
+
+let revenue = 0;
+
+let avgOrder = 0;
+
+let pendingPickup = 0;
+
+let outDelivery = 0;
+
+allOrders.forEach(order=>{
+
+revenue +=
+
+Number(
+order.grandTotal || 0
+);
+
+if(
+order.status ===
+"Picked Up"
+){
+
+pendingPickup++;
+
+}
+
+if(
+order.status ===
+"Out For Delivery"
+){
+
+outDelivery++;
+
+}
+
+});
+
+avgOrder =
+
+allOrders.length
+
+?
+
+Math.round(
+revenue /
+allOrders.length
+)
+
+:
+
+0;
+
+document.getElementById(
+"todayRevenueValue"
+).innerText =
+
+"₹" +
+revenue.toLocaleString(
+"en-IN"
+);
+
+document.getElementById(
+"avgOrderValue"
+).innerText =
+
+"₹" +
+avgOrder;
+
+document.getElementById(
+"pendingPickupValue"
+).innerText =
+pendingPickup;
+
+document.getElementById(
+"outDeliveryValue"
+).innerText =
+outDelivery;
+
+}
+
+/* ==========================================
+DATE FORMAT
+========================================== */
+
+function formatDate(date){
+
+try{
+
+if(
+!date
+)
+return "-";
+
+if(
+date.seconds
+){
+
+return new Date(
+
+date.seconds * 1000
+
+).toLocaleDateString();
+
+}
+
+return "-";
+
+}catch{
+
+return "-";
+
+}
+
+}
+
+/* ==========================================
+INIT
+========================================== */
+
+loadOrders();
+/* ==========================================
+ORDER DRAWER
+========================================== */
+
+window.openOrderDrawer =
+function(orderId){
+
+selectedOrderId = orderId;
+
+const order =
+
+allOrders.find(
+
+item => item.id === orderId
+
+);
+
+if(!order)
+return;
+
+document.getElementById(
+"drawerOverlay"
+).classList.add(
+"active"
+);
+
+document.getElementById(
+"orderDrawer"
+).classList.add(
+"active"
+);
+
+const container =
+
+document.getElementById(
+"drawerContent"
+);
+
+container.innerHTML =
+
+document.getElementById(
+"orderDetailsTemplate"
+).innerHTML;
+
+/* ORDER INFO */
+
+setDrawerText(
+"drawerOrderId",
+order.orderId || order.id
+);
+
+setDrawerText(
+"drawerStatus",
+order.status || "-"
+);
+
+setDrawerText(
+"drawerAmount",
+"₹" + (order.grandTotal || 0)
+);
+
+setDrawerText(
+"drawerDate",
+formatDate(order.createdAt)
+);
+
+/* CUSTOMER */
+
+setDrawerText(
+"drawerCustomer",
+order.customerName || "-"
+);
+
+setDrawerText(
+"drawerPhone",
+order.phone || "-"
+);
+
+setDrawerText(
+"drawerEmail",
+order.email || "-"
+);
+
+/* ADDRESS */
+
+setDrawerText(
+"drawerAddress",
+order.address || "-"
+);
+
+/* PAYMENT */
+
+setDrawerText(
+"drawerPaymentMethod",
+order.paymentMethod || "-"
+);
+
+setDrawerText(
+"drawerPaymentStatus",
+order.paymentStatus || "Pending"
+);
+
+/* ITEMS */
+
+const itemsContainer =
+
+document.getElementById(
+"drawerItems"
+);
+
+itemsContainer.innerHTML = "";
+
+(order.items || []).forEach(item=>{
+
+itemsContainer.innerHTML += `
+
+<div class="orderItem">
+
+<div>
+
+${item.name}
+
+x ${item.qty}
+
+</div>
+
+<div>
+
+₹${item.price}
+
+</div>
+
+</div>
+
+`;
+
+});
+
+/* TIMELINE */
+
+const timeline =
+
+document.getElementById(
+"orderTimeline"
+);
+
+timeline.innerHTML = `
+
+<div class="timelineItem">
+
+<div class="timelineDot"></div>
+
+<div class="timelineContent">
+
+<h4>
+
+${order.status || "Order Received"}
+
+</h4>
+
+<p>
+
+Current Order Status
+
+</p>
+
+</div>
+
+</div>
+
+`;
+
+};
+
+window.closeOrderDrawer =
+function(){
+
+document.getElementById(
+"drawerOverlay"
+).classList.remove(
+"active"
+);
+
+document.getElementById(
+"orderDrawer"
+).classList.remove(
+"active"
+);
+
+};
+
+function setDrawerText(
+id,
+value
+){
+
+const el =
+
+document.getElementById(id);
+
+if(el){
+
+el.innerText = value;
+
+}
+
+}
+
+/* ==========================================
+MODAL OPEN/CLOSE
+========================================== */
+
+window.openPartnerModal =
+function(){
+
+document
+.getElementById(
+"partnerModal"
+)
+.classList.add(
+"active"
+);
+
+};
+
+window.closePartnerModal =
+function(){
+
+document
+.getElementById(
+"partnerModal"
+)
+.classList.remove(
+"active"
+);
+
+};
+
+window.openDriverModal =
+function(){
+
+document
+.getElementById(
+"driverModal"
+)
+.classList.add(
+"active"
+);
+
+};
+
+window.closeDriverModal =
+function(){
+
+document
+.getElementById(
+"driverModal"
+)
+.classList.remove(
+"active"
+);
+
+};
+
+window.openStatusModal =
+function(){
+
+document
+.getElementById(
+"statusModal"
+)
+.classList.add(
+"active"
+);
+
+};
+
+window.closeStatusModal =
+function(){
+
+document
+.getElementById(
+"statusModal"
+)
+.classList.remove(
+"active"
+);
+
+};
+
+/* ==========================================
+ASSIGN PARTNER
+========================================== */
+
+window.assignPartner =
+async function(){
+
+const partner =
+
+document.getElementById(
+"partnerSelect"
+).value;
+
+if(
+!selectedOrderId
+)
+return;
+
+try{
+
+await updateDoc(
+
+doc(
+db,
+"orders",
+selectedOrderId
+),
+
+{
+
+partnerName:
+partner,
+
+updatedAt:
+new Date()
+
+}
+
+);
+
+alert(
+"Partner Assigned Successfully"
+);
+
+closePartnerModal();
+
+loadOrders();
+
+}catch(error){
+
+console.error(error);
+
+alert(
+"Failed To Assign Partner"
+);
+
+}
+
+};
+
+/* ==========================================
+ASSIGN DRIVER
+========================================== */
+
+window.assignDriver =
+async function(){
+
+const driver =
+
+document.getElementById(
+"driverSelect"
+).value;
+
+if(
+!selectedOrderId
+)
+return;
+
+try{
+
+await updateDoc(
+
+doc(
+db,
+"orders",
+selectedOrderId
+),
+
+{
+
+driverName:
+driver,
+
+updatedAt:
+new Date()
+
+}
+
+);
+
+alert(
+"Driver Assigned Successfully"
+);
+
+closeDriverModal();
+
+loadOrders();
+
+}catch(error){
+
+console.error(error);
+
+alert(
+"Failed To Assign Driver"
+);
+
+}
+
+};
+
+/* ==========================================
+UPDATE STATUS
+========================================== */
+
+window.updateOrderStatus =
+async function(){
+
+const status =
+
+document.getElementById(
+"statusSelect"
+).value;
+
+if(
+!selectedOrderId
+)
+return;
+
+try{
+
+await updateDoc(
+
+doc(
+db,
+"orders",
+selectedOrderId
+),
+
+{
+
+status,
+
+updatedAt:
+new Date()
+
+}
+
+);
+
+alert(
+"Order Status Updated"
+);
+
+closeStatusModal();
+
+closeOrderDrawer();
+
+loadOrders();
+
+}catch(error){
+
+console.error(error);
+
+alert(
+"Status Update Failed"
+);
+
+}
+
+};
+/* ==========================================
+LOAD PARTNERS
+========================================== */
+
+async function loadPartnersDropdown(){
+
+try{
+
+const snapshot =
+
+await getDocs(
+
+collection(
+db,
+"partners"
+)
+
+);
+
+const select =
+
+document.getElementById(
+"partnerSelect"
+);
+
+if(!select)
+return;
+
+select.innerHTML = "";
+
+snapshot.forEach(docSnap=>{
+
+const partner =
+docSnap.data();
+
+select.innerHTML += `
+
+<option value="${partner.name}">
+
+${partner.name}
+
+</option>
+
+`;
+
+});
+
+}catch(error){
+
+console.error(error);
+
+}
+
+}
+
+/* ==========================================
+LOAD DRIVERS
+========================================== */
+
+async function loadDriversDropdown(){
+
+try{
+
+const snapshot =
+
+await getDocs(
+
+collection(
+db,
+"drivers"
+)
+
+);
+
+const select =
+
+document.getElementById(
+"driverSelect"
+);
+
+if(!select)
+return;
+
+select.innerHTML = "";
+
+snapshot.forEach(docSnap=>{
+
+const driver =
+docSnap.data();
+
+select.innerHTML += `
+
+<option value="${driver.name}">
+
+${driver.name}
+
+</option>
+
+`;
+
+});
+
+}catch(error){
+
+console.error(error);
+
+}
+
+}
+
+/* ==========================================
+EXPORT CSV
+========================================== */
+
+window.exportOrdersCSV =
+function(){
+
+if(
+allOrders.length === 0
+){
+
+alert(
+"No Orders Found"
+);
+
+return;
+
+}
+
+let csv =
+
+"Order ID,Customer,Phone,City,Partner,Amount,Status\n";
+
+allOrders.forEach(order=>{
+
+csv +=
+
+`${order.orderId || order.id},
+${order.customerName || ""},
+${order.phone || ""},
+${order.city || ""},
+${order.partnerName || ""},
+${order.grandTotal || 0},
+${order.status || ""}\n`;
+
+});
+
+const blob =
+
+new Blob(
+
+[csv],
+
+{
+type:"text/csv"
+}
+
+);
+
+const url =
+
+URL.createObjectURL(
+blob
+);
+
+const a =
+
+document.createElement(
+"a"
+);
+
+a.href = url;
+
+a.download =
+"quickpress-orders.csv";
+
+a.click();
+
+URL.revokeObjectURL(
+url
+);
+
+};
+
+/* ==========================================
+SELECT ALL
+========================================== */
+
+document
+.getElementById(
+"selectAllOrders"
+)
+
+?.addEventListener(
+
+"change",
+
+function(){
+
+const checkboxes =
+
+document.querySelectorAll(
+".orderCheckbox"
+);
+
+checkboxes.forEach(box=>{
+
+box.checked =
+this.checked;
+
+});
+
+updateSelectedCount();
+
+}
+
+);
+
+function updateSelectedCount(){
+
+const selected =
+
+document.querySelectorAll(
+".orderCheckbox:checked"
+);
+
+const countBox =
+
+document.getElementById(
+"selectedOrdersCount"
+);
+
+if(countBox){
+
+countBox.innerText =
+
+selected.length +
+
+" Selected";
+
+}
+
+}
+
+/* ==========================================
+BULK STATUS UPDATE
+========================================== */
+
+window.bulkStatusUpdate =
+async function(status){
+
+const selected =
+
+document.querySelectorAll(
+".orderCheckbox:checked"
+);
+
+if(selected.length===0){
+
+alert(
+"Select Orders First"
+);
+
+return;
+
+}
+
+try{
+
+for(const checkbox of selected){
+
+await updateDoc(
+
+doc(
+db,
+"orders",
+checkbox.value
+),
+
+{
+status
+}
+
+);
+
+}
+
+alert(
+"Bulk Update Successful"
+);
+
+loadOrders();
+
+}catch(error){
+
+console.error(error);
+
+}
+
+};
+
+/* ==========================================
+BUTTON EVENTS
+========================================== */
+
+document
+.querySelector(
+".exportBulkBtn"
+)
+
+?.addEventListener(
+
+"click",
+
+exportOrdersCSV
+
+);
+
+/* ==========================================
+INITIAL LOAD
+========================================== */
+
+Promise.all([
+
+loadPartnersDropdown(),
+
+loadDriversDropdown()
+
+]);
+
+console.log(
+"Orders Management Ready 🚀"
+);
+
 </script>
 
-<script type="module"
-src="./js/layout.js">
-</script>
+</main>
 
-<script type="module"
-src="./js/orders.js">
-</script>
+</div>
 
 </body>
 </html>
