@@ -2589,51 +2589,60 @@ document
 DELETE CUSTOMER
 ========================================== */
 
-window.deleteCustomer =
-async function(){
+/* ==========================================
+DELETE CUSTOMER
+========================================== */
+
+window.deleteCustomer = async function(){
 
 try{
 
 const customerId =
-
 document.getElementById(
 "deleteCustomerId"
-).value;
+)?.value;
 
 if(!customerId){
 
-alert(
-"Customer ID Missing"
-);
-
+alert("Customer ID Missing");
 return;
 
 }
 
 await deleteDoc(
-
 doc(
 db,
 "customers",
 customerId
 )
-
 );
 
 alert(
 "Customer Deleted Successfully"
 );
 
-closeDeleteCustomerModal();
+const modal =
+document.getElementById(
+"deleteCustomerModal"
+);
+
+if(modal){
+modal.classList.remove(
+"active"
+);
+}
 
 await loadCustomers();
 
 }catch(error){
 
-console.error(error);
+console.error(
+"Delete Error",
+error
+);
 
 alert(
-"Delete Failed"
+"Failed To Delete Customer"
 );
 
 }
