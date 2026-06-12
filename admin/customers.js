@@ -69,7 +69,7 @@ const customersRef =
 
 collection(
 db,
-"customers"
+"users"
 );
 
 const customersQuery =
@@ -814,7 +814,7 @@ await addDoc(
 
 collection(
 db,
-"customers"
+"users"
 ),
 
 customerData
@@ -1406,7 +1406,7 @@ await updateDoc(
 
 doc(
 db,
-"customers",
+"users",
 customerId
 ),
 
@@ -1725,7 +1725,7 @@ await updateDoc(
 
 doc(
 db,
-"customers",
+"users",
 customerId
 ),
 
@@ -1768,7 +1768,7 @@ await updateDoc(
 
 doc(
 db,
-"customers",
+"users",
 customerId
 ),
 
@@ -1805,7 +1805,7 @@ await updateDoc(
 
 doc(
 db,
-"customers",
+"users",
 customerId
 ),
 
@@ -1839,7 +1839,7 @@ await updateDoc(
 
 doc(
 db,
-"customers",
+"users",
 customerId
 ),
 
@@ -2263,7 +2263,7 @@ await updateDoc(
 
 doc(
 db,
-"customers",
+"users",
 id
 ),
 
@@ -2615,7 +2615,7 @@ return;
 await deleteDoc(
 doc(
 db,
-"customers",
+"users",
 customerId
 )
 );
@@ -2772,7 +2772,7 @@ await updateDoc(
 
 doc(
 db,
-"customers",
+"users",
 id
 ),
 
@@ -2823,7 +2823,7 @@ await updateDoc(
 
 doc(
 db,
-"customers",
+"users",
 id
 ),
 
@@ -2874,7 +2874,7 @@ await updateDoc(
 
 doc(
 db,
-"customers",
+"users",
 id
 ),
 
@@ -2937,7 +2937,7 @@ await deleteDoc(
 
 doc(
 db,
-"customers",
+"users",
 id
 )
 
