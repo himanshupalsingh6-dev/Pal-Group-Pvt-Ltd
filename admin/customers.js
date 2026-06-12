@@ -2544,11 +2544,15 @@ window.customersApp = {
 loadCustomers,
 saveCustomer,
 updateCustomer,
+
 viewCustomer,
 editCustomer,
+
 blockCustomer,
 activateCustomer,
+
 upgradeCustomerMembership,
+
 exportCustomersCSV
 
 };
