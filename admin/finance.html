@@ -4,391 +4,539 @@
 <head>
 
 <meta charset="UTF-8">
-
-<meta
-name="viewport"
-content="width=device-width, initial-scale=1.0">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 
 <title>
-QuickPress Finance
+QuickPress Finance Panel
 </title>
 
-<link
-rel="stylesheet"
-href="./layout.css">
+<link rel="stylesheet"
+href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
 
-<link
-rel="stylesheet"
-href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css"/>
+<link rel="stylesheet"
+href="../css/admin.css">
 
-<script
-src="https://cdn.jsdelivr.net/npm/chart.js">
-</script>
+</head>
+
+<body>
+
+<div class="adminLayout">
+
+<!-- SIDEBAR -->
+
+<aside class="adminSidebar">
+
+<div class="logoArea">
+
+<h2>
+
+💰 QuickPress
+
+</h2>
+
+<span>
+
+Finance Panel
+
+</span>
+
+</div>
+
+<nav class="sidebarMenu">
+
+<a href="dashboard.html">
+<i class="fa-solid fa-chart-line"></i>
+Dashboard
+</a>
+
+<a href="orders.html">
+<i class="fa-solid fa-bag-shopping"></i>
+Orders
+</a>
+
+<a href="services.html">
+<i class="fa-solid fa-shirt"></i>
+Services
+</a>
+
+<a href="partners.html">
+<i class="fa-solid fa-store"></i>
+Partners
+</a>
+
+<a href="drivers.html">
+<i class="fa-solid fa-motorcycle"></i>
+Drivers
+</a>
+
+<a href="customers.html">
+<i class="fa-solid fa-users"></i>
+Customers
+</a>
+
+<a class="active"
+href="finance.html">
+
+<i class="fa-solid fa-money-bill-wave"></i>
+
+Finance
+
+</a>
+
+</nav>
+
+</aside>
+
+<!-- MAIN -->
+
+<main class="adminMain">
+
+<!-- TOP BAR -->
+
+<div class="topBar">
+
+<div>
+
+<h1>
+
+💰 Finance Management
+
+</h1>
+
+<p>
+
+Revenue, Settlements, Withdrawals & Profit Analytics
+
+</p>
+
+</div>
+
+<div class="topBarActions">
+
+<button
+class="exportBtn">
+
+<i class="fa-solid fa-file-export"></i>
+
+Export Report
+
+</button>
+
+</div>
+
+</div>
+
+<!-- REVENUE CARDS -->
+
+<div class="financeCards">
+
+<div class="financeCard">
+
+<div class="cardIcon revenueIcon">
+
+₹
+
+</div>
+
+<div>
+
+<h2 id="totalRevenue">
+
+₹0
+
+</h2>
+
+<p>
+
+Total Revenue
+
+</p>
+
+</div>
+
+</div>
+
+<div class="financeCard">
+
+<div class="cardIcon profitIcon">
+
+📈
+
+</div>
+
+<div>
+
+<h2 id="netProfit">
+
+₹0
+
+</h2>
+
+<p>
+
+Net Profit
+
+</p>
+
+</div>
+
+</div>
+
+<div class="financeCard">
+
+<div class="cardIcon pendingIcon">
+
+⏳
+
+</div>
+
+<div>
+
+<h2 id="pendingSettlements">
+
+₹0
+
+</h2>
+
+<p>
+
+Pending Settlements
+
+</p>
+
+</div>
+
+</div>
+
+<div class="financeCard">
+
+<div class="cardIcon commissionIcon">
+
+💎
+
+</div>
+
+<div>
+
+<h2 id="platformCommission">
+
+₹0
+
+</h2>
+
+<p>
+
+Commission Earned
+
+</p>
+
+</div>
+
+</div>
+
+</div>
+
+<!-- SECONDARY CARDS -->
+
+<div class="financeCards">
+
+<div class="financeCard">
+
+<div class="cardIcon">
+
+📦
+
+</div>
+
+<div>
+
+<h2 id="totalOrders">
+
+0
+
+</h2>
+
+<p>
+
+Completed Orders
+
+</p>
+
+</div>
+
+</div>
+
+<div class="financeCard">
+
+<div class="cardIcon">
+
+💸
+
+</div>
+
+<div>
+
+<h2 id="refundAmount">
+
+₹0
+
+</h2>
+
+<p>
+
+Refund Amount
+
+</p>
+
+</div>
+
+</div>
+
+<div class="financeCard">
+
+<div class="cardIcon">
+
+🏦
+
+</div>
+
+<div>
+
+<h2 id="withdrawRequests">
+
+0
+
+</h2>
+
+<p>
+
+Withdraw Requests
+
+</p>
+
+</div>
+
+</div>
+
+<div class="financeCard">
+
+<div class="cardIcon">
+
+🧾
+
+</div>
+
+<div>
+
+<h2 id="gstCollected">
+
+₹0
+
+</h2>
+
+<p>
+
+GST Collected
+
+</p>
+
+</div>
+
+</div>
+
+</div>
+
+<!-- FILTER BAR -->
+
+<div class="filterBar">
+
+<input
+type="date"
+id="fromDate">
+
+<input
+type="date"
+id="toDate">
+
+<select
+id="financeTypeFilter">
+
+<option value="">
+
+All Transactions
+
+</option>
+
+<option value="Revenue">
+
+Revenue
+
+</option>
+
+<option value="Settlement">
+
+Settlement
+
+</option>
+
+<option value="Refund">
+
+Refund
+
+</option>
+
+<option value="Withdrawal">
+
+Withdrawal
+
+</option>
+
+</select>
+
+<button
+class="filterBtn">
+
+Apply Filter
+
+</button>
+
+</div>
 
 <style>
 
-/* =====================================================
-GLOBAL
-===================================================== */
-
-body{
-background:#F4F4F5;
-font-family:Arial,sans-serif;
-}
-
-/* =====================================================
-TOP
-===================================================== */
-
-.financeTop{
-
-display:flex;
-justify-content:space-between;
-align-items:center;
-
-margin-bottom:24px;
-
-}
-
-.pageTitle{
-
-font-size:42px;
-font-weight:900;
-
-}
-
-.topActions{
-
-display:flex;
-gap:12px;
-
-}
-
-.topBtn{
-
-height:48px;
-
-padding:0 18px;
-
-border:none;
-
-border-radius:14px;
-
-background:#111827;
-
-color:#fff;
-
-font-size:14px;
-font-weight:900;
-
-cursor:pointer;
-
-}
-
-/* =====================================================
-SUMMARY GRID
-===================================================== */
-
-.summaryGrid{
+.financeCards{
 
 display:grid;
 
 grid-template-columns:
-repeat(5,1fr);
-
-gap:18px;
-
-margin-bottom:24px;
-
-}
-
-/* =====================================================
-CARD
-===================================================== */
-
-.summaryCard{
-
-background:#fff;
-
-padding:22px;
-
-border-radius:22px;
-
-border:1px solid #E5E7EB;
-
-}
-
-.cardTitle{
-
-font-size:14px;
-font-weight:800;
-color:#6B7280;
-
-margin-bottom:12px;
-
-}
-
-.cardValue{
-
-font-size:38px;
-font-weight:900;
-
-margin-bottom:12px;
-
-}
-
-/* =====================================================
-GRID
-===================================================== */
-
-.mainGrid{
-
-display:grid;
-
-grid-template-columns:
-2fr 1fr;
+repeat(4,1fr);
 
 gap:20px;
-
-margin-bottom:24px;
-
-}
-
-/* =====================================================
-BOX
-===================================================== */
-
-.box{
-
-background:#fff;
-
-border-radius:22px;
-
-padding:24px;
-
-border:1px solid #E5E7EB;
-
-overflow:auto;
-
-}
-
-/* =====================================================
-TITLE
-===================================================== */
-
-.sectionTitle{
-
-font-size:28px;
-font-weight:900;
 
 margin-bottom:20px;
 
 }
 
-/* =====================================================
-TABLE
-===================================================== */
+.financeCard{
 
-.tableHeader{
+background:#fff;
 
-display:grid;
+padding:24px;
 
-grid-template-columns:
-140px 180px 160px 140px 140px 140px 180px;
+border-radius:22px;
 
-padding:16px;
-
-background:#F9FAFB;
-
-border-radius:14px;
-
-font-size:13px;
-font-weight:900;
-
-margin-bottom:10px;
-
-}
-
-.tableRow{
-
-display:grid;
-
-grid-template-columns:
-140px 180px 160px 140px 140px 140px 180px;
-
-padding:16px;
+display:flex;
 
 align-items:center;
 
-border-bottom:1px solid #F3F4F6;
+gap:15px;
 
-font-size:14px;
-font-weight:800;
+box-shadow:
+0 5px 20px rgba(0,0,0,.06);
 
 }
 
-/* =====================================================
-STATUS
-===================================================== */
+.financeCard h2{
 
-.status{
+font-size:28px;
 
-padding:8px 12px;
-
-border-radius:10px;
-
-width:max-content;
-
-font-size:12px;
 font-weight:900;
 
-color:#fff;
+margin-bottom:5px;
 
 }
 
-.success{
-background:#10B981;
-}
+.cardIcon{
 
-.pending{
-background:#F59E0B;
-}
+width:60px;
+height:60px;
 
-.danger{
-background:#EF4444;
-}
-
-/* =====================================================
-BUTTONS
-===================================================== */
-
-.actionBtns{
+border-radius:18px;
 
 display:flex;
-gap:10px;
+
+align-items:center;
+
+justify-content:center;
+
+font-size:24px;
+
+background:#F3F4F6;
+
+}
+
+.revenueIcon{
+
+background:#DCFCE7;
+
+}
+
+.profitIcon{
+
+background:#DBEAFE;
+
+}
+
+.pendingIcon{
+
+background:#FEF3C7;
+
+}
+
+.commissionIcon{
+
+background:#FCE7F3;
+
+}
+
+.filterBar{
+
+display:flex;
+
+gap:12px;
+
+margin-bottom:25px;
+
 flex-wrap:wrap;
 
 }
 
-.actionBtn{
-
-height:36px;
-
-padding:0 14px;
-
-border:none;
-
-border-radius:10px;
-
-font-size:12px;
-font-weight:900;
-
-cursor:pointer;
-
-}
-
-.greenBtn{
-
-background:#10B981;
-color:#fff;
-
-}
-
-.redBtn{
-
-background:#EF4444;
-color:#fff;
-
-}
-
-.darkBtn{
-
-background:#111827;
-color:#fff;
-
-}
-
-/* =====================================================
-FILTERS
-===================================================== */
-
-.filters{
-
-display:grid;
-
-grid-template-columns:
-repeat(5,1fr);
-
-gap:14px;
-
-margin-bottom:20px;
-
-}
-
-.filterInput{
+.filterBar input,
+.filterBar select{
 
 height:50px;
+
+padding:0 14px;
 
 border:1px solid #E5E7EB;
 
 border-radius:12px;
 
-padding:0 16px;
+}
 
-font-size:14px;
+.filterBtn{
+
+height:50px;
+
+padding:0 20px;
+
+border:none;
+
+border-radius:12px;
+
+background:#16A34A;
+
+color:white;
+
 font-weight:800;
 
-outline:none;
-
-background:#fff;
+cursor:pointer;
 
 }
 
-/* =====================================================
-ANALYTICS GRID
-===================================================== */
+@media(max-width:1100px){
 
-.analyticsGrid{
-
-display:grid;
-
-grid-template-columns:
-1fr 1fr;
-
-gap:20px;
-
-}
-
-/* =====================================================
-RESPONSIVE
-===================================================== */
-
-@media(max-width:1600px){
-
-.summaryGrid{
-
-grid-template-columns:
-repeat(3,1fr);
-
-}
-
-}
-
-@media(max-width:1200px){
-
-.mainGrid{
-
-grid-template-columns:1fr;
-
-}
-
-.analyticsGrid{
-
-grid-template-columns:1fr;
-
-}
-
-.filters{
+.financeCards{
 
 grid-template-columns:
 repeat(2,1fr);
@@ -397,15 +545,9 @@ repeat(2,1fr);
 
 }
 
-@media(max-width:700px){
+@media(max-width:768px){
 
-.summaryGrid{
-
-grid-template-columns:1fr;
-
-}
-
-.filters{
+.financeCards{
 
 grid-template-columns:1fr;
 
@@ -413,374 +555,3110 @@ grid-template-columns:1fr;
 
 }
 
-</style>
+</style><!-- ==========================================
+REVENUE ANALYTICS
+========================================== -->
 
-</head>
+<div class="analyticsSection">
 
-<body>
+<div class="sectionHeader">
 
-<div id="layoutContainer"></div>
+<h2>
 
-<div class="main">
+📈 Revenue Analytics
 
-<!-- =====================================================
-TOP
-===================================================== -->
+</h2>
 
-<div class="financeTop">
+<div class="headerActions">
 
-<div class="pageTitle">
-Finance Management
-</div>
+<button class="exportBtn">
 
-<div class="topActions">
+Export CSV
 
-<button class="topBtn">
-Export Excel
 </button>
 
-<button class="topBtn">
-Download PDF
-</button>
+<button class="exportBtn">
 
-<button class="topBtn">
-GST Reports
+Export PDF
+
 </button>
 
 </div>
 
 </div>
 
-<!-- =====================================================
-SUMMARY
-===================================================== -->
+<div class="revenueAnalyticsGrid">
 
-<div class="summaryGrid">
+<div class="analyticsBox">
 
-<div class="summaryCard">
+<h3>
 
-<div class="cardTitle">
-Total Revenue
-</div>
+Today's Revenue
 
-<div
-class="cardValue"
-id="totalRevenue">
+</h3>
+
+<h1 id="todayRevenue">
 
 ₹0
 
+</h1>
+
+<span>
+
+Today's Earnings
+
+</span>
+
 </div>
 
-<canvas id="revenueMini"></canvas>
+<div class="analyticsBox">
 
-</div>
+<h3>
 
-<div class="summaryCard">
+Monthly Revenue
 
-<div class="cardTitle">
-Today Earnings
-</div>
+</h3>
 
-<div
-class="cardValue"
-id="todayEarnings">
+<h1 id="monthlyRevenue">
 
 ₹0
 
+</h1>
+
+<span>
+
+Current Month
+
+</span>
+
 </div>
 
-<canvas id="todayMini"></canvas>
+<div class="analyticsBox">
 
-</div>
+<h3>
 
-<div class="summaryCard">
+Yearly Revenue
 
-<div class="cardTitle">
-COD Collection
-</div>
+</h3>
 
-<div
-class="cardValue"
-id="codCollection">
+<h1 id="yearlyRevenue">
 
 ₹0
 
+</h1>
+
+<span>
+
+Current Year
+
+</span>
+
 </div>
 
-<canvas id="codMini"></canvas>
+<div class="analyticsBox">
 
-</div>
+<h3>
 
-<div class="summaryCard">
+Average Order Value
 
-<div class="cardTitle">
-Pending Payouts
-</div>
+</h3>
 
-<div
-class="cardValue"
-id="pendingPayouts">
+<h1 id="averageOrderValue">
 
 ₹0
 
+</h1>
+
+<span>
+
+Per Order
+
+</span>
+
 </div>
 
-<canvas id="payoutMini"></canvas>
+</div>
 
 </div>
 
-<div class="summaryCard">
+<!-- ==========================================
+REVENUE CHART
+========================================== -->
 
-<div class="cardTitle">
-Net Profit
+<div class="chartCard">
+
+<div class="sectionHeader">
+
+<h2>
+
+📊 Revenue Performance
+
+</h2>
+
+<select id="chartRange">
+
+<option value="7">
+
+Last 7 Days
+
+</option>
+
+<option value="30">
+
+Last 30 Days
+
+</option>
+
+<option value="90">
+
+Last 90 Days
+
+</option>
+
+<option value="365">
+
+Last 1 Year
+
+</option>
+
+</select>
+
 </div>
 
-<div
-class="cardValue"
-id="netProfit">
+<div class="chartContainer">
+
+<canvas
+id="revenueChart">
+
+</canvas>
+
+</div>
+
+</div>
+
+<!-- ==========================================
+REVENUE BREAKDOWN
+========================================== -->
+
+<div class="financeCards">
+
+<div class="financeCard">
+
+<div class="cardIcon">
+
+🧺
+
+</div>
+
+<div>
+
+<h2 id="laundryRevenue">
 
 ₹0
 
+</h2>
+
+<p>
+
+Laundry Revenue
+
+</p>
+
 </div>
 
-<canvas id="profitMini"></canvas>
+</div>
+
+<div class="financeCard">
+
+<div class="cardIcon">
+
+🧼
+
+</div>
+
+<div>
+
+<h2 id="drycleanRevenue">
+
+₹0
+
+</h2>
+
+<p>
+
+Dry Clean Revenue
+
+</p>
 
 </div>
 
 </div>
 
-<!-- =====================================================
-FILTERS
-===================================================== -->
+<div class="financeCard">
 
-<div class="filters">
+<div class="cardIcon">
+
+🚚
+
+</div>
+
+<div>
+
+<h2 id="deliveryRevenue">
+
+₹0
+
+</h2>
+
+<p>
+
+Delivery Charges
+
+</p>
+
+</div>
+
+</div>
+
+<div class="financeCard">
+
+<div class="cardIcon">
+
+💰
+
+</div>
+
+<div>
+
+<h2 id="extraRevenue">
+
+₹0
+
+</h2>
+
+<p>
+
+Other Revenue
+
+</p>
+
+</div>
+
+</div>
+
+</div>
+
+<!-- ==========================================
+REVENUE TABLE
+========================================== -->
+
+<div class="tableCard">
+
+<div class="sectionHeader">
+
+<h2>
+
+💵 Revenue Transactions
+
+</h2>
 
 <input
 type="text"
-placeholder="Search Transaction"
-class="filterInput"
-id="searchInput">
+id="revenueSearch"
+placeholder="Search Transaction">
 
-<select
-class="filterInput"
-id="paymentFilter">
+</div>
 
-<option value="">
-Payment Method
-</option>
+<div class="tableWrapper">
 
-<option value="cod">
-COD
-</option>
+<table class="financeTable">
 
-<option value="online">
-Online
-</option>
+<thead>
 
-</select>
+<tr>
 
-<select
-class="filterInput"
-id="statusFilter">
+<th>ID</th>
+<th>Date</th>
+<th>Customer</th>
+<th>Order</th>
+<th>Amount</th>
+<th>Commission</th>
+<th>Status</th>
+<th>Action</th>
 
-<option value="">
-Status
-</option>
+</tr>
 
-<option value="success">
-Success
-</option>
+</thead>
 
-<option value="pending">
-Pending
-</option>
+<tbody id="revenueTableBody">
 
-</select>
+<!-- Firebase Data -->
 
-<select
-class="filterInput"
-id="cityFilter">
+</tbody>
 
-<option value="">
-City Wise
-</option>
+</table>
 
-</select>
+</div>
+
+</div>
+
+<style>
+
+/* ==========================================
+ANALYTICS
+========================================== */
+
+.analyticsSection{
+
+margin-bottom:25px;
+
+}
+
+.revenueAnalyticsGrid{
+
+display:grid;
+
+grid-template-columns:
+repeat(4,1fr);
+
+gap:20px;
+
+margin-top:20px;
+
+}
+
+.analyticsBox{
+
+background:#fff;
+
+padding:24px;
+
+border-radius:20px;
+
+box-shadow:
+0 5px 20px rgba(0,0,0,.05);
+
+}
+
+.analyticsBox h1{
+
+font-size:32px;
+
+font-weight:900;
+
+margin:10px 0;
+
+}
+
+.analyticsBox span{
+
+color:#6B7280;
+
+}
+
+/* ==========================================
+CHART
+========================================== */
+
+.chartCard{
+
+background:#fff;
+
+padding:25px;
+
+border-radius:22px;
+
+margin-bottom:25px;
+
+box-shadow:
+0 5px 20px rgba(0,0,0,.05);
+
+}
+
+.chartContainer{
+
+height:400px;
+
+position:relative;
+
+}
+
+/* ==========================================
+TABLE
+========================================== */
+
+.tableCard{
+
+background:#fff;
+
+padding:24px;
+
+border-radius:22px;
+
+box-shadow:
+0 5px 20px rgba(0,0,0,.05);
+
+margin-bottom:25px;
+
+}
+
+.financeTable{
+
+width:100%;
+
+border-collapse:collapse;
+
+}
+
+.financeTable th{
+
+background:#F9FAFB;
+
+padding:14px;
+
+text-align:left;
+
+font-size:14px;
+
+}
+
+.financeTable td{
+
+padding:14px;
+
+border-bottom:
+1px solid #E5E7EB;
+
+}
+
+#revenueSearch{
+
+height:45px;
+
+padding:0 14px;
+
+border:1px solid #E5E7EB;
+
+border-radius:12px;
+
+}
+
+/* ==========================================
+RESPONSIVE
+========================================== */
+
+@media(max-width:1200px){
+
+.revenueAnalyticsGrid{
+
+grid-template-columns:
+repeat(2,1fr);
+
+}
+
+}
+
+@media(max-width:768px){
+
+.revenueAnalyticsGrid{
+
+grid-template-columns:1fr;
+
+}
+
+.chartContainer{
+
+height:300px;
+
+}
+
+}
+
+</style><!-- ==========================================
+PARTNER SETTLEMENT ANALYTICS
+========================================== -->
+
+<div class="analyticsSection">
+
+<div class="sectionHeader">
+
+<h2>
+
+🏪 Partner Settlements
+
+</h2>
+
+<div class="headerActions">
+
+<button class="exportBtn">
+
+Export Settlements
+
+</button>
+
+</div>
+
+</div>
+
+<div class="revenueAnalyticsGrid">
+
+<div class="analyticsBox">
+
+<h3>
+
+Pending Settlements
+
+</h3>
+
+<h1 id="pendingPartnerAmount">
+
+₹0
+
+</h1>
+
+<span>
+
+Awaiting Payment
+
+</span>
+
+</div>
+
+<div class="analyticsBox">
+
+<h3>
+
+Paid Settlements
+
+</h3>
+
+<h1 id="paidPartnerAmount">
+
+₹0
+
+</h1>
+
+<span>
+
+Completed
+
+</span>
+
+</div>
+
+<div class="analyticsBox">
+
+<h3>
+
+Partners Pending
+
+</h3>
+
+<h1 id="pendingPartners">
+
+0
+
+</h1>
+
+<span>
+
+Need Settlement
+
+</span>
+
+</div>
+
+<div class="analyticsBox">
+
+<h3>
+
+Total Partners
+
+</h3>
+
+<h1 id="totalPartners">
+
+0
+
+</h1>
+
+<span>
+
+Registered
+
+</span>
+
+</div>
+
+</div>
+
+</div>
+
+<!-- ==========================================
+PENDING SETTLEMENT TABLE
+========================================== -->
+
+<div class="tableCard">
+
+<div class="sectionHeader">
+
+<h2>
+
+💰 Pending Settlements
+
+</h2>
 
 <input
-type="date"
-class="filterInput"
-id="dateFilter">
+type="text"
+id="partnerSettlementSearch"
+placeholder="Search Partner">
 
 </div>
 
-<!-- =====================================================
-MAIN GRID
-===================================================== -->
+<div class="tableWrapper">
 
-<div class="mainGrid">
+<table class="financeTable">
 
-<!-- =====================================================
-TRANSACTIONS
-===================================================== -->
+<thead>
 
-<div class="box">
+<tr>
 
-<div class="sectionTitle">
-Transactions
+<th>Partner</th>
+<th>Orders</th>
+<th>Total Revenue</th>
+<th>Commission</th>
+<th>Payable</th>
+<th>Status</th>
+<th>Action</th>
+
+</tr>
+
+</thead>
+
+<tbody id="partnerSettlementBody">
+
+<!-- Firebase Data -->
+
+</tbody>
+
+</table>
+
 </div>
 
-<div class="tableHeader">
-
-<div>
-Transaction ID
 </div>
 
-<div>
-Customer
+<!-- ==========================================
+SETTLEMENT HISTORY
+========================================== -->
+
+<div class="tableCard">
+
+<div class="sectionHeader">
+
+<h2>
+
+📜 Settlement History
+
+</h2>
+
 </div>
 
-<div>
-Service
+<div class="tableWrapper">
+
+<table class="financeTable">
+
+<thead>
+
+<tr>
+
+<th>Settlement ID</th>
+<th>Partner</th>
+<th>Amount</th>
+<th>Date</th>
+<th>Method</th>
+<th>Status</th>
+
+</tr>
+
+</thead>
+
+<tbody id="settlementHistoryBody">
+
+<!-- Firebase Data -->
+
+</tbody>
+
+</table>
+
 </div>
 
-<div>
+</div>
+
+<!-- ==========================================
+PAY PARTNER MODAL
+========================================== -->
+
+<div
+id="payPartnerModal"
+class="adminModal">
+
+<div class="modalCard">
+
+<div class="modalHeader">
+
+<h2>
+
+💸 Pay Partner
+
+</h2>
+
+<button
+onclick="closePayPartnerModal()">
+
+<i class="fa-solid fa-xmark"></i>
+
+</button>
+
+</div>
+
+<div class="modalBody">
+
+<input
+type="hidden"
+id="payPartnerId">
+
+<div class="formGroup">
+
+<label>
+
+Partner Name
+
+</label>
+
+<input
+type="text"
+id="payPartnerName"
+readonly>
+
+</div>
+
+<div class="formGroup">
+
+<label>
+
 Amount
-</div>
 
-<div>
-Payment
-</div>
+</label>
 
-<div>
-Status
-</div>
-
-<div>
-Actions
-</div>
+<input
+type="text"
+id="payPartnerAmount"
+readonly>
 
 </div>
 
-<div id="transactionsContainer">
+<div class="formGroup">
+
+<label>
+
+Payment Method
+
+</label>
+
+<select
+id="partnerPaymentMethod">
+
+<option value="Bank Transfer">
+
+Bank Transfer
+
+</option>
+
+<option value="UPI">
+
+UPI
+
+</option>
+
+<option value="Cash">
+
+Cash
+
+</option>
+
+</select>
 
 </div>
 
-</div>
+<button
+class="confirmBtn"
+onclick="confirmPartnerPayment()">
 
-<!-- =====================================================
-FINANCE ACTIONS
-===================================================== -->
+Mark As Paid
 
-<div class="box">
-
-<div class="sectionTitle">
-Finance Actions
-</div>
-
-<div class="actionBtns">
-
-<button class="actionBtn greenBtn">
-Verify COD
 </button>
 
-<button class="actionBtn darkBtn">
-Release Payout
+</div>
+
+</div>
+
+</div>
+
+<style>
+
+/* ==========================================
+MODAL
+========================================== */
+
+.adminModal{
+
+display:none;
+
+position:fixed;
+
+inset:0;
+
+background:
+rgba(0,0,0,.45);
+
+z-index:999;
+
+align-items:center;
+
+justify-content:center;
+
+}
+
+.adminModal.active{
+
+display:flex;
+
+}
+
+.modalCard{
+
+width:500px;
+
+background:white;
+
+border-radius:20px;
+
+overflow:hidden;
+
+}
+
+.modalHeader{
+
+padding:20px;
+
+display:flex;
+
+justify-content:space-between;
+
+align-items:center;
+
+border-bottom:
+1px solid #E5E7EB;
+
+}
+
+.modalBody{
+
+padding:20px;
+
+}
+
+.formGroup{
+
+margin-bottom:15px;
+
+}
+
+.formGroup label{
+
+display:block;
+
+font-weight:700;
+
+margin-bottom:8px;
+
+}
+
+.formGroup input,
+.formGroup select{
+
+width:100%;
+
+height:50px;
+
+padding:0 14px;
+
+border:1px solid #E5E7EB;
+
+border-radius:12px;
+
+}
+
+.confirmBtn{
+
+width:100%;
+
+height:52px;
+
+border:none;
+
+border-radius:12px;
+
+background:#16A34A;
+
+color:white;
+
+font-weight:800;
+
+cursor:pointer;
+
+}
+
+.statusPending{
+
+color:#D97706;
+
+font-weight:800;
+
+}
+
+.statusPaid{
+
+color:#16A34A;
+
+font-weight:800;
+
+}
+
+</style><!-- ==========================================
+DRIVER PAYOUT ANALYTICS
+========================================== -->
+
+<div class="analyticsSection">
+
+<div class="sectionHeader">
+
+<h2>
+
+🚚 Driver Payouts
+
+</h2>
+
+<div class="headerActions">
+
+<button class="exportBtn">
+
+Export Driver Report
+
 </button>
 
-<button class="actionBtn redBtn">
+</div>
+
+</div>
+
+<div class="revenueAnalyticsGrid">
+
+<div class="analyticsBox">
+
+<h3>
+
+Pending Driver Payments
+
+</h3>
+
+<h1 id="pendingDriverAmount">
+
+₹0
+
+</h1>
+
+<span>
+
+Awaiting Payment
+
+</span>
+
+</div>
+
+<div class="analyticsBox">
+
+<h3>
+
+Paid Driver Earnings
+
+</h3>
+
+<h1 id="paidDriverAmount">
+
+₹0
+
+</h1>
+
+<span>
+
+Completed
+
+</span>
+
+</div>
+
+<div class="analyticsBox">
+
+<h3>
+
+Drivers Pending
+
+</h3>
+
+<h1 id="pendingDrivers">
+
+0
+
+</h1>
+
+<span>
+
+Need Payout
+
+</span>
+
+</div>
+
+<div class="analyticsBox">
+
+<h3>
+
+Total Drivers
+
+</h3>
+
+<h1 id="totalDrivers">
+
+0
+
+</h1>
+
+<span>
+
+Active Drivers
+
+</span>
+
+</div>
+
+</div>
+
+</div>
+
+<!-- ==========================================
+DRIVER PAYOUT TABLE
+========================================== -->
+
+<div class="tableCard">
+
+<div class="sectionHeader">
+
+<h2>
+
+💸 Driver Payout Queue
+
+</h2>
+
+<input
+type="text"
+id="driverSearch"
+placeholder="Search Driver">
+
+</div>
+
+<div class="tableWrapper">
+
+<table class="financeTable">
+
+<thead>
+
+<tr>
+
+<th>Driver</th>
+<th>Deliveries</th>
+<th>Earnings</th>
+<th>Bonus</th>
+<th>Penalty</th>
+<th>Net Payable</th>
+<th>Status</th>
+<th>Action</th>
+
+</tr>
+
+</thead>
+
+<tbody id="driverPayoutBody">
+
+<!-- Firebase Data -->
+
+</tbody>
+
+</table>
+
+</div>
+
+</div>
+
+<!-- ==========================================
+DRIVER PAYOUT HISTORY
+========================================== -->
+
+<div class="tableCard">
+
+<div class="sectionHeader">
+
+<h2>
+
+📜 Driver Payment History
+
+</h2>
+
+</div>
+
+<div class="tableWrapper">
+
+<table class="financeTable">
+
+<thead>
+
+<tr>
+
+<th>Payout ID</th>
+<th>Driver</th>
+<th>Amount</th>
+<th>Date</th>
+<th>Method</th>
+<th>Status</th>
+
+</tr>
+
+</thead>
+
+<tbody id="driverHistoryBody">
+
+<!-- Firebase Data -->
+
+</tbody>
+
+</table>
+
+</div>
+
+</div>
+
+<!-- ==========================================
+MARK DRIVER PAID MODAL
+========================================== -->
+
+<div
+id="driverPaymentModal"
+class="adminModal">
+
+<div class="modalCard">
+
+<div class="modalHeader">
+
+<h2>
+
+🚚 Driver Payment
+
+</h2>
+
+<button
+onclick="closeDriverPaymentModal()">
+
+<i class="fa-solid fa-xmark"></i>
+
+</button>
+
+</div>
+
+<div class="modalBody">
+
+<input
+type="hidden"
+id="driverPaymentId">
+
+<div class="formGroup">
+
+<label>
+
+Driver Name
+
+</label>
+
+<input
+type="text"
+id="driverPaymentName"
+readonly>
+
+</div>
+
+<div class="formGroup">
+
+<label>
+
+Amount
+
+</label>
+
+<input
+type="text"
+id="driverPaymentAmount"
+readonly>
+
+</div>
+
+<div class="formGroup">
+
+<label>
+
+Payment Method
+
+</label>
+
+<select
+id="driverPaymentMethod">
+
+<option value="UPI">
+
+UPI
+
+</option>
+
+<option value="Bank Transfer">
+
+Bank Transfer
+
+</option>
+
+<option value="Cash">
+
+Cash
+
+</option>
+
+</select>
+
+</div>
+
+<button
+class="confirmBtn"
+onclick="confirmDriverPayment()">
+
+Mark Driver Paid
+
+</button>
+
+</div>
+
+</div>
+
+</div>
+
+<!-- ==========================================
+DRIVER EARNING BREAKDOWN
+========================================== -->
+
+<div class="financeCards">
+
+<div class="financeCard">
+
+<div class="cardIcon">
+
+📦
+
+</div>
+
+<div>
+
+<h2 id="completedDeliveries">
+
+0
+
+</h2>
+
+<p>
+
+Completed Deliveries
+
+</p>
+
+</div>
+
+</div>
+
+<div class="financeCard">
+
+<div class="cardIcon">
+
+🎁
+
+</div>
+
+<div>
+
+<h2 id="driverBonuses">
+
+₹0
+
+</h2>
+
+<p>
+
+Bonuses
+
+</p>
+
+</div>
+
+</div>
+
+<div class="financeCard">
+
+<div class="cardIcon">
+
+⚠️
+
+</div>
+
+<div>
+
+<h2 id="driverPenalties">
+
+₹0
+
+</h2>
+
+<p>
+
+Penalties
+
+</p>
+
+</div>
+
+</div>
+
+<div class="financeCard">
+
+<div class="cardIcon">
+
+💰
+
+</div>
+
+<div>
+
+<h2 id="driverNetPayout">
+
+₹0
+
+</h2>
+
+<p>
+
+Net Driver Cost
+
+</p>
+
+</div>
+
+</div>
+
+</div>
+
+<style>
+
+/* ==========================================
+DRIVER STATUS
+========================================== */
+
+.driverPending{
+
+color:#D97706;
+
+font-weight:800;
+
+}
+
+.driverPaid{
+
+color:#16A34A;
+
+font-weight:800;
+
+}
+
+.driverBonus{
+
+color:#2563EB;
+
+font-weight:800;
+
+}
+
+.driverPenalty{
+
+color:#DC2626;
+
+font-weight:800;
+
+}
+
+/* ==========================================
+SEARCH
+========================================== */
+
+#driverSearch{
+
+height:45px;
+
+padding:0 14px;
+
+border:1px solid #E5E7EB;
+
+border-radius:12px;
+
+min-width:250px;
+
+}
+
+</style><!-- ==========================================
+WITHDRAW REQUEST ANALYTICS
+========================================== -->
+
+<div class="analyticsSection">
+
+<div class="sectionHeader">
+
+<h2>
+
+🏦 Withdraw Requests
+
+</h2>
+
+<div class="headerActions">
+
+<button class="exportBtn">
+
+Export Withdrawals
+
+</button>
+
+</div>
+
+</div>
+
+<div class="revenueAnalyticsGrid">
+
+<div class="analyticsBox">
+
+<h3>
+
+Pending Withdrawals
+
+</h3>
+
+<h1 id="pendingWithdrawAmount">
+
+₹0
+
+</h1>
+
+<span>
+
+Awaiting Approval
+
+</span>
+
+</div>
+
+<div class="analyticsBox">
+
+<h3>
+
+Approved Withdrawals
+
+</h3>
+
+<h1 id="approvedWithdrawAmount">
+
+₹0
+
+</h1>
+
+<span>
+
+Completed
+
+</span>
+
+</div>
+
+<div class="analyticsBox">
+
+<h3>
+
+Rejected Requests
+
+</h3>
+
+<h1 id="rejectedWithdrawCount">
+
+0
+
+</h1>
+
+<span>
+
+Rejected
+
+</span>
+
+</div>
+
+<div class="analyticsBox">
+
+<h3>
+
+Total Requests
+
+</h3>
+
+<h1 id="totalWithdrawRequests">
+
+0
+
+</h1>
+
+<span>
+
+All Requests
+
+</span>
+
+</div>
+
+</div>
+
+</div>
+
+<!-- ==========================================
+WITHDRAW REQUEST TABLE
+========================================== -->
+
+<div class="tableCard">
+
+<div class="sectionHeader">
+
+<h2>
+
+💸 Withdrawal Approval Queue
+
+</h2>
+
+<input
+type="text"
+id="withdrawSearch"
+placeholder="Search User">
+
+</div>
+
+<div class="tableWrapper">
+
+<table class="financeTable">
+
+<thead>
+
+<tr>
+
+<th>Request ID</th>
+<th>User</th>
+<th>Type</th>
+<th>Amount</th>
+<th>Bank / UPI</th>
+<th>Date</th>
+<th>Status</th>
+<th>Action</th>
+
+</tr>
+
+</thead>
+
+<tbody id="withdrawRequestBody">
+
+<!-- Firebase Data -->
+
+</tbody>
+
+</table>
+
+</div>
+
+</div>
+
+<!-- ==========================================
+WITHDRAW HISTORY
+========================================== -->
+
+<div class="tableCard">
+
+<div class="sectionHeader">
+
+<h2>
+
+📜 Withdrawal History
+
+</h2>
+
+</div>
+
+<div class="tableWrapper">
+
+<table class="financeTable">
+
+<thead>
+
+<tr>
+
+<th>ID</th>
+<th>User</th>
+<th>Amount</th>
+<th>Date</th>
+<th>Method</th>
+<th>Status</th>
+
+</tr>
+
+</thead>
+
+<tbody id="withdrawHistoryBody">
+
+<!-- Firebase Data -->
+
+</tbody>
+
+</table>
+
+</div>
+
+</div>
+
+<!-- ==========================================
+WALLET TRANSACTIONS
+========================================== -->
+
+<div class="tableCard">
+
+<div class="sectionHeader">
+
+<h2>
+
+👛 Wallet Transactions
+
+</h2>
+
+</div>
+
+<div class="tableWrapper">
+
+<table class="financeTable">
+
+<thead>
+
+<tr>
+
+<th>Txn ID</th>
+<th>User</th>
+<th>Type</th>
+<th>Amount</th>
+<th>Balance</th>
+<th>Date</th>
+
+</tr>
+
+</thead>
+
+<tbody id="walletTransactionsBody">
+
+<!-- Firebase Data -->
+
+</tbody>
+
+</table>
+
+</div>
+
+</div>
+
+<!-- ==========================================
+APPROVE WITHDRAW MODAL
+========================================== -->
+
+<div
+id="withdrawApprovalModal"
+class="adminModal">
+
+<div class="modalCard">
+
+<div class="modalHeader">
+
+<h2>
+
+✅ Approve Withdrawal
+
+</h2>
+
+<button
+onclick="closeWithdrawModal()">
+
+<i class="fa-solid fa-xmark"></i>
+
+</button>
+
+</div>
+
+<div class="modalBody">
+
+<input
+type="hidden"
+id="withdrawRequestId">
+
+<div class="formGroup">
+
+<label>
+
+User
+
+</label>
+
+<input
+type="text"
+id="withdrawUserName"
+readonly>
+
+</div>
+
+<div class="formGroup">
+
+<label>
+
+Amount
+
+</label>
+
+<input
+type="text"
+id="withdrawAmount"
+readonly>
+
+</div>
+
+<div class="formGroup">
+
+<label>
+
+Payment Reference
+
+</label>
+
+<input
+type="text"
+id="paymentReference"
+placeholder="UTR / Reference No">
+
+</div>
+
+<button
+class="confirmBtn"
+onclick="approveWithdrawal()">
+
+Approve Withdrawal
+
+</button>
+
+</div>
+
+</div>
+
+</div>
+
+<style>
+
+.withdrawPending{
+
+color:#D97706;
+
+font-weight:800;
+
+}
+
+.withdrawApproved{
+
+color:#16A34A;
+
+font-weight:800;
+
+}
+
+.withdrawRejected{
+
+color:#DC2626;
+
+font-weight:800;
+
+}
+
+#withdrawSearch{
+
+height:45px;
+
+padding:0 14px;
+
+border:1px solid #E5E7EB;
+
+border-radius:12px;
+
+min-width:250px;
+
+}
+
+</style><!-- ==========================================
+REFUND MANAGEMENT
+========================================== -->
+
+<div class="analyticsSection">
+
+<div class="sectionHeader">
+
+<h2>
+
+🔄 Refund Management
+
+</h2>
+
+<div class="headerActions">
+
+<button class="exportBtn">
+
+Export Refunds
+
+</button>
+
+</div>
+
+</div>
+
+<div class="revenueAnalyticsGrid">
+
+<div class="analyticsBox">
+
+<h3>
+
+Pending Refunds
+
+</h3>
+
+<h1 id="pendingRefundAmount">
+
+₹0
+
+</h1>
+
+<span>
+
+Awaiting Approval
+
+</span>
+
+</div>
+
+<div class="analyticsBox">
+
+<h3>
+
+Approved Refunds
+
+</h3>
+
+<h1 id="approvedRefundAmount">
+
+₹0
+
+</h1>
+
+<span>
+
+Processed
+
+</span>
+
+</div>
+
+<div class="analyticsBox">
+
+<h3>
+
+Rejected Refunds
+
+</h3>
+
+<h1 id="rejectedRefundAmount">
+
+₹0
+
+</h1>
+
+<span>
+
+Rejected
+
+</span>
+
+</div>
+
+<div class="analyticsBox">
+
+<h3>
+
+Total Refund Requests
+
+</h3>
+
+<h1 id="totalRefundRequests">
+
+0
+
+</h1>
+
+<span>
+
+All Requests
+
+</span>
+
+</div>
+
+</div>
+
+</div>
+
+<!-- ==========================================
+REFUND REQUEST TABLE
+========================================== -->
+
+<div class="tableCard">
+
+<div class="sectionHeader">
+
+<h2>
+
+💸 Refund Approval Queue
+
+</h2>
+
+<input
+type="text"
+id="refundSearch"
+placeholder="Search Order / Customer">
+
+</div>
+
+<div class="tableWrapper">
+
+<table class="financeTable">
+
+<thead>
+
+<tr>
+
+<th>Refund ID</th>
+<th>Order ID</th>
+<th>Customer</th>
+<th>Amount</th>
+<th>Reason</th>
+<th>Date</th>
+<th>Status</th>
+<th>Action</th>
+
+</tr>
+
+</thead>
+
+<tbody id="refundRequestBody">
+
+<!-- Firebase Data -->
+
+</tbody>
+
+</table>
+
+</div>
+
+</div>
+
+<!-- ==========================================
+REFUND HISTORY
+========================================== -->
+
+<div class="tableCard">
+
+<div class="sectionHeader">
+
+<h2>
+
+📜 Refund History
+
+</h2>
+
+</div>
+
+<div class="tableWrapper">
+
+<table class="financeTable">
+
+<thead>
+
+<tr>
+
+<th>Refund ID</th>
+<th>Order ID</th>
+<th>Customer</th>
+<th>Amount</th>
+<th>Date</th>
+<th>Status</th>
+
+</tr>
+
+</thead>
+
+<tbody id="refundHistoryBody">
+
+<!-- Firebase Data -->
+
+</tbody>
+
+</table>
+
+</div>
+
+</div>
+
+<!-- ==========================================
+APPROVE REFUND MODAL
+========================================== -->
+
+<div
+id="refundApprovalModal"
+class="adminModal">
+
+<div class="modalCard">
+
+<div class="modalHeader">
+
+<h2>
+
+✅ Approve Refund
+
+</h2>
+
+<button
+onclick="closeRefundModal()">
+
+<i class="fa-solid fa-xmark"></i>
+
+</button>
+
+</div>
+
+<div class="modalBody">
+
+<input
+type="hidden"
+id="refundRequestId">
+
+<div class="formGroup">
+
+<label>
+
+Customer
+
+</label>
+
+<input
+type="text"
+id="refundCustomer"
+readonly>
+
+</div>
+
+<div class="formGroup">
+
+<label>
+
+Refund Amount
+
+</label>
+
+<input
+type="text"
+id="refundAmount"
+readonly>
+
+</div>
+
+<div class="formGroup">
+
+<label>
+
+Refund Method
+
+</label>
+
+<select
+id="refundMethod">
+
+<option value="Original Payment">
+
+Original Payment Method
+
+</option>
+
+<option value="Wallet">
+
+Wallet Credit
+
+</option>
+
+<option value="Bank Transfer">
+
+Bank Transfer
+
+</option>
+
+</select>
+
+</div>
+
+<button
+class="confirmBtn"
+onclick="approveRefund()">
+
 Approve Refund
-</button>
 
-<button class="actionBtn darkBtn">
-Generate Invoice
-</button>
-
-<button class="actionBtn greenBtn">
-Export CSV
 </button>
 
 </div>
 
-<br>
-
-<div class="sectionTitle">
-Finance Alerts
-</div>
-
-<div id="alertContainer">
-
 </div>
 
 </div>
 
-</div>
+<!-- ==========================================
+REJECT REFUND MODAL
+========================================== -->
 
-<!-- =====================================================
-ANALYTICS
-===================================================== -->
+<div
+id="rejectRefundModal"
+class="adminModal">
 
-<div class="analyticsGrid">
+<div class="modalCard">
 
-<div class="box">
+<div class="modalHeader">
 
-<div class="sectionTitle">
-Revenue Analytics
-</div>
+<h2>
 
-<canvas id="revenueChart"></canvas>
+❌ Reject Refund
 
-</div>
+</h2>
 
-<div class="box">
+<button
+onclick="closeRejectRefundModal()">
 
-<div class="sectionTitle">
-COD vs Online
-</div>
+<i class="fa-solid fa-xmark"></i>
 
-<canvas id="paymentChart"></canvas>
-
-</div>
-
-<div class="box">
-
-<div class="sectionTitle">
-City Wise Revenue
-</div>
-
-<div id="cityContainer">
+</button>
 
 </div>
 
+<div class="modalBody">
+
+<input
+type="hidden"
+id="rejectRefundId">
+
+<div class="formGroup">
+
+<label>
+
+Rejection Reason
+
+</label>
+
+<textarea
+id="refundRejectReason"
+rows="5"
+style="width:100%;padding:12px;border:1px solid #E5E7EB;border-radius:12px;">
+
+</textarea>
+
 </div>
 
-<div class="box">
+<button
+class="confirmBtn"
+style="background:#DC2626;"
+onclick="rejectRefund()">
 
-<div class="sectionTitle">
-Expense Management
-</div>
+Reject Refund
 
-<div id="expenseContainer">
-
-</div>
-
-</div>
+</button>
 
 </div>
 
 </div>
 
-<script type="module"
-src="./js/auth.js">
-</script>
+</div>
 
-<script type="module"
-src="./js/layout.js">
-</script>
+<style>
 
-<script type="module"
-src="./js/finance.js">
+/* ==========================================
+REFUND STATUS
+========================================== */
+
+.refundPending{
+
+color:#D97706;
+font-weight:800;
+
+}
+
+.refundApproved{
+
+color:#16A34A;
+font-weight:800;
+
+}
+
+.refundRejected{
+
+color:#DC2626;
+font-weight:800;
+
+}
+
+#refundSearch{
+
+height:45px;
+
+padding:0 14px;
+
+border:1px solid #E5E7EB;
+
+border-radius:12px;
+
+min-width:280px;
+
+}
+
+textarea:focus{
+
+outline:none;
+border-color:#16A34A;
+
+}
+
+</style><!-- ==========================================
+EXPENSE MANAGEMENT
+========================================== -->
+
+<div class="analyticsSection">
+
+<div class="sectionHeader">
+
+<h2>
+
+💳 Expense Management
+
+</h2>
+
+<button
+class="exportBtn"
+onclick="openExpenseModal()">
+
++ Add Expense
+
+</button>
+
+</div>
+
+<div class="revenueAnalyticsGrid">
+
+<div class="analyticsBox">
+
+<h3>
+
+Total Expenses
+
+</h3>
+
+<h1 id="totalExpenses">
+
+₹0
+
+</h1>
+
+<span>
+
+All Categories
+
+</span>
+
+</div>
+
+<div class="analyticsBox">
+
+<h3>
+
+Marketing
+
+</h3>
+
+<h1 id="marketingExpense">
+
+₹0
+
+</h1>
+
+<span>
+
+Ads & Promotions
+
+</span>
+
+</div>
+
+<div class="analyticsBox">
+
+<h3>
+
+Operations
+
+</h3>
+
+<h1 id="operationsExpense">
+
+₹0
+
+</h1>
+
+<span>
+
+Daily Operations
+
+</span>
+
+</div>
+
+<div class="analyticsBox">
+
+<h3>
+
+Technology
+
+</h3>
+
+<h1 id="technologyExpense">
+
+₹0
+
+</h1>
+
+<span>
+
+Hosting & Software
+
+</span>
+
+</div>
+
+</div>
+
+</div>
+
+<!-- ==========================================
+EXPENSE TABLE
+========================================== -->
+
+<div class="tableCard">
+
+<div class="sectionHeader">
+
+<h2>
+
+📋 Expense Records
+
+</h2>
+
+<input
+type="text"
+id="expenseSearch"
+placeholder="Search Expense">
+
+</div>
+
+<div class="tableWrapper">
+
+<table class="financeTable">
+
+<thead>
+
+<tr>
+
+<th>ID</th>
+<th>Category</th>
+<th>Description</th>
+<th>Amount</th>
+<th>Date</th>
+<th>Added By</th>
+<th>Action</th>
+
+</tr>
+
+</thead>
+
+<tbody id="expenseTableBody">
+
+</tbody>
+
+</table>
+
+</div>
+
+</div>
+
+<!-- ==========================================
+GST REPORTS
+========================================== -->
+
+<div class="analyticsSection">
+
+<div class="sectionHeader">
+
+<h2>
+
+🧾 GST Reports
+
+</h2>
+
+<div>
+
+<button class="exportBtn">
+
+GST CSV
+
+</button>
+
+<button class="exportBtn">
+
+GST PDF
+
+</button>
+
+</div>
+
+</div>
+
+<div class="revenueAnalyticsGrid">
+
+<div class="analyticsBox">
+
+<h3>
+
+GST Collected
+
+</h3>
+
+<h1 id="gstCollectedTotal">
+
+₹0
+
+</h1>
+
+<span>
+
+Total GST
+
+</span>
+
+</div>
+
+<div class="analyticsBox">
+
+<h3>
+
+CGST
+
+</h3>
+
+<h1 id="cgstAmount">
+
+₹0
+
+</h1>
+
+<span>
+
+Central GST
+
+</span>
+
+</div>
+
+<div class="analyticsBox">
+
+<h3>
+
+SGST
+
+</h3>
+
+<h1 id="sgstAmount">
+
+₹0
+
+</h1>
+
+<span>
+
+State GST
+
+</span>
+
+</div>
+
+<div class="analyticsBox">
+
+<h3>
+
+IGST
+
+</h3>
+
+<h1 id="igstAmount">
+
+₹0
+
+</h1>
+
+<span>
+
+Integrated GST
+
+</span>
+
+</div>
+
+</div>
+
+</div>
+
+<!-- ==========================================
+PROFIT & LOSS
+========================================== -->
+
+<div class="analyticsSection">
+
+<div class="sectionHeader">
+
+<h2>
+
+📈 Profit & Loss Statement
+
+</h2>
+
+</div>
+
+<div class="tableWrapper">
+
+<table class="financeTable">
+
+<tbody>
+
+<tr>
+<td>Total Revenue</td>
+<td id="plRevenue">₹0</td>
+</tr>
+
+<tr>
+<td>Partner Settlements</td>
+<td id="plSettlements">₹0</td>
+</tr>
+
+<tr>
+<td>Driver Payouts</td>
+<td id="plDriverPayouts">₹0</td>
+</tr>
+
+<tr>
+<td>Refunds</td>
+<td id="plRefunds">₹0</td>
+</tr>
+
+<tr>
+<td>Expenses</td>
+<td id="plExpenses">₹0</td>
+</tr>
+
+<tr>
+
+<td>
+
+<strong>Net Profit</strong>
+
+</td>
+
+<td>
+
+<strong id="plNetProfit">
+
+₹0
+
+</strong>
+
+</td>
+
+</tr>
+
+</tbody>
+
+</table>
+
+</div>
+
+</div>
+
+<!-- ==========================================
+ADD EXPENSE MODAL
+========================================== -->
+
+<div
+id="expenseModal"
+class="adminModal">
+
+<div class="modalCard">
+
+<div class="modalHeader">
+
+<h2>
+
+➕ Add Expense
+
+</h2>
+
+<button
+onclick="closeExpenseModal()">
+
+<i class="fa-solid fa-xmark"></i>
+
+</button>
+
+</div>
+
+<div class="modalBody">
+
+<div class="formGroup">
+
+<label>
+
+Category
+
+</label>
+
+<select id="expenseCategory">
+
+<option value="Marketing">
+
+Marketing
+
+</option>
+
+<option value="Operations">
+
+Operations
+
+</option>
+
+<option value="Technology">
+
+Technology
+
+</option>
+
+<option value="Salary">
+
+Salary
+
+</option>
+
+<option value="Other">
+
+Other
+
+</option>
+
+</select>
+
+</div>
+
+<div class="formGroup">
+
+<label>
+
+Description
+
+</label>
+
+<input
+type="text"
+id="expenseDescription">
+
+</div>
+
+<div class="formGroup">
+
+<label>
+
+Amount
+
+</label>
+
+<input
+type="number"
+id="expenseAmount">
+
+</div>
+
+<button
+class="confirmBtn"
+onclick="saveExpense()">
+
+Save Expense
+
+</button>
+
+</div>
+
+</div>
+
+</div>
+
+<style>
+
+#expenseSearch{
+
+height:45px;
+
+padding:0 14px;
+
+border:1px solid #E5E7EB;
+
+border-radius:12px;
+
+min-width:250px;
+
+}
+
+.financeTable tbody tr td{
+
+padding:14px;
+
+}
+
+</style><!-- ==========================================
+TRANSACTION LEDGER
+========================================== -->
+
+<div class="tableCard">
+
+<div class="sectionHeader">
+
+<h2>
+
+📒 Transaction Ledger
+
+</h2>
+
+<div>
+
+<input
+type="text"
+id="ledgerSearch"
+placeholder="Search Transaction">
+
+<select
+id="ledgerTypeFilter">
+
+<option value="">
+All Types
+</option>
+
+<option value="Revenue">
+Revenue
+</option>
+
+<option value="Settlement">
+Settlement
+</option>
+
+<option value="Payout">
+Driver Payout
+</option>
+
+<option value="Refund">
+Refund
+</option>
+
+<option value="Expense">
+Expense
+</option>
+
+</select>
+
+</div>
+
+</div>
+
+<div class="tableWrapper">
+
+<table class="financeTable">
+
+<thead>
+
+<tr>
+
+<th>Txn ID</th>
+<th>Date</th>
+<th>Type</th>
+<th>User</th>
+<th>Amount</th>
+<th>Status</th>
+
+</tr>
+
+</thead>
+
+<tbody id="ledgerTableBody">
+
+<!-- Firebase Data -->
+
+</tbody>
+
+</table>
+
+</div>
+
+</div>
+
+<!-- ==========================================
+EXPORT CENTER
+========================================== -->
+
+<div class="tableCard">
+
+<div class="sectionHeader">
+
+<h2>
+
+📁 Export Center
+
+</h2>
+
+</div>
+
+<div
+style="
+display:grid;
+grid-template-columns:
+repeat(4,1fr);
+gap:20px;
+">
+
+<button class="exportBtn">
+
+Revenue CSV
+
+</button>
+
+<button class="exportBtn">
+
+Revenue PDF
+
+</button>
+
+<button class="exportBtn">
+
+GST Report
+
+</button>
+
+<button class="exportBtn">
+
+Transactions Report
+
+</button>
+
+<button class="exportBtn">
+
+Settlements Report
+
+</button>
+
+<button class="exportBtn">
+
+Driver Payout Report
+
+</button>
+
+<button class="exportBtn">
+
+Refund Report
+
+</button>
+
+<button class="exportBtn">
+
+Profit & Loss PDF
+
+</button>
+
+</div>
+
+</div>
+
+<!-- ==========================================
+FINANCE SETTINGS
+========================================== -->
+
+<div class="tableCard">
+
+<div class="sectionHeader">
+
+<h2>
+
+⚙️ Finance Settings
+
+</h2>
+
+</div>
+
+<div class="revenueAnalyticsGrid">
+
+<div class="formGroup">
+
+<label>
+
+Partner Commission %
+
+</label>
+
+<input
+type="number"
+id="partnerCommission"
+value="15">
+
+</div>
+
+<div class="formGroup">
+
+<label>
+
+Driver Commission %
+
+</label>
+
+<input
+type="number"
+id="driverCommission"
+value="20">
+
+</div>
+
+<div class="formGroup">
+
+<label>
+
+GST %
+
+</label>
+
+<input
+type="number"
+id="gstPercent"
+value="18">
+
+</div>
+
+<div class="formGroup">
+
+<label>
+
+Platform Fee %
+
+</label>
+
+<input
+type="number"
+id="platformFee"
+value="5">
+
+</div>
+
+</div>
+
+<button
+class="confirmBtn"
+style="
+max-width:250px;
+margin-top:15px;
+">
+
+Save Settings
+
+</button>
+
+</div>
+
+</main>
+
+</div>
+
+<!-- ==========================================
+CHART JS
+========================================== -->
+
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+<!-- ==========================================
+FINANCE JS
+========================================== -->
+
+<script
+type="module"
+src="./finance.js">
+
 </script>
 
 </body>
+
 </html>
