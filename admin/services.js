@@ -3,7 +3,7 @@ QUICKPRESS SERVICES PANEL
 SIMPLE FIREBASE VERSION
 ===================================================== */
 
-import { db } from "../firebase/firebase.js";
+import { db } from "../js/firebase.js";
 
 import {
 collection,
