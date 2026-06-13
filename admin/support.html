@@ -1,233 +1,1594 @@
-<!-- =========================================================
-FILE : admin/support.html
-QUICKPRESS SUPPORT CENTER
-========================================================= -->
-
 <!DOCTYPE html>
 <html lang="en">
 
 <head>
 
-<meta charset="UTF-8"/>
-<meta name="viewport"
-content="width=device-width, initial-scale=1.0"/>
+<meta charset="UTF-8">
+
+<meta
+name="viewport"
+content="width=device-width, initial-scale=1.0">
 
 <title>
-QuickPress Support
+
+QuickPress Support Management
+
 </title>
 
 <link rel="stylesheet"
-href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css"/>
-  
-<link rel="stylesheet" href="./css/global.css"/>
+href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
 
-<style>
-
-*{
-margin:0;
-padding:0;
-box-sizing:border-box;
-font-family:Inter,sans-serif;
-}
-
-body{
-background:#F5F7FB;
-overflow:hidden;
-color:#111827;
-}
-
-.main{
-margin-left:240px;
-margin-top:82px;
-padding:24px;
-height:calc(100vh - 82px);
-overflow:auto;
-}
-
-.pageHeader h1{
-font-size:42px;
-font-weight:900;
-margin-bottom:24px;
-}
-
-.statsGrid{
-display:grid;
-grid-template-columns:repeat(4,1fr);
-gap:18px;
-margin-bottom:24px;
-}
-
-.statCard{
-background:#fff;
-border-radius:24px;
-padding:24px;
-border:1px solid #E5E7EB;
-}
-
-.statCard span{
-font-size:13px;
-font-weight:700;
-color:#6B7280;
-}
-
-.statCard h2{
-font-size:34px;
-margin-top:10px;
-font-weight:900;
-}
-
-.ticketList{
-display:flex;
-flex-direction:column;
-gap:18px;
-}
-
-.ticketCard{
-background:#fff;
-border-radius:24px;
-padding:24px;
-border:1px solid #E5E7EB;
-display:flex;
-justify-content:space-between;
-align-items:center;
-}
-
-.ticketLeft{
-display:flex;
-gap:18px;
-align-items:center;
-}
-
-.ticketIcon{
-width:60px;
-height:60px;
-border-radius:18px;
-background:#DBEAFE;
-display:flex;
-align-items:center;
-justify-content:center;
-font-size:24px;
-}
-
-.ticketInfo h3{
-font-size:18px;
-font-weight:900;
-margin-bottom:6px;
-}
-
-.ticketInfo p{
-font-size:14px;
-color:#6B7280;
-}
-
-.status{
-padding:10px 16px;
-border-radius:999px;
-font-size:12px;
-font-weight:800;
-}
-
-.pending{
-background:#FEF3C7;
-color:#92400E;
-}
-
-.solved{
-background:#DCFCE7;
-color:#166534;
-}
-
-</style>
+<link rel="stylesheet"
+href="./support.css">
 
 </head>
 
 <body>
 
-<div id="topbar"></div>
+<div class="adminLayout">
 
-<div id="sidebar"></div>
+<!-- ==========================================
+SIDEBAR
+========================================== -->
 
-<div class="main">
+<aside class="adminSidebar">
 
-<div class="pageHeader">
+<div class="logoArea">
+
+<h2>
+
+🎧 QuickPress
+
+</h2>
+
+<span>
+
+Support Center
+
+</span>
+
+</div>
+
+<nav class="sidebarMenu">
+
+<a href="dashboard.html">
+<i class="fa-solid fa-chart-line"></i>
+Dashboard
+</a>
+
+<a href="orders.html">
+<i class="fa-solid fa-bag-shopping"></i>
+Orders
+</a>
+
+<a href="customers.html">
+<i class="fa-solid fa-users"></i>
+Customers
+</a>
+
+<a href="partners.html">
+<i class="fa-solid fa-store"></i>
+Partners
+</a>
+
+<a href="drivers.html">
+<i class="fa-solid fa-motorcycle"></i>
+Drivers
+</a>
+
+<a href="finance.html">
+<i class="fa-solid fa-money-bill-wave"></i>
+Finance
+</a>
+
+<a href="coupons.html">
+<i class="fa-solid fa-ticket"></i>
+Coupons
+</a>
+
+<a
+class="active"
+href="support.html">
+
+<i class="fa-solid fa-headset"></i>
+
+Support
+
+</a>
+
+</nav>
+
+</aside>
+
+<!-- ==========================================
+MAIN
+========================================== -->
+
+<main class="adminMain">
+
+<!-- ==========================================
+TOP BAR
+========================================== -->
+
+<div class="topBar">
+
+<div>
 
 <h1>
-Support Center
+
+🎧 Support Center
+
 </h1>
 
+<p>
+
+Customer, Partner & Driver Support Management
+
+</p>
+
 </div>
 
-<div class="statsGrid">
+<div>
 
-<div class="statCard">
+<button
+class="primaryBtn"
+onclick="openTicketModal()">
 
-<span>
-Total Tickets
-</span>
+<i class="fa-solid fa-plus"></i>
+
+Create Ticket
+
+</button>
+
+</div>
+
+</div>
+
+<!-- ==========================================
+ANALYTICS CARDS
+========================================== -->
+
+<div class="supportCards">
+
+<div class="supportCard">
+
+<div class="cardIcon">
+
+🎫
+
+</div>
+
+<div>
 
 <h2 id="totalTickets">
+
 0
+
 </h2>
+
+<p>
+
+Total Tickets
+
+</p>
 
 </div>
 
-<div class="statCard">
+</div>
 
-<span>
-Pending Tickets
-</span>
+<div class="supportCard">
+
+<div class="cardIcon open">
+
+📬
+
+</div>
+
+<div>
+
+<h2 id="openTickets">
+
+0
+
+</h2>
+
+<p>
+
+Open Tickets
+
+</p>
+
+</div>
+
+</div>
+
+<div class="supportCard">
+
+<div class="cardIcon pending">
+
+⏳
+
+</div>
+
+<div>
 
 <h2 id="pendingTickets">
+
 0
+
+</h2>
+
+<p>
+
+Pending Tickets
+
+</p>
+
+</div>
+
+</div>
+
+<div class="supportCard">
+
+<div class="cardIcon resolved">
+
+✅
+
+</div>
+
+<div>
+
+<h2 id="resolvedTickets">
+
+0
+
+</h2>
+
+<p>
+
+Resolved Tickets
+
+</p>
+
+</div>
+
+</div>
+
+</div>
+
+<!-- ==========================================
+SECOND ROW
+========================================== -->
+
+<div class="supportCards">
+
+<div class="supportCard">
+
+<div class="cardIcon critical">
+
+🚨
+
+</div>
+
+<div>
+
+<h2 id="criticalTickets">
+
+0
+
+</h2>
+
+<p>
+
+Critical Priority
+
+</p>
+
+</div>
+
+</div>
+
+<div class="supportCard">
+
+<div class="cardIcon">
+
+💬
+
+</div>
+
+<div>
+
+<h2 id="liveChats">
+
+0
+
+</h2>
+
+<p>
+
+Live Chat Requests
+
+</p>
+
+</div>
+
+</div>
+
+<div class="supportCard">
+
+<div class="cardIcon">
+
+👨‍💼
+
+</div>
+
+<div>
+
+<h2 id="assignedTickets">
+
+0
+
+</h2>
+
+<p>
+
+Assigned Tickets
+
+</p>
+
+</div>
+
+</div>
+
+<div class="supportCard">
+
+<div class="cardIcon">
+
+⭐
+
+</div>
+
+<div>
+
+<h2 id="avgResolutionTime">
+
+0h
+
+</h2>
+
+<p>
+
+Avg Resolution
+
+</p>
+
+</div>
+
+</div>
+
+</div>
+
+<!-- ==========================================
+FILTERS
+========================================== -->
+
+<div class="filterBar">
+
+<input
+type="text"
+id="ticketSearch"
+placeholder="Search Ticket ID / User">
+
+<select id="statusFilter">
+
+<option value="">
+All Status
+</option>
+
+<option value="open">
+Open
+</option>
+
+<option value="pending">
+Pending
+</option>
+
+<option value="resolved">
+Resolved
+</option>
+
+<option value="closed">
+Closed
+</option>
+
+</select>
+
+<select id="priorityFilter">
+
+<option value="">
+All Priority
+</option>
+
+<option value="low">
+Low
+</option>
+
+<option value="medium">
+Medium
+</option>
+
+<option value="high">
+High
+</option>
+
+<option value="critical">
+Critical
+</option>
+
+</select>
+
+<select id="typeFilter">
+
+<option value="">
+All Types
+</option>
+
+<option value="customer">
+Customer
+</option>
+
+<option value="partner">
+Partner
+</option>
+
+<option value="driver">
+Driver
+</option>
+
+</select>
+
+<button
+class="filterBtn">
+
+Apply Filter
+
+</button>
+
+</div><!-- ==========================================
+SUPPORT TICKETS TABLE
+========================================== -->
+
+<div class="tableCard">
+
+<div class="sectionHeader">
+
+<h2>
+
+🎫 Support Tickets
+
+</h2>
+
+<button
+class="secondaryBtn"
+onclick="exportTicketsCSV()">
+
+Export CSV
+
+</button>
+
+</div>
+
+<div class="tableWrapper">
+
+<table class="supportTable">
+
+<thead>
+
+<tr>
+
+<th>ID</th>
+<th>User</th>
+<th>Type</th>
+<th>Subject</th>
+<th>Priority</th>
+<th>Status</th>
+<th>Assigned</th>
+<th>Created</th>
+<th>Actions</th>
+
+</tr>
+
+</thead>
+
+<tbody id="ticketTableBody">
+
+<!-- Firebase Data -->
+
+</tbody>
+
+</table>
+
+</div>
+
+</div>
+
+<!-- ==========================================
+CREATE TICKET MODAL
+========================================== -->
+
+<div
+id="ticketModal"
+class="adminModal">
+
+<div class="modalCard">
+
+<div class="modalHeader">
+
+<h2>
+
+➕ Create Support Ticket
+
+</h2>
+
+<button
+onclick="closeTicketModal()">
+
+<i class="fa-solid fa-xmark"></i>
+
+</button>
+
+</div>
+
+<div class="modalBody">
+
+<input
+type="hidden"
+id="ticketId">
+
+<div class="formGrid">
+
+<div class="formGroup">
+
+<label>
+
+Ticket Type
+
+</label>
+
+<select id="ticketType">
+
+<option value="customer">
+
+Customer
+
+</option>
+
+<option value="partner">
+
+Partner
+
+</option>
+
+<option value="driver">
+
+Driver
+
+</option>
+
+</select>
+
+</div>
+
+<div class="formGroup">
+
+<label>
+
+Priority
+
+</label>
+
+<select id="ticketPriority">
+
+<option value="low">
+
+Low
+
+</option>
+
+<option value="medium">
+
+Medium
+
+</option>
+
+<option value="high">
+
+High
+
+</option>
+
+<option value="critical">
+
+Critical
+
+</option>
+
+</select>
+
+</div>
+
+<div class="formGroup">
+
+<label>
+
+User Name
+
+</label>
+
+<input
+type="text"
+id="userName"
+placeholder="Enter Name">
+
+</div>
+
+<div class="formGroup">
+
+<label>
+
+Phone Number
+
+</label>
+
+<input
+type="text"
+id="userPhone"
+placeholder="Enter Mobile Number">
+
+</div>
+
+<div class="formGroup">
+
+<label>
+
+Order ID
+
+</label>
+
+<input
+type="text"
+id="orderId"
+placeholder="QP12345">
+
+</div>
+
+<div class="formGroup">
+
+<label>
+
+Assign Agent
+
+</label>
+
+<select id="assignedAgent">
+
+<option value="">
+
+Select Agent
+
+</option>
+
+<option value="Support Team">
+
+Support Team
+
+</option>
+
+<option value="Finance Team">
+
+Finance Team
+
+</option>
+
+<option value="Operations Team">
+
+Operations Team
+
+</option>
+
+</select>
+
+</div>
+
+</div>
+
+<div class="formGroup">
+
+<label>
+
+Subject
+
+</label>
+
+<input
+type="text"
+id="ticketSubject"
+placeholder="Issue Subject">
+
+</div>
+
+<div class="formGroup">
+
+<label>
+
+Description
+
+</label>
+
+<textarea
+id="ticketDescription"
+rows="6"
+placeholder="Describe issue in detail">
+
+</textarea>
+
+</div>
+
+<div class="modalActions">
+
+<button
+class="secondaryBtn"
+onclick="closeTicketModal()">
+
+Cancel
+
+</button>
+
+<button
+class="primaryBtn"
+onclick="saveTicket()">
+
+Create Ticket
+
+</button>
+
+</div>
+
+</div>
+
+</div>
+
+</div>
+
+<!-- ==========================================
+TICKET SUMMARY
+========================================== -->
+
+<div class="supportCards">
+
+<div class="supportCard">
+
+<div class="cardIcon">
+
+👤
+
+</div>
+
+<div>
+
+<h2 id="customerTickets">
+
+0
+
+</h2>
+
+<p>
+
+Customer Tickets
+
+</p>
+
+</div>
+
+</div>
+
+<div class="supportCard">
+
+<div class="cardIcon">
+
+🏪
+
+</div>
+
+<div>
+
+<h2 id="partnerTickets">
+
+0
+
+</h2>
+
+<p>
+
+Partner Tickets
+
+</p>
+
+</div>
+
+</div>
+
+<div class="supportCard">
+
+<div class="cardIcon">
+
+🛵
+
+</div>
+
+<div>
+
+<h2 id="driverTickets">
+
+0
+
+</h2>
+
+<p>
+
+Driver Tickets
+
+</p>
+
+</div>
+
+</div>
+
+<div class="supportCard">
+
+<div class="cardIcon">
+
+🎯
+
+</div>
+
+<div>
+
+<h2 id="closedTickets">
+
+0
+
+</h2>
+
+<p>
+
+Closed Tickets
+
+</p>
+
+</div>
+
+</div>
+
+</div><!-- ==========================================
+TICKET DETAILS PANEL
+========================================== -->
+
+<div class="tableCard">
+
+<div class="sectionHeader">
+
+<h2>
+
+📋 Ticket Details
+
 </h2>
 
 </div>
 
-<div class="statCard">
+<div class="ticketDetailsContainer">
 
-<span>
-Solved Tickets
+<div class="ticketInfo">
+
+<div class="infoRow">
+
+<label>
+
+Ticket ID
+
+</label>
+
+<span id="detailTicketId">
+
+-
+
 </span>
 
-<h2 id="solvedTickets">
-0
-</h2>
-
 </div>
 
-<div class="statCard">
+<div class="infoRow">
 
-<span>
-Today Tickets
+<label>
+
+User
+
+</label>
+
+<span id="detailUser">
+
+-
+
 </span>
 
-<h2 id="todayTickets">
-0
-</h2>
+</div>
+
+<div class="infoRow">
+
+<label>
+
+Type
+
+</label>
+
+<span id="detailType">
+
+-
+
+</span>
 
 </div>
+
+<div class="infoRow">
+
+<label>
+
+Priority
+
+</label>
+
+<span id="detailPriority">
+
+-
+
+</span>
+
+</div>
+
+<div class="infoRow">
+
+<label>
+
+Status
+
+</label>
+
+<span id="detailStatus">
+
+-
+
+</span>
+
+</div>
+
+<div class="infoRow">
+
+<label>
+
+Assigned Agent
+
+</label>
+
+<span id="detailAgent">
+
+-
+
+</span>
+
+</div>
+
+<div class="infoRow">
+
+<label>
+
+Order ID
+
+</label>
+
+<span id="detailOrderId">
+
+-
+
+</span>
+
+</div>
+
+</div>
+
+<div class="ticketDescriptionBox">
+
+<h3>
+
+📝 Issue Description
+
+</h3>
+
+<p id="detailDescription">
+
+Select a ticket to view details.
+
+</p>
+
+</div>
+
+</div>
+
+</div>
+
+<!-- ==========================================
+REPLY PANEL
+========================================== -->
+
+<div class="tableCard">
+
+<div class="sectionHeader">
+
+<h2>
+
+💬 Ticket Replies
+
+</h2>
 
 </div>
 
 <div
-class="ticketList"
-id="ticketList">
+id="replyTimeline"
+class="replyTimeline">
+
+<!-- Replies -->
+
+</div>
+
+<div class="replyBox">
+
+<textarea
+id="ticketReply"
+rows="5"
+placeholder="Write a reply to the user...">
+
+</textarea>
+
+<div class="modalActions">
+
+<button
+class="primaryBtn"
+onclick="sendReply()">
+
+Send Reply
+
+</button>
 
 </div>
 
 </div>
 
-<script type="module"
-src="./js/support.js">
-</script>
+</div>
 
-<script type="module"
-src="./components/topbar.js">
-</script>
+<!-- ==========================================
+INTERNAL NOTES
+========================================== -->
 
-<script type="module"
-src="./components/sidebar.js">
+<div class="tableCard">
+
+<div class="sectionHeader">
+
+<h2>
+
+📌 Internal Notes
+
+</h2>
+
+</div>
+
+<textarea
+id="internalNote"
+rows="5"
+placeholder="Add internal note for support team...">
+
+</textarea>
+
+<div class="modalActions">
+
+<button
+class="secondaryBtn"
+onclick="saveInternalNote()">
+
+Save Note
+
+</button>
+
+</div>
+
+</div>
+
+<!-- ==========================================
+TICKET TIMELINE
+========================================== -->
+
+<div class="tableCard">
+
+<div class="sectionHeader">
+
+<h2>
+
+🕒 Ticket Timeline
+
+</h2>
+
+</div>
+
+<div
+id="ticketTimeline"
+class="timelineContainer">
+
+<!-- Timeline Events -->
+
+</div>
+
+</div>
+
+<!-- ==========================================
+TICKET ACTIONS
+========================================== -->
+
+<div class="tableCard">
+
+<div class="sectionHeader">
+
+<h2>
+
+⚙ Ticket Actions
+
+</h2>
+
+</div>
+
+<div class="bulkActions">
+
+<button
+class="primaryBtn"
+onclick="assignTicket()">
+
+Assign Ticket
+
+</button>
+
+<button
+class="warningBtn"
+onclick="markPending()">
+
+Mark Pending
+
+</button>
+
+<button
+class="successBtn"
+onclick="resolveTicket()">
+
+Resolve Ticket
+
+</button>
+
+<button
+class="dangerBtn"
+onclick="closeTicket()">
+
+Close Ticket
+
+</button>
+
+</div>
+
+</div>
+
+<!-- ==========================================
+AGENT PERFORMANCE
+========================================== -->
+
+<div class="supportCards">
+
+<div class="supportCard">
+
+<div class="cardIcon">
+
+👨‍💻
+
+</div>
+
+<div>
+
+<h2 id="activeAgents">
+
+0
+
+</h2>
+
+<p>
+
+Active Agents
+
+</p>
+
+</div>
+
+</div>
+
+<div class="supportCard">
+
+<div class="cardIcon">
+
+📨
+
+</div>
+
+<div>
+
+<h2 id="agentReplies">
+
+0
+
+</h2>
+
+<p>
+
+Total Replies
+
+</p>
+
+</div>
+
+</div>
+
+<div class="supportCard">
+
+<div class="cardIcon">
+
+⚡
+
+</div>
+
+<div>
+
+<h2 id="fastestResolution">
+
+0h
+
+</h2>
+
+<p>
+
+Fastest Resolution
+
+</p>
+
+</div>
+
+</div>
+
+<div class="supportCard">
+
+<div class="cardIcon">
+
+🏆
+
+</div>
+
+<div>
+
+<h2 id="topAgent">
+
+-
+
+</h2>
+
+<p>
+
+Top Agent
+
+</p>
+
+</div>
+
+</div>
+
+</div><!-- ==========================================
+LIVE CHAT REQUESTS
+========================================== -->
+
+<div class="tableCard">
+
+<div class="sectionHeader">
+
+<h2>
+
+💬 Live Chat Requests
+
+</h2>
+
+</div>
+
+<div class="tableWrapper">
+
+<table class="supportTable">
+
+<thead>
+
+<tr>
+
+<th>Request ID</th>
+<th>User</th>
+<th>Type</th>
+<th>Message</th>
+<th>Status</th>
+<th>Created</th>
+<th>Actions</th>
+
+</tr>
+
+</thead>
+
+<tbody id="liveChatBody">
+
+<!-- Firebase Data -->
+
+</tbody>
+
+</table>
+
+</div>
+
+</div>
+
+<!-- ==========================================
+SUPPORT HISTORY
+========================================== -->
+
+<div class="tableCard">
+
+<div class="sectionHeader">
+
+<h2>
+
+📜 Support History
+
+</h2>
+
+</div>
+
+<div class="tableWrapper">
+
+<table class="supportTable">
+
+<thead>
+
+<tr>
+
+<th>Ticket ID</th>
+<th>User</th>
+<th>Subject</th>
+<th>Status</th>
+<th>Resolved By</th>
+<th>Date</th>
+
+</tr>
+
+</thead>
+
+<tbody id="supportHistoryBody">
+
+<!-- History -->
+
+</tbody>
+
+</table>
+
+</div>
+
+</div>
+
+<!-- ==========================================
+EXPORT SECTION
+========================================== -->
+
+<div class="tableCard">
+
+<div class="sectionHeader">
+
+<h2>
+
+📤 Export Reports
+
+</h2>
+
+</div>
+
+<div class="bulkActions">
+
+<button
+class="primaryBtn"
+onclick="exportTicketsCSV()">
+
+Export Tickets
+
+</button>
+
+<button
+class="secondaryBtn"
+onclick="exportRepliesCSV()">
+
+Export Replies
+
+</button>
+
+<button
+class="warningBtn"
+onclick="exportLiveChatsCSV()">
+
+Export Live Chats
+
+</button>
+
+</div>
+
+</div>
+
+<!-- ==========================================
+SYSTEM HEALTH
+========================================== -->
+
+<div class="supportCards">
+
+<div class="supportCard">
+
+<div class="cardIcon">
+
+🟢
+
+</div>
+
+<div>
+
+<h2 id="systemHealth">
+
+100%
+
+</h2>
+
+<p>
+
+Support Health
+
+</p>
+
+</div>
+
+</div>
+
+<div class="supportCard">
+
+<div class="cardIcon">
+
+📈
+
+</div>
+
+<div>
+
+<h2 id="satisfactionRate">
+
+0%
+
+</h2>
+
+<p>
+
+Customer Satisfaction
+
+</p>
+
+</div>
+
+</div>
+
+<div class="supportCard">
+
+<div class="cardIcon">
+
+⏱
+
+</div>
+
+<div>
+
+<h2 id="avgResponseTime">
+
+0m
+
+</h2>
+
+<p>
+
+Avg Response Time
+
+</p>
+
+</div>
+
+</div>
+
+<div class="supportCard">
+
+<div class="cardIcon">
+
+🎯
+
+</div>
+
+<div>
+
+<h2 id="resolutionRate">
+
+0%
+
+</h2>
+
+<p>
+
+Resolution Rate
+
+</p>
+
+</div>
+
+</div>
+
+</div>
+
+<!-- ==========================================
+FOOTER
+========================================== -->
+
+<footer class="adminFooter">
+
+<p>
+
+© 2026 QuickPress Laundry Marketplace
+
+Support Management System
+
+</p>
+
+</footer>
+
+</main>
+
+</div>
+
+<!-- ==========================================
+FONTAWESOME
+========================================== -->
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/js/all.min.js"></script>
+
+<!-- ==========================================
+SUPPORT JS
+========================================== -->
+
+<script
+type="module"
+src="./support.js">
+
 </script>
 
 </body>
+
 </html>
