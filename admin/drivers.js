@@ -1491,56 +1491,48 @@ document
 
 };
 
-window.openApproveDriverModal =
-function(driverId){
+/* ==========================================
+APPROVE DRIVER
+========================================== */
 
-const driver =
+window.approveDriver = async function(driverId){
 
-drivers.find(
+try{
 
-item => item.id === driverId
+await updateDoc(
+
+doc(
+db,
+"drivers",
+driverId
+),
+
+{
+approved:true,
+status:"Offline",
+approvedAt:serverTimestamp(),
+updatedAt:serverTimestamp()
+}
 
 );
 
-if(!driver)
-return;
-
-document.getElementById(
-"actionDriverId"
-).value =
-driverId;
-
-document.getElementById(
-"actionType"
-).value =
-"approve";
-
-document.getElementById(
-"actionIcon"
-).innerHTML =
-"✅";
-
-document.getElementById(
-"actionTitle"
-).innerText =
-"Approve Driver";
-
-document.getElementById(
-"actionMessage"
-).innerText =
-
-`Approve ${driver.name}?`;
-
-document
-.getElementById(
-"actionModal"
-)
-.classList.add(
-"active"
+alert(
+"Driver Approved Successfully"
 );
+
+await loadDrivers();
+
+}catch(error){
+
+console.error(error);
+
+alert(
+"Failed To Approve Driver"
+);
+
+}
 
 };
-
 /* ==========================================
 CLOSE ACTION MODAL
 ========================================== */
@@ -1937,6 +1929,10 @@ await loadDrivers();
 DELETE DRIVER MODAL
 ========================================== */
 
+/* ==========================================
+DELETE DRIVER MODAL
+========================================== */
+
 window.openDeleteDriverModal =
 function(driverId){
 
@@ -1954,20 +1950,6 @@ document
 );
 
 };
-
-window.closeDeleteDriverModal =
-function(){
-
-document
-.getElementById(
-"deleteDriverModal"
-)
-.classList.remove(
-"active"
-);
-
-};
-
 /* ==========================================
 DELETE DRIVER
 ========================================== */
