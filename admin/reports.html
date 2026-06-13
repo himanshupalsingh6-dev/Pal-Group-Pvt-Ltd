@@ -1,29 +1,28 @@
-<!-- =========================================================
-FILE : admin/reports.html
-QUICKPRESS REPORTS PANEL
-========================================================= -->
-
 <!DOCTYPE html>
 <html lang="en">
 
 <head>
 
-<meta charset="UTF-8"/>
-<meta name="viewport"
-content="width=device-width, initial-scale=1.0"/>
+<meta charset="UTF-8">
+
+<meta
+name="viewport"
+content="width=device-width, initial-scale=1.0">
 
 <title>
+
 QuickPress Reports
+
 </title>
 
 <link rel="stylesheet"
-href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css"/>
-
-<link rel="stylesheet" href="./css/global.css"/>
-  
-<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
 
 <style>
+
+/* ==========================================
+GLOBAL
+========================================== */
 
 *{
 margin:0;
@@ -34,38 +33,169 @@ font-family:Inter,sans-serif;
 
 body{
 background:#F5F7FB;
-overflow:hidden;
+color:#111827;
 }
 
-main{
-margin-left:240px;
-margin-top:82px;
+.adminLayout{
+display:flex;
+min-height:100vh;
+}
+
+/* ==========================================
+SIDEBAR
+========================================== */
+
+.adminSidebar{
+width:260px;
+background:#fff;
+border-right:1px solid #E5E7EB;
 padding:24px;
+position:fixed;
+height:100vh;
+overflow-y:auto;
 }
 
-.pageHeader h1{
-font-size:42px;
-font-weight:900;
-margin-bottom:24px;
+.logoArea h2{
+font-size:28px;
+font-weight:800;
+color:#F4B400;
 }
 
-.reportGrid{
+.sidebarMenu{
+display:flex;
+flex-direction:column;
+gap:10px;
+margin-top:30px;
+}
+
+.sidebarMenu a{
+text-decoration:none;
+padding:14px 18px;
+border-radius:12px;
+font-weight:600;
+color:#374151;
+}
+
+.sidebarMenu a.active,
+.sidebarMenu a:hover{
+background:#FEF3C7;
+}
+
+/* ==========================================
+MAIN
+========================================== */
+
+.adminMain{
+margin-left:260px;
+padding:30px;
+width:100%;
+}
+
+.topBar{
+display:flex;
+justify-content:space-between;
+align-items:center;
+margin-bottom:25px;
+}
+
+.primaryBtn{
+background:#16A34A;
+color:#fff;
+border:none;
+padding:12px 20px;
+border-radius:12px;
+cursor:pointer;
+font-weight:700;
+}
+
+/* ==========================================
+CARDS
+========================================== */
+
+.reportCards{
 display:grid;
-grid-template-columns:1fr 1fr;
-gap:24px;
+grid-template-columns:repeat(4,1fr);
+gap:20px;
+margin-bottom:25px;
 }
 
 .reportCard{
 background:#fff;
-border-radius:24px;
 padding:24px;
-border:1px solid #E5E7EB;
+border-radius:20px;
+display:flex;
+gap:15px;
+align-items:center;
+box-shadow:0 8px 25px rgba(0,0,0,.05);
+}
+
+.cardIcon{
+width:60px;
+height:60px;
+border-radius:16px;
+display:flex;
+align-items:center;
+justify-content:center;
+font-size:24px;
+background:#EEF2FF;
 }
 
 .reportCard h2{
-font-size:24px;
-font-weight:900;
+font-size:28px;
+font-weight:800;
+}
+
+.reportCard p{
+color:#6B7280;
+}
+
+/* ==========================================
+SECTION
+========================================== */
+
+.reportSection{
+background:#fff;
+padding:24px;
+border-radius:20px;
+margin-bottom:25px;
+box-shadow:0 8px 25px rgba(0,0,0,.05);
+}
+
+.sectionTitle{
+font-size:22px;
+font-weight:800;
 margin-bottom:20px;
+}
+
+.filterGrid{
+display:grid;
+grid-template-columns:repeat(4,1fr);
+gap:15px;
+}
+
+.filterGrid input,
+.filterGrid select{
+width:100%;
+padding:12px;
+border:1px solid #E5E7EB;
+border-radius:12px;
+}
+
+@media(max-width:900px){
+
+.reportCards,
+.filterGrid{
+grid-template-columns:1fr;
+}
+
+.adminSidebar{
+display:none;
+}
+
+.adminMain{
+margin-left:0;
+}
+
 }
 
 </style>
@@ -74,39 +204,183 @@ margin-bottom:20px;
 
 <body>
 
-<div id="topbar"></div>
+<div class="adminLayout">
 
-<div id="sidebar"></div>
+<!-- ==========================================
+SIDEBAR
+========================================== -->
 
-<div class="main">
+<aside class="adminSidebar">
 
-<div class="pageHeader">
+<div class="logoArea">
+
+<h2>
+
+📊 QuickPress
+
+</h2>
+
+</div>
+
+<nav class="sidebarMenu">
+
+<a href="dashboard.html">Dashboard</a>
+<a href="orders.html">Orders</a>
+<a href="customers.html">Customers</a>
+<a href="finance.html">Finance</a>
+<a href="support.html">Support</a>
+
+<a
+class="active"
+href="reports.html">
+
+Reports
+
+</a>
+
+</nav>
+
+</aside>
+
+<!-- ==========================================
+MAIN
+========================================== -->
+
+<main class="adminMain">
+
+<div class="topBar">
+
+<div>
 
 <h1>
-Reports
+
+📊 Reports & Analytics
+
 </h1>
 
+<p>
+
+Sales, GST, Revenue & Business Reports
+
+</p>
+
 </div>
 
-<div class="reportGrid">
+<button
+class="primaryBtn"
+onclick="generateReport()">
+
+Generate Report
+
+</button>
+
+</div>
+
+<!-- ==========================================
+REPORT CARDS
+========================================== -->
+
+<div class="reportCards">
 
 <div class="reportCard">
 
-<h2>
-Revenue Report
+<div class="cardIcon">
+
+💰
+
+</div>
+
+<div>
+
+<h2 id="totalRevenue">
+
+₹0
+
 </h2>
 
-<canvas id="revenueReportChart"></canvas>
+<p>
+
+Total Revenue
+
+</p>
+
+</div>
 
 </div>
 
 <div class="reportCard">
 
-<h2>
-Orders Report
+<div class="cardIcon">
+
+🛒
+
+</div>
+
+<div>
+
+<h2 id="totalOrders">
+
+0
+
 </h2>
 
-<canvas id="ordersReportChart"></canvas>
+<p>
+
+Orders
+
+</p>
+
+</div>
+
+</div>
+
+<div class="reportCard">
+
+<div class="cardIcon">
+
+🧾
+
+</div>
+
+<div>
+
+<h2 id="totalGST">
+
+₹0
+
+</h2>
+
+<p>
+
+GST Collected
+
+</p>
+
+</div>
+
+</div>
+
+<div class="reportCard">
+
+<div class="cardIcon">
+
+📈
+
+</div>
+
+<div>
+
+<h2 id="netProfit">
+
+₹0
+
+</h2>
+
+<p>
+
+Net Profit
+
+</p>
 
 </div>
 
@@ -114,17 +388,1276 @@ Orders Report
 
 </div>
 
-<script type="module"
-src="./js/reports.js">
+<!-- ==========================================
+REPORT FILTERS
+========================================== -->
+
+<div class="reportSection">
+
+<h2 class="sectionTitle">
+
+🔍 Report Filters
+
+</h2>
+
+<div class="filterGrid">
+
+<div>
+
+<label>
+
+From Date
+
+</label>
+
+<input
+type="date"
+id="fromDate">
+
+</div>
+
+<div>
+
+<label>
+
+To Date
+
+</label>
+
+<input
+type="date"
+id="toDate">
+
+</div>
+
+<div>
+
+<label>
+
+Report Type
+
+</label>
+
+<select id="reportType">
+
+<option value="sales">
+
+Sales Report
+
+</option>
+
+<option value="gst">
+
+GST Report
+
+</option>
+
+<option value="profit">
+
+Profit Report
+
+</option>
+
+<option value="customers">
+
+Customer Report
+
+</option>
+
+<option value="partners">
+
+Partner Report
+
+</option>
+
+<option value="drivers">
+
+Driver Report
+
+</option>
+
+</select>
+
+</div>
+
+<div>
+
+<label>
+
+Period
+
+</label>
+
+<select id="reportPeriod">
+
+<option value="daily">Daily</option>
+<option value="weekly">Weekly</option>
+<option value="monthly">Monthly</option>
+<option value="yearly">Yearly</option>
+
+</select>
+
+</div>
+
+</div>
+
+</div><!-- ==========================================
+EXPORT SECTION
+========================================== -->
+
+<div class="reportSection">
+
+<h2 class="sectionTitle">
+
+📤 Export Reports
+
+</h2>
+
+<div
+style="
+display:flex;
+gap:15px;
+flex-wrap:wrap;
+">
+
+<button
+class="primaryBtn"
+onclick="exportCSV()">
+
+Export CSV
+
+</button>
+
+<button
+class="primaryBtn"
+onclick="exportExcel()">
+
+Export Excel
+
+</button>
+
+<button
+class="primaryBtn"
+onclick="exportPDF()">
+
+Export PDF
+
+</button>
+
+</div>
+
+</div>
+
+<!-- ==========================================
+SALES REPORT TABLE
+========================================== -->
+
+<div class="reportSection">
+
+<h2 class="sectionTitle">
+
+🛒 Sales Report
+
+</h2>
+
+<div style="overflow-x:auto;">
+
+<table
+style="
+width:100%;
+border-collapse:collapse;
+">
+
+<thead>
+
+<tr>
+
+<th>Order ID</th>
+<th>Date</th>
+<th>Customer</th>
+<th>Partner</th>
+<th>Amount</th>
+<th>GST</th>
+<th>Status</th>
+
+</tr>
+
+</thead>
+
+<tbody id="salesReportBody">
+
+<!-- Firebase Orders -->
+
+</tbody>
+
+</table>
+
+</div>
+
+</div>
+
+<!-- ==========================================
+REVENUE BREAKDOWN
+========================================== -->
+
+<div class="reportSection">
+
+<h2 class="sectionTitle">
+
+💰 Revenue Breakdown
+
+</h2>
+
+<div class="reportCards">
+
+<div class="reportCard">
+
+<div class="cardIcon">
+
+🏪
+
+</div>
+
+<div>
+
+<h2 id="partnerRevenue">
+
+₹0
+
+</h2>
+
+<p>
+
+Partner Revenue
+
+</p>
+
+</div>
+
+</div>
+
+<div class="reportCard">
+
+<div class="cardIcon">
+
+🚚
+
+</div>
+
+<div>
+
+<h2 id="driverRevenue">
+
+₹0
+
+</h2>
+
+<p>
+
+Driver Payout
+
+</p>
+
+</div>
+
+</div>
+
+<div class="reportCard">
+
+<div class="cardIcon">
+
+🏢
+
+</div>
+
+<div>
+
+<h2 id="platformRevenue">
+
+₹0
+
+</h2>
+
+<p>
+
+Platform Revenue
+
+</p>
+
+</div>
+
+</div>
+
+<div class="reportCard">
+
+<div class="cardIcon">
+
+📦
+
+</div>
+
+<div>
+
+<h2 id="serviceRevenue">
+
+₹0
+
+</h2>
+
+<p>
+
+Service Revenue
+
+</p>
+
+</div>
+
+</div>
+
+</div>
+
+</div>
+
+<!-- ==========================================
+GST BREAKDOWN
+========================================== -->
+
+<div class="reportSection">
+
+<h2 class="sectionTitle">
+
+🧾 GST Breakdown
+
+</h2>
+
+<div style="overflow-x:auto;">
+
+<table
+style="
+width:100%;
+border-collapse:collapse;
+">
+
+<thead>
+
+<tr>
+
+<th>Month</th>
+<th>Taxable Amount</th>
+<th>GST %</th>
+<th>GST Amount</th>
+
+</tr>
+
+</thead>
+
+<tbody id="gstReportBody">
+
+<!-- GST Data -->
+
+</tbody>
+
+</table>
+
+</div>
+
+</div>
+
+<!-- ==========================================
+ORDER STATUS REPORT
+========================================== -->
+
+<div class="reportSection">
+
+<h2 class="sectionTitle">
+
+📦 Order Status Report
+
+</h2>
+
+<div class="reportCards">
+
+<div class="reportCard">
+
+<div class="cardIcon">
+
+🟢
+
+</div>
+
+<div>
+
+<h2 id="completedOrders">
+
+0
+
+</h2>
+
+<p>
+
+Completed
+
+</p>
+
+</div>
+
+</div>
+
+<div class="reportCard">
+
+<div class="cardIcon">
+
+🟡
+
+</div>
+
+<div>
+
+<h2 id="processingOrders">
+
+0
+
+</h2>
+
+<p>
+
+Processing
+
+</p>
+
+</div>
+
+</div>
+
+<div class="reportCard">
+
+<div class="cardIcon">
+
+🔵
+
+</div>
+
+<div>
+
+<h2 id="pickedOrders">
+
+0
+
+</h2>
+
+<p>
+
+Picked Up
+
+</p>
+
+</div>
+
+</div>
+
+<div class="reportCard">
+
+<div class="cardIcon">
+
+🔴
+
+</div>
+
+<div>
+
+<h2 id="cancelledOrders">
+
+0
+
+</h2>
+
+<p>
+
+Cancelled
+
+</p>
+
+</div>
+
+</div>
+
+</div>
+
+</div><!-- ==========================================
+CUSTOMER REPORT
+========================================== -->
+
+<div class="reportSection">
+
+<h2 class="sectionTitle">
+
+👥 Customer Report
+
+</h2>
+
+<div class="reportCards">
+
+<div class="reportCard">
+
+<div class="cardIcon">
+
+👤
+
+</div>
+
+<div>
+
+<h2 id="totalCustomers">
+
+0
+
+</h2>
+
+<p>
+
+Total Customers
+
+</p>
+
+</div>
+
+</div>
+
+<div class="reportCard">
+
+<div class="cardIcon">
+
+🆕
+
+</div>
+
+<div>
+
+<h2 id="newCustomers">
+
+0
+
+</h2>
+
+<p>
+
+New Customers
+
+</p>
+
+</div>
+
+</div>
+
+<div class="reportCard">
+
+<div class="cardIcon">
+
+🔄
+
+</div>
+
+<div>
+
+<h2 id="repeatCustomers">
+
+0
+
+</h2>
+
+<p>
+
+Repeat Customers
+
+</p>
+
+</div>
+
+</div>
+
+<div class="reportCard">
+
+<div class="cardIcon">
+
+⭐
+
+</div>
+
+<div>
+
+<h2 id="customerRetention">
+
+0%
+
+</h2>
+
+<p>
+
+Retention Rate
+
+</p>
+
+</div>
+
+</div>
+
+</div>
+
+</div>
+
+<!-- ==========================================
+PARTNER REPORT
+========================================== -->
+
+<div class="reportSection">
+
+<h2 class="sectionTitle">
+
+🏪 Partner Report
+
+</h2>
+
+<div style="overflow-x:auto;">
+
+<table
+style="
+width:100%;
+border-collapse:collapse;
+">
+
+<thead>
+
+<tr>
+
+<th>Partner</th>
+<th>Orders</th>
+<th>Revenue</th>
+<th>Commission</th>
+<th>Rating</th>
+
+</tr>
+
+</thead>
+
+<tbody id="partnerReportBody">
+
+<!-- Partner Data -->
+
+</tbody>
+
+</table>
+
+</div>
+
+</div>
+
+<!-- ==========================================
+DRIVER REPORT
+========================================== -->
+
+<div class="reportSection">
+
+<h2 class="sectionTitle">
+
+🛵 Driver Report
+
+</h2>
+
+<div style="overflow-x:auto;">
+
+<table
+style="
+width:100%;
+border-collapse:collapse;
+">
+
+<thead>
+
+<tr>
+
+<th>Driver</th>
+<th>Deliveries</th>
+<th>Earnings</th>
+<th>Rating</th>
+<th>Status</th>
+
+</tr>
+
+</thead>
+
+<tbody id="driverReportBody">
+
+<!-- Driver Data -->
+
+</tbody>
+
+</table>
+
+</div>
+
+</div>
+
+<!-- ==========================================
+PROFIT & LOSS REPORT
+========================================== -->
+
+<div class="reportSection">
+
+<h2 class="sectionTitle">
+
+📈 Profit & Loss Report
+
+</h2>
+
+<div style="overflow-x:auto;">
+
+<table
+style="
+width:100%;
+border-collapse:collapse;
+">
+
+<thead>
+
+<tr>
+
+<th>Month</th>
+<th>Revenue</th>
+<th>Expenses</th>
+<th>GST</th>
+<th>Net Profit</th>
+
+</tr>
+
+</thead>
+
+<tbody id="profitLossBody">
+
+<!-- Profit Data -->
+
+</tbody>
+
+</table>
+
+</div>
+
+</div>
+
+<!-- ==========================================
+MONTHLY ANALYTICS
+========================================== -->
+
+<div class="reportSection">
+
+<h2 class="sectionTitle">
+
+📅 Monthly Analytics
+
+</h2>
+
+<div class="reportCards">
+
+<div class="reportCard">
+
+<div class="cardIcon">
+
+📊
+
+</div>
+
+<div>
+
+<h2 id="monthlyRevenue">
+
+₹0
+
+</h2>
+
+<p>
+
+Monthly Revenue
+
+</p>
+
+</div>
+
+</div>
+
+<div class="reportCard">
+
+<div class="cardIcon">
+
+💵
+
+</div>
+
+<div>
+
+<h2 id="monthlyProfit">
+
+₹0
+
+</h2>
+
+<p>
+
+Monthly Profit
+
+</p>
+
+</div>
+
+</div>
+
+<div class="reportCard">
+
+<div class="cardIcon">
+
+📦
+
+</div>
+
+<div>
+
+<h2 id="monthlyOrders">
+
+0
+
+</h2>
+
+<p>
+
+Monthly Orders
+
+</p>
+
+</div>
+
+</div>
+
+<div class="reportCard">
+
+<div class="cardIcon">
+
+📈
+
+</div>
+
+<div>
+
+<h2 id="growthRate">
+
+0%
+
+</h2>
+
+<p>
+
+Growth Rate
+
+</p>
+
+</div>
+
+</div>
+
+</div>
+
+</div>
+
+<!-- ==========================================
+TOP SERVICES REPORT
+========================================== -->
+
+<div class="reportSection">
+
+<h2 class="sectionTitle">
+
+🏆 Top Services
+
+</h2>
+
+<div style="overflow-x:auto;">
+
+<table
+style="
+width:100%;
+border-collapse:collapse;
+">
+
+<thead>
+
+<tr>
+
+<th>Service</th>
+<th>Orders</th>
+<th>Revenue</th>
+<th>Growth</th>
+
+</tr>
+
+</thead>
+
+<tbody id="topServicesBody">
+
+<!-- Services Data -->
+
+</tbody>
+
+</table>
+
+</div>
+
+</div><!-- ==========================================
+CHARTS SECTION
+========================================== -->
+
+<div class="reportSection">
+
+<h2 class="sectionTitle">
+
+📊 Analytics Charts
+
+</h2>
+
+<div
+style="
+display:grid;
+grid-template-columns:1fr 1fr;
+gap:20px;
+">
+
+<div
+style="
+background:#fff;
+padding:20px;
+border-radius:15px;
+border:1px solid #E5E7EB;
+">
+
+<h3>
+
+Revenue Trend
+
+</h3>
+
+<canvas
+id="revenueChart"
+height="120">
+
+</canvas>
+
+</div>
+
+<div
+style="
+background:#fff;
+padding:20px;
+border-radius:15px;
+border:1px solid #E5E7EB;
+">
+
+<h3>
+
+Orders Trend
+
+</h3>
+
+<canvas
+id="ordersChart"
+height="120">
+
+</canvas>
+
+</div>
+
+</div>
+
+</div>
+
+<!-- ==========================================
+REPORT HISTORY
+========================================== -->
+
+<div class="reportSection">
+
+<h2 class="sectionTitle">
+
+📜 Generated Reports History
+
+</h2>
+
+<div style="overflow-x:auto;">
+
+<table
+style="
+width:100%;
+border-collapse:collapse;
+">
+
+<thead>
+
+<tr>
+
+<th>Report Name</th>
+<th>Type</th>
+<th>Generated By</th>
+<th>Date</th>
+<th>Action</th>
+
+</tr>
+
+</thead>
+
+<tbody id="reportHistoryBody">
+
+<!-- History -->
+
+</tbody>
+
+</table>
+
+</div>
+
+</div>
+
+<!-- ==========================================
+SCHEDULED REPORTS
+========================================== -->
+
+<div class="reportSection">
+
+<h2 class="sectionTitle">
+
+⏰ Scheduled Reports
+
+</h2>
+
+<div
+style="
+display:flex;
+gap:15px;
+flex-wrap:wrap;
+margin-bottom:20px;
+">
+
+<button
+class="primaryBtn"
+onclick="scheduleDailyReport()">
+
+Daily Report
+
+</button>
+
+<button
+class="primaryBtn"
+onclick="scheduleWeeklyReport()">
+
+Weekly Report
+
+</button>
+
+<button
+class="primaryBtn"
+onclick="scheduleMonthlyReport()">
+
+Monthly Report
+
+</button>
+
+</div>
+
+<div style="overflow-x:auto;">
+
+<table
+style="
+width:100%;
+border-collapse:collapse;
+">
+
+<thead>
+
+<tr>
+
+<th>Name</th>
+<th>Frequency</th>
+<th>Recipient</th>
+<th>Status</th>
+
+</tr>
+
+</thead>
+
+<tbody id="scheduledReportsBody">
+
+<!-- Scheduled Reports -->
+
+</tbody>
+
+</table>
+
+</div>
+
+</div>
+
+<!-- ==========================================
+TOP PERFORMERS
+========================================== -->
+
+<div class="reportSection">
+
+<h2 class="sectionTitle">
+
+🏆 Top Performers
+
+</h2>
+
+<div class="reportCards">
+
+<div class="reportCard">
+
+<div class="cardIcon">
+
+🏪
+
+</div>
+
+<div>
+
+<h2 id="topPartner">
+
+-
+
+</h2>
+
+<p>
+
+Top Partner
+
+</p>
+
+</div>
+
+</div>
+
+<div class="reportCard">
+
+<div class="cardIcon">
+
+🛵
+
+</div>
+
+<div>
+
+<h2 id="topDriver">
+
+-
+
+</h2>
+
+<p>
+
+Top Driver
+
+</p>
+
+</div>
+
+</div>
+
+<div class="reportCard">
+
+<div class="cardIcon">
+
+👤
+
+</div>
+
+<div>
+
+<h2 id="topCustomer">
+
+-
+
+</h2>
+
+<p>
+
+Top Customer
+
+</p>
+
+</div>
+
+</div>
+
+<div class="reportCard">
+
+<div class="cardIcon">
+
+⭐
+
+</div>
+
+<div>
+
+<h2 id="topService">
+
+-
+
+</h2>
+
+<p>
+
+Top Service
+
+</p>
+
+</div>
+
+</div>
+
+</div>
+
+</div>
+
+<!-- ==========================================
+FOOTER
+========================================== -->
+
+<footer
+style="
+text-align:center;
+padding:30px;
+color:#6B7280;
+">
+
+© 2026 QuickPress Laundry Marketplace
+Reports & Analytics System
+
+</footer>
+
+</main>
+
+</div>
+
+<!-- ==========================================
+CHART.JS
+========================================== -->
+
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+<!-- ==========================================
+REPORTS JS
+========================================== -->
+
+<script
+type="module"
+src="./reports.js">
+
 </script>
 
-<script type="module"
-src="./components/topbar.js">
-</script>
-
-<script type="module"
-src="./components/sidebar.js">
-</script>
-  
 </body>
+
 </html>
