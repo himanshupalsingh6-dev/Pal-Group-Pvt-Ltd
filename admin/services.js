@@ -1,28 +1,37 @@
 /* =========================================================
 QUICKPRESS SERVICES PANEL
+PRODUCTION FIREBASE VERSION
 PART 1/10
 ========================================================= */
 
 /* =========================================================
-FIREBASE IMPORTS
+FIREBASE
 ========================================================= */
 
 import { db }
 
-from "../js/firebase.js";
+from "../firebase/firebase.js";
 
 import {
 
 collection,
-getDocs,
+doc,
 addDoc,
+setDoc,
 updateDoc,
 deleteDoc,
-doc,
 getDoc,
-serverTimestamp,
+getDocs,
+
 query,
-orderBy
+where,
+orderBy,
+limit,
+
+onSnapshot,
+
+serverTimestamp,
+increment
 
 }
 
@@ -32,23 +41,54 @@ from "https://www.gstatic.com/firebasejs/12.11.0/firebase-firestore.js";
 COLLECTIONS
 ========================================================= */
 
-const SERVICES_COLLECTION =
-"services";
+export const COLLECTIONS = {
 
-const CATEGORIES_COLLECTION =
-"serviceCategories";
+SERVICES:
+"services",
 
-const CITY_PRICING_COLLECTION =
-"cityServicePricing";
+CATEGORIES:
+"serviceCategories",
 
-const BUNDLES_COLLECTION =
-"serviceBundles";
+CITY_PRICING:
+"serviceCityPricing",
 
-const ANALYTICS_COLLECTION =
-"serviceAnalytics";
+BUNDLES:
+"serviceBundles",
 
-const INVENTORY_COLLECTION =
-"serviceInventory";
+INVENTORY:
+"inventory",
+
+ORDERS:
+"orders",
+
+REVIEWS:
+"reviews",
+
+COMPLAINTS:
+"complaints",
+
+PROMOTIONS:
+"promotions",
+
+COUPONS:
+"coupons",
+
+CITIES:
+"cities",
+
+PICKUP_SLOTS:
+"pickupSlots",
+
+DELIVERY_SLOTS:
+"deliverySlots",
+
+AUDIT_LOGS:
+"auditLogs",
+
+SERVICE_ANALYTICS:
+"serviceAnalytics"
+
+};
 
 /* =========================================================
 GLOBAL STATE
@@ -58,41 +98,71 @@ let services = [];
 
 let categories = [];
 
+let cities = [];
+
 let cityPricing = [];
 
 let bundles = [];
 
-let analytics = [];
-
 let inventory = [];
+
+let orders = [];
+
+let reviews = [];
+
+let complaints = [];
+
+let promotions = [];
+
+let coupons = [];
+
+let pickupSlots = [];
+
+let deliverySlots = [];
 
 let selectedServices = [];
 
 /* =========================================================
-HELPERS
+DOM HELPERS
 ========================================================= */
+
+function get(id){
+
+return document.getElementById(id);
+
+}
 
 function setText(
 id,
 value
 ){
 
-const element =
+const el = get(id);
 
-document.getElementById(id);
+if(el){
 
-if(element){
-
-element.innerText =
-value;
+el.textContent = value;
 
 }
 
 }
 
-function formatCurrency(
-amount
+function setHTML(
+id,
+value
 ){
+
+const el = get(id);
+
+if(el){
+
+el.innerHTML = value;
+
+}
+
+}
+
+function currency(amount){
 
 return "₹" +
 
@@ -106,33 +176,71 @@ amount || 0
 
 }
 
-function showToast(
-message
-){
+function toast(message){
 
 console.log(
+"QuickPress:",
 message
 );
 
 }
 
 /* =========================================================
-LOAD SERVICES
+AUDIT LOG
 ========================================================= */
 
-async function loadServices(){
+async function addAuditLog(
+
+action,
+module,
+details = ""
+
+){
 
 try{
 
-const snapshot =
-
-await getDocs(
-
-query(
+await addDoc(
 
 collection(
 db,
-SERVICES_COLLECTION
+COLLECTIONS.AUDIT_LOGS
+),
+
+{
+
+action,
+module,
+details,
+
+createdAt:
+serverTimestamp()
+
+}
+
+);
+
+}catch(error){
+
+console.error(
+"Audit Log Error",
+error
+);
+
+}
+
+}
+
+/* =========================================================
+REALTIME SERVICES
+========================================================= */
+
+function listenServices(){
+
+const q = query(
+
+collection(
+db,
+COLLECTIONS.SERVICES
 ),
 
 orderBy(
@@ -140,9 +248,13 @@ orderBy(
 "desc"
 )
 
-)
-
 );
+
+onSnapshot(
+
+q,
+
+(snapshot)=>{
 
 services = [];
 
@@ -158,39 +270,32 @@ id:docSnap.id,
 
 });
 
-console.log(
-"Services Loaded:",
-services.length
-);
+renderServicesTable();
 
-}catch(error){
+updateServicesAnalytics();
 
-console.error(
-error
-);
+updateTopServicesRanking();
 
 }
+
+);
 
 }
 
 /* =========================================================
-LOAD CATEGORIES
+REALTIME CATEGORIES
 ========================================================= */
 
-async function loadCategories(){
+function listenCategories(){
 
-try{
-
-const snapshot =
-
-await getDocs(
+onSnapshot(
 
 collection(
 db,
-CATEGORIES_COLLECTION
-)
+COLLECTIONS.CATEGORIES
+),
 
-);
+(snapshot)=>{
 
 categories = [];
 
@@ -206,34 +311,67 @@ id:docSnap.id,
 
 });
 
-}catch(error){
+populateCategoryFilter();
 
-console.error(
-error
-);
+renderCategories();
 
 }
+
+);
 
 }
 
 /* =========================================================
-LOAD CITY PRICING
+REALTIME CITIES
 ========================================================= */
 
-async function loadCityPricing(){
+function listenCities(){
 
-try{
-
-const snapshot =
-
-await getDocs(
+onSnapshot(
 
 collection(
 db,
-CITY_PRICING_COLLECTION
-)
+COLLECTIONS.CITIES
+),
+
+(snapshot)=>{
+
+cities = [];
+
+snapshot.forEach(docSnap=>{
+
+cities.push({
+
+id:docSnap.id,
+
+...docSnap.data()
+
+});
+
+});
+
+populateCityFilter();
+
+}
 
 );
+
+}
+
+/* =========================================================
+REALTIME CITY PRICING
+========================================================= */
+
+function listenCityPricing(){
+
+onSnapshot(
+
+collection(
+db,
+COLLECTIONS.CITY_PRICING
+),
+
+(snapshot)=>{
 
 cityPricing = [];
 
@@ -249,34 +387,28 @@ id:docSnap.id,
 
 });
 
-}catch(error){
-
-console.error(
-error
-);
+renderCityPricing();
 
 }
+
+);
 
 }
 
 /* =========================================================
-LOAD BUNDLES
+REALTIME BUNDLES
 ========================================================= */
 
-async function loadBundles(){
+function listenBundles(){
 
-try{
-
-const snapshot =
-
-await getDocs(
+onSnapshot(
 
 collection(
 db,
-BUNDLES_COLLECTION
-)
+COLLECTIONS.BUNDLES
+),
 
-);
+(snapshot)=>{
 
 bundles = [];
 
@@ -292,34 +424,28 @@ id:docSnap.id,
 
 });
 
-}catch(error){
-
-console.error(
-error
-);
+renderBundles();
 
 }
+
+);
 
 }
 
 /* =========================================================
-LOAD INVENTORY
+REALTIME INVENTORY
 ========================================================= */
 
-async function loadInventory(){
+function listenInventory(){
 
-try{
-
-const snapshot =
-
-await getDocs(
+onSnapshot(
 
 collection(
 db,
-INVENTORY_COLLECTION
-)
+COLLECTIONS.INVENTORY
+),
 
-);
+(snapshot)=>{
 
 inventory = [];
 
@@ -335,183 +461,237 @@ id:docSnap.id,
 
 });
 
-}catch(error){
+renderInventory();
 
-console.error(
-error
+}
+
 );
 
 }
 
-}
-
 /* =========================================================
-SERVICE ANALYTICS
+REALTIME ORDERS
 ========================================================= */
 
-function updateServiceAnalytics(){
+function listenOrders(){
 
-const totalServices =
-services.length;
+onSnapshot(
 
-const activeServices =
-
-services.filter(
-
-service=>
-
-service.status ===
-"active"
-
-).length;
-
-const featuredServices =
-
-services.filter(
-
-service=>
-
-service.featured === true
-
-).length;
-
-const totalRevenue =
-
-services.reduce(
-
-(sum,service)=>
-
-sum +
-
-Number(
-service.revenue || 0
+collection(
+db,
+COLLECTIONS.ORDERS
 ),
 
-0
+(snapshot)=>{
 
-);
+orders = [];
 
-setText(
-"totalServices",
-totalServices
-);
+snapshot.forEach(docSnap=>{
 
-setText(
-"activeServices",
-activeServices
-);
+orders.push({
 
-setText(
-"featuredServices",
-featuredServices
-);
+id:docSnap.id,
 
-setText(
-"servicesRevenue",
-formatCurrency(
-totalRevenue
-)
-);
-
-}
-
-/* =========================================================
-TOP SERVICE
-========================================================= */
-
-function updateTopService(){
-
-if(!services.length)
-return;
-
-const sorted =
-
-[...services]
-
-.sort(
-
-(a,b)=>
-
-Number(
-b.revenue || 0
-)
-
--
-
-Number(
-a.revenue || 0
-)
-
-);
-
-setText(
-
-"topService",
-
-sorted[0]?.name ||
-
-"-"
-
-);
-
-}
-
-/* =========================================================
-POPULATE CATEGORY FILTER
-========================================================= */
-
-function populateCategoryFilter(){
-
-const select =
-
-document.getElementById(
-"categoryFilter"
-);
-
-if(!select)
-return;
-
-categories.forEach(category=>{
-
-const option =
-
-document.createElement(
-"option"
-);
-
-option.value =
-category.name;
-
-option.innerText =
-category.name;
-
-select.appendChild(
-option
-);
+...docSnap.data()
 
 });
 
+});
+
+calculateRevenue();
+
+calculateOrdersAnalytics();
+
+}
+
+);
+
+}
+
+/* =========================================================
+REALTIME REVIEWS
+========================================================= */
+
+function listenReviews(){
+
+onSnapshot(
+
+collection(
+db,
+COLLECTIONS.REVIEWS
+),
+
+(snapshot)=>{
+
+reviews = [];
+
+snapshot.forEach(docSnap=>{
+
+reviews.push({
+
+id:docSnap.id,
+
+...docSnap.data()
+
+});
+
+});
+
+renderReviews();
+
+updateRatingAnalytics();
+
+}
+
+);
+
+}
+
+/* =========================================================
+REALTIME COMPLAINTS
+========================================================= */
+
+function listenComplaints(){
+
+onSnapshot(
+
+collection(
+db,
+COLLECTIONS.COMPLAINTS
+),
+
+(snapshot)=>{
+
+complaints = [];
+
+snapshot.forEach(docSnap=>{
+
+complaints.push({
+
+id:docSnap.id,
+
+...docSnap.data()
+
+});
+
+});
+
+renderComplaints();
+
+updateComplaintAnalytics();
+
+}
+
+);
+
+}
+
+/* =========================================================
+REALTIME COUPONS
+========================================================= */
+
+function listenCoupons(){
+
+onSnapshot(
+
+collection(
+db,
+COLLECTIONS.COUPONS
+),
+
+(snapshot)=>{
+
+coupons = [];
+
+snapshot.forEach(docSnap=>{
+
+coupons.push({
+
+id:docSnap.id,
+
+...docSnap.data()
+
+});
+
+});
+
+renderCouponsIntegration();
+
+}
+
+);
+
+}
+
+/* =========================================================
+REALTIME PROMOTIONS
+========================================================= */
+
+function listenPromotions(){
+
+onSnapshot(
+
+collection(
+db,
+COLLECTIONS.PROMOTIONS
+),
+
+(snapshot)=>{
+
+promotions = [];
+
+snapshot.forEach(docSnap=>{
+
+promotions.push({
+
+id:docSnap.id,
+
+...docSnap.data()
+
+});
+
+});
+
+renderPromotions();
+
+}
+
+);
+
 }/* =========================================================
+REAL SERVICES CRUD
+PART 2/10
+========================================================= */
+
+/* =========================================================
 RENDER SERVICES TABLE
 ========================================================= */
 
-function renderServicesTable(data = services){
+function renderServicesTable(){
 
-const tableBody =
-
+const tbody =
 document.getElementById(
 "servicesTableBody"
 );
 
-if(!tableBody)
-return;
+if(!tbody) return;
 
-tableBody.innerHTML = "";
+tbody.innerHTML = "";
 
-data.forEach(service=>{
+services.forEach(service=>{
+
+const cityRates =
+
+cityPricing.filter(
+
+item=>
+
+item.serviceId ===
+service.id
+
+).length;
 
 const row =
-
 document.createElement("tr");
 
 row.innerHTML = `
@@ -528,11 +708,11 @@ value="${service.id}">
 <td>
 
 <img
-src="${service.image || ''}"
-width="50"
-height="50"
+src="${service.image || 'https://placehold.co/60'}"
+width="60"
+height="60"
 style="
-border-radius:10px;
+border-radius:12px;
 object-fit:cover;
 ">
 
@@ -540,13 +720,17 @@ object-fit:cover;
 
 <td>
 
+<strong>
+
 ${service.name || "-"}
+
+</strong>
 
 </td>
 
 <td>
 
-${service.category || "-"}
+${service.categoryName || "-"}
 
 </td>
 
@@ -558,15 +742,15 @@ ${service.unit || "KG"}
 
 <td>
 
-${formatCurrency(
-service.price
+${currency(
+service.basePrice
 )}
 
 </td>
 
 <td>
 
-${formatCurrency(
+${currency(
 service.expressPrice
 )}
 
@@ -574,14 +758,14 @@ service.expressPrice
 
 <td>
 
-${service.orders || 0}
+${service.totalOrders || 0}
 
 </td>
 
 <td>
 
-${formatCurrency(
-service.revenue
+${currency(
+service.totalRevenue
 )}
 
 </td>
@@ -594,7 +778,7 @@ service.status === "active"
 : "statusDisabled"
 }">
 
-${service.status || "disabled"}
+${service.status || "inactive"}
 
 </span>
 
@@ -605,6 +789,14 @@ ${service.status || "disabled"}
 ${service.featured
 ? "⭐"
 : "-"}
+
+</td>
+
+<td>
+
+${cityRates}
+
+ Cities
 
 </td>
 
@@ -650,334 +842,98 @@ Delete
 
 `;
 
-tableBody.appendChild(
-row
-);
+tbody.appendChild(row);
 
 });
 
 }
 
 /* =========================================================
-SEARCH SERVICES
-========================================================= */
-
-function searchServices(){
-
-const keyword =
-
-document
-.getElementById(
-"serviceSearch"
-)
-.value
-.toLowerCase();
-
-const filtered =
-
-services.filter(service=>
-
-(service.name || "")
-.toLowerCase()
-.includes(keyword)
-
-||
-
-(service.category || "")
-.toLowerCase()
-.includes(keyword)
-
-);
-
-renderServicesTable(
-filtered
-);
-
-}
-
-/* =========================================================
-FILTER SERVICES
-========================================================= */
-
-function filterServices(){
-
-const category =
-
-document.getElementById(
-"categoryFilter"
-).value;
-
-const status =
-
-document.getElementById(
-"statusFilter"
-).value;
-
-let filtered =
-[...services];
-
-if(category){
-
-filtered = filtered.filter(
-
-item=>
-
-item.category ===
-category
-
-);
-
-}
-
-if(status){
-
-filtered = filtered.filter(
-
-item=>
-
-item.status ===
-status
-
-);
-
-}
-
-renderServicesTable(
-filtered
-);
-
-}
-
-/* =========================================================
-SELECT ALL SERVICES
-========================================================= */
-
-function setupSelectAll(){
-
-const selectAll =
-
-document.getElementById(
-"selectAllServices"
-);
-
-if(!selectAll)
-return;
-
-selectAll.addEventListener(
-
-"change",
-
-e=>{
-
-document
-.querySelectorAll(
-".serviceCheckbox"
-)
-
-.forEach(box=>{
-
-box.checked =
-e.target.checked;
-
-});
-
-updateSelectedServices();
-
-}
-
-);
-
-}
-
-/* =========================================================
-UPDATE SELECTED SERVICES
-========================================================= */
-
-function updateSelectedServices(){
-
-selectedServices = [];
-
-document
-.querySelectorAll(
-".serviceCheckbox:checked"
-)
-
-.forEach(box=>{
-
-selectedServices.push(
-box.value
-);
-
-});
-
-}
-
-/* =========================================================
-FEATURE SELECTED
-========================================================= */
-
-async function featureSelectedServices(){
-
-for(const id of selectedServices){
-
-await updateDoc(
-
-doc(
-db,
-SERVICES_COLLECTION,
-id
-),
-
-{
-featured:true
-}
-
-);
-
-}
-
-await refreshServices();
-
-showToast(
-"Featured Updated"
-);
-
-}
-
-/* =========================================================
-ACTIVATE SELECTED
-========================================================= */
-
-async function activateSelectedServices(){
-
-for(const id of selectedServices){
-
-await updateDoc(
-
-doc(
-db,
-SERVICES_COLLECTION,
-id
-),
-
-{
-status:"active"
-}
-
-);
-
-}
-
-await refreshServices();
-
-}
-
-/* =========================================================
-DISABLE SELECTED
-========================================================= */
-
-async function disableSelectedServices(){
-
-for(const id of selectedServices){
-
-await updateDoc(
-
-doc(
-db,
-SERVICES_COLLECTION,
-id
-),
-
-{
-status:"disabled"
-}
-
-);
-
-}
-
-await refreshServices();
-
-}
-
-/* =========================================================
-DELETE SELECTED
-========================================================= */
-
-async function deleteSelectedServices(){
-
-const confirmDelete =
-
-confirm(
-"Delete Selected Services?"
-);
-
-if(!confirmDelete)
-return;
-
-for(const id of selectedServices){
-
-await deleteDoc(
-
-doc(
-db,
-SERVICES_COLLECTION,
-id
-)
-
-);
-
-}
-
-await refreshServices();
-
-}
-
-/* =========================================================
-REFRESH SERVICES
-========================================================= */
-
-async function refreshServices(){
-
-await loadServices();
-
-renderServicesTable();
-
-updateServiceAnalytics();
-
-updateTopService();
-
-}/* =========================================================
-ADD SERVICE
+CREATE SERVICE
 ========================================================= */
 
 async function saveService(){
 
 try{
 
-const serviceName =
+const service = {
 
-document.getElementById(
+name:
+
+get(
 "serviceName"
-)?.value;
+)?.value?.trim(),
 
-const servicePrice =
+categoryId:
+
+get(
+"serviceCategory"
+)?.value,
+
+categoryName:
+
+get(
+"serviceCategory"
+)?.selectedOptions[0]
+?.textContent ||
+
+"",
+
+basePrice:
 
 Number(
 
-document.getElementById(
+get(
 "servicePrice"
 )?.value || 0
 
-);
+),
 
-const serviceCategory =
+expressPrice:
 
-document.getElementById(
-"serviceCategory"
-)?.value;
+Number(
 
-if(!serviceName){
+get(
+"serviceExpressPrice"
+)?.value || 0
+
+),
+
+unit:
+
+get(
+"serviceUnit"
+)?.value ||
+
+"KG",
+
+image:
+
+get(
+"serviceImage"
+)?.value ||
+
+"",
+
+status:"active",
+
+featured:false,
+
+totalOrders:0,
+
+totalRevenue:0,
+
+rating:0,
+
+createdAt:
+serverTimestamp(),
+
+updatedAt:
+serverTimestamp()
+
+};
+
+if(!service.name){
 
 alert(
 "Service Name Required"
@@ -991,41 +947,28 @@ await addDoc(
 
 collection(
 db,
-SERVICES_COLLECTION
+COLLECTIONS.SERVICES
 ),
 
-{
+service
 
-name:serviceName,
+);
 
-price:servicePrice,
+await addAuditLog(
 
-category:serviceCategory,
+"CREATE",
 
-unit:"KG",
+"SERVICES",
 
-status:"active",
+service.name
 
-featured:false,
+);
 
-orders:0,
-
-revenue:0,
-
-createdAt:
-serverTimestamp()
-
-}
-
+toast(
+"Service Created"
 );
 
 closeServiceModal();
-
-await refreshServices();
-
-showToast(
-"Service Added Successfully"
-);
 
 }catch(error){
 
@@ -1043,29 +986,20 @@ async function viewService(id){
 
 try{
 
-const docRef =
-
-doc(
-db,
-SERVICES_COLLECTION,
-id
-);
-
 const snap =
 
 await getDoc(
-docRef
+
+doc(
+db,
+COLLECTIONS.SERVICES,
+id
+)
+
 );
 
-if(!snap.exists()){
-
-alert(
-"Service Not Found"
-);
-
+if(!snap.exists())
 return;
-
-}
 
 const service =
 snap.data();
@@ -1077,19 +1011,19 @@ Service:
 ${service.name}
 
 Category:
-${service.category}
+${service.categoryName}
 
 Price:
-${formatCurrency(service.price)}
+${currency(service.basePrice)}
+
+Express:
+${currency(service.expressPrice)}
 
 Orders:
-${service.orders || 0}
+${service.totalOrders || 0}
 
 Revenue:
-${formatCurrency(service.revenue)}
-
-Status:
-${service.status}
+${currency(service.totalRevenue)}
 `
 
 );
@@ -1116,7 +1050,7 @@ await getDoc(
 
 doc(
 db,
-SERVICES_COLLECTION,
+COLLECTIONS.SERVICES,
 id
 )
 
@@ -1128,23 +1062,20 @@ return;
 const service =
 snap.data();
 
-document.getElementById(
-"serviceName"
-).value =
-
+get("serviceName").value =
 service.name || "";
 
-document.getElementById(
-"servicePrice"
-).value =
+get("servicePrice").value =
+service.basePrice || 0;
 
-service.price || 0;
+get("serviceExpressPrice").value =
+service.expressPrice || 0;
 
-document.getElementById(
-"serviceCategory"
-).value =
+get("serviceImage").value =
+service.image || "";
 
-service.category || "";
+get("serviceCategory").value =
+service.categoryId || "";
 
 openServiceModal();
 
@@ -1154,12 +1085,8 @@ document.getElementById(
 "saveServiceBtn"
 );
 
-if(saveBtn){
-
 saveBtn.onclick =
 ()=>updateService(id);
-
-}
 
 }catch(error){
 
@@ -1181,31 +1108,30 @@ await updateDoc(
 
 doc(
 db,
-SERVICES_COLLECTION,
+COLLECTIONS.SERVICES,
 id
 ),
 
 {
 
 name:
+get("serviceName").value,
 
-document.getElementById(
-"serviceName"
-).value,
-
-price:Number(
-
-document.getElementById(
-"servicePrice"
-).value
-
+basePrice:
+Number(
+get("servicePrice").value
 ),
 
-category:
+expressPrice:
+Number(
+get("serviceExpressPrice").value
+),
 
-document.getElementById(
-"serviceCategory"
-).value,
+image:
+get("serviceImage").value,
+
+categoryId:
+get("serviceCategory").value,
 
 updatedAt:
 serverTimestamp()
@@ -1214,13 +1140,21 @@ serverTimestamp()
 
 );
 
-closeServiceModal();
+await addAuditLog(
 
-await refreshServices();
+"UPDATE",
 
-showToast(
+"SERVICES",
+
+id
+
+);
+
+toast(
 "Service Updated"
 );
+
+closeServiceModal();
 
 }catch(error){
 
@@ -1236,14 +1170,11 @@ DELETE SERVICE
 
 async function deleteService(id){
 
-const allow =
-
-confirm(
-"Delete this service?"
+const ok = confirm(
+"Delete Service ?"
 );
 
-if(!allow)
-return;
+if(!ok) return;
 
 try{
 
@@ -1251,15 +1182,23 @@ await deleteDoc(
 
 doc(
 db,
-SERVICES_COLLECTION,
+COLLECTIONS.SERVICES,
 id
 )
 
 );
 
-await refreshServices();
+await addAuditLog(
 
-showToast(
+"DELETE",
+
+"SERVICES",
+
+id
+
+);
+
+toast(
 "Service Deleted"
 );
 
@@ -1272,7 +1211,7 @@ console.error(error);
 }
 
 /* =========================================================
-TOGGLE FEATURED
+FEATURED SERVICE
 ========================================================= */
 
 async function toggleFeatured(id){
@@ -1285,14 +1224,11 @@ await getDoc(
 
 doc(
 db,
-SERVICES_COLLECTION,
+COLLECTIONS.SERVICES,
 id
 )
 
 );
-
-if(!snap.exists())
-return;
 
 const service =
 snap.data();
@@ -1301,20 +1237,21 @@ await updateDoc(
 
 doc(
 db,
-SERVICES_COLLECTION,
+COLLECTIONS.SERVICES,
 id
 ),
 
 {
 
 featured:
-!service.featured
+!service.featured,
+
+updatedAt:
+serverTimestamp()
 
 }
 
 );
-
-await refreshServices();
 
 }catch(error){
 
@@ -1325,37 +1262,76 @@ console.error(error);
 }
 
 /* =========================================================
-CHANGE STATUS
+STATUS CHANGE
 ========================================================= */
 
 async function changeServiceStatus(
+
 id,
 status
-){
 
-try{
+){
 
 await updateDoc(
 
 doc(
 db,
-SERVICES_COLLECTION,
+COLLECTIONS.SERVICES,
 id
 ),
 
 {
-status
+
+status,
+
+updatedAt:
+serverTimestamp()
+
 }
 
 );
 
-await refreshServices();
-
-}catch(error){
-
-console.error(error);
-
 }
+
+/* =========================================================
+SERVICE ANALYTICS
+========================================================= */
+
+function updateServicesAnalytics(){
+
+setText(
+"totalServices",
+services.length
+);
+
+setText(
+
+"activeServices",
+
+services.filter(
+
+item=>
+
+item.status ===
+"active"
+
+).length
+
+);
+
+setText(
+
+"featuredServices",
+
+services.filter(
+
+item=>
+
+item.featured === true
+
+).length
+
+);
 
 }
 
@@ -1365,98 +1341,47 @@ SERVICE MODAL
 
 function openServiceModal(){
 
-const modal =
-
-document.getElementById(
+document
+.getElementById(
 "addServiceModal"
-);
-
-if(modal){
-
-modal.classList.add(
+)
+?.classList.add(
 "active"
 );
-
-}
 
 }
 
 function closeServiceModal(){
 
-const modal =
-
-document.getElementById(
+document
+.getElementById(
 "addServiceModal"
-);
-
-if(modal){
-
-modal.classList.remove(
+)
+?.classList.remove(
 "active"
 );
 
-}
-
-}
-
-/* =========================================================
-ADD SERVICE BUTTON
-========================================================= */
-
-function initializeServiceButtons(){
-
-const addBtn =
-
-document.getElementById(
-"addServiceBtn"
-);
-
-if(addBtn){
-
-addBtn.addEventListener(
-
-"click",
-
-()=>{
-
-openServiceModal();
-
-}
-
-);
-
-}
-
-}
-
-/* =========================================================
-SERVICE IMAGE PLACEHOLDER
-========================================================= */
-
-function getServiceImage(
-service
-){
-
-return service.image ||
-
-"https://via.placeholder.com/60";
-
 }/* =========================================================
-CATEGORY MANAGEMENT
+REAL CATEGORIES CRUD
+REAL CITIES CRUD
+PART 3/10
+========================================================= */
+
+/* =========================================================
+RENDER CATEGORIES
 ========================================================= */
 
 function renderCategories(){
 
-const categoryGrid =
+const container =
 
 document.getElementById(
 "categoryGrid"
 );
 
-if(!categoryGrid)
-return;
+if(!container) return;
 
-categoryGrid.innerHTML = "";
+container.innerHTML = "";
 
 categories.forEach(category=>{
 
@@ -1466,13 +1391,12 @@ services.filter(
 
 service=>
 
-service.category ===
-category.name
+service.categoryId ===
+category.id
 
 ).length;
 
 const card =
-
 document.createElement("div");
 
 card.className =
@@ -1512,7 +1436,7 @@ Delete
 
 <p>
 
-${category.description || "No Description"}
+${category.description || "-"}
 
 </p>
 
@@ -1520,35 +1444,36 @@ ${category.description || "No Description"}
 
 <strong>
 
-Services:
 ${totalServices}
+Services
 
 </strong>
 
 `;
 
-categoryGrid.appendChild(
-card
-);
+container.appendChild(card);
 
 });
 
 }
 
 /* =========================================================
-ADD CATEGORY
+CREATE CATEGORY
 ========================================================= */
 
 async function addCategory(){
 
 const name =
-
 prompt(
 "Category Name"
 );
 
-if(!name)
-return;
+if(!name) return;
+
+const description =
+prompt(
+"Description"
+) || "";
 
 try{
 
@@ -1556,29 +1481,36 @@ await addDoc(
 
 collection(
 db,
-CATEGORIES_COLLECTION
+COLLECTIONS.CATEGORIES
 ),
 
 {
 
 name,
 
-description:"",
+description,
 
 createdAt:
+serverTimestamp(),
+
+updatedAt:
 serverTimestamp()
 
 }
 
 );
 
-await loadCategories();
+await addAuditLog(
 
-renderCategories();
+"CREATE",
 
-populateCategoryFilter();
+"CATEGORY",
 
-showToast(
+name
+
+);
+
+toast(
 "Category Added"
 );
 
@@ -1591,34 +1523,34 @@ console.error(error);
 }
 
 /* =========================================================
-EDIT CATEGORY
+UPDATE CATEGORY
 ========================================================= */
 
 async function editCategory(id){
 
 try{
 
-const category =
+const snap =
 
-categories.find(
+await getDoc(
 
-item=>
-
-item.id === id
+doc(
+db,
+COLLECTIONS.CATEGORIES,
+id
+)
 
 );
 
-if(!category)
-return;
+if(!snap.exists()) return;
+
+const category =
+snap.data();
 
 const updatedName =
-
 prompt(
-
-"Edit Category",
-
+"Category Name",
 category.name
-
 );
 
 if(!updatedName)
@@ -1628,13 +1560,14 @@ await updateDoc(
 
 doc(
 db,
-CATEGORIES_COLLECTION,
+COLLECTIONS.CATEGORIES,
 id
 ),
 
 {
 
-name:updatedName,
+name:
+updatedName,
 
 updatedAt:
 serverTimestamp()
@@ -1643,14 +1576,14 @@ serverTimestamp()
 
 );
 
-await loadCategories();
+await addAuditLog(
 
-renderCategories();
+"UPDATE",
 
-populateCategoryFilter();
+"CATEGORY",
 
-showToast(
-"Category Updated"
+updatedName
+
 );
 
 }catch(error){
@@ -1667,13 +1600,11 @@ DELETE CATEGORY
 
 async function deleteCategory(id){
 
-const allow =
-
-confirm(
+if(
+!confirm(
 "Delete Category?"
-);
-
-if(!allow)
+)
+)
 return;
 
 try{
@@ -1682,20 +1613,20 @@ await deleteDoc(
 
 doc(
 db,
-CATEGORIES_COLLECTION,
+COLLECTIONS.CATEGORIES,
 id
 )
 
 );
 
-await loadCategories();
+await addAuditLog(
 
-renderCategories();
+"DELETE",
 
-populateCategoryFilter();
+"CATEGORY",
 
-showToast(
-"Category Deleted"
+id
+
 );
 
 }catch(error){
@@ -1707,79 +1638,10 @@ console.error(error);
 }
 
 /* =========================================================
-CATEGORY ANALYTICS
+POPULATE CATEGORY FILTER
 ========================================================= */
 
-function updateCategoryAnalytics(){
-
-const categoryCount =
-
-categories.length;
-
-const mostUsedCategory =
-
-getMostUsedCategory();
-
-console.log({
-
-categoryCount,
-
-mostUsedCategory
-
-});
-
-}
-
-/* =========================================================
-MOST USED CATEGORY
-========================================================= */
-
-function getMostUsedCategory(){
-
-const categoryMap = {};
-
-services.forEach(service=>{
-
-const category =
-
-service.category || "Other";
-
-categoryMap[category] =
-
-(categoryMap[category] || 0) + 1;
-
-});
-
-let winner = "-";
-let max = 0;
-
-Object.keys(categoryMap)
-
-.forEach(category=>{
-
-if(
-
-categoryMap[category] > max
-
-){
-
-winner = category;
-
-max = categoryMap[category];
-
-}
-
-});
-
-return winner;
-
-}
-
-/* =========================================================
-CATEGORY FILTER RESET
-========================================================= */
-
-function resetCategoryFilter(){
+function populateCategoryFilter(){
 
 const select =
 
@@ -1787,286 +1649,130 @@ document.getElementById(
 "categoryFilter"
 );
 
-if(select){
+if(!select) return;
 
-select.innerHTML = `
+select.innerHTML =
 
+`
 <option value="">
-
 All Categories
-
 </option>
-
 `;
 
-}
+categories.forEach(category=>{
 
-}
-
-/* =========================================================
-RELOAD CATEGORY UI
-========================================================= */
-
-async function reloadCategoryModule(){
-
-resetCategoryFilter();
-
-await loadCategories();
-
-populateCategoryFilter();
-
-renderCategories();
-
-updateCategoryAnalytics();
-
-}
-
-/* =========================================================
-CATEGORY BUTTON EVENTS
-========================================================= */
-
-function initializeCategoryEvents(){
-
-const addCategoryBtn =
-
-document.getElementById(
-"addCategoryBtn"
+const option =
+document.createElement(
+"option"
 );
 
-if(addCategoryBtn){
+option.value =
+category.id;
 
-addCategoryBtn.addEventListener(
+option.textContent =
+category.name;
 
-"click",
-
-addCategory
-
+select.appendChild(
+option
 );
 
-}
+});
 
 }
 
 /* =========================================================
-CATEGORY SERVICE COUNTS
+CATEGORY ANALYTICS
 ========================================================= */
 
-function getCategoryServiceCount(
-categoryName
-){
+function updateCategoryAnalytics(){
 
-return services.filter(
+setText(
+"totalCategories",
+categories.length
+);
+
+let topCategory = "-";
+let highestCount = 0;
+
+categories.forEach(category=>{
+
+const count =
+
+services.filter(
 
 service=>
 
-service.category ===
-categoryName
+service.categoryId ===
+category.id
 
 ).length;
 
-}
+if(count > highestCount){
 
-/* =========================================================
-CATEGORY REVENUE
-========================================================= */
+highestCount = count;
 
-function getCategoryRevenue(
-categoryName
-){
-
-return services
-
-.filter(
-
-service=>
-
-service.category ===
-categoryName
-
-)
-
-.reduce(
-
-(sum,service)=>
-
-sum +
-
-Number(
-service.revenue || 0
-),
-
-0
-
-);
-
-}/* =========================================================
-BULK PRICING MANAGEMENT
-========================================================= */
-
-let bulkPricing = {
-
-tier1:0,
-tier2:0,
-tier3:0,
-tier4:0
-
-};
-
-function loadBulkPricing(){
-
-bulkPricing.tier1 =
-Number(
-localStorage.getItem("tier1Price")
-|| 0
-);
-
-bulkPricing.tier2 =
-Number(
-localStorage.getItem("tier2Price")
-|| 0
-);
-
-bulkPricing.tier3 =
-Number(
-localStorage.getItem("tier3Price")
-|| 0
-);
-
-bulkPricing.tier4 =
-Number(
-localStorage.getItem("tier4Price")
-|| 0
-);
-
-const tier1 =
-document.getElementById(
-"tier1Price"
-);
-
-const tier2 =
-document.getElementById(
-"tier2Price"
-);
-
-const tier3 =
-document.getElementById(
-"tier3Price"
-);
-
-const tier4 =
-document.getElementById(
-"tier4Price"
-);
-
-if(tier1)
-tier1.value = bulkPricing.tier1;
-
-if(tier2)
-tier2.value = bulkPricing.tier2;
-
-if(tier3)
-tier3.value = bulkPricing.tier3;
-
-if(tier4)
-tier4.value = bulkPricing.tier4;
+topCategory =
+category.name;
 
 }
 
-function saveBulkPricing(){
+});
 
-bulkPricing = {
-
-tier1:Number(
-document.getElementById(
-"tier1Price"
-)?.value || 0
-),
-
-tier2:Number(
-document.getElementById(
-"tier2Price"
-)?.value || 0
-),
-
-tier3:Number(
-document.getElementById(
-"tier3Price"
-)?.value || 0
-),
-
-tier4:Number(
-document.getElementById(
-"tier4Price"
-)?.value || 0
-)
-
-};
-
-localStorage.setItem(
-"tier1Price",
-bulkPricing.tier1
-);
-
-localStorage.setItem(
-"tier2Price",
-bulkPricing.tier2
-);
-
-localStorage.setItem(
-"tier3Price",
-bulkPricing.tier3
-);
-
-localStorage.setItem(
-"tier4Price",
-bulkPricing.tier4
-);
-
-showToast(
-"Bulk Pricing Saved"
+setText(
+"topCategory",
+topCategory
 );
 
 }
 
 /* =========================================================
-CITY PRICING TABLE
+RENDER CITIES
 ========================================================= */
 
-function renderCityPricing(){
+function renderCities(){
 
 const table =
 
 document.getElementById(
-"cityPricingTableBody"
+"citiesTableBody"
 );
 
-if(!table)
-return;
+if(!table) return;
 
 table.innerHTML = "";
 
-cityPricing.forEach(item=>{
+cities.forEach(city=>{
+
+const cityServices =
+
+cityPricing.filter(
+
+item=>
+
+item.cityId === city.id
+
+).length;
 
 const row =
 document.createElement("tr");
 
 row.innerHTML = `
 
-<td>${item.city || "-"}</td>
+<td>${city.name}</td>
 
-<td>${item.service || "-"}</td>
+<td>${city.state || "-"}</td>
 
-<td>${formatCurrency(item.price)}</td>
-
-<td>${formatCurrency(item.expressPrice)}</td>
-
-<td>${formatCurrency(item.bulkPrice)}</td>
+<td>${cityServices}</td>
 
 <td>
 
-<span class="statusActive">
+<span class="${
+city.status === "active"
+? "statusActive"
+: "statusDisabled"
+}">
 
-${item.status || "active"}
+${city.status}
 
 </span>
 
@@ -2078,7 +1784,7 @@ ${item.status || "active"}
 
 <button
 class="btnEdit"
-onclick="editCityPricing('${item.id}')">
+onclick="editCity('${city.id}')">
 
 Edit
 
@@ -2086,7 +1792,7 @@ Edit
 
 <button
 class="btnDelete"
-onclick="deleteCityPricing('${item.id}')">
+onclick="deleteCity('${city.id}')">
 
 Delete
 
@@ -2105,62 +1811,418 @@ table.appendChild(row);
 }
 
 /* =========================================================
-ADD CITY PRICING
+ADD CITY
 ========================================================= */
 
-async function addCityPricing(){
+async function addCity(){
 
-const city =
+const cityName =
 prompt("City Name");
 
-if(!city)
+if(!cityName)
 return;
 
-const service =
-prompt("Service Name");
-
-const price =
-Number(
-prompt("Normal Price")
-);
-
-try{
+const state =
+prompt("State") || "";
 
 await addDoc(
 
 collection(
 db,
-CITY_PRICING_COLLECTION
+COLLECTIONS.CITIES
 ),
 
 {
 
-city,
-service,
+name:cityName,
 
-price,
-
-expressPrice:
-price + 20,
-
-bulkPrice:
-price - 10,
+state,
 
 status:"active",
 
 createdAt:
+serverTimestamp(),
+
+updatedAt:
 serverTimestamp()
 
 }
 
 );
 
-await loadCityPricing();
+await addAuditLog(
 
-renderCityPricing();
+"CREATE",
 
-showToast(
-"City Pricing Added"
+"CITY",
+
+cityName
+
+);
+
+}
+
+/* =========================================================
+EDIT CITY
+========================================================= */
+
+async function editCity(id){
+
+const snap =
+
+await getDoc(
+
+doc(
+db,
+COLLECTIONS.CITIES,
+id
+)
+
+);
+
+if(!snap.exists())
+return;
+
+const city =
+snap.data();
+
+const name =
+prompt(
+"City Name",
+city.name
+);
+
+if(!name)
+return;
+
+await updateDoc(
+
+doc(
+db,
+COLLECTIONS.CITIES,
+id
+),
+
+{
+
+name,
+
+updatedAt:
+serverTimestamp()
+
+}
+
+);
+
+}
+
+/* =========================================================
+DELETE CITY
+========================================================= */
+
+async function deleteCity(id){
+
+if(
+!confirm(
+"Delete City?"
+)
+)
+return;
+
+await deleteDoc(
+
+doc(
+db,
+COLLECTIONS.CITIES,
+id
+)
+
+);
+
+}
+
+/* =========================================================
+POPULATE CITY FILTER
+========================================================= */
+
+function populateCityFilter(){
+
+const select =
+
+document.getElementById(
+"cityFilter"
+);
+
+if(!select) return;
+
+select.innerHTML =
+
+`
+<option value="">
+All Cities
+</option>
+`;
+
+cities.forEach(city=>{
+
+const option =
+document.createElement(
+"option"
+);
+
+option.value =
+city.id;
+
+option.textContent =
+city.name;
+
+select.appendChild(
+option
+);
+
+});
+
+}/* =========================================================
+CITY WISE PRICING CRUD
+PART 4/10
+========================================================= */
+
+/* =========================================================
+RENDER CITY PRICING
+========================================================= */
+
+function renderCityPricing(){
+
+const tbody =
+
+document.getElementById(
+"cityPricingTableBody"
+);
+
+if(!tbody) return;
+
+tbody.innerHTML = "";
+
+cityPricing.forEach(price=>{
+
+const service =
+
+services.find(
+
+item=>
+
+item.id ===
+price.serviceId
+
+);
+
+const city =
+
+cities.find(
+
+item=>
+
+item.id ===
+price.cityId
+
+);
+
+const row =
+document.createElement("tr");
+
+row.innerHTML = `
+
+<td>
+
+${city?.name || "-"}
+
+</td>
+
+<td>
+
+${service?.name || "-"}
+
+</td>
+
+<td>
+
+${currency(
+price.normalPrice
+)}
+
+</td>
+
+<td>
+
+${currency(
+price.expressPrice
+)}
+
+</td>
+
+<td>
+
+${currency(
+price.bulkPrice
+)}
+
+</td>
+
+<td>
+
+${currency(
+price.partnerPrice
+)}
+
+</td>
+
+<td>
+
+<span class="${
+price.status === "active"
+? "statusActive"
+: "statusDisabled"
+}">
+
+${price.status}
+
+</span>
+
+</td>
+
+<td>
+
+<div class="actionButtons">
+
+<button
+class="btnEdit"
+onclick="editCityPricing('${price.id}')">
+
+Edit
+
+</button>
+
+<button
+class="btnDelete"
+onclick="deleteCityPricing('${price.id}')">
+
+Delete
+
+</button>
+
+</div>
+
+</td>
+
+`;
+
+tbody.appendChild(row);
+
+});
+
+}
+
+/* =========================================================
+CREATE CITY PRICE
+========================================================= */
+
+async function saveCityPricing(){
+
+try{
+
+const cityId =
+
+document.getElementById(
+"pricingCity"
+)?.value;
+
+const serviceId =
+
+document.getElementById(
+"pricingService"
+)?.value;
+
+const normalPrice =
+
+Number(
+
+document.getElementById(
+"normalPrice"
+)?.value || 0
+
+);
+
+const expressPrice =
+
+Number(
+
+document.getElementById(
+"expressPrice"
+)?.value || 0
+
+);
+
+const bulkPrice =
+
+Number(
+
+document.getElementById(
+"bulkPrice"
+)?.value || 0
+
+);
+
+const partnerPrice =
+
+Number(
+
+document.getElementById(
+"partnerPrice"
+)?.value || 0
+
+);
+
+await addDoc(
+
+collection(
+db,
+COLLECTIONS.CITY_PRICING
+),
+
+{
+
+cityId,
+serviceId,
+
+normalPrice,
+expressPrice,
+bulkPrice,
+partnerPrice,
+
+status:"active",
+
+createdAt:
+serverTimestamp(),
+
+updatedAt:
+serverTimestamp()
+
+}
+
+);
+
+await addAuditLog(
+
+"CREATE",
+
+"CITY_PRICING",
+
+serviceId
+
+);
+
+toast(
+"City Price Created"
 );
 
 }catch(error){
@@ -2172,33 +2234,87 @@ console.error(error);
 }
 
 /* =========================================================
-EDIT CITY PRICING
+EDIT CITY PRICE
 ========================================================= */
 
 async function editCityPricing(id){
 
-const item =
+try{
 
-cityPricing.find(
+const snap =
 
-city=>city.id === id
+await getDoc(
 
-);
-
-if(!item)
-return;
-
-const newPrice =
-prompt(
-
-"Update Price",
-
-item.price
+doc(
+db,
+COLLECTIONS.CITY_PRICING,
+id
+)
 
 );
 
-if(!newPrice)
+if(!snap.exists())
 return;
+
+const data =
+snap.data();
+
+document.getElementById(
+"pricingCity"
+).value =
+data.cityId;
+
+document.getElementById(
+"pricingService"
+).value =
+data.serviceId;
+
+document.getElementById(
+"normalPrice"
+).value =
+data.normalPrice;
+
+document.getElementById(
+"expressPrice"
+).value =
+data.expressPrice;
+
+document.getElementById(
+"bulkPrice"
+).value =
+data.bulkPrice;
+
+document.getElementById(
+"partnerPrice"
+).value =
+data.partnerPrice;
+
+const saveBtn =
+
+document.getElementById(
+"saveCityPricingBtn"
+);
+
+if(saveBtn){
+
+saveBtn.onclick =
+()=>updateCityPricing(id);
+
+}
+
+}catch(error){
+
+console.error(error);
+
+}
+
+}
+
+/* =========================================================
+UPDATE CITY PRICE
+========================================================= */
+
+async function updateCityPricing(id){
 
 try{
 
@@ -2206,14 +2322,34 @@ await updateDoc(
 
 doc(
 db,
-CITY_PRICING_COLLECTION,
+COLLECTIONS.CITY_PRICING,
 id
 ),
 
 {
 
-price:Number(
-newPrice
+normalPrice:Number(
+document.getElementById(
+"normalPrice"
+).value
+),
+
+expressPrice:Number(
+document.getElementById(
+"expressPrice"
+).value
+),
+
+bulkPrice:Number(
+document.getElementById(
+"bulkPrice"
+).value
+),
+
+partnerPrice:Number(
+document.getElementById(
+"partnerPrice"
+).value
 ),
 
 updatedAt:
@@ -2223,9 +2359,19 @@ serverTimestamp()
 
 );
 
-await loadCityPricing();
+await addAuditLog(
 
-renderCityPricing();
+"UPDATE",
+
+"CITY_PRICING",
+
+id
+
+);
+
+toast(
+"City Pricing Updated"
+);
 
 }catch(error){
 
@@ -2236,18 +2382,16 @@ console.error(error);
 }
 
 /* =========================================================
-DELETE CITY PRICING
+DELETE CITY PRICE
 ========================================================= */
 
 async function deleteCityPricing(id){
 
-const allow =
-
-confirm(
-"Delete City Pricing?"
-);
-
-if(!allow)
+if(
+!confirm(
+"Delete Pricing?"
+)
+)
 return;
 
 try{
@@ -2256,18 +2400,20 @@ await deleteDoc(
 
 doc(
 db,
-CITY_PRICING_COLLECTION,
+COLLECTIONS.CITY_PRICING,
 id
 )
 
 );
 
-await loadCityPricing();
+await addAuditLog(
 
-renderCityPricing();
+"DELETE",
 
-showToast(
-"City Pricing Deleted"
+"CITY_PRICING",
+
+id
+
 );
 
 }catch(error){
@@ -2279,166 +2425,244 @@ console.error(error);
 }
 
 /* =========================================================
-DYNAMIC PRICING RULES
+GET CITY PRICE
 ========================================================= */
 
-function saveDynamicPricing(){
+function getServiceCityPrice(
 
-const rules = {
+serviceId,
+cityId
 
-rain:
+){
 
-Number(
+const record =
 
-document.getElementById(
-"rainSurge"
-)?.value || 0
+cityPricing.find(
 
-),
+item=>
 
-express:
+item.serviceId === serviceId &&
 
-Number(
-
-document.getElementById(
-"expressSurge"
-)?.value || 0
-
-),
-
-peak:
-
-Number(
-
-document.getElementById(
-"peakHourSurge"
-)?.value || 0
-
-),
-
-festival:
-
-Number(
-
-document.getElementById(
-"festivalSurge"
-)?.value || 0
-
-)
-
-};
-
-localStorage.setItem(
-
-"dynamicPricing",
-
-JSON.stringify(rules)
+item.cityId === cityId
 
 );
 
-showToast(
-"Pricing Rules Saved"
-);
-
-}
-
-function loadDynamicPricing(){
-
-const rules =
-
-JSON.parse(
-
-localStorage.getItem(
-"dynamicPricing"
-)
-
-||
-
-"{}"
-
-);
-
-if(document.getElementById("rainSurge"))
-document.getElementById("rainSurge").value =
-rules.rain || 0;
-
-if(document.getElementById("expressSurge"))
-document.getElementById("expressSurge").value =
-rules.express || 0;
-
-if(document.getElementById("peakHourSurge"))
-document.getElementById("peakHourSurge").value =
-rules.peak || 0;
-
-if(document.getElementById("festivalSurge"))
-document.getElementById("festivalSurge").value =
-rules.festival || 0;
+return record || null;
 
 }
 
 /* =========================================================
-CITY ANALYTICS
+BULK UPDATE CITY PRICES
 ========================================================= */
 
-function updateCityAnalytics(){
+async function bulkIncreaseCityPrices(
 
-const totalCities =
+percentage = 10
 
-new Set(
+){
 
-cityPricing.map(
-item=>item.city
-)
+try{
 
-).size;
+const updates =
 
-setText(
-"activeCities",
-totalCities
+cityPricing.map(async item=>{
+
+const multiplier =
+
+1 +
+(percentage / 100);
+
+await updateDoc(
+
+doc(
+db,
+COLLECTIONS.CITY_PRICING,
+item.id
+),
+
+{
+
+normalPrice:
+
+Math.round(
+item.normalPrice *
+multiplier
+),
+
+expressPrice:
+
+Math.round(
+item.expressPrice *
+multiplier
+),
+
+bulkPrice:
+
+Math.round(
+item.bulkPrice *
+multiplier
+),
+
+partnerPrice:
+
+Math.round(
+item.partnerPrice *
+multiplier
+),
+
+updatedAt:
+serverTimestamp()
+
+}
+
+);
+
+});
+
+await Promise.all(
+updates
+);
+
+toast(
+"Bulk Price Updated"
+);
+
+}catch(error){
+
+console.error(error);
+
+}
+
+}
+
+/* =========================================================
+CITY WISE SERVICE MATRIX
+========================================================= */
+
+function generatePricingMatrix(){
+
+const matrix = {};
+
+cities.forEach(city=>{
+
+matrix[city.name] = {};
+
+services.forEach(service=>{
+
+const price =
+
+cityPricing.find(
+
+item=>
+
+item.cityId === city.id &&
+
+item.serviceId === service.id
+
+);
+
+matrix[city.name][service.name] =
+
+price?.normalPrice || 0;
+
+});
+
+});
+
+return matrix;
+
+}
+
+/* =========================================================
+PARTNER COMMISSION
+========================================================= */
+
+function calculatePartnerMargin(
+
+serviceId,
+cityId
+
+){
+
+const pricing =
+
+getServiceCityPrice(
+
+serviceId,
+cityId
+
+);
+
+if(!pricing)
+return 0;
+
+return (
+
+pricing.normalPrice -
+
+pricing.partnerPrice
+
 );
 
 }
 
 /* =========================================================
-CITY EVENTS
+DYNAMIC PRICE RULES
 ========================================================= */
 
-function initializeCityPricingEvents(){
+function applyDynamicPricing(
 
-const addBtn =
+basePrice,
+type = "normal"
 
-document.getElementById(
-"addCityPricingBtn"
-);
+){
 
-if(addBtn){
+const peakMultiplier = 1.10;
+const rainMultiplier = 1.15;
+const festivalMultiplier = 1.20;
 
-addBtn.addEventListener(
+let price = basePrice;
 
-"click",
+if(type === "peak"){
 
-addCityPricing
-
-);
+price *= peakMultiplier;
 
 }
+
+if(type === "rain"){
+
+price *= rainMultiplier;
+
+}
+
+if(type === "festival"){
+
+price *= festivalMultiplier;
+
+}
+
+return Math.round(price);
 
 }/* =========================================================
-SERVICE BUNDLES
+SERVICE BUNDLES + INVENTORY
+PART 5/10
+========================================================= */
+
+/* =========================================================
+RENDER BUNDLES
 ========================================================= */
 
 function renderBundles(){
 
-const table =
+const tbody =
 
 document.getElementById(
 "bundleTableBody"
 );
 
-if(!table)
-return;
+if(!tbody) return;
 
-table.innerHTML = "";
+tbody.innerHTML = "";
 
 bundles.forEach(bundle=>{
 
@@ -2447,31 +2671,40 @@ document.createElement("tr");
 
 row.innerHTML = `
 
-<td>${bundle.name || "-"}</td>
+<td>${bundle.name}</td>
 
 <td>
-${(bundle.services || [])
-.join(", ")}
+${bundle.services?.length || 0}
 </td>
 
 <td>
-${formatCurrency(
+${currency(
 bundle.originalPrice
 )}
 </td>
 
 <td>
-${formatCurrency(
+${currency(
 bundle.bundlePrice
 )}
 </td>
 
 <td>
-${bundle.discount || 0}%
+${bundle.discount}%
 </td>
 
 <td>
-${bundle.status || "active"}
+
+<span class="${
+bundle.status === "active"
+? "statusActive"
+: "statusDisabled"
+}">
+
+${bundle.status}
+
+</span>
+
 </td>
 
 <td>
@@ -2500,60 +2733,156 @@ Delete
 
 `;
 
-table.appendChild(row);
+tbody.appendChild(row);
 
 });
 
 }
 
 /* =========================================================
-ADD BUNDLE
+CREATE BUNDLE
 ========================================================= */
 
-async function addBundle(){
+async function saveBundle(){
 
 try{
 
-const bundleName =
-prompt("Bundle Name");
+const selectedServices =
 
-if(!bundleName)
-return;
+Array.from(
+
+document.querySelectorAll(
+".bundleServiceCheckbox:checked"
+)
+
+).map(
+item=>item.value
+);
+
+const bundleName =
+
+document.getElementById(
+"bundleName"
+)?.value;
+
+const originalPrice =
+
+Number(
+
+document.getElementById(
+"bundleOriginalPrice"
+)?.value || 0
+
+);
+
+const bundlePrice =
+
+Number(
+
+document.getElementById(
+"bundlePrice"
+)?.value || 0
+
+);
+
+const discount =
+
+Math.round(
+
+(
+(originalPrice - bundlePrice)
+/
+
+originalPrice
+
+) * 100
+
+);
 
 await addDoc(
 
 collection(
 db,
-BUNDLES_COLLECTION
+COLLECTIONS.BUNDLES
 ),
 
 {
 
 name:bundleName,
 
-services:[],
+services:selectedServices,
 
-originalPrice:0,
+originalPrice,
 
-bundlePrice:0,
+bundlePrice,
 
-discount:0,
+discount,
 
 status:"active",
 
 createdAt:
+serverTimestamp(),
+
+updatedAt:
 serverTimestamp()
 
 }
 
 );
 
-await loadBundles();
+await addAuditLog(
 
-renderBundles();
+"CREATE",
+"BUNDLE",
+bundleName
 
-showToast(
-"Bundle Added"
+);
+
+toast(
+"Bundle Created"
+);
+
+}catch(error){
+
+console.error(error);
+
+}
+
+}
+
+/* =========================================================
+UPDATE BUNDLE
+========================================================= */
+
+async function updateBundle(id){
+
+try{
+
+await updateDoc(
+
+doc(
+db,
+COLLECTIONS.BUNDLES,
+id
+),
+
+{
+
+name:
+
+document.getElementById(
+"bundleName"
+).value,
+
+updatedAt:
+serverTimestamp()
+
+}
+
+);
+
+toast(
+"Bundle Updated"
 );
 
 }catch(error){
@@ -2570,42 +2899,28 @@ EDIT BUNDLE
 
 async function editBundle(id){
 
-const bundle =
+const snap =
 
-bundles.find(
-item=>item.id===id
-);
-
-if(!bundle)
-return;
-
-const updatedName =
-
-prompt(
-"Bundle Name",
-bundle.name
-);
-
-if(!updatedName)
-return;
-
-await updateDoc(
+await getDoc(
 
 doc(
 db,
-BUNDLES_COLLECTION,
+COLLECTIONS.BUNDLES,
 id
-),
-
-{
-name:updatedName
-}
+)
 
 );
 
-await loadBundles();
+if(!snap.exists())
+return;
 
-renderBundles();
+const bundle =
+snap.data();
+
+document.getElementById(
+"bundleName"
+).value =
+bundle.name;
 
 }
 
@@ -2626,366 +2941,111 @@ await deleteDoc(
 
 doc(
 db,
-BUNDLES_COLLECTION,
+COLLECTIONS.BUNDLES,
 id
 )
 
 );
 
-await loadBundles();
+await addAuditLog(
 
-renderBundles();
+"DELETE",
+"BUNDLE",
+id
 
-}
-
-/* =========================================================
-PARTNER WISE PRICING
-========================================================= */
-
-function renderPartnerPricing(){
-
-const table =
-
-document.getElementById(
-"partnerPricingBody"
 );
 
-if(!table)
-return;
-
-table.innerHTML = "";
-
-services.forEach(service=>{
-
-const row =
-document.createElement("tr");
-
-row.innerHTML = `
-
-<td>Default Partner</td>
-
-<td>
-${service.city || "-"}
-</td>
-
-<td>
-${service.name}
-</td>
-
-<td>
-${formatCurrency(
-service.partnerPrice || 0
-)}
-</td>
-
-<td>
-${formatCurrency(
-service.price || 0
-)}
-</td>
-
-<td>
-${formatCurrency(
-(service.price || 0) -
-(service.partnerPrice || 0)
-)}
-</td>
-
-<td>
-
-<button
-class="btnEdit">
-
-Edit
-
-</button>
-
-</td>
-
-`;
-
-table.appendChild(row);
-
-});
-
 }
 
 /* =========================================================
-REVENUE TRACKING
+BUNDLE ANALYTICS
 ========================================================= */
 
-function updateRevenueTracking(){
+function updateBundleAnalytics(){
 
-const totalRevenue =
+const totalBundles =
+bundles.length;
 
-services.reduce(
+const revenue =
+
+bundles.reduce(
 
 (sum,item)=>
 
 sum +
 
 Number(
-item.revenue || 0
+item.bundleRevenue || 0
 ),
 
 0
 
 );
 
-const dailyRevenue =
-Math.round(
-totalRevenue * 0.05
-);
-
-const weeklyRevenue =
-Math.round(
-totalRevenue * 0.25
-);
-
-const monthlyRevenue =
-Math.round(
-totalRevenue * 0.75
+setText(
+"totalBundles",
+totalBundles
 );
 
 setText(
-"dailyRevenue",
-formatCurrency(
-dailyRevenue
-)
-);
-
-setText(
-"weeklyRevenue",
-formatCurrency(
-weeklyRevenue
-)
-);
-
-setText(
-"monthlyRevenue",
-formatCurrency(
-monthlyRevenue
-)
-);
-
-setText(
-"yearlyRevenue",
-formatCurrency(
-totalRevenue
+"bundleRevenue",
+currency(
+revenue
 )
 );
 
 }
 
 /* =========================================================
-SERVICE PERFORMANCE
+RENDER INVENTORY
 ========================================================= */
 
-function renderServicePerformance(){
+function renderInventory(){
 
-const table =
+const tbody =
 
 document.getElementById(
-"servicePerformanceBody"
+"inventoryTableBody"
 );
 
-if(!table)
-return;
+if(!tbody) return;
 
-table.innerHTML = "";
+tbody.innerHTML = "";
 
-services.forEach(service=>{
+inventory.forEach(item=>{
+
+const lowStock =
+
+item.stock <=
+item.threshold;
 
 const row =
 document.createElement("tr");
 
 row.innerHTML = `
 
-<td>${service.name}</td>
+<td>${item.name}</td>
 
-<td>${service.orders || 0}</td>
+<td>${item.category}</td>
 
-<td>
-${formatCurrency(
-service.revenue
-)}
-</td>
+<td>${item.stock}</td>
 
-<td>
-${service.customers || 0}
-</td>
+<td>${item.unit}</td>
 
-<td>
-${service.rating || 0}
-⭐
-</td>
+<td>${currency(item.cost)}</td>
 
-<td>
-${service.repeatOrders || 0}
-</td>
-
-<td>
-${service.growth || 0}%
-</td>
-
-`;
-
-table.appendChild(row);
-
-});
-
-}
-
-/* =========================================================
-TOP SERVICES RANKING
-========================================================= */
-
-function updateTopServicesRanking(){
-
-const sorted =
-
-[...services]
-
-.sort(
-
-(a,b)=>
-
-Number(
-b.revenue || 0
-)
-
--
-
-Number(
-a.revenue || 0
-)
-
-);
-
-setText(
-"rank1Service",
-sorted[0]?.name || "-"
-);
-
-setText(
-"rank2Service",
-sorted[1]?.name || "-"
-);
-
-setText(
-"rank3Service",
-sorted[2]?.name || "-"
-);
-
-setText(
-"rank1Revenue",
-formatCurrency(
-sorted[0]?.revenue || 0
-)
-);
-
-setText(
-"rank2Revenue",
-formatCurrency(
-sorted[1]?.revenue || 0
-)
-);
-
-setText(
-"rank3Revenue",
-formatCurrency(
-sorted[2]?.revenue || 0
-)
-);
-
-}
-
-/* =========================================================
-PERFORMANCE SUMMARY
-========================================================= */
-
-function updatePerformanceSummary(){
-
-updateRevenueTracking();
-
-renderServicePerformance();
-
-updateTopServicesRanking();
-
-}
-
-/* =========================================================
-BUNDLE EVENTS
-========================================================= */
-
-function initializeBundleEvents(){
-
-const addBundleBtn =
-
-document.getElementById(
-"addBundleBtn"
-);
-
-if(addBundleBtn){
-
-addBundleBtn.addEventListener(
-
-"click",
-
-addBundle
-
-);
-
-}
-
-}/* =========================================================
-INVENTORY MANAGEMENT
-========================================================= */
-
-function renderInventory(){
-
-const table = document.getElementById(
-"inventoryTableBody"
-);
-
-if(!table) return;
-
-table.innerHTML = "";
-
-inventory.forEach(item=>{
-
-const row = document.createElement("tr");
-
-row.innerHTML = `
-
-<td>${item.name || "-"}</td>
-
-<td>${item.category || "-"}</td>
-
-<td>${item.stock || 0}</td>
-
-<td>${item.unit || "KG"}</td>
-
-<td>${formatCurrency(item.cost || 0)}</td>
-
-<td>${item.threshold || 0}</td>
+<td>${item.threshold}</td>
 
 <td>
 
 <span class="${
-(item.stock || 0) <=
-(item.threshold || 0)
-
+lowStock
 ? "statusDisabled"
-
 : "statusActive"
 }">
 
-${(item.stock || 0) <=
-(item.threshold || 0)
-
+${lowStock
 ? "Low Stock"
-
 : "Available"}
 
 </span>
@@ -2997,14 +3057,16 @@ ${(item.stock || 0) <=
 <div class="actionButtons">
 
 <button
-class="btnEdit">
+class="btnEdit"
+onclick="editInventory('${item.id}')">
 
 Edit
 
 </button>
 
 <button
-class="btnDelete">
+class="btnDelete"
+onclick="deleteInventory('${item.id}')">
 
 Delete
 
@@ -3016,488 +3078,890 @@ Delete
 
 `;
 
-table.appendChild(row);
+tbody.appendChild(row);
 
 });
 
 }
 
 /* =========================================================
-ADD INVENTORY
+ADD INVENTORY ITEM
 ========================================================= */
 
-async function addInventoryItem(){
+async function saveInventoryItem(){
 
-const name =
-prompt("Inventory Name");
-
-if(!name) return;
+try{
 
 await addDoc(
 
 collection(
 db,
-INVENTORY_COLLECTION
+COLLECTIONS.INVENTORY
 ),
 
 {
 
-name,
+name:
 
-category:"Laundry",
+document.getElementById(
+"inventoryName"
+)?.value,
 
-stock:0,
+category:
+
+document.getElementById(
+"inventoryCategory"
+)?.value,
+
+stock:Number(
+
+document.getElementById(
+"inventoryStock"
+)?.value || 0
+
+),
+
+threshold:Number(
+
+document.getElementById(
+"inventoryThreshold"
+)?.value || 0
+
+),
+
+cost:Number(
+
+document.getElementById(
+"inventoryCost"
+)?.value || 0
+
+),
 
 unit:"KG",
 
-cost:0,
-
-threshold:10,
-
 createdAt:
+serverTimestamp(),
+
+updatedAt:
 serverTimestamp()
 
 }
 
 );
 
-await loadInventory();
+toast(
+"Inventory Added"
+);
 
-renderInventory();
+}catch(error){
+
+console.error(error);
+
+}
 
 }
 
 /* =========================================================
-PICKUP SLOTS
+UPDATE INVENTORY STOCK
 ========================================================= */
 
-let pickupSlots = [];
+async function updateInventoryStock(
 
-function renderPickupSlots(){
+inventoryId,
+quantity
 
-const body =
-
-document.getElementById(
-"pickupSlotsBody"
-);
-
-if(!body) return;
-
-body.innerHTML = "";
-
-pickupSlots.forEach(slot=>{
-
-const row =
-document.createElement("tr");
-
-row.innerHTML = `
-
-<td>${slot.name}</td>
-
-<td>${slot.start}</td>
-
-<td>${slot.end}</td>
-
-<td>${slot.capacity}</td>
-
-<td>
-
-<span class="statusActive">
-
-${slot.status}
-
-</span>
-
-</td>
-
-<td>
-
-<button
-class="btnDelete">
-
-Delete
-
-</button>
-
-</td>
-
-`;
-
-body.appendChild(row);
-
-});
-
-}
-
-function addPickupSlot(){
-
-pickupSlots.push({
-
-name:"Morning Slot",
-
-start:"08:00",
-
-end:"12:00",
-
-capacity:100,
-
-status:"active"
-
-});
-
-renderPickupSlots();
-
-}
-
-/* =========================================================
-DELIVERY SLOTS
-========================================================= */
-
-let deliverySlots = [];
-
-function renderDeliverySlots(){
-
-const body =
-
-document.getElementById(
-"deliverySlotsBody"
-);
-
-if(!body) return;
-
-body.innerHTML = "";
-
-deliverySlots.forEach(slot=>{
-
-const row =
-document.createElement("tr");
-
-row.innerHTML = `
-
-<td>${slot.name}</td>
-
-<td>${slot.start}</td>
-
-<td>${slot.end}</td>
-
-<td>${slot.capacity}</td>
-
-<td>
-
-<span class="statusActive">
-
-${slot.status}
-
-</span>
-
-</td>
-
-<td>
-
-<button
-class="btnDelete">
-
-Delete
-
-</button>
-
-</td>
-
-`;
-
-body.appendChild(row);
-
-});
-
-}
-
-function addDeliverySlot(){
-
-deliverySlots.push({
-
-name:"Evening Delivery",
-
-start:"16:00",
-
-end:"20:00",
-
-capacity:100,
-
-status:"active"
-
-});
-
-renderDeliverySlots();
-
-}
-
-/* =========================================================
-SERVICE SCHEDULING
-========================================================= */
-
-function saveServiceSchedule(){
-
-const service =
-
-document.getElementById(
-"scheduleService"
-)?.value;
-
-const startTime =
-
-document.getElementById(
-"serviceStartTime"
-)?.value;
-
-const endTime =
-
-document.getElementById(
-"serviceEndTime"
-)?.value;
-
-const status =
-
-document.getElementById(
-"serviceScheduleStatus"
-)?.value;
-
-localStorage.setItem(
-
-"serviceSchedule",
-
-JSON.stringify({
-
-service,
-startTime,
-endTime,
-status
-
-})
-
-);
-
-showToast(
-"Schedule Saved"
-);
-
-}
-
-/* =========================================================
-LOAD SERVICE SCHEDULE
-========================================================= */
-
-function loadServiceSchedule(){
-
-const schedule =
-
-JSON.parse(
-
-localStorage.getItem(
-"serviceSchedule"
-)
-
-||
-
-"{}"
-
-);
-
-if(
-document.getElementById(
-"serviceStartTime"
-)
 ){
 
-document.getElementById(
-"serviceStartTime"
-).value =
+try{
 
-schedule.startTime || "";
+await updateDoc(
+
+doc(
+db,
+COLLECTIONS.INVENTORY,
+inventoryId
+),
+
+{
+
+stock:
+increment(
+quantity
+),
+
+updatedAt:
+serverTimestamp()
 
 }
 
-if(
-document.getElementById(
-"serviceEndTime"
-)
-){
+);
 
-document.getElementById(
-"serviceEndTime"
-).value =
+}catch(error){
 
-schedule.endTime || "";
+console.error(error);
 
 }
 
 }
 
 /* =========================================================
-CAPACITY TRACKING
+LOW STOCK ALERTS
 ========================================================= */
 
-function updateCapacityTracking(){
+function updateInventoryAlerts(){
 
-const pickupCapacity =
+const lowStockItems =
 
-pickupSlots.reduce(
+inventory.filter(
+
+item=>
+
+item.stock <=
+item.threshold
+
+);
+
+setText(
+
+"lowStockItems",
+
+lowStockItems.length
+
+);
+
+}
+
+/* =========================================================
+EDIT INVENTORY
+========================================================= */
+
+async function editInventory(id){
+
+const snap =
+
+await getDoc(
+
+doc(
+db,
+COLLECTIONS.INVENTORY,
+id
+)
+
+);
+
+if(!snap.exists())
+return;
+
+const item =
+snap.data();
+
+const stock =
+
+prompt(
+"Stock",
+item.stock
+);
+
+if(stock === null)
+return;
+
+await updateDoc(
+
+doc(
+db,
+COLLECTIONS.INVENTORY,
+id
+),
+
+{
+
+stock:Number(stock),
+
+updatedAt:
+serverTimestamp()
+
+}
+
+);
+
+}
+
+/* =========================================================
+DELETE INVENTORY
+========================================================= */
+
+async function deleteInventory(id){
+
+if(
+!confirm(
+"Delete Inventory Item?"
+)
+)
+return;
+
+await deleteDoc(
+
+doc(
+db,
+COLLECTIONS.INVENTORY,
+id
+)
+
+);
+
+}
+
+/* =========================================================
+INVENTORY ANALYTICS
+========================================================= */
+
+function updateInventoryAnalytics(){
+
+const totalStockValue =
+
+inventory.reduce(
 
 (sum,item)=>
 
 sum +
 
-Number(
-item.capacity || 0
+(
+item.stock *
+item.cost
 ),
 
 0
 
 );
 
-const deliveryCapacity =
+setText(
 
-deliverySlots.reduce(
+"inventoryValue",
 
-(sum,item)=>
+currency(
+totalStockValue
+)
+
+);
+
+updateInventoryAlerts();
+
+}/* =========================================================
+ORDERS + REVENUE ANALYTICS
+PART 6/10
+========================================================= */
+
+/* =========================================================
+CALCULATE REVENUE
+========================================================= */
+
+function calculateRevenue(){
+
+let totalRevenue = 0;
+
+let completedRevenue = 0;
+
+let pendingRevenue = 0;
+
+orders.forEach(order=>{
+
+const amount =
+
+Number(
+order.totalAmount || 0
+);
+
+totalRevenue += amount;
+
+if(
+order.status === "completed"
+){
+
+completedRevenue += amount;
+
+}else{
+
+pendingRevenue += amount;
+
+}
+
+});
+
+setText(
+"servicesRevenue",
+currency(
+totalRevenue
+)
+);
+
+setText(
+"completedRevenue",
+currency(
+completedRevenue
+)
+);
+
+setText(
+"pendingRevenue",
+currency(
+pendingRevenue
+)
+);
+
+}
+
+/* =========================================================
+ORDER ANALYTICS
+========================================================= */
+
+function calculateOrdersAnalytics(){
+
+const totalOrders =
+orders.length;
+
+const completedOrders =
+
+orders.filter(
+
+order=>
+
+order.status ===
+"completed"
+
+).length;
+
+const cancelledOrders =
+
+orders.filter(
+
+order=>
+
+order.status ===
+"cancelled"
+
+).length;
+
+const pendingOrders =
+
+orders.filter(
+
+order=>
+
+order.status ===
+"pending"
+
+).length;
+
+setText(
+"totalOrders",
+totalOrders
+);
+
+setText(
+"completedOrders",
+completedOrders
+);
+
+setText(
+"cancelledOrders",
+cancelledOrders
+);
+
+setText(
+"pendingOrders",
+pendingOrders
+);
+
+}
+
+/* =========================================================
+SERVICE PERFORMANCE
+========================================================= */
+
+function renderServicePerformance(){
+
+const tbody =
+
+document.getElementById(
+"servicePerformanceBody"
+);
+
+if(!tbody) return;
+
+tbody.innerHTML = "";
+
+services.forEach(service=>{
+
+const serviceOrders =
+
+orders.filter(
+
+order=>
+
+order.serviceId ===
+service.id
+
+);
+
+const revenue =
+
+serviceOrders.reduce(
+
+(sum,order)=>
 
 sum +
 
 Number(
-item.capacity || 0
+order.totalAmount || 0
 ),
 
 0
 
 );
 
-const dailyCapacity =
+const row =
+document.createElement("tr");
 
-pickupCapacity +
-deliveryCapacity;
+row.innerHTML = `
 
-setText(
-"pickupCapacity",
-pickupCapacity
-);
+<td>${service.name}</td>
 
-setText(
-"deliveryCapacity",
-deliveryCapacity
-);
+<td>${serviceOrders.length}</td>
 
-setText(
-"dailyCapacity",
-dailyCapacity
-);
+<td>${currency(revenue)}</td>
 
-setText(
-"capacityUsed",
-"68%"
-);
+<td>${service.rating || 0}</td>
+
+<td>${service.repeatOrders || 0}</td>
+
+<td>${service.growth || 0}%</td>
+
+`;
+
+tbody.appendChild(row);
+
+});
 
 }
 
 /* =========================================================
-SLA MANAGEMENT
+TOP SERVICES
 ========================================================= */
 
-function saveSLASettings(){
+function updateTopServicesRanking(){
 
-const slaData = {
+const ranking =
 
-washFold:
+services.map(service=>{
 
-document
-.querySelectorAll(
-".pricingCard input"
-)[0]?.value || 24,
+const revenue =
 
-dryClean:
+orders
 
-document
-.querySelectorAll(
-".pricingCard input"
-)[1]?.value || 48,
+.filter(
 
-steamIron:
+order=>
 
-document
-.querySelectorAll(
-".pricingCard input"
-)[2]?.value || 12,
+order.serviceId ===
+service.id
 
-express:
+)
 
-document
-.querySelectorAll(
-".pricingCard input"
-)[3]?.value || 6
+.reduce(
+
+(sum,item)=>
+
+sum +
+
+Number(
+item.totalAmount || 0
+),
+
+0
+
+);
+
+return {
+
+...service,
+
+revenue
 
 };
 
-localStorage.setItem(
+})
 
-"slaSettings",
+.sort(
 
-JSON.stringify(
-slaData
-)
+(a,b)=>
+
+b.revenue -
+a.revenue
 
 );
 
-showToast(
-"SLA Saved"
+setText(
+"rank1Service",
+ranking[0]?.name || "-"
+);
+
+setText(
+"rank2Service",
+ranking[1]?.name || "-"
+);
+
+setText(
+"rank3Service",
+ranking[2]?.name || "-"
+);
+
+setText(
+"rank1Revenue",
+currency(
+ranking[0]?.revenue || 0
+)
+);
+
+setText(
+"rank2Revenue",
+currency(
+ranking[1]?.revenue || 0
+)
+);
+
+setText(
+"rank3Revenue",
+currency(
+ranking[2]?.revenue || 0
+)
 );
 
 }
 
 /* =========================================================
-INITIALIZE SLOT EVENTS
+CITY ANALYTICS
 ========================================================= */
 
-function initializeSchedulingEvents(){
+function updateCityAnalytics(){
 
-document
-.getElementById(
-"addPickupSlotBtn"
+const cityRevenue = {};
+
+orders.forEach(order=>{
+
+const cityName =
+order.cityName || "Unknown";
+
+if(
+!cityRevenue[cityName]
+){
+
+cityRevenue[cityName] = 0;
+
+}
+
+cityRevenue[cityName] +=
+
+Number(
+order.totalAmount || 0
+);
+
+});
+
+let topCity = "-";
+let highestRevenue = 0;
+
+Object.keys(cityRevenue)
+
+.forEach(city=>{
+
+if(
+
+cityRevenue[city] >
+highestRevenue
+
+){
+
+highestRevenue =
+cityRevenue[city];
+
+topCity = city;
+
+}
+
+});
+
+setText(
+"hotCity",
+topCity
+);
+
+setText(
+"cityRevenue",
+currency(
+highestRevenue
 )
-?.addEventListener(
+);
 
-"click",
+}
 
-addPickupSlot
+/* =========================================================
+DAILY REVENUE
+========================================================= */
+
+function calculateDailyRevenue(){
+
+const today =
+
+new Date()
+.toDateString();
+
+let revenue = 0;
+
+orders.forEach(order=>{
+
+const date =
+
+order.createdAt?.toDate
+?
+
+order.createdAt
+.toDate()
+.toDateString()
+
+: "";
+
+if(date === today){
+
+revenue +=
+
+Number(
+order.totalAmount || 0
+);
+
+}
+
+});
+
+setText(
+"dailyRevenue",
+currency(revenue)
+);
+
+}
+
+/* =========================================================
+MONTHLY REVENUE
+========================================================= */
+
+function calculateMonthlyRevenue(){
+
+const currentMonth =
+
+new Date().getMonth();
+
+const currentYear =
+
+new Date().getFullYear();
+
+let revenue = 0;
+
+orders.forEach(order=>{
+
+if(
+!order.createdAt?.toDate
+)
+return;
+
+const date =
+order.createdAt.toDate();
+
+if(
+
+date.getMonth() ===
+currentMonth
+
+&&
+
+date.getFullYear() ===
+currentYear
+
+){
+
+revenue +=
+
+Number(
+order.totalAmount || 0
+);
+
+}
+
+});
+
+setText(
+"monthlyRevenue",
+currency(
+revenue
+)
+);
+
+}
+
+/* =========================================================
+AVERAGE ORDER VALUE
+========================================================= */
+
+function calculateAverageOrderValue(){
+
+const revenue =
+
+orders.reduce(
+
+(sum,order)=>
+
+sum +
+
+Number(
+order.totalAmount || 0
+),
+
+0
 
 );
 
-document
-.getElementById(
-"addDeliverySlotBtn"
+const avg =
+
+orders.length
+
+?
+
+revenue /
+orders.length
+
+: 0;
+
+setText(
+"avgOrderValue",
+currency(
+Math.round(avg)
 )
-?.addEventListener(
-
-"click",
-
-addDeliverySlot
-
 );
+
+}
+
+/* =========================================================
+CUSTOMER ANALYTICS
+========================================================= */
+
+function updateCustomerAnalytics(){
+
+const customers =
+new Set();
+
+orders.forEach(order=>{
+
+customers.add(
+order.customerId
+);
+
+});
+
+setText(
+"totalCustomers",
+customers.size
+);
+
+}
+
+/* =========================================================
+REVENUE DASHBOARD
+========================================================= */
+
+function updateRevenueDashboard(){
+
+calculateRevenue();
+
+calculateOrdersAnalytics();
+
+calculateDailyRevenue();
+
+calculateMonthlyRevenue();
+
+calculateAverageOrderValue();
+
+updateCustomerAnalytics();
+
+updateCityAnalytics();
+
+renderServicePerformance();
+
+updateTopServicesRanking();
+
+}
+
+/* =========================================================
+ORDER EXPORT
+========================================================= */
+
+function exportOrdersCSV(){
+
+let csv =
+
+"OrderID,Customer,Amount,Status\n";
+
+orders.forEach(order=>{
+
+csv +=
+
+`${order.id},
+
+${order.customerName},
+
+${order.totalAmount},
+
+${order.status}\n`;
+
+});
+
+const blob =
+
+new Blob(
+[csv],
+{
+type:"text/csv"
+}
+);
+
+const link =
+document.createElement("a");
+
+link.href =
+URL.createObjectURL(blob);
+
+link.download =
+"orders.csv";
+
+link.click();
 
 }/* =========================================================
-REVIEWS & RATINGS
+REVIEWS + COMPLAINTS + REFUNDS
+PART 7/10
 ========================================================= */
 
-let reviews = [];
-let complaints = [];
+/* =========================================================
+RENDER REVIEWS
+========================================================= */
 
 function renderReviews(){
 
-const table =
+const tbody =
+
 document.getElementById(
 "reviewsTableBody"
 );
 
-if(!table) return;
+if(!tbody) return;
 
-table.innerHTML = "";
+tbody.innerHTML = "";
 
 reviews.forEach(review=>{
 
@@ -3506,15 +3970,25 @@ document.createElement("tr");
 
 row.innerHTML = `
 
-<td>${review.customer || "-"}</td>
+<td>
+${review.customerName || "-"}
+</td>
 
-<td>${review.service || "-"}</td>
+<td>
+${review.serviceName || "-"}
+</td>
 
-<td>${review.rating || 0} ⭐</td>
+<td>
+${review.rating || 0} ⭐
+</td>
 
-<td>${review.comment || "-"}</td>
+<td>
+${review.review || "-"}
+</td>
 
-<td>${review.date || "-"}</td>
+<td>
+${review.createdDate || "-"}
+</td>
 
 <td>
 
@@ -3531,14 +4005,16 @@ Published
 <div class="actionButtons">
 
 <button
-class="btnView">
+class="btnView"
+onclick="viewReview('${review.id}')">
 
 View
 
 </button>
 
 <button
-class="btnDelete">
+class="btnDelete"
+onclick="deleteReview('${review.id}')">
 
 Delete
 
@@ -3550,9 +4026,78 @@ Delete
 
 `;
 
-table.appendChild(row);
+tbody.appendChild(row);
 
 });
+
+}
+
+/* =========================================================
+VIEW REVIEW
+========================================================= */
+
+async function viewReview(id){
+
+const review =
+
+reviews.find(
+
+item=>item.id===id
+
+);
+
+if(!review) return;
+
+alert(
+
+`
+Customer:
+${review.customerName}
+
+Service:
+${review.serviceName}
+
+Rating:
+${review.rating}
+
+Review:
+${review.review}
+`
+
+);
+
+}
+
+/* =========================================================
+DELETE REVIEW
+========================================================= */
+
+async function deleteReview(id){
+
+if(
+!confirm(
+"Delete Review?"
+)
+)
+return;
+
+await deleteDoc(
+
+doc(
+db,
+COLLECTIONS.REVIEWS,
+id
+)
+
+);
+
+await addAuditLog(
+
+"DELETE",
+"REVIEWS",
+id
+
+);
 
 }
 
@@ -3562,23 +4107,21 @@ RATING ANALYTICS
 
 function updateRatingAnalytics(){
 
-if(!reviews.length){
+const totalReviews =
+reviews.length;
+
+if(!totalReviews){
 
 setText(
 "averageRating",
-"0.0"
-);
-
-setText(
-"totalReviews",
-0
+"0"
 );
 
 return;
 
 }
 
-const totalRatings =
+const totalRating =
 
 reviews.reduce(
 
@@ -3597,8 +4140,8 @@ item.rating || 0
 const average =
 
 (
-totalRatings /
-reviews.length
+totalRating /
+totalReviews
 )
 
 .toFixed(1);
@@ -3610,7 +4153,7 @@ average
 
 setText(
 "totalReviews",
-reviews.length
+totalReviews
 );
 
 const positive =
@@ -3619,9 +4162,7 @@ reviews.filter(
 
 item=>
 
-Number(
-item.rating
-) >= 4
+item.rating >= 4
 
 ).length;
 
@@ -3631,9 +4172,7 @@ reviews.filter(
 
 item=>
 
-Number(
-item.rating
-) <= 2
+item.rating <= 2
 
 ).length;
 
@@ -3650,20 +4189,20 @@ negative
 }
 
 /* =========================================================
-COMPLAINT TRACKING
+RENDER COMPLAINTS
 ========================================================= */
 
 function renderComplaints(){
 
-const table =
+const tbody =
 
 document.getElementById(
 "complaintsTableBody"
 );
 
-if(!table) return;
+if(!tbody) return;
 
-table.innerHTML = "";
+tbody.innerHTML = "";
 
 complaints.forEach(item=>{
 
@@ -3672,21 +4211,25 @@ document.createElement("tr");
 
 row.innerHTML = `
 
-<td>${item.id || "-"}</td>
+<td>${item.ticketId}</td>
 
-<td>${item.customer || "-"}</td>
+<td>${item.customerName}</td>
 
-<td>${item.service || "-"}</td>
+<td>${item.serviceName}</td>
 
-<td>${item.issue || "-"}</td>
+<td>${item.issue}</td>
 
-<td>${item.priority || "Medium"}</td>
+<td>${item.priority}</td>
 
 <td>
 
-<span class="statusPending">
+<span class="${
+item.status === "resolved"
+? "statusActive"
+: "statusPending"
+}">
 
-${item.status || "Open"}
+${item.status}
 
 </span>
 
@@ -3703,16 +4246,10 @@ ${item.assignedTo || "-"}
 <div class="actionButtons">
 
 <button
-class="btnEdit">
+class="btnEdit"
+onclick="resolveComplaint('${item.id}')">
 
 Resolve
-
-</button>
-
-<button
-class="btnDelete">
-
-Delete
 
 </button>
 
@@ -3722,53 +4259,44 @@ Delete
 
 `;
 
-table.appendChild(row);
+tbody.appendChild(row);
 
 });
 
 }
 
 /* =========================================================
-ADD COMPLAINT
+RESOLVE COMPLAINT
 ========================================================= */
 
-function addComplaint(){
+async function resolveComplaint(id){
 
-const issue =
+await updateDoc(
 
-prompt(
-"Complaint Issue"
+doc(
+db,
+COLLECTIONS.COMPLAINTS,
+id
+),
+
+{
+
+status:"resolved",
+
+resolvedAt:
+serverTimestamp()
+
+}
+
 );
 
-if(!issue) return;
+await addAuditLog(
 
-complaints.push({
+"RESOLVE",
+"COMPLAINT",
+id
 
-id:
-Date.now(),
-
-customer:
-"Customer",
-
-service:
-"Wash & Fold",
-
-issue,
-
-priority:
-"High",
-
-status:
-"Open",
-
-assignedTo:
-"Support Team"
-
-});
-
-renderComplaints();
-
-updateComplaintAnalytics();
+);
 
 }
 
@@ -3781,24 +4309,39 @@ function updateComplaintAnalytics(){
 const total =
 complaints.length;
 
-const open =
+const resolved =
 
 complaints.filter(
 
 item=>
 
 item.status ===
-"Open"
+"resolved"
 
 ).length;
 
-const resolved =
-total - open;
+const pending =
 
-setText(
-"qualityIssues",
-open
-);
+complaints.filter(
+
+item=>
+
+item.status !==
+"resolved"
+
+).length;
+
+const passRate =
+
+total
+
+?
+
+Math.round(
+(resolved/total)*100
+)
+
+:100;
 
 setText(
 "qualityChecks",
@@ -3806,42 +4349,62 @@ total
 );
 
 setText(
+"qualityIssues",
+pending
+);
+
+setText(
 "qualityPassRate",
-
-total
-?
-
-Math.round(
-(resolved / total) * 100
-) + "%"
-
-:
-
-"100%"
-
+passRate + "%"
 );
 
 }
 
 /* =========================================================
-QUALITY CONTROL
+QUALITY SCORE
 ========================================================= */
 
 function updateQualityControl(){
 
-const score =
+const complaintsWeight =
 
-Math.max(
+complaints.length * 2;
 
-100 -
+const reviewWeight =
 
-(
-complaints.length * 5
-),
+reviews.length
+?
+
+reviews.reduce(
+
+(sum,item)=>
+
+sum +
+item.rating,
 
 0
 
+) / reviews.length
+
+: 5;
+
+let score =
+
+Math.round(
+
+(reviewWeight * 20)
+
+-
+
+complaintsWeight
+
 );
+
+if(score < 0)
+score = 0;
+
+if(score > 100)
+score = 100;
 
 setText(
 "qualityScore",
@@ -3856,304 +4419,213 @@ REFUND ANALYTICS
 
 function updateRefundAnalytics(){
 
-const refundOrders =
+const refundedOrders =
 
-complaints.filter(
+orders.filter(
 
 item=>
 
-item.status ===
-"Refunded"
+item.paymentStatus ===
+"refunded"
 
-).length;
+);
 
 const refundAmount =
 
-refundOrders * 250;
+refundedOrders.reduce(
+
+(sum,item)=>
+
+sum +
+
+Number(
+item.totalAmount || 0
+),
+
+0
+
+);
 
 setText(
 "refundOrders",
-refundOrders
+refundedOrders.length
 );
 
 setText(
 "totalRefunds",
-formatCurrency(
+currency(
 refundAmount
 )
 );
 
-setText(
-"refundRate",
+const rate =
 
-services.length
+orders.length
 
 ?
 
 Math.round(
-(refundOrders /
-services.length) * 100
-) + "%"
 
-:
+(
+refundedOrders.length /
+orders.length
+)*100
 
-"0%"
+)
 
-);
+:0;
 
 setText(
-"avgRefundTime",
-"12h"
+"refundRate",
+rate + "%"
 );
 
 }
 
 /* =========================================================
-RATING BREAKDOWN
+CUSTOMER SATISFACTION
 ========================================================= */
 
-function renderRatingAnalytics(){
+function updateCustomerSatisfaction(){
 
-const table =
+const avgRating =
 
-document.getElementById(
-"ratingAnalyticsBody"
+reviews.length
+
+?
+
+reviews.reduce(
+
+(sum,item)=>
+
+sum +
+item.rating,
+
+0
+
+) /
+
+reviews.length
+
+:0;
+
+const score =
+
+Math.round(
+
+(avgRating / 5) * 100
+
 );
 
-if(!table) return;
+setText(
+"customerRetention",
+score + "%"
+);
 
-table.innerHTML = "";
+}
 
-services.forEach(service=>{
+/* =========================================================
+TOP COMPLAINT REASONS
+========================================================= */
 
-const row =
-document.createElement("tr");
+function updateComplaintReasons(){
 
-row.innerHTML = `
+const reasons = {
 
-<td>${service.name}</td>
+delay:0,
+cleaning:0,
+damage:0
 
-<td>${Math.floor(Math.random()*100)}</td>
+};
 
-<td>${Math.floor(Math.random()*80)}</td>
+complaints.forEach(item=>{
 
-<td>${Math.floor(Math.random()*50)}</td>
+const issue =
 
-<td>${Math.floor(Math.random()*20)}</td>
+(item.issue || "")
+.toLowerCase();
 
-<td>${Math.floor(Math.random()*10)}</td>
+if(
+issue.includes("delay")
+){
 
-<td>${service.rating || 4.5}</td>
+reasons.delay++;
 
-`;
+}
 
-table.appendChild(row);
+if(
+issue.includes("clean")
+){
+
+reasons.cleaning++;
+
+}
+
+if(
+issue.includes("damage")
+){
+
+reasons.damage++;
+
+}
 
 });
 
-}
-
-/* =========================================================
-CUSTOMER FEEDBACK ANALYTICS
-========================================================= */
-
-function updateCustomerFeedbackAnalytics(){
-
-const delayCases =
-
-complaints.filter(
-
-item=>
-
-item.issue?.includes(
-"Delay"
-)
-
-).length;
-
-const cleaningCases =
-
-complaints.filter(
-
-item=>
-
-item.issue?.includes(
-"Cleaning"
-)
-
-).length;
-
-const damageCases =
-
-complaints.filter(
-
-item=>
-
-item.issue?.includes(
-"Damage"
-)
-
-).length;
-
 setText(
 "delayComplaintCount",
-delayCases + " Cases"
+`${reasons.delay} Cases`
 );
 
 setText(
 "cleaningComplaintCount",
-cleaningCases + " Cases"
+`${reasons.cleaning} Cases`
 );
 
 setText(
 "damageComplaintCount",
-damageCases + " Cases"
+`${reasons.damage} Cases`
 );
 
 }
 
 /* =========================================================
-REVIEW EVENTS
+CUSTOMER EXPERIENCE DASHBOARD
 ========================================================= */
 
-function initializeReviewEvents(){
+function updateCustomerExperienceDashboard(){
 
-document
-.getElementById(
-"addComplaintBtn"
-)
-?.addEventListener(
+updateRatingAnalytics();
 
-"click",
+updateComplaintAnalytics();
 
-addComplaint
+updateQualityControl();
 
-);
+updateRefundAnalytics();
+
+updateCustomerSatisfaction();
+
+updateComplaintReasons();
 
 }/* =========================================================
-MARKETING TOOLS
+COUPONS + PROMOTIONS + MARKETING
+PART 8/10
 ========================================================= */
 
-let promotions = [];
-let coupons = [];
-let campaigns = [];
-
 /* =========================================================
-PROMOTIONS
-========================================================= */
-
-function renderPromotions(){
-
-const table =
-document.getElementById(
-"promotionTableBody"
-);
-
-if(!table) return;
-
-table.innerHTML = "";
-
-promotions.forEach(promo=>{
-
-const row =
-document.createElement("tr");
-
-row.innerHTML = `
-
-<td>${promo.name}</td>
-
-<td>${promo.service}</td>
-
-<td>${promo.discount}%</td>
-
-<td>${promo.startDate}</td>
-
-<td>${promo.endDate}</td>
-
-<td>
-
-<span class="statusActive">
-
-${promo.status}
-
-</span>
-
-</td>
-
-<td>
-
-<div class="actionButtons">
-
-<button
-class="btnEdit">
-
-Edit
-
-</button>
-
-<button
-class="btnDelete">
-
-Delete
-
-</button>
-
-</div>
-
-</td>
-
-`;
-
-table.appendChild(row);
-
-});
-
-}
-
-function createPromotion(){
-
-const name =
-prompt("Promotion Name");
-
-if(!name) return;
-
-promotions.push({
-
-name,
-
-service:"Wash & Fold",
-
-discount:20,
-
-startDate:new Date()
-.toLocaleDateString(),
-
-endDate:"31/12/2026",
-
-status:"Active"
-
-});
-
-renderPromotions();
-
-updateMarketingAnalytics();
-
-}
-
-/* =========================================================
-COUPONS INTEGRATION
+RENDER COUPONS
 ========================================================= */
 
 function renderCouponsIntegration(){
 
-const table =
+const tbody =
+
 document.getElementById(
 "couponIntegrationBody"
 );
 
-if(!table) return;
+if(!tbody) return;
 
-table.innerHTML = "";
+tbody.innerHTML = "";
 
 coupons.forEach(coupon=>{
 
@@ -4166,15 +4638,19 @@ row.innerHTML = `
 
 <td>${coupon.discount}%</td>
 
-<td>${coupon.limit}</td>
+<td>${coupon.usageLimit}</td>
 
-<td>${coupon.used}</td>
+<td>${coupon.usedCount || 0}</td>
 
-<td>${coupon.expiry}</td>
+<td>${coupon.expiryDate || "-"}</td>
 
 <td>
 
-<span class="statusActive">
+<span class="${
+coupon.status === "active"
+? "statusActive"
+: "statusDisabled"
+}">
 
 ${coupon.status}
 
@@ -4184,38 +4660,291 @@ ${coupon.status}
 
 `;
 
-table.appendChild(row);
+tbody.appendChild(row);
 
 });
 
 }
 
-function createCoupon(){
+/* =========================================================
+CREATE COUPON
+========================================================= */
 
-const code =
-prompt("Coupon Code");
+async function saveCoupon(){
 
-if(!code) return;
+try{
 
-coupons.push({
+await addDoc(
 
-code,
+collection(
+db,
+COLLECTIONS.COUPONS
+),
 
-discount:20,
+{
 
-limit:1000,
+code:
 
-used:0,
+document.getElementById(
+"couponCode"
+)?.value,
 
-expiry:"31/12/2026",
+discount:Number(
 
-status:"Active"
+document.getElementById(
+"couponDiscount"
+)?.value || 0
+
+),
+
+usageLimit:Number(
+
+document.getElementById(
+"couponLimit"
+)?.value || 0
+
+),
+
+usedCount:0,
+
+expiryDate:
+
+document.getElementById(
+"couponExpiry"
+)?.value,
+
+status:"active",
+
+createdAt:
+serverTimestamp(),
+
+updatedAt:
+serverTimestamp()
+
+}
+
+);
+
+await addAuditLog(
+
+"CREATE",
+"COUPON",
+"NEW COUPON"
+
+);
+
+toast(
+"Coupon Created"
+);
+
+}catch(error){
+
+console.error(error);
+
+}
+
+}
+
+/* =========================================================
+DELETE COUPON
+========================================================= */
+
+async function deleteCoupon(id){
+
+if(
+!confirm(
+"Delete Coupon?"
+)
+)
+return;
+
+await deleteDoc(
+
+doc(
+db,
+COLLECTIONS.COUPONS,
+id
+)
+
+);
+
+}
+
+/* =========================================================
+RENDER PROMOTIONS
+========================================================= */
+
+function renderPromotions(){
+
+const tbody =
+
+document.getElementById(
+"promotionTableBody"
+);
+
+if(!tbody) return;
+
+tbody.innerHTML = "";
+
+promotions.forEach(promo=>{
+
+const row =
+document.createElement("tr");
+
+row.innerHTML = `
+
+<td>${promo.title}</td>
+
+<td>${promo.serviceName}</td>
+
+<td>${promo.discount}%</td>
+
+<td>${promo.startDate}</td>
+
+<td>${promo.endDate}</td>
+
+<td>
+
+<span class="${
+promo.status === "active"
+? "statusActive"
+: "statusDisabled"
+}">
+
+${promo.status}
+
+</span>
+
+</td>
+
+<td>
+
+<button
+class="btnDelete"
+onclick="deletePromotion('${promo.id}')">
+
+Delete
+
+</button>
+
+</td>
+
+`;
+
+tbody.appendChild(row);
 
 });
 
-renderCouponsIntegration();
+}
 
-updateMarketingAnalytics();
+/* =========================================================
+CREATE PROMOTION
+========================================================= */
+
+async function savePromotion(){
+
+try{
+
+await addDoc(
+
+collection(
+db,
+COLLECTIONS.PROMOTIONS
+),
+
+{
+
+title:
+
+document.getElementById(
+"promotionTitle"
+)?.value,
+
+serviceId:
+
+document.getElementById(
+"promotionService"
+)?.value,
+
+serviceName:
+
+document.getElementById(
+"promotionService"
+)?.selectedOptions[0]
+?.textContent ||
+
+"",
+
+discount:Number(
+
+document.getElementById(
+"promotionDiscount"
+)?.value || 0
+
+),
+
+startDate:
+
+document.getElementById(
+"promotionStart"
+)?.value,
+
+endDate:
+
+document.getElementById(
+"promotionEnd"
+)?.value,
+
+status:"active",
+
+createdAt:
+serverTimestamp(),
+
+updatedAt:
+serverTimestamp()
+
+}
+
+);
+
+await addAuditLog(
+
+"CREATE",
+"PROMOTION",
+"NEW PROMOTION"
+
+);
+
+}catch(error){
+
+console.error(error);
+
+}
+
+}
+
+/* =========================================================
+DELETE PROMOTION
+========================================================= */
+
+async function deletePromotion(id){
+
+if(
+!confirm(
+"Delete Promotion?"
+)
+)
+return;
+
+await deleteDoc(
+
+doc(
+db,
+COLLECTIONS.PROMOTIONS,
+id
+)
+
+);
 
 }
 
@@ -4225,19 +4954,39 @@ LOYALTY PROGRAM
 
 function updateLoyaltyProgram(){
 
-const bronze = 1500;
-const silver = 800;
-const gold = 350;
-const platinum = 120;
+const customers =
+new Set();
 
-console.log({
+orders.forEach(order=>{
 
-bronze,
-silver,
-gold,
-platinum
+customers.add(
+order.customerId
+);
 
 });
+
+const totalMembers =
+customers.size;
+
+setText(
+"bronzeMembers",
+Math.round(totalMembers*0.50)
+);
+
+setText(
+"silverMembers",
+Math.round(totalMembers*0.25)
+);
+
+setText(
+"goldMembers",
+Math.round(totalMembers*0.15)
+);
+
+setText(
+"platinumMembers",
+Math.round(totalMembers*0.10)
+);
 
 }
 
@@ -4247,26 +4996,50 @@ MEMBERSHIP ANALYTICS
 
 function updateMembershipAnalytics(){
 
-const totalMembers =
+const members =
+new Set();
 
-1200;
+orders.forEach(order=>{
 
-const premiumMembers =
+members.add(
+order.customerId
+);
 
-420;
+});
 
-const conversionRate =
+const total =
+members.size;
+
+const premium =
+Math.round(
+total * 0.25
+);
+
+const rate =
+
+total
+
+?
 
 Math.round(
+(premium/total)*100
+)
 
-(premiumMembers /
-totalMembers) * 100
+:0;
 
+setText(
+"membershipUsers",
+total
+);
+
+setText(
+"premiumMembers",
+premium
 );
 
 setText(
 "conversionRate",
-conversionRate + "%"
+rate + "%"
 );
 
 }
@@ -4277,58 +5050,75 @@ CAMPAIGN ANALYTICS
 
 function updateCampaignAnalytics(){
 
-const emailsSent =
-campaigns.length * 500;
+const activePromotions =
 
-const smsSent =
-campaigns.length * 300;
+promotions.filter(
 
-const views =
-campaigns.length * 1500;
+item=>
 
-const orders =
-campaigns.length * 120;
+item.status ===
+"active"
 
-setText(
-"emailsSent",
-emailsSent
+).length;
+
+const couponUsage =
+
+coupons.reduce(
+
+(sum,item)=>
+
+sum +
+
+Number(
+item.usedCount || 0
+),
+
+0
+
 );
 
 setText(
-"smsSent",
-smsSent
+"activePromotions",
+activePromotions
 );
 
 setText(
-"campaignViews",
-views
-);
-
-setText(
-"campaignOrders",
-orders
+"couponUsage",
+couponUsage
 );
 
 }
 
 /* =========================================================
-CREATE CAMPAIGN
+PROMOTION REVENUE
 ========================================================= */
 
-function createCampaign(){
+function updatePromotionRevenue(){
 
-campaigns.push({
+let revenue = 0;
 
-name:
-"Festival Campaign",
+orders.forEach(order=>{
 
-date:
-new Date()
-.toLocaleDateString()
+if(
+order.couponApplied
+){
+
+revenue +=
+
+Number(
+order.totalAmount || 0
+);
+
+}
 
 });
 
-updateCampaignAnalytics();
+setText(
+"promoRevenue",
+currency(
+revenue
+)
+);
 
 }
 
@@ -4338,173 +5128,268 @@ SEASONAL OFFERS
 
 function updateSeasonalOffers(){
 
-const seasonalRevenue =
+const month =
+new Date().getMonth()+1;
 
-promotions.length * 25000;
+let offer =
+"New User Offer";
+
+if(month >= 10){
+
+offer =
+"Diwali Offer";
+
+}else if(month >= 3){
+
+offer =
+"Holi Offer";
+
+}
 
 setText(
-"promoRevenue",
-formatCurrency(
-seasonalRevenue
-)
+"seasonalOffer",
+offer
 );
 
 }
 
 /* =========================================================
-MARKETING ANALYTICS
+MARKETING DASHBOARD
 ========================================================= */
 
-function updateMarketingAnalytics(){
-
-setText(
-"activePromotions",
-promotions.length
-);
-
-setText(
-"couponUsage",
-
-coupons.reduce(
-
-(sum,item)=>
-
-sum +
-(item.used || 0),
-
-0
-
-)
-
-);
-
-updateSeasonalOffers();
-
-updateMembershipAnalytics();
+function updateMarketingDashboard(){
 
 updateCampaignAnalytics();
 
-}
+updateMembershipAnalytics();
 
-/* =========================================================
-MARKETING EVENTS
-========================================================= */
+updatePromotionRevenue();
 
-function initializeMarketingEvents(){
+updateSeasonalOffers();
 
-document
-.getElementById(
-"createPromotionBtn"
-)
-?.addEventListener(
-
-"click",
-
-createPromotion
-
-);
-
-document
-.getElementById(
-"createCouponBtn"
-)
-?.addEventListener(
-
-"click",
-
-createCoupon
-
-);
-
-}
-
-/* =========================================================
-DEFAULT DATA
-========================================================= */
-
-function loadMarketingDemoData(){
-
-if(promotions.length)
-return;
-
-promotions.push({
-
-name:"New User Offer",
-
-service:"Wash & Fold",
-
-discount:15,
-
-startDate:"01/01/2026",
-
-endDate:"31/12/2026",
-
-status:"Active"
-
-});
-
-coupons.push({
-
-code:"WELCOME100",
-
-discount:10,
-
-limit:1000,
-
-used:120,
-
-expiry:"31/12/2026",
-
-status:"Active"
-
-});
-
-renderPromotions();
-
-renderCouponsIntegration();
-
-updateMarketingAnalytics();
+updateLoyaltyProgram();
 
 }/* =========================================================
+AI ANALYTICS + FORECASTING
+PART 9/10
+========================================================= */
+
+/* =========================================================
 AI RECOMMENDATIONS
 ========================================================= */
 
 function updateAIRecommendations(){
 
-const topRevenueService =
+if(!services.length){
 
-services.sort(
+setText(
+"aiRecommendation",
+"No Data Available"
+);
+
+return;
+
+}
+
+const bestService =
+
+services
+
+.map(service=>{
+
+const revenue =
+
+orders
+
+.filter(
+
+order=>
+
+order.serviceId ===
+service.id
+
+)
+
+.reduce(
+
+(sum,item)=>
+
+sum +
+
+Number(
+item.totalAmount || 0
+),
+
+0
+
+);
+
+return {
+
+...service,
+
+revenue
+
+};
+
+})
+
+.sort(
+
 (a,b)=>
-(b.revenue || 0) -
-(a.revenue || 0)
+
+b.revenue -
+a.revenue
+
 )[0];
 
 setText(
 
-"revenueSuggestion",
+"aiRecommendation",
 
-topRevenueService
-
-? `Promote ${topRevenueService.name}`
-
-: "No recommendation"
+`Promote ${bestService.name}
+in more cities`
 
 );
 
-setText(
+}
 
-"citySuggestion",
+/* =========================================================
+SERVICE GROWTH ANALYTICS
+========================================================= */
 
-"Expand to Jaipur"
+function updateServiceGrowthAnalytics(){
+
+const growthTable =
+
+document.getElementById(
+"serviceGrowthBody"
+);
+
+if(!growthTable) return;
+
+growthTable.innerHTML = "";
+
+services.forEach(service=>{
+
+const serviceOrders =
+
+orders.filter(
+
+order=>
+
+order.serviceId ===
+service.id
 
 );
 
+const currentOrders =
+serviceOrders.length;
+
+const predictedOrders =
+
+Math.round(
+currentOrders * 1.20
+);
+
+const growth =
+currentOrders
+
+?
+
+Math.round(
+
+(
+(predictedOrders -
+currentOrders)
+
+/
+
+currentOrders
+
+) * 100
+
+)
+
+:0;
+
+const row =
+document.createElement("tr");
+
+row.innerHTML = `
+
+<td>${service.name}</td>
+
+<td>${currentOrders}</td>
+
+<td>${predictedOrders}</td>
+
+<td>${growth}%</td>
+
+`;
+
+growthTable.appendChild(row);
+
+});
+
+}
+
+/* =========================================================
+CITY GROWTH ANALYTICS
+========================================================= */
+
+function updateCityGrowthAnalytics(){
+
+const cityMap = {};
+
+orders.forEach(order=>{
+
+const city =
+order.cityName ||
+"Unknown";
+
+if(!cityMap[city]){
+
+cityMap[city] = 0;
+
+}
+
+cityMap[city]++;
+
+});
+
+let fastestCity = "-";
+let maxOrders = 0;
+
+Object.keys(cityMap)
+
+.forEach(city=>{
+
+if(
+
+cityMap[city] >
+maxOrders
+
+){
+
+maxOrders =
+cityMap[city];
+
+fastestCity =
+city;
+
+}
+
+});
+
 setText(
+"fastestGrowingCity",
+fastestCity
+);
 
-"serviceSuggestion",
-
-"Increase Express Laundry Capacity"
-
+setText(
+"cityGrowthOrders",
+maxOrders
 );
 
 }
@@ -4515,29 +5400,39 @@ DEMAND FORECASTING
 
 function renderDemandForecast(){
 
-const table =
+const tbody =
 
 document.getElementById(
 "forecastTableBody"
 );
 
-if(!table) return;
+if(!tbody) return;
 
-table.innerHTML = "";
+tbody.innerHTML = "";
 
 services.forEach(service=>{
 
-const orders =
-service.orders || 0;
+const totalOrders =
 
-const nextWeek =
+orders.filter(
+
+order=>
+
+order.serviceId ===
+service.id
+
+).length;
+
+const forecast7Days =
+
 Math.round(
-orders * 1.15
+totalOrders * 1.10
 );
 
-const nextMonth =
+const forecast30Days =
+
 Math.round(
-orders * 1.35
+totalOrders * 1.35
 );
 
 const row =
@@ -4547,19 +5442,17 @@ row.innerHTML = `
 
 <td>${service.name}</td>
 
-<td>${orders}</td>
+<td>${totalOrders}</td>
 
-<td>${nextWeek}</td>
+<td>${forecast7Days}</td>
 
-<td>${nextMonth}</td>
-
-<td>+15%</td>
+<td>${forecast30Days}</td>
 
 <td>
 
 <span class="statusActive">
 
-High
+High Demand
 
 </span>
 
@@ -4567,9 +5460,59 @@ High
 
 `;
 
-table.appendChild(row);
+tbody.appendChild(row);
 
 });
+
+}
+
+/* =========================================================
+PREDICTED REVENUE
+========================================================= */
+
+function updatePredictedRevenue(){
+
+const totalRevenue =
+
+orders.reduce(
+
+(sum,item)=>
+
+sum +
+
+Number(
+item.totalAmount || 0
+),
+
+0
+
+);
+
+const nextMonth =
+
+Math.round(
+totalRevenue * 1.15
+);
+
+const nextQuarter =
+
+Math.round(
+totalRevenue * 1.40
+);
+
+setText(
+"predictedRevenueMonth",
+currency(
+nextMonth
+)
+);
+
+setText(
+"predictedRevenueQuarter",
+currency(
+nextQuarter
+)
+);
 
 }
 
@@ -4581,150 +5524,430 @@ function updateBusinessIntelligence(){
 
 const revenue =
 
-services.reduce(
+orders.reduce(
 
 (sum,item)=>
 
 sum +
-(item.revenue || 0),
+
+Number(
+item.totalAmount || 0
+),
 
 0
 
 );
 
-setText(
-"currentRevenue",
-formatCurrency(revenue)
-);
+const totalCustomers =
+
+new Set(
+
+orders.map(
+item=>
+item.customerId
+)
+
+).size;
+
+const avgRevenuePerCustomer =
+
+totalCustomers
+
+?
+
+Math.round(
+revenue /
+totalCustomers
+)
+
+:0;
 
 setText(
-"targetRevenue",
-formatCurrency(
-revenue * 1.3
+"businessRevenue",
+currency(
+revenue
 )
 );
 
 setText(
-"revenueAchievement",
-"77%"
+"businessCustomers",
+totalCustomers
 );
 
 setText(
-"currentOrders",
-services.reduce(
-(sum,item)=>
-sum + (item.orders || 0),
-0
+"avgRevenueCustomer",
+currency(
+avgRevenuePerCustomer
 )
-);
-
-setText(
-"targetOrders",
-"5000"
-);
-
-setText(
-"ordersAchievement",
-"68%"
-);
-
-setText(
-"customersAchievement",
-"81%"
 );
 
 }
 
 /* =========================================================
-AUDIT LOGS
+TOP OPPORTUNITY ANALYSIS
 ========================================================= */
 
-let auditLogs = [];
+function updateOpportunityAnalysis(){
 
-function addAuditLog(
-action,
-module
-){
+const inactiveCities =
 
-auditLogs.unshift({
+cities.filter(city=>{
 
-date:new Date()
-.toLocaleString(),
+const cityOrders =
 
-user:"Admin",
+orders.filter(
 
-action,
+order=>
 
-module,
+order.cityId ===
+city.id
 
-status:"Success"
+);
+
+return cityOrders.length < 5;
 
 });
 
-renderAuditLogs();
+setText(
+
+"expansionOpportunity",
+
+inactiveCities[0]?.name ||
+
+"No Suggestion"
+
+);
 
 }
 
-function renderAuditLogs(){
+/* =========================================================
+AI PRICING SUGGESTION
+========================================================= */
 
-const body =
+function updatePricingSuggestions(){
 
-document.getElementById(
-"auditLogsBody"
+if(!services.length)
+return;
+
+const topService =
+
+services[0];
+
+setText(
+
+"pricingSuggestion",
+
+`Increase ${topService.name}
+price by 5%`
+
 );
 
-if(!body) return;
+}
 
-body.innerHTML = "";
+/* =========================================================
+SERVICE PROFITABILITY
+========================================================= */
 
-auditLogs.forEach(log=>{
+function updateProfitabilityAnalytics(){
+
+let profit = 0;
+
+orders.forEach(order=>{
+
+const revenue =
+
+Number(
+order.totalAmount || 0
+);
+
+const cost =
+
+Number(
+order.partnerCost || 0
+);
+
+profit +=
+
+(revenue - cost);
+
+});
+
+setText(
+"netProfit",
+currency(
+profit
+)
+);
+
+}
+
+/* =========================================================
+EXECUTIVE DASHBOARD
+========================================================= */
+
+function updateExecutiveDashboard(){
+
+updateAIRecommendations();
+
+updateServiceGrowthAnalytics();
+
+updateCityGrowthAnalytics();
+
+renderDemandForecast();
+
+updatePredictedRevenue();
+
+updateBusinessIntelligence();
+
+updateOpportunityAnalysis();
+
+updatePricingSuggestions();
+
+updateProfitabilityAnalytics();
+
+}/* =========================================================
+PICKUP SLOTS MANAGEMENT
+========================================================= */
+
+function renderPickupSlots(){
+
+const tbody =
+document.getElementById(
+"pickupSlotsBody"
+);
+
+if(!tbody) return;
+
+tbody.innerHTML = "";
+
+pickupSlots.forEach(slot=>{
 
 const row =
 document.createElement("tr");
 
 row.innerHTML = `
 
-<td>${log.date}</td>
+<td>${slot.name}</td>
+<td>${slot.startTime}</td>
+<td>${slot.endTime}</td>
+<td>${slot.capacity}</td>
+<td>${slot.booked || 0}</td>
 
-<td>${log.user}</td>
+<td>
 
-<td>${log.action}</td>
+<span class="statusActive">
 
-<td>${log.module}</td>
+${slot.status}
 
-<td>${log.status}</td>
+</span>
+
+</td>
 
 `;
 
-body.appendChild(row);
+tbody.appendChild(row);
 
 });
 
 }
 
 /* =========================================================
-EXPORT CSV
+DELIVERY SLOTS
+========================================================= */
+
+function renderDeliverySlots(){
+
+const tbody =
+document.getElementById(
+"deliverySlotsBody"
+);
+
+if(!tbody) return;
+
+tbody.innerHTML = "";
+
+deliverySlots.forEach(slot=>{
+
+const row =
+document.createElement("tr");
+
+row.innerHTML = `
+
+<td>${slot.name}</td>
+<td>${slot.startTime}</td>
+<td>${slot.endTime}</td>
+<td>${slot.capacity}</td>
+<td>${slot.booked || 0}</td>
+
+<td>
+
+<span class="statusActive">
+
+${slot.status}
+
+</span>
+
+</td>
+
+`;
+
+tbody.appendChild(row);
+
+});
+
+}
+
+/* =========================================================
+LISTEN PICKUP SLOTS
+========================================================= */
+
+function listenPickupSlots(){
+
+onSnapshot(
+
+collection(
+db,
+COLLECTIONS.PICKUP_SLOTS
+),
+
+snapshot=>{
+
+pickupSlots=[];
+
+snapshot.forEach(docSnap=>{
+
+pickupSlots.push({
+
+id:docSnap.id,
+
+...docSnap.data()
+
+});
+
+});
+
+renderPickupSlots();
+
+}
+
+);
+
+}
+
+/* =========================================================
+LISTEN DELIVERY SLOTS
+========================================================= */
+
+function listenDeliverySlots(){
+
+onSnapshot(
+
+collection(
+db,
+COLLECTIONS.DELIVERY_SLOTS
+),
+
+snapshot=>{
+
+deliverySlots=[];
+
+snapshot.forEach(docSnap=>{
+
+deliverySlots.push({
+
+id:docSnap.id,
+
+...docSnap.data()
+
+});
+
+});
+
+renderDeliverySlots();
+
+}
+
+);
+
+}
+
+/* =========================================================
+SLA ANALYTICS
+========================================================= */
+
+function updateSLAAnalytics(){
+
+const completedOrders =
+
+orders.filter(
+
+order=>
+
+order.status ===
+"completed"
+
+);
+
+let onTime = 0;
+
+completedOrders.forEach(order=>{
+
+if(order.slaMet){
+
+onTime++;
+
+}
+
+});
+
+const slaRate =
+
+completedOrders.length
+
+?
+
+Math.round(
+
+(onTime /
+completedOrders.length)
+
+*100
+
+)
+
+:100;
+
+setText(
+"slaRate",
+slaRate + "%"
+);
+
+setText(
+"slaCompleted",
+onTime
+);
+
+}
+
+/* =========================================================
+EXPORT SERVICES CSV
 ========================================================= */
 
 function exportServicesCSV(){
 
 let csv =
 
-"Name,Category,Price,Orders,Revenue\n";
+"Service,Category,Price,Orders,Revenue\n";
 
 services.forEach(service=>{
 
 csv +=
 
 `${service.name},
-
-${service.category},
-
-${service.price},
-
-${service.orders},
-
-${service.revenue}\n`;
+${service.categoryName},
+${service.basePrice},
+${service.totalOrders || 0},
+${service.totalRevenue || 0}\n`;
 
 });
 
@@ -4732,7 +5955,68 @@ const blob =
 
 new Blob(
 [csv],
-{type:"text/csv"}
+{
+type:"text/csv"
+}
+);
+
+const url =
+URL.createObjectURL(blob);
+
+const a =
+document.createElement("a");
+
+a.href = url;
+
+a.download =
+"quickpress-services.csv";
+
+a.click();
+
+}
+
+/* =========================================================
+EXPORT CITY PRICING CSV
+========================================================= */
+
+function exportPricingCSV(){
+
+let csv =
+
+"City,Service,Normal,Express,Bulk,Partner\n";
+
+cityPricing.forEach(item=>{
+
+const city =
+
+cities.find(
+c=>c.id===item.cityId
+);
+
+const service =
+
+services.find(
+s=>s.id===item.serviceId
+);
+
+csv +=
+
+`${city?.name},
+${service?.name},
+${item.normalPrice},
+${item.expressPrice},
+${item.bulkPrice},
+${item.partnerPrice}\n`;
+
+});
+
+const blob =
+
+new Blob(
+[csv],
+{
+type:"text/csv"
+}
 );
 
 const link =
@@ -4742,7 +6026,7 @@ link.href =
 URL.createObjectURL(blob);
 
 link.download =
-"services.csv";
+"city-pricing.csv";
 
 link.click();
 
@@ -4758,10 +6042,10 @@ const backup = {
 
 services,
 categories,
+cities,
 cityPricing,
 bundles,
 inventory,
-
 createdAt:
 new Date()
 .toISOString()
@@ -4770,7 +6054,7 @@ new Date()
 
 localStorage.setItem(
 
-"servicesBackup",
+"quickpressServicesBackup",
 
 JSON.stringify(
 backup
@@ -4778,66 +6062,86 @@ backup
 
 );
 
-showToast(
+toast(
 "Backup Created"
 );
 
 }
 
 /* =========================================================
-RESTORE BACKUP
+EVENTS
 ========================================================= */
 
-function restoreBackup(){
+function initializeEvents(){
 
-const backup =
-
-JSON.parse(
-
-localStorage.getItem(
-"servicesBackup"
+document
+.getElementById(
+"saveServiceBtn"
 )
-
-||
-
-"{}"
-
+?.addEventListener(
+"click",
+saveService
 );
 
-if(!backup.services){
-
-alert(
-"No Backup Found"
+document
+.getElementById(
+"saveCouponBtn"
+)
+?.addEventListener(
+"click",
+saveCoupon
 );
 
-return;
+document
+.getElementById(
+"savePromotionBtn"
+)
+?.addEventListener(
+"click",
+savePromotion
+);
+
+document
+.getElementById(
+"exportServicesBtn"
+)
+?.addEventListener(
+"click",
+exportServicesCSV
+);
+
+document
+.getElementById(
+"exportPricingBtn"
+)
+?.addEventListener(
+"click",
+exportPricingCSV
+);
 
 }
 
-services =
-backup.services || [];
+/* =========================================================
+MASTER DASHBOARD UPDATE
+========================================================= */
 
-categories =
-backup.categories || [];
+function refreshAllDashboards(){
 
-cityPricing =
-backup.cityPricing || [];
+updateRevenueDashboard();
 
-bundles =
-backup.bundles || [];
+updateCustomerExperienceDashboard();
 
-inventory =
-backup.inventory || [];
+updateMarketingDashboard();
 
-renderServicesTable();
-renderCategories();
-renderCityPricing();
-renderBundles();
-renderInventory();
+updateExecutiveDashboard();
 
-showToast(
-"Backup Restored"
-);
+updateInventoryAnalytics();
+
+updateBundleAnalytics();
+
+updateCategoryAnalytics();
+
+updateSLAAnalytics();
 
 }
 
@@ -4849,61 +6153,56 @@ async function initializeServicesPanel(){
 
 try{
 
-await loadServices();
-await loadCategories();
-await loadCityPricing();
-await loadBundles();
-await loadInventory();
+listenServices();
 
-renderServicesTable();
-renderCategories();
-renderCityPricing();
-renderBundles();
-renderInventory();
+listenCategories();
 
-updateServiceAnalytics();
-updateTopService();
-updateCategoryAnalytics();
-updateCityAnalytics();
-updateRevenueTracking();
-updatePerformanceSummary();
+listenCities();
 
-renderPickupSlots();
-renderDeliverySlots();
+listenCityPricing();
 
-updateCapacityTracking();
+listenBundles();
 
-updateRatingAnalytics();
-updateComplaintAnalytics();
-updateRefundAnalytics();
-updateQualityControl();
-updateCustomerFeedbackAnalytics();
+listenInventory();
 
-loadMarketingDemoData();
+listenOrders();
 
-updateMarketingAnalytics();
+listenReviews();
 
-renderDemandForecast();
-updateBusinessIntelligence();
-updateAIRecommendations();
+listenComplaints();
 
-initializeServiceButtons();
-initializeCategoryEvents();
-initializeCityPricingEvents();
-initializeBundleEvents();
-initializeSchedulingEvents();
-initializeReviewEvents();
-setupSelectAll();
+listenCoupons();
+
+listenPromotions();
+
+listenPickupSlots();
+
+listenDeliverySlots();
+
+initializeEvents();
+
+setInterval(
+
+refreshAllDashboards,
+
+3000
+
+);
 
 console.log(
-"QuickPress Services Ready 🚀"
+
+"🚀 QUICKPRESS SERVICES PANEL READY"
+
 );
 
 }catch(error){
 
 console.error(
+
 "Services Init Error",
+
 error
+
 );
 
 }
@@ -4931,31 +6230,41 @@ window.servicesApp = {
 saveService,
 updateService,
 deleteService,
-viewService,
 
 addCategory,
 editCategory,
 deleteCategory,
 
-addCityPricing,
-editCityPricing,
+addCity,
+editCity,
+deleteCity,
+
+saveCityPricing,
+updateCityPricing,
 deleteCityPricing,
 
-addBundle,
-editBundle,
+saveBundle,
+updateBundle,
 deleteBundle,
 
-featureSelectedServices,
-activateSelectedServices,
-disableSelectedServices,
-deleteSelectedServices,
+saveInventoryItem,
+updateInventoryStock,
+
+saveCoupon,
+deleteCoupon,
+
+savePromotion,
+deletePromotion,
 
 exportServicesCSV,
-createBackup,
-restoreBackup
+exportPricingCSV,
+
+createBackup
 
 };
 
 console.log(
-"SERVICES.JS LOADED SUCCESSFULLY 🚀"
+
+"✅ SERVICES.JS PRODUCTION VERSION LOADED"
+
 );
