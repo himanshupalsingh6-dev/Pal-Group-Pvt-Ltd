@@ -9,7 +9,7 @@ FIREBASE IMPORTS
 
 import { db }
 
-from "../firebase/firebase.js";
+from "../js/firebase.js";
 
 import {
 
