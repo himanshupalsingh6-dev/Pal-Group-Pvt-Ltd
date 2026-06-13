@@ -1,259 +1,2637 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
+
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>QuickPress Partner Dashboard</title>
 
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+<meta name="viewport"
+content="width=device-width, initial-scale=1.0">
 
-<link rel="stylesheet" href="partner.css">
+<title>
+QuickPress Partner Panel
+</title>
+
+<link
+rel="stylesheet"
+href="dashboard.css">
+
+<link
+rel="preconnect"
+href="https://fonts.googleapis.com">
+
+<link
+rel="preconnect"
+href="https://fonts.gstatic.com"
+crossorigin>
+
+<link
+href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap"
+rel="stylesheet">
+
 </head>
+
 <body>
 
-<!-- SIDEBAR -->
+<div class="layout">
+
+<!-- ===================================
+SIDEBAR
+=================================== -->
 
 <aside class="sidebar">
 
-    <div class="logo">
-        <i class="fa-solid fa-shirt"></i>
-        <h2>QuickPress</h2>
-    </div>
+<div class="brand">
 
-    <ul class="menu">
+<div class="brandLogo">
 
-        <li class="active">
-            <a href="dashboard.html">
-                <i class="fa-solid fa-house"></i>
-                Dashboard
-            </a>
-        </li>
+<!-- Premium SVG -->
+<svg
+width="32"
+height="32"
+viewBox="0 0 24 24"
+fill="none">
 
-        <li>
-            <a href="orders.html">
-                <i class="fa-solid fa-box"></i>
-                Orders
-            </a>
-        </li>
+<path
+d="M5 5H19V19H5V5Z"
+stroke="#F4B400"
+stroke-width="2"/>
 
-        <li>
-            <a href="services.html">
-                <i class="fa-solid fa-list"></i>
-                My Services
-            </a>
-        </li>
+<path
+d="M8 8H16V16H8V8Z"
+stroke="#16A34A"
+stroke-width="2"/>
 
-        <li>
-            <a href="finance.html">
-                <i class="fa-solid fa-wallet"></i>
-                Finance
-            </a>
-        </li>
-
-        <li>
-            <a href="reports.html">
-                <i class="fa-solid fa-chart-line"></i>
-                Reports
-            </a>
-        </li>
-
-        <li>
-            <a href="support.html">
-                <i class="fa-solid fa-headset"></i>
-                Support
-            </a>
-        </li>
-
-        <li>
-            <a href="profile.html">
-                <i class="fa-solid fa-user"></i>
-                Profile
-            </a>
-        </li>
-
-    </ul>
-
-</aside>
-
-<!-- MAIN CONTENT -->
-
-<div class="main">
-
-    <!-- TOPBAR -->
-
-    <header class="topbar">
-
-        <div class="welcome">
-            <h1>Dashboard</h1>
-            <p>Welcome Back Partner 👋</p>
-        </div>
-
-        <div class="top-actions">
-
-            <div class="status-box">
-
-                <span class="status-dot"></span>
-                <span id="statusText">Online</span>
-
-                <label class="switch">
-                    <input type="checkbox" id="partnerToggle" checked>
-                    <span class="slider"></span>
-                </label>
-
-            </div>
-
-            <button class="icon-btn">
-                <i class="fa-solid fa-bell"></i>
-            </button>
-
-            <img src="https://i.pravatar.cc/100" class="profile-img">
-
-        </div>
-
-    </header>
-
-    <!-- STATS -->
-
-    <section class="stats-grid">
-
-        <div class="card">
-            <h3>Today's Orders</h3>
-            <h2>25</h2>
-        </div>
-
-        <div class="card">
-            <h3>Pending Orders</h3>
-            <h2>8</h2>
-        </div>
-
-        <div class="card">
-            <h3>Completed Orders</h3>
-            <h2>17</h2>
-        </div>
-
-        <div class="card">
-            <h3>Cancelled Orders</h3>
-            <h2>2</h2>
-        </div>
-
-        <div class="card revenue">
-            <h3>Today's Revenue</h3>
-            <h2>₹12,450</h2>
-        </div>
-
-        <div class="card revenue">
-            <h3>Weekly Revenue</h3>
-            <h2>₹78,900</h2>
-        </div>
-
-    </section>
-
-    <!-- PROCESSING STATUS -->
-
-    <section class="processing">
-
-        <h2>Order Processing</h2>
-
-        <div class="process-grid">
-
-            <div class="process-card">
-                <span>Pickup Pending</span>
-                <h3>4</h3>
-            </div>
-
-            <div class="process-card">
-                <span>Washing</span>
-                <h3>6</h3>
-            </div>
-
-            <div class="process-card">
-                <span>Ironing</span>
-                <h3>3</h3>
-            </div>
-
-            <div class="process-card">
-                <span>Quality Check</span>
-                <h3>2</h3>
-            </div>
-
-            <div class="process-card">
-                <span>Ready Delivery</span>
-                <h3>5</h3>
-            </div>
-
-        </div>
-
-    </section>
-
-    <!-- NEW ORDER POPUP -->
-
-    <section class="new-order">
-
-        <div class="order-popup">
-
-            <div class="popup-header">
-                🔥 New Order Alert
-            </div>
-
-            <p><b>Order ID:</b> QP10025</p>
-            <p><b>Customer:</b> Rahul Sharma</p>
-            <p><b>Service:</b> Wash & Fold</p>
-            <p><b>Amount:</b> ₹450</p>
-
-            <div class="timer">
-                00:30
-            </div>
-
-            <div class="popup-buttons">
-
-                <button class="accept-btn">
-                    Accept
-                </button>
-
-                <button class="reject-btn">
-                    Reject
-                </button>
-
-            </div>
-
-        </div>
-
-    </section>
+</svg>
 
 </div>
 
-<!-- MOBILE NAVIGATION -->
+<div>
 
-<nav class="mobile-nav">
+<h2>
 
-    <a href="dashboard.html">
-        <i class="fa-solid fa-house"></i>
-        <span>Home</span>
-    </a>
+QuickPress
 
-    <a href="orders.html">
-        <i class="fa-solid fa-box"></i>
-        <span>Orders</span>
-    </a>
+</h2>
 
-    <a href="finance.html">
-        <i class="fa-solid fa-wallet"></i>
-        <span>Finance</span>
-    </a>
+<p>
 
-    <a href="support.html">
-        <i class="fa-solid fa-headset"></i>
-        <span>Support</span>
-    </a>
+Partner Panel
 
-    <a href="profile.html">
-        <i class="fa-solid fa-user"></i>
-        <span>Profile</span>
-    </a>
+</p>
+
+</div>
+
+</div>
+
+<!-- ==========================
+NAVIGATION
+========================== -->
+
+<nav class="menu">
+
+<a
+href="dashboard.html"
+class="menuItem active">
+
+<svg
+viewBox="0 0 24 24"
+fill="none">
+
+<path
+d="M3 13H11V3H3V13Z"
+stroke="currentColor"
+stroke-width="2"/>
+
+<path
+d="M13 21H21V11H13V21Z"
+stroke="currentColor"
+stroke-width="2"/>
+
+<path
+d="M13 3H21V9H13V3Z"
+stroke="currentColor"
+stroke-width="2"/>
+
+<path
+d="M3 15H11V21H3V15Z"
+stroke="currentColor"
+stroke-width="2"/>
+
+</svg>
+
+<span>
+
+Dashboard
+
+</span>
+
+</a>
+
+<a
+href="orders.html"
+class="menuItem">
+
+<svg
+viewBox="0 0 24 24"
+fill="none">
+
+<path
+d="M8 6H21"
+stroke="currentColor"
+stroke-width="2"/>
+
+<path
+d="M8 12H21"
+stroke="currentColor"
+stroke-width="2"/>
+
+<path
+d="M8 18H21"
+stroke="currentColor"
+stroke-width="2"/>
+
+<path
+d="M3 6H3.01"
+stroke="currentColor"
+stroke-width="2"/>
+
+<path
+d="M3 12H3.01"
+stroke="currentColor"
+stroke-width="2"/>
+
+<path
+d="M3 18H3.01"
+stroke="currentColor"
+stroke-width="2"/>
+
+</svg>
+
+<span>
+
+Orders
+
+</span>
+
+</a>
+
+<a
+href="services.html"
+class="menuItem">
+
+<svg
+viewBox="0 0 24 24"
+fill="none">
+
+<path
+d="M20 7L12 3L4 7L12 11L20 7Z"
+stroke="currentColor"
+stroke-width="2"/>
+
+<path
+d="M4 17L12 21L20 17"
+stroke="currentColor"
+stroke-width="2"/>
+
+<path
+d="M4 12L12 16L20 12"
+stroke="currentColor"
+stroke-width="2"/>
+
+</svg>
+
+<span>
+
+Services
+
+</span>
+
+</a>
+
+<a
+href="drivers.html"
+class="menuItem">
+
+<svg
+viewBox="0 0 24 24"
+fill="none">
+
+<path
+d="M5 17H19"
+stroke="currentColor"
+stroke-width="2"/>
+
+<path
+d="M7 17V7H17V17"
+stroke="currentColor"
+stroke-width="2"/>
+
+<path
+d="M9 7V4H15V7"
+stroke="currentColor"
+stroke-width="2"/>
+
+</svg>
+
+<span>
+
+Drivers
+
+</span>
+
+</a>
+
+<a
+href="earnings.html"
+class="menuItem">
+
+<svg
+viewBox="0 0 24 24"
+fill="none">
+
+<path
+d="M12 1V23"
+stroke="currentColor"
+stroke-width="2"/>
+
+<path
+d="M17 5H9.5A3.5 3.5 0 009.5 12H14.5A3.5 3.5 0 0114.5 19H7"
+stroke="currentColor"
+stroke-width="2"/>
+
+</svg>
+
+<span>
+
+Earnings
+
+</span>
+
+</a>
+
+<a
+href="analytics.html"
+class="menuItem">
+
+<svg
+viewBox="0 0 24 24"
+fill="none">
+
+<path
+d="M18 20V10"
+stroke="currentColor"
+stroke-width="2"/>
+
+<path
+d="M12 20V4"
+stroke="currentColor"
+stroke-width="2"/>
+
+<path
+d="M6 20V14"
+stroke="currentColor"
+stroke-width="2"/>
+
+</svg>
+
+<span>
+
+Analytics
+
+</span>
+
+</a>
+
+<a
+href="profile.html"
+class="menuItem">
+
+<svg
+viewBox="0 0 24 24"
+fill="none">
+
+<path
+d="M20 21V19A4 4 0 0016 15H8A4 4 0 004 19V21"
+stroke="currentColor"
+stroke-width="2"/>
+
+<circle
+cx="12"
+cy="7"
+r="4"
+stroke="currentColor"
+stroke-width="2"/>
+
+</svg>
+
+<span>
+
+Profile
+
+</span>
+
+</a>
 
 </nav>
 
-<script src="partner.js"></script>
+</aside>
+
+<!-- ===================================
+MAIN CONTENT
+=================================== -->
+
+<main class="mainContent">
+
+<!-- TOPBAR -->
+
+<header class="topbar">
+
+<div>
+
+<h1>
+
+Partner Dashboard
+
+</h1>
+
+<p>
+
+Manage orders, drivers,
+earnings and services
+
+</p>
+
+</div>
+
+<div class="topbarRight">
+
+<button
+class="notificationBtn">
+
+<svg
+viewBox="0 0 24 24"
+fill="none">
+
+<path
+d="M18 8A6 6 0 006 8C6 15 3 17 3 17H21C21 17 18 15 18 8Z"
+stroke="currentColor"
+stroke-width="2"/>
+
+<path
+d="M13.73 21A2 2 0 0110.27 21"
+stroke="currentColor"
+stroke-width="2"/>
+
+</svg>
+
+<span>
+
+8
+
+</span>
+
+</button>
+
+<div class="partnerProfile">
+
+<img
+src="https://ui-avatars.com/api/?name=Partner"
+alt="partner">
+
+<div>
+
+<h4>
+
+Pal Laundry
+
+</h4>
+
+<p>
+
+Premium Partner
+
+</p>
+
+</div>
+
+</div>
+
+</div>
+
+</header>
+
+<!-- PART 1 END --><!-- ===================================
+PARTNER STATUS BAR
+=================================== -->
+
+<section class="statusSection">
+
+<div class="statusCard online">
+
+<div class="statusInfo">
+
+<h3>
+
+Partner Status
+
+</h3>
+
+<p>
+
+Accepting Orders
+
+</p>
+
+</div>
+
+<label class="switch">
+
+<input
+type="checkbox"
+id="partnerOnlineToggle"
+checked>
+
+<span class="slider"></span>
+
+</label>
+
+</div>
+
+<div class="statusCard">
+
+<div class="statusIcon">
+
+<svg
+viewBox="0 0 24 24"
+fill="none">
+
+<path
+d="M12 2V22"
+stroke="currentColor"
+stroke-width="2"/>
+
+<path
+d="M17 5H9.5A3.5 3.5 0 009.5 12H14.5A3.5 3.5 0 0114.5 19H7"
+stroke="currentColor"
+stroke-width="2"/>
+
+</svg>
+
+</div>
+
+<div>
+
+<h4>
+
+Today's Revenue
+
+</h4>
+
+<h2 id="todayRevenue">
+
+₹0
+
+</h2>
+
+</div>
+
+</div>
+
+<div class="statusCard">
+
+<div class="statusIcon">
+
+<svg
+viewBox="0 0 24 24"
+fill="none">
+
+<path
+d="M3 6H21"
+stroke="currentColor"
+stroke-width="2"/>
+
+<path
+d="M3 12H21"
+stroke="currentColor"
+stroke-width="2"/>
+
+<path
+d="M3 18H21"
+stroke="currentColor"
+stroke-width="2"/>
+
+</svg>
+
+</div>
+
+<div>
+
+<h4>
+
+Today's Orders
+
+</h4>
+
+<h2 id="todayOrders">
+
+0
+
+</h2>
+
+</div>
+
+</div>
+
+</section>
+
+<!-- ===================================
+KPI CARDS
+=================================== -->
+
+<section class="kpiGrid">
+
+<div class="kpiCard">
+
+<div class="kpiTop">
+
+<div>
+
+<p>
+
+New Orders
+
+</p>
+
+<h2 id="newOrdersCount">
+
+0
+
+</h2>
+
+</div>
+
+<div class="kpiSvg">
+
+<svg
+viewBox="0 0 24 24"
+fill="none">
+
+<path
+d="M8 6H21"
+stroke="currentColor"
+stroke-width="2"/>
+
+<path
+d="M8 12H21"
+stroke="currentColor"
+stroke-width="2"/>
+
+<path
+d="M8 18H21"
+stroke="currentColor"
+stroke-width="2"/>
+
+</svg>
+
+</div>
+
+</div>
+
+<span class="growth positive">
+
++12%
+
+</span>
+
+</div>
+
+<div class="kpiCard">
+
+<div class="kpiTop">
+
+<div>
+
+<p>
+
+Processing
+
+</p>
+
+<h2 id="processingOrdersCount">
+
+0
+
+</h2>
+
+</div>
+
+<div class="kpiSvg">
+
+<svg
+viewBox="0 0 24 24"
+fill="none">
+
+<circle
+cx="12"
+cy="12"
+r="10"
+stroke="currentColor"
+stroke-width="2"/>
+
+<path
+d="M12 6V12L16 14"
+stroke="currentColor"
+stroke-width="2"/>
+
+</svg>
+
+</div>
+
+</div>
+
+<span class="growth">
+
+Live
+
+</span>
+
+</div>
+
+<div class="kpiCard">
+
+<div class="kpiTop">
+
+<div>
+
+<p>
+
+Completed
+
+</p>
+
+<h2 id="completedOrdersCount">
+
+0
+
+</h2>
+
+</div>
+
+<div class="kpiSvg">
+
+<svg
+viewBox="0 0 24 24"
+fill="none">
+
+<path
+d="M20 6L9 17L4 12"
+stroke="currentColor"
+stroke-width="2"/>
+
+</svg>
+
+</div>
+
+</div>
+
+<span class="growth positive">
+
+Success
+
+</span>
+
+</div>
+
+<div class="kpiCard">
+
+<div class="kpiTop">
+
+<div>
+
+<p>
+
+Cancelled
+
+</p>
+
+<h2 id="cancelledOrdersCount">
+
+0
+
+</h2>
+
+</div>
+
+<div class="kpiSvg">
+
+<svg
+viewBox="0 0 24 24"
+fill="none">
+
+<path
+d="M18 6L6 18"
+stroke="currentColor"
+stroke-width="2"/>
+
+<path
+d="M6 6L18 18"
+stroke="currentColor"
+stroke-width="2"/>
+
+</svg>
+
+</div>
+
+</div>
+
+<span class="growth negative">
+
+Monitor
+
+</span>
+
+</div>
+
+</section>
+
+<!-- ===================================
+ADVANCED ANALYTICS CARDS
+=================================== -->
+
+<section class="analyticsGrid">
+
+<div class="analyticsCard">
+
+<h3>
+
+Wallet Balance
+
+</h3>
+
+<h1 id="walletBalance">
+
+₹0
+
+</h1>
+
+<p>
+
+Available Settlement Balance
+
+</p>
+
+</div>
+
+<div class="analyticsCard">
+
+<h3>
+
+Pending Settlement
+
+</h3>
+
+<h1 id="pendingSettlement">
+
+₹0
+
+</h1>
+
+<p>
+
+Awaiting Release
+
+</p>
+
+</div>
+
+<div class="analyticsCard">
+
+<h3>
+
+Partner Rating
+
+</h3>
+
+<h1 id="partnerRating">
+
+0.0
+
+</h1>
+
+<p>
+
+Customer Satisfaction
+
+</p>
+
+</div>
+
+<div class="analyticsCard">
+
+<h3>
+
+Active Drivers
+
+</h3>
+
+<h1 id="activeDrivers">
+
+0
+
+</h1>
+
+<p>
+
+Currently Online
+
+</p>
+
+</div>
+
+</section>
+
+<!-- ===================================
+LIVE OPERATIONS
+=================================== -->
+
+<section class="operationsGrid">
+
+<div class="operationCard">
+
+<div class="cardHeader">
+
+<h3>
+
+Live Order Queue
+
+</h3>
+
+<button
+class="cardActionBtn">
+
+Refresh
+
+</button>
+
+</div>
+
+<div id="liveOrderQueue">
+
+<div class="emptyState">
+
+No Active Orders
+
+</div>
+
+</div>
+
+</div>
+
+<div class="operationCard">
+
+<div class="cardHeader">
+
+<h3>
+
+Driver Status
+
+</h3>
+
+<button
+class="cardActionBtn">
+
+Manage
+
+</button>
+
+</div>
+
+<div id="driverStatusList">
+
+<div class="emptyState">
+
+No Drivers Online
+
+</div>
+
+</div>
+
+</div>
+
+</section>
+
+<!-- ===================================
+QUICK ACTIONS
+=================================== -->
+
+<section class="quickActions">
+
+<button id="acceptAllOrdersBtn">
+
+<svg
+viewBox="0 0 24 24"
+fill="none">
+
+<path
+d="M20 6L9 17L4 12"
+stroke="currentColor"
+stroke-width="2"/>
+
+</svg>
+
+Accept Orders
+
+</button>
+
+<button id="assignDriversBtn">
+
+<svg
+viewBox="0 0 24 24"
+fill="none">
+
+<path
+d="M5 17H19"
+stroke="currentColor"
+stroke-width="2"/>
+
+<path
+d="M7 17V7H17V17"
+stroke="currentColor"
+stroke-width="2"/>
+
+</svg>
+
+Assign Drivers
+
+</button>
+
+<button id="createOfferBtn">
+
+<svg
+viewBox="0 0 24 24"
+fill="none">
+
+<path
+d="M12 1V23"
+stroke="currentColor"
+stroke-width="2"/>
+
+<path
+d="M17 5H9"
+stroke="currentColor"
+stroke-width="2"/>
+
+</svg>
+
+Create Offer
+
+</button>
+
+<button id="downloadReportBtn">
+
+<svg
+viewBox="0 0 24 24"
+fill="none">
+
+<path
+d="M12 3V15"
+stroke="currentColor"
+stroke-width="2"/>
+
+<path
+d="M7 10L12 15L17 10"
+stroke="currentColor"
+stroke-width="2"/>
+
+</svg>
+
+Download Report
+
+</button>
+
+</section>
+
+<!-- PART 2 END --><!-- ===================================
+RECENT ORDERS MANAGEMENT
+=================================== -->
+
+<section class="dashboardSection">
+
+<div class="sectionHeader">
+
+<div>
+
+<h2>
+
+Recent Orders
+
+</h2>
+
+<p>
+
+Manage incoming and active orders
+
+</p>
+
+</div>
+
+<div class="headerActions">
+
+<button id="refreshOrdersBtn">
+
+Refresh
+
+</button>
+
+<button id="exportOrdersBtn">
+
+Export
+
+</button>
+
+</div>
+
+</div>
+
+<div class="tableCard">
+
+<table class="premiumTable">
+
+<thead>
+
+<tr>
+
+<th>Order ID</th>
+
+<th>Customer</th>
+
+<th>Service</th>
+
+<th>Amount</th>
+
+<th>Status</th>
+
+<th>Driver</th>
+
+<th>Pickup</th>
+
+<th>Actions</th>
+
+</tr>
+
+</thead>
+
+<tbody id="recentOrdersTable">
+
+<tr>
+
+<td>#QP1001</td>
+
+<td>
+
+<div class="customerInfo">
+
+<div class="customerAvatar">
+
+A
+
+</div>
+
+<div>
+
+<h4>Arjun Sharma</h4>
+
+<p>9876543210</p>
+
+</div>
+
+</div>
+
+</td>
+
+<td>Wash & Fold</td>
+
+<td>₹249</td>
+
+<td>
+
+<span class="statusBadge new">
+
+New Order
+
+</span>
+
+</td>
+
+<td>Not Assigned</td>
+
+<td>Today 4:00 PM</td>
+
+<td>
+
+<div class="actionGroup">
+
+<button
+class="successBtn">
+
+Accept
+
+</button>
+
+<button
+class="dangerBtn">
+
+Reject
+
+</button>
+
+</div>
+
+</td>
+
+</tr>
+
+</tbody>
+
+</table>
+
+</div>
+
+</section>
+
+<!-- ===================================
+ORDER STATUS OVERVIEW
+=================================== -->
+
+<section class="overviewGrid">
+
+<div class="overviewCard">
+
+<div class="overviewTop">
+
+<h3>
+
+Pending Pickup
+
+</h3>
+
+<svg
+viewBox="0 0 24 24"
+fill="none">
+
+<path
+d="M3 12H21"
+stroke="currentColor"
+stroke-width="2"/>
+
+</svg>
+
+</div>
+
+<h1 id="pendingPickupCount">
+
+0
+
+</h1>
+
+<p>
+
+Waiting for Driver
+
+</p>
+
+</div>
+
+<div class="overviewCard">
+
+<div class="overviewTop">
+
+<h3>
+
+In Processing
+
+</h3>
+
+<svg
+viewBox="0 0 24 24"
+fill="none">
+
+<circle
+cx="12"
+cy="12"
+r="10"
+stroke="currentColor"
+stroke-width="2"/>
+
+</svg>
+
+</div>
+
+<h1 id="processingCount">
+
+0
+
+</h1>
+
+<p>
+
+Laundry Processing
+
+</p>
+
+</div>
+
+<div class="overviewCard">
+
+<div class="overviewTop">
+
+<h3>
+
+Ready For Delivery
+
+</h3>
+
+<svg
+viewBox="0 0 24 24"
+fill="none">
+
+<path
+d="M20 6L9 17L4 12"
+stroke="currentColor"
+stroke-width="2"/>
+
+</svg>
+
+</div>
+
+<h1 id="readyDeliveryCount">
+
+0
+
+</h1>
+
+<p>
+
+Ready To Dispatch
+
+</p>
+
+</div>
+
+<div class="overviewCard">
+
+<div class="overviewTop">
+
+<h3>
+
+Out For Delivery
+
+</h3>
+
+<svg
+viewBox="0 0 24 24"
+fill="none">
+
+<path
+d="M1 3H15V16H1V3Z"
+stroke="currentColor"
+stroke-width="2"/>
+
+<path
+d="M15 8H20L23 11V16H15V8Z"
+stroke="currentColor"
+stroke-width="2"/>
+
+</svg>
+
+</div>
+
+<h1 id="outDeliveryCount">
+
+0
+
+</h1>
+
+<p>
+
+Driver On Route
+
+</p>
+
+</div>
+
+</section>
+
+<!-- ===================================
+REVENUE OVERVIEW
+=================================== -->
+
+<section class="dashboardSection">
+
+<div class="sectionHeader">
+
+<div>
+
+<h2>
+
+Revenue Overview
+
+</h2>
+
+<p>
+
+Track business performance
+
+</p>
+
+</div>
+
+</div>
+
+<div class="revenueGrid">
+
+<div class="revenueCard">
+
+<h4>
+
+Today
+
+</h4>
+
+<h1 id="todayRevenueCard">
+
+₹0
+
+</h1>
+
+<span class="positiveGrowth">
+
++12.4%
+
+</span>
+
+</div>
+
+<div class="revenueCard">
+
+<h4>
+
+This Week
+
+</h4>
+
+<h1 id="weeklyRevenueCard">
+
+₹0
+
+</h1>
+
+<span class="positiveGrowth">
+
++8.1%
+
+</span>
+
+</div>
+
+<div class="revenueCard">
+
+<h4>
+
+This Month
+
+</h4>
+
+<h1 id="monthlyRevenueCard">
+
+₹0
+
+</h1>
+
+<span class="positiveGrowth">
+
++18.5%
+
+</span>
+
+</div>
+
+<div class="revenueCard">
+
+<h4>
+
+Projected Revenue
+
+</h4>
+
+<h1 id="projectedRevenueCard">
+
+₹0
+
+</h1>
+
+<span class="neutralGrowth">
+
+Forecast
+
+</span>
+
+</div>
+
+</div>
+
+</section>
+
+<!-- ===================================
+TOP SERVICES PERFORMANCE
+=================================== -->
+
+<section class="dashboardSection">
+
+<div class="sectionHeader">
+
+<h2>
+
+Top Performing Services
+
+</h2>
+
+</div>
+
+<div class="servicesPerformance">
+
+<div class="servicePerformanceCard">
+
+<div>
+
+<h4>
+
+Wash & Fold
+
+</h4>
+
+<p>
+
+Most Ordered Service
+
+</p>
+
+</div>
+
+<h3 id="washFoldOrders">
+
+0 Orders
+
+</h3>
+
+</div>
+
+<div class="servicePerformanceCard">
+
+<div>
+
+<h4>
+
+Dry Cleaning
+
+</h4>
+
+<p>
+
+Premium Category
+
+</p>
+
+</div>
+
+<h3 id="dryCleaningOrders">
+
+0 Orders
+
+</h3>
+
+</div>
+
+<div class="servicePerformanceCard">
+
+<div>
+
+<h4>
+
+Steam Iron
+
+</h4>
+
+<p>
+
+High Repeat Rate
+
+</p>
+
+</div>
+
+<h3 id="steamIronOrders">
+
+0 Orders
+
+</h3>
+
+</div>
+
+</div>
+
+</section>
+
+<!-- PART 3 END --><!-- ===================================
+LIVE DRIVER TRACKING
+=================================== -->
+
+<section class="dashboardSection">
+
+<div class="sectionHeader">
+
+<div>
+
+<h2>
+
+Live Driver Tracking
+
+</h2>
+
+<p>
+
+Monitor active pickups & deliveries
+
+</p>
+
+</div>
+
+<button
+id="refreshDriversBtn"
+class="outlineBtn">
+
+Refresh Tracking
+
+</button>
+
+</div>
+
+<div class="trackingGrid">
+
+<div class="mapCard">
+
+<div id="partnerMap">
+
+<div class="mapPlaceholder">
+
+<h3>
+
+Live Tracking Map
+
+</h3>
+
+<p>
+
+Google Maps / Mapbox Integration
+
+</p>
+
+</div>
+
+</div>
+
+</div>
+
+<div class="driverSummary">
+
+<div class="driverMiniCard">
+
+<h4>
+
+Online Drivers
+
+</h4>
+
+<h1 id="onlineDriversCount">
+
+0
+
+</h1>
+
+</div>
+
+<div class="driverMiniCard">
+
+<h4>
+
+Pickup Running
+
+</h4>
+
+<h1 id="pickupRunningCount">
+
+0
+
+</h1>
+
+</div>
+
+<div class="driverMiniCard">
+
+<h4>
+
+Deliveries Running
+
+</h4>
+
+<h1 id="deliveryRunningCount">
+
+0
+
+</h1>
+
+</div>
+
+<div class="driverMiniCard">
+
+<h4>
+
+Average ETA
+
+</h4>
+
+<h1 id="avgEta">
+
+0m
+
+</h1>
+
+</div>
+
+</div>
+
+</div>
+
+</section>
+
+<!-- ===================================
+DRIVER PERFORMANCE TABLE
+=================================== -->
+
+<section class="dashboardSection">
+
+<div class="sectionHeader">
+
+<h2>
+
+Driver Performance
+
+</h2>
+
+</div>
+
+<div class="tableCard">
+
+<table class="premiumTable">
+
+<thead>
+
+<tr>
+
+<th>Driver</th>
+<th>Status</th>
+<th>Orders</th>
+<th>Completed</th>
+<th>Rating</th>
+<th>Earnings</th>
+<th>Actions</th>
+
+</tr>
+
+</thead>
+
+<tbody id="driverPerformanceTable">
+
+<tr>
+
+<td>
+
+<div class="customerInfo">
+
+<div class="customerAvatar">
+
+D
+
+</div>
+
+<div>
+
+<h4>
+
+Driver Name
+
+</h4>
+
+<p>
+
+DR001
+
+</p>
+
+</div>
+
+</div>
+
+</td>
+
+<td>
+
+<span class="statusBadge active">
+
+Online
+
+</span>
+
+</td>
+
+<td>0</td>
+
+<td>0</td>
+
+<td>0.0</td>
+
+<td>₹0</td>
+
+<td>
+
+<button
+class="viewBtn">
+
+View
+
+</button>
+
+</td>
+
+</tr>
+
+</tbody>
+
+</table>
+
+</div>
+
+</section>
+
+<!-- ===================================
+CUSTOMER REVIEWS
+=================================== -->
+
+<section class="dashboardSection">
+
+<div class="sectionHeader">
+
+<h2>
+
+Recent Customer Reviews
+
+</h2>
+
+</div>
+
+<div class="reviewGrid">
+
+<div class="reviewCard">
+
+<div class="reviewTop">
+
+<h4>
+
+Customer Name
+
+</h4>
+
+<span>
+
+★★★★★
+
+</span>
+
+</div>
+
+<p>
+
+Amazing service quality and fast delivery.
+
+</p>
+
+</div>
+
+<div class="reviewCard">
+
+<div class="reviewTop">
+
+<h4>
+
+Customer Name
+
+</h4>
+
+<span>
+
+★★★★★
+
+</span>
+
+</div>
+
+<p>
+
+Very professional experience.
+
+</p>
+
+</div>
+
+<div class="reviewCard">
+
+<div class="reviewTop">
+
+<h4>
+
+Customer Name
+
+</h4>
+
+<span>
+
+★★★★☆
+
+</span>
+
+</div>
+
+<p>
+
+Pickup was slightly delayed.
+
+</p>
+
+</div>
+
+</div>
+
+</section>
+
+<!-- ===================================
+NOTIFICATION CENTER
+=================================== -->
+
+<section class="dashboardSection">
+
+<div class="sectionHeader">
+
+<div>
+
+<h2>
+
+Notification Center
+
+</h2>
+
+<p>
+
+Latest business updates
+
+</p>
+
+</div>
+
+<button
+id="markAllReadBtn"
+class="outlineBtn">
+
+Mark All Read
+
+</button>
+
+</div>
+
+<div
+class="notificationList"
+id="notificationList">
+
+<div class="notificationItem">
+
+<div class="notificationDot"></div>
+
+<div>
+
+<h4>
+
+New Order Received
+
+</h4>
+
+<p>
+
+Order #QP1021 assigned.
+
+</p>
+
+</div>
+
+<span>
+
+2 min ago
+
+</span>
+
+</div>
+
+</div>
+
+</section>
+
+<!-- ===================================
+SETTLEMENT OVERVIEW
+=================================== -->
+
+<section class="dashboardSection">
+
+<div class="sectionHeader">
+
+<h2>
+
+Settlement Overview
+
+</h2>
+
+</div>
+
+<div class="settlementGrid">
+
+<div class="settlementCard">
+
+<h4>
+
+Available Balance
+
+</h4>
+
+<h1 id="availableBalance">
+
+₹0
+
+</h1>
+
+</div>
+
+<div class="settlementCard">
+
+<h4>
+
+Pending Settlement
+
+</h4>
+
+<h1 id="pendingBalance">
+
+₹0
+
+</h1>
+
+</div>
+
+<div class="settlementCard">
+
+<h4>
+
+Paid This Month
+
+</h4>
+
+<h1 id="paidBalance">
+
+₹0
+
+</h1>
+
+</div>
+
+<div class="settlementCard">
+
+<h4>
+
+Next Settlement
+
+</h4>
+
+<h1 id="nextSettlementDate">
+
+--
+
+</h1>
+
+</div>
+
+</div>
+
+</section>
+
+<!-- ===================================
+WALLET TRANSACTIONS
+=================================== -->
+
+<section class="dashboardSection">
+
+<div class="sectionHeader">
+
+<div>
+
+<h2>
+
+Wallet Transactions
+
+</h2>
+
+<p>
+
+Revenue, commission and settlements
+
+</p>
+
+</div>
+
+<button
+id="downloadWalletBtn"
+class="outlineBtn">
+
+Download Statement
+
+</button>
+
+</div>
+
+<div class="tableCard">
+
+<table class="premiumTable">
+
+<thead>
+
+<tr>
+
+<th>Date</th>
+<th>Type</th>
+<th>Description</th>
+<th>Amount</th>
+<th>Status</th>
+
+</tr>
+
+</thead>
+
+<tbody id="walletTransactionsTable">
+
+<tr>
+
+<td>--</td>
+
+<td>Settlement</td>
+
+<td>Weekly Settlement</td>
+
+<td>₹0</td>
+
+<td>
+
+<span class="statusBadge completed">
+
+Paid
+
+</span>
+
+</td>
+
+</tr>
+
+</tbody>
+
+</table>
+
+</div>
+
+</section>
+
+<!-- PART 4 END --><!-- ===================================
+BUSINESS ANALYTICS
+=================================== -->
+
+<section class="dashboardSection">
+
+<div class="sectionHeader">
+
+<h2>
+
+Business Analytics
+
+</h2>
+
+<button
+id="refreshAnalyticsBtn"
+class="outlineBtn">
+
+Refresh Analytics
+
+</button>
+
+</div>
+
+<div class="analyticsChartGrid">
+
+<div class="chartCard">
+
+<h3>
+
+Revenue Analytics
+
+</h3>
+
+<canvas
+id="revenueChart">
+
+</canvas>
+
+</div>
+
+<div class="chartCard">
+
+<h3>
+
+Orders Analytics
+
+</h3>
+
+<canvas
+id="ordersChart">
+
+</canvas>
+
+</div>
+
+</div>
+
+</section>
+
+<!-- ===================================
+TOP CUSTOMERS
+=================================== -->
+
+<section class="dashboardSection">
+
+<div class="sectionHeader">
+
+<h2>
+
+Top Customers
+
+</h2>
+
+</div>
+
+<div class="tableCard">
+
+<table class="premiumTable">
+
+<thead>
+
+<tr>
+
+<th>Customer</th>
+<th>Orders</th>
+<th>Revenue</th>
+<th>Rating</th>
+
+</tr>
+
+</thead>
+
+<tbody id="topCustomersTable">
+
+<tr>
+
+<td>Customer Name</td>
+<td>0</td>
+<td>₹0</td>
+<td>5.0</td>
+
+</tr>
+
+</tbody>
+
+</table>
+
+</div>
+
+</section>
+
+<!-- ===================================
+TOP CITIES
+=================================== -->
+
+<section class="dashboardSection">
+
+<div class="sectionHeader">
+
+<h2>
+
+Top Cities Performance
+
+</h2>
+
+</div>
+
+<div class="cityGrid">
+
+<div class="cityCard">
+
+<h3>
+
+Haridwar
+
+</h3>
+
+<p>
+
+Revenue
+
+</p>
+
+<h1>
+
+₹0
+
+</h1>
+
+</div>
+
+<div class="cityCard">
+
+<h3>
+
+Dehradun
+
+</h3>
+
+<p>
+
+Revenue
+
+</p>
+
+<h1>
+
+₹0
+
+</h1>
+
+</div>
+
+<div class="cityCard">
+
+<h3>
+
+Rishikesh
+
+</h3>
+
+<p>
+
+Revenue
+
+</p>
+
+<h1>
+
+₹0
+
+</h1>
+
+</div>
+
+</div>
+
+</section>
+
+<!-- ===================================
+PARTNER PROFILE
+=================================== -->
+
+<section class="dashboardSection">
+
+<div class="partnerProfileCard">
+
+<div class="profileLeft">
+
+<img
+src="https://ui-avatars.com/api/?name=Partner"
+alt="partner">
+
+<div>
+
+<h2 id="partnerName">
+
+Pal Laundry
+
+</h2>
+
+<p id="partnerEmail">
+
+partner@quickpress.in
+
+</p>
+
+<p id="partnerCity">
+
+Haridwar
+
+</p>
+
+</div>
+
+</div>
+
+<div class="profileStats">
+
+<div>
+
+<h3>
+
+Shop Rating
+
+</h3>
+
+<h1 id="shopRating">
+
+0.0
+
+</h1>
+
+</div>
+
+<div>
+
+<h3>
+
+Completed Orders
+
+</h3>
+
+<h1 id="shopCompletedOrders">
+
+0
+
+</h1>
+
+</div>
+
+</div>
+
+</div>
+
+</section>
+
+<!-- ===================================
+QUICK SETTINGS
+=================================== -->
+
+<section class="dashboardSection">
+
+<div class="sectionHeader">
+
+<h2>
+
+Quick Settings
+
+</h2>
+
+</div>
+
+<div class="settingsGrid">
+
+<button id="toggleShopBtn">
+
+Enable / Disable Shop
+
+</button>
+
+<button id="manageServicesBtn">
+
+Manage Services
+
+</button>
+
+<button id="manageDriversBtn">
+
+Manage Drivers
+
+</button>
+
+<button id="walletSettingsBtn">
+
+Wallet Settings
+
+</button>
+
+<button id="notificationSettingsBtn">
+
+Notifications
+
+</button>
+
+<button id="supportBtn">
+
+Support
+
+</button>
+
+</div>
+
+</section>
+
+<!-- ===================================
+FLOATING ACTION BUTTONS
+=================================== -->
+
+<div class="floatingActions">
+
+<button
+id="fabAddOrder"
+class="fab">
+
++
+
+</button>
+
+<button
+id="fabAssignDriver"
+class="fab secondaryFab">
+
+🚚
+
+</button>
+
+</div>
+
+<!-- ===================================
+ADD ORDER MODAL
+=================================== -->
+
+<div
+class="modal"
+id="addOrderModal">
+
+<div class="modalContent">
+
+<h2>
+
+Create Manual Order
+
+</h2>
+
+<input
+type="text"
+placeholder="Customer Name"
+id="customerName">
+
+<input
+type="text"
+placeholder="Phone Number"
+id="customerPhone">
+
+<select
+id="serviceSelect">
+
+<option>
+
+Select Service
+
+</option>
+
+</select>
+
+<input
+type="number"
+placeholder="Amount"
+id="orderAmount">
+
+<button
+id="saveOrderBtn">
+
+Create Order
+
+</button>
+
+</div>
+
+</div>
+
+<!-- ===================================
+ASSIGN DRIVER MODAL
+=================================== -->
+
+<div
+class="modal"
+id="assignDriverModal">
+
+<div class="modalContent">
+
+<h2>
+
+Assign Driver
+
+</h2>
+
+<select
+id="driverSelect">
+
+<option>
+
+Select Driver
+
+</option>
+
+</select>
+
+<button
+id="assignDriverBtn">
+
+Assign
+
+</button>
+
+</div>
+
+</div>
+
+<!-- ===================================
+LOGOUT MODAL
+=================================== -->
+
+<div
+class="modal"
+id="logoutModal">
+
+<div class="modalContent">
+
+<h2>
+
+Logout
+
+</h2>
+
+<p>
+
+Are you sure you want
+to logout?
+
+</p>
+
+<div class="modalActions">
+
+<button
+id="cancelLogout">
+
+Cancel
+
+</button>
+
+<button
+id="confirmLogout">
+
+Logout
+
+</button>
+
+</div>
+
+</div>
+
+</div>
+
+</main>
+
+</div>
+
+<script
+src="https://cdn.jsdelivr.net/npm/chart.js">
+</script>
+
+<script
+type="module"
+src="dashboard.js">
+</script>
 
 </body>
 </html>
