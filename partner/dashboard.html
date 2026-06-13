@@ -1,0 +1,259 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>QuickPress Partner Dashboard</title>
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+
+<link rel="stylesheet" href="partner.css">
+</head>
+<body>
+
+<!-- SIDEBAR -->
+
+<aside class="sidebar">
+
+    <div class="logo">
+        <i class="fa-solid fa-shirt"></i>
+        <h2>QuickPress</h2>
+    </div>
+
+    <ul class="menu">
+
+        <li class="active">
+            <a href="dashboard.html">
+                <i class="fa-solid fa-house"></i>
+                Dashboard
+            </a>
+        </li>
+
+        <li>
+            <a href="orders.html">
+                <i class="fa-solid fa-box"></i>
+                Orders
+            </a>
+        </li>
+
+        <li>
+            <a href="services.html">
+                <i class="fa-solid fa-list"></i>
+                My Services
+            </a>
+        </li>
+
+        <li>
+            <a href="finance.html">
+                <i class="fa-solid fa-wallet"></i>
+                Finance
+            </a>
+        </li>
+
+        <li>
+            <a href="reports.html">
+                <i class="fa-solid fa-chart-line"></i>
+                Reports
+            </a>
+        </li>
+
+        <li>
+            <a href="support.html">
+                <i class="fa-solid fa-headset"></i>
+                Support
+            </a>
+        </li>
+
+        <li>
+            <a href="profile.html">
+                <i class="fa-solid fa-user"></i>
+                Profile
+            </a>
+        </li>
+
+    </ul>
+
+</aside>
+
+<!-- MAIN CONTENT -->
+
+<div class="main">
+
+    <!-- TOPBAR -->
+
+    <header class="topbar">
+
+        <div class="welcome">
+            <h1>Dashboard</h1>
+            <p>Welcome Back Partner 👋</p>
+        </div>
+
+        <div class="top-actions">
+
+            <div class="status-box">
+
+                <span class="status-dot"></span>
+                <span id="statusText">Online</span>
+
+                <label class="switch">
+                    <input type="checkbox" id="partnerToggle" checked>
+                    <span class="slider"></span>
+                </label>
+
+            </div>
+
+            <button class="icon-btn">
+                <i class="fa-solid fa-bell"></i>
+            </button>
+
+            <img src="https://i.pravatar.cc/100" class="profile-img">
+
+        </div>
+
+    </header>
+
+    <!-- STATS -->
+
+    <section class="stats-grid">
+
+        <div class="card">
+            <h3>Today's Orders</h3>
+            <h2>25</h2>
+        </div>
+
+        <div class="card">
+            <h3>Pending Orders</h3>
+            <h2>8</h2>
+        </div>
+
+        <div class="card">
+            <h3>Completed Orders</h3>
+            <h2>17</h2>
+        </div>
+
+        <div class="card">
+            <h3>Cancelled Orders</h3>
+            <h2>2</h2>
+        </div>
+
+        <div class="card revenue">
+            <h3>Today's Revenue</h3>
+            <h2>₹12,450</h2>
+        </div>
+
+        <div class="card revenue">
+            <h3>Weekly Revenue</h3>
+            <h2>₹78,900</h2>
+        </div>
+
+    </section>
+
+    <!-- PROCESSING STATUS -->
+
+    <section class="processing">
+
+        <h2>Order Processing</h2>
+
+        <div class="process-grid">
+
+            <div class="process-card">
+                <span>Pickup Pending</span>
+                <h3>4</h3>
+            </div>
+
+            <div class="process-card">
+                <span>Washing</span>
+                <h3>6</h3>
+            </div>
+
+            <div class="process-card">
+                <span>Ironing</span>
+                <h3>3</h3>
+            </div>
+
+            <div class="process-card">
+                <span>Quality Check</span>
+                <h3>2</h3>
+            </div>
+
+            <div class="process-card">
+                <span>Ready Delivery</span>
+                <h3>5</h3>
+            </div>
+
+        </div>
+
+    </section>
+
+    <!-- NEW ORDER POPUP -->
+
+    <section class="new-order">
+
+        <div class="order-popup">
+
+            <div class="popup-header">
+                🔥 New Order Alert
+            </div>
+
+            <p><b>Order ID:</b> QP10025</p>
+            <p><b>Customer:</b> Rahul Sharma</p>
+            <p><b>Service:</b> Wash & Fold</p>
+            <p><b>Amount:</b> ₹450</p>
+
+            <div class="timer">
+                00:30
+            </div>
+
+            <div class="popup-buttons">
+
+                <button class="accept-btn">
+                    Accept
+                </button>
+
+                <button class="reject-btn">
+                    Reject
+                </button>
+
+            </div>
+
+        </div>
+
+    </section>
+
+</div>
+
+<!-- MOBILE NAVIGATION -->
+
+<nav class="mobile-nav">
+
+    <a href="dashboard.html">
+        <i class="fa-solid fa-house"></i>
+        <span>Home</span>
+    </a>
+
+    <a href="orders.html">
+        <i class="fa-solid fa-box"></i>
+        <span>Orders</span>
+    </a>
+
+    <a href="finance.html">
+        <i class="fa-solid fa-wallet"></i>
+        <span>Finance</span>
+    </a>
+
+    <a href="support.html">
+        <i class="fa-solid fa-headset"></i>
+        <span>Support</span>
+    </a>
+
+    <a href="profile.html">
+        <i class="fa-solid fa-user"></i>
+        <span>Profile</span>
+    </a>
+
+</nav>
+
+<script src="partner.js"></script>
+
+</body>
+</html>
