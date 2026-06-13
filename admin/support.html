@@ -20,7 +20,8 @@ href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css"
 
 <link rel="stylesheet"
 href="./support.css">
-
+<link rel="stylesheet"
+href="./assets/admin-layout.css">
 </head>
 
 <body>
@@ -31,104 +32,46 @@ href="./support.css">
 SIDEBAR
 ========================================== -->
 
-<aside class="adminSidebar">
 
-<div class="logoArea">
-
-<h2>
-
-🎧 QuickPress
-
-</h2>
-
-<span>
-
-Support Center
-
-</span>
-
-</div>
-
-<nav class="sidebarMenu">
-
-<a href="dashboard.html">
-<i class="fa-solid fa-chart-line"></i>
-Dashboard
-</a>
-
-<a href="orders.html">
-<i class="fa-solid fa-bag-shopping"></i>
-Orders
-</a>
-
-<a href="customers.html">
-<i class="fa-solid fa-users"></i>
-Customers
-</a>
-
-<a href="partners.html">
-<i class="fa-solid fa-store"></i>
-Partners
-</a>
-
-<a href="drivers.html">
-<i class="fa-solid fa-motorcycle"></i>
-Drivers
-</a>
-
-<a href="finance.html">
-<i class="fa-solid fa-money-bill-wave"></i>
-Finance
-</a>
-
-<a href="coupons.html">
-<i class="fa-solid fa-ticket"></i>
-Coupons
-</a>
-
-<a
-class="active"
-href="support.html">
-
-<i class="fa-solid fa-headset"></i>
-
-Support
-
-</a>
-
-</nav>
-
-</aside>
+<div id="sidebarContainer"></div>
 
 <!-- ==========================================
 MAIN
 ========================================== -->
 
-<main class="adminMain">
+<div class="mainWrapper">
+
+<header class="topbar">
+
+<h1 class="pageTitle">
+
+Support team 
+
+</h1>
+
+<div class="adminInfo">
+
+<div class="adminAvatar">
+
+HP
+
+</div>
+
+<div>
+
+<b>Himanshu</b>
+<br>
+<small>Super Admin</small>
+
+</div>
+
+</div>
 
 <!-- ==========================================
 TOP BAR
 ========================================== -->
 
-<div class="topBar">
 
-<div>
-
-<h1>
-
-🎧 Support Center
-
-</h1>
-
-<p>
-
-Customer, Partner & Driver Support Management
-
-</p>
-
-</div>
-
-<div>
 
 <button
 class="primaryBtn"
@@ -1588,6 +1531,8 @@ type="module"
 src="./support.js">
 
 </script>
+
+<script src="./assets/admin-layout.js"></script>
 
 </body>
 
