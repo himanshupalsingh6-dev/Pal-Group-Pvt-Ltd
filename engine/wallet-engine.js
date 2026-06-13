@@ -1,4 +1,4 @@
-export async function addWalletBalance(
+export async function creditPartnerWallet(
 
 partnerId,
 amount
@@ -16,6 +16,9 @@ partnerId
 {
 
 balance:
+increment(amount),
+
+pending:
 increment(amount)
 
 }
