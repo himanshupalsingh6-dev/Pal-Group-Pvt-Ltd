@@ -23,6 +23,8 @@ rel="stylesheet">
 rel="stylesheet"
 href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
 
+<link rel="stylesheet"
+href="./assets/admin-layout.css">
 <style>
 
 /* ==========================================
@@ -386,95 +388,13 @@ color:#EF4444;
 SIDEBAR
 ========================================== -->
 
-<aside class="sidebar">
 
-<div class="sidebarLogo">
+<div id="sidebarContainer"></div>
 
-<div class="logoBox">
+<div class="adminMain">
 
-QP
+<div id="topbarContainer"></div>
 
-</div>
-
-<div class="logoText">
-
-QuickPress Admin
-
-</div>
-
-</div>
-
-<div class="sidebarMenu">
-
-<a href="dashboard.html" class="menuItem">
-<i class="fa-solid fa-chart-line"></i>
-Dashboard
-</a>
-
-<a href="orders.html" class="menuItem active">
-<i class="fa-solid fa-box"></i>
-Orders
-</a>
-
-<a href="partners.html" class="menuItem">
-<i class="fa-solid fa-handshake"></i>
-Partners
-</a>
-
-<a href="drivers.html" class="menuItem">
-<i class="fa-solid fa-truck"></i>
-Drivers
-</a>
-
-<a href="customers.html" class="menuItem">
-<i class="fa-solid fa-users"></i>
-Customers
-</a>
-
-<a href="cities.html" class="menuItem">
-<i class="fa-solid fa-city"></i>
-Cities
-</a>
-
-</div>
-
-</aside>
-
-<div class="mainWrapper">
-
-<header class="topbar">
-
-<h1 class="pageTitle">
-
-Orders Management
-
-</h1>
-
-<div class="topbarRight">
-
-<button class="iconBtn">
-
-<i class="fa-regular fa-bell"></i>
-
-</button>
-
-<div class="adminBox">
-
-<div class="avatar">
-
-HP
-
-</div>
-
-<div>
-
-<b>Himanshu</b>
-
-</div>
-
-</div>
-
-</div>
 
 </header>
 
@@ -4167,7 +4087,7 @@ console.log(
 );
 
 </script>
-
+<script src="./assets/admin-layout.js"></script>
 </main>
 
 </div>
