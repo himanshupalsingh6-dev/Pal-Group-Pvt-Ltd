@@ -17,7 +17,8 @@ QuickPress Settings
 
 <link rel="stylesheet"
 href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
-
+<link rel="stylesheet"
+href="./assets/admin-layout.css">
 <style>
 
 /* ==========================================
@@ -260,50 +261,7 @@ margin-left:0;
 <!-- ==========================================
 SIDEBAR
 ========================================== -->
-
-<aside class="adminSidebar">
-
-<div class="logoArea">
-
-<h2>
-
-⚙ QuickPress
-
-</h2>
-
-<span>
-
-System Settings
-
-</span>
-
-</div>
-
-<nav class="sidebarMenu">
-
-<a href="dashboard.html">Dashboard</a>
-
-<a href="orders.html">Orders</a>
-
-<a href="customers.html">Customers</a>
-
-<a href="finance.html">Finance</a>
-
-<a href="coupons.html">Coupons</a>
-
-<a href="support.html">Support</a>
-
-<a
-class="active"
-href="settings.html">
-
-Settings
-
-</a>
-
-</nav>
-
-</aside>
+<div id="sidebarContainer"></div>
 
 <!-- ==========================================
 MAIN
@@ -1683,7 +1641,7 @@ type="module"
 src="./settings.js">
 
 </script>
-
+<script src="./assets/admin-layout.js"></script>
 </body>
 
 </html>
