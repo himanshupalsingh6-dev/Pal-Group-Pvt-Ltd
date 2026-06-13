@@ -23,49 +23,6 @@ min-height:100vh;
 SIDEBAR
 ========================================== */
 
-.adminSidebar{
-width:260px;
-background:#fff;
-border-right:1px solid #E5E7EB;
-padding:24px;
-position:fixed;
-height:100vh;
-overflow-y:auto;
-}
-
-.logoArea h2{
-font-size:28px;
-font-weight:800;
-color:#F4B400;
-}
-
-.logoArea span{
-font-size:14px;
-color:#6B7280;
-}
-
-.sidebarMenu{
-display:flex;
-flex-direction:column;
-gap:10px;
-margin-top:30px;
-}
-
-.sidebarMenu a{
-text-decoration:none;
-padding:14px 18px;
-border-radius:12px;
-font-weight:600;
-color:#374151;
-transition:.3s;
-}
-
-.sidebarMenu a:hover,
-.sidebarMenu a.active{
-background:#FEF3C7;
-color:#111827;
-}
-
 /* ==========================================
 MAIN
 ========================================== */
