@@ -23,6 +23,9 @@ rel="stylesheet">
 rel="stylesheet"
 href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
 
+<link
+rel="stylesheet"
+href="./assets/admin-layout.css">
 <style>
 
 /* ==========================================
@@ -116,133 +119,7 @@ transform:rotate(360deg);
 SIDEBAR
 ========================================== */
 
-.sidebar{
-
-position:fixed;
-
-left:0;
-top:0;
-bottom:0;
-
-width:280px;
-
-background:white;
-
-border-right:1px solid var(--border);
-
-display:flex;
-
-flex-direction:column;
-
-z-index:1000;
-
-}
-
-.sidebarLogo{
-
-height:80px;
-
-display:flex;
-
-align-items:center;
-
-gap:14px;
-
-padding:0 24px;
-
-border-bottom:1px solid var(--border);
-
-}
-
-.logoBox{
-
-width:50px;
-height:50px;
-
-border-radius:16px;
-
-background:
-linear-gradient(
-135deg,
-#F4B400,
-#F59E0B
-);
-
-display:flex;
-
-align-items:center;
-
-justify-content:center;
-
-font-weight:900;
-
-font-size:18px;
-
-color:white;
-
-}
-
-.logoText{
-
-font-size:18px;
-
-font-weight:900;
-
-color:#111827;
-
-}
-
-.sidebarMenu{
-
-padding:15px;
-
-flex:1;
-
-overflow:auto;
-
-}
-
-.menuItem{
-
-height:54px;
-
-display:flex;
-
-align-items:center;
-
-gap:14px;
-
-padding:0 16px;
-
-border-radius:14px;
-
-text-decoration:none;
-
-color:#6B7280;
-
-font-size:14px;
-
-font-weight:700;
-
-margin-bottom:8px;
-
-transition:.25s;
-
-}
-
-.menuItem:hover{
-
-background:#F9FAFB;
-
-}
-
-.menuItem.active{
-
-background:#FEF3C7;
-
-color:#D97706;
-
-}
+<div id="sidebarContainer"></div>
 
 /* ==========================================
 MAIN
@@ -260,175 +137,7 @@ width:calc(100% - 280px);
 TOPBAR
 ========================================== */
 
-.topbar{
-
-height:80px;
-
-background:white;
-
-display:flex;
-
-align-items:center;
-
-justify-content:space-between;
-
-padding:0 24px;
-
-border-bottom:1px solid var(--border);
-
-position:sticky;
-
-top:0;
-
-z-index:999;
-
-}
-
-.topbarLeft{
-
-display:flex;
-
-align-items:center;
-
-gap:15px;
-
-}
-
-.pageTitle{
-
-font-size:28px;
-
-font-weight:900;
-
-color:#111827;
-
-}
-
-.searchBox{
-
-width:420px;
-
-height:50px;
-
-border:1px solid var(--border);
-
-border-radius:14px;
-
-display:flex;
-
-align-items:center;
-
-padding:0 15px;
-
-gap:10px;
-
-}
-
-.searchBox input{
-
-border:none;
-
-outline:none;
-
-width:100%;
-
-background:none;
-
-}
-
-.topbarRight{
-
-display:flex;
-
-align-items:center;
-
-gap:14px;
-
-}
-
-.iconBtn{
-
-width:46px;
-height:46px;
-
-border:none;
-
-border-radius:14px;
-
-background:#F3F4F6;
-
-cursor:pointer;
-
-font-size:18px;
-
-position:relative;
-
-}
-
-.notificationCount{
-
-position:absolute;
-
-top:4px;
-right:4px;
-
-width:18px;
-height:18px;
-
-border-radius:50%;
-
-background:#EF4444;
-
-color:white;
-
-font-size:10px;
-
-font-weight:900;
-
-display:flex;
-
-align-items:center;
-
-justify-content:center;
-
-}
-
-.adminBox{
-
-display:flex;
-
-align-items:center;
-
-gap:12px;
-
-padding:8px 12px;
-
-border-radius:14px;
-
-background:#F9FAFB;
-
-}
-
-.adminAvatar{
-
-width:44px;
-height:44px;
-
-border-radius:50%;
-
-background:#16A34A;
-
-display:flex;
-
-align-items:center;
-
-justify-content:center;
-
-color:white;
-
-font-weight:900;
-
-}
+<div id="topbarContainer"></div>
 
 /* ==========================================
 CONTENT
@@ -4311,6 +4020,9 @@ CHART.JS
 FIREBASE DASHBOARD LOGIC
 ========================================== -->
 <script type="module" src="dashboard.js"></script>
+<script
+src="./assets/admin-layout.js">
+</script>
 
 
 <!-- ==========================================
