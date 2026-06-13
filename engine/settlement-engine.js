@@ -1,4 +1,4 @@
-export async function releaseSettlement(
+export async function createSettlement(
 
 partnerId,
 amount
@@ -15,11 +15,12 @@ db,
 {
 
 partnerId,
+
 amount,
 
-status:"paid",
+status:"pending",
 
-paidAt:
+createdAt:
 serverTimestamp()
 
 }
