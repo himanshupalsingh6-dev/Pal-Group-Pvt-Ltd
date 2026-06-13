@@ -1,32 +1,28 @@
-<!-- =========================================================
-FILE : admin/settings.html
-QUICKPRESS ENTERPRISE SETTINGS PANEL
-========================================================= -->
-
 <!DOCTYPE html>
 <html lang="en">
 
 <head>
 
-<meta charset="UTF-8"/>
+<meta charset="UTF-8">
 
-<meta name="viewport"
-content="width=device-width, initial-scale=1.0"/>
+<meta
+name="viewport"
+content="width=device-width, initial-scale=1.0">
 
 <title>
+
 QuickPress Settings
+
 </title>
 
 <link rel="stylesheet"
-href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css"/>
-
-<link rel="stylesheet" href="./css/global.css"/>
+href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
 
 <style>
 
-/* =====================================================
+/* ==========================================
 GLOBAL
-===================================================== */
+========================================== */
 
 *{
 margin:0;
@@ -37,148 +33,220 @@ font-family:Inter,sans-serif;
 
 body{
 background:#F5F7FB;
-overflow:hidden;
 color:#111827;
 }
 
-
-/* =====================================================
-MAIN
-===================================================== */
-
-.main{
-margin-left:240px;
-margin-top:82px;
-height:calc(100vh - 82px);
-overflow:auto;
-padding:24px;
+.adminLayout{
+display:flex;
+min-height:100vh;
 }
 
-.pageHeader{
-margin-bottom:24px;
-}
+/* ==========================================
+SIDEBAR
+========================================== */
 
-.pageHeader h1{
-font-size:42px;
-font-weight:900;
-}
-
-/* =====================================================
-SETTINGS GRID
-===================================================== */
-
-.settingsGrid{
-display:grid;
-grid-template-columns:1fr 1fr;
-gap:24px;
-}
-
-/* =====================================================
-CARD
-===================================================== */
-
-.settingCard{
+.adminSidebar{
+width:260px;
 background:#fff;
-border:1px solid #E5E7EB;
-border-radius:24px;
+border-right:1px solid #E5E7EB;
 padding:24px;
+position:fixed;
+height:100vh;
+overflow-y:auto;
 }
 
-.settingCard h2{
-font-size:24px;
-font-weight:900;
-margin-bottom:20px;
+.logoArea h2{
+font-size:28px;
+font-weight:800;
+color:#F4B400;
 }
 
-/* =====================================================
-INPUT
-===================================================== */
-
-.inputGroup{
-margin-bottom:18px;
-}
-
-.inputGroup label{
-display:block;
-font-size:13px;
-font-weight:700;
-margin-bottom:8px;
+.logoArea span{
+font-size:14px;
 color:#6B7280;
 }
 
-.inputBox{
+.sidebarMenu{
+display:flex;
+flex-direction:column;
+gap:10px;
+margin-top:30px;
+}
+
+.sidebarMenu a{
+text-decoration:none;
+padding:14px 18px;
+border-radius:12px;
+font-weight:600;
+color:#374151;
+transition:.3s;
+}
+
+.sidebarMenu a:hover,
+.sidebarMenu a.active{
+background:#FEF3C7;
+}
+
+/* ==========================================
+MAIN
+========================================== */
+
+.adminMain{
+margin-left:260px;
+padding:30px;
 width:100%;
-height:54px;
-border-radius:14px;
-border:1px solid #E5E7EB;
-padding:0 18px;
-font-size:14px;
-outline:none;
 }
 
-textarea.inputBox{
-height:120px;
-padding:18px;
-resize:none;
-}
-
-/* =====================================================
-BUTTON
-===================================================== */
-
-.saveBtn{
-height:52px;
-padding:0 24px;
-border:none;
-border-radius:14px;
-background:#111827;
-color:#fff;
-font-size:14px;
-font-weight:800;
-cursor:pointer;
-}
-
-.switchRow{
+.topBar{
 display:flex;
 justify-content:space-between;
 align-items:center;
-padding:16px 0;
-border-bottom:1px solid #F3F4F6;
+margin-bottom:25px;
 }
 
-.switchRow h3{
-font-size:15px;
+.topBar h1{
+font-size:36px;
 font-weight:800;
 }
 
-.switchRow p{
-font-size:13px;
+.topBar p{
 color:#6B7280;
-margin-top:4px;
+margin-top:5px;
 }
 
-/* =====================================================
-SWITCH
-===================================================== */
+/* ==========================================
+BUTTONS
+========================================== */
 
-.switch{
-width:54px;
-height:30px;
-background:#111827;
-border-radius:999px;
-position:relative;
+.primaryBtn{
+background:#16A34A;
+color:#fff;
+border:none;
+padding:12px 20px;
+border-radius:12px;
 cursor:pointer;
+font-weight:700;
 }
 
-.switch::before{
-content:"";
-position:absolute;
-width:22px;
-height:22px;
-border-radius:50%;
+.secondaryBtn{
+background:#E5E7EB;
+border:none;
+padding:12px 20px;
+border-radius:12px;
+cursor:pointer;
+font-weight:700;
+}
+
+/* ==========================================
+CARDS
+========================================== */
+
+.settingsCards{
+display:grid;
+grid-template-columns:repeat(4,1fr);
+gap:20px;
+margin-bottom:25px;
+}
+
+.settingsCard{
 background:#fff;
-top:4px;
-right:4px;
+padding:24px;
+border-radius:20px;
+display:flex;
+gap:15px;
+align-items:center;
+box-shadow:0 8px 25px rgba(0,0,0,.05);
+}
+
+.cardIcon{
+width:60px;
+height:60px;
+border-radius:16px;
+display:flex;
+align-items:center;
+justify-content:center;
+font-size:24px;
+background:#EEF2FF;
+}
+
+.settingsCard h2{
+font-size:28px;
+font-weight:800;
+}
+
+.settingsCard p{
+color:#6B7280;
+}
+
+/* ==========================================
+SECTION
+========================================== */
+
+.settingsSection{
+background:#fff;
+padding:24px;
+border-radius:20px;
+margin-bottom:25px;
+box-shadow:0 8px 25px rgba(0,0,0,.05);
+}
+
+.sectionTitle{
+font-size:22px;
+font-weight:800;
+margin-bottom:20px;
+}
+
+.formGrid{
+display:grid;
+grid-template-columns:repeat(2,1fr);
+gap:20px;
+}
+
+.formGroup label{
+display:block;
+margin-bottom:8px;
+font-weight:600;
+}
+
+.formGroup input,
+.formGroup select{
+width:100%;
+padding:12px;
+border:1px solid #E5E7EB;
+border-radius:12px;
+}
+
+/* ==========================================
+TOGGLE
+========================================== */
+
+.toggleRow{
+display:flex;
+justify-content:space-between;
+align-items:center;
+padding:15px 0;
+border-bottom:1px solid #F3F4F6;
+}
+
+/* ==========================================
+RESPONSIVE
+========================================== */
+
+@media(max-width:900px){
+
+.settingsCards,
+.formGrid{
+grid-template-columns:1fr;
+}
+
+.adminSidebar{
+display:none;
+}
+
+.adminMain{
+margin-left:0;
+}
+
 }
 
 </style>
@@ -187,102 +255,83 @@ right:4px;
 
 <body>
 
-<div id="topbar"></div>
+<div class="adminLayout">
 
-<div id="sidebar"></div>
+<!-- ==========================================
+SIDEBAR
+========================================== -->
 
-<!-- =====================================================
-MAIN
-===================================================== -->
+<aside class="adminSidebar">
 
-<div class="main">
-
-<div class="pageHeader">
-
-<h1>
-Settings
-</h1>
-
-</div>
-
-<!-- =====================================================
-GRID
-===================================================== -->
-
-<div class="settingsGrid">
-
-<!-- =====================================================
-BUSINESS SETTINGS
-===================================================== -->
-
-<div class="settingCard">
+<div class="logoArea">
 
 <h2>
-Business Settings
+
+⚙ QuickPress
+
 </h2>
 
-<div class="inputGroup">
+<span>
 
-<label>
-Business Name
-</label>
+System Settings
 
-<input
-type="text"
-class="inputBox"
-id="businessName"
-placeholder="QuickPress"
-/>
+</span>
 
 </div>
 
-<div class="inputGroup">
+<nav class="sidebarMenu">
 
-<label>
-Support Email
-</label>
+<a href="dashboard.html">Dashboard</a>
 
-<input
-type="email"
-class="inputBox"
-id="supportEmail"
-placeholder="support@quickpress.com"
-/>
+<a href="orders.html">Orders</a>
 
-</div>
+<a href="customers.html">Customers</a>
 
-<div class="inputGroup">
+<a href="finance.html">Finance</a>
 
-<label>
-Support Number
-</label>
+<a href="coupons.html">Coupons</a>
 
-<input
-type="text"
-class="inputBox"
-id="supportNumber"
-placeholder="+91"
-/>
+<a href="support.html">Support</a>
 
-</div>
+<a
+class="active"
+href="settings.html">
 
-<div class="inputGroup">
+Settings
 
-<label>
-Business Address
-</label>
+</a>
 
-<textarea
-class="inputBox"
-id="businessAddress"
-placeholder="Business Address">
-</textarea>
+</nav>
+
+</aside>
+
+<!-- ==========================================
+MAIN
+========================================== -->
+
+<main class="adminMain">
+
+<div class="topBar">
+
+<div>
+
+<h1>
+
+⚙ Settings
+
+</h1>
+
+<p>
+
+Manage App Configuration & Security
+
+</p>
 
 </div>
 
 <button
-class="saveBtn"
-onclick="saveBusinessSettings()">
+class="primaryBtn"
+onclick="saveSettings()">
 
 Save Settings
 
@@ -290,103 +339,642 @@ Save Settings
 
 </div>
 
-<!-- =====================================================
-SYSTEM SETTINGS
-===================================================== -->
+<!-- ==========================================
+ANALYTICS
+========================================== -->
 
-<div class="settingCard">
+<div class="settingsCards">
 
-<h2>
-System Settings
+<div class="settingsCard">
+
+<div class="cardIcon">
+
+🏢
+
+</div>
+
+<div>
+
+<h2 id="totalAdmins">
+
+0
+
 </h2>
 
-<div class="switchRow">
-
-<div>
-
-<h3>
-Order Notification
-</h3>
-
 <p>
-Receive real-time order alerts
+
+Admins
+
 </p>
 
 </div>
 
-<div class="switch"></div>
+</div>
+
+<div class="settingsCard">
+
+<div class="cardIcon">
+
+🔒
 
 </div>
 
-<div class="switchRow">
-
 <div>
 
-<h3>
-Auto Assignment
-</h3>
+<h2 id="securityScore">
+
+100%
+
+</h2>
 
 <p>
-Automatically assign riders
+
+Security Score
+
 </p>
 
 </div>
 
-<div class="switch"></div>
+</div>
+
+<div class="settingsCard">
+
+<div class="cardIcon">
+
+☁️
 
 </div>
 
-<div class="switchRow">
-
 <div>
 
-<h3>
-Live Tracking
-</h3>
+<h2 id="backupCount">
+
+0
+
+</h2>
 
 <p>
-Enable live order tracking
+
+Backups
+
 </p>
 
 </div>
 
-<div class="switch"></div>
+</div>
+
+<div class="settingsCard">
+
+<div class="cardIcon">
+
+🔥
 
 </div>
 
-<div class="switchRow">
-
 <div>
 
-<h3>
-Settlement System
-</h3>
+<h2 id="firebaseStatus">
+
+Online
+
+</h2>
 
 <p>
-Enable weekly settlements
+
+Firebase
+
 </p>
 
 </div>
 
-<div class="switch"></div>
+</div>
 
 </div>
 
-<div class="switchRow">
+<!-- ==========================================
+APP SETTINGS
+========================================== -->
+
+<div class="settingsSection">
+
+<h2 class="sectionTitle">
+
+📱 App Settings
+
+</h2>
+
+<div class="formGrid">
+
+<div class="formGroup">
+
+<label>
+
+App Name
+
+</label>
+
+<input
+id="appName"
+type="text"
+placeholder="QuickPress">
+
+</div>
+
+<div class="formGroup">
+
+<label>
+
+Support Email
+
+</label>
+
+<input
+id="supportEmail"
+type="email">
+
+</div>
+
+<div class="formGroup">
+
+<label>
+
+Support Phone
+
+</label>
+
+<input
+id="supportPhone"
+type="text">
+
+</div>
+
+<div class="formGroup">
+
+<label>
+
+App Version
+
+</label>
+
+<input
+id="appVersion"
+type="text">
+
+</div>
+
+</div>
+
+</div><!-- ==========================================
+FINANCE SETTINGS
+========================================== -->
+
+<div class="settingsSection">
+
+<h2 class="sectionTitle">
+
+💰 Finance Settings
+
+</h2>
+
+<div class="formGrid">
+
+<div class="formGroup">
+
+<label>
+
+GST Percentage
+
+</label>
+
+<input
+id="gstPercent"
+type="number"
+placeholder="18">
+
+</div>
+
+<div class="formGroup">
+
+<label>
+
+Platform Commission %
+
+</label>
+
+<input
+id="platformCommission"
+type="number"
+placeholder="15">
+
+</div>
+
+<div class="formGroup">
+
+<label>
+
+Partner Commission %
+
+</label>
+
+<input
+id="partnerCommission"
+type="number"
+placeholder="10">
+
+</div>
+
+<div class="formGroup">
+
+<label>
+
+Driver Commission %
+
+</label>
+
+<input
+id="driverCommission"
+type="number"
+placeholder="5">
+
+</div>
+
+</div>
+
+</div>
+
+<!-- ==========================================
+DELIVERY SETTINGS
+========================================== -->
+
+<div class="settingsSection">
+
+<h2 class="sectionTitle">
+
+🚚 Delivery Settings
+
+</h2>
+
+<div class="formGrid">
+
+<div class="formGroup">
+
+<label>
+
+Base Delivery Charge
+
+</label>
+
+<input
+id="baseDeliveryCharge"
+type="number"
+placeholder="49">
+
+</div>
+
+<div class="formGroup">
+
+<label>
+
+Free Delivery Threshold
+
+</label>
+
+<input
+id="freeDeliveryThreshold"
+type="number"
+placeholder="499">
+
+</div>
+
+<div class="formGroup">
+
+<label>
+
+Express Delivery Charge
+
+</label>
+
+<input
+id="expressDeliveryCharge"
+type="number"
+placeholder="99">
+
+</div>
+
+<div class="formGroup">
+
+<label>
+
+Maximum Delivery Radius (KM)
+
+</label>
+
+<input
+id="maxDeliveryRadius"
+type="number"
+placeholder="20">
+
+</div>
+
+</div>
+
+</div>
+
+<!-- ==========================================
+NOTIFICATION SETTINGS
+========================================== -->
+
+<div class="settingsSection">
+
+<h2 class="sectionTitle">
+
+🔔 Notification Settings
+
+</h2>
+
+<div class="toggleRow">
 
 <div>
 
-<h3>
-Multi City System
-</h3>
+<h4>
+
+Push Notifications
+
+</h4>
 
 <p>
-Enable all india operations
+
+Send app notifications
+
 </p>
 
 </div>
 
-<div class="switch"></div>
+<input
+type="checkbox"
+id="pushNotifications">
+
+</div>
+
+<div class="toggleRow">
+
+<div>
+
+<h4>
+
+SMS Notifications
+
+</h4>
+
+<p>
+
+Send SMS alerts
+
+</p>
+
+</div>
+
+<input
+type="checkbox"
+id="smsNotifications">
+
+</div>
+
+<div class="toggleRow">
+
+<div>
+
+<h4>
+
+Email Notifications
+
+</h4>
+
+<p>
+
+Send email updates
+
+</p>
+
+</div>
+
+<input
+type="checkbox"
+id="emailNotifications">
+
+</div>
+
+<div class="toggleRow">
+
+<div>
+
+<h4>
+
+Order Alerts
+
+</h4>
+
+<p>
+
+Notify on new orders
+
+</p>
+
+</div>
+
+<input
+type="checkbox"
+id="orderAlerts">
+
+</div>
+
+</div>
+
+<!-- ==========================================
+BUSINESS SETTINGS
+========================================== -->
+
+<div class="settingsSection">
+
+<h2 class="sectionTitle">
+
+🏢 Business Settings
+
+</h2>
+
+<div class="formGrid">
+
+<div class="formGroup">
+
+<label>
+
+Company Name
+
+</label>
+
+<input
+id="companyName"
+type="text">
+
+</div>
+
+<div class="formGroup">
+
+<label>
+
+Business Email
+
+</label>
+
+<input
+id="businessEmail"
+type="email">
+
+</div>
+
+<div class="formGroup">
+
+<label>
+
+GST Number
+
+</label>
+
+<input
+id="gstNumber"
+type="text">
+
+</div>
+
+<div class="formGroup">
+
+<label>
+
+Business Address
+
+</label>
+
+<input
+id="businessAddress"
+type="text">
+
+</div>
+
+</div>
+
+</div><!-- ==========================================
+SECURITY SETTINGS
+========================================== -->
+
+<div class="settingsSection">
+
+<h2 class="sectionTitle">
+
+🔒 Security Settings
+
+</h2>
+
+<div class="toggleRow">
+
+<div>
+
+<h4>
+
+Two Factor Authentication
+
+</h4>
+
+<p>
+
+Enable admin 2FA security
+
+</p>
+
+</div>
+
+<input
+type="checkbox"
+id="twoFactorAuth">
+
+</div>
+
+<div class="toggleRow">
+
+<div>
+
+<h4>
+
+Admin Login Protection
+
+</h4>
+
+<p>
+
+Protect admin access
+
+</p>
+
+</div>
+
+<input
+type="checkbox"
+id="adminProtection">
+
+</div>
+
+<div class="toggleRow">
+
+<div>
+
+<h4>
+
+IP Restriction
+
+</h4>
+
+<p>
+
+Allow selected IPs only
+
+</p>
+
+</div>
+
+<input
+type="checkbox"
+id="ipRestriction">
+
+</div>
+
+<div class="formGrid">
+
+<div class="formGroup">
+
+<label>
+
+Session Timeout (Minutes)
+
+</label>
+
+<input
+id="sessionTimeout"
+type="number"
+placeholder="60">
+
+</div>
+
+<div class="formGroup">
+
+<label>
+
+Maximum Login Attempts
+
+</label>
+
+<input
+id="maxLoginAttempts"
+type="number"
+placeholder="5">
 
 </div>
 
@@ -394,19 +982,708 @@ Enable all india operations
 
 </div>
 
+<!-- ==========================================
+ADMIN MANAGEMENT
+========================================== -->
+
+<div class="settingsSection">
+
+<h2 class="sectionTitle">
+
+👨‍💼 Admin Management
+
+</h2>
+
+<div class="formGrid">
+
+<div class="formGroup">
+
+<label>
+
+Admin Name
+
+</label>
+
+<input
+id="adminName"
+type="text"
+placeholder="Admin Name">
+
 </div>
 
-<script type="module"
-src="./js/settings.js">
-</script>
+<div class="formGroup">
 
-<script type="module"
-src="./components/topbar.js">
-</script>
+<label>
 
-<script type="module"
-src="./components/sidebar.js">
+Admin Email
+
+</label>
+
+<input
+id="adminEmail"
+type="email"
+placeholder="admin@quickpress.com">
+
+</div>
+
+<div class="formGroup">
+
+<label>
+
+Role
+
+</label>
+
+<select id="adminRole">
+
+<option value="superAdmin">
+
+Super Admin
+
+</option>
+
+<option value="financeAdmin">
+
+Finance Admin
+
+</option>
+
+<option value="supportAdmin">
+
+Support Admin
+
+</option>
+
+<option value="operationsAdmin">
+
+Operations Admin
+
+</option>
+
+</select>
+
+</div>
+
+<div class="formGroup">
+
+<label>
+
+Status
+
+</label>
+
+<select id="adminStatus">
+
+<option value="active">
+
+Active
+
+</option>
+
+<option value="inactive">
+
+Inactive
+
+</option>
+
+</select>
+
+</div>
+
+</div>
+
+<div style="margin-top:20px;">
+
+<button
+class="primaryBtn"
+onclick="addAdmin()">
+
+Add Admin
+
+</button>
+
+</div>
+
+</div>
+
+<!-- ==========================================
+ROLE PERMISSIONS
+========================================== -->
+
+<div class="settingsSection">
+
+<h2 class="sectionTitle">
+
+🛡 Role Permissions
+
+</h2>
+
+<div class="toggleRow">
+
+<div>
+
+<h4>
+
+Orders Access
+
+</h4>
+
+</div>
+
+<input
+type="checkbox"
+id="permissionOrders">
+
+</div>
+
+<div class="toggleRow">
+
+<div>
+
+<h4>
+
+Finance Access
+
+</h4>
+
+</div>
+
+<input
+type="checkbox"
+id="permissionFinance">
+
+</div>
+
+<div class="toggleRow">
+
+<div>
+
+<h4>
+
+Customer Access
+
+</h4>
+
+</div>
+
+<input
+type="checkbox"
+id="permissionCustomers">
+
+</div>
+
+<div class="toggleRow">
+
+<div>
+
+<h4>
+
+Driver Access
+
+</h4>
+
+</div>
+
+<input
+type="checkbox"
+id="permissionDrivers">
+
+</div>
+
+<div class="toggleRow">
+
+<div>
+
+<h4>
+
+Partner Access
+
+</h4>
+
+</div>
+
+<input
+type="checkbox"
+id="permissionPartners">
+
+</div>
+
+<div class="toggleRow">
+
+<div>
+
+<h4>
+
+Settings Access
+
+</h4>
+
+</div>
+
+<input
+type="checkbox"
+id="permissionSettings">
+
+</div>
+
+</div>
+
+<!-- ==========================================
+BACKUP & RESTORE
+========================================== -->
+
+<div class="settingsSection">
+
+<h2 class="sectionTitle">
+
+💾 Backup & Restore
+
+</h2>
+
+<div class="formGrid">
+
+<div>
+
+<button
+class="primaryBtn"
+onclick="createBackup()">
+
+Create Backup
+
+</button>
+
+</div>
+
+<div>
+
+<button
+class="secondaryBtn"
+onclick="downloadBackup()">
+
+Download Backup
+
+</button>
+
+</div>
+
+<div>
+
+<button
+class="primaryBtn"
+onclick="restoreBackup()">
+
+Restore Backup
+
+</button>
+
+</div>
+
+<div>
+
+<button
+class="secondaryBtn"
+onclick="viewBackupHistory()">
+
+Backup History
+
+</button>
+
+</div>
+
+</div>
+
+</div>
+
+<!-- ==========================================
+ADMIN LIST
+========================================== -->
+
+<div class="settingsSection">
+
+<h2 class="sectionTitle">
+
+📋 Admin List
+
+</h2>
+
+<div style="overflow-x:auto;">
+
+<table
+style="
+width:100%;
+border-collapse:collapse;
+">
+
+<thead>
+
+<tr>
+
+<th>Name</th>
+<th>Email</th>
+<th>Role</th>
+<th>Status</th>
+<th>Actions</th>
+
+</tr>
+
+</thead>
+
+<tbody id="adminTableBody">
+
+<!-- Firebase Admins -->
+
+</tbody>
+
+</table>
+
+</div>
+
+</div><!-- ==========================================
+FIREBASE SETTINGS
+========================================== -->
+
+<div class="settingsSection">
+
+<h2 class="sectionTitle">
+
+🔥 Firebase Settings
+
+</h2>
+
+<div class="formGrid">
+
+<div class="formGroup">
+
+<label>
+
+Project ID
+
+</label>
+
+<input
+id="firebaseProjectId"
+type="text"
+readonly>
+
+</div>
+
+<div class="formGroup">
+
+<label>
+
+Database Status
+
+</label>
+
+<input
+id="firebaseDatabaseStatus"
+type="text"
+value="Connected"
+readonly>
+
+</div>
+
+<div class="formGroup">
+
+<label>
+
+Authentication Status
+
+</label>
+
+<input
+id="firebaseAuthStatus"
+type="text"
+value="Active"
+readonly>
+
+</div>
+
+<div class="formGroup">
+
+<label>
+
+Storage Status
+
+</label>
+
+<input
+id="firebaseStorageStatus"
+type="text"
+value="Connected"
+readonly>
+
+</div>
+
+</div>
+
+</div>
+
+<!-- ==========================================
+SYSTEM INFORMATION
+========================================== -->
+
+<div class="settingsSection">
+
+<h2 class="sectionTitle">
+
+🖥 System Information
+
+</h2>
+
+<div class="formGrid">
+
+<div class="formGroup">
+
+<label>
+
+Platform
+
+</label>
+
+<input
+value="QuickPress Laundry Marketplace"
+readonly>
+
+</div>
+
+<div class="formGroup">
+
+<label>
+
+Version
+
+</label>
+
+<input
+id="systemVersion"
+value="1.0.0"
+readonly>
+
+</div>
+
+<div class="formGroup">
+
+<label>
+
+Environment
+
+</label>
+
+<input
+value="Production"
+readonly>
+
+</div>
+
+<div class="formGroup">
+
+<label>
+
+Last Updated
+
+</label>
+
+<input
+id="lastUpdated"
+readonly>
+
+</div>
+
+</div>
+
+</div>
+
+<!-- ==========================================
+MAINTENANCE SETTINGS
+========================================== -->
+
+<div class="settingsSection">
+
+<h2 class="sectionTitle">
+
+🛠 Maintenance Settings
+
+</h2>
+
+<div class="toggleRow">
+
+<div>
+
+<h4>
+
+Maintenance Mode
+
+</h4>
+
+<p>
+
+Temporarily disable user access
+
+</p>
+
+</div>
+
+<input
+type="checkbox"
+id="maintenanceMode">
+
+</div>
+
+<div class="toggleRow">
+
+<div>
+
+<h4>
+
+New User Registration
+
+</h4>
+
+<p>
+
+Allow new customer signup
+
+</p>
+
+</div>
+
+<input
+type="checkbox"
+id="allowRegistration"
+checked>
+
+</div>
+
+<div class="toggleRow">
+
+<div>
+
+<h4>
+
+Partner Registration
+
+</h4>
+
+<p>
+
+Allow new laundry partners
+
+</p>
+
+</div>
+
+<input
+type="checkbox"
+id="allowPartners"
+checked>
+
+</div>
+
+<div class="toggleRow">
+
+<div>
+
+<h4>
+
+Driver Registration
+
+</h4>
+
+<p>
+
+Allow new drivers
+
+</p>
+
+</div>
+
+<input
+type="checkbox"
+id="allowDrivers"
+checked>
+
+</div>
+
+</div>
+
+<!-- ==========================================
+SAVE PANEL
+========================================== -->
+
+<div class="settingsSection">
+
+<h2 class="sectionTitle">
+
+💾 Save Configuration
+
+</h2>
+
+<div
+style="
+display:flex;
+gap:15px;
+flex-wrap:wrap;
+">
+
+<button
+class="primaryBtn"
+onclick="saveSettings()">
+
+Save Settings
+
+</button>
+
+<button
+class="secondaryBtn"
+onclick="loadSettings()">
+
+Reload Settings
+
+</button>
+
+<button
+class="primaryBtn"
+onclick="resetDefaults()">
+
+Reset Defaults
+
+</button>
+
+</div>
+
+</div>
+
+<!-- ==========================================
+FOOTER
+========================================== -->
+
+<footer
+style="
+text-align:center;
+padding:25px;
+color:#6B7280;
+">
+
+© 2026 QuickPress Laundry Marketplace
+Admin Settings Panel
+
+</footer>
+
+</main>
+
+</div>
+
+<!-- ==========================================
+SETTINGS JS
+========================================== -->
+
+<script
+type="module"
+src="./settings.js">
+
 </script>
 
 </body>
+
 </html>
